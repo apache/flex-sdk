@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<fx:Object xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark">
+	<!--
+	
+	This class defines a set of commonly used mouse event sequences in ItemSnapping functions.
+	
+	
+	Includes the set of "Common Touch Scrolling" sequences which is the cross product of:
+	- scroll pattern = {small drag, large drag, small throw, large throw}
+	- direction = {left, right, up, down}
+		
+	NOTE: Direction refers to change in vertical/horizontal scroll position values NOT physical finger direction.
+	This way when you say "scroll down" on the Mobile List its moving in the same direction as when you "scroll down"
+	a desktop List using the mouse.
+	
+	-->
+	<fx:Declarations>
+		
+		<fx:Array id="throw_small_up">
+			<fx:Object type="mouseDown" localX="235" localY="56" fakeTimeValue="2015019" />
+			<fx:Object type="mouseMove" localX="236" localY="54" fakeTimeValue="2015044" />
+			<fx:Object type="mouseMove" localX="236" localY="54" fakeTimeValue="2015049" />
+			<fx:Object type="mouseMove" localX="238" localY="60" fakeTimeValue="2015088" />
+			<fx:Object type="mouseMove" localX="239" localY="67" fakeTimeValue="2015099" />
+			<fx:Object type="mouseMove" localX="241" localY="84" fakeTimeValue="2015128" />
+			<fx:Object type="mouseMove" localX="245" localY="152" fakeTimeValue="2015189" />
+			<fx:Object type="mouseMove" localX="248" localY="203" fakeTimeValue="2015217" />
+			<fx:Object type="mouseUp" localX="248" localY="203" fakeTimeValue="2015248" />
+		</fx:Array>
+		
+		<fx:Array id="throw_small_down">
+			<fx:Object type="mouseDown" localX="235" localY="203" fakeTimeValue="2015019" />
+			<fx:Object type="mouseMove" localX="236" localY="203" fakeTimeValue="2015044" />
+			<fx:Object type="mouseMove" localX="236" localY="152" fakeTimeValue="2015049" />
+			<fx:Object type="mouseMove" localX="238" localY="84" fakeTimeValue="2015088" />
+			<fx:Object type="mouseMove" localX="239" localY="67" fakeTimeValue="2015099" />
+			<fx:Object type="mouseMove" localX="241" localY="60" fakeTimeValue="2015128" />
+			<fx:Object type="mouseMove" localX="245" localY="54" fakeTimeValue="2015189" />
+			<fx:Object type="mouseMove" localX="248" localY="54" fakeTimeValue="2015217" />
+			<fx:Object type="mouseUp" localX="248" localY="56" fakeTimeValue="2015248" />
+		</fx:Array>
+		
+		<fx:Array id="throw_small_right">
+			
+			
+			<fx:Object type="mouseDown" localX="168" localY="323" fakeTimeValue="12655" />
+			<fx:Object type="mouseMove" localX="166" localY="323" fakeTimeValue="12781" />
+			<fx:Object type="mouseMove" localX="162" localY="322" fakeTimeValue="12796" />
+			<fx:Object type="mouseMove" localX="154" localY="321" fakeTimeValue="12813" />
+			<fx:Object type="mouseMove" localX="149" localY="321" fakeTimeValue="12830" />
+			<fx:Object type="mouseMove" localX="142" localY="320" fakeTimeValue="12869" />
+			<fx:Object type="mouseMove" localX="147" localY="320" fakeTimeValue="12885" />
+			<fx:Object type="mouseMove" localX="147" localY="320" fakeTimeValue="12926" />
+			<fx:Object type="mouseMove" localX="146" localY="320" fakeTimeValue="12930" />
+			<fx:Object type="mouseMove" localX="140" localY="320" fakeTimeValue="12947" />
+			<fx:Object type="mouseMove" localX="141" localY="320" fakeTimeValue="12967" />
+			<fx:Object type="mouseMove" localX="137" localY="320" fakeTimeValue="12980" />
+			<fx:Object type="mouseMove" localX="145" localY="320" fakeTimeValue="12999" />
+			<fx:Object type="mouseMove" localX="146" localY="320" fakeTimeValue="13032" />
+			<fx:Object type="mouseUp" localX="148" localY="320" fakeTimeValue="13180" />
+			
+		</fx:Array>
+		
+		<fx:Array id="throw_small_left">
+			<fx:Object type="mouseDown" localX="149" localY="305" fakeTimeValue="2018723" />
+			<fx:Object type="mouseMove" localX="149" localY="305" fakeTimeValue="2018727" />
+			<fx:Object type="mouseMove" localX="149" localY="305" fakeTimeValue="2018753" />
+			<fx:Object type="mouseMove" localX="153" localY="307" fakeTimeValue="2018785" />
+			<fx:Object type="mouseMove" localX="173" localY="314" fakeTimeValue="2018835" />
+			<fx:Object type="mouseMove" localX="194" localY="317" fakeTimeValue="2018867" />
+			<fx:Object type="mouseMove" localX="215" localY="318" fakeTimeValue="2018899" />
+			<fx:Object type="mouseMove" localX="255" localY="324" fakeTimeValue="2018926" />
+			<fx:Object type="mouseMove" localX="267" localY="326" fakeTimeValue="2018958" />
+			<fx:Object type="mouseUp" localX="267" localY="326" fakeTimeValue="2018983" />
+		</fx:Array>
+		
+		<fx:Array id="throw_large_down">
+			<fx:Object type="mouseDown" localX="271" localY="280" fakeTimeValue="2286202" />
+			<fx:Object type="mouseMove" localX="271" localY="280" fakeTimeValue="2286213" />
+			<fx:Object type="mouseMove" localX="271" localY="280" fakeTimeValue="2286237" />
+			<fx:Object type="mouseMove" localX="272" localY="280" fakeTimeValue="2286262" />
+			<fx:Object type="mouseMove" localX="272" localY="279" fakeTimeValue="2286290" />
+			<fx:Object type="mouseMove" localX="272" localY="278" fakeTimeValue="2286317" />
+			<fx:Object type="mouseMove" localX="269" localY="268" fakeTimeValue="2286344" />
+			<fx:Object type="mouseMove" localX="265" localY="256" fakeTimeValue="2286376" />
+			<fx:Object type="mouseMove" localX="222" localY="244" fakeTimeValue="2286454" />
+			<fx:Object type="mouseMove" localX="220" localY="195" fakeTimeValue="2286487" />
+			<fx:Object type="mouseMove" localX="214" localY="134" fakeTimeValue="2286517" />
+			<fx:Object type="mouseMove" localX="204" localY="1" fakeTimeValue="2286549" />
+			<fx:Object type="mouseUp" localX="204" localY="1" fakeTimeValue="2286574" />
+		</fx:Array>
+		
+		<fx:Array id="throw_large_up">
+			<fx:Object type="mouseDown" localX="218" localY="85" fakeTimeValue="2289264" />
+			<fx:Object type="mouseMove" localX="219" localY="86" fakeTimeValue="2289279" />
+			<fx:Object type="mouseMove" localX="221" localY="91" fakeTimeValue="2289310" />
+			<fx:Object type="mouseMove" localX="228" localY="118" fakeTimeValue="2289336" />
+			<fx:Object type="mouseMove" localX="269" localY="258" fakeTimeValue="2289402" />
+			<fx:Object type="mouseMove" localX="281" localY="339" fakeTimeValue="2289433" />
+			<fx:Object type="mouseMove" localX="286" localY="424" fakeTimeValue="2289463" />
+			<fx:Object type="mouseUp" localX="286" localY="424" fakeTimeValue="2289488" />
+		</fx:Array>
+		
+		<fx:Array id="throw_large_right">
+			<fx:Object type="mouseDown" localX="282" localY="300" fakeTimeValue="2291753" />
+			<fx:Object type="mouseMove" localX="279" localY="300" fakeTimeValue="2291764" />
+			<fx:Object type="mouseMove" localX="263" localY="300" fakeTimeValue="2291787" />
+			<fx:Object type="mouseMove" localX="194" localY="376" fakeTimeValue="2291817" />
+			<fx:Object type="mouseMove" localX="193" localY="388" fakeTimeValue="2291860" />
+			<fx:Object type="mouseUp" localX="59" localY="388" fakeTimeValue="2291879" />
+		</fx:Array>
+		<!--
+		<fx:Array id="throw_large_right:">
+			<fx:Object type="mouseDown" localX="600" localY="300" fakeTimeValue="2291753" />
+			<fx:Object type="mouseMove" localX="590" localY="300" fakeTimeValue="2291754" />
+			<fx:Object type="mouseMove" localX="580" localY="300" fakeTimeValue="2291757" />
+			<fx:Object type="mouseMove" localX="570" localY="376" fakeTimeValue="2291759" />
+			<fx:Object type="mouseMove" localX="59" localY="388" fakeTimeValue="2291760" />
+			<fx:Object type="mouseUp" localX="59" localY="388" fakeTimeValue="2291763" />
+		</fx:Array>-->
+		
+		<fx:Array id="throw_large_left">
+			<fx:Object type="mouseDown" localX="118" localY="391" fakeTimeValue="2293649" />
+			<fx:Object type="mouseMove" localX="120" localY="391" fakeTimeValue="2293660" />
+			<fx:Object type="mouseMove" localX="135" localY="389" fakeTimeValue="2293697" />
+			<fx:Object type="mouseMove" localX="185" localY="382" fakeTimeValue="2293744" />
+			<fx:Object type="mouseMove" localX="276" localY="373" fakeTimeValue="2293774" />
+			<fx:Object type="mouseMove" localX="300" localY="374" fakeTimeValue="2293812" />
+			<fx:Object type="mouseUp" localX="300" localY="374" fakeTimeValue="2293843" />
+		</fx:Array>
+		
+		<fx:Array id="throw_diagonal_downRight">
+			<fx:Object type="mouseDown" localX="261" localY="314" fakeTimeValue="45554" />
+			<fx:Object type="mouseMove" localX="259" localY="312" fakeTimeValue="45559" />
+			<fx:Object type="mouseMove" localX="252" localY="306" fakeTimeValue="45580" />
+			<fx:Object type="mouseMove" localX="243" localY="296" fakeTimeValue="45611" />
+			<fx:Object type="mouseMove" localX="205" localY="250" fakeTimeValue="45668" />
+			<fx:Object type="mouseMove" localX="175" localY="214" fakeTimeValue="45699" />
+			<fx:Object type="mouseMove" localX="134" localY="168" fakeTimeValue="45728" />
+			<fx:Object type="mouseMove" localX="103" localY="135" fakeTimeValue="45760" />
+			<fx:Object type="mouseMove" localX="85" localY="120" fakeTimeValue="45792" />
+			<fx:Object type="mouseUp" localX="85" localY="120" fakeTimeValue="45821" />
+		</fx:Array>
+		
+		<fx:Array id="throw_diagonal_downLeft">
+			<fx:Object type="mouseDown" localX="225" localY="295" fakeTimeValue="48513" />
+			<fx:Object type="mouseMove" localX="229" localY="292" fakeTimeValue="48525" />
+			<fx:Object type="mouseMove" localX="231" localY="290" fakeTimeValue="48543" />
+			<fx:Object type="mouseMove" localX="236" localY="282" fakeTimeValue="48575" />
+			<fx:Object type="mouseMove" localX="239" localY="275" fakeTimeValue="48604" />
+			<fx:Object type="mouseMove" localX="259" localY="249" fakeTimeValue="48668" />
+			<fx:Object type="mouseMove" localX="280" localY="222" fakeTimeValue="48701" />
+			<fx:Object type="mouseMove" localX="304" localY="194" fakeTimeValue="48729" />
+			<fx:Object type="mouseMove" localX="331" localY="168" fakeTimeValue="48761" />
+			<fx:Object type="mouseMove" localX="353" localY="155" fakeTimeValue="48794" />
+			<fx:Object type="mouseUp" localX="353" localY="155" fakeTimeValue="48825" />
+		</fx:Array>
+		
+		<fx:Array id="throw_diagonal_upLeft">
+			<fx:Object type="mouseDown" localX="229" localY="221" fakeTimeValue="51468" />
+			<fx:Object type="mouseMove" localX="232" localY="224" fakeTimeValue="51477" />
+			<fx:Object type="mouseMove" localX="234" localY="226" fakeTimeValue="51487" />
+			<fx:Object type="mouseMove" localX="242" localY="236" fakeTimeValue="51515" />
+			<fx:Object type="mouseMove" localX="252" localY="248" fakeTimeValue="51549" />
+			<fx:Object type="mouseMove" localX="306" localY="320" fakeTimeValue="51617" />
+			<fx:Object type="mouseMove" localX="327" localY="353" fakeTimeValue="51649" />
+			<fx:Object type="mouseUp" localX="327" localY="353" fakeTimeValue="51675" />
+		</fx:Array>
+		
+		<fx:Array id="throw_diagonal_upRight">
+			<fx:Object type="mouseDown" localX="253" localY="244" fakeTimeValue="54079" />
+			<fx:Object type="mouseMove" localX="252" localY="245" fakeTimeValue="54082" />
+			<fx:Object type="mouseMove" localX="247" localY="250" fakeTimeValue="54102" />
+			<fx:Object type="mouseMove" localX="238" localY="260" fakeTimeValue="54131" />
+			<fx:Object type="mouseMove" localX="226" localY="275" fakeTimeValue="54169" />
+			<fx:Object type="mouseMove" localX="211" localY="297" fakeTimeValue="54201" />
+			<fx:Object type="mouseMove" localX="201" localY="320" fakeTimeValue="54231" />
+			<fx:Object type="mouseMove" localX="171" localY="345" fakeTimeValue="54261" />
+			<fx:Object type="mouseMove" localX="137" localY="353" fakeTimeValue="54292" />
+			<fx:Object type="mouseMove" localX="122" localY="352" fakeTimeValue="54328" />
+			<fx:Object type="mouseUp" localX="122" localY="352" fakeTimeValue="54354" />
+		</fx:Array>
+	</fx:Declarations>
+</fx:Object>

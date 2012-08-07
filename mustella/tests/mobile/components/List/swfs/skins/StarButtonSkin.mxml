@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the Spark Button component.  
+
+       @see spark.components.Button
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:SparkButtonSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+             xmlns:s="library://ns.adobe.com/flex/spark" 
+             xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+             minWidth="21" minHeight="21" 
+             alpha.disabled="0.5">
+     
+    <fx:Metadata>
+        <![CDATA[ 
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
+        [HostComponent("spark.components.ToggleButton")]
+        ]]>
+    </fx:Metadata>
+    
+    <fx:Script fb:purpose="styling">
+        <![CDATA[         
+            import spark.components.Group;
+            /* Define the skin elements that should not be colorized. 
+            For button, the graphics are colorized but the label is not. */
+            static private const exclusions:Array = ["labelDisplay"];
+            
+            /** 
+             * @private
+             */     
+            override public function get colorizeExclusions():Array {return exclusions;}
+            
+            /**
+             * @private
+             */
+            override protected function initializationComplete():void
+            {
+                useChromeColor = true;
+                super.initializationComplete();
+            }  
+        ]]>        
+    </fx:Script>
+        
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" stateGroups="selectedStates, selectedUpStates" />
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
+    </s:states>
+
+    
+    <s:Rect width="100%" height="100%" alpha="0" alpha.selectedStates="0.2" radiusX="3" radiusY="3">
+        <s:fill>
+            <s:SolidColor color="white" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:Path winding="evenOdd" horizontalCenter="0" top="5"
+            data="M 16 0 L 20 11 L 31 11 L 22 18 L 25 29 L 16 22 L 7 29 L 10 18 L 1 11 L 12 11 L 16 0 Z " blendMode="normal" alpha="1">
+        <s:fill>
+            <s:LinearGradient x = "16" y = "0" scaleX = "29" rotation = "90">
+                <s:GradientEntry color="#aaaaa9" color.selectedStates="#c4d8f4" ratio="0" alpha="1"/>
+                <s:GradientEntry color="#5e5d5e" color.selectedStates="#2f93b9" ratio="1" alpha="1"/>
+            </s:LinearGradient>
+        </s:fill>
+    </s:Path>
+    
+    <s:Label id="labelDisplay"
+             textAlign="center"
+             maxDisplayedLines="1" fontSize="14" color="0x999999"  color.selectedStates="white"
+             horizontalCenter="0" bottom="5" verticalAlign="middle"
+             left="0" right="0"/>
+   
+
+</s:SparkButtonSkin>

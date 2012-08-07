@@ -1,0 +1,888 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/components/ActionBar/styles/"
+			xmlns:components="components.*"
+			testSWF="ActionBarViewNavigatorStyleTest.mxml">
+	
+	<fx:Script><![CDATA[ 
+		import components.*;
+		
+		import mx.core.FlexGlobals;
+		
+		import spark.components.ActionBar;
+		import spark.components.SkinnableContainer;
+		import spark.components.supportClasses.SkinnableComponent;
+		import spark.skins.mobile.ActionBarSkin;
+				
+		public static function init(o:DisplayObject):void { } 
+		
+		
+			
+
+		protected function setstyle1_valueExpressionHandler(event:Event):void
+		{
+			// TODO Auto-generated method stub
+		}
+
+	]]></fx:Script>
+	
+	<fx:Declarations>
+		<fx:Array id="emptyArray">
+		</fx:Array>
+		<fx:Array id="oneEArray">
+			<s:Button id="oneArrLabel" label="My Button"/>
+		</fx:Array>
+		<fx:Array id="twoEArray">
+			<s:Label id="twoArrLabel" text="Label2"/>
+			<s:Button id="twoArrButton" label="My Button" />
+		</fx:Array>
+		<fx:Array id="manyEArray">
+			<s:Label id="mArrLabel" text="My Label"/>
+			<s:Button id="mArrButton" label="My Button" />
+			<s:CheckBox id="mArrCheckBx" />
+			<s:TextInput id="mArrTextIpt" />
+		</fx:Array>
+		<fx:Array id="graphArray">
+			<s:Rect id="rect1" width="30" height="30">
+				<s:fill>
+					<s:SolidColor color="0xFFFFCC"/>
+				</s:fill>
+				<s:stroke>
+					<s:SolidColorStroke color="0x660099" weight="2"/>
+				</s:stroke>
+			</s:Rect>
+			
+			<s:Rect id="rect2" width="30" height="50">
+				<s:fill>
+					<s:SolidColor color="red"/>
+				</s:fill>
+				<s:stroke>
+					<s:SolidColorStroke color="0x660099" weight="0"/>
+				</s:stroke>
+			</s:Rect>
+		</fx:Array>
+		<fx:Array id="mobileArray">
+			<s:TextArea id="mtextarea"/>
+		</fx:Array>
+		<fx:Array id="custCompArray">
+		</fx:Array>
+		<fx:Array id="imgArray">
+			<s:Image source="assets/TestImage3.png" />
+			<s:Image source="assets/TestImage2.png" />
+		</fx:Array>
+		<fx:Array id="titleLabel">
+			
+			<s:Label text="My Title" />
+			
+		</fx:Array>
+		
+		<fx:Array id="actionArray">
+			<s:Button id="actionButton" label="Action"/>
+		</fx:Array>
+		<fx:Array id="navArray">
+			<s:Button id="navButton" label="Nav"/>
+		</fx:Array>
+	</fx:Declarations>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			
+			import views.*;
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		
+		<fx:XML xmlns="" id="arr">
+			<name>watanabe</name>
+		</fx:XML>
+	</fx:Declarations>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace  "*";
+		
+	</fx:Style>
+	<!--styling title-->
+	<testCases>
+		<TestCase testID="ActionBar_ViewNavigator_default_style" keywords="[default,color]" description="check the default color of actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />
+			
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar" styleName="color" value="0" />
+				<AssertStyleValue target="navigator.actionBar" styleName="fontSize">
+					<ConditionalValue deviceDensity="160" os="win" value="16"/>
+					<ConditionalValue deviceDensity="240" os="android" value="24"/>
+					<ConditionalValue deviceDensity="320" os="win" value="32"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="32"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="16"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.actionBar" styleName="fontFamily" value="_sans" />
+				<AssertStyleValue target="navigator.actionBar" styleName="fontWeight" value="normal" />
+				<AssertStyleValue target="navigator.actionBar" styleName="verticalAlign" value="top" />
+				<AssertStyleValue target="navigator.actionBar" styleName="textAlign" value="start" />
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="textShadowColor" value="#000000" />
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+
+		
+		
+		<TestCase testID="ActionBar_ViewNavigator_style_change_textAlign_center" keywords="[textalign]" description="set verticalalign to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>								
+				<Pause timeout="300"/>
+<!--				<SetStyle target="navigator.actionBar" styleName="skinClass" valueExpression="value=skinclass" waitEvent="updateComplete" />
+-->				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>	
+				<SetStyle target="navigator.actionBar.titleDisplay" styleName="textAlign" value="center" waitEvent="updateComplete"/>
+				<Pause timeout="300" />	
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar.titleDisplay" styleName="textAlign" value="center" />		
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_style_change_textAlign_right" keywords="[color]" description="set a different color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>		
+				<Pause timeout="300"/>
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar.titleDisplay" styleName="textAlign" value="right" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar.titleDisplay" styleName="textAlign" value="right" />
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_style_change_textAlign_left" keywords="[color]" description="set a different color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300"/>
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar.titleDisplay" styleName="textAlign" value="left" waitEvent="updateComplete"/>
+				
+				
+				<Pause timeout="300" />	
+			</setup>
+			<body>
+				
+				<AssertStyleValue target="navigator.actionBar.titleDisplay" styleName="textAlign" value="left" />
+				
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>		
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_style_change_titleAlign_default" keywords="[color]" description="check the default titleAlign value">
+			<bugs>
+				<Bug bugID="SDK-28012"/>
+			</bugs>
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300"/>
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar" styleName="titleAlign" value="null" />
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_style_change_titleAlign_right" keywords="[color]" description="set titlealign property to actionbar title">
+			<bugs>
+				<Bug bugID="SDK-28012"/>
+			</bugs>
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300"/>
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="titleAlign" value="right" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar" styleName="titleAlign" value="right" />
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_style_change_titleAlign_left" keywords="[color]" description="set a backgroundalpha color to actionbar">
+			<bugs>
+				<Bug bugID="SDK-28012" />
+			</bugs>
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300"/>
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="titleAlign" value="left" waitEvent="updateComplete" />
+				<Pause timeout="300" />	
+			</setup>
+			<body>
+				
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="titleAlign" value="left" />
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>		
+			
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_style_change_titleAlign_center" keywords="[color]" description="set a backgroundalpha color to actionbar">
+			
+			<bugs>
+				<Bug bugID="SDK-28012" />
+			</bugs>
+			<setup>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300"/>
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="titleAlign" value="center" waitEvent="updateComplete" />
+				
+				
+			</setup>
+			<body>
+				
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="titleAlign" value="center" />
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>		
+			
+		</TestCase>
+		
+	
+		<TestCase testID="ActionBar_ViewNavigator_style_change_fontFamily_Georgia" keywords="[color]" description="set a different color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="titleAlign" value="left" waitEvent="updateComplete" />
+				<SetStyle target="navigator.actionBar" styleName="fontFamily" value="Georgia" waitEvent="updateComplete" />
+				
+				
+			</setup>
+			<body>
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="fontFamily" value="Georgia" />
+				
+				
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>		
+		</TestCase>
+		
+		
+		<TestCase testID="ActionBar_ViewNavigator_style_change_leading" keywords="[color]" description="set a different color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="fontFamily" value="_sans" waitEvent="updateComplete" />
+
+				<SetStyle target="navigator.actionBar.titleDisplay" styleName="leading" value="5" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar.titleDisplay" styleName="leading" value="5" />
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_style_change_letterSpacing_default" keywords="[color]" description="set a different color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar" styleName="letterSpacing" value="0" />
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_style_change_letterSpacing5" keywords="[color]" description="set a different color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+
+				<SetStyle target="navigator.actionBar" styleName="letterSpacing" value="5" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar" styleName="letterSpacing" value="5" />
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_style_change_letterSpacing-5" keywords="[color]" description="set a different color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+
+				<SetStyle target="navigator.actionBar" styleName="letterSpacing" value="-5" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar" styleName="letterSpacing" value="-5" />
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_style_change_textIndent_default" keywords="[color]" description="set a different color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				
+
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="letterSpacing" value="0" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar" styleName="textIndent" value="0" />
+				
+				<!--<AssertStyleValue target="navigator.actionBar" styleName="fontSize" value="15" />
+				<AssertStyleValue target="navigator.actionBar" styleName="fontWeight" value="normal" />
+				<AssertStyleValue target="navigator.actionBar" styleName="verticalAlign" value="bottom" />
+				<AssertStyleValue target="navigator.actionBar" styleName="textAlign" value="right" />-->
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_style_change_textIndent_100" keywords="[color]" description="set a different color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+
+				<SetStyle target="navigator.actionBar" styleName="textIndent" value="100" waitEvent="updateComplete"/>
+				
+				
+				
+			</setup>
+			<body>
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="textIndent" value="100" />
+				
+				<!--<AssertStyleValue target="navigator.actionBar" styleName="fontSize" value="15" />
+				<AssertStyleValue target="navigator.actionBar" styleName="fontWeight" value="normal" />
+				<AssertStyleValue target="navigator.actionBar" styleName="verticalAlign" value="bottom" />
+				<AssertStyleValue target="navigator.actionBar" styleName="textAlign" value="right" />-->
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_style_change_textDecoration_default" keywords="[color]" description="set a different color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="textIndent" value="0" waitEvent="updateComplete"/>
+
+				
+			</setup>
+			<body>
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="textDecoration" value="none" />
+				
+				<!--<AssertStyleValue target="navigator.actionBar" styleName="fontSize" value="15" />
+				<AssertStyleValue target="navigator.actionBar" styleName="fontWeight" value="normal" />
+				<AssertStyleValue target="navigator.actionBar" styleName="verticalAlign" value="bottom" />
+				<AssertStyleValue target="navigator.actionBar" styleName="textAlign" value="right" />-->
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_style_change_textDecoration_none" keywords="[color]" description="set a different color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title"/>
+<Pause timeout="300" />
+				<SetStyle target="navigator.actionBar" styleName="textDecoration" value="" waitEvent="updateComplete"/>
+				
+				
+			</setup>
+			<body>
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="textDecoration" value="" />
+				
+				
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_style_change_textDecoration_underline" keywords="[color]" description="set a different color to actionbar">
+		<setup>
+			<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+			<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+			<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+			<Pause timeout="300" />	
+			<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+        	<SetStyle target="navigator.actionBar" styleName="textDecoration" value="underline" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+		<AssertStyleValue target="navigator.actionBar" styleName="textDecoration" value="underline" />
+		<AssertStyleValue target="navigator.actionBar" styleName="fontSize">
+				<ConditionalValue deviceDensity="160" os="win" value="16"/>
+				<ConditionalValue deviceDensity="240" os="android" value="24"/>
+				<ConditionalValue deviceDensity="320" os="win" value="32"/>
+				<ConditionalValue deviceDensity="320" os="iphone" value="32"/>
+			<ConditionalValue deviceDensity="160" os="qnx" value="16"/>
+		</AssertStyleValue>
+			<AssertStyleValue target="navigator.actionBar" styleName="fontWeight" value="normal" />
+			<AssertStyleValue target="navigator.actionBar" styleName="verticalAlign" value="top" />
+			<AssertStyleValue target="navigator.actionBar" styleName="textAlign" value="start" />
+		
+		<CompareBitmap url="../styles/baselines" target="navigator.actionBar" numColorVariances="2" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win"/>
+			<ConditionalValue deviceDensity="240" os="android"/>
+			<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		</body>		
+		</TestCase>
+	
+		
+	
+		<TestCase testID="ActionBar_ViewNavigator_style_change_textShadowColor" keywords="[color]" description="set a backgroundalpha color to actionbar">
+			<bugs>
+				<Bug bugID="SDK-27708" />
+			</bugs>
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300"/>
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="textDecoration" value="none" waitEvent="updateComplete"/>
+
+				<SetStyle target="navigator.actionBar.titleDisplay" styleName="textShadowColor" value="#00ff00" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar.titleDisplay" styleName="textShadowColor" value="#00ff00" />
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_backgroundAlpha_1" keywords="[color]" description="set a backgroundalpha color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title"/>
+				<Pause timeout="300"/>
+				<SetStyle target="navigator.actionBar" styleName="chromeColor" value="255" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="backgroundAlpha" value="1" waitEvent="updateComplete"/>
+				<Pause timeout="300"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value="Title" />
+				<AssertStyleValue target="navigator.actionBar" styleName="chromeColor" value="255" />
+				<AssertStyleValue target="navigator.actionBar" styleName="backgroundAlpha" value="1" />
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_backgroundAlpha_05" keywords="[color]" description="set a backgroundalpha color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+<Pause timeout="300"/>
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+
+				<SetStyle target="navigator.actionBar" styleName="chromeColor" value="255" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="backgroundAlpha" value="0.5" waitEvent="updateComplete"/>
+				
+				
+			</setup>
+			<body>
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="chromeColor" value="255" />
+				<AssertStyleValue target="navigator.actionBar" styleName="backgroundAlpha" value="0.5" />
+				
+				
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_backgroundAlpha_0" keywords="[color]" description="set a backgroundalpha color to actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+
+				<SetStyle target="navigator.actionBar" styleName="chromeColor" value="255" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="backgroundAlpha" value="0" waitEvent="updateComplete"/>
+				
+				
+			</setup>
+			<body>
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="chromeColor" value="255" />
+				<AssertStyleValue target="navigator.actionBar" styleName="backgroundAlpha" value="0" />
+				
+				
+			
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_backgroundAlpha_03" keywords="[color]" description="set a backgroundalpha color to actionbar">
+			<bugs>
+				<Bug bugID="SDK-27708" />
+			</bugs>
+			<setup>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+
+				<SetStyle target="navigator.actionBar" styleName="chromeColor" value="255" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="backgroundAlpha" value="0.3" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="chromeColor" value="255" />
+				<AssertStyleValue target="navigator.actionBar" styleName="backgroundAlpha" value="0.3" />
+				
+				
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>		
+		</TestCase>
+	
+		
+		<TestCase testID="ActionBar_ViewNavigator_style_change_fontSize" keywords="[color]" description="set a backgroundalpha color to actionbar">
+			<bugs>
+				<Bug bugID="SDK-27708" />
+			</bugs>
+			<setup>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=titleLabel" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="chromeColor" value="gray" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="backgroundAlpha" value="1" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="fontSize" value="50" waitEvent="updateCompletes" />
+				
+				
+			</setup>
+			<body>
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="fontSize" value="50" />
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_style_change_fontWeight" keywords="[color]" description="set a backgroundalpha color to actionbar">
+			<bugs>
+				<Bug bugID="SDK-27708" />
+			</bugs>
+			<setup>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=titleLabel" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="fontWeight" value="bold" waitEvent="updateComplete"/>
+				
+				
+			</setup>
+			<body>
+				
+				<AssertStyleValue target="navigator.actionBar" styleName="fontWeight" value="bold" />
+				
+				
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_style_change_color" keywords="[color]" description="set a backgroundalpha color to actionbar">
+			<bugs>
+				<Bug bugID="SDK-27708" />
+			</bugs>
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=titleLabel" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+			<SetStyle target="navigator.actionBar" styleName="fontWeight" value="normal" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="color" value="16776960"/>
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar" styleName="color" value="16776960" />
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_chromeColor" keywords="[chromeColor]" description="set chrome color to actionbar">
+			
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView2)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />	
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.actionBar" styleName="chromeColor" value="16776960" waitEvent="updateComplete" />
+				
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.actionBar" styleName="chromeColor" value="16776960" />
+				
+				<CompareBitmap url="../styles/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>		
+		</TestCase>
+		
+	
+	</testCases>
+	
+</UnitTester>

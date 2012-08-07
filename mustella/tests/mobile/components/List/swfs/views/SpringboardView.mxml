@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="All apps" xmlns:renderers="renderers.*">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.events.FlexEvent;
+            import mx.events.PropertyChangeEvent;
+            
+            import spark.events.IndexChangeEvent;
+            
+            protected function goToView(event:IndexChangeEvent):void
+            {
+                // TODO Push the other apps we have
+                if (target.selectedItem.name == "Settings"){
+                    navigator.pushView(views.SettingsView);
+                }
+                
+            }
+            
+        ]]>
+    </fx:Script>
+    <fx:Script source="viewScript.as" />
+    <fx:Declarations>
+        <!--<s:ArrayList id="embeddedIcons">
+            <fx:Object name="Advanced Task Killer" icon="{androidIcon1}" />
+            <fx:Object name="Airoid-debug" icon="{androidIcon2}" />
+            <fx:Object name="Angry Birds" icon="{androidIcon3}" />
+            <fx:Object name="App Sharing" icon="{androidIcon4}" />
+            <fx:Object name="Calculator" icon="{androidIcon5}" />
+            <fx:Object name="Calendar" icon="{androidIcon6}" />
+            <fx:Object name="Call history"  icon="{androidIcon7}" />
+            <fx:Object name="Camcorder"  icon="{androidIcon8}" />
+            <fx:Object name="Camera"  icon="{androidIcon9}" />
+            <fx:Object name="Clock"  icon="{androidIcon10}" />
+            <fx:Object name="Desk Clock"  icon="{androidIcon11}" />
+            <fx:Object name="Facebook"  icon="{androidIcon12}" />
+            <fx:Object name="Flashlight"  icon="{androidIcon13}" />
+            <fx:Object name="Flex Shopper-debug"  icon="{androidIcon14}" />
+            <fx:Object name="FM Radio"  icon="{androidIcon15}" />
+            <fx:Object name="Footprints" icon="{androidIcon16}" />
+            <fx:Object name="Friend Stream" icon="{androidIcon17}" />
+            <fx:Object name="Gallery" icon="{androidIcon18}" />
+            <fx:Object name="Gmail" icon="{androidIcon19}" />
+            <fx:Object name="Google Search" icon="{androidIcon20}" />
+            <fx:Object name="HSliderPerformance" icon="{androidIcon21}" />
+            <fx:Object name="Internet" icon="{androidIcon22}" />
+            <fx:Object name="Latitude" icon="{androidIcon23}" />
+            <fx:Object name="Learn More" icon="{androidIcon24}" />
+            <fx:Object name="List-debug" icon="{androidIcon25}" />
+            <fx:Object name="Mail" icon="{androidIcon26}" />
+            <fx:Object name="Maps" icon="{androidIcon27}" />
+            <fx:Object name="Market" icon="{androidIcon28}" />
+            <fx:Object name="Messages" icon="{androidIcon29}" />
+            <fx:Object name="Music" icon="{androidIcon30}" />
+            <fx:Object name="Navigation" icon="{androidIcon31}" />
+            <fx:Object name="NestedScrolling" icon="{androidIcon32}" />
+            <fx:Object name="News" icon="{androidIcon33}" />
+            <fx:Object name="News and Weather" icon="{androidIcon34}" />
+            <fx:Object name="PDF Viewer" icon="{androidIcon35}" />
+            <fx:Object name="Peep" icon="{androidIcon36}" />
+            <fx:Object name="People" icon="{androidIcon37}" />
+            <fx:Object name="Phone" icon="{androidIcon38}" />
+            <fx:Object name="Places" icon="{androidIcon39}" />
+            <fx:Object name="Quickoffice" icon="{androidIcon40}" />
+            <fx:Object name="Search People" icon="{androidIcon41}" />
+            <fx:Object name="Settings" icon="{androidIcon42}" />
+            <fx:Object name="Setup" icon="{androidIcon43}" />
+            <fx:Object name="Stocks" icon="{androidIcon44}" />
+            <fx:Object name="Talk" icon="{androidIcon45}" />
+            <fx:Object name="Teeter" icon="{androidIcon46}" />
+            <fx:Object name="TextScrolling" icon="{androidIcon47}" />
+            <fx:Object name="Videos" icon="{androidIcon48}" />
+            <fx:Object name="Voice Recorder" icon="{androidIcon49}" />
+            <fx:Object name="Voice Search" icon="{androidIcon50}" />
+            <fx:Object name="Weather" icon="{androidIcon51}" />
+            <fx:Object name="Wi-Fi Hotspot" icon="{androidIcon52}" />
+            <fx:Object name="Xfinity Mobile" icon="{androidIcon53}" />
+            <fx:Object name="YouTube" icon="{androidIcon54}" />
+        </s:ArrayList>-->
+        <s:ArrayList id="referencedIcons">
+            <fx:Object name="Advanced Task Killer" icon="assets/resicons/androidIcon1.png" />
+            <fx:Object name="Airoid-debug" icon="assets/resicons/androidIcon2.png" />
+            <fx:Object name="Angry Birds" icon="assets/resicons/androidIcon3.png" />
+            <fx:Object name="App Sharing" icon="assets/resicons/androidIcon4.png" />
+            <fx:Object name="Calculator" icon="assets/resicons/androidIcon5.png" />
+            <fx:Object name="Calendar" icon="assets/resicons/androidIcon6.png" />
+            <fx:Object name="Call history"  icon="assets/resicons/androidIcon7.png" />
+            <fx:Object name="Camcorder"  icon="assets/resicons/androidIcon8.png" />
+            <fx:Object name="Camera"  icon="assets/resicons/androidIcon9.png" />
+            <fx:Object name="Clock"  icon="assets/resicons/androidIcon10.png" />
+            <fx:Object name="Desk Clock"  icon="assets/resicons/androidIcon11.png" />
+            <fx:Object name="Facebook"  icon="assets/resicons/androidIcon12.png" />
+            <fx:Object name="Flashlight"  icon="assets/resicons/androidIcon13.png" />
+            <fx:Object name="Flex Shopper-debug"  icon="assets/resicons/androidIcon14.png" />
+            <fx:Object name="FM Radio"  icon="assets/resicons/androidIcon15.png" />
+            <fx:Object name="Footprints" icon="assets/resicons/androidIcon16.png" />
+            <fx:Object name="Friend Stream" icon="assets/resicons/androidIcon17.png" />
+            <fx:Object name="Gallery" icon="assets/resicons/androidIcon18.png" />
+            <fx:Object name="Gmail" icon="assets/resicons/androidIcon19.png" />
+            <fx:Object name="Google Search" icon="assets/resicons/androidIcon20.png" />
+            <fx:Object name="HSliderPerformance" icon="assets/resicons/androidIcon21.png" />
+            <fx:Object name="Internet" icon="assets/resicons/androidIcon22.png" />
+            <fx:Object name="Latitude" icon="assets/resicons/androidIcon23.png" />
+            <fx:Object name="Learn More" icon="assets/resicons/androidIcon24.png" />
+            <fx:Object name="List-debug" icon="assets/resicons/androidIcon25.png" />
+            <fx:Object name="Mail" icon="assets/resicons/androidIcon26.png" />
+            <fx:Object name="Maps" icon="assets/resicons/androidIcon27.png" />
+            <fx:Object name="Market" icon="assets/resicons/androidIcon28.png" />
+            <fx:Object name="Messages" icon="assets/resicons/androidIcon29.png" />
+            <fx:Object name="Music" icon="assets/resicons/androidIcon30.png" />
+            <fx:Object name="Navigation" icon="assets/resicons/androidIcon31.png" />
+            <fx:Object name="NestedScrolling" icon="assets/resicons/androidIcon32.png" />
+            <fx:Object name="News" icon="assets/resicons/androidIcon33.png" />
+            <fx:Object name="News and Weather" icon="assets/resicons/androidIcon34.png" />
+            <fx:Object name="PDF Viewer" icon="assets/resicons/androidIcon35.png" />
+            <fx:Object name="Peep" icon="assets/resicons/androidIcon36.png" />
+            <fx:Object name="People" icon="assets/resicons/androidIcon37.png" />
+            <fx:Object name="Phone" icon="assets/resicons/androidIcon38.png" />
+            <fx:Object name="Places" icon="assets/resicons/androidIcon39.png" />
+            <fx:Object name="Quickoffice" icon="assets/resicons/androidIcon40.png" />
+            <fx:Object name="Search People" icon="assets/resicons/androidIcon41.png" />
+            <fx:Object name="Settings" icon="assets/resicons/androidIcon42.png" />
+            <fx:Object name="Setup" icon="assets/resicons/androidIcon43.png" />
+            <fx:Object name="Stocks" icon="assets/resicons/androidIcon44.png" />
+            <fx:Object name="Talk" icon="assets/resicons/androidIcon45.png" />
+            <fx:Object name="Teeter" icon="assets/resicons/androidIcon46.png" />
+            <fx:Object name="TextScrolling" icon="assets/resicons/androidIcon47.png" />
+            <fx:Object name="Videos" icon="assets/resicons/androidIcon48.png" />
+            <fx:Object name="Voice Recorder" icon="assets/resicons/androidIcon49.png" />
+            <fx:Object name="Voice Search" icon="assets/resicons/androidIcon50.png" />
+            <fx:Object name="Weather" icon="assets/resicons/androidIcon51.png" />
+            <fx:Object name="Wi-Fi Hotspot" icon="assets/resicons/androidIcon52.png" />
+            <fx:Object name="Xfinity Mobile" icon="assets/resicons/androidIcon53.png" />
+            <fx:Object name="YouTube" icon="assets/resicons/androidIcon54.png" />
+        </s:ArrayList>
+    </fx:Declarations>
+    
+    <s:List id="target" width="100%" height="100%" labelField="name" fontSize="20" color="white"  dataProvider="{referencedIcons}"
+            contentBackgroundColor="black" alternatingItemColors="black" selectionColor="0x89BC18" downColor="0x89BC18" change="goToView(event)">
+        <s:layout>
+            <s:TileLayout requestedColumnCount="4" columnWidth="100" columnAlign="justifyUsingGap" />
+        </s:layout>
+        <s:itemRenderer>
+            <fx:Component>
+                <renderers:MyIconItemRenderer color="white" textAlign="center"
+                                              paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10" 
+                                              verticalGap="10"
+                                              iconField="icon" iconWidth="72" iconHeight="72">
+                </renderers:MyIconItemRenderer>
+            </fx:Component>
+        </s:itemRenderer>
+    </s:List>
+    
+</s:View>

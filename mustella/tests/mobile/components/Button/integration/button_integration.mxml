@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/Button/integration/"
+    testSWF="MobileButtonMain2.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <testCases>
+
+
+<TestCase testID="Mobile_Button_integration_default_state_label" keywords="[Button, mobile, ButtonSkin, label]" description="Test button label property when state is default">
+	<setup>
+		<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="integrationRoot.b1" propertyName="label" value="default" />
+		<CompareBitmap url="../integration/baselines" target="integrationRoot.stateBtnGroup">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_integration_state1_state_label_chromeColor" keywords="[Button, mobile,  label, chromeColor, ButtonSkin]" description="Test label and chromeColor properties when state changes">
+	<setup>
+		<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />	
+		<SetProperty target="integrationRoot" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>		
+		<AssertPropertyValue target="integrationRoot.b1" propertyName="label" value="state1" />
+		<AssertStyleValue target="integrationRoot.b1" styleName="chromeColor" value="0xFF0000" />
+		<CompareBitmap url="../integration/baselines" target="integrationRoot.stateBtnGroup" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+<TestCase testID="Mobile_Button_integration_state1_state_click" keywords="[Button, mobile, ButtonSkin, click, event]" description="Test click action when state changes">
+	<setup>
+		<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />	
+		<SetProperty target="integrationRoot" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="integrationRoot.b1" type="rollOver" localX="32" localY="24" waitEvent="rollOver" />
+		<DispatchMouseEvent target="integrationRoot.b1" type="mouseMove" localX="32" localY="24" waitEvent="mouseMove" />
+		<DispatchMouseClickEvent target="integrationRoot.b1" localX="32" localY="24" waitEvent="click" />
+		<AssertPropertyValue target="integrationRoot.b1" propertyName="label" value="click1" />
+		<CompareBitmap url="../integration/baselines" target="integrationRoot.b1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase> 
+
+<TestCase testID="Mobile_Button_integration_state2_state_label_chromeColor" keywords="[Button, mobile,  label, chromeColor, ButtonSkin]" description="Test label and chromeColor properties when state changes">
+	<setup>
+		<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />	
+		<SetProperty target="integrationRoot" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+	</setup>
+	<body>		
+		<AssertPropertyValue target="integrationRoot.b1" propertyName="label" value="state2" />
+		<AssertStyleValue target="integrationRoot.b1" styleName="chromeColor" value="0x0000FF" />
+		<CompareBitmap url="../integration/baselines" target="integrationRoot.stateBtnGroup" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_integration_state2_state_click" keywords="[Button, mobile, ButtonSkin, click, event]" description="Test click action when state changes">
+	<setup>
+		<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />	
+		<SetProperty target="integrationRoot" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="integrationRoot.b1" type="rollOver" localX="32" localY="24" waitEvent="rollOver" />
+		<DispatchMouseEvent target="integrationRoot.b1" type="mouseMove" localX="32" localY="24" waitEvent="mouseMove" />
+		<DispatchMouseClickEvent target="integrationRoot.b1" localX="32" localY="24" waitEvent="click" />
+		<AssertPropertyValue target="integrationRoot.b1" propertyName="label" value="click2" />
+		<CompareBitmap url="../integration/baselines" target="integrationRoot.b1">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase> 
+
+<TestCase testID="Mobile_Button_integration_excludeFrom_includeIn_state_label" keywords="[Button, mobile,  label, ButtonSkin]" description="Test excludeFrom and includeIn states">
+	<setup>
+		<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />	
+		<SetProperty target="integrationRoot" propertyName="currentState" value="noButton" waitEvent="currentStateChange" />
+	</setup>
+	<body>		
+		<AssertPropertyValue target="integrationRoot.b2" propertyName="label" value="includeIn" />
+		<CompareBitmap url="../integration/baselines" target="integrationRoot.stateBtnGroup" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

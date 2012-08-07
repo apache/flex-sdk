@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/Label/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}			
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+<![CDATA[
+	[Mixin]
+]]>
+	</mx:Metadata>	
+	
+<!-- end of set of lines that must be in each unit test -->
+<mx:Script>
+	<![CDATA[
+		import components.*;
+		import mx.core.FlexGlobals;
+		import spark.components.Label;
+		
+		[Bindable]
+		private var longPhrase:String="This is an extremely long string that does not fit in the space of the panel.";
+		
+		private var multiLineString:String = "ibuprofen\ndiphenhydramine\nacetaminophen\nphenylephrine\pseudoephedrine\ndextromethorphan\nguaifensin";
+	]]>
+</mx:Script>
+		
+	<testCases>
+ 		  
+		<!-- height for Label-->
+		<TestCase testID="Label_height_default" description="Tests the height property defaults to 12 for Label" keywords="[Label,height,property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" os="win" value="15" />
+					<ConditionalValue deviceDensity="240" value="25" />
+					<ConditionalValue deviceDensity="320" value="30" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="16" />
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_height_10" description="Tests the height property set to 10 of Label" keywords="[Label,height,property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100" />				
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="hi" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="height" value="10" waitEvent="updateComplete" waitTarget="navigator.activeView.lbl1" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Label_height_50" description="Tests the height property set to 50 of Label" keywords="[Label,height,property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />			
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value = multiLineString" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="navigator.activeView.lbl1" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+		
+		<!-- maxHeight of Label-->
+		<TestCase testID="Label_maxHeight_default" description="Tests the maxHeight property defaults to 10000 for Label" keywords="[Label, maxHeight, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.lbl1" value="10000" propertyName="maxHeight"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="Label_maxHeight_10" description="Tests the maxHeight property set to 10 for Label" keywords="[Label, maxHeight, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="maxHeight" value="10"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_maxHeight_26point5" description="Tests the maxHeight property set to 26.5 for Label" keywords="[Label, maxHeight, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="maxHeight" value="26.5" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>		
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_maxHeight_50" description="Tests the maxHeight property set to 50 for Label" keywords="[Label, maxHeight, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="maxHeight" value="50"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value = multiLineString" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- maxWidth of Label-->
+		<TestCase testID="Label_maxWidth_default" description="Tests the maxWidth property defaults to 10000 for Label" keywords="[Label, maxWidth, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.lbl1" value="10000" propertyName="maxWidth"/>
+			</body>
+		</TestCase>
+		<!-- This test doesn't run on iOS -->
+		<TestCase testID="Label_maxWidth_24" description="Tests the maxWidth property set to 24 for Label" keywords="[Label, maxWidth, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="maxWidth Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="maxWidth" value="24"  waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_maxWidth_26point5" description="Tests the maxWidth property set to 26.5 for Label" keywords="[Label, maxWidth, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="maxWidth" value="26.5"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="maxWidth Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_maxWidth_50" description="Tests the maxWidth property set to 50 for Label" keywords="[Label, maxWidth, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="maxWidth" value="50"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="maxWidth Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- minHeight of Label-->
+		<TestCase testID="Label_minHeight_default" description="Tests the minHeight property defaults to 0 for Label" keywords="[Label, minHeight, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.lbl1" value="0" propertyName="minHeight"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="Label_minHeight_5" description="Tests the minHeight property set to 5 for Label" keywords="[Label, minHeight, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="2" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="minHeight" value="5"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="percentHeight" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.lbl1" propertyName="height" value="5" />			
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- minWidth of Label-->
+		<TestCase testID="Label_minWidth_default" description="Tests the minWidth property defaults to 0 for Label" keywords="[Label, minWidth, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.lbl1" value="0" propertyName="minWidth"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="Label_minWidth_5" description="Tests the minWidth property set to 5 for Label" keywords="[Label, minWidth, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="2" />				
+				<SetProperty target="navigator.activeView.lbl1" propertyName="minWidth" value="5"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="percentWidth" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.lbl1" propertyName="width" value="5" />			
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>						
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- percentHeight for Label-->
+		<TestCase testID="Label_percentHeight_60" description="Tests the percentHeight property set to 60 for Label" keywords="[Label, percentHeight, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="percentHeight" value="60"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" value="60" target="navigator.activeView.lbl1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_percentHeight_100" description="Tests the percentHeight property set to 100 for Label" keywords="[Label, percentHeight, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="percentHeight" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" value="100" target="navigator.activeView.lbl1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_percentHeight_120" description="Tests the percentHeight property set to 120 for Label" keywords="[Label, percentHeight, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="percentHeight" value="120"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" value="100" target="navigator.activeView.lbl1"/>
+			</body>
+		</TestCase>
+		
+		<!-- percentWidth for Label-->
+		<TestCase testID="Label_percentWidth_60" description="Tests the percentWidth property set to 60 for Label" keywords="[Label, percentWidth, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="percentWidth" value="60"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="60" target="navigator.activeView.lbl1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_percentWidth_100" description="Tests the percentWidth property set to 100 for Label" keywords="[Label, percentWidth, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="percentWidth" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="100" target="navigator.activeView.lbl1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_percentWidth_120" description="Tests the percentWidth property set to 120 for Label" keywords="[Label, percentWidth, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="percentWidth" value="120"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="100" target="navigator.activeView.lbl1"/>
+			</body>
+		</TestCase>
+		
+		<!-- scaleX for Label-->
+		<TestCase testID="Label_scaleX_default" description="Tests the scaleX property defaults to 1.0 for Label" keywords="[Label, scaleX, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="scaleX" value="1.0" target="navigator.activeView.lbl1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Label_scaleX_3" description="Tests the scaleX property set to 3 for Label" keywords="[Label, scaleX, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="width" value="50"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="scaleX" value="3"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="This is a label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>					
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Label_scaleX_point5" description="Tests the scaleX property set to .5 for Label" keywords="[Label, scaleX, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="width" value="50"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="scaleX" value=".5"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+		
+		<!-- scaleY for Label-->
+		<TestCase testID="Label_scaleY_default" description="Tests the scaleY property defaults to 1.0 for Label" keywords="[Label, scaleY, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="scaleY" value="1.0" target="navigator.activeView.lbl1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Label_scaleY_3" description="Tests the scaleY property set to 3 for Label" keywords="[Label, scaleY, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="height" value="50"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="scaleY" value="3"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value = multiLineString" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_scaleY_point5" description="Tests the scaleY property set to .5 for Label" keywords="[Label, scaleY, property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="height" value="50"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="scaleY" value=".5"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value = multiLineString" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />			
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- text for Label-->
+		<!-- Setting text is done by all other tests. -->
+		
+		<!-- visible for Label-->
+		<TestCase testID="Label_visible_true_of_Label" keywords="[Label, visible, property]" description="Ensure  visible true shows the label">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label text"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="visible" value="false" waitEvent="updateComplete" waitTarget="navigator.activeView.lbl1"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="visible" value="true" waitEvent="updateComplete" waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/"  target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320"/>		
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_visible_false_of_Label" keywords="[Label, visible, property]" description="Ensure  visible false does not show the label">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label text" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="visible" value="false" waitEvent="updateComplete" waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="10" maxColorVariance="15"   target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320"/>		
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+		
+		<!-- width for Label-->
+		<TestCase testID="Label_width_50" description="Tests the width property set to 50 of Label"  keywords="[Label,width,property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="width" value="50"/>
+				<SetStyle target="navigator.activeView.lbl1" styleName="fontSize" value="25" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="50 width Label" waitEvent="updateComplete" waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320"/>		
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_width_10" description="Tests the width property set to 20 of Label"  keywords="[Label,width,property]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="width" value="10"/>
+				<SetStyle target="navigator.activeView.lbl1" styleName="fontSize" value="25" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="20 width Label" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.lbl1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320"/>		
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- x for Label-->
+		<TestCase testID="Label_x_40_Label" keywords="[x, property, Label]" description="Tests setting x to 40 for a Label">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="50"/>
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="50"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="x" value="40"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.grp1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320"/>					
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Label_x_neg5point6_Label" keywords="[x, property, Label]" description="Tests setting x  to -5.6 for a Label">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="50"/>
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="50"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="x" value="-5.6"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" target="navigator.activeView.grp1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />			
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+				
+		<!-- y for Label-->
+		<TestCase testID="Label_y_neg5point6_Label" keywords="[y, property, Label]" description="Tests setting y  to -5.6 for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="50"/>
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="50"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="y" value="-5.6"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="Label" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" target="navigator.activeView.grp1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320"/>			
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Label_y_40_Label" keywords="[y, property, Label]" description="Tests setting y to 40 for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100" />				
+				<SetProperty target="navigator.activeView.lbl1" propertyName="y" value="40"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="y=40" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />				
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- left -->
+		<TestCase testID="Label_left_50_Label" keywords="[left, property, Label]" description="Test setting left to 50  for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="left" value="50"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="left=50" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />					
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+	
+		<!-- right -->
+		<TestCase testID="Label_right_40_Label" keywords="[right, property, Label]" description="Test setting right to 50  for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100" />
+				<SetProperty target="navigator.activeView.lbl1" propertyName="right" value="40"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="." waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />						
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>	
+	
+		<!-- top -->
+		<TestCase testID="Label_top_25_Label" keywords="[top, property, Label]" description="Test setting top to 25  for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100" />				
+				<SetProperty target="navigator.activeView.lbl1" propertyName="top" value="25"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="top=25" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />					
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>	
+	
+		<!-- bottom -->
+		<TestCase testID="Label_bottom_40_Label" keywords="[bottom, property, Label]" description="Test setting bottom to 25  for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100" />						
+				<SetProperty target="navigator.activeView.lbl1" propertyName="bottom" value="40"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="bottom=40" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />				
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>	
+
+		<!-- horizontalCenter -->
+		<TestCase testID="Label_horizontalCenter_Label_0" keywords="[horizontalCenter, property, Label]" description="Test setting horizontalCenter  for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100" />				
+				<SetProperty target="navigator.activeView.lbl1" propertyName="horizontalCenter" value="0"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="." waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />			
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>	
+
+		<TestCase testID="Label_horizontalCenter_Label_40" keywords="[horizontalCenter, property, Label]" description="Test setting horizontalCenter  for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100" />				
+				<SetProperty target="navigator.activeView.lbl1" propertyName="horizontalCenter" value="40"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="." waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />			
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>	
+
+		<!-- verticalCenter -->
+		<TestCase testID="Label_verticalCenter_Label_0" keywords="[verticalCenter, property, Label]" description="Test setting verticalCenter  for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="verticalCenter" value="0"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="verticalCenter=0" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />		
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_verticalCenter_Label_20" keywords="[verticalCenter, property, Label]" description="Test setting verticalCenter  for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="verticalCenter" value="20"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="this is a Label test" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10"  target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />		
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+	
+		<TestCase testID="Label_baseline_10" keywords="[verticalCenter, property, Label]" description="Test setting baseline for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100" />				
+				<SetProperty target="navigator.activeView.lbl1" propertyName="baseline" value="10"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="baseline=10" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />			
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Label_baseline_50" keywords="[verticalCenter, property, Label]" description="Test setting baseline for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100" />				
+				<SetProperty target="navigator.activeView.lbl1" propertyName="baseline" value="50"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="baseline=50" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320"/>			
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_baseline_neg5" keywords="[verticalCenter, property, Label]" description="Test setting baseline for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100" />				
+				<SetProperty target="navigator.activeView.lbl1" propertyName="baseline" value="-5"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=multiLineString" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" numColorVariances="20" maxColorVariance="10" target="navigator.activeView.grp1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />			
+					<ConditionalValue deviceDensity="320" os="iphone"/>	
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_position_constraints_Label" keywords="[position, property, Label]" description="Test setting left,right,top,bottom for a Label inside of Canvas">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.grp1" propertyName="width" value="100"/>
+				<SetProperty target="navigator.activeView.grp1" propertyName="height" value="100"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="top" value="10"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="bottom" value="10"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="left" value="10"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="right" value="10"/>
+				<SetProperty target="navigator.activeView.lbl1" propertyName="text" value="this is a Label test" waitEvent="updateComplete"  waitTarget="navigator.activeView.lbl1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.lbl1" propertyName="height" value="80"/>
+				<AssertPropertyValue target="navigator.activeView.lbl1" propertyName="width" value="80"/>
+			</body>
+		</TestCase>
+					
+				
+	</testCases>
+</UnitTester>

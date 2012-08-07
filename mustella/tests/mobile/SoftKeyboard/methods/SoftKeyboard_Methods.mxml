@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testDir="mobile/SoftKeyboard/methods/"
+    testSWF="SoftKeyboard.mxml">
+
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+            import views.*;
+			import mx.core.FlexGlobals;
+        ]]>
+    </fx:Script>
+    	<testCases>
+		<TestCase testID="SoftKeyboard_method_ensureElementIsVisible_TextInput" keywords="[SoftKeyboard, method]" description="pass TextInput to ensureElementIsVisible">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.tiMore) " />
+				<Pause timeout="300"/>
+				
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.layout.fractionOfElementInView(application.navigator.activeView.vg.getElementIndex(application.navigator.activeView.tiMore))" value = "1" />
+				<RunCode code="application.stage.focus=null" />
+			</body>
+		</TestCase>
+			<TestCase testID="SoftKeyboard_method_ensureElementIsVisible_TextInput_resize" keywords="[SoftKeyboard, method]" description="pass TextInput to ensureElementIsVisible">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+					<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<DispatchMouseClickEvent target="navigator.activeView.tiMore" localX="10" localY="10" waitEvent="softKeyboardActivate" />
+					<Pause timeout="300"/>
+					<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.tiMore) " />
+					<Pause timeout="300"/>					
+					<AssertMethodValue  method="value=application.navigator.activeView.vg.layout.fractionOfElementInView(application.navigator.activeView.vg.getElementIndex(application.navigator.activeView.tiMore))" value = "1" />
+					<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.tiMore" />
+				</body>
+			</TestCase>
+			<TestCase testID="SoftKeyboard_method_ensureElementIsVisible_Line" keywords="[SoftKeyboard, method]" description="pass Line to ensureElementIsVisible">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+
+					<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.line) "  />
+					<Pause timeout="300"/>
+					<AssertMethodValue  method="value=application.navigator.activeView.vg.layout.fractionOfElementInView(application.navigator.activeView.vg.getElementIndex(application.navigator.activeView.line))" value = "1" />
+					<RunCode code="application.stage.focus=null" />
+				</body>
+			</TestCase>
+			<TestCase testID="SoftKeyboard_method_ensureElementIsVisible_Line_resize" keywords="[SoftKeyboard, method]" description="pass Line to ensureElementIsVisible">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+					<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<DispatchMouseClickEvent target="navigator.activeView.tiMore" localX="10" localY="10" waitEvent="softKeyboardActivate" />
+					<Pause timeout="100"/>
+					<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.line) "  />
+					<Pause timeout="300"/>					
+					<AssertMethodValue  method="value=application.navigator.activeView.vg.layout.fractionOfElementInView(application.navigator.activeView.vg.getElementIndex(application.navigator.activeView.line))" value = "1" />
+					<RunCode code="application.stage.focus=null" waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.tiMore"/>
+				</body>
+			</TestCase>
+
+			<TestCase testID="SoftKeyboard_method_ensureElementIsVisible_TextArea" keywords="[SoftKeyboard, method]" description="pass TextArea to ensureElementIsVisible">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+					<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.notes) " />
+					<Pause timeout="300"/>
+					<AssertMethodValue  method="value=application.navigator.activeView.vg.layout.fractionOfElementInView(application.navigator.activeView.vg.getElementIndex(application.navigator.activeView.notes))" value = "1" />
+					<AssertPropertyValue target="navigator.activeView.notes" propertyName="height" value="250" />
+					<RunCode code="application.stage.focus=null" />
+				</body>
+			</TestCase>
+			<TestCase testID="SoftKeyboard_method_ensureElementIsVisible_TextArea_resize" keywords="[SoftKeyboard, method]" description="pass TextArea to ensureElementIsVisible">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+					<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<DispatchMouseClickEvent target="navigator.activeView.notes" localX="10" localY="10" waitEvent="softKeyboardActivate" />
+					<Pause timeout="200"/>
+					<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.notes) "  />
+					<Pause timeout="300"/>					
+					<AssertMethodValue  method="value=application.navigator.activeView.vg.layout.fractionOfElementInView(application.navigator.activeView.vg.getElementIndex(application.navigator.activeView.notes))" value = "1" />
+					<RunCode code="application.stage.focus=null" waitTarget="navigator.activeView.notes" waitEvent="softKeyboardDeactivate"/>
+				</body>
+			</TestCase>
+			<TestCase testID="SoftKeyboard_method_ensureElementIsVisible_TextInput_top" keywords="[SoftKeyboard, method]" description="pass TextInput to ensureElementIsVisible">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+
+					<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<SetProperty target="navigator.activeView.vg" propertyName="verticalScrollPosition" value="600"/>
+					<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.ln) "  />
+					<Pause timeout="300"/>
+					<AssertMethodValue  method="value=application.navigator.activeView.vg.layout.fractionOfElementInView(application.navigator.activeView.vg.getElementIndex(application.navigator.activeView.ln))" value = "1" />
+
+					<RunCode code="application.stage.focus=null" />
+				</body>
+			</TestCase>
+			<TestCase testID="SoftKeyboard_method_ensureElementIsVisible_TextInput_resize_top" keywords="[SoftKeyboard, method]" description="pass TextInput to ensureElementIsVisible">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+					<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<SetProperty target="navigator.activeView.vg" propertyName="verticalScrollPosition" value="600"/>
+					<DispatchMouseClickEvent target="navigator.activeView.tiMore" localX="10" localY="10" waitEvent="softKeyboardActivate" />
+					<Pause timeout="200"/>
+					<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.tiMore) "  />
+					<Pause timeout="300"/>					
+					<AssertMethodValue  method="value=application.navigator.activeView.vg.layout.fractionOfElementInView(application.navigator.activeView.vg.getElementIndex(application.navigator.activeView.tiMore))" value = "1" />
+
+					<RunCode code="application.stage.focus=null" waitTarget="navigator.activeView.tiMore" waitEvent="softKeyboardDeactivate"/>
+				</body>
+			</TestCase>
+			<TestCase testID="SoftKeyboard_method_ensureElementIsVisible_TextArea_hgroup" keywords="[SoftKeyboard, method]" description="pass TextArea to ensureElementIsVisible">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+
+					<RunCode code="application.navigator.pushView(views.HTextArea2)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.taNum) " />
+					<Pause timeout="200"/>
+					<AssertMethodValue  method="value=application.navigator.activeView.hg.layout.fractionOfElementInView(application.navigator.activeView.hg.getElementIndex(application.navigator.activeView.taNum))" value = "1" />
+				</body>
+			</TestCase>
+			<TestCase testID="SoftKeyboard_method_ensureElementIsVisible_TextArea_resize_hgroup" keywords="[SoftKeyboard, method]" description="pass TextArea to ensureElementIsVisible">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+					<RunCode code="application.navigator.pushView(views.HTextArea2)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.taNum) "  />
+					<Pause timeout="200"/>
+					<AssertMethodValue  method="value=application.navigator.activeView.hg.layout.fractionOfElementInView(application.navigator.activeView.hg.getElementIndex(application.navigator.activeView.taNum))" value = "1" />
+					<DispatchMouseClickEvent target="navigator.activeView.taNum" localX="40" localY="50" waitEvent="softKeyboardActivate" />
+					<Pause timeout="200"/>
+					<RunCode code="application.stage.focus=null" waitTarget="navigator.activeView.taNum" waitEvent="softKeyboardDeactivate"/>
+				</body>
+			</TestCase>
+			<TestCase testID="SoftKeyboard_method_ensureElementIsVisible_TextArea_resize_hgroup_left" keywords="[SoftKeyboard, method]" description="pass TextArea to ensureElementIsVisible">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+					<RunCode code="application.navigator.pushView(views.HTextArea2)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<SetProperty target="navigator.activeView.hg" propertyName="horizontalScrollPosition" value = "300" />
+					<Pause timeout="100"/>
+					<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.taLorem) " />
+					<Pause timeout="200"/>
+					<AssertMethodValue  method="value=application.navigator.activeView.hg.layout.fractionOfElementInView(application.navigator.activeView.hg.getElementIndex(application.navigator.activeView.taLorem))" value = "1" />
+					<DispatchMouseClickEvent target="navigator.activeView.taLorem" localX="50" localY="50" waitEvent="softKeyboardActivate" />
+					<Pause timeout="100"/>
+					<AssertMethodValue  method="value=application.navigator.activeView.hg.layout.fractionOfElementInView(application.navigator.activeView.hg.getElementIndex(application.navigator.activeView.taLorem))" value = "1" />
+					<RunCode code="application.stage.focus=null" waitTarget="navigator.activeView.taLorem" waitEvent="softKeyboardDeactivate"/>
+					
+				</body>
+			</TestCase>
+	</testCases>
+</UnitTester>

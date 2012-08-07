@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        xmlns:renderers="renderers.*"
+        title="Wi-Fi settings"
+        creationComplete="init()">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.events.PropertyChangeEvent;
+            
+            import renderers.*;
+            
+            private function init():void {
+                target.dataGroup.addEventListener("propertyChange", handle);
+            }
+            
+            /** Change the size of the shadows based on scroll position */
+            private function handle(e:PropertyChangeEvent):void {
+                if (e.property == "verticalScrollPosition"){
+                    var gradientHeight:int = 10;
+                    
+                    // top shadow
+                    if (e.newValue <= gradientHeight){
+                        shadowRectTop.height = e.newValue as Number;
+                    } else {
+                        shadowRectTop.height = gradientHeight;
+                    }
+                    
+                    // bottom shadow
+                    if (e.newValue >= e.target.contentHeight - e.target.height - gradientHeight){
+                        shadowRectBottom.height = ((e.target.contentHeight as Number) - (e.target.height as Number)) - (e.newValue as Number);
+                    } else {
+                        shadowRectBottom.height = gradientHeight;
+                    }
+                    
+                }
+            }
+            
+            public function settingsItemRendererFunction(item:Object):ClassFactory {
+                if (item.isSeparator != null)
+                    return new ClassFactory(renderers.SettingsSeparatorItemRenderer);
+                
+                if (item.isNetworkRow != null)
+                    return new ClassFactory(NetworkSettingsRenderer);
+                
+                return new ClassFactory(renderers.SettingsItemRenderer);
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <fx:Component className="NetworkSettingsRenderer">
+            <renderers:SettingsItemRenderer decorator="{wifiIcon}" color="white" verticalGap="7">
+                <fx:Script>
+                    <![CDATA[
+						import mx.events.FlexEvent;
+                        [Embed(source="../assets/settingsIconWifi.png")]
+                        [Bindable]
+                        public var wifiIcon:Class;
+                    ]]>
+                </fx:Script>
+            </renderers:SettingsItemRenderer>
+        </fx:Component>
+    </fx:Declarations>
+    
+    <s:List id="target" width="100%" height="100%" labelField="name"  color="white" 
+            contentBackgroundColor="black" alternatingItemColors="black" selectionColor="0xFFBE00" downColor="0xFFBE00"
+            itemRendererFunction="settingsItemRendererFunction">
+        <s:dataProvider>
+            <s:ArrayList>
+                <fx:Object name="Wi-Fi" description="Connected to GuestNetwork" />
+                <fx:Object name="Network notification" description="Notify me when an open network is available" />
+                <fx:Object name="Wi-Fi Networks" isSeparator="true"  />
+                <fx:Object name="GuestNetwork" description="Connected" isNetworkRow="true" />
+                <fx:Object name="CorpNetwork" description="Secured with WPA/WPA2 PSK" isNetworkRow="true" />
+                <fx:Object name="cyclone" description="Secured with WEP" isNetworkRow="true" />
+                <fx:Object name="linksys" description="Secured with WPA/WPA2 PSK" isNetworkRow="true" />
+            </s:ArrayList>
+        </s:dataProvider>
+    </s:List>
+    
+    <!-- top and bottom gradient effects -->
+    
+    <s:Rect id="shadowRectTop" width="100%" top="0" height="0">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="black" />
+                <s:GradientEntry color="black" alpha="0" />
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    
+    <s:Rect id="shadowRectBottom" width="100%" bottom="0" height="0">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="black" alpha="0" />
+                <s:GradientEntry color="black" />
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    
+</s:View>

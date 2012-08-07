@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/TabbedViewNavigatorApplication/properties/"  
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns="*" 
+	testSWF="TabbedApp1Navigator.mxml">
+    
+	<!-- This set of lines form a template that must be in each unit test. -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }           
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+			import views.*;
+			import mx.core.FlexGlobals;
+			import spark.components.TabbedViewNavigator;
+			import spark.components.View;
+			import spark.components.ViewNavigator;
+			import spark.components.supportClasses.ViewNavigatorBase;
+
+			private var _nav1:ViewNavigator;
+			private var _nav2:ViewNavigator;
+			
+			public function get nav1():ViewNavigator
+			{
+				if (_nav1 == null)
+				{
+					_nav1 = new ViewNavigator();
+					_nav1.percentWidth = 100;
+					_nav1.percentHeight = 100;
+					_nav1.label = "Nav1";
+				}
+				return _nav1;
+			}
+
+			public function get nav2():ViewNavigator
+			{
+				if (_nav2 == null)
+				{
+					_nav2 = new ViewNavigator();
+					_nav2.percentWidth = 100;
+					_nav2.percentHeight = 100;
+					_nav2.label = "Nav2";
+				}
+				return _nav2;
+			}
+
+			public function activeView() : View 
+			{
+				return tabbedNavigator().activeView;
+			}
+
+			public function tabbedNavigator() : TabbedViewNavigator 
+			{
+				return FlexGlobals.topLevelApplication.tabbedNavigator;
+			}
+			
+			public function selectedNavigator() : ViewNavigator 
+			{
+				return FlexGlobals.topLevelApplication.tabbedNavigator.selectedNavigator;
+			}
+
+        ]]>
+    </fx:Script>
+
+    <testCases>
+		<TestCase testID="tabbedViewNavigatorApp_navigators_inMxml" description="Test navigators set in mxml" keywords="[TabbedViewNavigatorApplication]">
+            <body>
+				<AssertPropertyValue target="navigators" propertyName="length" value="1"/>
+				<AssertPropertyValue target="tabbedNavigator.selectedNavigator" propertyName="label" value="Favorites"/>
+				<AssertMethodValue method="value=(activeView() is View1)" value="true"/>
+            </body>
+        </TestCase>
+
+		<TestCase testID="tabbedViewNavigatorApp_navigators_addItems" description="Add tabbedNavigator in AS using addItem" keywords="[TabbedViewNavigatorApplication]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetNavigator()" waitTarget="tabbedNavigator" waitEvent="resetNavigatorComplete"/>
+			</setup>
+            <body>
+				<AssertPropertyValue target="navigators" propertyName="length" value="0"/>
+				<RunCode code="FlexGlobals.topLevelApplication.tabbedNavigator.addItem(nav1)" waitTarget="tabbedNavigator" waitEvent="propertyChange"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.tabbedNavigator.addItem(nav2)" waitTarget="tabbedNavigator" waitEvent="propertyChange"/>				
+				<AssertPropertyValue target="navigators" propertyName="length" value="2"/>
+				<AssertPropertyValue target="tabbedNavigator.selectedNavigator" propertyName="label" value="Nav1"/>
+            </body>
+        </TestCase>
+		
+    </testCases>
+
+</UnitTester>

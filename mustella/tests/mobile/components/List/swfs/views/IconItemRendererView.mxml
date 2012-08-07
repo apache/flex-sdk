@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="IconItemRenderer" xmlns:renderers="renderers.*">
+    
+    <fx:Script source="viewScript.as" />
+    <fx:Script>
+        <![CDATA[
+			/** The index into the current renderer for manual testing */
+			[Bindable] public var currentIndex:Number = 0;
+
+			/** An array of the renderers this view tests */
+			public var itemRendererArray:Array = [
+                    views.IIR_basic,
+					views.IIR_scale,
+					views.IIR_repeat,
+					views.IIR_clip,
+					views.IIR_letterbox,
+					views.IIR_function,
+					views.IIR_function_field,
+                    views.IIR_CustomContentCache,
+                    views.IIR_iconPlaceholder,
+                    views.IIR_Styles_padding,
+                    views.IIR_Styles_alternatingItemColors_single,
+                    views.IIR_Styles_alternatingItemColors_multiple,
+                    views.IIR_Styles_verticalAlign_top,
+                    views.IIR_Styles_verticalAlign_bottom,
+                    views.IIR_Styles_downColor,
+                    views.IIR_Styles_selectionColor,
+                    views.IIR_Styles_textStyles,
+                    views.IIR_Styles_horizontalGap_0,
+                    views.IIR_Styles_horizontalGap_20,
+                    views.IIR_Styles_messageStyleName,
+                    views.IIR_externalImages,
+                    views.IIR_zeroIconDelay
+				];
+			
+			/** Sets the itemRenderer to the next one in our array */
+			protected function applyNextRenderer(event:MouseEvent):void
+			{
+				this.title = flash.utils.getQualifiedClassName(itemRendererArray[currentIndex]).split("::")[1];
+                target.dataGroup.verticalScrollPosition = 0;
+				target.itemRenderer = new ClassFactory(itemRendererArray[currentIndex]);
+				currentIndex++;
+				
+				if (currentIndex >= itemRendererArray.length)
+					nextButton.enabled = false;
+			}
+
+        ]]>
+    </fx:Script>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace renderers "renderers.*";
+		.customMessageStyleName
+		{
+			fontSize: 12;
+			color: #0000FF;
+		}
+	</fx:Style>	
+	
+	<fx:Declarations>
+		<s:ArrayList id="products">
+			<fx:Object myItemIndex="0" label="ProductFB45" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Designed to help software developers rapidly develop cross-platform rich Internet applications and content using the open source Flex framework"/>
+			<fx:Object myItemIndex="1" label="ProductCF" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Build enterprise applications" />
+			<fx:Object myItemIndex="2" label="SmallIcon" iconField=../../../../Assets/Images/smallbluerect.jpg" message="Mystery Product"/>
+			<fx:Object myItemIndex="3" label="ProductDW" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Empowers designers and developers to build standards-based websites with confidence" />
+			<fx:Object myItemIndex="4" label="ProductFB40" iconField="../../../../Assets/Images/smallbluerect.jpg" message="The spark architecture" />
+			<fx:Object myItemIndex="5" label="ProductFC" iconField="../../../../Assets/Images/smallbluerect.jpg" message="An approachable new interaction design tool" />
+			<fx:Object myItemIndex="6" label="ProductFP" iconField="../../../../Assets/Images/smallbluerect.jpg" message="The industry standard for interactive authoring"/>
+			<fx:Object myItemIndex="7" label="ProductFSDK" iconField="../../../../Assets/Images/smallbluerect.jpg" message="A highly productive, free, open source framework for building expressive web applications that deploy consistently on all major browsers, desktops, and operating systems" />
+			<fx:Object myItemIndex="8" label="ProductPH" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Digital imaging with a strong focus on photography"/>
+			<fx:Object myItemIndex="9" label="ProductFB452" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Designed to help software developers rapidly develop cross-platform rich Internet applications and content using the open source Flex framework"/>
+			<fx:Object myItemIndex="10" label="ProductCF2" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Build enterprise applications" />
+			<fx:Object myItemIndex="11" label="ProductDW2" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Empowers designers and developers to build standards-based websites with confidence" />
+			<fx:Object myItemIndex="12" label="ProductFB42" iconField="../../../../Assets/Images/smallbluerect.jpg" message="The spark architecture" />
+			<fx:Object myItemIndex="13" label="SmallIcon 2" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Mystery Product"/>
+			<fx:Object myItemIndex="14" label="ProductFC2" iconField="../../../../Assets/Images/smallbluerect.jpg" message="An approachable new interaction design tool" />
+			<fx:Object myItemIndex="15" label="ProductFP2" iconField="../../../../Assets/Images/smallbluerect.jpg" message="The industry standard for interactive authoring"/>
+			<fx:Object myItemIndex="16" label="ProductFSDK2" iconField="../../../../Assets/Images/smallbluerect.jpg" message="A highly productive, free, open source framework for building expressive web applications that deploy consistently on all major browsers, desktops, and operating systems" />
+			<fx:Object myItemIndex="17" label="ProductPH3" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Digital imaging with a strong focus on photography"/>
+            <fx:Object myItemIndex="18" label="ProductFB453" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Designed to help software developers rapidly develop cross-platform rich Internet applications and content using the open source Flex framework"/>
+            <fx:Object myItemIndex="19" label="ProductCF3" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Build enterprise applications" />
+            <fx:Object myItemIndex="20" label="ProductDW3" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Empowers designers and developers to build standards-based websites with confidence" />
+            <fx:Object myItemIndex="21" label="ProductFB43" iconField="../../../../Assets/Images/smallbluerect.jpg" message="The spark architecture" />
+            <fx:Object myItemIndex="22" label="SmallIcon 3" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Mystery Product"/>
+            <fx:Object myItemIndex="23" label="ProductFC3" iconField="../../../../Assets/Images/smallbluerect.jpg" message="An approachable new interaction design tool" />
+            <fx:Object myItemIndex="24" label="ProductFP3" iconField="../../../../Assets/Images/smallbluerect.jpg" message="The industry standard for interactive authoring"/>
+            <fx:Object myItemIndex="25" label="ProductFSDK3" iconField="../../../../Assets/Images/smallbluerect.jpg" message="A highly productive, free, open source framework for building expressive web applications that deploy consistently on all major browsers, desktops, and operating systems" />
+            <fx:Object myItemIndex="26" label="ProductPH3" iconField="../../../../Assets/Images/smallbluerect.jpg" message="Digital imaging with a strong focus on photography"/>
+		</s:ArrayList>
+		
+        <fx:Component className="IIR_basic">
+            <renderers:InstrumentedIconItemRenderer labelFunction="customLabelFunction" 
+                                                    iconField="iconField" iconPlaceholder="{loadingIcon}" iconWidth="100" iconHeight="100"
+                                                    messageFunction="customMessageFunction"  
+                                                    decorator="{myDecorator}">
+                <fx:Script>
+                    <![CDATA[
+                        
+                        [Embed(source="../assets/loading.png")]
+                        [Bindable]
+                        public var loadingIcon:Class;
+                        
+                        [Embed(source="../../../../../../Assets/Images/ButtonImages/check48x48.png")]
+                        [Bindable]
+                        public var myDecorator:Class;
+                        
+                        public function customLabelFunction(item:Object):String {
+                            return itemIndex + ". " + item.label;
+                        }
+                        public function customMessageFunction(item:Object):String {
+                            return (item.message as String).substr(0, 25) + "...";
+                        }
+                    ]]>
+                </fx:Script>
+            </renderers:InstrumentedIconItemRenderer>
+        </fx:Component>
+		<fx:Component className="IIR_scale">
+			<renderers:InstrumentedIconItemRenderer iconField="iconField"  messageField="message" decorator="{assets.Chevron}">
+                <fx:Script>
+                    <![CDATA[
+                        import assets.*;
+                    ]]>
+                </fx:Script>
+            </renderers:InstrumentedIconItemRenderer>
+		</fx:Component>
+        <fx:Component className="IIR_externalImages">
+            <renderers:InstrumentedIconItemRenderer iconFunction="loadExternalIcon" iconWidth="100" iconHeight="100"  messageField="message">
+                <fx:Script>
+                    <![CDATA[
+                        public function loadExternalIcon(value:Object):String {
+                            return "http://suncitydesign.com/splash.jpg";
+                        }
+                    ]]>
+                </fx:Script>
+            </renderers:InstrumentedIconItemRenderer>
+        </fx:Component>
+        <fx:Component className="IIR_zeroIconDelay">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" iconDelay="0" messageField="message" />
+        </fx:Component>
+		<fx:Component className="IIR_repeat">
+			<renderers:InstrumentedIconItemRenderer iconField="iconField"  decorator="{assets.Chevron}" iconFillMode="repeat" iconHeight="200" iconWidth="200">
+                <fx:Script>
+                    <![CDATA[
+                        import assets.*;
+                    ]]>
+                </fx:Script>
+            </renderers:InstrumentedIconItemRenderer>
+		</fx:Component>
+		<fx:Component className="IIR_clip">
+			<renderers:InstrumentedIconItemRenderer iconField="iconField"  decorator="{assets.Chevron}" iconFillMode="clip" iconHeight="80" iconWidth="80">
+                <fx:Script>
+                    <![CDATA[
+                        import assets.*;
+                    ]]>
+                </fx:Script>
+            </renderers:InstrumentedIconItemRenderer>
+		</fx:Component>
+		<fx:Component className="IIR_letterbox">
+			<renderers:InstrumentedIconItemRenderer iconField="iconField"  decorator="{assets.Chevron}" iconScaleMode="letterbox" iconHeight="150" iconWidth="200" color="#FF0000">
+                <fx:Script>
+                    <![CDATA[
+                        import assets.*;
+                    ]]>
+                </fx:Script>
+            </renderers:InstrumentedIconItemRenderer>
+		</fx:Component>
+		<fx:Component className="IIR_function">
+			<renderers:InstrumentedIconItemRenderer iconFunction="myIconFunction" labelFunction="myLabelFunction" messageFunction="myMessageFunction" decorator="{assets.Chevron}">
+				<fx:Script>
+					<![CDATA[
+                        import assets.*;
+                        
+						/** A simple label function */
+						public function myLabelFunction(item:Object):String {
+							return "Label Function " + item.label;
+						}
+						
+						/** A simple message function */
+						public function myMessageFunction(item:Object):String {
+							return "Message Function " + item.message;
+						}	
+						
+						/** A simple icon function */
+						public function myIconFunction(item:Object):String {
+							return "assets/settingsIcon" + (itemIndex % 10) + ".png";
+						}	
+					]]>
+				</fx:Script>
+			</renderers:InstrumentedIconItemRenderer>
+		</fx:Component>	
+		<fx:Component className="IIR_function_field">
+			<renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+													iconFunction="{myIconFunction}" labelFunction="{myLabelFunction}" messageFunction="{myMessageFunction}" 
+                                                    decorator="{assets.Chevron}">
+				<fx:Script>
+					<![CDATA[
+                        import assets.*;
+                        
+						/** A simple label function */
+						public function myLabelFunction(item:Object):String {
+							return "Label Function " + item.label;
+						}
+						
+						/** A simple message function */
+						public function myMessageFunction(item:Object):String {
+							return "Message Function " + item.message;
+						}	
+						
+						/** A simple icon function */
+						public function myIconFunction(item:Object):String {
+							return "assets/settingsIcon" + (itemIndex % 10) + ".png";
+						}		
+					]]>
+				</fx:Script>
+			</renderers:InstrumentedIconItemRenderer>
+		</fx:Component>
+        
+        <fx:Component className="IIR_CustomContentCache">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" iconHeight="120" iconWidth="120">
+                <renderers:iconContentLoader>
+                    <s:ContentCache id="imgCache" enableCaching="true" enableQueueing="true" maxActiveRequests="1" maxCacheEntries="10" />
+                </renderers:iconContentLoader>
+            </renderers:InstrumentedIconItemRenderer>
+        </fx:Component>
+        <fx:Component className="IIR_iconPlaceholder">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" iconHeight="120" iconWidth="120" iconPlaceholder="{loadingIcon}">
+                <fx:Script>
+                    <![CDATA[
+                        // Use a custom iconContentLoader that won't load the images so we can see the loadingIcon
+                        [Embed(source="../assets/loading.png")]
+                        [Bindable]
+                        public var loadingIcon:Class;
+                    ]]>
+                </fx:Script>
+                <renderers:iconContentLoader>
+                    <s:ContentCache id="imgCache" enableCaching="false" enableQueueing="true" maxActiveRequests="0" maxCacheEntries="10" />
+                </renderers:iconContentLoader>
+            </renderers:InstrumentedIconItemRenderer>
+		</fx:Component>	
+        <fx:Component className="IIR_Styles_messageStyleName" >
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" messageField="message" messageStyleName="IIR_Styles_messageStyleName_myStyle">
+                <fx:Style>
+                    .IIR_Styles_messageStyleName_myStyle {
+                        color: red;
+                    }
+                </fx:Style>
+            </renderers:InstrumentedIconItemRenderer>
+        </fx:Component>
+        <fx:Component className="IIR_Styles_padding">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    paddingTop="50" paddingBottom="50" paddingLeft="50" paddingRight="50" />
+        </fx:Component>
+        <fx:Component className="IIR_Styles_alternatingItemColors_single">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    alternatingItemColors="red" />
+        </fx:Component>
+        <fx:Component className="IIR_Styles_alternatingItemColors_multiple">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    alternatingItemColors="[red, blue]" />
+        </fx:Component>
+        <fx:Component className="IIR_Styles_verticalAlign_top">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    verticalAlign="top" />
+        </fx:Component>
+        <fx:Component className="IIR_Styles_verticalAlign_bottom">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    verticalAlign="bottom" />
+        </fx:Component>
+        <fx:Component className="IIR_Styles_downColor">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    downColor="red" />
+        </fx:Component>
+        <fx:Component className="IIR_Styles_selectionColor">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    selectionColor="blue" />
+        </fx:Component>
+        <fx:Component className="IIR_Styles_textStyles">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    textAlign="center"
+                                                    fontFamily="Georgia"
+                                                    fontWeight="bold"
+                                                    color="red"
+                                                    fontSize="40"
+                                                    textDecoration="underline"
+                                                    textIndent="10"
+                                                    leading="10"
+                                                    letterSpacing="-3" />
+        </fx:Component>
+        <fx:Component className="IIR_Styles_horizontalGap_0">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    horizontalGap="0" />
+        </fx:Component>
+        <fx:Component className="IIR_Styles_horizontalGap_20">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    horizontalGap="20" />
+        </fx:Component>
+        <fx:Component className="IIR_Styles_verticalGap_0">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    verticalGap="0" />
+        </fx:Component>
+        <fx:Component className="IIR_Styles_verticalGap_20">
+            <renderers:InstrumentedIconItemRenderer iconField="iconField" labelField="label" messageField="message" 
+                                                    verticalGap="20" />
+        </fx:Component>
+	</fx:Declarations>
+	
+    <s:states>
+        <s:State name="portrait" />
+        <s:State name="landscape" />
+    </s:states>
+    
+	<s:actionContent>
+		<s:Button id="nextButton" label="Next" click="applyNextRenderer(event)" />
+	</s:actionContent>
+    
+    <s:List id="target" verticalCenter="0" horizontalCenter="0"
+			width="460" height="660" width.landscape="780" height.landscape="350"
+            dataProvider="{products}" />
+    
+</s:View>

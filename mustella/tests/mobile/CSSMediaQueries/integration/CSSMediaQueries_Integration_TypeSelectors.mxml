@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/CSSMediaQueries/integration/"
+    testSWF="TypeSelectorApp.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<fx:Script>
+		<![CDATA[
+			import views.*;
+		]]>
+	</fx:Script>
+
+    <testCases>
+		<TestCase testID="TypeSelector_ButtonStyles" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure media queries work with button type selectors">
+			<body>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="iphone" deviceDensity="320" value="#000099"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue os="android" deviceDensity="160" value="#990000"/>
+					<ConditionalValue os="android" deviceDensity="240" value="#009900"/>
+					<ConditionalValue os="iphone" deviceDensity="320" value="#ffffff"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue os="android" deviceDensity="160" value="22"/>
+					<ConditionalValue os="android" deviceDensity="240" value="26"/>
+					<ConditionalValue os="iphone" deviceDensity="320" value="28"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="TypeSelector_Descendent" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure media queries work with descendent selectors">
+			<body>
+				<AssertStyleValue target="navigator.actionBar.skin.titleDisplay" styleName="color" value="#ffff00">
+					<ConditionalValue os="android" deviceDensity="160" value="#ff0000"/>
+					<ConditionalValue os="android" deviceDensity="240" value="#00ff00"/>
+					<ConditionalValue os="iphone" deviceDensity="320" value="#0000ff"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.actionBar" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="TypeSelector_States" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure media queries work with states">
+			<setup>
+				<ResetComponent target="navigator.activeView.statesCheckbox" className="comps.StatesCheckbox" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.statesCheckbox" propertyName="currentState" value="state2" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="navigator.activeView.statesCheckbox" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" deviceDensity="160" value="#990000"/>
+					<ConditionalValue os="android" deviceDensity="240" value="#009900"/>
+					<ConditionalValue os="iphone" deviceDensity="320" value="#000099"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.statesCheckbox" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

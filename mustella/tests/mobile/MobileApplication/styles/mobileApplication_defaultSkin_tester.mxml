@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/MobileApplication/styles/"  
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="MobileApplicationNoView.mxml">
+
+
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<!--   -->
+
+	<fx:Script>
+		<![CDATA[ 
+				import mx.core.FlexGlobals;
+				import skin.CustomMobileApplicationSkin;
+				import spark.skins.mobile.ViewNavigatorApplicationSkin;
+		]]>
+	</fx:Script>
+	
+	<testCases>
+
+		<TestCase testID="mobileApp_default_aspectRatio" keywords="[MobileApplication]" description="Verify default aspectRatio">		
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.aspectRatio == 'portrait')" value="true" >
+					<ConditionalValue os="qnx" value="false" />
+				</AssertMethodValue>
+			</body>	
+		</TestCase>
+	
+		<TestCase testID="mobileApp_noView" keywords="[MobileApplication, View]" description="Verify default navigator when no firstView is set">
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator != null" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.actionBar!= null" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.firstView == null" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.firstViewData == null" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.viewMenu != null" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_skinClass_change_to_customSkin" keywords="[MobileApplication]" description="Test changing skinClass at runtime">
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator != null" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.actionBar!= null" value="true" />
+				<AssertMethodValue method="value = getQualifiedClassName(FlexGlobals.topLevelApplication.getStyle('skinClass'))" value="spark.skins.mobile::ViewNavigatorApplicationSkin"/> 
+				<RunCode code="FlexGlobals.topLevelApplication.setStyle('skinClass', skin.CustomMobileApplicationSkin)"/>
+				<Pause timeout="200"/>
+				<AssertMethodValue method="value = getQualifiedClassName(FlexGlobals.topLevelApplication.getStyle('skinClass'))" value="skin::CustomMobileApplicationSkin"/> 
+				<DispatchKeyEvent keys="[BACK]" />
+			</body>
+		</TestCase>
+
+
+	</testCases>
+</UnitTester>

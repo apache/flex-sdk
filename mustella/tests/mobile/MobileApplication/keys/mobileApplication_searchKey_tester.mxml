@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/MobileApplication/keys/"  
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="MobileApplicationWithViews.mxml">
+
+
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<fx:Script>
+		<![CDATA[ 
+			import components.*;
+			import mx.core.FlexGlobals;
+			import spark.components.View;
+			import spark.components.ViewNavigator;
+			
+			public function activeView() : View {
+				return navigator().activeView;
+			}
+
+			public function navigator() : ViewNavigator {
+				return FlexGlobals.topLevelApplication.navigator;
+			}
+
+		]]>
+	</fx:Script>
+	
+	<testCases>
+	
+		<TestCase testID="mobileApp_searchKey_firstView_null" keywords="[MobileApplication, View]" description="Verify search key does nothing">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>				
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.length == 0)" value="true" />
+				<!--TODO: fix waitTarget and event-->
+				<DispatchKeyEvent keys="[SEARCH]"/>
+				<Pause timeout="100"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.length == 0)" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView == null" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_searchKey_in_activeView" keywords="[MobileApplication, View]" description="Verify search key does nothing">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+				<RunCode code="navigator().pushView(components.View4)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.length == 1)" value="true" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View4)" value="true"/>
+				<!--TODO: fix waitTarget and event-->
+				<DispatchKeyEvent keys="[SEARCH]" />
+				<Pause timeout="100"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.length == 1)" value="true" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View4)" value="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mobileApp_searchKey_menuActive" keywords="[MobileApplication, ViewMenu]" description="Verify search key does nothing">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+				<RunCode code="navigator().pushView(components.View4)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.length == 1)" value="true" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View4)" value="true"/>
+				<DispatchKeyEvent keys="[MENU]" />
+				<Pause timeout="100"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen == true)" value="true" />
+				<!--TODO: fix waitTarget and event-->
+				<DispatchKeyEvent keys="[SEARCH]" />
+				<Pause timeout="100"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen == true)" value="true" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.length == 1)" value="true" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View4)" value="true"/>
+				<DispatchKeyEvent keys="[BACK]" />
+				<Pause timeout="100"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen == false)" value="true" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

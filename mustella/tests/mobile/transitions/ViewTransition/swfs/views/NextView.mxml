@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="NextView">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import comps.*;
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<s:ZoomViewTransition id="transitionZoom" />
+		<s:SlideViewTransition id="transitionSlide" />
+		<s:SlideViewTransition id="transitionSlideLeft" direction="left" />
+		<s:SlideViewTransition id="transitionSlideRight" direction="right" />
+		<s:SlideViewTransition id="transitionSlideUp" direction="up" />
+		<s:SlideViewTransition id="transitionSlideDown" direction="down" />
+		<s:SlideViewTransition id="transitionSlideCoverLeft" mode="cover" direction="left" />
+		<s:SlideViewTransition id="transitionSlideCoverRight" mode="cover" direction="right" />
+		<s:SlideViewTransition id="transitionSlideCoverUp" mode="cover" direction="up" />
+		<s:SlideViewTransition id="transitionSlideCoverDown" mode="cover" direction="down" />
+		<s:SlideViewTransition id="transitionSlideUnCoverLeft" mode="cover" direction="left" />
+		<s:SlideViewTransition id="transitionSlideUnCoverRight" mode="cover" direction="right" />
+		<s:SlideViewTransition id="transitionSlideUnCoverUp" mode="cover" direction="up" />
+		<s:SlideViewTransition id="transitionSlideUnCoverDown" mode="cover" direction="down" />
+		<s:ZoomViewTransition id="transitionZoomIn" mode="in"/>
+		<s:FlipViewTransition id="transitionFlip" />
+		<s:FlipViewTransition id="transitionFlipRight" direction="right" />
+		<s:FlipViewTransition id="transitionFlipRightCube" mode="cube" direction="right" />
+		<s:FlipViewTransition id="transitionFlipLeft" direction="left" />
+		<s:FlipViewTransition id="transitionFlipLeftCube" direction="left" mode="cube"/>
+		<s:FlipViewTransition id="transitionFlipUp" mode="cube"/>
+		<s:FlipViewTransition id="transitionFlipUpCube" direction="up" mode="cube"/>
+		<s:FlipViewTransition id="transitionFlipDown" direction="down"/>
+		<s:FlipViewTransition id="transitionFlipDownCube" mode="cube" direction="down"/>
+		<s:CrossFadeViewTransition id="transitionFade" />
+		<s:ZoomViewTransition id="transitionZoomWOContent" transitionControlsWithContent="false"/>
+		<s:ZoomViewTransition id="transitionZoomInWOContent" mode="in" transitionControlsWithContent="false"/>
+		<s:SlideViewTransition id="transitionSlideWContent" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideLeftWContent" direction="left" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideRightWContent" direction="right" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideUpWContent" direction="up" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideDownWContent" direction="down" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideCoverLeftWContent" mode="cover" direction="left" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideCoverRightWContent" mode="cover" direction="right" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideCoverUpWContent" mode="cover" direction="up" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideCoverDownWContent" mode="cover" direction="down" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideUnCoverLeftWContent" mode="cover" direction="left" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideUnCoverRightWContent" mode="cover" direction="right" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideUnCoverUpWContent" mode="cover" direction="up" transitionControlsWithContent="true"/>
+		<s:SlideViewTransition id="transitionSlideUnCoverDownWContent" mode="cover" direction="down" transitionControlsWithContent="true"/>
+		<s:FlipViewTransition id="transitionFlipWContent" transitionControlsWithContent="true"/>
+		<s:FlipViewTransition id="transitionFlipRightWContent" direction="right" transitionControlsWithContent="true"/>
+		<s:FlipViewTransition id="transitionFlipRightCubeWContent" mode="cube" direction="right" transitionControlsWithContent="true"/>
+		<s:FlipViewTransition id="transitionFlipLeftWContent" direction="left" transitionControlsWithContent="true"/>
+		<s:FlipViewTransition id="transitionFlipLeftCubeWContent" direction="left" mode="cube" transitionControlsWithContent="true"/>
+		<s:FlipViewTransition id="transitionFlipUpWContent" mode="cube" transitionControlsWithContent="true"/>
+		<s:FlipViewTransition id="transitionFlipUpCubeWContent" direction="up" mode="cube"/>
+		<s:FlipViewTransition id="transitionFlipDownWContent" direction="down"/>
+		<s:FlipViewTransition id="transitionFlipDownCubeWContent" mode="cube" direction="down"/>
+		<s:CrossFadeViewTransition id="transitionFadeWContent" transitionControlsWithContent="true" />
+		<s:SlideViewTransition id="transitionSlideWSine" direction="right" easer="{sine}"/>
+		<s:SlideViewTransition id="transitionSlideWBounce" direction="up" easer="{bounce}" />
+		<s:SlideViewTransition id="transitionSlideWElastic" direction="left" easer="{elastic}" />
+		<s:SlideViewTransition id="transitionSlideWPower" direction="down" easer="{power}" />
+		<s:SlideViewTransition id="transitionSlideWLinear" easer="{linear}" />
+		<s:CrossFadeViewTransition id="transitionFadeWSine" easer="{sine}" />
+		<s:CrossFadeViewTransition id="transitionFadeWBounce" easer="{bounce}" />
+		<s:CrossFadeViewTransition id="transitionFadeWElastic" easer="{elastic}" />
+		<s:CrossFadeViewTransition id="transitionFadeWPower" easer="{power}" />
+		<s:CrossFadeViewTransition id="transitionFadeWLinear" easer="{linear}" />
+		<s:ZoomViewTransition id="transitionZoomWSine" easer="{sine}" />
+		<s:ZoomViewTransition id="transitionZoomWBounce" easer="{bounce}" />
+		<s:ZoomViewTransition id="transitionZoomWElastic" easer="{elastic}" />
+		<s:ZoomViewTransition id="transitionZoomWPower" easer="{power}" />
+		<s:ZoomViewTransition id="transitionZoomWLinear" easer="{linear}" />
+		<s:FlipViewTransition id="transitionFlipWSine" easer="{sine}" />
+		<s:FlipViewTransition id="transitionFlipWBounce" easer="{bounce}" />
+		<s:FlipViewTransition id="transitionFlipWElastic" easer="{elastic}" />
+		<s:FlipViewTransition id="transitionFlipWPower" easer="{power}" />
+		<s:FlipViewTransition id="transitionFlipWLinear" easer="{linear}" />
+		
+		
+	</fx:Declarations>
+	<fx:Declarations>
+		<s:Sine id="sine" easeInFraction="1" />
+		<s:Bounce id="bounce" />
+		<s:Elastic id="elastic" />
+		<s:Power id="power" />
+		<s:Linear id="linear" />
+		
+	</fx:Declarations>
+
+</s:View>

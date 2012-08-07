@@ -1,0 +1,1114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/List/integration/"
+    testSWF="List.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+        
+        <!-- 
+        ==================================
+        Testing Button+Friends Interaction
+        ==================================
+        
+        Tests how different mobile components react when used in a Scroller and/or List.
+        
+        There are some tests that have very detailed mouse event sequences to test real world situations.  Those tests are typically only
+        performed on Button and then simpler sequences are used for the other Button subclasses.
+        
+        Button in a Scroller
+        
+        + mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click (detailed desktop sequence)
+        + mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click (detailed device sequence)
+        + mouse down on a button and induce a scroll, the click should not fire
+        + swiping a button shouldn't put it in its down state (SDK-27399)
+
+        Button in a List renderer
+        
+        + mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click
+        + mouse down on a button, drag off not inducing a scroll, the click should not fire
+        + mouse down on a button, drag to induce a scroll, the click should not fire
+        + clicking on the Button shouldn't select the item renderer
+        
+        CheckBox in a List renderer
+        
+        + mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click + change
+        + mouse down on a button, drag off not inducing a scroll, the click + change should not fire
+        + mouse down on a button, drag to induce a scroll, the click + change should not fire
+        + clicking the checkbox should select it, and not the renderer (SDK-27365)
+        
+        RadioButton in a List renderer
+        
+        + mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click + change
+        + mouse down on a button, drag off not inducing a scroll, the click + change should not fire
+        + mouse down on a button, drag to induce a scroll, the click + change should not fire
+        + clicking the radiobutton should select it, and not the renderer (SDK-27365)
+        
+        ToggleButton in a List renderer
+
+        + mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click + change
+        + mouse down on a button, drag off not inducing a scroll, the click + change should not fire
+        + mouse down on a button, drag to induce a scroll, the click + change should not fire
+        + clicking the togglebutton should select it, and not the renderer (SDK-27365)
+       
+        HSlider in a List renderer
+        
+        + clicking the thumb should not change the slider value and fire a click event
+        + clicking the track should not change the slider value and fire a click event
+        + should be able to induce a scroll when mousing down on the track
+        + mouse down on the thumb, drag left, the scroll position shouldn't change, the slider value should
+        + mouse down on the thumb, drag right, the scroll position shouldn't change, the slider value should
+        + mouse down on the thumb, drag up, the scroll position shouldn't change, the slider value should
+        + mouse down on the thumb, drag down, the scroll position shouldn't change, the slider value should
+        + use a detailed mouse event sequence that mouses in different directions, scroll position shouldn't change
+        
+        -->
+        
+        
+        <!-- Button in a List renderer-->
+        
+        <TestCase testID="List_Integration_button_list_offAndOn" keywords="[List, Integration]" description="mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click + change">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" waitEvent="change">
+                    <fx:Object type="mouseMove" localX="260" localY="148" fakeTimeValue="59459" />
+                    <fx:Object type="rollOver" localX="260" localY="148" fakeTimeValue="59464" />
+                    <fx:Object type="mouseOver" localX="260" localY="148" fakeTimeValue="59467" />
+                    <fx:Object type="mouseDown" localX="260" localY="148" fakeTimeValue="59474" />
+                    <fx:Object type="mouseMove" localX="259" localY="147" fakeTimeValue="59493" />
+                    <fx:Object type="mouseMove" localX="256" localY="148" fakeTimeValue="59558" />
+                    <fx:Object type="mouseMove" localX="253" localY="151" fakeTimeValue="59626" />
+                    <fx:Object type="mouseMove" localX="248" localY="151" fakeTimeValue="59674" />
+                    <fx:Object type="mouseMove" localX="235" localY="151" fakeTimeValue="59732" />
+                    <fx:Object type="mouseMove" localX="210" localY="151" fakeTimeValue="59785" />
+                    <fx:Object type="mouseMove" localX="187" localY="151" fakeTimeValue="59843" />
+                    <fx:Object type="mouseOut" localX="167" localY="151" fakeTimeValue="59873" />
+                    <fx:Object type="mouseOver" localX="167" localY="151" fakeTimeValue="59887" />
+                    <fx:Object type="mouseMove" localX="152" localY="152" fakeTimeValue="59899" />
+                    <fx:Object type="mouseOut" localX="152" localY="152" fakeTimeValue="59900" />
+                    <fx:Object type="mouseOver" localX="152" localY="152" fakeTimeValue="59900" />
+                    <fx:Object type="mouseMove" localX="132" localY="154" fakeTimeValue="59926" />
+                    <fx:Object type="mouseMove" localX="106" localY="154" fakeTimeValue="59981" />
+                    <fx:Object type="mouseMove" localX="90" localY="154" fakeTimeValue="60037" />
+                    <fx:Object type="mouseMove" localX="83" localY="154" fakeTimeValue="60099" />
+                    <fx:Object type="mouseMove" localX="84" localY="154" fakeTimeValue="60192" />
+                    <fx:Object type="mouseMove" localX="98" localY="154" fakeTimeValue="60254" />
+                    <fx:Object type="mouseMove" localX="137" localY="154" fakeTimeValue="60314" />
+                    <fx:Object type="mouseMove" localX="175" localY="153" fakeTimeValue="60366" />
+                    <fx:Object type="mouseOut" localX="175" localY="153" fakeTimeValue="60367" />
+                    <fx:Object type="mouseOver" localX="175" localY="154" fakeTimeValue="60383" />
+                    <fx:Object type="mouseMove" localX="187" localY="154" fakeTimeValue="60395" />
+                    <fx:Object type="mouseMove" localX="207" localY="153" fakeTimeValue="60453" />
+                    <fx:Object type="mouseMove" localX="215" localY="153" fakeTimeValue="60507" />
+                    <fx:Object type="mouseMove" localX="221" localY="154" fakeTimeValue="60563" />
+                    <fx:Object type="mouseUp" localX="222" localY="154" fakeTimeValue="60732" />
+                    <fx:Object type="click" localX="222" localY="154" fakeTimeValue="60742" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_button_list_dontInduceScrolling" keywords="[List, Integration]" description="mouse down on a button, drag without inducing a scroll, the click should not fire">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="75" dragXFrom="190" dragXTo="140" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_button_list_induceScrolling" keywords="[List, Integration]" description="mouse down on a button, drag to induce a scroll, the click should not fire">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="25" dragXFrom="250" dragXTo="250" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_button_list_click" keywords="[List, Integration]" description="clicking on the Button and should select the item renderer">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <Pause timeout="500" /><!-- TODO: For my nexus one investigations -->
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="250" localY="150" waitEvent="change" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_button_list_click_preventDefault" keywords="[List, Integration]" description="clicking on the Button with preventDefault on mosue down shouldn't select the renderer">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ButtonRendererPreventDefaultView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <Pause timeout="500" /><!-- TODO: For my nexus one investigations -->
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="250" localY="150" waitEvent="click" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+        
+        <!-- CheckBox in a List renderer-->
+        
+        <TestCase testID="List_Integration_checkbox_list_offAndOn" keywords="[List, Integration]" description="mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click + change">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CheckBoxRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" waitEvent="change">
+                    <fx:Object type="rollOver" localX="191" localY="19" fakeTimeValue="19478" />
+                    <fx:Object type="mouseOver" localX="191" localY="19" fakeTimeValue="19478" />
+                    <fx:Object type="mouseMove" localX="174" localY="120" fakeTimeValue="20361" />
+                    <fx:Object type="mouseDown" localX="174" localY="120" fakeTimeValue="21215" />
+                    <fx:Object type="mouseMove" localX="173" localY="120" fakeTimeValue="21478" />
+                    <fx:Object type="mouseMove" localX="171" localY="120" fakeTimeValue="21495" />
+                    <fx:Object type="mouseMove" localX="167" localY="121" fakeTimeValue="21513" />
+                    <fx:Object type="mouseMove" localX="160" localY="121" fakeTimeValue="21528" />
+                    <fx:Object type="mouseMove" localX="152" localY="122" fakeTimeValue="21545" />
+                    <fx:Object type="mouseMove" localX="145" localY="122" fakeTimeValue="21563" />
+                    <fx:Object type="mouseOut" localX="145" localY="122" fakeTimeValue="21563" />
+                    <fx:Object type="mouseOver" localX="145" localY="122" fakeTimeValue="21566" />
+                    <fx:Object type="mouseMove" localX="139" localY="122" fakeTimeValue="21578" />
+                    <fx:Object type="mouseMove" localX="132" localY="122" fakeTimeValue="21595" />
+                    <fx:Object type="mouseMove" localX="127" localY="122" fakeTimeValue="21612" />
+                    <fx:Object type="mouseMove" localX="123" localY="123" fakeTimeValue="21628" />
+                    <fx:Object type="mouseMove" localX="119" localY="123" fakeTimeValue="21645" />
+                    <fx:Object type="mouseMove" localX="117" localY="123" fakeTimeValue="21661" />
+                    <fx:Object type="mouseMove" localX="113" localY="123" fakeTimeValue="21679" />
+                    <fx:Object type="mouseMove" localX="110" localY="123" fakeTimeValue="21695" />
+                    <fx:Object type="mouseMove" localX="109" localY="123" fakeTimeValue="21712" />
+                    <fx:Object type="mouseMove" localX="110" localY="123" fakeTimeValue="21829" />
+                    <fx:Object type="mouseMove" localX="114" localY="123" fakeTimeValue="21845" />
+                    <fx:Object type="mouseMove" localX="123" localY="124" fakeTimeValue="21862" />
+                    <fx:Object type="mouseMove" localX="132" localY="124" fakeTimeValue="21879" />
+                    <fx:Object type="mouseMove" localX="142" localY="125" fakeTimeValue="21895" />
+                    <fx:Object type="mouseMove" localX="153" localY="125" fakeTimeValue="21913" />
+                    <fx:Object type="mouseOut" localX="153" localY="125" fakeTimeValue="21914" />
+                    <fx:Object type="mouseOver" localX="153" localY="125" fakeTimeValue="21917" />
+                    <fx:Object type="mouseMove" localX="163" localY="125" fakeTimeValue="21929" />
+                    <fx:Object type="mouseMove" localX="170" localY="125" fakeTimeValue="21946" />
+                    <fx:Object type="mouseMove" localX="175" localY="125" fakeTimeValue="21963" />
+                    <fx:Object type="mouseMove" localX="176" localY="125" fakeTimeValue="21979" />
+                    <fx:Object type="mouseUp" localX="176" localY="125" fakeTimeValue="22273" />
+                    <fx:Object type="click" localX="176" localY="125" fakeTimeValue="22276" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="CheckBox 1 is true" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_checkbox_list_dontInduceScrolling" keywords="[List, Integration]" description="mouse down on a button, drag without inducing a scroll, the click + change should not fire">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CheckBoxRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="125" dragYTo="125" dragXFrom="175" dragXTo="125" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="Not Changed" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_checkbox_list_induceScrolling" keywords="[List, Integration]" description="mouse down on a button, drag to induce a scroll, the click + change should not fire">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CheckBoxRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="25" dragXFrom="280" dragXTo="280" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="Not Changed" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_checkbox_list_click" keywords="[List, Integration]" description="clicking the checkbox should select it, and not the renderer (SDK-27365, SDK-29422)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CheckBoxRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="175" localY="125" waitEvent="change" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="CheckBox 1 is true" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+            </body>
+        </TestCase>
+        
+        <!-- RadioButton in a List renderer -->
+        
+        <TestCase testID="List_Integration_radiobutton_list_offAndOn" keywords="[List, Integration]" description="mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click + change">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.RadioButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target">
+                    <fx:Object type="rollOver" localX="183" localY="10" fakeTimeValue="13932" />
+                    <fx:Object type="mouseOver" localX="183" localY="10" fakeTimeValue="13932" />
+                    <fx:Object type="mouseMove" localX="175" localY="117" fakeTimeValue="14129" />
+                    <fx:Object type="mouseDown" localX="175" localY="117" fakeTimeValue="14449" />
+                    <fx:Object type="mouseMove" localX="174" localY="118" fakeTimeValue="14596" />
+                    <fx:Object type="mouseMove" localX="172" localY="118" fakeTimeValue="14613" />
+                    <fx:Object type="mouseMove" localX="167" localY="119" fakeTimeValue="14630" />
+                    <fx:Object type="mouseMove" localX="160" localY="119" fakeTimeValue="14647" />
+                    <fx:Object type="mouseMove" localX="153" localY="119" fakeTimeValue="14663" />
+                    <fx:Object type="mouseMove" localX="144" localY="119" fakeTimeValue="14681" />
+                    <fx:Object type="mouseOut" localX="144" localY="119" fakeTimeValue="14681" />
+                    <fx:Object type="mouseOver" localX="144" localY="119" fakeTimeValue="14685" />
+                    <fx:Object type="mouseMove" localX="132" localY="119" fakeTimeValue="14696" />
+                    <fx:Object type="mouseMove" localX="118" localY="119" fakeTimeValue="14713" />
+                    <fx:Object type="mouseMove" localX="106" localY="119" fakeTimeValue="14730" />
+                    <fx:Object type="mouseOut" localX="106" localY="119" fakeTimeValue="14730" />
+                    <fx:Object type="mouseOver" localX="106" localY="119" fakeTimeValue="14730" />
+                    <fx:Object type="mouseMove" localX="94" localY="120" fakeTimeValue="14746" />
+                    <fx:Object type="mouseMove" localX="87" localY="120" fakeTimeValue="14763" />
+                    <fx:Object type="mouseMove" localX="82" localY="120" fakeTimeValue="14780" />
+                    <fx:Object type="mouseMove" localX="79" localY="121" fakeTimeValue="14797" />
+                    <fx:Object type="mouseMove" localX="78" localY="121" fakeTimeValue="14897" />
+                    <fx:Object type="mouseMove" localX="78" localY="122" fakeTimeValue="15014" />
+                    <fx:Object type="mouseMove" localX="80" localY="122" fakeTimeValue="15030" />
+                    <fx:Object type="mouseMove" localX="85" localY="122" fakeTimeValue="15047" />
+                    <fx:Object type="mouseMove" localX="95" localY="122" fakeTimeValue="15064" />
+                    <fx:Object type="mouseMove" localX="107" localY="122" fakeTimeValue="15080" />
+                    <fx:Object type="mouseOut" localX="107" localY="122" fakeTimeValue="15080" />
+                    <fx:Object type="mouseOver" localX="107" localY="122" fakeTimeValue="15080" />
+                    <fx:Object type="mouseMove" localX="118" localY="122" fakeTimeValue="15097" />
+                    <fx:Object type="mouseMove" localX="128" localY="122" fakeTimeValue="15114" />
+                    <fx:Object type="mouseMove" localX="137" localY="122" fakeTimeValue="15130" />
+                    <fx:Object type="mouseMove" localX="144" localY="122" fakeTimeValue="15147" />
+                    <fx:Object type="mouseMove" localX="150" localY="121" fakeTimeValue="15164" />
+                    <fx:Object type="mouseMove" localX="155" localY="121" fakeTimeValue="15182" />
+                    <fx:Object type="mouseOut" localX="155" localY="121" fakeTimeValue="15182" />
+                    <fx:Object type="mouseOver" localX="155" localY="121" fakeTimeValue="15186" />
+                    <fx:Object type="mouseMove" localX="157" localY="121" fakeTimeValue="15197" />
+                    <fx:Object type="mouseMove" localX="158" localY="121" fakeTimeValue="15214" />
+                    <fx:Object type="mouseMove" localX="159" localY="121" fakeTimeValue="15231" />
+                    <fx:Object type="mouseMove" localX="160" localY="121" fakeTimeValue="15247" />
+                    <fx:Object type="mouseMove" localX="162" localY="121" fakeTimeValue="15264" />
+                    <fx:Object type="mouseMove" localX="164" localY="121" fakeTimeValue="15297" />
+                    <fx:Object type="mouseMove" localX="165" localY="121" fakeTimeValue="15364" />
+                    <fx:Object type="mouseMove" localX="166" localY="121" fakeTimeValue="15448" />
+                    <fx:Object type="mouseMove" localX="167" localY="121" fakeTimeValue="15464" />
+                    <fx:Object type="mouseMove" localX="169" localY="121" fakeTimeValue="15481" />
+                    <fx:Object type="mouseMove" localX="171" localY="121" fakeTimeValue="15498" />
+                    <fx:Object type="mouseUp" localX="171" localY="121" fakeTimeValue="15692" />
+                    <fx:Object type="click" localX="171" localY="121" fakeTimeValue="15699" />
+                </SimulateMouseGesture>
+                <Pause timeout="500" /><!-- Need to wait for the selection to appear -->
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="RadioButton 1 is true" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_radiobutton_list_dontInduceScrolling" keywords="[List, Integration]" description="mouse down on a button, drag off not inducing a scroll, the click + change should not fire">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.RadioButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="125" dragYTo="125" dragXFrom="175" dragXTo="125" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="Not Changed" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_radiobutton_list_induceScrolling" keywords="[List, Integration]" description="mouse down on a button, drag to induce a scroll, the click + change should not fire">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.RadioButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="125" dragYTo="75" dragXFrom="175" dragXTo="175" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="Not Changed" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_radiobutton_list_click" keywords="[List, Integration]" description="clicking the radiobutton should select it, and select the renderer (SDK-27365, SDK-29422)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.RadioButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="175" localY="125" waitEvent="change" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="RadioButton 1 is true" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+            </body>
+        </TestCase>
+        
+        <!-- ToggleButton in a List renderer -->
+        
+        <TestCase testID="List_Integration_togglebutton_list_offAndOn" keywords="[List, Integration]" description="mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click + change">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ToggleButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target">
+                    <fx:Object type="mouseMove" localX="182" localY="70" fakeTimeValue="49388" />
+                    <fx:Object type="rollOver" localX="182" localY="70" fakeTimeValue="49396" />
+                    <fx:Object type="mouseOver" localX="182" localY="70" fakeTimeValue="49397" />
+                    <fx:Object type="mouseDown" localX="182" localY="70" fakeTimeValue="49406" />
+                    <fx:Object type="mouseMove" localX="181" localY="71" fakeTimeValue="49463" />
+                    <fx:Object type="mouseMove" localX="180" localY="72" fakeTimeValue="49580" />
+                    <fx:Object type="mouseMove" localX="178" localY="73" fakeTimeValue="49585" />
+                    <fx:Object type="mouseMove" localX="176" localY="73" fakeTimeValue="49590" />
+                    <fx:Object type="mouseMove" localX="175" localY="75" fakeTimeValue="49597" />
+                    <fx:Object type="mouseMove" localX="173" localY="73" fakeTimeValue="49603" />
+                    <fx:Object type="mouseMove" localX="170" localY="74" fakeTimeValue="49612" />
+                    <fx:Object type="mouseMove" localX="167" localY="73" fakeTimeValue="49636" />
+                    <fx:Object type="mouseMove" localX="163" localY="73" fakeTimeValue="49641" />
+                    <fx:Object type="mouseMove" localX="160" localY="73" fakeTimeValue="49669" />
+                    <fx:Object type="mouseMove" localX="156" localY="73" fakeTimeValue="49673" />
+                    <fx:Object type="mouseMove" localX="152" localY="74" fakeTimeValue="49678" />
+                    <fx:Object type="mouseMove" localX="148" localY="74" fakeTimeValue="49694" />
+                    <fx:Object type="mouseMove" localX="144" localY="75" fakeTimeValue="49699" />
+                    <fx:Object type="mouseMove" localX="139" localY="74" fakeTimeValue="49724" />
+                    <fx:Object type="mouseMove" localX="134" localY="75" fakeTimeValue="49728" />
+                    <fx:Object type="mouseMove" localX="128" localY="74" fakeTimeValue="49731" />
+                    <fx:Object type="mouseMove" localX="121" localY="74" fakeTimeValue="49750" />
+                    <fx:Object type="mouseMove" localX="114" localY="75" fakeTimeValue="49759" />
+                    <fx:Object type="mouseMove" localX="108" localY="75" fakeTimeValue="49777" />
+                    <fx:Object type="mouseMove" localX="102" localY="75" fakeTimeValue="49784" />
+                    <fx:Object type="mouseOut" localX="102" localY="75" fakeTimeValue="49784" />
+                    <fx:Object type="mouseOver" localX="102" localY="75" fakeTimeValue="49833" />
+                    <fx:Object type="mouseMove" localX="96" localY="75" fakeTimeValue="49838" />
+                    <fx:Object type="mouseMove" localX="82" localY="75" fakeTimeValue="49848" />
+                    <fx:Object type="mouseMove" localX="76" localY="75" fakeTimeValue="49854" />
+                    <fx:Object type="mouseMove" localX="69" localY="75" fakeTimeValue="49858" />
+                    <fx:Object type="mouseMove" localX="64" localY="75" fakeTimeValue="49862" />
+                    <fx:Object type="mouseMove" localX="60" localY="75" fakeTimeValue="49866" />
+                    <fx:Object type="mouseMove" localX="56" localY="75" fakeTimeValue="49872" />
+                    <fx:Object type="mouseMove" localX="54" localY="75" fakeTimeValue="49877" />
+                    <fx:Object type="mouseMove" localX="53" localY="75" fakeTimeValue="49886" />
+                    <fx:Object type="mouseMove" localX="51" localY="75" fakeTimeValue="49914" />
+                    <fx:Object type="mouseMove" localX="53" localY="74" fakeTimeValue="50033" />
+                    <fx:Object type="mouseMove" localX="55" localY="73" fakeTimeValue="50062" />
+                    <fx:Object type="mouseMove" localX="56" localY="73" fakeTimeValue="50091" />
+                    <fx:Object type="mouseMove" localX="58" localY="73" fakeTimeValue="50098" />
+                    <fx:Object type="mouseMove" localX="59" localY="73" fakeTimeValue="50103" />
+                    <fx:Object type="mouseMove" localX="62" localY="73" fakeTimeValue="50115" />
+                    <fx:Object type="mouseMove" localX="66" localY="73" fakeTimeValue="50119" />
+                    <fx:Object type="mouseMove" localX="69" localY="73" fakeTimeValue="50144" />
+                    <fx:Object type="mouseMove" localX="73" localY="73" fakeTimeValue="50148" />
+                    <fx:Object type="mouseMove" localX="77" localY="73" fakeTimeValue="50153" />
+                    <fx:Object type="mouseMove" localX="82" localY="73" fakeTimeValue="50172" />
+                    <fx:Object type="mouseMove" localX="86" localY="73" fakeTimeValue="50178" />
+                    <fx:Object type="mouseMove" localX="91" localY="73" fakeTimeValue="50200" />
+                    <fx:Object type="mouseMove" localX="96" localY="73" fakeTimeValue="50204" />
+                    <fx:Object type="mouseMove" localX="100" localY="73" fakeTimeValue="50227" />
+                    <fx:Object type="mouseMove" localX="106" localY="73" fakeTimeValue="50230" />
+                    <fx:Object type="mouseOut" localX="106" localY="73" fakeTimeValue="50232" />
+                    <fx:Object type="mouseOver" localX="106" localY="73" fakeTimeValue="50277" />
+                    <fx:Object type="mouseMove" localX="111" localY="73" fakeTimeValue="50282" />
+                    <fx:Object type="mouseMove" localX="118" localY="72" fakeTimeValue="50291" />
+                    <fx:Object type="mouseMove" localX="125" localY="72" fakeTimeValue="50294" />
+                    <fx:Object type="mouseMove" localX="131" localY="72" fakeTimeValue="50298" />
+                    <fx:Object type="mouseMove" localX="137" localY="72" fakeTimeValue="50303" />
+                    <fx:Object type="mouseMove" localX="142" localY="71" fakeTimeValue="50306" />
+                    <fx:Object type="mouseMove" localX="147" localY="72" fakeTimeValue="50311" />
+                    <fx:Object type="mouseMove" localX="151" localY="72" fakeTimeValue="50316" />
+                    <fx:Object type="mouseMove" localX="155" localY="72" fakeTimeValue="50327" />
+                    <fx:Object type="mouseMove" localX="160" localY="72" fakeTimeValue="50353" />
+                    <fx:Object type="mouseMove" localX="164" localY="73" fakeTimeValue="50357" />
+                    <fx:Object type="mouseMove" localX="167" localY="73" fakeTimeValue="50377" />
+                    <fx:Object type="mouseMove" localX="170" localY="74" fakeTimeValue="50382" />
+                    <fx:Object type="mouseMove" localX="172" localY="74" fakeTimeValue="50387" />
+                    <fx:Object type="mouseMove" localX="173" localY="74" fakeTimeValue="50415" />
+                    <fx:Object type="mouseMove" localX="174" localY="75" fakeTimeValue="50435" />
+                    <fx:Object type="mouseMove" localX="173" localY="74" fakeTimeValue="50492" />
+                    <fx:Object type="mouseMove" localX="171" localY="73" fakeTimeValue="50538" />
+                    <fx:Object type="mouseUp" localX="171" localY="73" fakeTimeValue="50558" />
+                    <fx:Object type="click" localX="171" localY="73" fakeTimeValue="50593" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="ToggleButton 1 is true" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_togglebutton_list_dontInduceScrolling" keywords="[List, Integration]" description="mouse down on a button, drag off not inducing a scroll, the click + change should not fire">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ToggleButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="75" dragXFrom="125" dragXTo="75" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="Not Changed" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_togglebutton_list_induceScrolling" keywords="[List, Integration]" description="mouse down on a button, drag to induce a scroll, the click + change should not fire">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ToggleButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="25" dragXFrom="150" dragXTo="150" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="Not Changed" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_togglebutton_list_click" keywords="[List, Integration]" description="clicking the togglebutton should select it, and select the renderer (SDK-27365, SDK-29422)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ToggleButtonRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <Pause timeout="500" /><!-- TODO: Nexus one investigations -->
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="150" localY="75" waitEvent="change" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnChangedOutput" value="ToggleButton 1 is true" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+            </body>
+        </TestCase>
+        
+        <!-- HSlider in a List renderer --> 
+                
+        <TestCase testID="List_Integration_hslider_list_click_thumb" keywords="[List, Integration]" description="clicking the thumb should not change the slider value and fire a click event">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.HSliderRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="325" localY="75" waitEvent="change" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="sliderValueOutput" value="Not Changed" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_hslider_list_click_track" keywords="[List, Integration]" description="clicking the track should not change the slider value and fire a click event">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.HSliderRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="325" localY="75" waitEvent="change" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="sliderValueOutput" value="Not Changed" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_hslider_list_scrollByTrack" keywords="[List, Integration]" description="should be able to induce a scroll when mousing down on the track">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.HSliderRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="25" dragXFrom="200" dragXTo="200" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="sliderValueOutput" value="Not Changed" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_hslider_list_dragLeft" keywords="[List, Integration]" description="mouse down on the thumb, drag left, the scroll position shouldn't change, the slider value should">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.HSliderRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <Pause timeout="1000" /><!-- TODO: Nexus one investigations -->
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="75" dragXFrom="300" dragXTo="250" />
+                <DispatchMouseEvent target="navigator.activeView.target" type="click" localX="250" localY="75" />
+                <Pause timeout="1000" /><!-- TODO: Nexus one investigations -->
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="sliderValueOutput" value="HSlider 1 is -17" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_hslider_list_dragRight" keywords="[List, Integration]" description="mouse down on the thumb, drag right, the scroll position shouldn't change, the slider value should">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.HSliderRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="75" dragXFrom="300" dragXTo="350" />
+                <DispatchMouseEvent target="navigator.activeView.target" type="click" localX="350" localY="75" waitEvent="click" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Button 1 Clicked" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="sliderValueOutput" value="HSlider 1 is 17" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_hslider_list_dragUp" keywords="[List, Integration]" description="mouse down on the thumb, drag up, the scroll position shouldn't change, the slider value should">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.HSliderRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="25" dragXFrom="300" dragXTo="300" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="sliderValueOutput" value="Not Changed" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_hslider_list_dragDown" keywords="[List, Integration]" description="mouse down on the thumb, drag down, the scroll position shouldn't change, the slider value should">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.HSliderRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragYFrom="75" dragYTo="125" dragXFrom="300" dragXTo="300" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="btnClickedOutput" value="Not Clicked" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="sliderValueOutput" value="Not Changed" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_hslider_list_dragCircle" keywords="[List, Integration]" description="use a detailed mouse event sequence that mouses in different directions, scroll position shouldn't change">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.HSliderRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.target">
+                    <fx:Object type="mouseMove" localX="306" localY="173" fakeTimeValue="75123" />
+                    <fx:Object type="rollOver" localX="306" localY="173" fakeTimeValue="75128" />
+                    <fx:Object type="mouseOver" localX="306" localY="173" fakeTimeValue="75129" />
+                    <fx:Object type="mouseDown" localX="306" localY="173" fakeTimeValue="75178" />
+                    <fx:Object type="mouseMove" localX="305" localY="172" fakeTimeValue="75211" />
+                    <fx:Object type="mouseMove" localX="304" localY="172" fakeTimeValue="75219" />
+                    <fx:Object type="mouseMove" localX="302" localY="171" fakeTimeValue="75225" />
+                    <fx:Object type="mouseMove" localX="300" localY="171" fakeTimeValue="75232" />
+                    <fx:Object type="mouseMove" localX="298" localY="172" fakeTimeValue="75237" />
+                    <fx:Object type="mouseMove" localX="296" localY="172" fakeTimeValue="75269" />
+                    <fx:Object type="mouseMove" localX="290" localY="175" fakeTimeValue="75318" />
+                    <fx:Object type="mouseMove" localX="287" localY="177" fakeTimeValue="75326" />
+                    <fx:Object type="mouseMove" localX="283" localY="178" fakeTimeValue="75331" />
+                    <fx:Object type="mouseMove" localX="280" localY="180" fakeTimeValue="75336" />
+                    <fx:Object type="mouseMove" localX="276" localY="181" fakeTimeValue="75341" />
+                    <fx:Object type="mouseMove" localX="269" localY="185" fakeTimeValue="75392" />
+                    <fx:Object type="mouseMove" localX="266" localY="187" fakeTimeValue="75402" />
+                    <fx:Object type="mouseMove" localX="263" localY="190" fakeTimeValue="75409" />
+                    <fx:Object type="mouseMove" localX="260" localY="192" fakeTimeValue="75414" />
+                    <fx:Object type="mouseMove" localX="258" localY="195" fakeTimeValue="75420" />
+                    <fx:Object type="mouseMove" localX="253" localY="201" fakeTimeValue="75466" />
+                    <fx:Object type="mouseOut" localX="253" localY="201" fakeTimeValue="75469" />
+                    <fx:Object type="mouseOver" localX="253" localY="201" fakeTimeValue="75475" />
+                    <fx:Object type="mouseMove" localX="250" localY="208" fakeTimeValue="75480" />
+                    <fx:Object type="mouseMove" localX="248" localY="214" fakeTimeValue="75485" />
+                    <fx:Object type="mouseMove" localX="247" localY="217" fakeTimeValue="75489" />
+                    <fx:Object type="mouseMove" localX="245" localY="223" fakeTimeValue="75534" />
+                    <fx:Object type="mouseMove" localX="244" localY="225" fakeTimeValue="75540" />
+                    <fx:Object type="mouseMove" localX="244" localY="228" fakeTimeValue="75547" />
+                    <fx:Object type="mouseMove" localX="244" localY="230" fakeTimeValue="75552" />
+                    <fx:Object type="mouseMove" localX="243" localY="233" fakeTimeValue="75558" />
+                    <fx:Object type="mouseMove" localX="243" localY="239" fakeTimeValue="75600" />
+                    <fx:Object type="mouseMove" localX="244" localY="242" fakeTimeValue="75605" />
+                    <fx:Object type="mouseMove" localX="244" localY="245" fakeTimeValue="75609" />
+                    <fx:Object type="mouseMove" localX="244" localY="248" fakeTimeValue="75617" />
+                    <fx:Object type="mouseMove" localX="244" localY="251" fakeTimeValue="75623" />
+                    <fx:Object type="mouseOut" localX="244" localY="251" fakeTimeValue="75623" />
+                    <fx:Object type="mouseOver" localX="244" localY="251" fakeTimeValue="75625" />
+                    <fx:Object type="mouseMove" localX="244" localY="257" fakeTimeValue="75650" />
+                    <fx:Object type="mouseMove" localX="243" localY="260" fakeTimeValue="75655" />
+                    <fx:Object type="mouseMove" localX="244" localY="263" fakeTimeValue="75660" />
+                    <fx:Object type="mouseMove" localX="244" localY="266" fakeTimeValue="75665" />
+                    <fx:Object type="mouseMove" localX="245" localY="269" fakeTimeValue="75670" />
+                    <fx:Object type="mouseMove" localX="246" localY="271" fakeTimeValue="75713" />
+                    <fx:Object type="mouseMove" localX="247" localY="275" fakeTimeValue="75718" />
+                    <fx:Object type="mouseMove" localX="248" localY="278" fakeTimeValue="75722" />
+                    <fx:Object type="mouseMove" localX="249" localY="281" fakeTimeValue="75729" />
+                    <fx:Object type="mouseMove" localX="250" localY="284" fakeTimeValue="75772" />
+                    <fx:Object type="mouseMove" localX="252" localY="287" fakeTimeValue="75779" />
+                    <fx:Object type="mouseMove" localX="254" localY="289" fakeTimeValue="75786" />
+                    <fx:Object type="mouseMove" localX="256" localY="292" fakeTimeValue="75791" />
+                    <fx:Object type="mouseMove" localX="257" localY="295" fakeTimeValue="75796" />
+                    <fx:Object type="mouseMove" localX="262" localY="300" fakeTimeValue="75836" />
+                    <fx:Object type="mouseOut" localX="262" localY="300" fakeTimeValue="75838" />
+                    <fx:Object type="mouseOver" localX="262" localY="300" fakeTimeValue="75840" />
+                    <fx:Object type="mouseMove" localX="264" localY="303" fakeTimeValue="75847" />
+                    <fx:Object type="mouseMove" localX="267" localY="306" fakeTimeValue="75853" />
+                    <fx:Object type="mouseMove" localX="270" localY="308" fakeTimeValue="75858" />
+                    <fx:Object type="mouseOut" localX="270" localY="308" fakeTimeValue="75858" />
+                    <fx:Object type="mouseOver" localX="270" localY="308" fakeTimeValue="75859" />
+                    <fx:Object type="mouseMove" localX="273" localY="311" fakeTimeValue="75864" />
+                    <fx:Object type="mouseMove" localX="279" localY="316" fakeTimeValue="75911" />
+                    <fx:Object type="mouseMove" localX="281" localY="318" fakeTimeValue="75916" />
+                    <fx:Object type="mouseMove" localX="285" localY="320" fakeTimeValue="75922" />
+                    <fx:Object type="mouseMove" localX="288" localY="321" fakeTimeValue="75927" />
+                    <fx:Object type="mouseMove" localX="292" localY="322" fakeTimeValue="75931" />
+                    <fx:Object type="mouseMove" localX="297" localY="322" fakeTimeValue="75981" />
+                    <fx:Object type="mouseMove" localX="302" localY="322" fakeTimeValue="75986" />
+                    <fx:Object type="mouseMove" localX="308" localY="322" fakeTimeValue="75993" />
+                    <fx:Object type="mouseMove" localX="315" localY="321" fakeTimeValue="75998" />
+                    <fx:Object type="mouseMove" localX="321" localY="320" fakeTimeValue="76004" />
+                    <fx:Object type="mouseMove" localX="326" localY="319" fakeTimeValue="76049" />
+                    <fx:Object type="mouseOut" localX="326" localY="319" fakeTimeValue="76050" />
+                    <fx:Object type="mouseOver" localX="326" localY="319" fakeTimeValue="76051" />
+                    <fx:Object type="mouseMove" localX="332" localY="317" fakeTimeValue="76057" />
+                    <fx:Object type="mouseMove" localX="337" localY="315" fakeTimeValue="76062" />
+                    <fx:Object type="mouseMove" localX="342" localY="313" fakeTimeValue="76068" />
+                    <fx:Object type="mouseMove" localX="353" localY="307" fakeTimeValue="76116" />
+                    <fx:Object type="mouseMove" localX="364" localY="301" fakeTimeValue="76124" />
+                    <fx:Object type="mouseMove" localX="373" localY="295" fakeTimeValue="76130" />
+                    <fx:Object type="mouseOut" localX="373" localY="295" fakeTimeValue="76132" />
+                    <fx:Object type="mouseOver" localX="373" localY="295" fakeTimeValue="76134" />
+                    <fx:Object type="mouseMove" localX="381" localY="287" fakeTimeValue="76139" />
+                    <fx:Object type="mouseMove" localX="390" localY="279" fakeTimeValue="76190" />
+                    <fx:Object type="mouseMove" localX="395" localY="275" fakeTimeValue="76198" />
+                    <fx:Object type="mouseMove" localX="399" localY="271" fakeTimeValue="76204" />
+                    <fx:Object type="mouseMove" localX="403" localY="267" fakeTimeValue="76210" />
+                    <fx:Object type="mouseMove" localX="406" localY="262" fakeTimeValue="76216" />
+                    <fx:Object type="mouseMove" localX="410" localY="258" fakeTimeValue="76261" />
+                    <fx:Object type="mouseMove" localX="414" localY="253" fakeTimeValue="76266" />
+                    <fx:Object type="mouseMove" localX="417" localY="248" fakeTimeValue="76273" />
+                    <fx:Object type="mouseOut" localX="417" localY="248" fakeTimeValue="76274" />
+                    <fx:Object type="mouseOver" localX="417" localY="248" fakeTimeValue="76276" />
+                    <fx:Object type="mouseMove" localX="425" localY="216" fakeTimeValue="76320" />
+                    <fx:Object type="mouseMove" localX="425" localY="210" fakeTimeValue="76327" />
+                    <fx:Object type="mouseMove" localX="424" localY="204" fakeTimeValue="76333" />
+                    <fx:Object type="mouseMove" localX="423" localY="197" fakeTimeValue="76339" />
+                    <fx:Object type="mouseOut" localX="423" localY="197" fakeTimeValue="76340" />
+                    <fx:Object type="mouseOver" localX="423" localY="197" fakeTimeValue="76344" />
+                    <fx:Object type="mouseMove" localX="420" localY="185" fakeTimeValue="76389" />
+                    <fx:Object type="mouseMove" localX="418" localY="179" fakeTimeValue="76395" />
+                    <fx:Object type="mouseMove" localX="414" localY="173" fakeTimeValue="76399" />
+                    <fx:Object type="mouseMove" localX="411" localY="167" fakeTimeValue="76405" />
+                    <fx:Object type="mouseMove" localX="409" localY="161" fakeTimeValue="76412" />
+                    <fx:Object type="mouseMove" localX="402" localY="149" fakeTimeValue="76453" />
+                    <fx:Object type="mouseMove" localX="397" localY="143" fakeTimeValue="76458" />
+                    <fx:Object type="mouseOut" localX="397" localY="143" fakeTimeValue="76459" />
+                    <fx:Object type="mouseOver" localX="397" localY="143" fakeTimeValue="76464" />
+                    <fx:Object type="mouseMove" localX="392" localY="137" fakeTimeValue="76470" />
+                    <fx:Object type="mouseMove" localX="388" localY="132" fakeTimeValue="76476" />
+                    <fx:Object type="mouseMove" localX="384" localY="126" fakeTimeValue="76481" />
+                    <fx:Object type="mouseOut" localX="384" localY="126" fakeTimeValue="76519" />
+                    <fx:Object type="rollOut" localX="384" localY="126" fakeTimeValue="76524" />
+                    <fx:Object type="mouseMove" localX="376" localY="116" fakeTimeValue="76530" />
+                    <fx:Object type="rollOver" localX="376" localY="116" fakeTimeValue="76535" />
+                    <fx:Object type="mouseOver" localX="376" localY="116" fakeTimeValue="76536" />
+                    <fx:Object type="mouseMove" localX="372" localY="111" fakeTimeValue="76541" />
+                    <fx:Object type="mouseMove" localX="366" localY="106" fakeTimeValue="76548" />
+                    <fx:Object type="mouseMove" localX="360" localY="102" fakeTimeValue="76553" />
+                    <fx:Object type="mouseMove" localX="355" localY="98" fakeTimeValue="76558" />
+                    <fx:Object type="mouseOut" localX="355" localY="98" fakeTimeValue="76559" />
+                    <fx:Object type="mouseOver" localX="355" localY="98" fakeTimeValue="76560" />
+                    <fx:Object type="mouseMove" localX="346" localY="92" fakeTimeValue="76604" />
+                    <fx:Object type="mouseMove" localX="339" localY="87" fakeTimeValue="76609" />
+                    <fx:Object type="mouseMove" localX="332" localY="83" fakeTimeValue="76613" />
+                    <fx:Object type="mouseMove" localX="329" localY="81" fakeTimeValue="76620" />
+                    <fx:Object type="mouseMove" localX="325" localY="81" fakeTimeValue="76668" />
+                    <fx:Object type="mouseMove" localX="321" localY="80" fakeTimeValue="76674" />
+                    <fx:Object type="mouseOut" localX="321" localY="80" fakeTimeValue="76674" />
+                    <fx:Object type="mouseOver" localX="321" localY="80" fakeTimeValue="76675" />
+                    <fx:Object type="mouseMove" localX="316" localY="80" fakeTimeValue="76679" />
+                    <fx:Object type="mouseMove" localX="312" localY="80" fakeTimeValue="76686" />
+                    <fx:Object type="mouseMove" localX="308" localY="80" fakeTimeValue="76692" />
+                    <fx:Object type="mouseMove" localX="301" localY="81" fakeTimeValue="76734" />
+                    <fx:Object type="mouseMove" localX="298" localY="82" fakeTimeValue="76742" />
+                    <fx:Object type="mouseMove" localX="295" localY="83" fakeTimeValue="76746" />
+                    <fx:Object type="mouseMove" localX="293" localY="84" fakeTimeValue="76753" />
+                    <fx:Object type="mouseMove" localX="291" localY="85" fakeTimeValue="76759" />
+                    <fx:Object type="mouseMove" localX="288" localY="86" fakeTimeValue="76807" />
+                    <fx:Object type="mouseMove" localX="286" localY="87" fakeTimeValue="76814" />
+                    <fx:Object type="mouseMove" localX="284" localY="89" fakeTimeValue="76819" />
+                    <fx:Object type="mouseMove" localX="281" localY="90" fakeTimeValue="76826" />
+                    <fx:Object type="mouseMove" localX="276" localY="93" fakeTimeValue="76868" />
+                    <fx:Object type="mouseMove" localX="271" localY="95" fakeTimeValue="76873" />
+                    <fx:Object type="mouseMove" localX="266" localY="99" fakeTimeValue="76878" />
+                    <fx:Object type="mouseOut" localX="266" localY="99" fakeTimeValue="76881" />
+                    <fx:Object type="mouseOver" localX="266" localY="99" fakeTimeValue="76882" />
+                    <fx:Object type="mouseMove" localX="259" localY="103" fakeTimeValue="76887" />
+                    <fx:Object type="mouseOut" localX="259" localY="103" fakeTimeValue="76888" />
+                    <fx:Object type="mouseOver" localX="259" localY="103" fakeTimeValue="76892" />
+                    <fx:Object type="mouseMove" localX="254" localY="108" fakeTimeValue="76939" />
+                    <fx:Object type="mouseMove" localX="252" localY="111" fakeTimeValue="76946" />
+                    <fx:Object type="mouseMove" localX="250" localY="114" fakeTimeValue="76951" />
+                    <fx:Object type="mouseMove" localX="248" localY="118" fakeTimeValue="76957" />
+                    <fx:Object type="mouseMove" localX="246" localY="122" fakeTimeValue="76962" />
+                    <fx:Object type="mouseOut" localX="246" localY="122" fakeTimeValue="76998" />
+                    <fx:Object type="rollOut" localX="246" localY="122" fakeTimeValue="77001" />
+                    <fx:Object type="mouseMove" localX="238" localY="142" fakeTimeValue="77029" />
+                    <fx:Object type="rollOver" localX="238" localY="142" fakeTimeValue="77032" />
+                    <fx:Object type="mouseOver" localX="238" localY="142" fakeTimeValue="77033" />
+                    <fx:Object type="mouseMove" localX="237" localY="149" fakeTimeValue="77074" />
+                    <fx:Object type="mouseOut" localX="237" localY="149" fakeTimeValue="77075" />
+                    <fx:Object type="mouseOver" localX="237" localY="149" fakeTimeValue="77082" />
+                    <fx:Object type="mouseMove" localX="236" localY="152" fakeTimeValue="77088" />
+                    <fx:Object type="mouseMove" localX="235" localY="155" fakeTimeValue="77093" />
+                    <fx:Object type="mouseMove" localX="234" localY="158" fakeTimeValue="77098" />
+                    <fx:Object type="mouseMove" localX="234" localY="161" fakeTimeValue="77102" />
+                    <fx:Object type="mouseMove" localX="232" localY="167" fakeTimeValue="77146" />
+                    <fx:Object type="mouseMove" localX="232" localY="170" fakeTimeValue="77151" />
+                    <fx:Object type="mouseMove" localX="232" localY="172" fakeTimeValue="77155" />
+                    <fx:Object type="mouseMove" localX="231" localY="174" fakeTimeValue="77161" />
+                    <fx:Object type="mouseMove" localX="231" localY="175" fakeTimeValue="77167" />
+                    <fx:Object type="mouseMove" localX="231" localY="177" fakeTimeValue="77210" />
+                    <fx:Object type="mouseMove" localX="231" localY="178" fakeTimeValue="77216" />
+                    <fx:Object type="mouseMove" localX="231" localY="180" fakeTimeValue="77223" />
+                    <fx:Object type="mouseMove" localX="231" localY="181" fakeTimeValue="77245" />
+                    <fx:Object type="mouseMove" localX="231" localY="183" fakeTimeValue="77253" />
+                    <fx:Object type="mouseMove" localX="232" localY="184" fakeTimeValue="77304" />
+                    <fx:Object type="mouseMove" localX="232" localY="186" fakeTimeValue="77340" />
+                    <fx:Object type="mouseMove" localX="232" localY="188" fakeTimeValue="77370" />
+                    <fx:Object type="mouseMove" localX="232" localY="189" fakeTimeValue="77400" />
+                    <fx:Object type="mouseMove" localX="232" localY="191" fakeTimeValue="77429" />
+                    <fx:Object type="mouseMove" localX="233" localY="192" fakeTimeValue="77435" />
+                    <fx:Object type="mouseMove" localX="233" localY="194" fakeTimeValue="77455" />
+                    <fx:Object type="mouseMove" localX="234" localY="193" fakeTimeValue="77536" />
+                    <fx:Object type="mouseMove" localX="234" localY="192" fakeTimeValue="77556" />
+                    <fx:Object type="mouseUp" localX="234" localY="192" fakeTimeValue="77570" />
+                    <fx:Object type="click" localX="234" localY="192" fakeTimeValue="77594" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView" propertyName="sliderValueOutput" value="HSlider 3 is -24" />
+            </body>
+        </TestCase>
+        
+        <!-- Button in a Scroller -->
+        
+        <TestCase testID="List_Integration_button_scroller_dragOffAndBack_noScroll_desktop" keywords="[List, Integration]" description="mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click (detailed desktop sequence)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ButtonDownView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.btn1">
+                    <fx:Object type="mouseMove" localX="34" localY="7" fakeTimeValue="9699" />
+                    <fx:Object type="rollOver" localX="34" localY="7" fakeTimeValue="9700" />
+                    <fx:Object type="mouseOver" localX="34" localY="7" fakeTimeValue="9700" />
+                    <fx:Object type="mouseMove" localX="34" localY="21" fakeTimeValue="9715" />
+                    <fx:Object type="mouseMove" localX="35" localY="34" fakeTimeValue="9732" />
+                    <fx:Object type="mouseMove" localX="35" localY="44" fakeTimeValue="9749" />
+                    <fx:Object type="mouseMove" localX="36" localY="51" fakeTimeValue="9765" />
+                    <fx:Object type="mouseMove" localX="36" localY="53" fakeTimeValue="9782" />
+                    <fx:Object type="mouseDown" localX="36" localY="53" fakeTimeValue="10445" />
+                    <fx:Object type="mouseMove" localX="35" localY="54" fakeTimeValue="11034" />
+                    <fx:Object type="mouseMove" localX="31" localY="54" fakeTimeValue="11067" />
+                    <fx:Object type="mouseMove" localX="29" localY="54" fakeTimeValue="11084" />
+                    <fx:Object type="mouseMove" localX="27" localY="54" fakeTimeValue="11101" />
+                    <fx:Object type="mouseMove" localX="25" localY="54" fakeTimeValue="11117" />
+                    <fx:Object type="mouseMove" localX="23" localY="54" fakeTimeValue="11151" />
+                    <fx:Object type="mouseMove" localX="21" localY="54" fakeTimeValue="11167" />
+                    <fx:Object type="mouseMove" localX="20" localY="54" fakeTimeValue="11184" />
+                    <fx:Object type="mouseMove" localX="16" localY="54" fakeTimeValue="11201" />
+                    <fx:Object type="mouseMove" localX="14" localY="55" fakeTimeValue="11217" />
+                    <fx:Object type="mouseMove" localX="10" localY="55" fakeTimeValue="11234" />
+                    <fx:Object type="mouseMove" localX="7" localY="55" fakeTimeValue="11251" />
+                    <fx:Object type="mouseMove" localX="4" localY="55" fakeTimeValue="11267" />
+                    <fx:Object type="mouseMove" localX="2" localY="55" fakeTimeValue="11284" />
+                    <fx:Object type="mouseOut" localX="-3" localY="55" fakeTimeValue="11301" />
+                    <fx:Object type="rollOut" localX="-3" localY="55" fakeTimeValue="11301" />
+                    <fx:Object type="mouseMove" localX="3" localY="57" fakeTimeValue="12302" />
+                    <fx:Object type="rollOver" localX="3" localY="57" fakeTimeValue="12303" />
+                    <fx:Object type="mouseOver" localX="3" localY="57" fakeTimeValue="12305" />
+                    <fx:Object type="mouseMove" localX="6" localY="57" fakeTimeValue="12319" />
+                    <fx:Object type="mouseMove" localX="11" localY="57" fakeTimeValue="12336" />
+                    <fx:Object type="mouseMove" localX="14" localY="57" fakeTimeValue="12353" />
+                    <fx:Object type="mouseMove" localX="19" localY="57" fakeTimeValue="12369" />
+                    <fx:Object type="mouseMove" localX="22" localY="57" fakeTimeValue="12386" />
+                    <fx:Object type="mouseMove" localX="25" localY="57" fakeTimeValue="12403" />
+                    <fx:Object type="mouseMove" localX="27" localY="57" fakeTimeValue="12419" />
+                    <fx:Object type="mouseMove" localX="28" localY="57" fakeTimeValue="12436" />
+                    <fx:Object type="mouseMove" localX="29" localY="57" fakeTimeValue="12453" />
+                    <fx:Object type="mouseMove" localX="30" localY="57" fakeTimeValue="12486" />
+                    <fx:Object type="mouseMove" localX="31" localY="56" fakeTimeValue="12636" />
+                    <fx:Object type="mouseMove" localX="32" localY="56" fakeTimeValue="12670" />
+                    <fx:Object type="mouseMove" localX="33" localY="56" fakeTimeValue="12703" />
+                    <fx:Object type="mouseMove" localX="34" localY="56" fakeTimeValue="12720" />
+                    <fx:Object type="mouseMove" localX="35" localY="56" fakeTimeValue="12736" />
+                    <fx:Object type="mouseMove" localX="36" localY="56" fakeTimeValue="12770" />
+                    <fx:Object type="mouseMove" localX="36" localY="55" fakeTimeValue="12820" />
+                    <fx:Object type="mouseUp" localX="36" localY="55" fakeTimeValue="13317" />
+                    <fx:Object type="click" localX="36" localY="55" fakeTimeValue="13320" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView" propertyName="numberValue" value="1" />
+                <AssertPropertyValue target="navigator.activeView.scroller1.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.scroller1.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_button_scroller_dragOffAndBack_noScroll_device" keywords="[List, Integration]" description="mouse down on a button, drag without inducing scrolling, drag back on the button and release should fire the click (detailed device sequence)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ButtonDownView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.btn1">
+                    <fx:Object type="mouseMove" localX="55" localY="50" fakeTimeValue="34151" />
+                    <fx:Object type="rollOver" localX="55" localY="50" fakeTimeValue="34153" />
+                    <fx:Object type="mouseOver" localX="55" localY="50" fakeTimeValue="34154" />
+                    <fx:Object type="mouseDown" localX="55" localY="50" fakeTimeValue="34155" />
+                    <fx:Object type="mouseMove" localX="54" localY="50" fakeTimeValue="34165" />
+                    <fx:Object type="mouseMove" localX="55" localY="48" fakeTimeValue="34167" />
+                    <fx:Object type="mouseMove" localX="55" localY="48" fakeTimeValue="34180" />
+                    <fx:Object type="mouseMove" localX="55" localY="48" fakeTimeValue="34211" />
+                    <fx:Object type="mouseMove" localX="56" localY="49" fakeTimeValue="34239" />
+                    <fx:Object type="mouseMove" localX="56" localY="49" fakeTimeValue="34267" />
+                    <fx:Object type="mouseMove" localX="56" localY="49" fakeTimeValue="34361" />
+                    <fx:Object type="mouseMove" localX="56" localY="50" fakeTimeValue="34367" />
+                    <fx:Object type="mouseMove" localX="56" localY="50" fakeTimeValue="34374" />
+                    <fx:Object type="mouseMove" localX="55" localY="50" fakeTimeValue="34401" />
+                    <fx:Object type="mouseMove" localX="54" localY="50" fakeTimeValue="34433" />
+                    <fx:Object type="mouseMove" localX="54" localY="49" fakeTimeValue="34465" />
+                    <fx:Object type="mouseMove" localX="53" localY="50" fakeTimeValue="34491" />
+                    <fx:Object type="mouseMove" localX="53" localY="50" fakeTimeValue="34516" />
+                    <fx:Object type="mouseMove" localX="53" localY="50" fakeTimeValue="34546" />
+                    <fx:Object type="mouseMove" localX="53" localY="50" fakeTimeValue="34574" />
+                    <fx:Object type="mouseMove" localX="53" localY="50" fakeTimeValue="34602" />
+                    <fx:Object type="mouseMove" localX="53" localY="50" fakeTimeValue="34630" />
+                    <fx:Object type="mouseMove" localX="53" localY="50" fakeTimeValue="34655" />
+                    <fx:Object type="mouseMove" localX="52" localY="51" fakeTimeValue="34690" />
+                    <fx:Object type="mouseMove" localX="50" localY="51" fakeTimeValue="34717" />
+                    <fx:Object type="mouseMove" localX="49" localY="52" fakeTimeValue="34753" />
+                    <fx:Object type="mouseMove" localX="47" localY="52" fakeTimeValue="34776" />
+                    <fx:Object type="mouseMove" localX="45" localY="52" fakeTimeValue="34809" />
+                    <fx:Object type="mouseMove" localX="43" localY="52" fakeTimeValue="34833" />
+                    <fx:Object type="mouseMove" localX="41" localY="52" fakeTimeValue="34860" />
+                    <fx:Object type="mouseMove" localX="39" localY="52" fakeTimeValue="34881" />
+                    <fx:Object type="mouseMove" localX="37" localY="52" fakeTimeValue="34909" />
+                    <fx:Object type="mouseMove" localX="34" localY="52" fakeTimeValue="34940" />
+                    <fx:Object type="mouseMove" localX="29" localY="52" fakeTimeValue="34966" />
+                    <fx:Object type="mouseMove" localX="24" localY="52" fakeTimeValue="35011" />
+                    <fx:Object type="mouseMove" localX="21" localY="51" fakeTimeValue="35033" />
+                    <fx:Object type="mouseMove" localX="17" localY="51" fakeTimeValue="35047" />
+                    <fx:Object type="mouseMove" localX="13" localY="50" fakeTimeValue="35077" />
+                    <fx:Object type="mouseMove" localX="8" localY="50" fakeTimeValue="35103" />
+                    <fx:Object type="mouseMove" localX="4" localY="50" fakeTimeValue="35136" />
+                    <fx:Object type="mouseOut" localX="0" localY="50" fakeTimeValue="35168" />
+                    <fx:Object type="rollOut" localX="0" localY="50" fakeTimeValue="35171" />
+                    <fx:Object type="mouseMove" localX="1" localY="57" fakeTimeValue="36558" />
+                    <fx:Object type="rollOver" localX="1" localY="57" fakeTimeValue="36559" />
+                    <fx:Object type="mouseOver" localX="1" localY="57" fakeTimeValue="36592" />
+                    <fx:Object type="mouseMove" localX="7" localY="55" fakeTimeValue="36597" />
+                    <fx:Object type="mouseMove" localX="9" localY="55" fakeTimeValue="36606" />
+                    <fx:Object type="mouseMove" localX="14" localY="55" fakeTimeValue="36631" />
+                    <fx:Object type="mouseMove" localX="18" localY="55" fakeTimeValue="36663" />
+                    <fx:Object type="mouseMove" localX="25" localY="54" fakeTimeValue="36694" />
+                    <fx:Object type="mouseMove" localX="30" localY="55" fakeTimeValue="36722" />
+                    <fx:Object type="mouseMove" localX="35" localY="55" fakeTimeValue="36747" />
+                    <fx:Object type="mouseMove" localX="38" localY="54" fakeTimeValue="36778" />
+                    <fx:Object type="mouseMove" localX="40" localY="54" fakeTimeValue="36815" />
+                    <fx:Object type="mouseMove" localX="40" localY="53" fakeTimeValue="36843" />
+                    <fx:Object type="mouseMove" localX="41" localY="53" fakeTimeValue="36873" />
+                    <fx:Object type="mouseMove" localX="41" localY="53" fakeTimeValue="36891" />
+                    <fx:Object type="mouseMove" localX="41" localY="53" fakeTimeValue="36920" />
+                    <fx:Object type="mouseMove" localX="42" localY="53" fakeTimeValue="36950" />
+                    <fx:Object type="mouseMove" localX="43" localY="53" fakeTimeValue="36981" />
+                    <fx:Object type="mouseMove" localX="43" localY="53" fakeTimeValue="36999" />
+                    <fx:Object type="mouseMove" localX="44" localY="53" fakeTimeValue="37031" />
+                    <fx:Object type="mouseMove" localX="44" localY="54" fakeTimeValue="37058" />
+                    <fx:Object type="mouseMove" localX="45" localY="54" fakeTimeValue="37092" />
+                    <fx:Object type="mouseMove" localX="45" localY="56" fakeTimeValue="37122" />
+                    <fx:Object type="mouseUp" localX="45" localY="56" fakeTimeValue="37124" />
+                    <fx:Object type="click" localX="45" localY="56" fakeTimeValue="37147" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView" propertyName="numberValue" value="1" />
+                <AssertPropertyValue target="navigator.activeView.scroller1.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.scroller1.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_button_scroller_dragOffAndBack_scroll" keywords="[List, Integration]" description="mouse down on a button and induce a scroll, the click should not fire">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ButtonDownView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.scroller1" waitEvent="touchInteractionEnd">
+                    <fx:Object type="mouseDown" localX="118" localY="223" fakeTimeValue="11933" />
+                    <fx:Object type="mouseMove" localX="118" localY="222" fakeTimeValue="12124" />
+                    <fx:Object type="mouseMove" localX="118" localY="221" fakeTimeValue="12136" />
+                    <fx:Object type="mouseMove" localX="118" localY="219" fakeTimeValue="12152" />
+                    <fx:Object type="mouseMove" localX="118" localY="217" fakeTimeValue="12169" />
+                    <fx:Object type="mouseMove" localX="118" localY="215" fakeTimeValue="12186" />
+                    <fx:Object type="mouseMove" localX="118" localY="212" fakeTimeValue="12203" />
+                    <fx:Object type="mouseMove" localX="118" localY="206" fakeTimeValue="12219" />
+                    <fx:Object type="mouseMove" localX="118" localY="200" fakeTimeValue="12237" />
+                    <fx:Object type="mouseMove" localX="118" localY="194" fakeTimeValue="12254" />
+                    <fx:Object type="mouseMove" localX="118" localY="189" fakeTimeValue="12269" />
+                    <fx:Object type="mouseMove" localX="118" localY="181" fakeTimeValue="12289" />
+                    <fx:Object type="mouseMove" localX="119" localY="169" fakeTimeValue="12303" />
+                    <fx:Object type="mouseMove" localX="119" localY="156" fakeTimeValue="12319" />
+                    <fx:Object type="mouseMove" localX="118" localY="143" fakeTimeValue="12336" />
+                    <fx:Object type="mouseMove" localX="117" localY="133" fakeTimeValue="12353" />
+                    <fx:Object type="mouseMove" localX="115" localY="123" fakeTimeValue="12374" />
+                    <fx:Object type="mouseMove" localX="115" localY="109" fakeTimeValue="12390" />
+                    <fx:Object type="mouseMove" localX="113" localY="94" fakeTimeValue="12408" />
+                    <fx:Object type="mouseOut" localX="113" localY="94" fakeTimeValue="12415" />
+                    <fx:Object type="rollOut" localX="113" localY="94" fakeTimeValue="12415" />
+                    <fx:Object type="rollOut" localX="113" localY="94" fakeTimeValue="12415" />
+                    <fx:Object type="rollOver" localX="113" localY="94" fakeTimeValue="12415" />
+                    <fx:Object type="mouseOver" localX="113" localY="94" fakeTimeValue="12415" />
+                    <fx:Object type="mouseOut" localX="113" localY="94" fakeTimeValue="12421" />
+                    <fx:Object type="rollOut" localX="113" localY="94" fakeTimeValue="12421" />
+                    <fx:Object type="rollOver" localX="113" localY="94" fakeTimeValue="12424" />
+                    <fx:Object type="rollOver" localX="113" localY="94" fakeTimeValue="12424" />
+                    <fx:Object type="mouseOver" localX="113" localY="94" fakeTimeValue="12424" />
+                    <fx:Object type="mouseMove" localX="112" localY="84" fakeTimeValue="12428" />
+                    <fx:Object type="mouseOut" localX="112" localY="84" fakeTimeValue="12435" />
+                    <fx:Object type="rollOut" localX="112" localY="84" fakeTimeValue="12435" />
+                    <fx:Object type="rollOut" localX="112" localY="84" fakeTimeValue="12435" />
+                    <fx:Object type="rollOver" localX="112" localY="84" fakeTimeValue="12436" />
+                    <fx:Object type="mouseOver" localX="112" localY="84" fakeTimeValue="12436" />
+                    <fx:Object type="mouseMove" localX="112" localY="78" fakeTimeValue="12436" />
+                    <fx:Object type="mouseMove" localX="112" localY="71" fakeTimeValue="12453" />
+                    <fx:Object type="mouseMove" localX="112" localY="66" fakeTimeValue="12470" />
+                    <fx:Object type="mouseMove" localX="112" localY="60" fakeTimeValue="12490" />
+                    <fx:Object type="mouseMove" localX="112" localY="59" fakeTimeValue="12507" />
+                    <fx:Object type="mouseMove" localX="111" localY="56" fakeTimeValue="12520" />
+                    <fx:Object type="mouseMove" localX="111" localY="54" fakeTimeValue="12553" />
+                    <fx:Object type="mouseMove" localX="112" localY="55" fakeTimeValue="12754" />
+                    <fx:Object type="mouseMove" localX="114" localY="62" fakeTimeValue="12770" />
+                    <fx:Object type="mouseMove" localX="116" localY="73" fakeTimeValue="12789" />
+                    <fx:Object type="mouseOut" localX="116" localY="73" fakeTimeValue="12806" />
+                    <fx:Object type="rollOut" localX="116" localY="73" fakeTimeValue="12806" />
+                    <fx:Object type="mouseOver" localX="116" localY="73" fakeTimeValue="12806" />
+                    <fx:Object type="mouseMove" localX="118" localY="85" fakeTimeValue="12807" />
+                    <fx:Object type="mouseOut" localX="118" localY="85" fakeTimeValue="12814" />
+                    <fx:Object type="rollOver" localX="118" localY="85" fakeTimeValue="12814" />
+                    <fx:Object type="rollOver" localX="118" localY="85" fakeTimeValue="12814" />
+                    <fx:Object type="mouseOver" localX="118" localY="85" fakeTimeValue="12814" />
+                    <fx:Object type="mouseMove" localX="119" localY="96" fakeTimeValue="12820" />
+                    <fx:Object type="mouseMove" localX="120" localY="106" fakeTimeValue="12837" />
+                    <fx:Object type="mouseMove" localX="120" localY="116" fakeTimeValue="12854" />
+                    <fx:Object type="mouseMove" localX="120" localY="128" fakeTimeValue="12873" />
+                    <fx:Object type="mouseMove" localX="120" localY="137" fakeTimeValue="12887" />
+                    <fx:Object type="mouseMove" localX="120" localY="142" fakeTimeValue="12904" />
+                    <fx:Object type="mouseMove" localX="121" localY="147" fakeTimeValue="12923" />
+                    <fx:Object type="mouseMove" localX="121" localY="153" fakeTimeValue="12937" />
+                    <fx:Object type="mouseMove" localX="123" localY="160" fakeTimeValue="12956" />
+                    <fx:Object type="mouseMove" localX="124" localY="167" fakeTimeValue="12971" />
+                    <fx:Object type="mouseMove" localX="124" localY="177" fakeTimeValue="12987" />
+                    <fx:Object type="mouseMove" localX="125" localY="185" fakeTimeValue="13004" />
+                    <fx:Object type="mouseMove" localX="125" localY="191" fakeTimeValue="13021" />
+                    <fx:Object type="mouseMove" localX="125" localY="198" fakeTimeValue="13040" />
+                    <fx:Object type="mouseMove" localX="126" localY="205" fakeTimeValue="13054" />
+                    <fx:Object type="mouseMove" localX="127" localY="210" fakeTimeValue="13071" />
+                    <fx:Object type="mouseMove" localX="127" localY="211" fakeTimeValue="13087" />
+                    <fx:Object type="mouseMove" localX="127" localY="212" fakeTimeValue="13104" />
+                    <fx:Object type="mouseMove" localX="127" localY="213" fakeTimeValue="13137" />
+                    <fx:Object type="mouseUp" localX="127" localY="213" fakeTimeValue="13326" />
+                    <fx:Object type="click" localX="127" localY="213" fakeTimeValue="13326" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView" propertyName="numberValue" value="0" />
+                <AssertPropertyValue target="navigator.activeView.scroller1.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.scroller1.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_button_scroller_swipe" keywords="[List, Integration]" description="swiping a button shouldn't put it in its down state (SDK-27399)">
+            <bugs>
+                <Bug bugID="SDK-27399" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ButtonDownView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                <SimulateMouseGesture target="navigator.activeView.btn1">
+                    <fx:Object type="mouseMove" localX="31" localY="5" fakeTimeValue="169017" />
+                    <fx:Object type="rollOver" localX="31" localY="5" fakeTimeValue="169018" />
+                    <fx:Object type="mouseOver" localX="31" localY="5" fakeTimeValue="169035" />
+                    <fx:Object type="mouseDown" localX="31" localY="5" fakeTimeValue="169037" />
+                    <fx:Object type="mouseMove" localX="30" localY="5" fakeTimeValue="169050" />
+                    <fx:Object type="mouseMove" localX="29" localY="5" fakeTimeValue="169058" />
+                    <fx:Object type="mouseMove" localX="25" localY="5" fakeTimeValue="169084" />
+                    <fx:Object type="mouseMove" localX="16" localY="5" fakeTimeValue="169114" />
+                    <fx:Object type="mouseOut" localX="-6" localY="5" fakeTimeValue="169144" />
+                    <fx:Object type="rollOut" localX="-6" localY="5" fakeTimeValue="169146" />
+                    <fx:Object type="mouseUp" localX="-6" localY="5" fakeTimeValue="169160" />
+                </SimulateMouseGesture>
+                <AssertPixelValue target="navigator.activeView.btn1" value="0x000000" x="5" y="5" />
+            </body>
+        </TestCase>
+
+        
+    </testCases>
+</UnitTester>

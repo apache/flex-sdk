@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/SkinnablePopUpContainer/tests/"
+			testSWF="SkinnablePopUpContainerApp.mxml">
+
+		<fx:Script source="globalNotTabbed.as" />
+			
+		<fx:Script>
+			<![CDATA[ 
+
+				import spark.events.PopUpEvent;
+				import spark.components.ViewNavigator;
+				import mx.core.FlexGlobals;
+				
+				public static function init(o:DisplayObject):void { } 
+				
+				private function resetApp():void {
+					//FlexGlobals.topLevelApplication.navigator.activeView.openEventDispatched = false;
+					FlexGlobals.topLevelApplication.navigator.activeView.closeEventDispatched = false;
+					
+					if(FlexGlobals.topLevelApplication.navigator.activeView.dialog.isOpen) {
+						trace('- - - - a');
+						FlexGlobals.topLevelApplication.navigator.activeView.dialog.close();
+						
+					} else if(FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.isOpen) {
+						trace('- - - - b');
+						FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.close();
+						
+					} else {
+						trace('- - - - c');
+						// dispatch the event on 'dialog' not 'dialogNoTransition' even in this case -- we really don't care which dialog we're closing b/c only one will be open at a time
+						FlexGlobals.topLevelApplication.navigator.activeView.dialog.dispatchEvent(new PopUpEvent("close"));
+					}
+					
+					FlexGlobals.topLevelApplication.navigator.activeView.commit = false;
+					FlexGlobals.topLevelApplication.navigator.activeView.dialogData = null;
+				}
+
+			]]>
+		</fx:Script>
+
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+
+		<TestCase testID="focus" keywords="[]" description="Verify focus works in the dialog.">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.showDialogWithNoTransition(true)" waitTarget="navigator.activeView.dialogNoTransition" waitEvent="open"/>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.list.selectedIndex = 3" waitTarget="navigator.activeView.dialogNoTransition.list"/>
+				<Pause timeout="5" />
+				
+				
+				<!-- 				<DispatchMouseClickEvent target="navigator.activeView.dialogNoTransition.list.getElementAt(1)" localX="2" localY="2" />
+								 -->
+			
+				<CompareBitmap url="../tests/baselines/" target="navigator.activeView.dialogNoTransition.list.dataGroup.getElementAt(3)">
+					<ConditionalValue deviceDensity="240" os="android"  />        
+					<ConditionalValue deviceDensity="160" os="win"  />
+					<ConditionalValue deviceDensity="320" os="win"  />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.close()" waitTarget="navigator.activeView.dialogNoTransition" waitEvent="close" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="open-close-no-transition-events-and-properties" keywords="[]" description="Verify dialog opens and closes, and appropriate properties are set. And verify that open and close events are called.">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+				<Pause timeout="250" />
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.showDialogWithNoTransition(true)" waitTarget="navigator.activeView.dialogNoTransition" waitEvent="open"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.skin.currentState == 'normal'" value="true"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.enabled == true" value="true"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.isOpen == true" value="true"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.isOpen == true" value="true"/>
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.close()" waitTarget="navigator.activeView.dialogNoTransition" waitEvent="close" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.skin.currentState == 'closed'" value="true"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.enabled == true" value="true"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.isOpen == false" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="stateChangeComplete-eventNoTransition" keywords="[]" description="Verify stateChangeComplete event is called on open and close.">
+
+			<setup>
+				<Pause timeout="10" />
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+				<Pause timeout="10" />
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.showDialogWithNoTransition(true)" waitTarget="navigator.activeView.dialogNoTransition.skin" waitEvent="stateChangeComplete"/>
+				<Pause timeout="100" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.close()" waitTarget="navigator.activeView.dialogNoTransition.skin" waitEvent="stateChangeComplete" />
+				<Pause timeout="100" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="disabled" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<DispatchMouseClickEvent target="navigator.activeView.btn_open" localX="10" localY="10" waitTarget="navigator.activeView.dialog" waitEvent="open" timeout="5000"/>
+
+				<!-- verify list can accept click events when enabled and open -->
+				<DispatchMouseClickEvent target="navigator.activeView.dialog.list" localX="10" localY="10" waitTarget="navigator.activeView.dialog.list" waitEvent="change"/>
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialog.enabled = false" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialog.enabled == false" value="true"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialog.isOpen == true" value="true"/>
+
+				<!-- verify list cannot accept click events when disabled and open -->
+				<DispatchMouseClickEvent target="navigator.activeView.dialog.list" localX="10" localY="10"/>
+				<AssertNoEvent target="navigator.activeView.dialog.list" eventName="change" eventClass="spark.events::IndexChangeEvent" />
+
+				<!-- close -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialog.close()" waitTarget="navigator.activeView.dialog" waitEvent="close" />
+
+				<!-- verify still disabled -->
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialog.enabled == false" value="true"/>
+
+				<!-- enable -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialog.enabled = true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialog.enabled == true" value="true"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialog.isOpen == false" value="true"/>
+
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="isModal" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.showDialog(true)" waitTarget="navigator.activeView.dialog" waitEvent="open" timeout="5000" />
+
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../tests/baselines/" target="navigator.activeView.dialog">
+					<ConditionalValue deviceDensity="240" os="android"  />        
+					<ConditionalValue deviceDensity="160" os="win"  />
+					<ConditionalValue deviceDensity="320" os="win"  />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.closeEventDispatched == false" value="true"/>
+				<DispatchMouseClickEvent target="navigator.activeView.btn_close" localX="10" localY="10"/>
+				<RunCode timeout="500" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.closeEventDispatched == false" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="isNotModal" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.showDialog(false)" waitTarget="navigator.activeView.dialog" waitEvent="open" />
+
+				<DispatchMouseClickEvent target="navigator.activeView.btn_close" localX="10" localY="10" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="open-two-dialogs-at-once" keywords="[]" description="Verify can't open two dialogs at once.">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<DispatchMouseClickEvent target="navigator.activeView.btn_open" localX="10" localY="10"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.showDialog(false)" />
+				<AssertNoEvent target="navigator.activeView.dialog" eventName="open" eventClass="spark.events::PopUpEvent" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="stateChangeComplete-event" keywords="[]" description="Verify stateChangeComplete event is called on open and close.">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<DispatchMouseClickEvent target="navigator.activeView.btn_open" localX="10" localY="10" waitTarget="navigator.activeView.dialog.skin" waitEvent="stateChangeComplete" timeout="5000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialog.close()" waitTarget="navigator.activeView.dialog.skin" waitEvent="stateChangeComplete" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="stateChangeInterrupted-event-onOpen" keywords="[]" description="Verify stateChangeInterrupted event is called on trying to change state while opening">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<DispatchMouseClickEvent target="navigator.activeView.btn_open" localX="10" localY="10"/>
+				<Pause timeout="20" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialog.close()" waitTarget="navigator.activeView.dialog.skin" waitEvent="stateChangeInterrupted" />
+		    <WaitForEvent numExpectedEvents="1" eventName="stateChangeComplete" target="navigator.activeView.dialog.skin" timeout="2000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="stateChangeInterrupted-event-onClose" keywords="[]" description="Verify stateChangeInterrupted event is called on trying to change state while closing">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<DispatchMouseClickEvent target="navigator.activeView.btn_open" localX="10" localY="10" waitTarget="navigator.activeView.dialog" waitEvent="open"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialog.close()" />
+				<Pause timeout="20" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialog.skin.currentState = 'disabled'" waitTarget="navigator.activeView.dialog.skin" waitEvent="stateChangeInterrupted" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="stateChangeInterrupted-event-callOpenWhileClosing" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<DispatchMouseClickEvent target="navigator.activeView.btn_open" localX="10" localY="10" waitTarget="navigator.activeView.dialog" waitEvent="open"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialog.close()" />
+				<Pause timeout="20" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialog.open(FlexGlobals.topLevelApplication.navigator.activeView.dialog, true)" waitTarget="navigator.activeView.dialog" waitEvent="open" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="verifyWidthHeightProperties" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<DispatchMouseClickEvent target="navigator.activeView.btn_open" localX="10" localY="10" waitTarget="navigator.activeView.dialog" waitEvent="open"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialog.width == FlexGlobals.topLevelApplication.systemManager.screen.width" value="true"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialog.height == FlexGlobals.topLevelApplication.systemManager.screen.height" value="true"/>
+			</body>
+		</TestCase>
+
+		<!-- some inherited properties -->
+
+		<TestCase testID="closeParameters" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<DispatchMouseClickEvent target="navigator.activeView.btn_open" localX="10" localY="10" waitTarget="navigator.activeView.dialog" waitEvent="open"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialog.close(true, 'i am data')" waitTarget="navigator.activeView.dialog" waitEvent="close" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.commit == true" value="true"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialogData == 'i am data'" value="true"/>
+
+				<DispatchMouseClickEvent target="navigator.activeView.btn_open" localX="10" localY="10" waitTarget="navigator.activeView.dialog" waitEvent="open"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialog.close(false, 'i may be data')" waitTarget="navigator.activeView.dialog" waitEvent="close" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.commit == false" value="true"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.dialogData == 'i may be data'" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="closeDialogWhenItsAlreadyClosed" keywords="[]" description="Verify nothing crazy happens when calling close on a closed dialog.">
+
+			<setup>
+				<RunCode code="resetApp()" waitTarget="navigator.activeView.dialog" waitEvent="close"/>
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.dialogNoTransition.close()" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>
+
+
+
+
+
+
+
+
+
+
+
+
+

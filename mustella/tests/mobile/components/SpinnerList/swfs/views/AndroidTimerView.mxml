@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        title="Android Timer"
+        backgroundColor="0x666666">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.core.mx_internal;
+            import mx.events.FlexEvent;
+            
+            import spark.components.SpinnerList;
+            import spark.events.ViewNavigatorEvent;
+            use namespace mx_internal;
+
+            private var timer:Timer;
+            private function startTimerCountdown(event:MouseEvent):void
+            {
+                // kickoff the timer
+                if (timer == null){
+                    timer = new Timer(1000);
+                    timer.addEventListener(TimerEvent.TIMER, handleTimerUpdate);
+                    timer.start();
+                }
+            }
+            
+            private function handleTimerUpdate(event:TimerEvent):void
+            {
+                // decrement the seconds spinner
+                var currentSecondsIndex:int = secondsSpinner.selectedIndex;
+                var nextSecondsIndex:int = currentSecondsIndex + 1;
+                
+                if (currentSecondsIndex >= secondsSpinner.dataProvider.length - 1){
+                    // seconds loops back to zero
+                    nextSecondsIndex = 0;
+                    
+                    // reached zero seconds so decrement the minute spinner
+                    var currentMinutesIndex:int = minutesSpinner.selectedIndex;
+                    var nextMinutesIndex:int = currentMinutesIndex + 1;
+                    
+                    if (currentMinutesIndex >= minutesSpinner.dataProvider.length - 1){
+                        // minutes loops back to zero
+                        nextMinutesIndex = 0;
+                        
+                        // reached zero minutes so decrement the hour spinner
+                        var currentHoursIndex:int = hoursSpinner.selectedIndex;
+                        var nextHoursIndex:int = currentHoursIndex + 1;
+                        
+                        if (currentHoursIndex >= hoursSpinner.dataProvider.length - 1){
+                            nextHoursIndex = 0;
+                            
+                            // the timer has reached 0,0,0 so ring the alarm
+                            handleTimerCompleted();
+                            // return so the spinners stay at the last index
+                            return;
+                        } else {
+                            hoursSpinner.animateToSelectedIndex(nextHoursIndex);
+                        }
+                        
+                        minutesSpinner.selectedIndex = 0;       
+                    } else {
+                        minutesSpinner.animateToSelectedIndex(nextMinutesIndex);
+                    }
+                    
+                    secondsSpinner.selectedIndex = 0;
+                } else {
+                    secondsSpinner.animateToSelectedIndex(nextSecondsIndex);
+                }
+                
+            }
+            
+            private function handleTimerCompleted():void {
+                stopTimer();
+                alarmNotification.open(this, true);
+                
+                // put the start button back
+                startStopButton.label = "Start";
+                startStopButton.setStyle("chromeColor", "green");
+                
+                trace('Timer Complete');
+                trace('Ring!');
+            }
+            
+            private function stopTimer():void {
+                timer.removeEventListener(TimerEvent.TIMER, handleTimerUpdate);
+                timer.stop();
+                timer = null;
+            }
+            
+            private function resetSpinner(event:MouseEvent):void
+            {
+                hoursSpinner.selectedIndex = hoursSpinner.dataProvider.length - 1;
+                minutesSpinner.selectedIndex = 0;
+                secondsSpinner.selectedIndex = secondsSpinner.dataProvider.length - 1;
+            }
+            
+            private function setInitialHourValue(event:FlexEvent):void
+            {
+                hoursSpinner.selectedIndex = hoursSpinner.dataProvider.length - 1;
+            }
+            
+            private function setInitialMinuteValue(event:FlexEvent):void
+            {
+                minutesSpinner.selectedIndex = 0;
+            }
+            
+            private function setInitialSecondsValue(event:FlexEvent):void
+            {
+                secondsSpinner.selectedIndex = secondsSpinner.dataProvider.length - 1;
+            }
+            
+            private function toggleStartTop(event:MouseEvent):void
+            {
+                if (timer && timer.running) {
+                    // stop the timer
+                    stopTimer();
+                    startStopButton.label = "Start";
+                    startStopButton.setStyle("chromeColor", "green");
+                }  else {
+                    // start the timer
+                    startTimerCountdown(event);
+                    startStopButton.label = "Stop";
+                    startStopButton.setStyle("chromeColor", "red");
+                }
+            }
+            
+        ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <s:SkinnablePopUpContainer id="alarmNotification"
+                                   width="300" height="300"
+                                   click="alarmNotification.close()">
+            <s:Rect width="100%" height="100%">
+                <s:fill>
+                    <s:SolidColor color="green" />
+                </s:fill>
+            </s:Rect>
+            <s:Label text="RING!" color="white" horizontalCenter="0" verticalCenter="0" />
+            
+            <s:Button label="Dismiss" click="alarmNotification.close()" horizontalCenter="0" bottom="10" />
+        </s:SkinnablePopUpContainer>
+    </fx:Declarations>
+
+    <s:layout>
+        <s:VerticalLayout paddingLeft="5" paddingRight="5" paddingTop="20" />
+    </s:layout>
+
+    <s:HGroup width="100%" horizontalAlign="center" gap="10">
+        
+        <s:VGroup horizontalAlign="center">
+            <s:Label text="Hours" color="0xCCCCCC" />
+            <s:SpinnerList id="hoursSpinner" typicalItem="31" 
+                           skinClass="skins.AndroidSpinnerListSkin"
+                           wrapElements="false" creationComplete="setInitialHourValue(event)">
+                <s:dataProvider>
+                    <s:ArrayList>
+                        <s:source>
+                            [12,11,10,09,08,07,06,05,04,03,02,01,00]
+                        </s:source>
+                    </s:ArrayList>
+                </s:dataProvider>
+            </s:SpinnerList>
+        </s:VGroup>
+        
+        <s:VGroup horizontalAlign="center">
+            <s:Label text="Minutes" color="0xCCCCCC" />
+            <s:SpinnerList id="minutesSpinner" typicalItem="12"
+                           skinClass="skins.AndroidSpinnerListSkin"
+                           wrapElements="false" creationComplete="setInitialMinuteValue(event)">
+                <s:dataProvider>
+                    <s:NumericDataProvider minimum="0" maximum="59" stepSize="-1" />
+                </s:dataProvider>
+            </s:SpinnerList>
+        </s:VGroup>
+        
+        <s:VGroup horizontalAlign="center">
+            <s:Label text="Seconds" color="0xCCCCCC" />
+            <s:SpinnerList id="secondsSpinner" typicalItem="2005" fontSize="80"
+                           skinClass="skins.AndroidSpinnerListWhiteSkin"
+                           wrapElements="false" creationComplete="setInitialSecondsValue(event)">
+                <s:dataProvider>
+                    <s:NumericDataProvider minimum="0" maximum="59" stepSize="-1" />
+                </s:dataProvider>
+            </s:SpinnerList>    
+        </s:VGroup>
+        
+    </s:HGroup>
+    
+    <s:Group height="100%" width="100%">
+        <s:HGroup horizontalCenter="0" verticalCenter="0" width="80%">
+            <s:Button id="startStopButton" color="white" label="Start" click="toggleStartTop(event)" chromeColor="green" width="50%" />
+            <s:Button label="Reset" click="resetSpinner(event)" color="white" chromeColor="0x222222" width="50%" />
+        </s:HGroup> 
+    </s:Group>
+    
+</s:View>

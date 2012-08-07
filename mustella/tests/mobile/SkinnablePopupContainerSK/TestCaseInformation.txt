@@ -1,0 +1,32 @@
+SPUC Keyboard Effects Testing Project
+---------------------------
+
+This project contains a mobile Application with a set of common SPUC and Callout test cases
+for manual testing.
+
+=====================
+Specific Manual Tests
+=====================
+
+1. Run the fb project and open the "SPUC Move" view
+- Click on the button to open the SPUC and verify the SPUC pops up
+- Click on the TA inside the SPUC and verify the Softkeyboard effects and transitions look good
+- Click on text area outside and see the resizing back to original size, close the SPUC
+
+2.  Go to "Callout Move" view
+- Open calloutbutton and verify callout pops up
+- Change orientation and make sure the arrow direction changes to fit in screen
+- Verify the transition effects are smooth
+- Change focus from text area to text input on SPUC and verify there is no jitter or SPUC resize while the sK is up 
+
+3. Go to the "Callout Button" view 
+- Open resizable Callout and make sure it fills the stage initially 
+- Click on the Text inside the Callout and verify the keyboard effects and transitions as the callout resizes
+- Close and go to landscape and repeat same thing. 
+- On Android, SK occupies whole screen while on ios, SPUC should be resized for keyboard in both orientations
+- Verify on changing orientations from portrait to landscape and back to portrait does not change direction of callout arrow on ios (sdk-31726)
+
+4. Go to Callout Resize view
+- Open callout, the callout should resize for softkeyboard
+- click ok, keyboard should close with proper transition
+- Do the same on landscape orientation and verify the effects 

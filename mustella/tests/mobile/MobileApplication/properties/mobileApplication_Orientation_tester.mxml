@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/MobileApplication/properties/"  
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns="*" 
+	testSWF="MobileApplicationOrientation.mxml">
+    
+	<!-- this set of lines form a template that must be in each unit test.  -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }           
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+			import spark.components.View;
+			import spark.components.ViewNavigator;
+			
+			
+		]]>
+	</fx:Script>
+	
+    <testCases>
+			
+
+		
+		<TestCase testID="mobileApp_orientation_default" description="Verify default orientation" keywords="[MobileApplication, States]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewWithStates)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>	
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is ViewWithStates)" value="true"/>
+				<AssertPropertyValue target="navigator.activeView" propertyName="currentState" value="portrait" >
+				    <ConditionalValue os="qnx" value="landscape" />
+				</AssertPropertyValue>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.aspectRatio" value="portrait">
+				    <ConditionalValue os="qnx" value="landscape" />
+				</AssertMethodValue>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_orientation_nondefault" description="Change the orientation" keywords="[SDK-29928, MobileApplication, States]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewWithStates)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>				
+				<RunCode code="FlexGlobals.topLevelApplication.changeOrientation()" timeout="5000"/>
+				<Pause timeout="300"/>				
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is ViewWithStates)" value="true"/>
+				<AssertPropertyValue target="navigator.activeView" propertyName="currentState" valueExpression="value = FlexGlobals.topLevelApplication.desiredOrientation" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.aspectRatio" valueExpression="value = FlexGlobals.topLevelApplication.desiredOrientation"/>
+
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mobileApp_orientation_changeTwice" description="Change the orientation" keywords="[MobileApplication, States]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewWithStates)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<!-- increased timeout as tests fail on some devices. -->
+				<RunCode code="FlexGlobals.topLevelApplication.changeOrientation()" />
+				<Pause timeout="1000" />
+				<RunCode code="FlexGlobals.topLevelApplication.changeOrientation()" />
+				<Pause timeout="1000" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is ViewWithStates)" value="true"/>
+				<AssertPropertyValue target="navigator.activeView" propertyName="currentState" valueExpression="value = FlexGlobals.topLevelApplication.desiredOrientation" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.aspectRatio" valueExpression="value = FlexGlobals.topLevelApplication.desiredOrientation"/>
+				
+			</body>
+		</TestCase>		
+
+		<TestCase testID="mobileApp_orientation_restore" description="Change the orientation" keywords="[MobileApplication, States]">
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.initOrientation()" />
+				
+			</body>
+		</TestCase>
+
+		
+
+<!--		
+		<TestCase testID="mobileApp_orientation_landscape" description="Verify application is in landscape mode" keywords="[MobileApplication, States]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>			
+				<RunCode code="navigator().pushView(components.ViewWithStates)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('landscape')" waitTarget="stage" waitEvent="orientationChange"/>
+			</setup>
+			<body>
+				<Pause timeout="300"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is ViewWithStates)" value="true"/>
+				<AssertPropertyValue target="navigator.activeView" propertyName="currentState" value="landscape" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.aspectRatio == 'landscape')" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_orientation_landscape_to_portrait" description="Verify state changes on aspectRatio change" keywords="[MobileApplication, States]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>			
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('portrait')" waitTarget="stage" waitEvent="orientationChange"/>
+				<RunCode code="navigator().pushView(components.ViewWithStates)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is ViewWithStates)" value="true"/>
+				<AssertPropertyValue target="navigator.activeView" propertyName="currentState" value="portrait" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.aspectRatio == 'portrait')" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('landscape')" waitTarget="stage" waitEvent="orientationChange"/>
+				<AssertPropertyValue target="navigator.activeView" propertyName="currentState" value="landscape" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.aspectRatio == 'landscape')" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('portrait')" waitTarget="stage" waitEvent="orientationChange"/>
+				<Pause timeout="300"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.aspectRatio == 'portrait')" value="true"/>				
+				<AssertPropertyValue target="navigator.activeView" propertyName="currentState" value="portrait" />
+			</body>
+		</TestCase>
+-->
+	</testCases>
+
+</UnitTester>

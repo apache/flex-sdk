@@ -1,0 +1,1095 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/DateSpinner/properties/"
+            xmlns="*"
+            xmlns:fx="http://ns.adobe.com/mxml/2009"
+            xmlns:mx="library://ns.adobe.com/flex/mx"
+            xmlns:s="library://ns.adobe.com/flex/spark"
+            testSWF="DateSpinnerMain.mxml">
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+            import assets.DSConstants;
+            
+            import spark.components.calendarClasses.DateSelectorDisplayMode;
+            
+            import views.SelectedDateView;
+            
+            public static function init(o:DisplayObject):void
+            {
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>  
+    
+    <!-- end of set of lines that must be in each unit test  -->
+    
+    <testCases>
+        
+        <TestCase testID="DateSpinner_selectedDate_1" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(1997, 4, 23, 3, 18, 55)"
+                             waitEvent="updateComplete"
+                             />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1997, 4, 23, 3, 18, 55)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getYearRenderer(0).label" 
+								   value="1997" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMonthRenderer(0).label" 
+								   value="May" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
+								   value="23" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(1999, 11, 31)"
+                             waitEvent="updateComplete"
+                             />
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1999, 11, 31)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getYearRenderer(0).label" 
+								   value="1999" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMonthRenderer(0).label" 
+								   value="December" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
+								   value="31" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_2" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.TIME"
+							 waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(2015, 8, 9, 12, 45, 34)"
+                             waitEvent="updateComplete"
+                             />
+            </setup>
+            <body>		
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2015, 8, 9, 12, 45, 34)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getHourRenderer(0).label" 
+								   value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
+								   value="45" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMeridianRenderer(0).label" 
+								   value="PM" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(2000, 0, 1)"
+                             waitEvent="updateComplete"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2000, 0, 1)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getHourRenderer(0).label" 
+								   value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
+								   value="00" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMeridianRenderer(0).label" 
+								   value="AM" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_3" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"
+							 waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+                             valueExpression="value=new Date(1970, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(1989, 4, 28, 9, 10, 11)"
+                             waitEvent="updateComplete"
+                             />
+            </setup>
+            <body>		
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1989, 4, 28, 9, 10, 11)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
+								   value="Sun, May 28" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getHourRenderer(0).label" 
+								   value="9" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
+								   value="10" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMeridianRenderer(0).label" 
+								   value="AM" />
+				
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(1998, 1, 13, 12, 0, 1)"
+                             waitEvent="updateComplete"
+                             />
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1998, 1, 13, 12, 0, 1)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
+								   value="Fri, Feb 13" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getHourRenderer(0).label" 
+								   value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
+								   value="00" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMeridianRenderer(0).label" 
+								   value="PM" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_mouse_4" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(1999, 2, 28, 3, 18, 55)"
+                             waitEvent="valueCommit"
+                             />
+            </setup>
+            <body>		
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1999, 2, 28, 3, 18, 55)"/>	
+				
+                <SimulateMouseGesture target="navigator.activeView.ds_main" 
+                                      dragYFrom="154" dragYTo="85" dragXFrom="50" dragXTo="50" 
+                                      recordedDPI="160" waitEvent="touchInteractionEnd" />
+				<SimulateMouseGesture target="navigator.activeView.ds_main" 
+									  dragYFrom="154" dragYTo="85" dragXFrom="50" dragXTo="50" 
+									  recordedDPI="160" waitEvent="change"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1999, 6, 28, 3, 18, 55)"/>
+				              
+                <SimulateMouseGesture target="navigator.activeView.ds_main" 
+                                      dragYFrom="12" dragYTo="92" dragXFrom="110" dragXTo="110" 
+                                      recordedDPI="160" waitEvent="touchInteractionEnd"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1999, 6, 26, 3, 18, 55)"/>
+                
+				<SimulateMouseGesture target="navigator.activeView.ds_main" 
+									  dragYFrom="55" dragYTo="135" dragXFrom="160" dragXTo="160" 
+									   recordedDPI="160" waitEvent="change"/>
+				
+				<AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+									 valueExpression="value=new Date(1997, 6, 26, 3, 18, 55)"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_mouse_5" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.TIME"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(2015, 8, 30, 12, 58, 20)"
+                             waitEvent="updateComplete"
+                             />
+            </setup>
+            <body>		
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2015, 8, 30, 12, 58, 20)"/>				
+                
+                <SimulateMouseGesture target="navigator.activeView.ds_main" 
+                                      dragYFrom="125" dragYTo="45" dragXFrom="18" dragXTo="18" 
+                                      waitEvent="touchInteractionEnd" recordedDPI="160"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2015, 8, 30, 14, 58, 20)"/>
+                
+                <SimulateMouseGesture target="navigator.activeView.ds_main" 
+                                      dragYFrom="18" dragYTo="125" dragXFrom="55" dragXTo="55" 
+                                      waitEvent="touchInteractionEnd" recordedDPI="160"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2015, 8, 30, 14, 55, 20)"/>
+				
+				<SimulateMouseGesture target="navigator.activeView.ds_main" 
+									  dragYFrom="50" dragYTo="90" dragXFrom="100" dragXTo="100" 
+									  waitEvent="touchInteractionEnd" recordedDPI="160"/>
+
+				<AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2015, 8, 30, 2, 55, 20)"/>
+							
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_mouse_6" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(1878, 11, 23, 9, 34, 21)"
+                             waitEvent="valueCommit"
+                             />
+            </setup>
+            <body>		
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1878, 11, 23, 9, 34, 21)"/>
+                
+                <SimulateMouseGesture target="navigator.activeView.ds_main" 
+                                      dragYFrom="92" dragYTo="12" dragXFrom="56" dragXTo="56" 
+                                       recordedDPI="160" waitEvent="change" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
+								   value="Wed, Dec 25" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getHourRenderer(0).label" 
+								   value="9" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
+								   value="34" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMeridianRenderer(0).label" 
+								   value="AM" />
+				
+				<AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+									 valueExpression="value=new Date(1878, 11, 25, 9, 34, 21)"/>
+				
+                <SimulateMouseGesture target="navigator.activeView.ds_main" 
+                                      dragYFrom="12" dragYTo="92" dragXFrom="124" dragXTo="124" 
+                                       recordedDPI="160" waitEvent="change" />
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1878, 11, 25, 7, 34, 21)"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_mouse_invalid_7" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(1997, 1, 28, 3, 18, 55)"
+                             waitEvent="updateComplete"
+                             />
+            </setup>
+            <body>		
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1997, 1, 28, 3, 18, 55)"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds_main" numColorVariances="8" ignoreMaxColorVariance="true"  >
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+				</CompareBitmap>
+                <!-- mouse click to let list move up , cannot scroll to invalid date  -->
+				
+				<SimulateMouseGesture target="navigator.activeView.ds_main" 
+									  dragYFrom="95" dragYTo="15" dragXFrom="108" dragXTo="108" 
+									  recordedDPI="160"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getYearRenderer(0).label" 
+								   value="1997" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMonthRenderer(0).label" 
+								   value="February" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
+								   value="28" >
+				</AssertMethodValue>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1997, 1, 28, 3, 18, 55)"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_mouse_invalid_8" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.TIME"
+                             waitEvent="updateComplete"
+                             />
+				
+				<SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+							 valueExpression="value=new Date(1997, 2, 1, 3, 1, 00)"
+							 waitEvent="updateComplete"
+							 />
+				<SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+							 valueExpression="value=new Date(1997, 2, 1, 3, 59, 00)"
+							 waitEvent="updateComplete"
+							 />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(1997, 2, 1, 3, 58, 55)"
+                             waitEvent="updateComplete"
+                             />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1997, 2, 1, 3, 58, 55)"/>
+                
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds_main" numColorVariances="8" ignoreMaxColorVariance="true"  >
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+				</CompareBitmap>
+				
+                <!-- mouse click to let list move up -->
+                <SimulateMouseGesture target="navigator.activeView.ds_main" 
+                                      dragYFrom="125" dragYTo="15" dragXFrom="55" dragXTo="55" 
+                                       recordedDPI="160"/>
+                <AssertEvent target="navigator.activeView.ds_main" eventName="change" eventClass="flash.events::Event" />
+                <AssertEvent target="navigator.activeView.ds_main" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1997, 2, 1, 3, 01, 55)"/>
+            </body>
+        </TestCase>
+		
+		<TestCase testID="DateSpinner_selectedDate_mouse_invalid_9" 
+				  keywords="[DateSpinner, property, selectedDate, set, get]" 
+				  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+			<setup>
+				<ResetComponent target="navigator" 
+								className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				
+				<SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+							 valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"
+							 waitEvent="updateComplete"
+							 />
+				
+				<SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+							 valueExpression="value=new Date(1997, 2, 5, 3, 1, 00)"
+							 waitEvent="updateComplete"
+							 />
+				<SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+							 valueExpression="value=new Date(1997, 6, 6, 3, 59, 00)"
+							 waitEvent="updateComplete"
+							 />
+				<SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+							 valueExpression="value=new Date(1997, 5, 14, 3, 58, 55)"
+							 waitEvent="valueCommit"
+							 />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+									 valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+									 valueExpression="value=new Date(1997, 5, 14, 3, 58, 55)"/>
+				
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds_main" numColorVariances="8" ignoreMaxColorVariance="true"  >
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+				</CompareBitmap>
+				
+				<!-- mouse click to let list move down -->
+				<SimulateMouseGesture target="navigator.activeView.ds_main" 
+									  dragYFrom="125" dragYTo="15" dragXFrom="56" dragXTo="56" 
+									  recordedDPI="160" waitEvent="change" />
+				
+				<AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+									 valueExpression="value=new Date(1997, 5, 17, 3, 58, 55)"/>
+			</body>
+		</TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_bindable_10" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView" propertyName="dsMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+                             valueExpression="value=new Date(1870, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+                             valueExpression="value=new Date(1970, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(1897, 4, 23, 3, 18, 55)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+            </setup>
+            <body>		
+                <AssertPropertyValue target="navigator.activeView" propertyName="dsMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(1897, 4, 23, 3, 18, 55)"/>
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1897, 4, 23, 3, 18, 55)"/>
+                
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getYearRenderer(0).label" 
+								   value="1897" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMonthRenderer(0).label" 
+								   value="May" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
+								   value="23" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+                             valueExpression="value=new Date(1950, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(1958, 11, 31)"
+                             waitEvent="valueCommit" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1958, 11, 31)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(1958, 11, 31)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getYearRenderer(0).label" 
+								   value="1958" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMonthRenderer(0).label" 
+								   value="December" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
+								   value="31" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_bindable_11" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView" propertyName="dsMode" 
+                             valueExpression="value=DateSelectorDisplayMode.TIME"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(2015, 8, 9, 12, 45, 34)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+            </setup>
+            <body>		
+                <AssertPropertyValue target="navigator.activeView" propertyName="dsMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(2015, 8, 9, 12, 45, 34)"/>
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2015, 8, 9, 12, 45, 34)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getHourRenderer(0).label" 
+								   value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
+								   value="45" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMeridianRenderer(0).label" 
+								   value="PM" />
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(2000, 1, 1)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2000, 1, 1)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(2000, 1, 1)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getHourRenderer(0).label" 
+								   value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
+								   value="00" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMeridianRenderer(0).label" 
+								   value="AM" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_bindable_12" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+                             valueExpression="value=new Date(1870, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+                             valueExpression="value=new Date(1970, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView" propertyName="dsMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(1878, 11, 23, 9, 34, 21)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView" propertyName="dsMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(1878, 11, 23, 9, 34, 21)"/>
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1878, 11, 23, 9, 34, 21)"/>
+                
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
+								   value="Mon, Dec 23" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getHourRenderer(0).label" 
+								   value="9" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
+								   value="34" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMeridianRenderer(0).label" 
+								   value="AM" />
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(1958, 1, 13)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1958, 1, 13)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(1958, 1, 13)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getDateRenderer(0).label" 
+								   value="Thu, Feb 13" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getHourRenderer(0).label" 
+								   value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMinuteRenderer(0).label" 
+								   value="00" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_main.getMeridianRenderer(0).label" 
+								   value="AM" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_bindable_null_13" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView" propertyName="dsMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+                             valueExpression="value=new Date(1970, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+                             valueExpression="value=new Date(2070, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(2017, 4, 15, 6, 34, 54)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView" propertyName="dsMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE"/>
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2017, 4, 15, 6, 34, 54)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(2017, 4, 15, 6, 34, 54)"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=null"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=DSConstants.today"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_bindable_null_14" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+                             valueExpression="value=new Date(1990, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+                             valueExpression="value=new Date(2070, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView" propertyName="dsMode" 
+                             valueExpression="value=DateSelectorDisplayMode.TIME"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(1997, 6, 17, 6, 14, 43)"
+                             waitEvent="valueCommit" waitTarget="navigator.activeView.ds_main"
+                             />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView" propertyName="dsMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1997, 6, 17, 6, 14, 43)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(1997, 6, 17, 6, 14, 43)"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=null"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=DSConstants.today"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_bindable_null_15" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+                             valueExpression="value=new Date(1990, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+                             valueExpression="value=new Date(2070, 1, 1);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView" propertyName="dsMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(2011, 4, 6)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView" propertyName="dsMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2011, 4, 6)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(2011, 4, 6)"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=null"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=DSConstants.today"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_value_out_minmax_16" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+                             valueExpression="value=new Date(2999, 1, 2, 14, 5, 45);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+                             valueExpression="value=new Date(3999, 1, 2, 7, 25, 54);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(2999, 1, 1, 3, 35, 43)"
+                             waitEvent="updateComplete"
+                             />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2999, 1, 2, 14, 5, 45)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=null"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(3999, 1, 3, 8, 43, 52)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+				
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(3999, 1, 3, 8, 43, 52)"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(3999, 1, 2, 7, 25, 54)"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(2999, 2, 2, 7, 5, 46)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(2999, 2, 2, 7, 5, 46)"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2999, 2, 2, 7, 5, 46)"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_value_null_17" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=null"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+                             valueExpression="value=new Date(1999, 1, 2);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+                             valueExpression="value=new Date(3999, 1, 2);"
+                             waitEvent="updateComplete"
+                             />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=DSConstants.today"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=null"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(2999, 2, 2, 8, 43, 52)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(2999, 2, 2, 8, 43, 52)"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2999, 2, 2, 8, 43, 52)"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=null"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=null"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=DSConstants.today"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_value_out_minmax_18" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.TIME"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+                             valueExpression="value=new Date(1970, 1, 2, 5, 6, 7);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+                             valueExpression="value=new Date(1999, 1, 2, 8, 15, 14);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(1999, 1, 2, 9, 54, 34)"
+                             waitEvent="updateComplete"
+                             />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1999, 1, 2, 8, 15, 14)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=null"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(1969, 2, 1, 9, 54, 34)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1970, 1, 2, 5, 6, 7)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(1969, 2, 1, 9, 54, 34)"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(1999, 0, 1, 6, 54, 34)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1999, 0, 1, 6, 54, 34)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(1999, 0, 1, 6, 54, 34)"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_value_null_19" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.TIME"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+                             valueExpression="value=new Date(1999, 1, 2);"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=null"
+                             waitEvent="updateComplete"
+                             />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1999, 1, 2)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=null"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(1999, 1, 1, 6, 54, 34)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1999, 1, 1, 6, 54, 34)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(1999, 1, 1, 6, 54, 34)"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=null"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(1999, 1, 2)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DateSpinner_selectedDate_value_out_minmax_20" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.SelectedDateView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+                
+                <SetProperty target="navigator.activeView.ds_main" propertyName="displayMode" 
+                             valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="minDate" 
+                             valueExpression="value=new Date(2000, 0, 1, 1, 1, 1)"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="maxDate" 
+                             valueExpression="value=new Date(2000, 0, 1, 1, 3, 3)"
+                             waitEvent="updateComplete"
+                             />
+                <SetProperty target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                             valueExpression="value=new Date(2000, 0, 1, 1, 3, 4)"
+                             waitEvent="updateComplete"
+                             />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="displayMode" 
+                                     valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=null"/>
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2000, 0, 1, 1, 3, 3)"/>
+                
+                <SetProperty target="navigator.activeView" propertyName="mySelectedDate" 
+                             valueExpression="value=new Date(2000, 0, 0, 1, 2, 1)"
+                             waitEvent="updateComplete" waitTarget="navigator.activeView.ds_main"
+                             />
+                
+                <AssertPropertyValue target="navigator.activeView.ds_main" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2000, 0, 1, 1, 1, 1)"/>
+                <AssertPropertyValue target="navigator.activeView" propertyName="mySelectedDate" 
+                                     valueExpression="value=new Date(2000, 0, 0, 1, 2, 1)"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+    
+</UnitTester>
+

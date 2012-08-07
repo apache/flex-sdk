@@ -1,0 +1,32 @@
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="Property selectedDate View" 
+		xmlns:comps="comps.*">
+    <fx:Script>
+        <![CDATA[
+			import mx.events.FlexEvent;
+			
+			import spark.components.calendarClasses.DateSelectorDisplayMode;
+			
+            [Bindable]
+            public var mySelectedDate:Date = null;
+			
+            [Bindable]
+            public var dsMode:String = null;
+            
+		]]>
+    </fx:Script>
+    
+
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+    
+    
+    <comps:InstrumentedDateSpinner id="ds_main" 
+                   locale="en_US"
+                   selectedDate="{mySelectedDate}"
+                   displayMode="{dsMode}"
+                   />
+    
+</s:View>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/MobileApplication/properties/"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns="*"
+	testSWF="MobileApplicationNoView.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test.  -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+			import spark.components.ViewNavigator;
+
+			public function navigator() : ViewNavigator {
+				return FlexGlobals.topLevelApplication.navigator;
+			}
+        ]]>
+    </fx:Script>
+
+    <testCases>
+
+		<TestCase testID="mobileApp_noView_title_default" description="Verify the title in actionBar is the one set in the application" keywords="[MobileApplication, title]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.firstView == null)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.mx_internal::activeView == null)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.title == 'Default')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.title == 'Default')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.title == 'Default')" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win" />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_title_activeViewNoTitle" description="Verify title defined in app is used in the view" keywords="[MobileApplication, title, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="navigator().pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.title == 'Default')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.title == 'Default')" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win" />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_title_activeViewWithTitle" description="Verify title defined in active view is used" keywords="[MobileApplication, title, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="navigator().pushView(components.View1, 'View1 Active')" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.title == 'Default')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.title == 'Im in View1')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.title == 'Im in View1')" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win" />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_title_multipleActiveViews" description="Verify title defined in active view is used" keywords="[MobileApplication, title, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent, 'ViewNoActionBarContent active')" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.title == 'Default')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.title == null)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.title == 'Default')" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.title == 'Default')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.title == 'Im in View2')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.title == 'Im in View2')" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.View3)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.title == 'Default')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.title == 'Im in View3')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.title == 'Im in View3')" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popToFirstView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.title == 'Default')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.title == null)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.title == 'Default')" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win" />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_set_title" description="Verify setting title is applied on view" keywords="[MobileApplication, title, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="navigator().pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.title == 'Default')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.title == 'Default')" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.title='New Title'" waitTarget="navigator" waitEvent="updateComplete"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.title == 'New Title')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.title == 'New Title')" value="true"/>
+				<Pause timeout="300"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="20" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win" />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+    </testCases>
+
+</UnitTester>

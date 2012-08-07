@@ -1,0 +1,1346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/transitions/ViewTransition/integration/"
+    testSWF="SplitViewNavTransition.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+           import views.*;
+			import comps.*;
+			import mx.core.UIComponent;
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlide)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+
+     
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_left" keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			      <setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 <SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				  </setup>
+			 <body>
+			 <AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				 <WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				 <SetProperty target="snav1" propertyName="requestSeek" value="false" />
+									
+				 <AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideLeft)" />
+				 <AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+
+			 </body>
+			        </TestCase>
+
+	  
+	
+	       <TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_right"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			   <setup>
+				   <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				   <SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			   </setup>
+			   <body>
+				   <AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				   <WaitForEvent target="snav1" eventName="transitionEnd"/>
+				   
+				   <SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				   
+				   <AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideRight)" />
+				   <AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				   <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				   <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				   
+				   
+			   </body>
+		</TestCase>
+		
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_up"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideUp)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+	<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_down"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+		<setup>
+			<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+		</setup>
+		<body>
+			<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+			<WaitForEvent target="snav1" eventName="transitionEnd"/>
+			
+			<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			
+			<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideDown)" />
+			<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+			<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+			<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+			
+			
+		</body>
+		</TestCase>
+	
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_cover_left"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideCoverLeft)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_cover_right"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideCoverRight)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_cover_up"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideCoverUp)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_cover_down"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideCoverDown)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+	<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_uncover_left"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+		<setup>
+			<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+		</setup>
+		<body>
+			<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+			<WaitForEvent target="snav1" eventName="transitionEnd"/>
+			
+			<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			
+			<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideUnCoverLeft)" />
+			<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+			<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+			<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+			
+			
+		</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_uncover_right"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideUnCoverRight)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_uncover_up"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideUnCoverUp)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_uncover_down"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideUnCoverDown)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlip)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_right"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipRight)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_right_cube"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipRightCube)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_left"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipLeft)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_left_cube"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipLeftCube)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_up"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipUp)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_up_cube"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipUpCube)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_down"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipDown)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_down_cube"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipDownCube)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_fade"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+					   <setup>
+						   <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+						   <SetProperty target="snav1" propertyName="requestSeek" value="false" />
+					   </setup>
+					   <body>
+						   <AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+						   <WaitForEvent target="snav1" eventName="transitionEnd"/>
+						   
+						   <SetProperty target="snav1" propertyName="requestSeek" value="false" />
+						   
+						   <AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFade)" />
+						   <AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+						   <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+						   <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+						   
+						   
+					   </body>
+				   </TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_zoom"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionZoom)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_zoom_wocontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionZoomWOContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_zoomIn_wocontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionZoomInWOContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_left_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideLeftWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_right_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideRightWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_up_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideUpWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_down_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideDownWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_cover_left_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideCoverLeftWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_cover_right_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideCoverRightWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_cover_up_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideCoverUpWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_cover_down_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideCoverDownWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_uncover_left_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideUnCoverLeftWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_uncover_right_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideUnCoverRightWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_uncover_up_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideUnCoverUpWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_uncover_down_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideUnCoverDownWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_right_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipRightWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_right_cube_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipRightCubeWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_left_wcontent" keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipLeftWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_left_cube_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipLeftCubeWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_up_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipUpWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_up_cube__wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipUpCubeWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_down_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipDownWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_down_cube_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipDownCubeWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_fade_wcontent"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFadeWContent)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_wsine"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideWSine)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_wbounce"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideWBounce)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_welastic"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideWElastic)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_slide_wpower"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionSlideWPower)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_fade_wsine"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFadeWSine)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_fade_wbounce"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFadeWBounce)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_fade_welastic"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFadeWElastic)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_fade_wpower"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFadeWPower)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_fade_wlinear"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFadeWLinear)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_zoom_wsine"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionZoomWSine)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_zoom_wbounce"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionZoomWBounce)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_zoom_welastic"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionZoomWElastic)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_zoom_wpower"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionZoomWPower)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_zoom_wlinear"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionZoomWLinear)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_wsine"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipWSine)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_wbounce"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipWBounce)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_wpower"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipWPower)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_welastic"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipWElastic)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ViewTransition_IntegrationPopToFirstView_flip_wlinear"  keywords="[ViewTransition, SplitViewNavigator]" description="TODO">
+			<setup>
+				<ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+			</setup>
+			<body>
+				<AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, null)" />
+				<WaitForEvent target="snav1" eventName="transitionEnd"/>
+				
+				<SetProperty target="snav1" propertyName="requestSeek" value="false" />
+				
+				<AssertMethodValue method="application.snav1.popToFirstView(application.snav1.activeView.transitionFlipWLinear)" />
+				<AssertEvent target="snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				<AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="snav1.actionBar" propertyName="title" value="Pause + Seek" />
+				
+				
+			</body>
+		</TestCase>
+		</testCases>
+		</UnitTester>

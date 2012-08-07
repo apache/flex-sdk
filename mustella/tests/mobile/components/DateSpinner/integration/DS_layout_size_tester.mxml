@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/DateSpinner/integration/"
+			xmlns="*"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			testSWF="DateSpinnerMain.mxml">
+	
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			import assets.DSConstants;
+			
+			import spark.components.calendarClasses.DateSelectorDisplayMode;
+			
+			import views.Layout_size;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+		    [Mixin]
+		]]>
+	</fx:Metadata>  
+	
+	<!-- end of set of lines that must be in each unit test  -->
+	
+	<testCases>
+        
+		<TestCase testID="1_DS_layout_Size_Time_100" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="100"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="100"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=100"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=100"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="2_DS_layout_Size_DATE_AND_TIME_100" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="100"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="100"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=100"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=100"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="3_DS_layout_Size_DATE_100" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="100"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="100"  />
+			</setup>
+			
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=100"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=100"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="4_DS_layout_Size_Time_250" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="250"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="250"  />
+			</setup>
+			
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=250"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=250"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="5_DS_layout_Size_DATE_250" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="250"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="250"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=250"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=250"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="6_DS_layout_Size_DATE_AND_TIME_250" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="250"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="250"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=250"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=250"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="7_DS_layout_Size_Time_500" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="500"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="500"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=500"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=500"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="8_DS_layout_Size_DATE_500" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="500"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="500"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=500"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=500"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="9_DS_layout_Size_DATE_AND_TIME_500" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="500"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="500"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=500"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=500"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="10_DS_layout_Size_Time_200" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="200"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="200"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=200"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=200"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="11_DS_layout_Size_DATE_200" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="200"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="200"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=200"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=200"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="12_DS_layout_Size_DATE_AND_TIME_200" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="width" value="200"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="height" value="200"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="width" valueExpression="value=200"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="height" valueExpression="value=200"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="13_DS_layout_Size_Time" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty  target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentWidth" value="100"  />
+				<SetProperty  target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentHeight" value="100"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="14_DS_layout_Size_DATE_100_percent" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty  target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentWidth" valueExpression="value=100"  />
+				<SetProperty  target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentHeight" valueExpression="value=100" />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="percentWidth" valueExpression="value=100"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="percentHeight" valueExpression="value=100"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="15_DS_layout_Size_DATE_AND_TIME_100_percent" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<SetProperty  target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentWidth" valueExpression="value=100" />
+				<SetProperty  target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentHeight" valueExpression="value=100"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="percentWidth" valueExpression="value=100"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="percentHeight" valueExpression="value=100"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="16_DS_layout_Size_Time_20_percent" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty  target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentWidth" valueExpression="value=20"  />
+				<SetProperty  target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentHeight" valueExpression="value=20"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="percentWidth" valueExpression="value=20"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="percentHeight" valueExpression="value=20"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="17_DS_layout_Size_DATE_20_percent" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+
+				<SetProperty target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentWidth" valueExpression="value=20"  />
+				<SetProperty target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentHeight" valueExpression="value=20"   />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="percentWidth" valueExpression="value=20"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="percentHeight" valueExpression="value=20"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="18_DS_layout_Size_DATE_AND_TIME_20_percent" keywords="[DateSpinner, property,layout_Size]" 
+				  description="Test layout_Size">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.Layout_size)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty  target="navigator.activeView.ds_layout_size" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<SetProperty  target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentWidth" valueExpression="value=20"   />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_layout_size" 
+							 propertyName="percentHeight" valueExpression="value=20"   />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="percentWidth" valueExpression="value=20"/>
+				<AssertPropertyValue target="navigator.activeView.ds_layout_size" 
+									 propertyName="percentHeight" valueExpression="value=20"/>
+				<CompareBitmap url="../integration/baselines" target="navigator.activeView.ds_layout_size">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+	</testCases>
+</UnitTester>

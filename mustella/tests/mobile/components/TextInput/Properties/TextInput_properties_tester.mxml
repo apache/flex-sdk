@@ -1,0 +1,1041 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/TextInput/Properties/"  xmlns="*"
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:mx="library://ns.adobe.com/flex/mx"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        testSWF="TextInput1.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>  
+    
+    <!-- end of set of lines that must be in each unit test  -->
+
+
+    <fx:Script>
+        import components.*;
+        import mx.core.FlexGlobals;
+		import spark.components.supportClasses.*;
+		import spark.skins.mobile.*;
+    </fx:Script>
+
+
+
+    <testCases>
+	
+        <!-- ******************** ******************** ******************** -->
+        <!-- ******************** TEXTINPUT PROPERTIES ******************** -->
+        <!-- ******************** ******************** ******************** -->
+
+				<TestCase testID="TextInput_basic_prompt" keywords="[TextInput, prompt]" 
+				    description="Ensure that basic prompt appears.">
+					<setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+					  <ResetComponent target="tic1.ti1" className="spark.components.TextInput" />
+					</setup>
+					<body>
+						<!-- need quick pause or else bitmap compare is called too soon and fails -->
+						<SetProperty target="tic1.ti1" propertyName="prompt" value="prompt" />
+						<Pause timeout="100" />
+						<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../Properties/baselines" target="tic1.ti1">
+							<ConditionalValue deviceDensity="160" />
+							<ConditionalValue deviceDensity="240" />
+							<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>
+					</body>
+				</TestCase>
+				
+				<TestCase testID="TextInput_prompt_disappears" keywords="[TextInput, prompt]" 
+				    description="Ensure that prompt disappears after typing.">
+					<setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<ResetComponent target="tic1.ti1" className="spark.components.TextInput" />
+					</setup>
+					<body>
+						<SetProperty target="tic1.ti1" propertyName="prompt" value="prompt" />
+						<Pause timeout="100" />
+						<DispatchMouseEvent  target="tic1.ti1" type="mouseDown" localX="15" localY="15" waitEvent="mouseDown" waitTarget="tic1.ti1" />
+						<DispatchMouseEvent  target="tic1.ti1" type="mouseUp" localX="15" localY="15" waitEvent="mouseUp" waitTarget="tic1.ti1" />
+						<DispatchKeyEvent char="abcDEF" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.tic1.ti2.setFocus()" waitTarget="tic1.ti2" waitEvent="focusIn" />
+						<!-- need quick pause or else bitmap compare is called too soon and fails -->
+						<!--Pause timeout="100" /-->
+						<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../Properties/baselines" target="tic1.ti1">
+							<ConditionalValue deviceDensity="160" />
+							<ConditionalValue deviceDensity="240" />
+							<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>
+					</body>
+				</TestCase>
+
+				<TestCase testID="TextInput_prompt_returns_on_text_removal" keywords="[TextInput, prompt]" 
+				    description="Ensure that prompt re-appears after deleting text and changing focus.">
+					<setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+					  <ResetComponent target="tic1.ti1" className="spark.components.TextInput" />
+					</setup>
+					<body>
+						<SetProperty target="tic1.ti1" propertyName="prompt" value="prompt" />
+						
+						<Pause timeout="100" />
+				    <DispatchMouseEvent  target="tic1.ti1" type="mouseDown" localX="15" localY="15" waitEvent="mouseDown" waitTarget="tic1.ti1" />
+				    <DispatchMouseEvent  target="tic1.ti1" type="mouseUp" localX="15" localY="15" waitEvent="mouseUp" waitTarget="tic1.ti1" />
+
+				    <DispatchKeyEvent char="a" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				    <AssertPropertyValue target="tic1.ti1" propertyName="text" value="a" />
+						<SetProperty target="tic1.ti1" propertyName="text" value="" />
+						<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tic1.ti2" />
+						<Pause timeout="100" />
+						<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../Properties/baselines" target="tic1.ti1">
+							<ConditionalValue deviceDensity="160" />
+							<ConditionalValue deviceDensity="240" />
+							<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>
+
+					</body>
+				</TestCase>
+
+				<!-- ******************** isTruncated ******************** -->
+				<TestCase testID="TextInput_isTruncated_test0" keywords="[TextInput, isTruncated]" description="Default value" >
+					<setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="false"/>
+					</body>
+				</TestCase>
+
+				<TestCase testID="TextInput_isTruncated_test1" keywords="[TextInput, isTruncated]" description="Long, untruncated string" >
+					<setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" />
+						<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="false"/>
+					</body>
+				</TestCase>
+
+				<TestCase testID="TextInput_isTruncated_test2" keywords="[TextInput, isTruncated]" description="After truncating" >
+					<setup>
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<SetProperty target="tic1.ti1" propertyName="width" value="300" />
+						<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<RunCode code="StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).truncateToFit()" />
+						<Pause timeout="200" />
+						<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
+					</body>
+				</TestCase>
+
+				<TestCase testID="TextInput_isTruncated_test3" keywords="[TextInput, isTruncated]" description="After untruncating" >
+					<bugs>
+						<Bug bugID="SDK-27986" />
+					</bugs>
+					<setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" />
+						<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<RunCode code="StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).truncateToFit()" />
+						<Pause timeout="2000" />				
+						<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>				
+						<SetProperty target="tic1.ti1" propertyName="text" value="i" waitEvent="updateComplete"/>
+						<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="false"/>
+					</body>
+				</TestCase>
+
+
+				    <!-- ******************** displayAsPassword ******************* -->
+				    <TestCase testID="TextInput_displayAsPassword_test1" description="Default value" keywords="[TextInput, displayAsPassword]">
+					<setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+					</setup>
+				        <body>
+						<AssertPropertyValue target="tic1.ti1" propertyName="displayAsPassword" value="false"/>
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_displayAsPassword_test2" description="Set to true, set text." keywords="[TextInput, displayAsPassword]">
+				        <setup>
+							<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+							<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+							<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+							<SetProperty target="tic1.ti1" propertyName="height" value="55" />
+							<SetProperty target="tic1.ti1" propertyName="displayAsPassword" value="true" />
+							<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+							<Pause timeout="2000"/>
+				        </setup>
+				        <body>
+							<AssertPropertyValue target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+							<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../Properties/baselines" target="tic1.ti1">
+								<ConditionalValue deviceDensity="160" />
+								<ConditionalValue deviceDensity="240" />
+								<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+							</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_displayAsPassword_test3" description="Set text, set to true." keywords="[TextInput, displayAsPassword]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="height" value="55" />
+						<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="displayAsPassword" value="true" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+							<Pause timeout="200"/>
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+										<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../Properties/baselines" target="tic1.ti1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <!-- ******************** maxChars (some tests manual) ******************* -->
+				    <TestCase testID="TextInput_maxChars_test1" description="Checks the default value of the maxChars property on an TextInput control" keywords="[TextInput, maxChars]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="maxChars" value="0" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_maxChars_test2" description="Should not limit AS" keywords="[TextInput, maxChars]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="maxChars" value="5" />
+				            <SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="maxChars" value="5" />
+				            <AssertPropertyValue target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+				        </body>
+				    </TestCase>
+
+				    <!-- ******************** restrict (some tests manual) ******************* -->
+				    <TestCase testID="TextInput_restrict_property_default" description="Checks the default value of the restrict property on an TextInput control" keywords="[TextInput, restrict]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="restrict" value="null" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_restrict_property_as" description="The restrict property doesn't affect AS." keywords="[TextInput, restrict]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="restrict" value="" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="restrict" value="" />
+				            <AssertPropertyValue target="tic1.ti1" propertyName="text" value="" />
+				            <DispatchMouseEvent  target="tic1.ti1" type="mouseDown" localX="15" localY="15" waitEvent="mouseDown" waitTarget="tic1.ti1" />
+				            <DispatchMouseEvent  target="tic1.ti1" type="mouseUp" localX="15" localY="15" waitEvent="mouseUp" waitTarget="tic1.ti1" />
+				            <DispatchKeyEvent char="abCDEF123" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				            <AssertPropertyValue target="tic1.ti1" propertyName="text" value="abCDEF123" />
+				        </body>
+				    </TestCase>
+
+				    <!-- ******************** selectionActivePosition  Note: Due to SDK-27517, there is no selectionChange event, so we use Pause. ******************** -->
+				    <TestCase testID="TextInput_selectionActivePosition_property_default" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition]">
+					<bugs>
+						<Bug bugID="SDK-27972" />
+					</bugs>
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+						<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tic1.ti1.selectionActivePosition" value="0" />
+				            <AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="0" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_selectionActivePosition_property_positive" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+				            <RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(4,4)" />
+						<Pause timeout="200" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="4" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_selectionActivePosition_property_positive_no_text" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(4,4)" />
+						<Pause timeout="200" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="0" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_selectionActivePosition_property_negative" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition]">
+					<bugs>
+						<Bug bugID="SDK-27972" />
+					</bugs>
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+				           
+				            <RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(-1,-1)" />
+						<Pause timeout="300" />
+				        </setup>
+				        <body>
+
+				            <AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="0" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_selectionActivePosition_property_mouseDown" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="width" value="300" />
+				            <SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="tic1.ti1"/>
+				        </setup>
+				        <body>
+							<DispatchMouseClickEvent target="tic1.ti1" localX="25" localY="20" />
+				            <AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition">
+								<ConditionalValue deviceDensity="160" value="2"/>
+								<ConditionalValue deviceDensity="240" value="2" />
+								<ConditionalValue deviceDensity="320" value="1"/>
+							</AssertPropertyValue>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" >
+								<ConditionalValue deviceDensity="160" value="2"/>
+								<ConditionalValue deviceDensity="240" value="2" />
+								<ConditionalValue deviceDensity="320" value="1"/>
+							</AssertPropertyValue>
+				        </body>
+				    </TestCase>
+
+				    <!-- ******************** selectionAnchorPosition ******************** -->
+				    <TestCase testID="TextInput_selectionAnchorPosition_property_default" description="Checks the default value of the selectionAnchorPosition property on a TextInput control" keywords="[TextInput, selectionAnchorPosition]">
+					<bugs>
+						<Bug bugID="SDK-27972" />
+					</bugs>
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+						<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tic1.ti1.selectionActivePosition" value="0" />			
+				            <AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="0" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_selectionAnchorPosition_property_positive" description="Checks the default value of the selectionAnchorPosition property on a TextInput control" keywords="[TextInput, selectionAnchorPosition]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+				            <RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(4,4)" />
+						<Pause timeout="200" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="4" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_selectionAnchorPosition_property_positive_no_text" description="Checks the default value of the selectionAnchorPosition property on a TextInput control" keywords="[TextInput, selectionAnchorPosition]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(4,4)"/>
+						<Pause timeout="200" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="0" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_selectionAnchorPosition_property_negative" description="Checks the default value of the selectionAnchorPosition property on a TextInput control" keywords="[TextInput, selectionAnchorPosition]">
+				        <setup>
+							<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+							<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+							<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+							<SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+							<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.setFocus();" waitTarget="tic1.ti1" waitEvent="focusIn" />
+							<Pause timeout="200" />
+							
+							<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(-1,-1);" />
+							<Pause timeout="200" />
+				        </setup>
+				        <body>
+							<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" >
+								<ConditionalValue deviceDensity="160" value="0" />
+								<ConditionalValue deviceDensity="240" value="0" />
+								<ConditionalValue deviceDensity="320" value="0" />
+							</AssertPropertyValue>
+				        </body>
+				    </TestCase>
+
+
+				    <!-- ******************** text ******************** -->
+				    <TestCase testID="TextInput_text_property_default" description="Checks the default value of the text property on a TextInput control" keywords="[TextInput, text]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="text" value="" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_text_property" description="Sets the text property on a TextInput control" keywords="[TextInput, text]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<SetProperty target="tic1.ti1" propertyName="height" value="55" />				
+				            <SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+				            <AssertPropertyValue target="tic1.ti1.skin.textDisplay" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+						<CompareBitmap numColorVariances="20" target="tic1.ti1" url="../Properties/baselines"				>
+							<ConditionalValue deviceDensity="160" />
+							<ConditionalValue deviceDensity="240" />
+							<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_text_property_japanese" description="Display Japanese in a TextInput.  Note that our embedded font doesn't contain Japanese, so we have to clear the fontFamily." keywords="[TextInput, text]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<SetProperty target="tic1.ti1" propertyName="height" value="55" />
+				            <SetStyle target="tic1.ti1" styleName="fontFamily" value="" />
+						<SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" value="漢字仮名交じり文" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="text" value="漢字仮名交じり文" />
+				            <AssertPropertyValue target="tic1.ti1.skin.textDisplay" propertyName="text" value="漢字仮名交じり文" />
+						<CompareBitmap numColorVariances="20" target="tic1.ti1" url="../Properties/baselines"				>
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+
+				    <!-- ******************** ******************** ******************** -->
+				    <!-- ******************** INHERITED PROPERTIES ******************** -->
+				    <!-- ******************** ******************** ******************** -->
+
+				    <!-- ******************** alpha ******************** -->
+
+				    <TestCase testID="TextInput_alpha_property_default" description="Checks the default value of the alpha property on a TextInput control" keywords="[TextInput, alpha]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="alpha" value="1.0" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_alpha_property_01" description="Sets the alpha property on a TextInput control to 0.1" keywords="[TextInput, alpha]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<SetProperty target="tic1.ti1" propertyName="height" value="55" />				
+				            <SetProperty target="tic1.ti1" propertyName="alpha" value="0.1" />
+				            <SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+				        </setup>
+				        <body>
+				            <AssertMethodValue method="value=Number(FlexGlobals.topLevelApplication.tic1.ti1.alpha.toFixed(1))" value="0.1" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic1.ti1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_alpha_property_0" description="Sets the alpha property on a TextInput control to 0" keywords="[TextInput, alpha]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="height" value="55" />
+						<SetProperty target="tic1.ti1" propertyName="alpha" value="0" />
+				            <SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="alpha" value="0" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic1.ti1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+
+				    <!-- ******************** className ******************** -->
+
+				    <TestCase testID="TextInput_className_property_default" description="Checks the default value of the className property on a TextInput control" keywords="[TextInput, className]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="className" value="TextInput" />
+				        </body>
+				    </TestCase>
+
+				    <!-- ******************** height ******************** -->
+				    <TestCase testID="TextInput_height_property_default" description="Checks the default value of the height property on a TextInput control" keywords="[TextInput, height]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="height" value="21" waitEvent="updateComplete"/>
+				            <SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox" waitEvent="updateComplete" waitTarget="tic1.ti1"/>
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="height" value="21" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_height_property_40" description="Sets the height property on a TextInput control to 40px" keywords="[TextInput, height]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+				            <SetProperty target="tic1.ti1" propertyName="height" value="40" waitEvent="updateComplete" waitTarget="tic1.ti1"/>
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="height" value="40" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic1.ti1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_height_property_10" description="Sets the height property on a TextInput control to 10px" keywords="[TextInput, height]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="text" waitEvent="updateComplete" valueExpression="value = FlexGlobals.topLevelApplication.shortString" />
+				            <SetProperty target="tic1.ti1" propertyName="height" value="10" waitEvent="updateComplete" waitTarget="tic1.ti1"/>
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="height" value="10" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic1.ti1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+
+				    <!-- ******************** percentHeight ******************** -->
+				    <TestCase testID="TextInput_percentHeight_property_50" description="Sets the percentHeight property on a TextInput control" keywords="[TextInput, percentHeight]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+				            <SetProperty target="tic2.ti1" propertyName="percentHeight" value="50"/>
+				            <SetProperty target="tic2.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic2.ti1" propertyName="percentHeight" value="50" />
+				            <AssertPropertyValue target="tic2.ti1" propertyName="height" value="150" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic2.ti1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_percentHeight_property_150" description="Sets the percentHeight property on a TextInput control" keywords="[TextInput, percentHeight]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+				            <SetProperty target="tic2.ti1" propertyName="percentHeight" value="150"/>
+				            <SetProperty target="tic2.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic2.ti1" propertyName="percentHeight" value="150" />
+				            <AssertPropertyValue target="tic2.ti1" propertyName="height" value="300" />
+				            <CompareBitmap numColorVariances="100" ignoreMaxColorVariance="true" url="../Properties/baselines" target="tic2.ti1">
+								<ConditionalValue deviceDensity="160" />
+								<ConditionalValue deviceDensity="240" />
+								<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+							</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+
+				    <!-- ******************** percentWidth ******************** -->
+
+				    <TestCase testID="TextInput_percentWidth_property_50" description="Sets the percentWidth property on a TextInput control" keywords="[TextInput, percentWidth]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+						<SetProperty target="tic2.ti1" propertyName="height" value="55" />
+				            <SetProperty target="tic2.ti1" propertyName="percentWidth" value="50"/>
+				            <SetProperty target="tic2.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic2.ti1" propertyName="percentWidth" value="50" />
+				            <AssertPropertyValue target="tic2.ti1" propertyName="width" value="150" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic2.ti1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_percentWidth_property_150" description="Sets the percentWidth property on a TextInput control" keywords="[TextInput, percentWidth]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+				            <SetProperty target="tic2.ti1" propertyName="height" value="55" />
+						<SetProperty target="tic2.ti1" propertyName="percentWidth" value="150"/>
+				            <SetProperty target="tic2.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic2.ti1" propertyName="percentWidth" value="150" />
+				            <AssertPropertyValue target="tic2.ti1" propertyName="width" value="300" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic2.ti1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+
+				    <!-- ******************** rotation ******************** -->
+				    <TestCase testID="TextInput_rotation_property_default" description="Checks the default value of the rotation property on a TextInput control" keywords="[TextInput, rotation]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				            <SetProperty target="tic1.ti1" propertyName="width" value="100"/>
+				            <SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="rotation" value="0" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_rotation_property_90" description="Sets the rotation property on a TextInput control to 0.1" keywords="[TextInput, rotation]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+				            <SetProperty target="tic2.ti1" propertyName="width" value="100"/>
+						<SetProperty target="tic2.ti1" propertyName="x" value="200"/>
+				            <SetProperty target="tic2.ti1" propertyName="rotation" value="90" />
+				            <SetProperty target="tic2.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic2.ti1" propertyName="rotation" value="90" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic2.grp1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <!-- ******************** scaleX ******************** -->
+
+				    <TestCase testID="TextInput_scaleX_property_default" description="Checks the default value of the scaleX property on a TextInput control" keywords="[TextInput, scaleX]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="scaleX" value="1" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_scaleX_property_2" description="Checks the default value of the scaleX property on a TextInput control" keywords="[TextInput, scaleX]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<SetProperty target="tic1.ti1" propertyName="height" value="55" />
+						<SetProperty target="tic1.ti1" propertyName="width" value="100" />
+				            <SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <SetProperty target="tic1.ti1" propertyName="scaleX" value="2" waitEvent="updateComplete" waitTarget="tic1.ti1"/>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="scaleX" value="2" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic1.ti1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+
+				    <!-- ******************** width ******************** -->
+				    <TestCase testID="TextInput_width_property_default" description="Checks the default value of the width property on a TextInput control" keywords="[TextInput, height]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<SetProperty target="tic1.ti1" propertyName="height" value="55" />
+				            <SetProperty target="tic1.ti1" propertyName="text" value="width" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="width" >
+								<ConditionalValue deviceDensity="160" value="300" />
+								<ConditionalValue deviceDensity="240" value="440" />
+								<ConditionalValue deviceDensity="320" value="600" />							
+							</AssertPropertyValue>
+							<CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic1.ti1">
+								<ConditionalValue deviceDensity="160" />
+								<ConditionalValue deviceDensity="240" />
+								<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+							</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_width_property_40" description="Sets the width property on a TextInput control to 40px" keywords="[TextInput, height]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<SetProperty target="tic1.ti1" propertyName="height" value="55" />
+				            <SetProperty target="tic1.ti1" propertyName="width" value="40" />
+				            <SetProperty target="tic1.ti1" propertyName="text" value="width" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="width" value="40" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic1.ti1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+
+				    <TestCase testID="TextInput_width_property_200" description="Sets the width property on a TextInput control to 10px" keywords="[TextInput, height]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+						<SetProperty target="tic1.ti1" propertyName="height" value="55" />
+				            <SetProperty target="tic1.ti1" propertyName="width" value="200" />
+				            <SetProperty target="tic1.ti1" propertyName="text" value="width" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic1.ti1" propertyName="width" value="200" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic1.ti1">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <!-- ******************** constraints ******************** -->
+				    <TestCase testID="TextInput_constraints" description="Checks the size of the TextInput control after constraints" keywords="[TextInput, height]">
+				        <setup>
+							<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+							<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+							<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+							<SetProperty target="tic2.ti1" propertyName="top" value="10" waitEvent="updateComplete" />
+							<SetProperty target="tic2.ti1" propertyName="left" value="10" waitEvent="updateComplete" />
+							<SetProperty target="tic2.ti1" propertyName="bottom" value="10" waitEvent="updateComplete" />
+							<SetProperty target="tic2.ti1" propertyName="right" value="10" waitEvent="updateComplete" />
+				        </setup>
+						<body>
+							<AssertPropertyValue target="tic2.ti1" propertyName="x" value="10" />
+							<AssertPropertyValue target="tic2.ti1" propertyName="y" value="10" />
+							<AssertPropertyValue target="tic2.ti1" propertyName="height" value="280" />
+							<AssertPropertyValue target="tic2.ti1" propertyName="width" value="280" />
+				        </body>
+				    </TestCase>
+
+				    <!-- ******************** x ******************** -->
+				    <TestCase testID="TextInput_x_default" description="Checks the default x" keywords="[TextInput, x]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic2.ti1" propertyName="x" value="0" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_x_property_positive" description="Set x to 40." keywords="[TextInput, x]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <SetProperty target="tic2.ti1" propertyName="width" value="50" waitEvent="updateComplete" />
+				            <SetProperty target="tic2.ti1" propertyName="x" value="40" waitEvent="move" waitTarget="tic2.ti1"/>
+				            <AssertPropertyValue target="tic2.ti1" propertyName="x" value="40" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic2.grp0">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_x_property_negative" description="Checks the height property on a TextInput control is bindable" keywords="[TextInput, x]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+				            <SetProperty target="tic2.ti1" propertyName="width" value="50" waitEvent="updateComplete" />
+						<SetProperty target="tic2.grp1" propertyName="x" value="50" waitEvent="move" waitTarget="tic2.grp1"/>
+				        </setup>
+				        <body>
+				            <SetProperty target="tic2.ti1" propertyName="x" value="-40" waitEvent="move" waitTarget="tic2.ti1"/>
+				            <AssertPropertyValue target="tic2.ti1" propertyName="x" value="-40" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic2.grp0">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <!-- ******************** y ******************** -->
+				    <TestCase testID="TextInput_y_default" description="Checks the default x" keywords="[TextInput, x]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <AssertPropertyValue target="tic2.ti1" propertyName="y" value="0" />
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_y_property_positive" description="Set y to 40." keywords="[TextInput, x]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+				            <SetProperty target="tic2.ti1" propertyName="width" value="50" waitEvent="updateComplete" />
+				            <SetProperty target="tic2.ti1" propertyName="y" value="40" waitEvent="move" waitTarget="tic2.ti1"/>
+				            <AssertPropertyValue target="tic2.ti1" propertyName="y" value="40" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic2.grp0">
+											<ConditionalValue deviceDensity="160" />
+											<ConditionalValue deviceDensity="240" />
+											<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+										</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_y_property_negative" description="Checks the height property on a TextInput control is bindable" keywords="[TextInput, x]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+				            <SetProperty target="tic2.ti1" propertyName="width" value="50" waitEvent="updateComplete" />
+				            <SetProperty target="tic2.grp1" propertyName="y" value="50" waitEvent="move" waitTarget="tic2.grp1"/>
+				        </setup>
+				        <body>
+				            <SetProperty target="tic2.ti1" propertyName="y" value="-40" waitEvent="move" waitTarget="tic2.ti1"/>
+				            <AssertPropertyValue target="tic2.ti1" propertyName="y" value="-40" />
+				            <CompareBitmap numColorVariances="20" url="../Properties/baselines" target="tic2.grp0">
+								<ConditionalValue deviceDensity="160" />
+								<ConditionalValue deviceDensity="240" />
+								<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+							</CompareBitmap>
+				        </body>
+				    </TestCase>
+
+				    <!-- ******************** baselinePosition ******************** -->
+				    <TestCase testID="TextInput_baselinePosition_property_preValidation" description="Checks the baselinePosition property on a TextInput" keywords="[TextInput, baselinePosition]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+						<ResetComponent target="tic2.ti1" className="spark.components.TextInput" />
+				        </setup>
+				        <body>
+							<AssertPropertyValue target="tic2.ti1" propertyName="baselinePosition" >
+								<ConditionalValue deviceDensity="160" value="22.85" />
+								<ConditionalValue deviceDensity="240" value="33.25" />
+								<ConditionalValue deviceDensity="320" value="43.70" />
+								<ConditionalValue deviceDensity="320" os="iphone" value="43.70"/>
+							</AssertPropertyValue>
+				        </body>
+				    </TestCase>
+
+				    <TestCase testID="TextInput_baselinePosition_property_postValidation" description="Checks the baselinePosition property on a TextInput" keywords="[TextInput, baselinePosition]">
+				        <setup>
+						<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+						<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView2)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+						<ResetComponent target="tic2" className="components.TextInputComp2" waitEvent="updateComplete" />
+				        </setup>
+				        <body>
+							<AssertPropertyValue target="tic2.ti1" propertyName="baselinePosition" >
+								<ConditionalValue deviceDensity="160" value="22.85" />
+								<ConditionalValue deviceDensity="240" value="33.25" />
+								<ConditionalValue deviceDensity="320" value="43.70" />
+								<ConditionalValue deviceDensity="320" os="iphone" value="43.70"/>
+							</AssertPropertyValue>
+				        </body>
+				    </TestCase>
+   </testCases>
+
+</UnitTester>
+
+
+

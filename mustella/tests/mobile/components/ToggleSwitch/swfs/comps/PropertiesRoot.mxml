@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="doTest1()"> 
+    
+	<fx:Script>
+		<![CDATA[
+			[Bindable]
+			private var selectedVal:Boolean = true;
+			
+			private function doTest1():void
+			{
+				/*target3.selectedLabel = "San Francisco";
+				target3.unselectedLabel = "San Jose";*/
+				target3.selected = true;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	
+    <s:ToggleSwitch id="target1"  />
+	<s:ToggleSwitch id="target2" selected="true"/>
+	<s:ToggleSwitch id="target3" />
+	<s:ToggleSwitch id="target4" selected="{selectedVal}"/>
+		
+	<s:ToggleSwitch id="target7" width="200" height="80"  />
+	<s:ToggleSwitch id="target8" width="40%" height="20%"  />
+	<s:ToggleSwitch id="target9" scaleX="2" scaleY="2"  />
+	
+</s:VGroup>

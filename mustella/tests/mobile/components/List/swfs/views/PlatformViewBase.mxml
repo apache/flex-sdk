@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		initialize="handleInitialize(event)" 
+		creationComplete="view1_creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			static private const _stateMap: Object = {
+				AND: "android",
+				IOS: "ios",
+				QNX: "playbook"
+			};
+			
+			protected function getPlatformStateBase(): String {
+				var version: String = Capabilities.version.substr(0, 3);
+				return _stateMap[version];								
+			}
+			
+			protected function handleInitialize(event: Event): void {
+				currentState = getPlatformStateBase();
+			}
+			
+			protected function view1_creationCompleteHandler(event:FlexEvent):void
+			{
+				//currentState = data.toString();					
+			}
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				navigator.popView();
+			}
+		
+		]]>
+	</fx:Script>
+	<s:navigationContent>
+		<s:Button label="Back" includeIn="ios,playbook" click="button1_clickHandler(event)"/>
+	</s:navigationContent>
+	<s:states>
+		<s:State name="ios"/>
+		<s:State name="android"/>
+		<s:State name="playbook"/>
+	</s:states>
+</s:View>

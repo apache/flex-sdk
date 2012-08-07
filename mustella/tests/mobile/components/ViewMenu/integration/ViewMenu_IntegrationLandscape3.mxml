@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testDir="mobile/components/ViewMenu/integration/"
+    testSWF="ViewMenu.mxml">
+
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+            import views.*;
+			import mx.core.FlexGlobals;
+        ]]>
+    </fx:Script>
+    <testCases>
+
+		<TestCase testID="LandscapeThreeButtonsMenuLandscape1" description="Three Buttons menu portrait, mouseClick on item 1" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView3)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('landscape') "  />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="updateComplete"/>
+				<CompareBitmap  numColorVariances="5" maxColorVariance="15"   url="../integration/baselines/$testID.png" target="navigator.activeView.i1.owner" />
+				<DispatchMouseClickEvent target="navigator.activeView.i1" localX="5" localY="5" waitEvent="viewMenuClose" waitTarget="navigator.activeView"/>
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="click1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="LandscapeThreeButtonsMenuLandscape2" description="Three Buttons menu portrait, mouseOver item 1, moveOut" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView3)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('landscape') "  />
+				<DispatchMouseClickEvent target="navigator.activeView.btn" localX="10" localY="10" waitEvent="click"/>
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="mouseDown"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="mouseUp"/>
+				<DispatchMouseEvent type="mouseOut" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="mouseOut"/>
+				<DispatchMouseEvent type="rollOut" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="rollOut"/>
+				<CompareBitmap  numColorVariances="5" maxColorVariance="15"   url="../integration/baselines/$testID.png" target="navigator.activeView.i1.owner" />
+				<DispatchMouseClickEvent target="navigator.activeView.i1" localX="5" localY="5" waitEvent="viewMenuClose" waitTarget="navigator.activeView"/>
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="click1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="LandscapeThreeButtonsMenuLandscape3" description="mouseOver item 1, move to item2, click " keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView3)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('landscape') "  />
+				<DispatchMouseClickEvent target="navigator.activeView.btn" localX="10" localY="10" waitEvent="click"/>
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="updateComplete"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="mouseUp"/>
+				<DispatchMouseEvent type="mouseOut" target="navigator.activeView.i1" localX="5" localY="5"  waitEvent="mouseOut"/>
+				<DispatchMouseEvent type="rollOut" target="navigator.activeView.i1" localX="10" localY="10"  waitEvent="rollOut"/>
+				<DispatchMouseEvent type="mouseMove" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="mouseMove"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="updateComplete"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="mouseUp"/>
+				<CompareBitmap  numColorVariances="5" maxColorVariance="15"   url="../integration/baselines/$testID.png" target="navigator.activeView.i2.owner" />
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+				<DispatchMouseEvent type="click" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="viewMenuClose" waitTarget="navigator.activeView"/>
+			</body>
+		</TestCase>
+		<TestCase testID="LandscapeThreeButtonsMenuLandscape4" description="mouseOver item 2, move to item3, click " keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView3)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('landscape') "  />
+				<DispatchMouseClickEvent target="navigator.activeView.btn" localX="10" localY="10" waitEvent="click"/>
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="updateComplete"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="mouseUp"/>
+				<DispatchMouseEvent type="mouseOut" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="mouseOut"/>
+				<DispatchMouseEvent type="rollOut" target="navigator.activeView.i2" localX="10" localY="10"  waitEvent="rollOut"/>
+				<DispatchMouseEvent type="mouseMove" target="navigator.activeView.i3" localX="5" localY="5"  waitEvent="mouseMove"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i3" localX="5" localY="5"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i3" localX="5" localY="5"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i3" localX="5" localY="5"  waitEvent="updateComplete"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i3" localX="5" localY="5"  waitEvent="mouseUp"/>
+				<CompareBitmap  numColorVariances="5" maxColorVariance="15"   url="../integration/baselines/$testID.png" target="navigator.activeView.i3.owner" />
+				<DispatchMouseEvent type="click" target="navigator.activeView.i3" localX="5" localY="5"  waitEvent="viewMenuClose" waitTarget="navigator.activeView"/>
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="click3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="LandscapeThreeButtonsMenuLandscape5" description="Three Buttons menu portrait, mouseClick on item2" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView3)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('landscape') "  />
+				<DispatchMouseClickEvent target="navigator.activeView.btn" localX="10" localY="10" waitEvent="click"/>
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i2" localX="5" localY="5"  waitEvent="mouseOver"/>
+				<DispatchMouseClickEvent target="navigator.activeView.i2" localX="5" localY="5" waitEvent="viewMenuClose" waitTarget="navigator.activeView"/>
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="click2"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="LandscapeThreeButtonsMenuLandscape6" description="Three Buttons menu portrait 5-way" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView3)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('landscape') "  />
+				<DispatchMouseClickEvent target="navigator.activeView.btn" localX="10" localY="10" waitEvent="click"/>
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="39" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<CompareBitmap  numColorVariances="5" maxColorVariance="15"   url="../integration/baselines/$testID.png" target="navigator.activeView.i1.owner" />
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+				<DispatchMouseClickEvent target="navigator.activeView" localX="20" localY="20" waitEvent="viewMenuClose"/>
+			</body>
+		</TestCase>
+		<TestCase testID="LandscapeThreeButtonsMenuLandscape7" description="Three Buttons menu portrait 5-way" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView3)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('landscape') "  />
+				<DispatchMouseClickEvent target="navigator.activeView.btn" localX="10" localY="10" waitEvent="click"/>
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="39" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="37" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<CompareBitmap  numColorVariances="5" maxColorVariance="15"   url="../integration/baselines/$testID.png" target="navigator.activeView.i2.owner" />
+				<DispatchKeyEvent keyLocation="4" keyCode="13" waitTarget="navigator.activeView" waitEvent="viewMenuClose" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="LandscapeThreeButtonsMenuLandscape8" description="Three Buttons menu portrait 5-way" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView3)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('landscape') "  />
+				<DispatchMouseClickEvent target="navigator.activeView.btn" localX="10" localY="10" waitEvent="click"/>
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="39" waitTarget="navigator.activeView.i2" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="39" waitTarget="navigator.activeView.i3" waitEvent="updateComplete" />
+				<CompareBitmap  numColorVariances="5" maxColorVariance="15"   url="../integration/baselines/$testID.png" target="navigator.activeView.i2.owner" />
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+				<DispatchMouseClickEvent target="navigator.activeView" localX="20" localY="20" waitEvent="viewMenuClose"/>
+			</body>
+		</TestCase>
+		<TestCase testID="LandscapeThreeButtonsMenuLandscape9" description="Three Buttons menu portrait 5-way" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView3)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('landscape') "  />
+				<DispatchMouseClickEvent target="navigator.activeView.btn" localX="10" localY="10" waitEvent="click"/>
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="39" waitTarget="navigator.activeView.i2" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="37" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<CompareBitmap  numColorVariances="5" maxColorVariance="15"   url="../integration/baselines/$testID.png" target="navigator.activeView.i2.owner" />
+				<DispatchKeyEvent keyLocation="4" keyCode="13" waitTarget="navigator.activeView" waitEvent="viewMenuClose" />
+			</body>
+		</TestCase>
+
+		</testCases>
+</UnitTester>

@@ -1,0 +1,955 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/List/integration/"
+    testSWF="List2.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+        
+        <!--
+        ========================
+        Testing Nested Scrolling 
+        ========================
+        
+        Check the scroll positions and selection of nested Scroller + List.
+        
+        BasicLayout nested inside VerticalLayout
+        
+        + scroll down inside the nested basic layout should scroll only the basic layout
+        + scroll right inside the nested basic layout should scroll only the basic layout
+        + scroll diagonally down+right inside the nested basic layout should scroll only the basic layout
+        
+        VerticalLayout nested inside VerticalLayout
+        
+        + scroll down inside the nested vertical list should scroll only the vertical list
+        + scroll right inside the nested vertical list should get selected since outer has nowhere to scroll
+        + scroll diagonally down+right inside the nested vertical list should scroll only the vertical list
+        
+        HorizontalLayout nested inside VerticalLayout
+        
+        + scroll down inside the nested horizontal list should scroll the outer scroller
+        + scroll right inside the nested horizontal list should only scroll the horizontal list
+        + scroll diagonally down+right (favoring minor axis) inside the nested horizontal list should scroll the horizontal list
+        + scroll diagonally down+right (exactly 45 degrees) inside the nested horizontal list should scroll the horizontal list
+        + scroll diagonally down+right (favoring major axis) inside the nested horizontal list should scroll the outer scroller
+        
+        BasicLayout nested inside HorizontalLayout
+        
+        + scroll down inside the nested basic layout should scroll only the basic layout
+        + scroll right inside the nested basic layout should scroll only the basic layout
+        + scroll diagonally down+right inside the nested basic layout should scroll only the basic layout
+        
+        VerticalLayout nested inside HorizontalLayout
+        
+        + scroll down inside the nested vertical list only scroll the vertical list
+        + scroll right inside the nested vertical list should scroll the outer scroller
+        + scroll diagonally down+right (favoring major axis) inside the nested vertical list should scroll the outer scroller
+        + scroll diagonally down+right (exactly 45 degrees) inside the nested vertical list should scroll the vertical list
+        + scroll diagonally down+right (favoring minor axis) inside the nested vertical list should scroll the vertical list
+        
+        HorizontalLayout nested inside HorizontalLayout
+        
+        + scroll down inside the nested horizontal list should get selected since outer has nowhere to scroll 
+        + scroll right inside the nested horizontal list should scroll only the horizontal list
+        + scroll diagonally down+right inside the nested horizontal list should scroll only the inner horizontal list
+                
+        BasicLayout nested inside BasicLayout
+        
+        + scroll down inside the nested basic layout should scroll only the inner basic layout
+        + scroll right inside the nested basic layout should scroll only the inner basic layout
+        + scroll diagonally down+right inside the nested basic layout should scroll only the inner basic layout
+        
+        VerticalLayout nested inside BasicLayout
+        
+        + scroll down inside the nested vertical list should scroll only the vertical list
+        + scroll right inside the nested vertical list should scroll the outer scroller
+        + scroll diagonally down+right (favoring minor axis) inside the nested vertical list should scroll the vertical list
+        + scroll diagonally down+right (exactly 45 degrees) inside the nested vertical list should scroll the outer scroller
+        + scroll diagonally down+right (favoring major axis) inside the nested vertical list should scroll the outer scroller
+        
+        HorizontalLayout nested inside BasicLayout
+        
+        + scroll down inside the nested horizontal list should scroll only scroll the outer scroller
+        + scroll right inside the nested horizontal list should scroll only scroll the horizontal list
+        + scroll diagonally down+right (favoring major axis) inside the nested horizontal list should scroll the outer scroller
+        + scroll diagonally down+right (exactly 45 degrees) inside the nested horizontal list should scroll the horizontal list
+        + scroll diagonally down+right (favoring minor axis) inside the nested horizontal list should scroll the hlist
+        
+        -->
+        
+        <TestCase testID="List_Integration_nested_outer" keywords="[List, Integration]" description="sanity check: scroll the outer without affecting the inners">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="75" dragYTo="25" dragXFrom="5" dragXTo="5" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+        
+        <!-- BasicLayout nested inside VerticalLayout -->
+        
+        <TestCase testID="List_Integration_nested_basic_vertical_down" keywords="[List, Integration]" description="scroll down inside the nested basic layout should scroll only the basic layout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="250" dragYTo="200" dragXFrom="250" dragXTo="250" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_basic_vertical_right" keywords="[List, Integration]" description="scroll right inside the nested basic layout should scroll only the basic layout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <Pause timeout="500" /><!-- TODO: For Droid 1... fck there must be a better way -->
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="250" dragYTo="250" dragXFrom="250" dragXTo="200" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_nested_basic_vertical_diagonal" keywords="[List, Integration]" description="scroll diagonally down+right inside the nested basic layout should scroll only the basic layout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="250" dragYTo="200" dragXFrom="250" dragXTo="200" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50-List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50-List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+        
+        <!-- VerticalLayout nested inside VerticalLayout -->
+        
+        <TestCase testID="List_Integration_nested_vertical_vertical_down" keywords="[List, Integration]" description="scroll down inside the nested vertical list should scroll only the vertical list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="450" dragYTo="400" dragXFrom="250" dragXTo="250" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_vertical_vertical_right" keywords="[List, Integration]" description="scroll right inside the nested vertical list should get selected since outer has nowhere to scroll">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="450" dragYTo="450" dragXFrom="250" dragXTo="200" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_vertical_vertical_diagonal" keywords="[List, Integration]" description="scroll diagonally down+right inside the nested vertical list should scroll only the vertical list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="450" dragYTo="400" dragXFrom="250" dragXTo="200" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <!-- HorizontalLayout nested inside VerticalLayout -->
+        
+        <TestCase testID="List_Integration_nested_horizontal_vertical_down" keywords="[List, Integration]" description="scroll down inside the nested horizontal list should scroll the outer scroller">
+            <bugs>
+                <Bug bugID="SDK-27828" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="650" dragYTo="600" dragXFrom="250" dragXTo="250" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_horizontal_vertical_right" keywords="[List, Integration]" description="scroll right inside the nested horizontal list should only scroll the horizontal list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="540" dragYTo="540" dragXFrom="250" dragXTo="200" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_horizontal_vertical_diagonal_lt45" keywords="[List, Integration]" description="scroll diagonally down+right (favoring minor axis) inside the nested horizontal list should scroll the horizontal list">
+            <bugs>
+                <Bug bugID="SDK-27828" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="650" dragYTo="600" dragXFrom="250" dragXTo="233" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_horizontal_vertical_diagonal_45" keywords="[List, Integration]" description="scroll diagonally down+right (exactly 45 degrees) inside the nested horizontal list should scroll the horizontal list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="540" dragYTo="490" dragXFrom="250" dragXTo="200" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_horizontal_vertical_diagonal_gt45" keywords="[List, Integration]" description="scroll diagonally down+right (favoring major axis) inside the nested horizontal list should scroll the outer scroller">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="540" dragYTo="523" dragXFrom="250" dragXTo="200" />
+
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <!-- BasicLayout nested inside HorizontalLayout -->
+        
+        <TestCase testID="List_Integration_nested_basic_horizontal_down" keywords="[List, Integration]" description="scroll down inside the nested basic layout should scroll only the basic layout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="150" dragXFrom="200" dragXTo="200" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_basic_horizontal_right" keywords="[List, Integration]" description="scroll right inside the nested basic layout should scroll only the basic layout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="200" dragXFrom="200" dragXTo="150" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_nested_basic_horizontal_diagonal" keywords="[List, Integration]" description="scroll diagonally down+right inside the nested basic layout should scroll only the basic layout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="150" dragXFrom="200" dragXTo="150" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+                
+        <!-- VerticalLayout nested inside HorizontalLayout -->
+        
+        <TestCase testID="List_Integration_nested_vertical_horizontal_down" keywords="[List, Integration]" description="scroll down inside the nested vertical list should only scroll the vertical list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="150" dragXFrom="300" dragXTo="300" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_vertical_horizontal_right" keywords="[List, Integration]" description="scroll right inside the nested vertical list should scroll the outer scroller">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="200" dragXFrom="300" dragXTo="250" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_vertical_horizontal_diagonal_lt45" keywords="[List, Integration]" description="scroll diagonally down+right (favoring major axis) inside the nested vertical list should scroll the outer scroller">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="150" dragXFrom="300" dragXTo="283" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_vertical_horizontal_diagonal_45" keywords="[List, Integration]" description="scroll diagonally down+right (exactly 45 degrees) inside the nested vertical list should scroll the vertical list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="150" dragXFrom="300" dragXTo="250" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_vertical_horizontal_diagonal_gt45" keywords="[List, Integration]" description="scroll diagonally down+right (favoring minor axis) inside the nested vertical list should scroll the vertical list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="183" dragXFrom="300" dragXTo="250" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <!-- HorizontalLayout nested inside HorizontalLayout -->
+        
+        <TestCase testID="List_Integration_nested_horizontal_horizontal_down" keywords="[List, Integration]" description="scroll down inside the nested horizontal list should get selected since outer has nowhere to scroll">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="150" dragXFrom="410" dragXTo="410" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="1" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_horizontal_horizontal_right" keywords="[List, Integration]" description="scroll right inside the nested horizontal list should scroll only the horizontal list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="200" dragXFrom="410" dragXTo="360" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_horizontal_horizontal_diagonal" keywords="[List, Integration]" description="scroll diagonally down+right inside the nested horizontal list should scroll only the inner horizontal list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="200" dragYTo="150" dragXFrom="410" dragXTo="360" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <!-- BasicLayout nested inside BasicLayout -->
+        
+        <TestCase testID="List_Integration_nested_basic_basic_down" keywords="[List, Integration]" description="scroll down inside the nested basic layout should scroll only the inner basic layout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="100" dragXFrom="150" dragXTo="150" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_basic_basic_right" keywords="[List, Integration]" description="scroll right inside the nested basic layout should scroll only the inner basic layout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="150" dragXFrom="150" dragXTo="100" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_basic_basic_diagonal" keywords="[List, Integration]" description="scroll diagonally down+right inside the nested basic layout should scroll only the inner basic layout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="100" dragXFrom="150" dragXTo="100" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <!-- VerticalLayout nested inside BasicLayout -->
+        
+        <TestCase testID="List_Integration_nested_vertical_basic_down" keywords="[List, Integration]" description="scroll down inside the nested vertical list should scroll only the vertical list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="350" dragYTo="300" dragXFrom="150" dragXTo="150" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_vertical_basic_right" keywords="[List, Integration]" description="scroll right inside the nested vertical list should scroll the outer scroller">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="350" dragYTo="350" dragXFrom="150" dragXTo="100" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_vertical_basic_diagonal_lt45" keywords="[List, Integration]" description="scroll diagonally down+right (favoring minor axis) inside the nested vertical list should scroll the vertical list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="350" dragYTo="300" dragXFrom="150" dragXTo="133" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_vertical_basic_diagonal_45" keywords="[List, Integration]" description="scroll diagonally down+right (exactly 45 degrees) inside the nested vertical list should scroll the inner vlist">
+            <bugs>
+                <Bug bugID="SDK-29362" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <Pause timeout="3000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="350" dragYTo="300" dragXFrom="150" dragXTo="100" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_vertical_basic_diagonal_gt45" keywords="[List, Integration]" description="scroll diagonally down+right (favoring major axis) inside the nested vertical list should scroll the outer scroller">
+            <bugs>
+                <Bug bugID="SDK-29362" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller">
+                    <fx:Array>
+                        <fx:Object type="mouseMove" localX="150" localY="350" fakeTimeValue="0" />
+                        <fx:Object type="rollOver" localX="150" localY="350" fakeTimeValue="15" />
+                        <fx:Object type="mouseOver" localX="150" localY="350" fakeTimeValue="30" />
+                        <fx:Object type="mouseDown" localX="150" localY="350" fakeTimeValue="45" />
+                        <fx:Object type="mouseMove" localX="103" localY="340" fakeTimeValue="60" />
+                        <fx:Object type="mouseMove" localX="80" localY="330" fakeTimeValue="100" />
+                        <fx:Object type="mouseMove" localX="57" localY="320" fakeTimeValue="120" />
+                        <fx:Object type="mouseMove" localX="33" localY="310" fakeTimeValue="150" />
+                        <fx:Object type="mouseMove" localX="10" localY="310" fakeTimeValue="190" />
+                        <fx:Object type="mouseMove" localX="10" localY="310" fakeTimeValue="220" />
+                        <fx:Object type="mouseMove" localX="10" localY="310" fakeTimeValue="250" />
+                        <fx:Object type="mouseMove" localX="10" localY="310" fakeTimeValue="290" />
+                        <fx:Object type="mouseMove" localX="10" localY="310" fakeTimeValue="320" />
+                        <fx:Object type="mouseUp" localX="10" localY="310" fakeTimeValue="350" />
+                    </fx:Array>
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(55 - List.getSlopValue())">
+                    <ConditionalValue screenDPI="326" value="34" />
+                    <ConditionalValue screenDPI="170" value="37" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(140 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <!-- HorizontalLayout nested inside BasicLayout  -->
+        
+        <TestCase testID="List_Integration_nested_horizontal_basic_down" keywords="[List, Integration]" description="scroll down inside the nested horizontal list should scroll only scroll the outer scroller">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="100" dragXFrom="350" dragXTo="350" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="List_Integration_nested_horizontal_basic_right" keywords="[List, Integration]" description="scroll right inside the nested horizontal list should scroll only scroll the horizontal list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="150" dragXFrom="350" dragXTo="300" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_nested_horizontal_basic_diagonal_lt45" keywords="[List, Integration]" description="scroll diagonally down+right (favoring major axis) inside the nested horizontal list should scroll the outer scroller">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="100" dragXFrom="350" dragXTo="333" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" valueExpression="value=(30 - List.getSlopValue())">
+                    <ConditionalValue screenDPI="170" value="12" />
+                    <ConditionalValue screenDPI="326" value="8" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_nested_horizontal_basic_diagonal_45" keywords="[List, Integration]" description="scroll diagonally down+right (exactly 45 degrees) inside the nested horizontal list should scroll the horizontal list">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="150" dragXFrom="350" dragXTo="300" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_nested_horizontal_basic_diagonal_gt45" keywords="[List, Integration]" description="scroll diagonally down+right (favoring minor axis) inside the nested horizontal list should scroll the hlist">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedInBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.outerScroller" dragYFrom="150" dragYTo="135" dragXFrom="350" dragXTo="300" />
+                
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.outerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.innerScroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.vList.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.hList.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.vList.selectedItems" propertyName="length" value="0" /> 
+                <AssertPropertyValue target="navigator.activeView.hList.selectedItems" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

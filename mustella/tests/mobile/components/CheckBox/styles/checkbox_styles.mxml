@@ -1,0 +1,1575 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/CheckBox/styles/"
+    testSWF="MobileCheckBoxMain.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+		<fx:Style>
+			@namespace s "library://ns.adobe.com/flex/spark";
+			
+			.bottomStyle {
+				icon-placement:bottom;
+			}
+		</fx:Style>
+
+    <fx:Script><![CDATA[ 
+		import mx.core.FlexGlobals;
+	]]>
+	</fx:Script>
+		
+    <testCases>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_inline" keywords="[Mobile, CheckBox, iconPlacement]" description="Test checkbox iconPlacement set inline in mxml">
+	<body>
+		<AssertStyleValue target="styleComp.cbInline" styleName="iconPlacement" value="right" />			
+		<CompareBitmap url="../styles/baselines" target="styleComp.cbInline" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_css_selectionID" keywords="[Mobile, CheckBox, iconPlacement]" description="Test checkbox iconPlacement set in style tag">
+	<setup>
+		<SetProperty target="styleComp.cbStyled" propertyName="label" value="Include Directory" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cbStyled" styleName="iconPlacement" value="right" />			
+		<CompareBitmap url="../styles/baselines" target="styleComp.cbStyled" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_default" keywords="[Mobile, CheckBox, iconPlacement]" description="Test default iconPlacement style on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="left" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_right" keywords="[Mobile, CheckBox, iconPlacement]" description="Test iconPlacement set to right">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Icon On Right" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>	
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_right_setLabel" keywords="[Mobile, CheckBox, iconPlacement,label]" description="Test iconPlacement set to right">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="right" />		
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Icon On Right" waitEvent="contentChange" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_top" keywords="[Mobile, CheckBox, iconPlacement]" description="Test iconPlacement set to top">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Icon On Top" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>	
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_top_setLabel" keywords="[Mobile, CheckBox, iconPlacement,label]" description="Test iconPlacement set to top">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="top" />		
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Icon On Top" waitEvent="contentChange" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_bottom" keywords="[Mobile, CheckBox, iconPlacement]" description="Test iconPlacement set to bottom">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Icon at Bottom" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>	
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_bottom_setLabel" keywords="[Mobile, CheckBox, iconPlacement,label]" description="Test iconPlacement set to bottom">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="bottom" />		
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Icon at Bottom" waitEvent="contentChange" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_styleName" keywords="[Mobile, CheckBox, iconPlacement, styleName]" description="Test iconPlacement when set in stylesheet">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Place at Bottom" waitEvent="contentChange" waitTarget="styleComp.cb1"/>	
+		<SetStyle target="styleComp.cb1" styleName="styleName" value="bottomStyle" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_left_to_top" keywords="[Mobile, CheckBox, iconPlacement]" description="Test changing iconPlacement on checkbox at runtime">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Left to Top" waitEvent="contentChange" waitTarget="styleComp.cb1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>	
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_bottom_to_right" keywords="[Mobile, CheckBox, iconPlacement]" description="Test changing iconPlacement on checkbox at runtime">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Bottom To Right" waitEvent="contentChange" waitTarget="styleComp.cb1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>	
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="bottom" />		
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>	
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_baseline" keywords="[Mobile, CheckBox, baseline]" description="Test basline style on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="baseline" value="null" />
+		<SetStyle target="styleComp.cb1" styleName="baseline" value="35" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="baseline" value="35" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_horizontalCenter_positive" keywords="[Mobile, CheckBox, horizontalCenter]" description="Test horizontalCenter style on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="horizontalCenter" value="null" />
+		<SetStyle target="styleComp.cb1" styleName="horizontalCenter" value="45" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="horizontalCenter" value="45" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_horizontalCenter_negative" keywords="[Mobile, CheckBox, horizontalCenter]" description="Test horizontalCenter style on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="horizontalCenter" value="null" />
+		<SetStyle target="styleComp.cb1" styleName="horizontalCenter" value="-45" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="horizontalCenter" value="-45" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_verticalCenter_positive" keywords="[Mobile, CheckBox, verticalCenter]" description="Test verticalCenter style on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="verticalCenter" value="null" />
+		<SetStyle target="styleComp.cb1" styleName="verticalCenter" value="10" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="verticalCenter" value="10" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_verticalCenter_negative" keywords="[Mobile, CheckBox, verticalCenter]" description="Test verticalCenter style on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="verticalCenter" value="null" />
+		<SetStyle target="styleComp.cb1" styleName="verticalCenter" value="-10" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="verticalCenter" value="-10" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+ 
+<TestCase testID="Mobile_checkbox_styles_left" keywords="[Mobile, CheckBox, left]" description="Test left setting on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="left" value="null" />
+		<SetStyle target="styleComp.cb1" styleName="left" value="20" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="left" value="20" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_right" keywords="[Mobile, CheckBox, right]" description="Test right setting on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="right" value="null" />
+		<SetStyle target="styleComp.cb1" styleName="right" value="20" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="right" value="20" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_top" keywords="[Mobile, CheckBox, top]" description="Test top setting on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="top" value="null" />
+		<SetStyle target="styleComp.cb1" styleName="top" value="15" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="top" value="15" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_bottom" keywords="[Mobile, CheckBox, bottom]" description="Test bottom setting on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="bottom" value="null" />
+		<SetStyle target="styleComp.cb1" styleName="bottom" value="15" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="bottom" value="15" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_color" keywords="[Mobile, CheckBox, color]" description="Test color setting on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="color" value="0" />
+		<SetStyle target="styleComp.cb1" styleName="color" value="0xffffff" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="color" value="16777215" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_fontStyle" keywords="[Mobile, CheckBox, fontStyle]" description="Test fontStyle setting on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="fontStyle" value="normal" />
+		<SetStyle target="styleComp.cb1" styleName="fontStyle" value="italic" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="fontStyle" value="italic" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_fontStyle_disabled" keywords="[Mobile, CheckBox, fontStyle]" description="Test fontStyle setting on disabled checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="fontStyle" value="normal" />
+		<SetStyle target="styleComp.cb1" styleName="fontStyle" value="italic" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="fontStyle" value="italic" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_fontFamily" keywords="[Mobile, CheckBox, fontFamily]" description="Test fontFamily setting on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="fontFamily" value="_sans" />
+		<SetStyle target="styleComp.cb1" styleName="fontFamily" value="Courier New" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="fontFamily" value="Courier New" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_fontFamily_disabled" keywords="[Mobile, CheckBox, fontFamily]" description="Test fontFamily setting on disabled checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="fontFamily" value="_sans" />
+		<SetStyle target="styleComp.cb1" styleName="fontFamily" value="Courier New" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="fontFamily" value="Courier New" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_fontSize" keywords="[Mobile, CheckBox, fontSize]" description="Test fontSize setting on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="fontSize" >
+			<ConditionalValue deviceDensity="160" os="win" value="16" />
+			<ConditionalValue deviceDensity="240" os="android" value="24" />
+			<ConditionalValue deviceDensity="320" os="win" value="32" />
+			<ConditionalValue deviceDensity="320" os="iphone" value="32" />
+			<ConditionalValue deviceDensity="160" os="qnx" value="16" />
+		</AssertStyleValue>
+		<SetStyle target="styleComp.cb1" styleName="fontSize" value="28" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="fontSize" value="28" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="320" os="iphone" />
+			<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_fontSize_disabled" keywords="[Mobile, CheckBox, fontSize]" description="Test fontSize setting on disabled checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />		
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="fontSize" >
+			<ConditionalValue deviceDensity="160" os="win" value="16" />
+			<ConditionalValue deviceDensity="240" os="android" value="24"/>
+			<ConditionalValue deviceDensity="320" os="win" value="32"/>
+			<ConditionalValue deviceDensity="320" os="iphone" value="32"/>
+			<ConditionalValue deviceDensity="160" os="qnx" value="16" />
+		</AssertStyleValue>
+		<SetStyle target="styleComp.cb1" styleName="fontSize" value="28" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="fontSize" value="28" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="320" os="iphone" />
+			<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_fontWeight" keywords="[Mobile, CheckBox, fontWeight]" description="Test fontWeight setting on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="fontWeight" value="normal" />
+		<SetStyle target="styleComp.cb1" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="fontWeight" value="bold" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_fontWeight_disabled" keywords="[Mobile, CheckBox, fontWeight]" description="Test fontWeight setting on disabled checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="fontWeight" value="normal" />
+		<SetStyle target="styleComp.cb1" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="fontWeight" value="bold" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_kerning" keywords="[Mobile, CheckBox, kerning]" description="Test kerning setting on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="LETTERS" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="kerning" value="default" />
+		<SetStyle target="styleComp.cb1" styleName="kerning" value="on" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="kerning" value="on" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_kerning_disabled" keywords="[Mobile, CheckBox, kerning]" description="Test kerning setting on disabled checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="LETTERS" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="kerning" value="default" />
+		<SetStyle target="styleComp.cb1" styleName="kerning" value="on" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="kerning" value="on" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_textDecoration" keywords="[Mobile, CheckBox, textDecoration]" description="Test textDecoration setting on checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="textDecoration" value="none" />
+		<SetStyle target="styleComp.cb1" styleName="textDecoration" value="underline" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="textDecoration" value="underline" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="10" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_textDecoration_disabled" keywords="[Mobile, CheckBox, textDecoration]" description="Test textDecoration setting on disabled checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="textDecoration" value="none" />
+		<SetStyle target="styleComp.cb1" styleName="textDecoration" value="underline" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="textDecoration" value="underline" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_chromeColor" keywords="[Mobile, CheckBox, chromeColor]" description="Test chromeColor setting on enabled checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="chromeColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_chromeColor_disabled" keywords="[Mobile, CheckBox, chromeColor]" description="Test chromeColor setting on disabled checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="chromeColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_chromeColor_selected_disabled" keywords="[Mobile, CheckBox, chromeColor]" description="Test chromeColor setting on disabled and selected checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="chromeColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_symbolColor" keywords="[Mobile, CheckBox, symbolColor]" description="Test symbolColor setting on selected checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0x000000" />
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_symbolColor_toDefault" keywords="[Mobile, CheckBox, symbolColor]" description="Test symbolColor setting on selected checkbox from custom to default">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0xff0000" />
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0x000000" waitEvent="updateComplete" />		
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0x000000" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_symbolColor_disabled" keywords="[Mobile, CheckBox, symbolColor]" description="Test symbolColor setting on selected and disabled checkbox">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_symbolColor_disabled_toDefault" keywords="[Mobile, CheckBox, symbolColor]" description="Test symbolColor setting on selected and disabled checkbox to default">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0xff0000" />
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0x000000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0x000000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_symbolColor_deselected" keywords="[Mobile, CheckBox, symbolColor]" description="Test changing symbolColor">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Symbol Color" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0x000000" />	
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_symbolColor_deselected_toDefault" keywords="[Mobile, CheckBox, symbolColor]" description="Test changing symbolColor from custom to default">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Symbol Color" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0xff0000" />
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0x000000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0x000000" />	
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_symbolColor_disabled_deselected" keywords="[Mobile, CheckBox, symbolColor]" description="Test changing symbolColor">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Symbol Color" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0x000000" />	
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_symbolColor_disabled_deselected_toDefault" keywords="[Mobile, CheckBox, symbolColor]" description="Test changing symbolColor from custom to default">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Symbol Color" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0xff0000" />
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="0x000000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="symbolColor" value="0x000000" />	
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<!-- Note: textShadowAlpha and textShadowColor now has no effect on checkbox and radiobutton. Applying them to these components should have no effect -->
+
+<TestCase testID="Mobile_checkbox_styles_textShadowAlpha_textShadowColor_default" keywords="[CheckBox, textShadowAlpha, textShadowColor]" description="Test default text shadow styles">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowAlpha" value="0.55" />
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowColor" value="0xFFFFFF" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_textShadowAlpha_0" keywords="[CheckBox, textShadowAlpha]" description="Setting textShadowAlpha should have no effect">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="textShadowAlpha" value="0" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowAlpha" value="0" />
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowColor" value="0xFFFFFF" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_disabled_textShadowAlpha_0" keywords="[CheckBox, textShadowAlpha]" description="Test disabled checkbox text when textShadowAlpha is 0">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="textShadowAlpha" value="0" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowAlpha" value="0" />
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowColor" value="0xFFFFFF" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_textShadowAlpha_1point5" keywords="[CheckBox, textShadowAlpha]" description="Test checkbox text when textShadowAlpha is 1point5">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="textShadowAlpha" value="1.5" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowAlpha" value="1.5" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_disabled_textShadowAlpha_1point5" keywords="[CheckBox, textShadowAlpha]" description="Test checkbox text when textShadowAlpha is 1point5">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="textShadowAlpha" value="1.5" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowAlpha" value="1.5" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_textShadowColor" keywords="[CheckBox, textShadowColor]" description="Test checkbox text when textShadowColor is set">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="textShadowColor" value="0" waitEvent="updateComplete" />		
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowColor" value="0" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_disabled_textShadowColor" keywords="[CheckBox, textShadowColor]" description="Test checkbox text when textShadowColor is set">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="textShadowColor" value="0" waitEvent="updateComplete" />		
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowColor" value="0" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_textShadowColor_textShadowAlpha_2" keywords="[CheckBox, textShadowAlpha, textShadowColor]" description="Test checkbox label when textShadowColor and textShadowAlpha are set">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="textShadowColor" value="0" waitEvent="updateComplete" />		
+		<SetStyle target="styleComp.cb1" styleName="textShadowAlpha" value="2.0" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowColor" value="0" />
+		<AssertStyleValue target="styleComp.cb1" styleName="textShadowAlpha" value="2" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_focus_color_alpha_thickness_blendmode_mxml" keywords="[CheckBox, focusColor, focusAlpha, focusBlendMode, focusThickness]" description="Test checkbox focus attributes set in mxml">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="focusColor" value="0xCC0033" />	
+		<AssertStyleValue target="styleComp.cb1" styleName="focusAlpha" value="2" />	
+		<AssertStyleValue target="styleComp.cb1" styleName="focusThickness" value="4" />	
+		<AssertStyleValue target="styleComp.cb1" styleName="focusBlendMode" value="difference" />	
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.cb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_focusAlpha_0" keywords="[CheckBox, focusAlpha]" description="Test checkbox focusAlpha">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />		
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="focusAlpha" value="0" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="focusAlpha" value="0" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.cb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1"  numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+
+<TestCase testID="Mobile_checkbox_styles_focusThickness_0" keywords="[CheckBox, focusAlpha]" description="Test checkbox focusAlpha">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />				
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="focusThickness" value="0" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="focusThickness" value="0" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.cb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1"  numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+
+<TestCase testID="Mobile_checkbox_styles_letterSpacing_default" keywords="[CheckBox, letterSpacing]" description="Test checkbox letterSpacing default">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_letterSpacing_change_at_runtime" keywords="[CheckBox, letterSpacing]" description="Test checkbox letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="0" />
+		<SetStyle target="styleComp.cb1" styleName="letterSpacing" value="8" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="8" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_increase_letterSpacing_iconPlacement_right" keywords="[CheckBox, letterSpacing, iconPlacement]" description="Test checkbox letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="0" />
+		<SetStyle target="styleComp.cb1" styleName="letterSpacing" value="8" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="8" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_decrease_letterSpacing_iconPlacement_right" keywords="[CheckBox, letterSpacing, iconPlacement]" description="Test checkbox letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="letterSpacing" value="8" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="8" />
+		<SetStyle target="styleComp.cb1" styleName="letterSpacing" value="0" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="0" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_increase_letterSpacing_iconPlacement_top" keywords="[CheckBox, letterSpacing, iconPlacement]" description="Test checkbox letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="top" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="0" />
+		<SetStyle target="styleComp.cb1" styleName="letterSpacing" value="8" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="8" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_decrease_letterSpacing_iconPlacement_top" keywords="[CheckBox, letterSpacing, iconPlacement]" description="Test checkbox letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="top" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="letterSpacing" value="8" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="8" />
+		<SetStyle target="styleComp.cb1" styleName="letterSpacing" value="0" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="0" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_increase_letterSpacing_iconPlacement_bottom" keywords="[CheckBox, letterSpacing, iconPlacement]" description="Test checkbox letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="0" />
+		<SetStyle target="styleComp.cb1" styleName="letterSpacing" value="8" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="8" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_decrease_letterSpacing_iconPlacement_bottom" keywords="[CheckBox, letterSpacing, iconPlacement]" description="Test checkbox letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="letterSpacing" value="8" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="8" />
+		<SetStyle target="styleComp.cb1" styleName="letterSpacing" value="0" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="letterSpacing" value="0" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_leading_default" keywords="[CheckBox, leading]" description="Test checkbox leading style default">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Leading Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="leading" value="2" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_leading_10" keywords="[CheckBox, leading]" description="Test checkbox leading style set to 10">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Leading Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="leading" value="2" />
+		<SetStyle target="styleComp.cb1" styleName="leading" value="10" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="leading" value="10" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_left_explicitHeight" keywords="[Mobile, CheckBox, iconPlacement]" description="Test text and icon alignment when iconPlacement is left and explicit height is set">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Wj" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="height" value="100" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="left" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_right_explicitHeight" keywords="[Mobile, CheckBox, iconPlacement]" description="Test text and icon alignment when iconPlacement is right and explicit height is set">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Wj" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />		
+		<SetProperty target="styleComp.cb1" propertyName="height" value="100" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="right" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_top_explicitHeight" keywords="[Mobile, CheckBox, iconPlacement]" description="Test text and icon alignment when iconPlacement is top and explicit height is set">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Wj" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" />		
+		<SetProperty target="styleComp.cb1" propertyName="height" value="125" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="top" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_iconPlacement_bottom_explicitHeight" keywords="[Mobile, CheckBox, iconPlacement]" description="Test text and icon alignment when iconPlacement is bottom and explicit height is set">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Wj" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" />		
+		<SetProperty target="styleComp.cb1" propertyName="height" value="125" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="iconPlacement" value="bottom" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_focusColor_default" keywords="[CheckBox, focusColor]" description="Test checkbox focusColor">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="focusColor" value="7385838" />	
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.cb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_focusColor_set_in_AS" keywords="[CheckBox, focusColor]" description="Test checkbox focusColor">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />		
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="focusColor" value="0xFF0000" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="focusColor" value="0xFF0000" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.cb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_focus_alpha_thickness_blendmode_default" keywords="[CheckBox, focusAlpha, focusThickness, focusBlendMode]" description="Test checkbox focusAlpha focusThickness and focusBlendMode default value">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />				
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.cb1" styleName="focusAlpha" value="0.55" />	
+		<AssertStyleValue target="styleComp.cb1" styleName="focusThickness" value="3" >
+			<ConditionalValue deviceDensity="160" os="win" value="2" />
+			<ConditionalValue deviceDensity="160" os="qnx" value="2" />
+		</AssertStyleValue>
+		<AssertStyleValue target="styleComp.cb1" styleName="focusBlendMode" value="normal" />	
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.cb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="iphone" />
+			<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_focusThickness_4" keywords="[CheckBox, focusAlpha]" description="Test checkbox focusAlpha">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />				
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="focusThickness" value="4" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="focusThickness" value="4" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.cb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_focusAlpha_1point5" keywords="[CheckBox, focusAlpha]" description="Test checkbox focusAlpha">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />				
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="focusAlpha" value="1.5" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="focusAlpha" value="1.5" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.cb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_focusBlendMode_invert" keywords="[CheckBox, focusBlendMode]" description="Test checkbox focusBlendMode">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />		
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="focusBlendMode" value="invert" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="focusBlendMode" value="invert" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.cb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkbox_styles_focusBlendMode_subtract" keywords="[CheckBox, focusBlendMode]" description="Test checkbox focusBlendMode">
+	<setup>
+		<ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />		
+	</setup>
+	<body>
+		<SetStyle target="styleComp.cb1" styleName="focusBlendMode" value="subtract" waitTarget="styleComp.cb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.cb1" styleName="focusBlendMode" value="subtract" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.cb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:renderers="renderers.*"
+        title="LabelItemRenderer Styles">
+        
+    <fx:Script source="viewScript.as" />
+	<fx:Script>
+		<![CDATA[
+			
+			[Bindable] public var nextAlternatingItemColors:Array = [0xE3E3E3, 0xFFFFFF];
+			[Bindable] public var nextDownColor:uint = 0xCCCCCC;
+			[Bindable] public var nextSelectionColor:uint = 0xAAAAAA;
+			
+			private function longLabelFunction(value:Object):String {
+				return value.myItemIndex + ". Lorem ipsum dolor sit amet do cacas si mana ipsum done";
+			}
+
+			private function changeColors():void {
+				nextAlternatingItemColors = [0xEEEEFF, 0xAAAAFF];
+				nextDownColor = 0xFF0000;
+				nextSelectionColor = 0x00FF00;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:RadioButtonGroup id="alignRBG" />
+		
+		<fx:Component className="LIR_Styles_manual">
+			<renderers:InstrumentedLabelItemRenderer paddingTop="{outerDocument.paddingTopSlider.value}" 
+								  paddingBottom="{outerDocument.paddingBottomSlider.value}" 
+								  paddingLeft="{outerDocument.paddingLeftSlider.value}" 
+								  paddingRight="{outerDocument.paddingRightSlider.value}" 
+								  verticalAlign="{outerDocument.alignRBG.selectedValue}"
+								  alternatingItemColors="{outerDocument.nextAlternatingItemColors}"
+								  downColor="{outerDocument.nextDownColor}"
+								  selectionColor="{outerDocument.nextSelectionColor}"/>
+		</fx:Component>
+		<fx:Component className="LIR_Styles_padding">
+			<renderers:InstrumentedLabelItemRenderer paddingTop="50" paddingBottom="50" paddingLeft="50" paddingRight="50" />
+		</fx:Component>
+		<fx:Component className="LIR_Styles_alternatingItemColors">
+			<renderers:InstrumentedLabelItemRenderer alternatingItemColors="[red, blue]" />
+		</fx:Component>
+		<fx:Component className="LIR_Styles_verticalAlign_top">
+			<renderers:InstrumentedLabelItemRenderer verticalAlign="top" />
+		</fx:Component>
+		<fx:Component className="LIR_Styles_verticalAlign_bottom">
+			<renderers:InstrumentedLabelItemRenderer verticalAlign="bottom" />
+		</fx:Component>
+		<fx:Component className="LIR_Styles_downColor">
+			<renderers:InstrumentedLabelItemRenderer downColor="red" />
+		</fx:Component>
+		<fx:Component className="LIR_Styles_selectionColor">
+			<renderers:InstrumentedLabelItemRenderer selectionColor="blue" />
+		</fx:Component>
+		<fx:Component className="LIR_Styles_textStyles">
+			<renderers:InstrumentedLabelItemRenderer height="77"
+                                                     textAlign="center"
+                                                     fontFamily="Georgia"
+                                                     fontWeight="bold"
+                                                     color="red"
+                                                     fontSize="40"
+                                                     textDecoration="underline"
+                                                     textIndent="100"
+                                                     leading="10"
+                                                     letterSpacing="-3" />
+		</fx:Component>
+		
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout gap="0" horizontalAlign="center"/>
+	</s:layout>
+
+	<s:TileGroup width="100%" requestedColumnCount="2">
+		<s:HSlider id="paddingTopSlider" minimum="-10" value="15" maximum="40" />
+		<s:HSlider id="paddingBottomSlider" minimum="-10" value="15" maximum="40" />
+		<s:HSlider id="paddingLeftSlider" minimum="-10" value="15" maximum="40" />
+		<s:HSlider id="paddingRightSlider" minimum="-10" value="15" maximum="40" />
+	</s:TileGroup>
+	
+	<s:TileGroup requestedColumnCount="2" horizontalAlign="left">
+		<s:RadioButton label="top" value="top" group="{alignRBG}" />
+		<s:Rect />
+		<s:RadioButton label="middle" selected="true" value="middle" group="{alignRBG}" />
+		<s:Button label="change colors" click="changeColors()" />
+		<s:RadioButton label="bottom" value="bottom" group="{alignRBG}" />
+		<s:Rect />
+	</s:TileGroup>
+	
+    <s:List id="target" width="450" height="300" 
+            labelFunction="longLabelFunction"
+            dataProvider="{createIdenticalItems(100, 50, 50, 'vertical')}"
+			itemRenderer="views.LIR_Styles_manual" />
+    
+</s:View>

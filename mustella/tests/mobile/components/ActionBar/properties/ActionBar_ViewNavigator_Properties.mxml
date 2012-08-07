@@ -1,0 +1,1257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/components/ActionBar/properties/"
+			xmlns:components="components.*"
+			testSWF="ActionBarTest.mxml">
+	
+	<fx:Script><![CDATA[ 
+		import components.*;
+		import mx.core.FlexGlobals;
+		public static function init(o:DisplayObject):void { } 
+		import spark.layouts.*;
+		import spark.layouts.supportClasses.LayoutBase;
+		public var vertical:LayoutBase = new VerticalLayout();
+		public var horizontal:LayoutBase = new HorizontalLayout();
+		public var tile:LayoutBase = new TileLayout();
+		public var basic:LayoutBase = new BasicLayout();
+		
+	
+	]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	
+	
+	<fx:Declarations>
+		
+		<fx:XML xmlns="" id="arr">
+			<name>watanabe</name>
+		</fx:XML>
+	</fx:Declarations>
+	
+	<fx:Declarations>
+		<fx:Array id="emptyArray">
+		</fx:Array>
+		<fx:Array id="oneEArray">
+			<s:Button id="oneArrLabel" label="My Button"/>
+		</fx:Array>
+		<fx:Array id="twoEArray">
+			<s:Label id="twoArrLabel" text="Label2"/>
+			<s:Button id="twoArrButton" label="My Button" />
+		</fx:Array>
+		<fx:Array id="manyEArray">
+			<s:Label id="mArrLabel" text="My Label"/>
+			<s:Button id="mArrButton" label="My Button" />
+			<s:CheckBox id="mArrCheckBx" />
+			<s:TextInput id="mArrTextIpt" />
+		</fx:Array>
+		<fx:Array id="graphArray">
+			<s:Rect id="rect1" width="30" height="30">
+				<s:fill>
+					<s:SolidColor color="0xFFFFCC"/>
+				</s:fill>
+				<s:stroke>
+					<s:SolidColorStroke color="0x660099" weight="2"/>
+				</s:stroke>
+			</s:Rect>
+			
+			<s:Rect id="rect2" width="30" height="50">
+				<s:fill>
+					<s:SolidColor color="red"/>
+				</s:fill>
+				<s:stroke>
+					<s:SolidColorStroke color="0x660099" weight="0"/>
+				</s:stroke>
+			</s:Rect>
+		</fx:Array>
+		<fx:Array id="mobileArray">
+			<s:TextArea id="mtextarea"/>
+		</fx:Array>
+		<fx:Array id="custCompArray">
+		</fx:Array>
+		
+		<fx:Array id="imgArray">
+			<s:Image source="assets/TestImage3.png" />
+			<s:Image source="assets/TestImage2.png" />
+		</fx:Array>
+		<fx:Array id="Horizontal">
+			
+			<s:HorizontalLayout >
+			</s:HorizontalLayout>
+				
+		</fx:Array>
+		<fx:Array id="Vertical">
+			
+			<s:VerticalLayout>
+			</s:VerticalLayout>
+				
+		</fx:Array>
+		<fx:Array id="Tile">
+			
+			<s:TileLayout>
+			</s:TileLayout>
+				
+		</fx:Array>
+		<fx:Array id="Basic">
+			<s:BasicLayout>
+			</s:BasicLayout>
+		</fx:Array>	
+		
+	</fx:Declarations>
+	<testCases>
+		<TestCase testID="ActionBar_ViewNavigator_default_height" keywords="[title]" description="check the default height of actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar" />
+				<Pause timeout="300" />
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="height">
+					<ConditionalValue deviceDensity="160" os="win" value="45"/>
+					<ConditionalValue deviceDensity="240" os="android" value="67"/>
+					<ConditionalValue deviceDensity="320" os="win" value="90"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="90"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="45"/>
+				</AssertPropertyValue>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_height_increase" keywords="[title]" description="increase the height of actionbar and see if the content renders fine">
+			<bugs>
+				<Bug bugID="SDK-27024" />
+			</bugs>
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar" />
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="height" value="93" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="height" value="93"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_height_decrease" keywords="[title]" description="decrease the height of actionbar and see if the content renders fine">
+			<bugs>
+				<Bug bugID="SDK-27681" />
+			</bugs>
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar" />
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=oneEArray" waitEvent="updateComplete" />
+				<SetProperty target="navigator.actionBar" propertyName="height" value="50" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="height" value="50"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_default_width" keywords="[title]" description="check the default width of actionbar">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="height" value="67" waitEvent="updateComplete"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="height" value="67" />
+				<AssertPropertyValue target="navigator.actionBar" propertyName="width">
+					<ConditionalValue deviceDensity="160" os="win" value="320"/>
+					<ConditionalValue deviceDensity="240" os="android" value="480"/>
+					<ConditionalValue deviceDensity="320" os="win" value="640"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="640"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="1024"/>
+				</AssertPropertyValue>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_titleLayout_title_padding" keywords="[ActionBar, titleLayout, title, property]" description="Setting the left and right padding on titleLayout to check the effect on title">
+			<bugs>
+				<Bug bugID="SDK-27749" />
+			</bugs>
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=horizontal" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.actionBar" propertyName="title" value="Title" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingLeft" value="0"/>
+				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingRight" value="0"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+	<TestCase testID="ActionBar_ViewNavigator_title_specialchars" keywords="[title]" description="change title to a string with special characters">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="title" value="éàç 1234567890 日本語" waitTarget="navigator.actionBar" waitEvent="updateComplete"/> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value="éàç 1234567890 日本語"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+				
+			</body>
+		</TestCase>
+					<TestCase testID="ActionBar_ViewNavigator_title_null" keywords="[title,null]" description="change title to a string with null string">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>		
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="title" value="" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value=""/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_title_oneLetter" keywords="[title]" description="set one letter value to title string">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
+<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="title" value="c" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value="c"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_title_long" keywords="[title]" description="change title to a very long string">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="title" value="thisisaverylongtitlestringbecareful" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value="thisisaverylongtitlestringbecareful"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_title_data" keywords="[title, data binding]" description="change title to a string data{}">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="title" value="{arr}" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value="{arr}"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="100" ignoreMaxColorVariance="true">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_title_runtime" keywords="[title, runtime]" description="change title at runtime">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.setTitle()" waitTarget="navigator" waitEvent="updateComplete"/>	
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="title" value="hello"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		
+	<!--	<TestCase testID="ActionBar_ViewNavigator_title_runtime_null" keywords="[title, runtime, null]" description="change null title at runtime">
+			<bugs>
+				<Bug bugID="SDK-27335" />
+			</bugs>
+			<setup>
+				<ResetComponent target="navigator.actionBar" className="actionBar.skin.titleDisplay:Label" />
+				
+				<SetProperty target="navigator.activeView.titlename" propertyName="text" value="{arr}"/>
+				<DispatchMouseClickEvent target="navigator.activeView.myButton2" localX="10" localY="8" waitEvent="click"
+										 waitTarget="navigator.activeView.myButton2"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.nulltitle" propertyName="text" value="hello again"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+				</CompareBitmap>
+			</body>
+			
+			
+		</TestCase>
+		-->
+		<TestCase testID="ActionBar_ViewNavigator_titleContent_null" keywords="[ActionBar, titleContent, property]" description="Checking an empty array ActionBar titleContent">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" value="[]" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.titleContent" propertyName="length" value="0" />
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_titleContent_EmptyArr" keywords="[ActionBar, titleContent, property]" description="Checking an empty array ActionBar titleContent">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=emptyArray" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.titleContent" propertyName="length" value="0" />	
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_titleContent_OneEArr" keywords="[ActionBar, titleContent, property]" description="Checking a one-element array ActionBar titleContent">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=oneEArray" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.titleContent" propertyName="length" value="1" />				
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_titleContent_TwoEArr" keywords="[title]" description="set two elements to titleContent array">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.titleContent" propertyName="length" value="2" />
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		
+		
+		<TestCase testID="ActionBar_ViewNavigator_titleContent_ManyEArr" keywords="[title]" description="set many elements to titleContent array">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=manyEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+			
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.titleContent" propertyName="length" value="4" />
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_titleContent_ImageArr" keywords="[title]" description="set image to titleContent array">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>				
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=imgArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.titleContent" propertyName="length" value="2" />
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		
+		
+	<TestCase testID="ActionBar_ViewNavigator_titleLayout_default" keywords="[title]" description="check the default layout of titleContent">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
+				<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=horizontal" waitEvent="updateComplete" />
+			
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_titleLayout_vertical" keywords="[title]" description="check the default layout of titleContent">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
+								<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=vertical" waitEvent="updateComplete"/>
+								
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_titleLayout_tile" keywords="[title]" description="check the default layout of titleContent">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
+							<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=tile" waitEvent="updateComplete"/>
+							
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_titleLayout_basic" keywords="[title]" description="check the default layout of titleContent">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
+							<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=tile" waitEvent="updateComplete"/>
+						
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+	
+		<TestCase testID="ActionBar_ViewNavigator_titleLayout_default_VerticalAlignment" keywords="[ActionBar, titleLayout, property]" description="Checking the default titleLayout vertical alignment">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
+				<Pause timeout="300" />			
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="verticalAlign" value="middle" />
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_titleLayout_default_padding" keywords="[ActionBar, titleLayout, property]" description="Checking the default titleLayout padding">
+			<bugs>
+				<Bug bugID="SDK-27749" />
+			</bugs>
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingLeft">
+<ConditionalValue deviceDensity="160" os="win" value="13"/>
+					<ConditionalValue deviceDensity="240" os="android" value="20"/>
+					<ConditionalValue deviceDensity="320" os="win" value="26"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="26"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="13"/>
+</AssertPropertyValue>
+				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingRight">
+					<ConditionalValue deviceDensity="160" os="win" value="13"/>
+					<ConditionalValue deviceDensity="240" os="android" value="20"/>
+					<ConditionalValue deviceDensity="320" os="win" value="26"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="26"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="13"/>
+</AssertPropertyValue>
+				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingTop" value="0"/>
+				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingBottom" value="0"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_titleLayout_titleContent_padding" keywords="[ActionBar, titleLayout, titleContent, property]" description="Setting the left and right padding on titleLayout to check the effect on titleContent">
+			<bugs>
+				<Bug bugID="SDK-27749" />
+			</bugs>
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleLayout" valueExpression="value=horizontal" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingLeft" value="0"/>
+				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="paddingRight" value="0"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_titleLayout_default_gap" keywords="[ActionBar, titleLayout, property]" description="Checking the default titleLayout gap">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>		
+				<Pause timeout="300" /></setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.titleLayout" propertyName="gap" value="0"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+
+			</body>
+		</TestCase>
+	
+		
+		
+	<!--	actionContent tests-->
+		<TestCase testID="ActionBar_ViewNavigator_actionContent_null" keywords="[ActionBar, actionContent, property]" description="Checking an null element ActionBar actionContent">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="actionContent" value="[]" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.actionContent" propertyName="length" value="0" />	
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+				
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_actionContent_EmptyArr" keywords="[ActionBar, actionContent, property]" description="Checking an empty array ActionBar titleContent">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=emptyArray" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.actionContent" propertyName="length" value="0" />
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_actionContent_OneEArr" keywords="[ActionBar, actionContent, property]" description="Checking a one-element array ActionBar actionContent">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=oneEArray" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.actionContent" propertyName="length" value="1" />				
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_actionContent_twoEArr" keywords="[title]" description="set two elements to titleContent array">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.actionContent" propertyName="length" value="2" />
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		
+		
+		<TestCase testID="ActionBar_ViewNavigator_actionContent_ManyEArr" keywords="[title]" description="set many elements to actionContent array">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>			
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=manyEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.actionContent" propertyName="length" value="4" />
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+	<TestCase testID="ActionBar_ViewNavigator_actionContent_ImageArr" keywords="[title]" description="set image to actionContent array">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=imgArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.actionContent" propertyName="length" value="2" />
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_actionLayout_default" keywords="[title]" description="check the default layout of actionlayout">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_actionLayout_default_padding" keywords="[title]" description="check the default layout of actionlayout">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>									
+				<Pause timeout="300" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.actionLayout" propertyName="paddingLeft" value="0"/>
+				<AssertPropertyValue target="navigator.actionBar.actionLayout" propertyName="paddingRight" value="0"/>
+				<AssertPropertyValue target="navigator.actionBar.actionLayout" propertyName="paddingTop" value="0"/>
+				<AssertPropertyValue target="navigator.actionBar.actionLayout" propertyName="paddingBottom" value="0"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_actionLayout_verticalLayout" keywords="[title]" description="set vertical to actionLayout">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
+				<SetProperty target="navigator.actionBar" propertyName="actionLayout" valueExpression="value=vertical" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_actionLayout_tileLayout" keywords="[title]" description="set vertical to actionLayout">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=manyEArray" waitEvent="updateComplete" />
+				<SetProperty target="navigator.actionBar" propertyName="actionLayout" valueExpression="value=tile" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_actionLayout_basicLayout" keywords="[title]" description="set basic layout  to actionLayout">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>		
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="actionContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
+				<SetProperty target="navigator.actionBar" propertyName="actionLayout" valueExpression="value=basic" />
+				<Pause timeout="300" />
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_visible" keywords="[title]" description="verify by default actionBar is visible">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=oneEArray" waitEvent="updateComplete"/>
+				
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="visible" value="true" />
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_visible_false" keywords="[title]" description="set actionBar visible to false">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="titleContent" valueExpression="value=oneEArray" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.actionBar" propertyName="visible" value="false"/>
+				<Pause timeout="300" />
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar" propertyName="visible" value="false" />
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+	
+			<TestCase testID="ActionBar_ViewNavigator_navigationContent_null" keywords="[ActionBar, navigationContent, property]" description="Checking an empty array ActionBar actionContent">
+				<setup>
+					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+					<Pause timeout="300" />
+					<SetProperty target="navigator.actionBar" propertyName="navigationContent" value="[]"/>
+					<Pause timeout="300" />
+				</setup>
+				<body>
+					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="0" />	
+					<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+						<ConditionalValue deviceDensity="160" os="win"/>
+						<ConditionalValue deviceDensity="240" os="android"/>
+						<ConditionalValue deviceDensity="320" os="win"/>
+						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="160" os="qnx"/>
+					</CompareBitmap>
+				</body>
+			</TestCase>
+			<TestCase testID="ActionBar_ViewNavigator_navigationContent_EmptyArr" keywords="[ActionBar, navigationContent, property]" description="Checking an empty array ActionBar titleContent">
+				<setup>
+					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+					<Pause timeout="300" />
+					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=emptyArray"/>
+					<Pause timeout="300" />
+				</setup>
+				<body>
+					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="0" />
+					<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+						<ConditionalValue deviceDensity="160" os="win"/>
+						<ConditionalValue deviceDensity="240" os="android"/>
+						<ConditionalValue deviceDensity="320" os="win"/>
+						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="160" os="qnx"/>
+					</CompareBitmap>
+				</body>
+			</TestCase>
+			<TestCase testID="ActionBar_ViewNavigator_navigationContent_OneEArr" keywords="[ActionBar, navigationContent, property]" description="Checking a one-element array ActionBar actionContent">
+				<setup>
+					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+					<Pause timeout="300" />
+					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=oneEArray" waitTarget="navigator.actionBar"/>
+					<Pause timeout="300" />
+				</setup>
+				<body>
+					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="1" />
+					<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+						<ConditionalValue deviceDensity="160" os="win"/>
+						<ConditionalValue deviceDensity="240" os="android"/>
+						<ConditionalValue deviceDensity="320" os="win"/>
+						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="160" os="qnx"/>
+					</CompareBitmap>
+				</body>
+			</TestCase>
+			
+			<TestCase testID="ActionBar_ViewNavigator_navigationContent_TwoEArr" keywords="[title]" description="set two elements to titleContent array">
+				<setup>
+					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+					<Pause timeout="300" />
+					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar"/>
+					<Pause timeout="300" />
+				</setup>
+				<body>
+					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="2" />
+					<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+						<ConditionalValue deviceDensity="160" os="win"/>
+						<ConditionalValue deviceDensity="240" os="android"/>
+						<ConditionalValue deviceDensity="320" os="win"/>
+						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="160" os="qnx"/>
+					</CompareBitmap>
+				</body>
+				
+			</TestCase>
+			
+			
+			<TestCase testID="ActionBar_ViewNavigator_navigationContent_ManyEArr" keywords="[title]" description="set many elements to navigationContent array">
+				<setup>
+					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+					<Pause timeout="300" />
+					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=manyEArray" waitTarget="navigator.actionBar"/>
+					<Pause timeout="300" />
+				</setup>
+				<body>
+					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="4" />
+					<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+						<ConditionalValue deviceDensity="160" os="win"/>
+						<ConditionalValue deviceDensity="240" os="android"/>
+						<ConditionalValue deviceDensity="320" os="win"/>
+						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="160" os="qnx"/>
+					</CompareBitmap>
+				</body>
+				
+			</TestCase>
+			<TestCase testID="ActionBar_ViewNavigator_navigationContent_ImageArr" keywords="[title]" description="set image to navigationContent array">
+				<setup>
+					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+					<Pause timeout="300" />
+					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=imgArray" waitTarget="navigator.actionBar"/>
+					<Pause timeout="300" />
+				</setup>
+				<body>
+					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="2" />
+					<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+						<ConditionalValue deviceDensity="160" os="win"/>
+						<ConditionalValue deviceDensity="240" os="android"/>
+						<ConditionalValue deviceDensity="320" os="win"/>
+						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="160" os="qnx"/>
+					</CompareBitmap>
+				</body>
+				
+			</TestCase>
+			<TestCase testID="ActionBar_ViewNavigator_navigationContent_MobileArr" keywords="[title]" description="set mobile component to navigationContent array">
+				<setup>
+					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+					<Pause timeout="300" />
+					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=mobileArray" waitTarget="navigator.actionBar" />
+					<Pause timeout="300" />
+				</setup>
+				<body>
+					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="1" />
+					<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+						<ConditionalValue deviceDensity="160" os="win"/>
+						<ConditionalValue deviceDensity="240" os="android"/>
+						<ConditionalValue deviceDensity="320" os="win"/>
+						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="160" os="qnx"/>
+					</CompareBitmap>
+				</body>
+				
+			</TestCase>
+			<TestCase testID="ActionBar_ViewNavigator_navigationContent_graphArr" keywords="[title]" description="set graphic component to navigationContent array">
+				<setup>
+					<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+					<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>
+					<Pause timeout="300" />
+					<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=graphArray" waitTarget="navigator.actionBar"/>
+					<Pause timeout="300" />
+				</setup>
+				<body>
+					<AssertPropertyValue target="navigator.actionBar.navigationContent" propertyName="length" value="2" />
+					<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+						<ConditionalValue deviceDensity="160" os="win"/>
+						<ConditionalValue deviceDensity="240" os="android"/>
+						<ConditionalValue deviceDensity="320" os="win"/>
+						<ConditionalValue deviceDensity="320" os="iphone"/>
+						<ConditionalValue deviceDensity="160" os="qnx"/>
+					</CompareBitmap>
+				</body>
+				
+			</TestCase>
+		
+		<TestCase testID="ActionBar_ViewNavigator_navigationLayout_default" keywords="[title]" description="check the default layout of actionlayout">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				<Pause timeout="300" />
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_navigationLayout_default_padding" keywords="[title]" description="check the default layout of navigaionlayout">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>									
+				<Pause timeout="300" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.actionBar.navigationLayout" propertyName="paddingLeft" value="0"/>
+				<AssertPropertyValue target="navigator.actionBar.navigationLayout" propertyName="paddingRight" value="0"/>
+				<AssertPropertyValue target="navigator.actionBar.navigationLayout" propertyName="paddingTop" value="0"/>
+				<AssertPropertyValue target="navigator.actionBar.navigationLayout" propertyName="paddingBottom" value="0"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_navigationLayout_verticalLayout" keywords="[title]" description="set vertical to navigationLayout">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
+				<SetProperty target="navigator.actionBar" propertyName="navigationLayout" valueExpression="value=vertical" />
+				<Pause timeout="300" />
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_navigationLayout_tileLayout" keywords="[title]" description="set vertical to navigationLayout">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=manyEArray" waitEvent="updateComplete" />
+				<SetProperty target="navigator.actionBar" propertyName="navigationLayout" valueExpression="value=tile" />
+				<Pause timeout="300" />
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+		<TestCase testID="ActionBar_ViewNavigator_navigationLayout_basicLayout" keywords="[title]" description="set vertical to titleLayout">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ActionBarView1)" waitTarget="navigator" waitEvent="updateComplete" />
+				<ResetComponent target="navigator.actionBar" className="spark.components.actionBar"/>	
+				<Pause timeout="300" />
+				<SetProperty target="navigator.actionBar" propertyName="navigationContent" valueExpression="value=twoEArray" waitEvent="updateComplete" />
+				<SetProperty target="navigator.actionBar" propertyName="navigationLayout" valueExpression="value=basic" />
+				<Pause timeout="300" />
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+			
+		</TestCase>
+	</testCases>
+</UnitTester>

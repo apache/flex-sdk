@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/ViewAndViewNavigator/tests/"
+			testSWF="ViewAndViewNavigatorMain.mxml">
+
+	<fx:Script source="globalNotTabbed.as" />
+			
+	<fx:Script>
+		<![CDATA[ 
+		
+			import mx.core.FlexGlobals;
+			import views.*;
+			import spark.components.TabbedViewNavigator;
+			
+			public static function init(o:DisplayObject):void { } 
+			
+			private function verifyEventOrder():Boolean {
+				var expectedArray : Array = new Array( 
+																		"removing_sect1view1",
+																		"elementAdd",
+																		"add_sect1view2",
+																		"viewDeactivate_sect1view1",
+																		"elementRemove",
+																		"remove_sect1view1",
+																		"viewActivate_sect1view2",
+																		"removing_sect1view2",
+																		"elementAdd",
+																		"add_sect1view1",
+																		"viewDeactivate_sect1view2",
+																		"elementRemove",
+																		"remove_sect1view2",
+																		"viewActivate_sect1view1");
+													
+				trace('\n### ' + FlexGlobals.topLevelApplication.eventArray.toString()  + '\n')
+				return expectedArray.toString() == FlexGlobals.topLevelApplication.eventArray.toString();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		
+		<TestCase testID="viewAndViewNavigatorEventsOnPushPop" description="Verify events dispatches on pushView and popView occur in correct order" keywords="[view, viewnavigator, events, push, pop]">
+			
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.eventArray = new Array()" />
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = verifyEventOrder()" value="true" />
+			</body>
+			
+		</TestCase>
+		
+		<TestCase testID="viewNavigatorEventActionProperty" description="Verify action property of viewNavigatorEvent holds last action" keywords="[view, viewnavigator, events, action]">
+			
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.eventArray = new Array()" />
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.lastAction == 'push'" value="true" />
+			</body>
+			
+		</TestCase>
+		
+	</testCases>
+	
+</UnitTester>

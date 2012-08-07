@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testDir="mobile/components/ViewMenu/integration/"
+    testSWF="ViewMenu.mxml">
+
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+            import views.*;
+			import mx.core.FlexGlobals;
+        ]]>
+    </fx:Script>
+    <testCases>
+
+		<TestCase testID="FourItemsMenuPortrait1" description="Four items menu portrait, mouseClick on item 4" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView4)"
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stage.setAspectRatio('portrait') "  />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="updateComplete"/>
+				<CompareBitmap numColorVariances="5" maxColorVariance="35" url="../integration/baselines" target="navigator.activeView.i4.owner">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				<DispatchMouseClickEvent target="navigator.activeView.i4" localX="35" localY="35" waitEvent="viewMenuClose" waitTarget="navigator.activeView"/>
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="click4"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FourItemsMenuPortrait2" description="Four items menu portrait, mouseOver item 4, moveOut" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView4)"
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="mouseDown"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="mouseUp"/>
+				<DispatchMouseEvent type="mouseOut" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="mouseOut"/>
+				<DispatchMouseEvent type="rollOut" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="rollOut"/>
+				<CompareBitmap numColorVariances="5" maxColorVariance="35" url="../integration/baselines" target="navigator.activeView.i4.owner">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				<DispatchMouseClickEvent target="navigator.activeView.i4" localX="35" localY="35" waitEvent="viewMenuClose" waitTarget="navigator.activeView"/>
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="click4"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FourItemsMenuPortrait3" description="mouseOver item 1, move to item2, click " keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView4)"
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i1" localX="35" localY="35"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i1" localX="35" localY="35"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i1" localX="35" localY="35"  waitEvent="updateComplete"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i1" localX="35" localY="35"  waitEvent="mouseUp"/>
+				<DispatchMouseEvent type="mouseOut" target="navigator.activeView.i1" localX="35" localY="35"  waitEvent="mouseOut"/>
+				<DispatchMouseEvent type="rollOut" target="navigator.activeView.i1" localX="35" localY="35"  waitEvent="rollOut"/>
+				<DispatchMouseEvent type="mouseMove" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="mouseMove"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="updateComplete"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="mouseUp"/>
+				<CompareBitmap numColorVariances="5" maxColorVariance="35" url="../integration/baselines" target="navigator.activeView.i2.owner">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+				<DispatchMouseEvent type="click" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="viewMenuClose" waitTarget="navigator.activeView"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FourItemsMenuPortrait4" description="mouseOver item 2, move to item3, click " keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView4)"
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="updateComplete"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="mouseUp"/>
+				<DispatchMouseEvent type="mouseOut" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="mouseOut"/>
+				<DispatchMouseEvent type="rollOut" target="navigator.activeView.i2" localX="35" localY="35"  waitEvent="rollOut"/>
+				<DispatchMouseEvent type="mouseMove" target="navigator.activeView.i3" localX="35" localY="35"  waitEvent="mouseMove"/>
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i3" localX="35" localY="35"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i3" localX="35" localY="35"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i3" localX="35" localY="35"  waitEvent="updateComplete"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i3" localX="35" localY="35"  waitEvent="mouseUp"/>
+				<CompareBitmap numColorVariances="5" maxColorVariance="35" url="../integration/baselines" target="navigator.activeView.i3.owner">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				<DispatchMouseEvent type="click" target="navigator.activeView.i3" localX="35" localY="35"  waitEvent="viewMenuClose" waitTarget="navigator.activeView"/>
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="click3"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FourItemsMenuPortrait5" description="use 5-way to put item1 in caret, mouseClick on item3" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView4)"
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i3" localX="35" localY="35"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i3" localX="35" localY="35"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i3" localX="35" localY="35"  waitEvent="updateComplete"/>
+				<CompareBitmap numColorVariances="5" maxColorVariance="35" url="../integration/baselines" target="navigator.activeView.i3.owner">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				<DispatchMouseClickEvent target="navigator.activeView.i3" localX="35" localY="35" waitEvent="viewMenuClose" waitTarget="navigator.activeView"/>
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="click3"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="FourItemsMenuPortrait6" description="Four items menu portrait 5-way, touch combo" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView4)"
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="39" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="updateComplete"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="updateComplete"/>
+
+				<CompareBitmap numColorVariances="5" maxColorVariance="35" url="../integration/baselines" target="navigator.activeView.i1.owner">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+				<DispatchMouseClickEvent target="navigator.activeView" localX="20" localY="20" waitEvent="viewMenuClose"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FourItemsMenuPortrait7" description="Four items menu portrait 5-way" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView4)"
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="39" waitTarget="navigator.activeView.i2" waitEvent="updateComplete" />
+				<DispatchMouseEvent type="rollOver" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="mouseOver"/>
+				<DispatchMouseEvent type="mouseDown" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="updateComplete"/>
+				<DispatchMouseEvent type="mouseUp" target="navigator.activeView.i4" localX="35" localY="35"  waitEvent="updateComplete"/>
+				<CompareBitmap numColorVariances="5" maxColorVariance="35" url="../integration/baselines" target="navigator.activeView.i1.owner">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				<DispatchMouseClickEvent target="navigator.activeView" localX="20" localY="20" waitEvent="viewMenuClose" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FourItemsMenuPortrait8" description="Four items menu portrait 5-way" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView4)"
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="39" waitTarget="navigator.activeView.i2" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="38" waitTarget="navigator.activeView.i2" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="5" maxColorVariance="35" url="../integration/baselines" target="navigator.activeView.i2.owner">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+
+				<AssertPropertyValue target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+				<DispatchMouseClickEvent target="navigator.activeView" localX="20" localY="20" waitEvent="viewMenuClose"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FourItemsMenuPortrait9" description="Four items menu portrait 5-way" keywords="[ViewMenu, integration]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.viewMenuOpen=false" />
+				<Pause timeout="100"/>
+				<ResetComponent target="navigator" className="spark.components.ViewNavigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator" propertyName="transitionsEnabled" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.ViewMenuItemView4)"
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+
+				<SetProperty target="navigator.activeView.btn" propertyName="label" value="lbl"/>
+
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[MENU]" waitEvent="viewMenuOpen" waitTarget="navigator.activeView"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.i1" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="39" waitTarget="navigator.activeView.i2" waitEvent="updateComplete" />
+				<DispatchKeyEvent keyLocation="4" keyCode="38" waitTarget="navigator.activeView.i2" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="5" maxColorVariance="35" url="../integration/baselines" target="navigator.activeView.i2.owner">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				<DispatchKeyEvent keyLocation="4" keyCode="13" waitTarget="navigator.activeView" waitEvent="viewMenuClose" />
+			</body>
+		</TestCase>
+		</testCases>
+</UnitTester>

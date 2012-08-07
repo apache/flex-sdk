@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+	testDir="mobile/components/List/integration/"
+    testSWF="ItemSnapping.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+			import mx.events.TouchInteractionReason;
+			import mx.events.TouchInteractionEvent;
+			import mx.core.InteractionMode;
+			import spark.components.Scroller;
+			import spark.layouts.HorizontalLayout;
+			import mx.core.FlexGlobals;
+			import comps.snappingTouchEvents;
+			protected function setOrientation(direction:String):void
+			{
+				FlexGlobals.topLevelApplication.stage.setOrientation(direction);
+			}
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+				
+		<!--
+		PagingAndSnapping
+		1. Verify when both are enabled, all snapping modes are respected
+		2. Verify when both are enabled, a large throw or a large drag does not make a transition greater than the width of viewport? It could be less than viewprt width depending on scroll modes
+		3. What happens when 2nd item is larger than viewport width, will it ever make a transition when both are enabled? in just paging mode?
+		-->
+		<TestCase testID="ItemSnapping_pagingsnapping_trailing_smalldrag" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is traling snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+				<!-- use delta to index insted -->
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="25%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd"/>			
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
+				<AssertMethodValue method="value=ItemSnapping.isTrailing(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+				<AssertPropertyValue target="navigator.activeView.imageGroup" propertyName="horizontalScrollPosition" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_pagingsnapping_trailing_smallthrow" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is traling snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+				<!-- use delta to index insted -->
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_small_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isTrailing(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
+				<AssertPropertyValue target="navigator.activeView.imageGroup" propertyName="horizontalScrollPosition" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_pagingsnapping_trailing_largethrow" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is traling snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+				<!-- use delta to index insted -->
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_large_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isTrailing(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
+			</body>
+		</TestCase>
+	
+	<TestCase testID="ItemSnapping_pagingsnapping_trailing_largedrag" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is traling snapped">
+		<setup>
+			<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+		</setup>
+		<body>
+			<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+			<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="trailingEdge" />
+			<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+			<!-- use delta to index insted -->
+			<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="60%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd"/>			
+			<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+			<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
+			<!-- Max allowable transition for a page change based on item width -->
+			<AssertMethodValue method="value=ItemSnapping.isTrailing(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+			<AssertMethodValue method="value=application.navigator.activeView.imageGroup.horizontalScrollPosition &lt; application.navigator.activeView.imageGroup.width*2" value="true" /> 
+		</body>
+	</TestCase>
+		
+		
+		<TestCase testID="ItemSnapping_pagingsnapping_leading_smalldrag" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is traling snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+				<!-- use delta to index insted -->
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="25%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd"/>			
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).firstIndexInView)" value="1" /> 
+				<AssertMethodValue method="value=ItemSnapping.isLeading(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+				<AssertPropertyValue target="navigator.activeView.imageGroup" propertyName="horizontalScrollPosition" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_pagingsnapping_leading_smallthrow" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is traling snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+				<!-- use delta to index insted -->
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_small_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isLeading(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).firstIndexInView)" value="1" /> 
+				<AssertPropertyValue target="navigator.activeView.imageGroup" propertyName="horizontalScrollPosition" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_pagingsnapping_leading_largethrow" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is traling snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+				<!-- use delta to index insted -->
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_large_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).firstIndexInView)" value="1" /> 
+				<!-- Max allowable transition for a page change based on item width -->
+				<AssertMethodValue method="value=ItemSnapping.isLeading(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+				<AssertMethodValue method="value=application.navigator.activeView.imageGroup.horizontalScrollPosition &lt; application.navigator.activeView.imageGroup.width*2" value="true" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_pagingsnapping_leading_largedrag" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is traling snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+				<!-- use delta to index insted -->
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="60%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd"/>			
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).firstIndexInView)" value="1" /> 
+				<!-- Max allowable transition for a page change based on item width -->
+				<AssertMethodValue method="value=ItemSnapping.isLeading(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+				<AssertMethodValue method="value=application.navigator.activeView.imageGroup.horizontalScrollPosition &lt; application.navigator.activeView.imageGroup.width*2" value="true" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_pagingsnapping_center_smalldrag" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is center snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="center" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+				<!-- use delta to index insted -->
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="25%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd"/>			
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+				<AssertMethodValue method="value=application.navigator.activeView.imageGroup.horizontalScrollPosition &lt; application.navigator.activeView.imageGroup.width" value="true" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_pagingsnapping_center_smallthrow" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is center snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="center" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+				<!-- use delta to index insted -->
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_small_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+				<AssertMethodValue method="value=application.navigator.activeView.imageGroup.horizontalScrollPosition &lt; application.navigator.activeView.imageGroup.width" value="true" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_pagingsnapping_center_largethrow" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is center snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="center" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+				<!-- use delta to index insted -->
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_large_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<!-- Max allowable transition for a page change based on item width -->
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+				<AssertMethodValue method="value=application.navigator.activeView.imageGroup.horizontalScrollPosition &lt; application.navigator.activeView.imageGroup.width*2" value="true" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_pagingsnapping_center_largedrag" keywords="[ItemSnapping, list]" description="verifies any small drag on a paging+snapping group does not make any transition and is center snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.PagingAndSnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="center" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="pageScrollingEnabled" value="true" />
+				<!-- use delta to index insted -->
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="60%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd"/>			
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<!-- Max allowable transition for a page change based on item width -->
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+				<AssertMethodValue method="value=application.navigator.activeView.imageGroup.horizontalScrollPosition &lt; application.navigator.activeView.imageGroup.width*2" value="true" /> 
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

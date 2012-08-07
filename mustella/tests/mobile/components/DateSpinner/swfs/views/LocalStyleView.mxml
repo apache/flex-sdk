@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        title="Local Style View">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		.myStyle {
+			locale:'ru-RU';
+			accentColor: #332211;
+			fontWeight:bold;
+		}
+		
+		#DSIDSelector { 
+			locale:'fr-CA';
+			accentColor: #002244;
+			fontWeight:bold;
+		}
+		
+		#DSIDSelectorInline { 
+			locale:'fr-CA';
+			accentColor: #442200;
+			fontWeight:bold;
+		}
+		
+		#DSIDSelectorClass { 
+			locale:'fr-CA';
+			accentColor: #004488;
+			fontWeight:normal;
+		}
+		
+	</fx:Style>
+    
+    <s:VGroup> 
+		<!-- This local defined style is for class -->	
+		<s:DateSpinner id="dsLocalClass" styleName="myStyle"/>
+		
+		<!-- this DateSpinner has a style defined by ID Selector -->
+		<s:DateSpinner id="DSIDSelector" />
+		
+		<!-- this CurrencyFormatter has compound style defined by ID Selector and inline-->
+		<s:DateSpinner id="DSIDSelectorInline" locale='zh-CN' accentColor="#113355" fontWeight="normal"/>
+		
+		<!-- this CurrencyFormatter has compound style defined by ID Selector and Class Selector-->
+		<s:DateSpinner id="DSIDSelectorClass" styleName="myStyle"/>
+    </s:VGroup>
+
+</s:View>

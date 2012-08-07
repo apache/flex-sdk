@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<components:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				 xmlns:s="library://ns.adobe.com/flex/spark" xmlns:components="spark.components.*" title="HomeView">
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.events.PopUpEvent;
+			
+			// Create
+			public var dialog:MyDialog = new MyDialog();
+			public var dialogNoTransition:MyDialogNoTransition = new MyDialogNoTransition();
+			public var commit : Boolean = false;
+			public var dialogData : String;
+			
+			//public var openEventDispatched : Boolean = false;
+			public var closeEventDispatched : Boolean = false;
+			
+			public function showDialog(modal:Boolean):void
+			{
+				// Size to the stage (the skin relies on that)
+				dialog.width = systemManager.screen.width;
+				dialog.height = systemManager.screen.height;
+				
+				dialog.x = 40;
+				dialog.y = 40;
+				
+				// add event listeners
+				//dialog.addEventListener(PopUpEvent.OPEN, dialogOpen_handler);
+				dialog.addEventListener(PopUpEvent.CLOSE, dialogClose_handler);
+				dialog.open(this, modal /*modal*/);
+			}
+			
+			public function showDialogWithNoTransition(modal:Boolean):void
+			{
+				// Size to the stage (the skin relies on that)
+				dialogNoTransition.width = systemManager.screen.width;
+				dialogNoTransition.height = systemManager.screen.height;
+				
+				// add event listeners
+				dialogNoTransition.addEventListener(PopUpEvent.CLOSE, dialogNoTransitionClose_handler);
+				dialogNoTransition.open(this, modal /*modal*/);
+			}
+			
+			private function dialogNoTransitionClose_handler(event:PopUpEvent):void
+			{
+				MyDialogNoTransition(event.target).removeEventListener(PopUpEvent.CLOSE, dialogNoTransitionClose_handler);
+			}
+			
+			private function dialogOpen_handler(event:PopUpEvent):void
+			{
+				//openEventDispatched = true;
+			}
+
+			private function dialogClose_handler(event:PopUpEvent):void
+			{
+				closeEventDispatched = true;
+				MyDialog(event.target).removeEventListener(PopUpEvent.CLOSE, dialogClose_handler);
+			
+				commit = event.commit;
+				dialogData = event.data;
+			
+				/*
+				MyDialog(event.target).removeEventListener(PopUpEvent.CLOSE, dialogClose_handler);
+				
+				trace('a');
+				if (!event.commit)
+					return;
+				
+				trace('b');
+				switch (event.data as String)
+				{
+					case "Delete":
+						trace('c');
+						//var index:int = list.selectedIndex;
+						//list.dataProvider.removeItemAt(index);
+						//list.selectedIndex = index - 1;
+						break;
+					
+					case "Duplicate":
+						trace('d');
+						//list.dataProvider.addItemAt(list.selectedItem, list.selectedIndex);
+						break;
+				}
+				*/
+			}
+			
+		]]>
+	</fx:Script>
+	
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:Group id="group" width="100%" height="100%">
+		<s:Button id="btn_open" label="open()" click="showDialog(false)" x="10" y="10"/>
+		<s:Button id="btn_close" label="close()" click="dialog.close()" x="10" y="150"/>
+	</s:Group>
+	
+</components:View>

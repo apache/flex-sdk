@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/SplitViewNavigator/integration/"
+			testSWF="TabbedApp.mxml">
+
+	<fx:Script>
+		<![CDATA[ 
+		import mx.core.FlexGlobals;
+		import spark.components.ViewNavigator;	
+		import flash.geom.Point;
+		import comps.*;	
+		import spark.components.Callout;
+		import spark.layouts.*;	
+		import views.*;	
+			
+		public static function init(o:DisplayObject):void { };
+			
+	
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		
+		<TestCase testID="TabbedApp_firstVN_visible" keywords="[SplitViewNavigator, TabbedViewNavigatorApplication]" description="Select Tab that has SplitViewNavigator.">
+			<setup>
+				<SetProperty target="tabbedNavigator" propertyName="selectedIndex" value="2" waitTarget="tabbedNavigator" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=ViewNavigator(FlexGlobals.topLevelApplication.svn.getViewNavigatorAt(0)).visible" >
+					<ConditionalValue deviceDensity="160" os="win" value="false"/>
+					<ConditionalValue deviceDensity="240" os="android" value="false"/>
+					<ConditionalValue deviceDensity="320" os="win" value="false"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="false" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="true"/>					
+				</AssertMethodValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TabbedApp_callout_open" keywords="[SplitViewNavigator, TabbedViewNavigatorApplication, callout]" description="Open a callout inside the tabbed application.">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.svn.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication.svn)" waitTarget="svn.viewNavigatorPopUp" waitEvent="open"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../integration/baselines" target="svn.viewNavigatorPopUp">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Navigation_between_navigators" keywords="[SplitViewNavigator, navigating between ViewNavigators]" description="Verify that the View of the first ViewNavigator can access the View of the other ViewNavigator.">
+			<body>
+				<AssertMethodValue method="value=View1(FlexGlobals.topLevelApplication.svn.getViewNavigatorAt(0).activeView).getActiveViews()" valueExpression="value=['View1', 'View2']"/>				
+			</body>
+		</TestCase>		
+		
+	</testCases>
+</UnitTester>

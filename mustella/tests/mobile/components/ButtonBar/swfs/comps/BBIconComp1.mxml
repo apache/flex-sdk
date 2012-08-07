@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	width="100%" >
+
+	<fx:Script>
+		<![CDATA[
+			import mx.utils.ObjectUtil;
+			
+			[Embed(source="../../../../../../Assets/Images/ButtonImages/check48x48.gif")]
+			[Bindable]
+			public var CheckClassGIF:Class;
+
+			[Embed(source="../../../../../../Assets/Images/ButtonImages/check48x48.jpg")]
+			[Bindable]
+			public var CheckClassJPG:Class;
+			
+			[Embed(source="../../../../../../Assets/Images/ButtonImages/check48x48.swf")]
+			[Bindable]
+			public var CheckClassSWF:Class;
+			
+			[Embed(source="../../../../../../Assets/Images/ButtonImages/check48x48.png")]
+			[Bindable]
+			public var CheckClassPNG:Class;
+
+			[Embed(source="../../../../../../Assets/Images/ButtonImages/check96x96.png")]
+			[Bindable]
+			public var LargeCheckClassPNG:Class;
+
+			[Embed(source="../../../../../../Assets/Images/ButtonImages/pencil48x48.png")]
+			[Bindable]
+			public var PencilClassPNG:Class;
+
+			[Embed(source="../../../../../../Assets/Images/ButtonImages/trash48x48.png")]
+			[Bindable]
+			public var TrashClassPNG:Class;
+
+			public var checkPNGObject:Object = {theData:"checkpng", theIcon:CheckClassPNG};
+			public var pencilPNGObject:Object = {theData:"pencilpng", theIcon:PencilClassPNG};
+			public var trashPNGObject:Object = {theData:"trashpng", theIcon:TrashClassPNG};
+			
+			public function theIconFunction(item:Object):Object{
+				if(item.theData == "checkgif")
+					return CheckClassGIF;
+				else if(item.theData == "checkjpg")
+					return CheckClassJPG;
+				else if(item.theData == "checkswf")
+					return CheckClassSWF;
+				else if(item.theData == "checkpng")
+					return CheckClassPNG;
+				else if(item.theData == "largecheckpng")
+					return LargeCheckClassPNG;
+				else if(item.theData == "pencilpng")
+					return PencilClassPNG;
+				else if(item.theData == "trashpng")
+					return TrashClassPNG;
+				else
+					return null;
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- All the same size, different first/middle/last. -->
+		<s:ArrayCollection id="ac1">
+			<fx:Object theData="checkpng" theIcon="{CheckClassPNG}" />						
+			<fx:Object theData="pencilpng" theIcon="{PencilClassPNG}" />
+			<fx:Object theData="trashpng" theIcon="{TrashClassPNG}" />
+		</s:ArrayCollection>
+
+		<!-- First is larger. -->
+		<s:ArrayCollection id="ac2">
+			<fx:Object theData="largecheckpng" theIcon="{LargeCheckClassPNG}" />						
+			<fx:Object theData="pencilpng" theIcon="{PencilClassPNG}" />
+			<fx:Object theData="trashpng" theIcon="{TrashClassPNG}" />
+		</s:ArrayCollection>
+
+		<!-- Middle is larger. -->
+		<s:ArrayCollection id="ac3">						
+			<fx:Object theData="pencilpng" theIcon="{PencilClassPNG}" />
+			<fx:Object theData="largecheckpng" theIcon="{LargeCheckClassPNG}" />			
+			<fx:Object theData="trashpng" theIcon="{TrashClassPNG}" />
+		</s:ArrayCollection>
+		
+		<!-- Last is larger. -->
+		<s:ArrayCollection id="ac4">						
+			<fx:Object theData="pencilpng" theIcon="{PencilClassPNG}" />			
+			<fx:Object theData="trashpng" theIcon="{TrashClassPNG}" />
+			<fx:Object theData="largecheckpng" theIcon="{LargeCheckClassPNG}" />			
+		</s:ArrayCollection>
+
+		<!-- No icon for first. -->
+		<s:ArrayCollection id="ac5">
+			<fx:Object theData="checkpngx" />						
+			<fx:Object theData="pencilpng" theIcon="{PencilClassPNG}" />
+			<fx:Object theData="trashpng" theIcon="{TrashClassPNG}" />
+		</s:ArrayCollection>
+
+		<!-- No icon for middle. -->
+		<s:ArrayCollection id="ac6">
+			<fx:Object theData="checkpng" theIcon="{CheckClassPNG}" />						
+			<fx:Object theData="pencilpngx" />
+			<fx:Object theData="trashpng" theIcon="{TrashClassPNG}" />
+		</s:ArrayCollection>
+		
+		<!-- No icon for last. -->
+		<s:ArrayCollection id="ac7">
+			<fx:Object theData="checkpng" theIcon="{CheckClassPNG}" />						
+			<fx:Object theData="pencilpng" theIcon="{PencilClassPNG}" />
+			<fx:Object theData="trashpngx" />
+		</s:ArrayCollection>
+
+		<!-- No label for first -->
+		<s:ArrayCollection id="ac8">
+			<fx:Object theIcon="{CheckClassPNG}" />						
+			<fx:Object theData="pencilpng" theIcon="{PencilClassPNG}" />
+			<fx:Object theData="trashpng" theIcon="{TrashClassPNG}" />
+		</s:ArrayCollection>
+		
+		<!-- No label for middle -->
+		<s:ArrayCollection id="ac9">
+			<fx:Object theData="checkpng" theIcon="{CheckClassPNG}" />						
+			<fx:Object theIcon="{PencilClassPNG}" />
+			<fx:Object theData="trashpng" theIcon="{TrashClassPNG}" />
+		</s:ArrayCollection>
+		
+		<!-- No label for last -->
+		<s:ArrayCollection id="ac10">
+			<fx:Object theData="checkpng" theIcon="{CheckClassPNG}" />						
+			<fx:Object theData="pencilpng" theIcon="{PencilClassPNG}" />
+			<fx:Object theIcon="{TrashClassPNG}" />
+		</s:ArrayCollection>
+
+		<!-- Other types of files -->
+		<s:ArrayCollection id="ac11">
+			<fx:Object theData="checkgif" theIcon="{CheckClassGIF}" />
+			<fx:Object theData="checkjpg" theIcon="{CheckClassJPG}" />
+			<fx:Object theData="checkswf" theIcon="{CheckClassSWF}" />
+		</s:ArrayCollection>
+
+	</fx:Declarations>
+	
+	<s:ButtonBar id="bb1" />
+</s:Group>

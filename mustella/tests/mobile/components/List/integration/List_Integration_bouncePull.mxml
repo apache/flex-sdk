@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/List/integration/"
+    testSWF="List.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+            import mx.core.FlexGlobals;
+            
+            // Check that a bounce happened by comparing the greatest verticalScrollPosition to the List's max verticalScrollPosition. The function
+            // will return true if you threw the List past its max verticalScrollPosition.
+            public function isBounceEffectOn(scrollPosition:Number, listMaxScrollPosition:Number):String
+            {
+                if((listMaxScrollPosition < scrollPosition) || (scrollPosition < 0))
+                    return "true";
+                else
+                    return "max scrollPosition was: " + listMaxScrollPosition + ", scrollPosition checked: " + scrollPosition;
+            }
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+
+        <!--
+        ========================
+        Testing Bounce/Pull effects for Mobile Components
+        ========================
+        
+        Check the scroll positions when a List, Group or RichEditableText component is pulled past its boundary into the
+        negative where a bounce/pull effect plays.
+        
+        -->
+        <TestCase testID="List_Integration_BP_VList_largeContent_top" keywords="[List, Integration]" description="Check when pulling down on the top
+                  border of a vertical list.">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.SplitListView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.list1" >
+                    <fx:Object type="rollOver" localX="270" localY="64"  fakeTimeValue="16631" />
+                    <fx:Object type="mouseOver" localX="270" localY="64"  fakeTimeValue="16636" />
+                    <fx:Object type="mouseDown" localX="270" localY="64"  fakeTimeValue="16659" />
+                    <fx:Object type="mouseMove" localX="270" localY="64"  fakeTimeValue="16675" />
+                    <fx:Object type="mouseMove" localX="270" localY="63"  fakeTimeValue="16680" />
+                    <fx:Object type="mouseMove" localX="270" localY="64"  fakeTimeValue="16700" />
+                    <fx:Object type="mouseMove" localX="270" localY="67"  fakeTimeValue="16730" />
+                    <fx:Object type="mouseMove" localX="270" localY="70"  fakeTimeValue="16757" />
+                    <fx:Object type="mouseMove" localX="270" localY="86"  fakeTimeValue="16829" />
+                    <fx:Object type="mouseOut" localX="270" localY="86"  fakeTimeValue="16908" />
+                    <fx:Object type="mouseOver" localX="270" localY="86"  fakeTimeValue="16912" />
+                    <fx:Object type="mouseMove" localX="270" localY="179"  fakeTimeValue="16942" />
+                    <fx:Object type="mouseOut" localX="270" localY="179"  fakeTimeValue="16981" />
+                    <fx:Object type="mouseOver" localX="270" localY="179"  fakeTimeValue="16984" />
+                    <fx:Object type="mouseOut" localX="270" localY="179"  fakeTimeValue="16988" />
+                    <fx:Object type="mouseOver" localX="270" localY="179"  fakeTimeValue="16993" />
+                    <fx:Object type="mouseMove" localX="270" localY="224"  fakeTimeValue="17006" />
+                    <fx:Object type="mouseOut" localX="270" localY="224"  fakeTimeValue="17032" />
+                    <fx:Object type="mouseOver" localX="270" localY="224"  fakeTimeValue="17036" />
+                    <fx:Object type="mouseOut" localX="270" localY="224"  fakeTimeValue="17039" />
+                    <fx:Object type="mouseOver" localX="270" localY="224"  fakeTimeValue="17047" />
+                    <fx:Object type="mouseMove" localX="270" localY="233"  fakeTimeValue="17057" />
+                    <fx:Object type="mouseOut" localX="270" localY="233"  fakeTimeValue="17090" />
+                    <fx:Object type="mouseOver" localX="270" localY="233"  fakeTimeValue="17093" />
+                    <fx:Object type="mouseOut" localX="270" localY="233"  fakeTimeValue="17096" />
+                    <fx:Object type="mouseOver" localX="270" localY="233"  fakeTimeValue="17101" />
+                    <fx:Object type="mouseMove" localX="270" localY="236"  fakeTimeValue="17118" />
+                    <fx:Object type="mouseOut" localX="270" localY="236"  fakeTimeValue="17150" />
+                    <fx:Object type="mouseOver" localX="270" localY="236"  fakeTimeValue="17153" />
+                    <fx:Object type="mouseOut" localX="270" localY="236"  fakeTimeValue="17159" />
+                    <fx:Object type="mouseOver" localX="270" localY="236"  fakeTimeValue="17160" />
+                    <fx:Object type="mouseMove" localX="270" localY="241"  fakeTimeValue="17170" />
+                    <fx:Object type="mouseOut" localX="270" localY="241"  fakeTimeValue="17194" />
+                    <fx:Object type="mouseOver" localX="270" localY="241"  fakeTimeValue="17199" />
+                    <fx:Object type="mouseMove" localX="270" localY="244"  fakeTimeValue="17213" />
+                    <fx:Object type="mouseMove" localX="270" localY="244"  fakeTimeValue="17247" />
+                    <fx:Object type="mouseMove" localX="270" localY="244"  fakeTimeValue="17253" />
+                    <fx:Object type="mouseMove" localX="270" localY="244"  fakeTimeValue="17276" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.list1.dataGroup" propertyName="verticalScrollPosition" value="-80">
+                    <ConditionalValue screenDPI="326" value="-77" />
+                    <ConditionalValue screenDPI="170" value="-83" />
+                </AssertPropertyValue>
+                <SimulateMouseGesture target="navigator.activeView.list1" waitEvent="touchInteractionEnd">
+                    <fx:Object type="mouseUp" localX="266" localY="244" fakeTimeValue="17301" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.list1.dataGroup" propertyName="verticalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_BP_Group_diagonalPull" keywords="[List, Group]" description="Check when pulling diagonally in a large group">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <Pause timeout="1000" /><!-- TODO: this fails on device full run without the pause, look into removing this -->
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="0" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="0" />
+                <Pause timeout="500" />
+                <SimulateMouseGesture target="navigator.activeView.target" >
+                    <fx:Object type="rollOver" localX="99" localY="125" fakeTimeValue="30459" />
+                    <fx:Object type="mouseOver" localX="99" localY="125" fakeTimeValue="30461" />
+                    <fx:Object type="mouseDown" localX="99" localY="125" fakeTimeValue="30466" />
+                    <fx:Object type="mouseMove" localX="98" localY="125" fakeTimeValue="30498" />
+                    <fx:Object type="mouseMove" localX="99" localY="125" fakeTimeValue="30511" />
+                    <fx:Object type="mouseMove" localX="99" localY="126" fakeTimeValue="30525" />
+                    <fx:Object type="mouseMove" localX="101" localY="128" fakeTimeValue="30556" />
+                    <fx:Object type="mouseMove" localX="103" localY="129" fakeTimeValue="30585" />
+                    <fx:Object type="mouseMove" localX="109" localY="134" fakeTimeValue="30612" />
+                    <fx:Object type="mouseMove" localX="117" localY="141" fakeTimeValue="30646" />
+                    <fx:Object type="mouseMove" localX="179" localY="195" fakeTimeValue="30733" />
+                    <fx:Object type="mouseMove" localX="229" localY="252" fakeTimeValue="30778" />
+                    <fx:Object type="mouseMove" localX="245" localY="271" fakeTimeValue="30837" />
+                    <fx:Object type="mouseMove" localX="374" localY="414" fakeTimeValue="30893" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.target.viewport" propertyName="verticalScrollPosition" value="-136">
+                    <ConditionalValue screenDPI="326" value="-133" />
+                    <ConditionalValue screenDPI="170" value="-138" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.viewport" propertyName="horizontalScrollPosition" value="-128">
+                    <ConditionalValue screenDPI="326" value="-124" />
+                    <ConditionalValue screenDPI="170" value="-131" />
+                </AssertPropertyValue>
+                <SimulateMouseGesture target="navigator.activeView.target" waitEvent="touchInteractionEnd">
+                    <fx:Object type="mouseUp" localX="374" localY="414" fakeTimeValue="30967" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.target.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_List_VScrollPolicy_Default" keywords="[List, verticalScrollPolicy]" description="Check that the 
+                  default verticalScrollPolicy is on">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.SmallContentView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertStyleValue target="navigator.activeView.list1.scroller" styleName="verticalScrollPolicy" value="on" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_BP_VList_smallContent_top" keywords="[List, Integration]" description="Check when pulling down on the top
+                  border of a vertical list with smaller content than its size.">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.SmallContentView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.list1" >
+                    <fx:Object type="rollOver" localX="217" localY="56" fakeTimeValue="123679" />
+                    <fx:Object type="mouseOver" localX="217" localY="56" fakeTimeValue="123685" />
+                    <fx:Object type="mouseDown" localX="217" localY="56" fakeTimeValue="123708" />					
+                    <fx:Object type="mouseMove" localX="217" localY="56" fakeTimeValue="123721" />					
+                    <fx:Object type="mouseMove" localX="217" localY="56" fakeTimeValue="123732" />
+                    <fx:Object type="mouseMove" localX="217" localY="56" fakeTimeValue="123760" />					
+                    <fx:Object type="mouseMove" localX="217" localY="56" fakeTimeValue="123788" />					
+                    <fx:Object type="mouseMove" localX="217" localY="56" fakeTimeValue="123847" />					
+                    <fx:Object type="mouseMove" localX="217" localY="56" fakeTimeValue="123857" />
+                    <fx:Object type="mouseMove" localX="217" localY="57" fakeTimeValue="123879" />			
+                    <fx:Object type="mouseMove" localX="217" localY="61" fakeTimeValue="123906" />
+                    <fx:Object type="mouseMove" localX="217" localY="66" fakeTimeValue="123941" />
+                    <fx:Object type="mouseMove" localX="217" localY="72" fakeTimeValue="123970" />
+                    <fx:Object type="mouseOut" localX="217" localY="72" fakeTimeValue="123972" />
+                    <fx:Object type="mouseOver" localX="217" localY="72" fakeTimeValue="123977" />
+                    <fx:Object type="mouseMove" localX="217" localY="88" fakeTimeValue="124027" />
+                    <fx:Object type="mouseOut" localX="217" localY="88" fakeTimeValue="124095" />
+                    <fx:Object type="mouseOver" localX="217" localY="88" fakeTimeValue="124097" />
+                    <fx:Object type="mouseOut" localX="217" localY="88" fakeTimeValue="124116" />
+                    <fx:Object type="mouseOver" localX="217" localY="88" fakeTimeValue="124117" />
+                    <fx:Object type="mouseMove" localX="217" localY="115" fakeTimeValue="124122" />
+                    <fx:Object type="mouseOut" localX="217" localY="115" fakeTimeValue="124154" />
+                    <fx:Object type="mouseOver" localX="217" localY="115" fakeTimeValue="124155" />
+                    <fx:Object type="mouseMove" localX="217" localY="153" fakeTimeValue="124168" />
+                    <fx:Object type="mouseOut" localX="217" localY="153" fakeTimeValue="124199" />
+                    <fx:Object type="mouseOver" localX="217" localY="153" fakeTimeValue="124201" />
+                    <fx:Object type="mouseOut" localX="217" localY="153" fakeTimeValue="124205" />
+                    <fx:Object type="mouseOver" localX="217" localY="153" fakeTimeValue="124206" />
+                    <fx:Object type="mouseMove" localX="217" localY="198" fakeTimeValue="124218" />
+                    <fx:Object type="mouseOut" localX="217" localY="198" fakeTimeValue="124249" />
+                    <fx:Object type="mouseOver" localX="217" localY="198" fakeTimeValue="124251" />
+                    <fx:Object type="mouseOut" localX="217" localY="198" fakeTimeValue="124255" />
+                    <fx:Object type="mouseOver" localX="217" localY="198" fakeTimeValue="124256" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.list1.scroller.viewport" propertyName="verticalScrollPosition" value="-61">
+                    <ConditionalValue screenDPI="326" value="-58" />
+                    <ConditionalValue screenDPI="170" value="-64" />
+                </AssertPropertyValue>
+                <SimulateMouseGesture target="navigator.activeView.list1" waitEvent="touchInteractionEnd">
+                    <fx:Object type="mouseUp" localX="218" localY="198" fakeTimeValue="124289" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.list1.scroller.viewport" propertyName="verticalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_BP_VList_ScrollPolicy_off" keywords="[List, Integration]" description="Check when pulling down on the top
+                  border of a vertical list with smaller content than its size.">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.SmallContentView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <Pause timeout="1000" /><!-- TODO: Droid 1 seems to need this, look into why -->
+                <SetStyle target="navigator.activeView.list1.scroller" styleName="verticalScrollPolicy" value="off" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.list1" >
+                    <fx:Object type="rollOver" localX="250" localY="83" fakeTimeValue="23519" />
+                    <fx:Object type="mouseOver" localX="250" localY="83" fakeTimeValue="23523" />
+                    <fx:Object type="mouseDown" localX="250" localY="83" fakeTimeValue="23529" />
+                    <fx:Object type="mouseMove" localX="250" localY="83" fakeTimeValue="23540" />
+                    <fx:Object type="mouseMove" localX="250" localY="83" fakeTimeValue="23553" />
+                    <fx:Object type="mouseMove" localX="250" localY="84" fakeTimeValue="23585" />
+                    <fx:Object type="mouseOut" localX="250" localY="84" fakeTimeValue="23587" />
+                    <fx:Object type="mouseOver" localX="250" localY="84" fakeTimeValue="23589" />
+                    <fx:Object type="mouseMove" localX="250" localY="86" fakeTimeValue="23611" />
+                    <fx:Object type="mouseMove" localX="250" localY="92" fakeTimeValue="23649" />
+                    <fx:Object type="mouseMove" localX="250" localY="96" fakeTimeValue="23667" />
+                    <fx:Object type="mouseMove" localX="250" localY="165" fakeTimeValue="23699" />
+                    <fx:Object type="mouseOut" localX="250" localY="165" fakeTimeValue="23700" />
+                    <fx:Object type="mouseOver" localX="250" localY="165" fakeTimeValue="23704" />
+                    <fx:Object type="mouseMove" localX="250" localY="257" fakeTimeValue="23736" />
+                    <fx:Object type="mouseOut" localX="250" localY="257" fakeTimeValue="23739" />
+                    <fx:Object type="mouseOver" localX="250" localY="257" fakeTimeValue="23740" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.list1.scroller.viewport" propertyName="verticalScrollPosition" value="0" />
+                <SimulateMouseGesture target="navigator.activeView.list1" >
+                    <fx:Object type="mouseUp" localX="231" localY="257" fakeTimeValue="23747" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.list1.scroller.viewport" propertyName="verticalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_BP_VList_scrollPosition_throwDown" keywords="[List, Integration]" description="Check the greatest scroll position after
+                  a throw of a vertical list.">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.SmallContentView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <Pause timeout="1000" /><!-- TODO: Droid 1 seems to need this, look into why -->
+                <RunCode code="application.navigator.activeView.addItemsToData()" />
+                <Pause timeout="300" />
+                <RunCode code="application.navigator.activeView.findMaxScrollPosition(application.navigator.activeView.list1, 'V')" />
+                <SimulateMouseGesture target="navigator.activeView.list1" waitEvent="touchInteractionEnd" waitTarget="navigator.activeView">
+                    <fx:Object type="rollOver" localX="260" localY="44" fakeTimeValue="65547" />
+                    <fx:Object type="mouseOver" localX="260" localY="44" fakeTimeValue="65550" />
+                    <fx:Object type="mouseDown" localX="260" localY="44" fakeTimeValue="65561" />
+                    <fx:Object type="mouseMove" localX="260" localY="58" fakeTimeValue="65571" />
+                    <fx:Object type="mouseOut" localX="260" localY="58" fakeTimeValue="65572" />
+                    <fx:Object type="mouseOver" localX="260" localY="58" fakeTimeValue="65573" />
+                    <fx:Object type="mouseMove" localX="260" localY="71" fakeTimeValue="65585" />
+                    <fx:Object type="mouseOut" localX="260" localY="71" fakeTimeValue="65619" />
+                    <fx:Object type="mouseOver" localX="260" localY="71" fakeTimeValue="65622" />
+                    <fx:Object type="mouseMove" localX="260" localY="188" fakeTimeValue="65644" />
+                    <fx:Object type="mouseOut" localX="260" localY="188" fakeTimeValue="65664" />
+                    <fx:Object type="mouseOver" localX="260" localY="188" fakeTimeValue="65665" />
+                    <fx:Object type="mouseUp" localX="260" localY="188" fakeTimeValue="65698" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=isBounceEffectOn(application.navigator.activeView.leastScrollPosition, application.navigator.activeView.listMaxScrollPosition)" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_BP_VList_scrollPosition_throwUp" keywords="[List, Integration]" description="Check the greatest scroll position after
+                  a throw of a vertical list up.">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.SmallContentView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <Pause timeout="1000" /><!-- TODO: Droid 1 seems to need this, look into why -->
+                <RunCode code="application.navigator.activeView.addItemsToData()" />
+                <Pause timeout="300" />
+                <RunCode code="application.navigator.activeView.findMaxScrollPosition(application.navigator.activeView.list1, 'V')" />
+                <SimulateMouseGesture target="navigator.activeView.list1" waitEvent="touchInteractionEnd" waitTarget="navigator.activeView">
+                    <fx:Object type="rollOver" localX="349" localY="129" fakeTimeValue="114956" />
+                    <fx:Object type="mouseOver" localX="349" localY="129" fakeTimeValue="114958" />
+                    <fx:Object type="mouseDown" localX="349" localY="129" fakeTimeValue="114978" />
+                    <fx:Object type="mouseMove" localX="349" localY="80" fakeTimeValue="115009" />
+                    <fx:Object type="mouseOut" localX="349" localY="80" fakeTimeValue="115043" />
+                    <fx:Object type="mouseOver" localX="349" localY="80" fakeTimeValue="115046" />
+                    <fx:Object type="mouseMove" localX="349" localY="40" fakeTimeValue="115053" />
+                    <fx:Object type="mouseOut" localX="349" localY="40" fakeTimeValue="115071" />
+                    <fx:Object type="mouseOver" localX="349" localY="40" fakeTimeValue="115072" />
+                    <fx:Object type="mouseOut" localX="349" localY="40" fakeTimeValue="115075" />
+                    <fx:Object type="mouseOver" localX="349" localY="40" fakeTimeValue="115076" />
+                    <fx:Object type="mouseUp" localX="349" localY="40" fakeTimeValue="115085" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=isBounceEffectOn(application.navigator.activeView.greatestScrollPosition, application.navigator.activeView.listMaxScrollPosition)" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_BP_TList_largeContent_top" keywords="[List, TileLayout]" description="Check when pulling down on the top
+                  border of a TileLayout list.">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.TileLayoutView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.scroller1" >
+                    <fx:Object type="rollOver" localX="275" localY="64"  fakeTimeValue="16631" />
+                    <fx:Object type="mouseOver" localX="275" localY="64"  fakeTimeValue="16636" />
+                    <fx:Object type="mouseDown" localX="275" localY="64"  fakeTimeValue="16659" />
+                    <fx:Object type="mouseMove" localX="275" localY="64"  fakeTimeValue="16675" />
+                    <fx:Object type="mouseMove" localX="275" localY="63"  fakeTimeValue="16680" />
+                    <fx:Object type="mouseMove" localX="275" localY="64"  fakeTimeValue="16700" />
+                    <fx:Object type="mouseMove" localX="275" localY="67"  fakeTimeValue="16730" />
+                    <fx:Object type="mouseMove" localX="275" localY="70"  fakeTimeValue="16757" />
+                    <fx:Object type="mouseMove" localX="275" localY="86"  fakeTimeValue="16829" />
+                    <fx:Object type="mouseOut" localX="275" localY="86"  fakeTimeValue="16908" />
+                    <fx:Object type="mouseOver" localX="275" localY="86"  fakeTimeValue="16912" />
+                    <fx:Object type="mouseMove" localX="275" localY="179"  fakeTimeValue="16942" />
+                    <fx:Object type="mouseOut" localX="275" localY="179"  fakeTimeValue="16981" />
+                    <fx:Object type="mouseOver" localX="275" localY="179"  fakeTimeValue="16984" />
+                    <fx:Object type="mouseOut" localX="275" localY="179"  fakeTimeValue="16988" />
+                    <fx:Object type="mouseOver" localX="275" localY="179"  fakeTimeValue="16993" />
+                    <fx:Object type="mouseMove" localX="275" localY="224"  fakeTimeValue="17006" />
+                    <fx:Object type="mouseOut" localX="275" localY="224"  fakeTimeValue="17032" />
+                    <fx:Object type="mouseOver" localX="275" localY="224"  fakeTimeValue="17036" />
+                    <fx:Object type="mouseOut" localX="275" localY="224"  fakeTimeValue="17039" />
+                    <fx:Object type="mouseOver" localX="275" localY="224"  fakeTimeValue="17047" />
+                    <fx:Object type="mouseMove" localX="275" localY="233"  fakeTimeValue="17057" />
+                    <fx:Object type="mouseOut" localX="275" localY="233"  fakeTimeValue="17090" />
+                    <fx:Object type="mouseOver" localX="275" localY="233"  fakeTimeValue="17093" />
+                    <fx:Object type="mouseOut" localX="275" localY="233"  fakeTimeValue="17096" />
+                    <fx:Object type="mouseOver" localX="275" localY="233"  fakeTimeValue="17101" />
+                    <fx:Object type="mouseMove" localX="275" localY="236"  fakeTimeValue="17118" />
+                    <fx:Object type="mouseOut" localX="275" localY="236"  fakeTimeValue="17150" />
+                    <fx:Object type="mouseOver" localX="275" localY="236"  fakeTimeValue="17153" />
+                    <fx:Object type="mouseOut" localX="275" localY="236"  fakeTimeValue="17159" />
+                    <fx:Object type="mouseOver" localX="275" localY="236"  fakeTimeValue="17160" />
+                    <fx:Object type="mouseMove" localX="275" localY="241"  fakeTimeValue="17170" />
+                    <fx:Object type="mouseOut" localX="275" localY="241"  fakeTimeValue="17194" />
+                    <fx:Object type="mouseOver" localX="275" localY="241"  fakeTimeValue="17199" />
+                    <fx:Object type="mouseMove" localX="275" localY="244"  fakeTimeValue="17213" />
+                    <fx:Object type="mouseMove" localX="275" localY="244"  fakeTimeValue="17247" />
+                    <fx:Object type="mouseMove" localX="275" localY="244"  fakeTimeValue="17253" />
+                    <fx:Object type="mouseMove" localX="275" localY="244"  fakeTimeValue="17276" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.scroller1.scroller.viewport" propertyName="verticalScrollPosition" value="-80">
+                    <ConditionalValue screenDPI="326" value="-77" />
+                    <ConditionalValue screenDPI="170" value="-83" />
+                </AssertPropertyValue>
+                <SimulateMouseGesture target="navigator.activeView.scroller1" waitEvent="touchInteractionEnd">
+                    <fx:Object type="mouseUp" localX="266" localY="244" fakeTimeValue="17301" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.scroller1.scroller.viewport" propertyName="verticalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_BP_TList_largeContent_left" keywords="[List, TileLayout]" description="Check when pulling down on the left
+                  border of a TileLayout list.">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.TileLayoutView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <Pause timeout="1000" /><!-- TODO: Droid 1 seems to need this, look into why -->
+                <SetStyle target="navigator.activeView.scroller1.scroller" styleName="horizontalScrollPolicy" value="on" />
+                <SimulateMouseGesture target="navigator.activeView.scroller1" >
+                    <fx:Object type="rollOver" localX="40" localY="195" fakeTimeValue="25603" />
+                    <fx:Object type="mouseOver" localX="40" localY="195" fakeTimeValue="25607" />
+                    <fx:Object type="mouseDown" localX="40" localY="195" fakeTimeValue="25612" />
+                    <fx:Object type="mouseMove" localX="57" localY="195" fakeTimeValue="25625" />
+                    <fx:Object type="mouseMove" localX="61" localY="195" fakeTimeValue="25631" />
+                    <fx:Object type="mouseMove" localX="96" localY="194" fakeTimeValue="25690" />
+                    <fx:Object type="mouseOut" localX="96" localY="194" fakeTimeValue="25803" />
+                    <fx:Object type="mouseOver" localX="96" localY="194" fakeTimeValue="25805" />
+                    <fx:Object type="mouseOut" localX="96" localY="194" fakeTimeValue="25813" />
+                    <fx:Object type="mouseOver" localX="96" localY="194" fakeTimeValue="25816" />
+                    <fx:Object type="mouseMove" localX="245" localY="201" fakeTimeValue="25825" />
+                    <fx:Object type="mouseOut" localX="245" localY="201" fakeTimeValue="25917" />
+                    <fx:Object type="mouseOver" localX="245" localY="201" fakeTimeValue="25919" />
+                    <fx:Object type="mouseOut" localX="245" localY="201" fakeTimeValue="25923" />
+                    <fx:Object type="mouseOver" localX="245" localY="201" fakeTimeValue="25926" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.scroller1.scroller.viewport" propertyName="horizontalScrollPosition" value="-93">
+                    <ConditionalValue screenDPI="326" value="-89" />
+                    <ConditionalValue screenDPI="170" value="-96" />
+                </AssertPropertyValue>
+                <SimulateMouseGesture target="navigator.activeView.scroller1" waitEvent="touchInteractionEnd">
+                    <fx:Object type="mouseUp" localX="245" localY="201" fakeTimeValue="25941" />
+                    <fx:Object type="mouseOut" localX="-107374182.4" localY="107373764.35" fakeTimeValue="25943" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.scroller1.scroller.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_BP_HList_largeContent_right" keywords="[List, Integration]" description="Check when pulling to the right on the right
+                  border of a horizontal list.">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.SplitListView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.list2" >
+                    <fx:Object type="rollOver" localX="40" localY="95" fakeTimeValue="25603" />
+                    <fx:Object type="mouseOver" localX="40" localY="95" fakeTimeValue="25607" />
+                    <fx:Object type="mouseDown" localX="40" localY="95" fakeTimeValue="25612" />
+                    <fx:Object type="mouseMove" localX="57" localY="95" fakeTimeValue="25625" />
+                    <fx:Object type="mouseMove" localX="61" localY="95" fakeTimeValue="25631" />
+                    <fx:Object type="mouseMove" localX="96" localY="94" fakeTimeValue="25690" />
+                    <fx:Object type="mouseOut" localX="96" localY="94" fakeTimeValue="25803" />
+                    <fx:Object type="mouseOver" localX="96" localY="94" fakeTimeValue="25805" />
+                    <fx:Object type="mouseOut" localX="96" localY="94" fakeTimeValue="25813" />
+                    <fx:Object type="mouseOver" localX="96" localY="94" fakeTimeValue="25816" />
+                    <fx:Object type="mouseMove" localX="245" localY="101" fakeTimeValue="25825" />
+                    <fx:Object type="mouseOut" localX="245" localY="101" fakeTimeValue="25917" />
+                    <fx:Object type="mouseOver" localX="245" localY="101" fakeTimeValue="25919" />
+                    <fx:Object type="mouseOut" localX="245" localY="101" fakeTimeValue="25923" />
+                    <fx:Object type="mouseOver" localX="245" localY="101" fakeTimeValue="25926" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.list2.scroller.viewport" propertyName="horizontalScrollPosition" value="-93">
+                    <ConditionalValue screenDPI="326" value="-89" />
+                    <ConditionalValue screenDPI="170" value="-96" />
+                </AssertPropertyValue>
+                <SimulateMouseGesture target="navigator.activeView.list2" waitEvent="touchInteractionEnd">
+                    <fx:Object type="mouseUp" localX="245" localY="101" fakeTimeValue="25941" />
+                    <fx:Object type="mouseOut" localX="-107374182.4" localY="107373764.35" fakeTimeValue="25943" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.list2.scroller.viewport" propertyName="horizontalScrollPosition" value="0"  />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_BP_HList_largeContent_left" keywords="[List, Integration]" description="Check when pulling to the left on the right
+                  border of a horizontal list.">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.SplitListView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.list2.dataGroup" propertyName="horizontalScrollPosition"
+                             valueExpression="value=application.navigator.activeView.list2.dataGroup.contentWidth - application.navigator.activeView.list2.dataGroup.width" waitEvent="propertyChange" />                
+                <RunCode code="application.navigator.activeView.findMaxScrollPosition(application.navigator.activeView.list1, 'H')" />
+                <SimulateMouseGesture target="navigator.activeView.list2" >
+                    <fx:Object type="rollOver" localX="418" localY="200" fakeTimeValue="85713" />
+                    <fx:Object type="mouseOver" localX="418" localY="200" fakeTimeValue="85716" />
+                    <fx:Object type="mouseDown" localX="418" localY="200" fakeTimeValue="85738" />
+                    <fx:Object type="mouseMove" localX="409" localY="200" fakeTimeValue="85758" />
+                    <fx:Object type="mouseOut" localX="409" localY="200" fakeTimeValue="85759" />
+                    <fx:Object type="mouseOver" localX="409" localY="200" fakeTimeValue="85761" />
+                    <fx:Object type="mouseMove" localX="406" localY="200" fakeTimeValue="85767" />
+                    <fx:Object type="mouseMove" localX="399" localY="200" fakeTimeValue="85787" />
+                    <fx:Object type="mouseOut" localX="399" localY="200" fakeTimeValue="85791" />
+                    <fx:Object type="mouseOver" localX="399" localY="200" fakeTimeValue="85793" />
+                    <fx:Object type="mouseMove" localX="385" localY="200" fakeTimeValue="85823" />
+                    <fx:Object type="mouseOut" localX="385" localY="200" fakeTimeValue="85944" />
+                    <fx:Object type="mouseOver" localX="385" localY="200" fakeTimeValue="85946" />
+                    <fx:Object type="mouseOut" localX="385" localY="200" fakeTimeValue="85959" />
+                    <fx:Object type="mouseOver" localX="385" localY="200" fakeTimeValue="85961" />
+                    <fx:Object type="mouseMove" localX="316" localY="200" fakeTimeValue="85979" />		
+                    <fx:Object type="mouseOut" localX="316" localY="200" fakeTimeValue="86093" />
+                    <fx:Object type="mouseOver" localX="316" localY="200" fakeTimeValue="86094" />
+                    <fx:Object type="mouseMove" localX="302" localY="200" fakeTimeValue="86103" />				
+                    <fx:Object type="mouseMove" localX="189" localY="200" fakeTimeValue="86226" />
+                    <fx:Object type="mouseOut" localX="189" localY="200" fakeTimeValue="86325" />
+                    <fx:Object type="mouseOver" localX="189" localY="200" fakeTimeValue="86326" />
+                    <fx:Object type="mouseOut" localX="189" localY="200" fakeTimeValue="86334" />
+                    <fx:Object type="mouseOver" localX="189" localY="200" fakeTimeValue="86335" />
+                    <fx:Object type="mouseMove" localX="159" localY="200" fakeTimeValue="86344" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=isBounceEffectOn(application.navigator.activeView.list2.scroller.viewport.horizontalScrollPosition, application.navigator.activeView.listMaxScrollPosition)" value="true" />		
+                <SimulateMouseGesture target="navigator.activeView.list2" waitEvent="touchInteractionEnd" waitTarget="navigataor.activeView">
+                    <fx:Object type="mouseUp" localX="159" localY="204" fakeTimeValue="86439" />
+                    <fx:Object type="mouseOut" localX="107374182.35" localY="107373764.35" fakeTimeValue="86441" />
+                </SimulateMouseGesture>
+            </body>
+        </TestCase>
+
+        <TestCase testID="List_Integration_BP_VList_largeContent_bottom" keywords="[List, Integration]" description="Check when pulling up on the bottom
+                  border of a vertical list.">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.SplitListView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.list1.dataGroup" propertyName="verticalScrollPosition"
+                             valueExpression="value=application.navigator.activeView.list1.dataGroup.contentHeight - application.navigator.activeView.list1.dataGroup.height" waitEvent="propertyChange" />
+                <Pause timeout="1000" />
+                <RunCode code="application.navigator.activeView.findMaxScrollPosition(application.navigator.activeView.list1, 'H')" />
+                <SimulateMouseGesture target="navigator.activeView.list1" >
+                    <fx:Object type="rollOver" localX="260" localY="150" fakeTimeValue="29722" />
+                    <fx:Object type="mouseOver" localX="260" localY="150" fakeTimeValue="29724" />
+                    <fx:Object type="mouseDown" localX="260" localY="150" fakeTimeValue="29741" />
+                    <fx:Object type="mouseMove" localX="260" localY="140" fakeTimeValue="29749" />
+                    <fx:Object type="mouseMove" localX="260" localY="282" fakeTimeValue="29763" />
+                    <fx:Object type="mouseMove" localX="260" localY="280" fakeTimeValue="29789" />
+                    <fx:Object type="mouseMove" localX="260" localY="273" fakeTimeValue="29820" />
+                    <fx:Object type="mouseOut" localX="260" localY="273" fakeTimeValue="29821" />
+                    <fx:Object type="mouseOver" localX="260" localY="273" fakeTimeValue="29828" />
+                    <fx:Object type="mouseMove" localX="260" localY="130" fakeTimeValue="29896" />
+                    <fx:Object type="mouseOut" localX="260" localY="249" fakeTimeValue="29941" />
+                    <fx:Object type="mouseOver" localX="260" localY="249" fakeTimeValue="29943" />
+                    <fx:Object type="mouseMove" localX="260" localY="242" fakeTimeValue="29952" />
+                    <fx:Object type="mouseOut" localX="260" localY="242" fakeTimeValue="29985" />
+                    <fx:Object type="mouseOver" localX="260" localY="242" fakeTimeValue="29987" />
+                    <fx:Object type="mouseMove" localX="260" localY="175" fakeTimeValue="30016" />
+                    <fx:Object type="mouseOut" localX="260" localY="120" fakeTimeValue="30044" />
+                    <fx:Object type="mouseOver" localX="260" localY="175" fakeTimeValue="30045" />
+                    <fx:Object type="mouseMove" localX="260" localY="150" fakeTimeValue="30057" />
+                    <fx:Object type="mouseMove" localX="260" localY="129" fakeTimeValue="30093" />
+                    <fx:Object type="mouseOut" localX="260" localY="129" fakeTimeValue="30116" />
+                    <fx:Object type="mouseOver" localX="260" localY="129" fakeTimeValue="30118" />
+                    <fx:Object type="mouseOut" localX="260" localY="129" fakeTimeValue="30123" />
+                    <fx:Object type="mouseOver" localX="260" localY="129" fakeTimeValue="30124" />
+                    <fx:Object type="mouseMove" localX="260" localY="114" fakeTimeValue="30131" />
+                    <fx:Object type="mouseOut" localX="260" localY="114" fakeTimeValue="30159" />
+                    <fx:Object type="mouseOver" localX="260" localY="114" fakeTimeValue="30162" />					
+                    <fx:Object type="mouseMove" localX="260" localY="96" fakeTimeValue="30176" />
+                    <fx:Object type="mouseOut" localX="260" localY="100" fakeTimeValue="30201" />
+                    <fx:Object type="mouseOver" localX="260" localY="90" fakeTimeValue="30204" />					
+                    <fx:Object type="mouseMove" localX="260" localY="80" fakeTimeValue="30213" />					
+                    <fx:Object type="mouseMove" localX="260" localY="70" fakeTimeValue="30253" />
+                    <fx:Object type="mouseOut" localX="260" localY="60" fakeTimeValue="30277" />
+                    <fx:Object type="mouseOver" localX="260" localY="50" fakeTimeValue="30278" />
+                    <fx:Object type="mouseMove" localX="260" localY="48" fakeTimeValue="30287" />					
+                    <fx:Object type="mouseMove" localX="260" localY="37" fakeTimeValue="30321" />					
+                    <fx:Object type="mouseMove" localX="260" localY="23" fakeTimeValue="30360" />									
+                    <fx:Object type="mouseMove" localX="260" localY="10" fakeTimeValue="30425" />
+                    <fx:Object type="mouseMove" localX="260" localY="0" fakeTimeValue="30429" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=isBounceEffectOn(application.navigator.activeView.list2.scroller.viewport.verticalScrollPosition, application.navigator.activeView.listMaxScrollPosition)" value="true" />
+                <SimulateMouseGesture target="navigator.activeView.list1" waitEvent="touchInteractionEnd">
+                    <fx:Object type="mouseUp" localX="260" localY="0" fakeTimeValue="30455" />
+                    <fx:Object type="mouseOut" localX="107374182" localY="107374115" fakeTimeValue="30456" />
+                </SimulateMouseGesture>
+            </body>	
+        </TestCase>
+
+    </testCases>
+</UnitTester>

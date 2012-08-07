@@ -1,0 +1,1570 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/RadioButton/styles/"
+    testSWF="MobileRadioButtonMain.mxml">
+	
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+		<fx:Style>
+			@namespace s "library://ns.adobe.com/flex/spark";
+			
+			.bottomStyle {
+				icon-placement:bottom;
+			}
+		</fx:Style>
+
+    <fx:Script><![CDATA[ 
+		import mx.core.FlexGlobals;
+	]]>
+	</fx:Script>
+		
+    <testCases>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_inline" keywords="[Mobile, RadioButton, iconPlacement]" description="Test RadioButton iconPlacement set inline in mxml">
+	<body>
+		<AssertStyleValue target="styleComp.rbInline" styleName="iconPlacement" value="right" />			
+		<CompareBitmap url="../styles/baselines" target="styleComp.rbInline" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_css_selectionID" keywords="[Mobile, RadioButton, iconPlacement]" description="Test RadioButton iconPlacement set in style tag">
+	<setup>
+		<SetProperty target="styleComp.rbStyled" propertyName="label" value="Include Directory" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rbStyled" styleName="iconPlacement" value="right" />			
+		<CompareBitmap url="../styles/baselines" target="styleComp.rbStyled" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_default" keywords="[Mobile, RadioButton, iconPlacement]" description="Test default iconPlacement style on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="left" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_right" keywords="[Mobile, RadioButton, iconPlacement]" description="Test iconPlacement set to right">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Icon On Right" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>	
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_right_setLabel" keywords="[Mobile, RadioButton, iconPlacement,label]" description="Test iconPlacement set to right">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="right" />		
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Icon On Right" waitEvent="contentChange" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_top" keywords="[Mobile, RadioButton, iconPlacement]" description="Test iconPlacement set to top">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Icon On Top" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>	
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_top_setLabel" keywords="[Mobile, RadioButton, iconPlacement,label]" description="Test iconPlacement set to top">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="top" />		
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Icon On Top" waitEvent="contentChange" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_bottom" keywords="[Mobile, RadioButton, iconPlacement]" description="Test iconPlacement set to bottom">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Icon at Bottom" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>	
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_bottom_setLabel" keywords="[Mobile, RadioButton, iconPlacement,label]" description="Test iconPlacement set to bottom">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="bottom" />		
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Icon at Bottom" waitEvent="contentChange" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_styleName" keywords="[Mobile, RadioButton, iconPlacement, styleName]" description="Test iconPlacement when set in stylesheet">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Place at Bottom" waitEvent="contentChange" waitTarget="styleComp.rb1"/>	
+		<SetStyle target="styleComp.rb1" styleName="styleName" value="bottomStyle" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_left_to_top" keywords="[Mobile, RadioButton, iconPlacement]" description="Test changing iconPlacement on RadioButton at runtime">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Left to Top" waitEvent="contentChange" waitTarget="styleComp.rb1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>	
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_bottom_to_right" keywords="[Mobile, RadioButton, iconPlacement]" description="Test changing iconPlacement on RadioButton at runtime">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Bottom To Right" waitEvent="contentChange" waitTarget="styleComp.rb1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>	
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="bottom" />		
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>	
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_baseline" keywords="[Mobile, RadioButton, baseline]" description="Test basline style on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="baseline" value="null" />
+		<SetStyle target="styleComp.rb1" styleName="baseline" value="35" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="baseline" value="35" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_horizontalCenter_positive" keywords="[Mobile, RadioButton, horizontalCenter]" description="Test horizontalCenter style on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="horizontalCenter" value="null" />
+		<SetStyle target="styleComp.rb1" styleName="horizontalCenter" value="45" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="horizontalCenter" value="45" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_horizontalCenter_negative" keywords="[Mobile, RadioButton, horizontalCenter]" description="Test horizontalCenter style on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="horizontalCenter" value="null" />
+		<SetStyle target="styleComp.rb1" styleName="horizontalCenter" value="-45" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="horizontalCenter" value="-45" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_verticalCenter_positive" keywords="[Mobile, RadioButton, verticalCenter]" description="Test verticalCenter style on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="verticalCenter" value="null" />
+		<SetStyle target="styleComp.rb1" styleName="verticalCenter" value="10" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="verticalCenter" value="10" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_verticalCenter_negative" keywords="[Mobile, RadioButton, verticalCenter]" description="Test verticalCenter style on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="verticalCenter" value="null" />
+		<SetStyle target="styleComp.rb1" styleName="verticalCenter" value="-10" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="verticalCenter" value="-10" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+ 
+<TestCase testID="Mobile_RadioButton_styles_left" keywords="[Mobile, RadioButton, left]" description="Test left setting on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="left" value="null" />
+		<SetStyle target="styleComp.rb1" styleName="left" value="20" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="left" value="20" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_right" keywords="[Mobile, RadioButton, right]" description="Test right setting on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="right" value="null" />
+		<SetStyle target="styleComp.rb1" styleName="right" value="20" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="right" value="20" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_top" keywords="[Mobile, RadioButton, top]" description="Test top setting on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="top" value="null" />
+		<SetStyle target="styleComp.rb1" styleName="top" value="15" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="top" value="15" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_bottom" keywords="[Mobile, RadioButton, bottom]" description="Test bottom setting on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="bottom" value="null" />
+		<SetStyle target="styleComp.rb1" styleName="bottom" value="15" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="bottom" value="15" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_color" keywords="[Mobile, RadioButton, color]" description="Test color setting on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="color" value="0" />
+		<SetStyle target="styleComp.rb1" styleName="color" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="color" value="16711680" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_fontStyle" keywords="[Mobile, RadioButton, fontStyle]" description="Test fontStyle setting on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="fontStyle" value="normal" />
+		<SetStyle target="styleComp.rb1" styleName="fontStyle" value="italic" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="fontStyle" value="italic" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_fontStyle_disabled" keywords="[Mobile, RadioButton, fontStyle]" description="Test fontStyle setting on disabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="fontStyle" value="normal" />
+		<SetStyle target="styleComp.rb1" styleName="fontStyle" value="italic" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="fontStyle" value="italic" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_fontFamily" keywords="[Mobile, RadioButton, fontFamily]" description="Test fontFamily setting on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="fontFamily" value="_sans" />
+		<SetStyle target="styleComp.rb1" styleName="fontFamily" value="Courier New" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="fontFamily" value="Courier New" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_fontFamily_disabled" keywords="[Mobile, RadioButton, fontFamily]" description="Test fontFamily setting on disabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="fontFamily" value="_sans" />
+		<SetStyle target="styleComp.rb1" styleName="fontFamily" value="Courier New" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="fontFamily" value="Courier New" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_fontSize" keywords="[Mobile, RadioButton, fontSize]" description="Test fontSize setting on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="fontSize" >
+			<ConditionalValue deviceDensity="160" os="win" value="16" />
+			<ConditionalValue deviceDensity="240" os="android" value="24" />
+			<ConditionalValue deviceDensity="320" os="win" value="32"/>
+			<ConditionalValue deviceDensity="320" os="iphone" value="32"/>
+			<ConditionalValue deviceDensity="160" os="qnx" value="16" />
+		</AssertStyleValue>
+		<SetStyle target="styleComp.rb1" styleName="fontSize" value="28" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="fontSize" value="28" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_fontSize_disabled" keywords="[Mobile, RadioButton, fontSize]" description="Test fontSize setting on disabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />		
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="fontSize" >
+			<ConditionalValue deviceDensity="160" os="win" value="16" />
+			<ConditionalValue deviceDensity="240" os="android" value="24" />
+			<ConditionalValue deviceDensity="320" os="win" value="32"/>
+			<ConditionalValue deviceDensity="320" os="iphone" value="32"/>
+			<ConditionalValue deviceDensity="160" os="qnx" value="16" />
+		</AssertStyleValue>
+		<SetStyle target="styleComp.rb1" styleName="fontSize" value="28" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="fontSize" value="28" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_fontWeight" keywords="[Mobile, RadioButton, fontWeight]" description="Test fontWeight setting on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="fontWeight" value="normal" />
+		<SetStyle target="styleComp.rb1" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="fontWeight" value="bold" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_fontWeight_disabled" keywords="[Mobile, RadioButton, fontWeight]" description="Test fontWeight setting on disabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="fontWeight" value="normal" />
+		<SetStyle target="styleComp.rb1" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="fontWeight" value="bold" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_kerning" keywords="[Mobile, RadioButton, kerning]" description="Test kerning setting on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="LETTERS" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="kerning" value="default" />
+		<SetStyle target="styleComp.rb1" styleName="kerning" value="on" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="kerning" value="on" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_kerning_disabled" keywords="[Mobile, RadioButton, kerning]" description="Test kerning setting on disabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="LETTERS" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="kerning" value="default" />
+		<SetStyle target="styleComp.rb1" styleName="kerning" value="on" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="kerning" value="on" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_textDecoration" keywords="[Mobile, RadioButton, textDecoration]" description="Test textDecoration setting on RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="textDecoration" value="none" />
+		<SetStyle target="styleComp.rb1" styleName="textDecoration" value="underline" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="textDecoration" value="underline" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="10" ignoreMaxColorVariance="true"  >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_textDecoration_disabled" keywords="[Mobile, RadioButton, textDecoration]" description="Test textDecoration setting on disabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="textDecoration" value="none" />
+		<SetStyle target="styleComp.rb1" styleName="textDecoration" value="underline" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="textDecoration" value="underline" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_chromeColor" keywords="[Mobile, RadioButton, chromeColor]" description="Test chromeColor setting on enabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="chromeColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_chromeColor_disabled" keywords="[Mobile, RadioButton, chromeColor]" description="Test chromeColor setting on disabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="chromeColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_chromeColor_selected_disabled" keywords="[Mobile, RadioButton, chromeColor]" description="Test chromeColor setting on disabled and selected RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="chromeColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_symbolColor" keywords="[Mobile, RadioButton, symbolColor]" description="Test symbolColor setting on selected RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_symbolColor_toDefault" keywords="[Mobile, RadioButton, symbolColor]" description="Test symbolColor setting on selected RadioButton to default">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0xff0000" />
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0x000000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0x000000" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_symbolColor_deselected" keywords="[Mobile, RadioButton, symbolColor]" description="Test symbolColor setting on deselected RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_symbolColor_deselected_toDefault" keywords="[Mobile, RadioButton, symbolColor]" description="Test symbolColor setting on deselected RadioButton to default">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0xff0000" />
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0x000000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0x000000" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_symbolColor_disabled" keywords="[Mobile, RadioButton, symbolColor]" description="Test symbolColor setting on selected and disabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_symbolColor_disabled_toDefault" keywords="[Mobile, RadioButton, symbolColor]" description="Test symbolColor setting on selected and disabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0xff0000" />
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0x000000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0x000000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_symbolColor_deselected_disabled" keywords="[Mobile, RadioButton, symbolColor]" description="Test symbolColor setting on deselected and disabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0xff0000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_symbolColor_deselected_disabled_toDefault" keywords="[Mobile, RadioButton, symbolColor]" description="Test symbolColor setting on deselected and disabled RadioButton">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0xff0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Include Source" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0xff0000" />
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="0x000000" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="symbolColor" value="0x000000" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_textShadowAlpha_textShadowColor_default" keywords="[RadioButton, textShadowAlpha, textShadowColor]" description="Test default text shadow styles">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowAlpha" value="0.55" />
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowColor" value="0xFFFFFF" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_textShadowAlpha_0" keywords="[RadioButton, textShadowAlpha]" description="Test RadioButton text when textShadowAlpha is 0">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="textShadowAlpha" value="0" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowAlpha" value="0" />
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowColor" value="0xFFFFFF" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_disabled_textShadowAlpha_0" keywords="[RadioButton, textShadowAlpha]" description="Test disabled RadioButton text when textShadowAlpha is 0">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="textShadowAlpha" value="0" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowAlpha" value="0" />
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowColor" value="0xFFFFFF" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_textShadowAlpha_1point5" keywords="[RadioButton, textShadowAlpha]" description="Test RadioButton text when textShadowAlpha is 1point5">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="textShadowAlpha" value="1.5" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowAlpha" value="1.5" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_disabled_textShadowAlpha_1point5" keywords="[RadioButton, textShadowAlpha]" description="Test RadioButton text when textShadowAlpha is 1point5">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="textShadowAlpha" value="1.5" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowAlpha" value="1.5" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_textShadowColor" keywords="[RadioButton, textShadowColor]" description="Test RadioButton text when textShadowColor is set">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="textShadowColor" value="0" waitEvent="updateComplete" />		
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowColor" value="0" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_disabled_textShadowColor" keywords="[RadioButton, textShadowColor]" description="Test RadioButton text when textShadowColor is set">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="textShadowColor" value="0" waitEvent="updateComplete" />		
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowColor" value="0" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_textShadowColor_textShadowAlpha_2" keywords="[RadioButton, textShadowAlpha, textShadowColor]" description="Test RadioButton label when textShadowColor and textShadowAlpha are set">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="textShadowColor" value="0" waitEvent="updateComplete" />		
+		<SetStyle target="styleComp.rb1" styleName="textShadowAlpha" value="2.0" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowColor" value="0" />
+		<AssertStyleValue target="styleComp.rb1" styleName="textShadowAlpha" value="2" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_focus_color_alpha_thickness_blendmode_mxml" keywords="[RadioButton, focusColor, focusAlpha, focusBlendMode, focusThickness]" description="Test RadioButton focus attributes set in mxml">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="focusColor" value="0xCC0033" />	
+		<AssertStyleValue target="styleComp.rb1" styleName="focusAlpha" value="2" />	
+		<AssertStyleValue target="styleComp.rb1" styleName="focusThickness" value="4" />	
+		<AssertStyleValue target="styleComp.rb1" styleName="focusBlendMode" value="difference" />	
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.rb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<AssertPixelValue target="styleComp.rb1" x="21" y="0" >
+			<ConditionalValue deviceDensity="160" os="win" value="0x8448CC"/>
+			<ConditionalValue deviceDensity="240" os="android" value="0x8448CC"/>
+			<ConditionalValue deviceDensity="320" os="win" value="0x7B48D3"/>
+			<ConditionalValue deviceDensity="320" os="iphone" value="0x7B48D3"/>		
+			<ConditionalValue deviceDensity="160" os="qnx" value="0x8448CC"/>
+		</AssertPixelValue>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_focusAlpha_0" keywords="[RadioButton, focusAlpha]" description="Test RadioButton focusAlpha">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />		
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="focusAlpha" value="0" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="focusAlpha" value="0" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.rb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_focusThickness_0" keywords="[RadioButton, focusAlpha]" description="Test RadioButton focusAlpha">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />				
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="focusThickness" value="0" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="focusThickness" value="0" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.rb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+<TestCase testID="Mobile_RadioButton_styles_letterSpacing_default" keywords="[RadioButton, letterSpacing]" description="Test RadioButton letterSpacing default">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_letterSpacing_change_at_runtime" keywords="[RadioButton, letterSpacing]" description="Test RadioButton letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="0" />
+		<SetStyle target="styleComp.rb1" styleName="letterSpacing" value="8" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="8" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_increase_letterSpacing_iconPlacement_right" keywords="[RadioButton, letterSpacing, iconPlacement]" description="Test RadioButton letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="0" />
+		<SetStyle target="styleComp.rb1" styleName="letterSpacing" value="8" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="8" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_decrease_letterSpacing_iconPlacement_right" keywords="[RadioButton, letterSpacing, iconPlacement]" description="Test RadioButton letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="letterSpacing" value="8" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="8" />
+		<SetStyle target="styleComp.rb1" styleName="letterSpacing" value="0" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="0" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_increase_letterSpacing_iconPlacement_top" keywords="[RadioButton, letterSpacing, iconPlacement]" description="Test RadioButton letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="top" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="0" />
+		<SetStyle target="styleComp.rb1" styleName="letterSpacing" value="8" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="8" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_decrease_letterSpacing_iconPlacement_top" keywords="[RadioButton, letterSpacing, iconPlacement]" description="Test RadioButton letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="top" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="letterSpacing" value="8" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="8" />
+		<SetStyle target="styleComp.rb1" styleName="letterSpacing" value="0" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="0" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_increase_letterSpacing_iconPlacement_bottom" keywords="[RadioButton, letterSpacing, iconPlacement]" description="Test RadioButton letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="0" />
+		<SetStyle target="styleComp.rb1" styleName="letterSpacing" value="8" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="8" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_decrease_letterSpacing_iconPlacement_bottom" keywords="[RadioButton, letterSpacing, iconPlacement]" description="Test RadioButton letterSpacing">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="letterSpacing" value="8" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="8" />
+		<SetStyle target="styleComp.rb1" styleName="letterSpacing" value="0" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="letterSpacing" value="0" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_leading_default" keywords="[RadioButton, leading]" description="Test RadioButton leading style default">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Leading Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="leading" value="2" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_leading_10" keywords="[RadioButton, leading]" description="Test RadioButton leading style set to 10">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Leading Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="leading" value="2" />
+		<SetStyle target="styleComp.rb1" styleName="leading" value="10" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="leading" value="10" />		
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_left_explicitHeight" keywords="[Mobile, RadioButton, iconPlacement]" description="Test text and icon alignment when iconPlacement is left and explicit height is set">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Wj" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="height" value="100" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="left" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_right_explicitHeight" keywords="[Mobile, RadioButton, iconPlacement]" description="Test text and icon alignment when iconPlacement is right and explicit height is set">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Wj" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" />		
+		<SetProperty target="styleComp.rb1" propertyName="height" value="100" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="right" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_top_explicitHeight" keywords="[Mobile, RadioButton, iconPlacement]" description="Test text and icon alignment when iconPlacement is top and explicit height is set">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Wj" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" />		
+		<SetProperty target="styleComp.rb1" propertyName="height" value="125" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="top" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_iconPlacement_bottom_explicitHeight" keywords="[Mobile, RadioButton, iconPlacement]" description="Test text and icon alignment when iconPlacement is bottom and explicit height is set">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Wj" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" />		
+		<SetProperty target="styleComp.rb1" propertyName="height" value="125" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="iconPlacement" value="bottom" />
+		<CompareBitmap url="../styles/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+
+<TestCase testID="Mobile_RadioButton_styles_focus_alpha_thickness_blendmode_default" keywords="[RadioButton, focusAlpha, focusThickness, focusBlendMode]" description="Test RadioButton focusAlpha focusThickness and focusBlendMode default value">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />				
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="focusAlpha" value="0.55" />	
+		<AssertStyleValue target="styleComp.rb1" styleName="focusThickness" value="3" >
+			<ConditionalValue deviceDensity="160" os="win" value="2" />
+			<ConditionalValue deviceDensity="160" os="qnx" value="2" />
+		</AssertStyleValue>
+		<AssertStyleValue target="styleComp.rb1" styleName="focusBlendMode" value="normal" />	
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.rb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="iphone" />
+			<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+<TestCase testID="Mobile_RadioButton_styles_focusColor_default" keywords="[RadioButton, focusColor]" description="Test RadioButton focusColor">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="styleComp.rb1" styleName="focusColor" value="7385838" />	
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.rb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_focusColor_set_in_AS" keywords="[RadioButton, focusColor]" description="Test RadioButton focusColor">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />		
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="focusColor" value="0xFF0000" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="focusColor" value="0xFF0000" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.rb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" numColorVariances="50" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_focusAlpha_1point5" keywords="[RadioButton, focusAlpha]" description="Test RadioButton focusAlpha">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />				
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="focusAlpha" value="1.5" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="focusAlpha" value="1.5" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.rb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_focusThickness_4" keywords="[RadioButton, focusAlpha]" description="Test RadioButton focusAlpha">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />				
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="focusThickness" value="4" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="focusThickness" value="4" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.rb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_focusBlendMode_invert" keywords="[RadioButton, focusBlendMode]" description="Test RadioButton focusBlendMode">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />		
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="focusBlendMode" value="invert" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="focusBlendMode" value="invert" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.rb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_styles_focusBlendMode_subtract" keywords="[RadioButton, focusBlendMode]" description="Test RadioButton focusBlendMode">
+	<setup>
+		<ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Focus Test" waitEvent="contentChange" />		
+	</setup>
+	<body>
+		<SetStyle target="styleComp.rb1" styleName="focusBlendMode" value="subtract" waitTarget="styleComp.rb1" waitEvent="updateComplete" />
+		<AssertStyleValue target="styleComp.rb1" styleName="focusBlendMode" value="subtract" />
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.setFocus(FlexGlobals.topLevelApplication.styleComp.rb1)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.styleComp.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="styleComp.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

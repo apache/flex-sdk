@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/CheckBox/properties/"
+    testSWF="MobileCheckBoxMain.mxml">
+    
+  <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+  <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<fx:Script>
+	<![CDATA[
+			[Embed('../swfs/Assets/edit.png')]
+			[Bindable]
+			private var imgCls:Class;
+			
+	]]>
+	</fx:Script>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		.myStyle {
+			color:#ff0000;
+			font-weight:bold;
+			icon-placement:right;
+		}
+	</fx:Style>	
+<testCases>
+        <TestCase testID="Mobile_CheckBox_alpha_0.5" keywords="[CheckBox, alpha, property]" description="Test alpha 0.5 on a checkbox">
+            <setup>
+                <ResetComponent target="styleComp.cbStyled" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cbStyled"/>
+                <SetProperty propertyName="label" value="Alpha Checkbox" target="styleComp.cbStyled" waitEvent="contentChange" waitTarget="styleComp.cbStyled"/>
+                <SetProperty propertyName="alpha" value=".5" target="styleComp.cbStyled" waitEvent="alphaChanged" waitTarget="styleComp.cbStyled"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cbStyled">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_down_alpha_0.5" keywords="[CheckBox, alpha, property]" description="Test alpha 0.5 on a checkbox">
+            <setup>
+                <ResetComponent target="styleComp.cbStyled" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cbStyled"/>
+                <SetProperty propertyName="label" value="Alpha Checkbox" target="styleComp.cbStyled" waitEvent="contentChange" waitTarget="styleComp.cbStyled"/>
+                <SetProperty propertyName="alpha" value=".5" target="styleComp.cbStyled" waitEvent="alphaChanged" waitTarget="styleComp.cbStyled"/>
+            </setup>
+            <body>
+							<DispatchMouseEvent target="styleComp.cbStyled" type="rollOver" localX="26" localY="20" waitEvent="rollOver" />
+							<DispatchMouseEvent target="styleComp.cbStyled" type="mouseMove" localX="24" localY="25" waitEvent="mouseMove" />
+							<DispatchMouseEvent target="styleComp.cbStyled" type="mouseDown" localX="25" localY="25" waitEvent="mouseDown" />
+							<CompareBitmap url="../properties/baselines" target="styleComp.cbStyled" >
+								<ConditionalValue deviceDensity="160" os="win" />
+								<ConditionalValue deviceDensity="240" os="android" />
+								<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+							</CompareBitmap>
+							<DispatchMouseEvent target="styleComp.cbStyled" type="mouseUp" localX="25" localY="28" waitEvent="mouseUp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_alpha_0" keywords="[CheckBox, alpha, property]" description="Test alpha 0 on a checkbox">
+            <setup>
+                <ResetComponent target="styleComp.cbStyled" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cbStyled"/>
+                <SetProperty propertyName="label" value="Alpha Checkbox" target="styleComp.cbStyled" waitEvent="contentChange" waitTarget="styleComp.cbStyled"/>
+                <SetProperty propertyName="alpha" value="0" target="styleComp.cbStyled" waitEvent="alphaChanged" waitTarget="styleComp.cbStyled"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cbStyled">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_height_default" keywords="[CheckBox, height, property]" description="Test height default on a checkbox">
+            <setup>
+                <ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+            </setup>
+            <body>
+				<AssertPropertyValue target="styleComp.cb1" propertyName="height">
+					<ConditionalValue deviceDensity="160" os="win" value="32" />
+					<ConditionalValue deviceDensity="240" os="android" value="48" />
+					<ConditionalValue deviceDensity="320" os="win" value="64" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="64" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="32" />
+				</AssertPropertyValue>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_height_increase" description="Tests that the checkbox height change is rendered correctly." keywords="[CheckBox, height, property]">
+            <setup>
+                <ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="Increase Height" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+            </setup>
+            <body>
+                <SetProperty target="styleComp.cb1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+                <AssertPropertyValue target="styleComp.cb1" propertyName="height" value="100"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_enabled_false" description="Tests checkbox skin when disabled." keywords="[CheckBox, enabled]">
+            <setup>
+                <ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="Set Disabled" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_CheckBox_enabled_false_clicked" description="Tests checkbox skin when disabled and clicked." keywords="[CheckBox, enabled]">
+            <setup>
+                <ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="Set Disabled" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+            </setup>
+            <body>
+								<DispatchMouseEvent target="styleComp.cb1" localX="42" localY="422" type="mouseDown" />
+                <CompareBitmap url="../properties/baselines" target="styleComp.cb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+								<DispatchMouseEvent target="styleComp.cb1" localX="42" localY="422" type="mouseUp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_enabled_false_runtime_change" description="Tests checkbox skin when disabled at runtime." keywords="[CheckBox, enabled]">
+            <setup>
+                <ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="Set Disabled at Runtime" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="styleComp.cb1" propertyName="enabled" value="true"/>
+								<SetProperty target="styleComp.cb1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+                <AssertPropertyValue target="styleComp.cb1" propertyName="enabled" value="false"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_icon_inline" description="Tests setting icon has no effect." keywords="[CheckBox, icon]">
+            <setup>
+                <ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cbInline">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_label_change_runtime_iconPlacement_right" keywords="[CheckBox, label, iconPlacement]" description="Test changing label at runtime">
+			<bugs>
+				<Bug bugID="SDK-27426" />
+			</bugs>
+			<setup>
+                <ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="ABC" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+								<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>		
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="label" value="ABC" target="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="Lorem ipsum dolor sit amet" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_label_change_runtime_iconPlacement_left" keywords="[CheckBox, label, iconPlacement]" description="Test changing label at runtime">
+			<bugs>
+				<Bug bugID="SDK-27426" />
+			</bugs>
+			<setup>
+                <ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="ABC" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="label" value="ABC" target="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="Lorem ipsum dolor sit amet" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+				
+        <TestCase testID="Mobile_CheckBox_label_change_runtime_iconPlacement_top" keywords="[CheckBox, label, iconPlacement]" description="Test changing label at runtime">
+			<bugs>
+				<Bug bugID="SDK-27426" />
+			</bugs>
+			<setup>
+                <ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="ABC" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+								<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="label" value="ABC" target="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="Lorem ipsum dolor sit amet" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_label_change_runtime_iconPlacement_bottom" keywords="[CheckBox, label, iconPlacement]" description="Test changing label at runtime">
+			<bugs>
+				<Bug bugID="SDK-27426" />
+			</bugs>
+			<setup>
+                <ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="ABC" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+								<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="label" value="ABC" target="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="Lorem ipsum dolor sit amet" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_label_short_iconPlacement_top" keywords="[CheckBox, label, iconPlacement]" description="Test short label with iconPlacement top">
+            <setup>
+                <ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="ABC" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+								<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>		
+            </setup>        
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_label_long_iconPlacement_right" keywords="[CheckBox, label, iconPlacement]" description="Test long label with iconPlacement right">
+            <setup>
+                <ResetComponent target="styleComp.cb1" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>
+								<SetProperty target="styleComp.cb1" propertyName="label" value="ABCDEFGH IJKLMNOP QRSTUV" waitEvent="contentChange" waitTarget="styleComp.cb1"/>
+								<SetStyle target="styleComp.cb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="styleComp.cb1"/>		
+            </setup>        
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.cb1" numColorVariances="50" ignoreMaxColorVariance="true">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+				
+        <TestCase testID="Mobile_CheckBox_label_databinding" keywords="[CheckBox, label, databinding]" description="Test databinding on checkbox label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+								<SetStyle target="propComp.cbBinding" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>		
+            </setup>        
+            <body>
+								<RunCode code="application.propComp.cbLabel='Label Databinding'" waitTarget="propComp.cbBinding" waitEvent="contentChange" />
+                <CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_icon_scaleX_scaleY_1point5" keywords="[CheckBox, scaleX, scaleY]" description="Verifies the scaleX,scaleY value for CheckBox is 1.5">
+            <setup>
+                <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+								<SetProperty target="propComp.cbBinding" propertyName="label" value="View Source Code" waitEvent="contentChange" waitTarget="propComp.cbBinding"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="scaleX" value="1.5" target="propComp.cbBinding" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+                <SetProperty propertyName="scaleY" value="1.5" target="propComp.cbBinding" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>	
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_icon_scaleX_scaleY_0point5" keywords="[CheckBox, scaleX, scaleY]" description="Verifies the scaleX,scaleY value for CheckBox is 1.5">
+			<bugs>
+				<Bug bugID="SDK-27692" />
+			</bugs>		
+            <setup>
+                <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+								<SetProperty target="propComp.cbBinding" propertyName="label" value="View Source Code" waitEvent="contentChange" waitTarget="propComp.cbBinding"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="scaleX" value="0.5" target="propComp.cbBinding" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+                <SetProperty propertyName="scaleY" value="0.5" target="propComp.cbBinding" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+				
+        <TestCase testID="Mobile_CheckBox_icon_scaleX_scaleY_0point33" keywords="[CheckBox, scaleX, scaleY]" description="Verifies the scaleX,scaleY value for CheckBox is 1.5">
+            <setup>
+                <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+								<SetProperty target="propComp.cbBinding" propertyName="label" value="View Source Code" waitEvent="contentChange" waitTarget="propComp.cbBinding"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="scaleX" value="0.33" target="propComp.cbBinding" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+                <SetProperty propertyName="scaleY" value="0.33" target="propComp.cbBinding" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+				
+        <TestCase testID="Mobile_CheckBox_selected_default" keywords="[CheckBox, selected]" description="Verifies the default selected value">
+            <setup>
+                <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+								<SetProperty target="propComp.cbBinding" propertyName="label" value="Default" waitEvent="contentChange" waitTarget="propComp.cbBinding"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="selected" value="false" target="propComp.cbBinding"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_set_selected_actionscript" keywords="[CheckBox, selected]" description="Verifies the default selected value">
+            <setup>
+                <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+								<SetProperty target="propComp.cbBinding" propertyName="label" value="Set in AS" waitEvent="contentChange" waitTarget="propComp.cbBinding"/>
+            </setup>
+            <body>
+								<SetProperty target="propComp.cbBinding" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+                <AssertPropertyValue propertyName="selected" value="true" target="propComp.cbBinding"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+				<TestCase testID="Mobile_CheckBox_set_selected_true_on_click" keywords="[CheckBox, selected]" description="Test clicking on checkbox will set selected value">
+					<setup>
+            <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+						<SetProperty target="propComp.cbBinding" propertyName="label" value="Selected Test" waitEvent="contentChange" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="propComp.cbBinding" propertyName="selected" value="false" />
+						<DispatchMouseClickEvent target="propComp.cbBinding" localX="25" localY="25" waitEvent="click" />
+						<AssertPropertyValue target="propComp.cbBinding" propertyName="selected" value="true" />
+				<CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>			
+					</body>
+				</TestCase>
+				
+				<TestCase testID="Mobile_CheckBox_set_selected_false_on_click" keywords="[CheckBox, selected]" description="Test selected value changes on click">
+					<setup>
+            <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+						<SetProperty target="propComp.cbBinding" propertyName="label" value="Selected Test" waitEvent="contentChange" />
+					</setup>
+					<body>
+						<SetProperty target="propComp.cbBinding" propertyName="selected" value="true" waitEvent="updateComplete" />
+						<AssertPropertyValue target="propComp.cbBinding" propertyName="selected" value="true" />
+						<DispatchMouseClickEvent target="propComp.cbBinding" localX="25" localY="25" waitEvent="click" />
+						<AssertPropertyValue target="propComp.cbBinding" propertyName="selected" value="false" />
+				<CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>			
+					</body>
+				</TestCase>		
+
+				<TestCase testID="Mobile_CheckBox_set_selected_false_disabled" keywords="[CheckBox, selected, enabled]" description="Test clicking on disabled checkbox will not change selected value">
+					<setup>
+            <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+						<SetProperty target="propComp.cbBinding" propertyName="label" value="Disabled" waitEvent="contentChange" />
+						<SetProperty target="propComp.cbBinding" propertyName="enabled" value="false" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="propComp.cbBinding" propertyName="selected" value="false" />
+						<DispatchMouseEvent target="propComp.cbBinding" localX="47.5" localY="43" type="mouseDown" />
+						<AssertPropertyValue target="propComp.cbBinding" propertyName="selected" value="false" />
+						<CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>						
+						<DispatchMouseEvent target="propComp.cbBinding" localX="47.5" localY="43" type="mouseUp" />
+					</body>
+				</TestCase>		
+
+				<TestCase testID="Mobile_CheckBox_set_selected_true_disabled" keywords="[CheckBox, selected, enabled]" description="Test clicking on disabled checkbox will not change selected value">
+					<setup>
+            <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+						<SetProperty target="propComp.cbBinding" propertyName="label" value="Disabled" waitEvent="contentChange" />
+						<SetProperty target="propComp.cbBinding" propertyName="selected" value="true" waitEvent="updateComplete" />
+						<SetProperty target="propComp.cbBinding" propertyName="enabled" value="false" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="propComp.cbBinding" propertyName="selected" value="true" />
+						<DispatchMouseEvent target="propComp.cbBinding" localX="47.5" localY="43" type="mouseDown" />
+						<AssertPropertyValue target="propComp.cbBinding" propertyName="selected" value="true" />
+				<CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>			
+						<DispatchMouseEvent target="propComp.cbBinding" localX="47.5" localY="43" type="mouseUp" />
+					</body>
+				</TestCase>		
+
+        <TestCase testID="Mobile_CheckBox_selected_databinding" keywords="[CheckBox, selected, databinding]" description="Test databinding on checkbox selected value">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+								<SetProperty target="propComp.cbBinding" propertyName="label" value="DataBinding Test" waitEvent="contentChange" />
+            </setup>        
+            <body>
+								<RunCode code="application.propComp.cbSelected='true'" waitTarget="propComp.cbBinding" waitEvent="updateComplete" />
+								<AssertPropertyValue target="propComp.cbBinding" propertyName="selected" value="true" />
+                <CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+				<TestCase testID="Mobile_CheckBox_stickyHighlighting_false" keywords="[CheckBox, stickyHighlighting]" description="Test skin when stickyHighlighting is false">
+					<setup>
+            <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+						<SetProperty target="propComp.cbBinding" propertyName="label" value="Sticky Test" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="propComp.cbBinding" propertyName="stickyHighlighting" value="false" />
+						<DispatchMouseEvent target="propComp.cbBinding" type="mouseMove" localX="22" localY="9" waitEvent="mouseMove" />
+						<DispatchMouseEvent target="propComp.cbBinding" type="mouseDown" localX="19" localY="15" waitEvent="mouseDown" />
+						<DispatchMouseEvent target="propComp.cbBinding" type="mouseMove" localX="20" localY="24" waitEvent="mouseMove" />
+						<DispatchMouseEvent type="mouseMove" localX="17" localY="48" target="" />
+				<CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+					</body>
+				</TestCase>				
+
+				<TestCase testID="Mobile_CheckBox_stickyHighlighting_true" keywords="[CheckBox, stickyHighlighting]" description="Test skin when stickyHighlighting is false">
+					<setup>
+            <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+						<SetProperty target="propComp.cbBinding" propertyName="label" value="Sticky Test" waitEvent="contentChange" />
+						<SetProperty target="propComp.cbBinding" propertyName="stickyHighlighting" value="true" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="propComp.cbBinding" propertyName="stickyHighlighting" value="true" />
+						<DispatchMouseEvent target="propComp.cbBinding" type="mouseMove" localX="22" localY="19" waitEvent="mouseMove" />
+						<DispatchMouseEvent target="propComp.cbBinding" type="mouseDown" localX="19" localY="15" waitEvent="mouseDown" />
+						<DispatchMouseEvent target="propComp.cbBinding" type="mouseMove" localX="20" localY="24" waitEvent="mouseMove" />
+						<DispatchMouseEvent  type="mouseMove" localX="17" localY="48" target="" />
+				<CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+					</body>
+				</TestCase>				
+
+				<TestCase testID="Mobile_CheckBox_styleName_inline" keywords="[CheckBox, styleName]" description="Test skin when setting stylename inline">
+					<setup>
+						<ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertStyleValue target="propComp.cbWithStyle" styleName="color" value="#ff0000" />
+						<AssertStyleValue target="propComp.cbWithStyle" styleName="fontWeight" value="bold" />
+						<AssertStyleValue target="propComp.cbWithStyle" styleName="iconPlacement" value="right" />
+						<CompareBitmap url="../properties/baselines" target="propComp.cbWithStyle">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>
+					</body>
+				</TestCase>
+				
+				<TestCase testID="Mobile_CheckBox_set_styleName" keywords="[CheckBox, styleName, setStyle]" description="Test skin when setting styleName in actionscript">
+					<bugs>
+						<Bug bugID="SDK-27494" />
+					</bugs>
+					<setup>
+						<ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+						<SetProperty target="propComp.cbBinding" propertyName="label" value="Set Style" waitEvent="contentChange" />
+					</setup>
+					<body>
+						<SetProperty target="propComp.cbBinding" propertyName="styleName" value="myStyle" waitEvent="updateComplete" />
+						<AssertStyleValue target="propComp.cbBinding" styleName="color" value="#ff0000" />
+						<AssertStyleValue target="propComp.cbBinding" styleName="fontWeight" value="bold" />
+						<AssertStyleValue target="propComp.cbBinding" styleName="iconPlacement" value="right" />
+						<CompareBitmap url="../properties/baselines" target="propComp.cbBinding">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>
+					</body>
+				</TestCase>				
+
+				<TestCase testID="Mobile_CheckBox_visible_false" keywords="[CheckBox, visible]" description="Verify checkbox is not visible">
+					<setup>
+            <ResetComponent target="propComp.cbBinding" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="propComp.cbBinding"/>
+						<SetProperty target="propComp.cbBinding" propertyName="label" value="Visible Test" waitEvent="contentChange" />
+					</setup>
+					<body>
+						<SetProperty target="propComp.cbBinding" propertyName="visible" value="false" waitEvent="hide" />
+						<CompareBitmap url="../properties/baselines" target="propComp">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>
+					</body>
+				</TestCase>
+				
+				<TestCase testID="Mobile_CheckBox_x" keywords="[CheckBox, x]" description="Test setting x value on a checkbox">
+					<setup>
+						<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+						<SetProperty target="styleComp.cb1" propertyName="label" value="X Test" waitEvent="contentChange" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="styleComp.cb1" propertyName="x" value="0" />
+						<SetProperty target="styleComp.cb1" propertyName="x" value="15" waitEvent="updateComplete" />
+						<AssertPropertyValue target="styleComp.cb1" propertyName="x" value="15" />
+						<CompareBitmap url="../properties/baselines" target="styleComp.grp1">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>
+					</body>
+				</TestCase>
+				
+				<TestCase testID="Mobile_CheckBox_y" keywords="[CheckBox, y]" description="Test setting y value">
+					<setup>
+						<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+						<SetProperty target="styleComp.cb1" propertyName="label" value="Y Test" waitEvent="contentChange" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="styleComp.cb1" propertyName="y" value="0" />
+						<SetProperty target="styleComp.cb1" propertyName="y" value="10" waitEvent="updateComplete" />
+						<AssertPropertyValue target="styleComp.cb1" propertyName="y" value="10" />
+						<CompareBitmap url="../properties/baselines" target="styleComp.grp1">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>
+					</body>
+				</TestCase>
+        <TestCase testID="Mobile_CheckBox_percentWidth_0_100" keywords="[CheckBox, percentWidth]" description="Test percentWidth=0 on checkbox label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+								<SetProperty target="propComp.cb1" propertyName="percentWidth" value="0" />
+								<SetProperty target="propComp.cb2" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="propComp.cb2"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_percentWidth_100_0" keywords="[CheckBox, percentWidth]" description="Test percentWidth=100 on checkbox label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+								<SetProperty target="propComp.cb2" propertyName="percentWidth" value="0" />						
+								<SetProperty target="propComp.cb1" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="propComp.cb1"/>
+								<CompareBitmap url="../properties/baselines" target="propComp.grp1">
+									<ConditionalValue deviceDensity="160" os="win" />
+									<ConditionalValue deviceDensity="240" os="android" />
+									<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+								</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_percentWidth_50" keywords="[CheckBox, percentWidth]" description="Test percentWidth=50 on checkbox label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+								<SetProperty target="propComp.cb1" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="propComp.cb1"/>
+								<SetProperty target="propComp.cb2" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="propComp.cb2"/>
+                <AssertPropertyValue target="propComp.cb1" propertyName="width" value="232" />
+								<AssertPropertyValue target="propComp.cb2" propertyName="width" value="232" />
+								<CompareBitmap url="../properties/baselines" target="propComp.grp1">
+									<ConditionalValue deviceDensity="160" os="win" />
+									<ConditionalValue deviceDensity="240" os="android" />
+									<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+								</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_CheckBox_percentWidth_50_change_container_width" keywords="[CheckBox, percentWidth]" description="Test percentWidth=50 on checkbox label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+								<SetProperty target="propComp.cb1" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="propComp.cb1"/>
+								<SetProperty target="propComp.cb2" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="propComp.cb2"/>
+            </setup>        
+            <body>
+								<SetProperty target="propComp.grp1" propertyName="width" value="370" waitEvent="updateComplete" waitTarget="propComp.grp1"/>						
+                <AssertPropertyValue target="propComp.cb1" propertyName="width" value="182" />
+								<AssertPropertyValue target="propComp.cb2" propertyName="width" value="182" />
+								<CompareBitmap url="../properties/baselines" target="propComp.grp1">
+									<ConditionalValue deviceDensity="160" os="win" />
+									<ConditionalValue deviceDensity="240" os="android" />
+									<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+								</CompareBitmap>
+            </body>
+        </TestCase>
+
+<!-- height will not be smaller than icon and label size -->
+        <TestCase testID="Mobile_CheckBox_percentHeight_0_100" keywords="[CheckBox, percentHeight]" description="Test percentHeight=0 on checkbox label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+								<SetProperty target="propComp.cb3" propertyName="percentHeight" value="0"/>
+								<SetProperty target="propComp.cb4" propertyName="percentHeight" value="100" waitEvent="updateComplete" waitTarget="propComp.cb4"/>
+								<CompareBitmap url="../properties/baselines" target="propComp.grp2">
+									<ConditionalValue deviceDensity="160" os="win" />
+									<ConditionalValue deviceDensity="240" os="android" />
+									<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+								</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_percentHeight_100_0" keywords="[CheckBox, percentHeight]" description="Test percentHeight=100 on checkbox label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+				<SetProperty target="propComp.cb3" propertyName="percentHeight" value="100" waitEvent="updateComplete" waitTarget="propComp.cb3"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.grp2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>		
+
+        <TestCase testID="Mobile_CheckBox_percentHeight_50" keywords="[CheckBox, percentHeight]" description="Test percentHeight=50 on checkbox label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+				<SetProperty target="propComp.cb3" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="propComp.cb3"/>
+				<SetProperty target="propComp.cb4" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="propComp.cb4"/>
+                <AssertPropertyValue target="propComp.cb3" propertyName="height"  value="77"/>
+				<AssertPropertyValue target="propComp.cb4" propertyName="height" value="77"/>
+				<CompareBitmap url="../properties/baselines" target="propComp.grp2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_CheckBox_percentHeight_50_change_container_height" keywords="[CheckBox, percentHeight]" description="Test percentHeight=50 on checkbox label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+				<SetProperty target="propComp.cb3" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="propComp.cb3"/>
+				<SetProperty target="propComp.cb4" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="propComp.cb4"/>
+            </setup>        
+            <body>
+				<SetProperty target="propComp.grp2" propertyName="height" value="320" waitEvent="updateComplete" waitTarget="propComp.grp2"/>						
+                <AssertPropertyValue target="propComp.cb3" propertyName="height" value="157" />
+				<AssertPropertyValue target="propComp.cb4" propertyName="height" value="157" />
+				<CompareBitmap url="../properties/baselines" target="propComp.grp2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>            
+			</body>
+        </TestCase>		
+</testCases>
+</UnitTester>

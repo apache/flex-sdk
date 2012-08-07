@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        title="Android Date Spinner"
+        backgroundColor="0x666666">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayList;
+            private function getYears(startYear:uint = 1980, endYear:uint = 2036):ArrayList 
+            {
+                var numYears:uint = endYear - startYear;
+                var a:Array = new Array(numYears);
+                for (var i:int = 0; i < numYears; i++)
+                    a[i] = startYear + i;
+                
+                return new ArrayList(a);
+            }
+        ]]>
+    </fx:Script>
+    
+    <s:HGroup id="outerGroup" left="5" right="5" top="20" horizontalAlign="center" gap="10">
+            
+        <s:VGroup horizontalAlign="center">
+            <s:Label text="Day" color="0xCCCCCC" />
+            <s:SpinnerList id="daySpinner" typicalItem="31" 
+                           skinClass="skins.AndroidSpinnerListSkin">
+                <s:dataProvider>
+                    <s:ArrayList>
+                        <s:source>
+                            [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+                        </s:source>
+                    </s:ArrayList>
+                </s:dataProvider>
+            </s:SpinnerList>
+        </s:VGroup>
+        
+        <s:VGroup horizontalAlign="center">
+            <s:Label text="Month" color="0xCCCCCC" />
+            <s:SpinnerList id="monthSpinner" typicalItem="12"
+                           skinClass="skins.AndroidSpinnerListSkin">
+                <s:dataProvider>
+                    <s:ArrayList>
+                        <s:source>
+                            [1,2,3,4,5,6,7,8,9,10,11,12]
+                        </s:source>
+                    </s:ArrayList>
+                </s:dataProvider>
+            </s:SpinnerList>            
+        </s:VGroup>
+        
+        <s:VGroup horizontalAlign="center">
+            <s:Label text="Year" color="0xCCCCCC" />
+            <s:SpinnerList id="yearSpinner" typicalItem="2005" fontSize="80" dataProvider="{getYears()}"
+                           skinClass="skins.AndroidSpinnerListSkin"
+                           wrapElements="false"/>    
+        </s:VGroup>
+        
+    </s:HGroup>
+    
+</s:View>

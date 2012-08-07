@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/Button/integration/"
+    testSWF="iconButtonIntegrationTester.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <testCases>
+
+
+<TestCase testID="Mobile_Button_Icon_integration_default_btn1" keywords="[Button, mobile, ButtonSkin, icon]" description="Test state icon button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn1" propertyName="label" value="Add" />
+		<AssertPropertyValue target="grp1.btn1" propertyName="width" value="100" />
+		<CompareBitmap url="../integration/baselines" target="grp1.btn1">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_Icon_integration_state1_btn1" keywords="[Button, mobile, label]" description="Test state label button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn1" propertyName="label" value="Add a Diary Entry" />
+		<AssertPropertyValue target="grp1.btn1" propertyName="width" value="250" />
+		<CompareBitmap url="../integration/baselines" target="grp1.btn1">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_Icon_integration_default_btn2" keywords="[Button, mobile, icon]" description="Test state icon button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<CompareBitmap url="../integration/baselines" target="grp1.btn2">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_Icon_integration_state1_btn2" keywords="[Button, mobile, icon]" description="Test state icon button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<CompareBitmap url="../integration/baselines" target="grp1.btn2">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_Icon_integration_state1_btn3" keywords="[Button, mobile, icon]" description="Test state icon button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn3" propertyName="label" value="Edit" />
+		<CompareBitmap url="../integration/baselines" target="grp1.btn3">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_Icon_integration_default_btn4" keywords="[Button, mobile, icon, iconPlacement]" description="Test state icon iconPlacement button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn4" propertyName="label" value="" />
+		<AssertStyleValue target="grp1.btn4" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../integration/baselines" target="grp1.btn4">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_Icon_integration_state1_btn4" keywords="[Button, mobile, icon, iconPlacement]" description="Test state icon iconPlacement button change">
+	<bugs>
+		<Bug bugID="SDK-27507" />
+	</bugs>
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn4" propertyName="label" value="Del" />
+		<AssertStyleValue target="grp1.btn4" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../integration/baselines" target="grp1.btn4">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_Icon_integration_default_btn5" keywords="[Button, mobile, icon, iconPlacement]" description="Test state icon iconPlacement button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn5" propertyName="label" value="Edit" />
+		<AssertStyleValue target="grp1.btn5" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../integration/baselines" target="grp1.btn5">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_Icon_integration_state1_btn5" keywords="[Button, mobile, icon, iconPlacement]" description="Test state icon iconPlacement button change">
+	<bugs>
+		<Bug bugID="SDK-27512" />
+	</bugs>
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn5" propertyName="label" value="Edit" />
+		<AssertStyleValue target="grp1.btn5" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../integration/baselines" target="grp1.btn5">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_Icon_integration_default_btn6" keywords="[Button, mobile, icon, label]" description="Test state icon button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn6" propertyName="label" value="" />
+		<CompareBitmap url="../integration/baselines" target="grp1.btn6" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_Icon_integration_state1_btn6" keywords="[Button, mobile, icon, label]" description="Test state icon button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn6" propertyName="label" value="Rectangle" />
+		<CompareBitmap url="../integration/baselines" target="grp1.btn6">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_Icon_integration_noIcon_btn6" keywords="[Button, mobile, icon, label]" description="Test clearing icon on state change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="noIcon" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn6" propertyName="label" value="No Icon" />
+		<CompareBitmap url="../integration/baselines" target="grp1.btn6">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

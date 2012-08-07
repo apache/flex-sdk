@@ -1,0 +1,1119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testDir="mobile/components/List/integration/"
+    testSWF="List.mxml">
+
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+            import views.*;
+            import renderers.*;
+            import spark.components.IconItemRenderer;
+            import spark.core.ContentCache;
+			import mx.collections.ArrayList;
+        ]]>
+    </fx:Script>
+
+    <testCases>
+
+        <!--
+        ========================
+        Testing IconItemRenderer
+        ========================
+
+        Directly testing the properties of IconItemRenderer isn't all that beneficial, it should be tested
+        in the context of a List.  We check the default values of the public variables directly, but everything
+        else will be making changes to the List and then digging down into a renderer to assert correct values.
+
+        - TODO: an automated test for an embedded icon in IconItemRenderer
+        - TODO: some of the 100ms pauses for iOS interpreter might be able to be turned into waiting a frame or two, more investigation needed
+        
+        Properties:
+
+        data
+        + check default is null
+        + sanity check that the appropriate dataProvider values are coming through
+
+        dragging (not currently supported in mobile)
+        + check default is false
+
+        itemIndex
+        + check default is 0
+        + sanity check that this works given a dataProvider
+
+        label
+        + check default is ""
+        + set labelField on the List, check label contains that field
+        + set labelFunction on the List, check this is set correctly
+        + set both labelField and labelFunction, check labelFunction takes precedence
+
+        selected
+        + check default is false
+        + click on an item in the List, check selected is set
+        + programmatically set selection on the List, check selected is set
+
+        showsCaret
+        + check default is false
+        + fake a 5-way down, check that this is set
+        + click on an item in the List, check this is set
+        + programmatically set selection, check this is set
+
+		iconContentLoader property
+		+ set to a new content loader
+		
+		decorator property 
+		+ check default is null
+		+ set to an FXG file
+		
+		iconPlaceholder property
+		+ check default is null
+        + set to a PNG file
+		
+		labelField property 
+		+ check default is null
+		+ set to name of a field in the data
+		
+		labelFunction property 
+		+ check default is null
+		+ define a function
+		+ check that this takes precedence over labelField
+		
+		iconField property 
+		+ check default is null
+		+ set to name of a field in the data
+		
+		iconFillMode property 
+		+ check default is scale
+		+ set to clip
+		+ set to repeat
+		
+		iconFunction property 
+		+ check default is null
+		+ define a function
+		+ check that this takes precedence over iconField
+		
+		iconHeight property 
+		+ check default is NaN
+		+ set to larger
+		+ set to smaller
+		
+		iconScaleMode property 
+		+ check default is stretch
+		+ set to letterbox
+		
+		iconWidth property 
+		+ check default is NaN
+		+ set to larger 
+		+ set to smaller
+		
+		messageField property 
+		+ check default is null
+		+ set to name of a field in the data
+		
+		messageFunction property 
+		+ check default is null
+		+ define a function
+		+ check that this takes precedence over messageField
+		
+		Styles:
+		
+		messageStyleName
+		+ check default value is null
+		+ set to a new style name (moved to manual test)
+		
+		iconDelay
+		+ check default value is 500
+        + this is now an undocumented style and not part of the public API
+		
+		horizontalGap
+		+ check default value is 8
+		+ set to a smaller value
+		+ set to a higher value
+		
+		verticalGap
+		+ check default value is 6
+		+ set to a smaller value
+		+ set to a higher value
+		
+		alternatingItemColors style
+		+ check default is null
+		+ change these colors and ensure they are respected
+		
+        contentBackgroundColor
+        + check default value
+        + check pulling to negative shows this color
+        
+		focusColor style
+		+ check default is 0x70B2EE
+		+ not supported
+		
+		paddingBottom style
+		+ check default is 15
+		+ check that the labelDisplay is moved to respect this
+		
+		paddingTop style
+		+ check default is 15
+		+ check that the labelDisplay is moved to respect this
+		
+		paddingLeft style
+		+ check default is 15
+		+ check that the labelDisplay is moved to respect this
+		
+		paddingRight style
+		+ check default is 15
+		+ check that the labelDisplay is resized to respect this
+		
+		downColor style
+		+ check default is 0xA8C6EE
+		+ change this color and mouse down on a renderer to ensure it is respected
+		
+		verticalAlign style
+		+ check default is middle
+		+ set to top 
+		+ set to bottom
+		
+		rollOverColor style
+		+ check default is 0xCEDBEF
+		+ not supported
+		
+		selectionColor style
+		+ check default is 0xA8C6EE
+		+ change this color and click on a renderer to ensure it is respected
+		
+		symbolColor style
+		+ check default is 0x000000
+		+ not supported
+
+		textAlign text style
+		+ sanity check
+		
+		fontFamily text style
+		+ sanity check
+		
+		fontWeight text style
+		+ sanity check
+		
+		color text style
+		+ sanity check
+		
+		fontSize text style
+		+ sanity check
+		
+		textDecoration text style
+		+ sanity check
+		
+		textIndent text style
+		+ sanity check
+		
+		leading text style
+		+ sanity check
+		
+		letterSpacing text style
+		+ sanity check
+        
+		
+        Integration:
+
+        + visual check of what it looks like
+        + scroll and ensure selection is maintained in virtual layout
+
+        -->
+
+        <TestCase testID="List_Integration_iconIR_defaults" keywords="[List, Integration, IconItemRenderer]" description="check the default values of public properties">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=((new IconItemRenderer()).data)" valueExpression="value=null" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).dragging)" valueExpression="value=false" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).itemIndex)" valueExpression="value=0" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).label)" valueExpression="value=''" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).selected)" valueExpression="value=false" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).showsCaret)" valueExpression="value=false" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).decorator)" valueExpression="value=null " />
+                <AssertMethodValue method="value=((new IconItemRenderer()).iconField)" valueExpression="value=null" />
+                <AssertMethodValue method="value=(((new IconItemRenderer()).iconContentLoader as ContentCache).maxCacheEntries)" value="100" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).iconFillMode)" valueExpression="value='scale'" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).iconScaleMode)" valueExpression="value='stretch'" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).iconFunction)" valueExpression="value=null" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).iconHeight)" valueExpression="value=NaN" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).iconWidth)" valueExpression="value=NaN" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).iconPlaceholder)" valueExpression="value=null" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).labelField)" valueExpression="value=null" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).labelFunction)" valueExpression="value=null" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).messageField)" valueExpression="value=null" />
+                <AssertMethodValue method="value=((new IconItemRenderer()).messageFunction)" valueExpression="value=null" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_defaultStyles" keywords="[List, Integration, IconItemRenderer]" description="check the default values of styles">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(renderers.InstrumentedIconItemRenderer)" waitEvent="itemRenderer1SetData" />
+                <AssertStyleValue target="navigator.activeView.target" styleName="contentBackgroundColor" value="0xF0F0F0" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="contentBackgroundColor" value="0xF0F0F0" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="fontWeight" value="normal" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="iconDelay" value="500" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="messageStyleName" value="iconItemRendererMessageStyle" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="alternatingItemColors" value="0xFFFFFF" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="focusColor" value="0x70B2EE" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="downColor" value="0xE0E0E0" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="verticalAlign" value="middle" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="rollOverColor" value="0xCEDBEF" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="selectionColor" value="0xE0E0E0" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="symbolColor" value="0x000000" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="verticalGap" value="9">
+                    <ConditionalValue screenDPI="170" value="6" />
+                    <ConditionalValue screenDPI="326" value="12" />
+                </AssertStyleValue>
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="horizontalGap" value="10">
+                    <ConditionalValue screenDPI="170" value="8" />
+                    <ConditionalValue screenDPI="326" value="16" />
+                </AssertStyleValue>
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="paddingBottom" value="12">
+                    <ConditionalValue screenDPI="170" value="8" />
+                    <ConditionalValue screenDPI="326" value="16" />
+                </AssertStyleValue>
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="paddingLeft" value="15">
+                    <ConditionalValue screenDPI="170" value="10" />
+                    <ConditionalValue screenDPI="326" value="20" />
+                </AssertStyleValue>
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="paddingTop" value="12">
+                    <ConditionalValue screenDPI="170" value="8" />
+                    <ConditionalValue screenDPI="326" value="16" />
+                </AssertStyleValue>
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="paddingRight" value="15">
+                    <ConditionalValue screenDPI="170" value="10" />
+                    <ConditionalValue screenDPI="326" value="20" />
+                </AssertStyleValue>
+                
+            </body>
+        </TestCase>		
+        
+        <TestCase testID="List_Integration_iconIR_removeIcon" keywords="[List, Integration, IconItemRenderer]" description="small use case, but for completeness, if you get rid of the icon then its display object should be destroyed">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="iconField" valueExpression="value=null" waitEvent="updateComplete" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getIconDisplay() == null" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getDecoratorDisplay() == null" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getLabelDisplay() == null" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getMessageDisplay() == null" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_removeDecorator" keywords="[List, Integration, IconItemRenderer]" description="small use case, but for completeness, if you get rid of the decorator then its display object should be destroyed">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="decorator" valueExpression="value=null" waitEvent="updateComplete" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getIconDisplay() == null" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getDecoratorDisplay() == null" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getLabelDisplay() == null" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getMessageDisplay() == null" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_removeLabel" keywords="[List, Integration, IconItemRenderer]" description="small use case, but for completeness, if you get rid of the label then its display object should be destroyed">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="labelFunction" valueExpression="value=null" />
+                <SetProperty target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="labelField" valueExpression="value=''" />
+                <Pause timeout="500" /><!-- TODO: Can we get rid of this? -->
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getIconDisplay() == null" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getDecoratorDisplay() == null" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getLabelDisplay() == null" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getMessageDisplay() == null" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_removeMessage" keywords="[List, Integration, IconItemRenderer]" description="small use case, but for completeness, if you get rid of the message then its display object should be destroyed">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="messageFunction" valueExpression="value=null" waitEvent="updateComplete" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getIconDisplay() == null" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getDecoratorDisplay() == null" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getLabelDisplay() == null" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).getMessageDisplay() == null" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_color" keywords="[List, Integration, IconItemRenderer]" description="set color on List, ensure it applies to label and not message">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetStyle target="navigator.activeView.target" styleName="color" value="0xFF0000" waitTarget="navigator.activeView.target.dataGroup.getElementAt(1)" waitEvent="updateComplete" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_contentBackgroundColor" keywords="[List, Integration, IconItemRenderer]" description="make sure contentContentBackground color ">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetStyle target="navigator.activeView.target" styleName="contentBackgroundColor" value="0xFF0000" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="-50" waitEvent="propertyChange" />
+                <AssertPixelValue target="navigator.activeView.target" x="5" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_contentBackgroundAlpha" keywords="[List, Integration, IconItemRenderer]" description="set contentBackgroundAlpha on List, ensure it works on negative scroll position">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetStyle target="navigator.activeView.target" styleName="contentBackgroundColor" value="0xFF0000" waitEvent="updateComplete" />
+                <SetStyle target="navigator.activeView.target" styleName="contentBackgroundAlpha" value="0.5" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="-50" waitEvent="propertyChange" />
+                <AssertPixelValue target="navigator.activeView.target" x="5" y="5" value="0xF17272" /><!-- pink -->
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_horizontalGap_0" keywords="[List, Integration, IconItemRenderer]" description="with zero gap icon should be against text">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_horizontalGap_0)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_horizontalGap_20" keywords="[List, Integration, IconItemRenderer]" description="should be a gap between icon and text">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_horizontalGap_20)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_verticalGap_0" keywords="[List, Integration, IconItemRenderer]" description="gap between the message and label should be zero">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalGap_0)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/" numColorVariances="4" maxColorVariance="20">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_verticalGap_20" keywords="[List, Integration, IconItemRenderer]" description="should be a gap between the message and label">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalGap_20)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_alternatingItemColors_multipleOnRenderer" keywords="[List, Integration, IconItemRenderer]" description="change these colors and ensure they are respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_alternatingItemColors_multiple)" waitEvent="itemRenderer3SetData" timeout="9000" />
+                <Pause timeout="1000" /><!-- TODO: if we had WaitForEvents we could get rid of this pause right? -->
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0xFF0000" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000FF" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_alternatingItemColors_multipleOnList" keywords="[List, Integration, IconItemRenderer]" description="change these colors and ensure they are respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetStyle target="navigator.activeView.target" styleName="alternatingItemColors" valueExpression="value=[0xFF0000, 0x0000FF]" waitEvent="updateComplete" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0xFF0000" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000FF" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_alternatingItemColors_singleOnRenderer" keywords="[List, Integration, IconItemRenderer]" description="change these colors and ensure they are respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_alternatingItemColors_single)" waitEvent="itemRenderer3SetData" timeout="9000" />
+                <Pause timeout="1000" /><!-- TODO: if we had WaitForEvents we could get rid of this pause right? -->
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0xFF0000" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xFF0000" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_alternatingItemColors_singleOnList" keywords="[List, Integration, IconItemRenderer]" description="change these colors and ensure they are respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetStyle target="navigator.activeView.target" styleName="alternatingItemColors" value="0xFF0000" waitEvent="updateComplete" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0xFF0000" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xFF0000" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_padding" keywords="[List, Integration, IconItemRenderer]" description="ensure padding is respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_padding)" waitEvent="itemRenderer0IconReady" timeout="9000" />
+                <Pause timeout="500" /><!-- TODO: iOS interpreter seems to need a bit of extra time here -->
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" ignoreMaxColorVariance="true">
+                    <ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_downColor" keywords="[List, Integration, IconItemRenderer]" description="change this color and mouse down on a renderer to ensure it is respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_downColor)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <Pause timeout="1000" /><!--TODO: For some reason we need to pause before sending the first mouseEvent on device, look into why that is -->
+                <DispatchMouseEvent type="mouseMove" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseMove" />
+                <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
+                <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
+                <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
+                <Pause timeout="1000" /><!-- must pause to wait for the down color to show up -->
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xCD0000" /><!-- pure red plus a little black gradient -->
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_selectedColor" keywords="[List, Integration, IconItemRenderer]" description="change this color and click on a renderer to ensure it is respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_selectionColor)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <Pause timeout="1000" /><!--TODO: For some reason we need to pause before sending the first mouseEvent on device, look into why that is -->
+                <DispatchMouseEvent type="mouseMove" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseMove" />
+                <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
+                <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
+                <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
+                <DispatchMouseEvent type="mouseUp" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseUp" />
+                <DispatchMouseEvent type="click" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="click" />
+                <Pause timeout="1000" /><!-- must pause to wait for the down color to show up -->
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000CD" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_selectedColor_onList" keywords="[List, Integration, IconItemRenderer]" description="set this on the List instead of the renderer">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_basic)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <SetStyle target="navigator.activeView.target" styleName="selectionColor" value="0xFF0000" />
+                <Pause timeout="1000" /><!--TODO: For some reason we need to pause before sending the first mouseEvent on device, look into why that is -->
+                <DispatchMouseEvent type="mouseMove" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseMove" />
+                <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
+                <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
+                <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
+                <DispatchMouseEvent type="mouseUp" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseUp" />
+                <DispatchMouseEvent type="click" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="click" />
+                <Pause timeout="1000" /><!-- must pause to wait for the down color to show up -->
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xCE0000">
+                    <ConditionalValue screenDPI="326" value="0xCD0000" />
+                </AssertPixelValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_verticalAlign_top_largeIcon" keywords="[List, Integration, IconItemRenderer]" description="set to top with icon larger than text">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_top)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_verticalAlign_top_smallIcon" keywords="[List, Integration, IconItemRenderer]" description="set to top with a smaller icon than text">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_top)" waitEvent="itemRenderer2IconReady" timeout="9000" />
+                <Pause timeout="500" /><!-- TODO: For iOS interpreter -->
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(2)" url="../integration/baselines/" numColorVariances="1" maxColorVariance="10">
+                    <ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        
+        <TestCase testID="List_Integration_iconIR_verticalAlign_bottom_largeIcon" keywords="[List, Integration, IconItemRenderer]" description="set to bottom with icon larger than text">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_bottom)" waitEvent="itemRenderer1IconReady" timeout="9000" />
+                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_verticalAlign_bottom_smallIcon" keywords="[List, Integration, IconItemRenderer]" description="set to bottom with icon smaller than text">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.IIR_Styles_verticalAlign_bottom)" waitEvent="itemRenderer2IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(2)" url="../integration/baselines/" numColorVariances="1" maxColorVariance="10">
+                    <ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_data" keywords="[List, Integration, IconItemRenderer]" description="sanity check that the appropriate dataProvider values are coming through">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0).data" propertyName="myItemIndex" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1).data" propertyName="myItemIndex" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_itemIndex" keywords="[List, Integration, IconItemRenderer]" description="sanity check that this works given a dataProvider">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="itemIndex" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="itemIndex" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_label_labelField" keywords="[List, Integration, IconItemRenderer]" description="set labelField on the List, check label contains that field">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="label" value="ProductFB45" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="label" value="ProductCF" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelField" value="myItemIndex" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="label" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="label" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2)" propertyName="label" value="2" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_label_labelFunction" keywords="[List, Integration, IconItemRenderer]" description="set labelField on the List, check label contains that field">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelFunction" valueExpression="value=function(item:Object):String{return 'LabelFunction '+item.myItemIndex}" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="label" value="LabelFunction 0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="label" value="LabelFunction 1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_label_runtime_emptyString" keywords="[List, Integration, IconItemRenderer]" description="set labelField on the List to emptyString at runtime, check label=emptyString">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <Pause timeout="1000"/><!-- TODO: Is the lack of this Pause actually causing this failure on device? look into removing -->
+                <SetProperty target="navigator.activeView.target" propertyName="labelField" value="" waitEvent="updateComplete"/>
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="label" value="" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="label" value="" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_label_runtime_change" keywords="[List, Integration, IconItemRenderer]" description="change labelField on the List at runtime, check label contains that field">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <Pause timeout="1000" /><!-- TODO: On Droid 1, you need to wait a bit longer for some reason -->
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelField" value="myItemIndex" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="label" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="label" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_label_labelField_labelFunction" keywords="[List, Integration, IconItemRenderer]" description="set both labelField and labelFunction, check labelFunction takes precedence">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelFunction" valueExpression="value=function(item:Object):String{return 'LabelFunction '+item.myItemIndex}" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelField" value="majorAxis" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="label" value="LabelFunction 0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="label" value="LabelFunction 1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_selected_click" keywords="[List, Integration, IconItemRenderer]" description="click on an item in the List, check selected is set">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="10" localY="10" waitEvent="click" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_selected_programmatic" keywords="[List, Integration, IconItemRenderer]" description="programmatically set selection on the List, check selected is set">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="0" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_showsCaret_5way" keywords="[List, Integration, IconItemRenderer]" description="fake a 5-way down, check that this is set">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="10" localY="10" waitEvent="click" />
+                <DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.target.dataGroup.getElementAt(1)" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="showsCaret" value="false" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="showsCaret" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_showsCaret_click" keywords="[List, Integration, IconItemRenderer]" description="click on an item in the List, check this is set">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="10" localY="10" waitEvent="click" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="showsCaret" value="true" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="showsCaret" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_showsCaret_programmatic" keywords="[List, Integration, IconItemRenderer]" description="programmatically set selection, check this is set">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="0" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="showsCaret" value="true" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="showsCaret" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_scroll" keywords="[List, Integration, IconItemRenderer]" description="scroll and ensure selection is maintained in virtual layout ">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="10" localY="10" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndex" value="0" />
+                <AssertPixelValue target="navigator.activeView.target" x="5" y="5" value="0xB5B5B5">
+                    <ConditionalValue deviceDensity="160" os="qnx" value="0xB6B6B6" /><!-- On qnx device slightly different than ADL -->
+                </AssertPixelValue>
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" waitEvent="propertyChange" />
+                <AssertPixelValue target="navigator.activeView.target" x="5" y="5" value="0xFFFFFF" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="propertyChange" />
+                <AssertPixelValue target="navigator.activeView.target" x="5" y="5" value="0xB5B5B5">
+                    <ConditionalValue deviceDensity="160" os="qnx" value="0xB6B6B6" /><!-- On qnx device slightly different than ADL -->
+                </AssertPixelValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_visual" keywords="[List, Integration, IconItemRenderer]" description="visual check of what the renderer looks like">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_basic)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_iconFillMode_scale" keywords="[List, Integration, IconItemRenderer]" description="check iconFillMode scale behavior">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_scale)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" maxColorVariance="20">
+                    <ConditionalValue os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_iconFillMode_clip" keywords="[List, Integration, IconItemRenderer]" description="check iconFillMode clip behavior">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_clip)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_iconFillMode_repeat" keywords="[List, Integration, IconItemRenderer]" description="check iconFillMode repeat behavior">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_repeat)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_iconScaleMode_letterBox" keywords="[List, Integration, IconItemRenderer]" description="check iconScaleMode letterbox behavior">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_letterbox)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+    				<ConditionalValue deviceDensity="320" os="iphone" />
+    				<ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_function" keywords="[List, Integration, IconItemRenderer]" description="check icon/label/message functions behavior">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_function)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" maxColorVariance="20">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_function_field" keywords="[List, Integration, IconItemRenderer]" description="check icon/label/message functions are used when icon/label/messageField are defined">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_function_field)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/" numColorVariances="2" maxColorVariance="20">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_iconFillMode_repeat_scroll" keywords="[List, Integration, IconItemRenderer]" description="check iconFillMode repeat behavior after scrolling">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_repeat)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer5IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1600" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer7IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(0)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_iconFillMode_scale_scroll" keywords="[List, Integration, IconItemRenderer]" description="check iconFillMode scale behavior">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_scale)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" />
+                <Pause timeout="1000" /><!-- TODO: This test needs WaitForEvents.  Since these renderer heights are different on mobile OSes its really hard to find the right renderer to key off of.  Pause may have to be required here. -->
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1600" />
+                <Pause timeout="1000" /><!-- TODO: This test needs WaitForEvents.  Since these renderer heights are different on mobile OSes its really hard to find the right renderer to key off of.  Pause may have to be required here. -->
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+                <Pause timeout="500" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_iconFillMode_clip_scroll" keywords="[List, Integration, IconItemRenderer]" description="check iconFillMode clip behavior">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_clip)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer0IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer9IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1600" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer17IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_iconScaleMode_letterBox_scroll" keywords="[List, Integration, IconItemRenderer]" description="check iconScaleMode letterbox behavior">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_letterbox)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer5IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1600" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer10IconReady" timeout="9000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+                <Pause timeout="1000" /><!-- TODO: Why is this needed to run on device all of a sudden?   Do I need to upgrade InstrumentedBitmapImage? -->
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_iconContentLoader" keywords="[List, Integration, IconItemRenderer]" description="custom iconContentLoader sanity check">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_CustomContentCache)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1IconReady" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_iconIR_iconPlaceholder" keywords="[List, Integration, IconItemRenderer]" description="check that the loading icon shows up when images aren't loaded">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.IconItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(IIR_iconPlaceholder)" />
+                <WaitForEvent target="navigator.activeView.target" eventName="itemRenderer1SetData" />
+                <Pause timeout="100" /><!-- TODO: iOS interpreter seems to need a bit extra time here -->
+                <CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+       
+        
+     </testCases>
+</UnitTester>

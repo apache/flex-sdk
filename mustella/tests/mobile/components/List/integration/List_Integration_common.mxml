@@ -1,0 +1,1516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/List/integration/"
+    testSWF="List.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+        
+        <!--
+        ==============================
+        Testing Common Touch Scrolling 
+        ==============================
+        
+        These tests start with roughly the middle scroll position and then performs the drags + throws in the positive
+        and negative major axis for each layout.
+        
+        These tests use a common set of mouse event arrays contained in the comps.MouseSequences class representing 
+        throwing and dragging in different directions. This approach makes it easy for these test cases to be succint 
+        and allows for it to be easy to apply them to new configurations like Group vs. List, new item renderers, 
+        different starting scroll positions, etc.
+
+        These tests check the scroll position after common throws and drags in different layouts and containers:
+        
+        + Group with a BasicLayout
+        + Group with a VerticalLayout
+        + Group with a HorizontalLayout
+        + Group with a TileLayout (rows + columns orientations)
+        + List with a VerticalLayout
+        + List with a HorizontalLayout
+        + List with a TileLayout (rows + columns orientations)
+        
+        NOTE: Direction refers to change in vertical/horizontal scroll position values NOT physical finger direction.
+        This way when you say "scroll down" on the Mobile List its moving in the same direction as when you "scroll down"
+        a desktop List using the mouse.
+        
+        NOTE: Notice that some tests differ by 2 pixels between equivalent List and Group cases.  This is because a throw's
+        distance is taken into consideration and that calculation includes the size of the container.  Since the List has a
+        border it is two pixels different size than the Group equivalent.
+
+        TODO: We have a dependency on exact device DPI in these tests.  Using ConditionalValues now is very brittle.  Should we just compare range instead?
+        
+        -->
+        
+        <!-- Group / BasicLayout -->
+        
+        <TestCase testID="List_Integration_common_drag_small_down_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1597">
+                    <ConditionalValue screenDPI="326" value="1590" />
+                    <ConditionalValue screenDPI="170" value="1603" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="988">
+                    <ConditionalValue screenDPI="326" value="991" />
+                    <ConditionalValue screenDPI="170" value="989" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_up_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1388">
+                    <ConditionalValue screenDPI="326" value="1395" />
+                    <ConditionalValue screenDPI="170" value="1382" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="999">
+                    <ConditionalValue screenDPI="265" value="998" />
+                    <ConditionalValue screenDPI="234" value="999" />
+                    <ConditionalValue screenDPI="326" value="1001" />
+                    <ConditionalValue screenDPI="170" value="998" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_right_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1509">
+                    <ConditionalValue screenDPI="326" value="1508" />
+                    <ConditionalValue screenDPI="170" value="1511" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1113">
+                    <ConditionalValue screenDPI="326" value="1106" />
+                    <ConditionalValue screenDPI="170" value="1119" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_left_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1482">
+                    <ConditionalValue screenDPI="326" value="1484" />
+                    <ConditionalValue screenDPI="170" value="1481" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="926">
+                    <ConditionalValue screenDPI="326" value="933" />
+                    <ConditionalValue screenDPI="170" value="920" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_down_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1921">
+                    <ConditionalValue screenDPI="326" value="1914" />
+                    <ConditionalValue screenDPI="170" value="1927" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1019">
+                    <ConditionalValue screenDPI="326" value="1022" />
+                    <ConditionalValue screenDPI="170" value="1021" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_up_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1034">
+                    <ConditionalValue screenDPI="326" value="1041" />
+                    <ConditionalValue screenDPI="170" value="1028" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="973">
+                    <ConditionalValue screenDPI="326" value="973" />
+                    <ConditionalValue screenDPI="170" value="970" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_right_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1520">
+                    <ConditionalValue screenDPI="326" value="1522" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1276">
+                    <ConditionalValue screenDPI="326" value="1269" />
+                    <ConditionalValue screenDPI="170" value="1282" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_left_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1507">
+                    <ConditionalValue screenDPI="326" value="1505" />
+                    <ConditionalValue screenDPI="170" value="1509" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="758">
+                    <ConditionalValue screenDPI="326" value="765" />
+                    <ConditionalValue screenDPI="170" value="752" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_diagonal_downRight_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_diagonal_downRight" waitEvent="simulationComplete" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1669">
+                    <ConditionalValue screenDPI="326" value="1662" />
+                    <ConditionalValue screenDPI="170" value="1675" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1170">
+                    <ConditionalValue screenDPI="326" value="1164" />
+                    <ConditionalValue screenDPI="170" value="1175" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_diagonal_downLeft_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_diagonal_downLeft" waitEvent="simulationComplete" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1632">
+                    <ConditionalValue screenDPI="326" value="1625" />
+                    <ConditionalValue screenDPI="170" value="1638" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="888">
+                    <ConditionalValue screenDPI="326" value="894" />
+                    <ConditionalValue screenDPI="170" value="885" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_diagonal_upLeft_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_diagonal_upLeft" waitEvent="simulationComplete" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1336">
+                    <ConditionalValue screenDPI="326" value="1343" />
+                    <ConditionalValue screenDPI="170" value="1330" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="871">
+                    <ConditionalValue screenDPI="326" value="877" />
+                    <ConditionalValue screenDPI="170" value="866" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_diagonal_upRight_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_diagonal_upRight" waitEvent="simulationComplete" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1398">
+                    <ConditionalValue screenDPI="326" value="1402" />
+                    <ConditionalValue screenDPI="170" value="1392" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1164">
+                    <ConditionalValue screenDPI="326" value="1155" />
+                    <ConditionalValue screenDPI="170" value="1168" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_down_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="2055">
+                    <ConditionalValue screenDPI="326" value="2130" />
+                    <ConditionalValue screenDPI="170" value="2061" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1170">
+                    <ConditionalValue screenDPI="326" value="1249" />
+                    <ConditionalValue screenDPI="170" value="1171" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_up_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1388">
+                    <ConditionalValue screenDPI="326" value="1395" />
+                    <ConditionalValue screenDPI="170" value="1382" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="999">
+                    <ConditionalValue screenDPI="326" value="1001" />
+                    <ConditionalValue screenDPI="170" value="998" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_right_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1621">
+                    <ConditionalValue screenDPI="326" value="1643" />
+                    <ConditionalValue screenDPI="170" value="1621" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1598">
+                    <ConditionalValue screenDPI="326" value="1900" />
+                    <ConditionalValue screenDPI="170" value="1604" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_left_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1438">
+                    <ConditionalValue screenDPI="170" value="1436" />
+                    <ConditionalValue screenDPI="326" value="1416" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="540">
+                    <ConditionalValue screenDPI="326" value="362" />
+                    <ConditionalValue screenDPI="170" value="534" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_down_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="500" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="500" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1728">
+                    <ConditionalValue screenDPI="326" value="2130" />
+                    <ConditionalValue screenDPI="170" value="1734" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="674">
+                    <ConditionalValue screenDPI="326" value="742" />
+                    <ConditionalValue screenDPI="170" value="675" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_up_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="2200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="406">
+                    <ConditionalValue screenDPI="326" value="0" />
+                    <ConditionalValue screenDPI="170" value="421" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="736">
+                    <ConditionalValue screenDPI="326" value="561" />
+                    <ConditionalValue screenDPI="170" value="734" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_right_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1370">
+                    <ConditionalValue screenDPI="170" value="1370" />
+                    <ConditionalValue screenDPI="326" value="1320" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="2158">
+                    <ConditionalValue screenDPI="326" value="2813" />
+                    <ConditionalValue screenDPI="170" value="2164" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_left_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1571">
+                    <ConditionalValue screenDPI="170" value="1580" />
+                    <ConditionalValue screenDPI="326" value="1604" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="102">
+                    <ConditionalValue screenDPI="326" value="0" />
+                    <ConditionalValue screenDPI="170" value="40" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_diagonal_downRight_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_diagonal_downRight" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="2104">
+                    <ConditionalValue screenDPI="326" value="2130" />
+                    <ConditionalValue screenDPI="170" value="2110" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1577">
+                    <ConditionalValue screenDPI="326" value="1898" />
+                    <ConditionalValue screenDPI="170" value="1581" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_diagonal_downLeft_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_diagonal_downLeft" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1921">
+                    <ConditionalValue screenDPI="326" value="2130" />
+                    <ConditionalValue screenDPI="170" value="1927" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="547">
+                    <ConditionalValue screenDPI="326" value="330" />
+                    <ConditionalValue screenDPI="170" value="545" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_diagonal_upLeft_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_diagonal_upLeft" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="998">
+                    <ConditionalValue screenDPI="326" value="581" />
+                    <ConditionalValue screenDPI="170" value="989" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="644">
+                    <ConditionalValue screenDPI="326" value="343" />
+                    <ConditionalValue screenDPI="170" value="638" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_diagonal_upRight_group_basic" keywords="[List, Integration]" description="common scroll sequences with a Group and BasicLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_diagonal_upRight" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1287">
+                    <ConditionalValue screenDPI="326" value="1168" />
+                    <ConditionalValue screenDPI="170" value="1281" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1461">
+                    <ConditionalValue screenDPI="326" value="1691" />
+                    <ConditionalValue screenDPI="170" value="1466" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <!-- Group / VerticalLayout -->
+        
+        <TestCase testID="List_Integration_common_drag_small_down_group_vertical" keywords="[List, Integration]" description="common scroll sequences with a Group and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1297">
+                    <ConditionalValue screenDPI="326" value="1290" />
+                    <ConditionalValue screenDPI="170" value="1303" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_up_group_vertical" keywords="[List, Integration]" description="common scroll sequences with a Group and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1088">
+                    <ConditionalValue screenDPI="326" value="1095" />
+                    <ConditionalValue screenDPI="170" value="1082" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_down_group_vertical" keywords="[List, Integration]" description="common scroll sequences with a Group and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1621">
+                    <ConditionalValue screenDPI="326" value="1614" />
+                    <ConditionalValue screenDPI="170" value="1627" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_up_group_vertical" keywords="[List, Integration]" description="common scroll sequences with a Group and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="734">
+                    <ConditionalValue screenDPI="326" value="741" />
+                    <ConditionalValue screenDPI="170" value="728" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_down_group_vertical" keywords="[List, Integration]" description="common scroll sequences with a Group and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1755">
+                    <ConditionalValue screenDPI="326" value="2047" />
+                    <ConditionalValue screenDPI="170" value="1761" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_up_group_vertical" keywords="[List, Integration]" description="common scroll sequences with a Group and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1088">
+                    <ConditionalValue screenDPI="326" value="1095" />
+                    <ConditionalValue screenDPI="170" value="1082" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_down_group_vertical" keywords="[List, Integration]" description="common scroll sequences with a Group and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="2428">
+                    <ConditionalValue screenDPI="326" value="3081" />
+                    <ConditionalValue screenDPI="170" value="2434" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_up_group_vertical" keywords="[List, Integration]" description="common scroll sequences with a Group and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="2000" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="206">
+                    <ConditionalValue screenDPI="326" value="0" />
+                    <ConditionalValue screenDPI="170" value="221" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <!-- Group / HorizontalLayout -->
+        
+        <TestCase testID="List_Integration_common_drag_small_right_group_horizontal" keywords="[List, Integration]" description="common scroll sequences with a Group and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1313">
+                    <ConditionalValue screenDPI="326" value="1306" />
+                    <ConditionalValue screenDPI="170" value="1319" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_left_group_horizontal" keywords="[List, Integration]" description="common scroll sequences with a Group and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1126">
+                    <ConditionalValue screenDPI="326" value="1133" />
+                    <ConditionalValue screenDPI="170" value="1120" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_right_group_horizontal" keywords="[List, Integration]" description="common scroll sequences with a Group and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1476">
+                    <ConditionalValue screenDPI="326" value="1469" />
+                    <ConditionalValue screenDPI="170" value="1482" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_left_group_horizontal" keywords="[List, Integration]" description="common scroll sequences with a Group and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="958">
+                    <ConditionalValue screenDPI="326" value="965" />
+                    <ConditionalValue screenDPI="170" value="952" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_right_group_horizontal" keywords="[List, Integration]" description="common scroll sequences with a Group and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1798">
+                    <ConditionalValue screenDPI="326" value="2100" />
+                    <ConditionalValue screenDPI="170" value="1804" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_left_group_horizontal" keywords="[List, Integration]" description="common scroll sequences with a Group and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="740">
+                    <ConditionalValue screenDPI="326" value="562" />
+                    <ConditionalValue screenDPI="170" value="734" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_right_group_horizontal" keywords="[List, Integration]" description="common scroll sequences with a Group and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="2358">
+                    <ConditionalValue screenDPI="326" value="3008" />
+                    <ConditionalValue screenDPI="170" value="2364" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_left_group_horizontal" keywords="[List, Integration]" description="common scroll sequences with a Group and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="302">
+                    <ConditionalValue screenDPI="326" value="0" />
+                    <ConditionalValue screenDPI="170" value="240" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <!-- Group / TileLayout --> 
+        
+        <TestCase testID="List_Integration_common_drag_small_down_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1297">
+                    <ConditionalValue screenDPI="326" value="1290" />
+                    <ConditionalValue screenDPI="170" value="1303" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_up_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1088">
+                    <ConditionalValue screenDPI="326" value="1095" />
+                    <ConditionalValue screenDPI="170" value="1082" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_right_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="orientation" value="columns" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="813">
+                    <ConditionalValue screenDPI="326" value="806" />
+                    <ConditionalValue screenDPI="170" value="819" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_left_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="orientation" value="columns" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="626">
+                    <ConditionalValue screenDPI="326" value="633" />
+                    <ConditionalValue screenDPI="170" value="620" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_down_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1621">
+                    <ConditionalValue screenDPI="326" value="1614" />
+                    <ConditionalValue screenDPI="170" value="1627" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_up_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="734">
+                    <ConditionalValue screenDPI="326" value="741" />
+                    <ConditionalValue screenDPI="170" value="728" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_right_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="orientation" value="columns" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="976">
+                    <ConditionalValue screenDPI="326" value="969" />
+                    <ConditionalValue screenDPI="170" value="982" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_left_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="orientation" value="columns" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="458">
+                    <ConditionalValue screenDPI="326" value="465" />
+                    <ConditionalValue screenDPI="170" value="452" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_down_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1755">
+                    <ConditionalValue screenDPI="326" value="2047" />
+                    <ConditionalValue screenDPI="170" value="1761" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_up_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1088">
+                    <ConditionalValue screenDPI="326" value="1095" />
+                    <ConditionalValue screenDPI="170" value="1082" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_right_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="orientation" value="columns" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1298">
+                    <ConditionalValue screenDPI="326" value="1600" />
+                    <ConditionalValue screenDPI="170" value="1304" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_left_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="orientation" value="columns" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="240">
+                    <ConditionalValue screenDPI="326" value="62" />
+                    <ConditionalValue screenDPI="170" value="234" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_down_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="1228">
+                    <ConditionalValue screenDPI="326" value="1881" />
+                    <ConditionalValue screenDPI="170" value="1234" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_up_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="2000" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="206">
+                    <ConditionalValue screenDPI="326" value="0" />
+                    <ConditionalValue screenDPI="170" value="221" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_right_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="orientation" value="columns" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="600" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1758">
+                    <ConditionalValue screenDPI="326" value="2413" />
+                    <ConditionalValue screenDPI="170" value="1764" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_left_group_tile" keywords="[List, Integration]" description="common scroll sequences with a Group and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="orientation" value="columns" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="1000" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="102">
+                    <ConditionalValue screenDPI="326" value="0" />
+                    <ConditionalValue screenDPI="170" value="40" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <!-- List / VerticalLayout -->
+        
+        <TestCase testID="List_Integration_common_drag_small_down_list_vertical" keywords="[List, Integration]" description="common scroll sequences with a List and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1297">
+                    <ConditionalValue screenDPI="326" value="1290" />
+                    <ConditionalValue screenDPI="170" value="1303" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_up_list_vertical" keywords="[List, Integration]" description="common scroll sequences with a List and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1088">
+                    <ConditionalValue screenDPI="326" value="1095" />
+                    <ConditionalValue screenDPI="170" value="1082" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_down_list_vertical" keywords="[List, Integration]" description="common scroll sequences with a List and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1621">
+                    <ConditionalValue screenDPI="326" value="1614" />
+                    <ConditionalValue screenDPI="170" value="1627" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_up_list_vertical" keywords="[List, Integration]" description="common scroll sequences with a List and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="734">
+                    <ConditionalValue screenDPI="326" value="741" />
+                    <ConditionalValue screenDPI="170" value="728" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_down_list_vertical" keywords="[List, Integration]" description="common scroll sequences with a List and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1755">
+                    <ConditionalValue screenDPI="326" value="2047" />
+                    <ConditionalValue screenDPI="170" value="1761" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_up_list_vertical" keywords="[List, Integration]" description="common scroll sequences with a List and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1088">
+                    <ConditionalValue screenDPI="326" value="1095" />
+                    <ConditionalValue screenDPI="170" value="1082" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_down_list_vertical" keywords="[List, Integration]" description="common scroll sequences with a List and VerticalLayout (notice different than VGroup)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="updateComplete" />        
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2428">
+                    <ConditionalValue screenDPI="326" value="3081" />
+                    <ConditionalValue screenDPI="170" value="2434" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_up_list_vertical" keywords="[List, Integration]" description="common scroll sequences with a List and VerticalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListVerticalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2000" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="206">
+                    <ConditionalValue screenDPI="326" value="0" />
+                    <ConditionalValue screenDPI="170" value="221" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>             
+        
+        <!-- List / HorizontalLayout -->
+        
+        <TestCase testID="List_Integration_common_drag_small_right_list_horizontal" keywords="[List, Integration]" description="common scroll sequences with a List and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1313">
+                    <ConditionalValue screenDPI="326" value="1306" />
+                    <ConditionalValue screenDPI="170" value="1319" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_left_list_horizontal" keywords="[List, Integration]" description="common scroll sequences with a List and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1126">
+                    <ConditionalValue screenDPI="326" value="1133" />
+                    <ConditionalValue screenDPI="170" value="1120" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_right_list_horizontal" keywords="[List, Integration]" description="common scroll sequences with a List and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1476">
+                    <ConditionalValue screenDPI="326" value="1469" />
+                    <ConditionalValue screenDPI="170" value="1482" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_left_list_horizontal" keywords="[List, Integration]" description="common scroll sequences with a List and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="958">
+                    <ConditionalValue screenDPI="326" value="965" />
+                    <ConditionalValue screenDPI="170" value="952" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_right_list_horizontal" keywords="[List, Integration]" description="common scroll sequences with a List and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1798">
+                    <ConditionalValue screenDPI="326" value="2100" />
+                    <ConditionalValue screenDPI="170" value="1804" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_left_list_horizontal" keywords="[List, Integration]" description="common scroll sequences with a List and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="740">
+                    <ConditionalValue screenDPI="326" value="562" />
+                    <ConditionalValue screenDPI="170" value="734" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_right_list_horizontal" keywords="[List, Integration]" description="common scroll sequences with a List and HorizontalLayout (notice different than HGroup)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="2358">
+                    <ConditionalValue screenDPI="326" value="3013" />
+                    <ConditionalValue screenDPI="170" value="2364" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_left_list_horizontal" keywords="[List, Integration]" description="common scroll sequences with a List and HorizontalLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListHorizontalView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1200" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="302">
+                    <ConditionalValue screenDPI="326" value="0" />
+                    <ConditionalValue screenDPI="170" value="240" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <!-- List / TileLayout --> 
+        
+        <TestCase testID="List_Integration_common_drag_small_down_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1297">
+                    <ConditionalValue screenDPI="326" value="1290" />
+                    <ConditionalValue screenDPI="170" value="1303" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_up_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1088">
+                    <ConditionalValue screenDPI="326" value="1095" />
+                    <ConditionalValue screenDPI="170" value="1082" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_right_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.layout" propertyName="orientation" value="columns" waitEvent="updateComplete" waitTarget="navigator.activeView.target.dataGroup" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="813">
+                    <ConditionalValue screenDPI="326" value="806" />
+                    <ConditionalValue screenDPI="170" value="819" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_small_left_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.layout" propertyName="orientation" value="columns" waitEvent="updateComplete" waitTarget="navigator.activeView.target.dataGroup" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="626">
+                    <ConditionalValue screenDPI="326" value="633" />
+                    <ConditionalValue screenDPI="170" value="620" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_down_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1621">
+                    <ConditionalValue screenDPI="326" value="1614" />
+                    <ConditionalValue screenDPI="170" value="1627" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_up_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="734">
+                    <ConditionalValue screenDPI="326" value="741" />
+                    <ConditionalValue screenDPI="170" value="728" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_right_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.layout" propertyName="orientation" value="columns" waitEvent="updateComplete" waitTarget="navigator.activeView.target.dataGroup" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="976">
+                    <ConditionalValue screenDPI="326" value="969" />
+                    <ConditionalValue screenDPI="170" value="982" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_drag_large_left_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.layout" propertyName="orientation" value="columns" waitEvent="updateComplete" waitTarget="navigator.activeView.target.dataGroup" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_large_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="458">
+                    <ConditionalValue screenDPI="326" value="465" />
+                    <ConditionalValue screenDPI="170" value="452" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_down_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1755">
+                    <ConditionalValue screenDPI="326" value="2047" />
+                    <ConditionalValue screenDPI="170" value="1761" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_up_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.drag_small_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1088">
+                    <ConditionalValue screenDPI="326" value="1095" />
+                    <ConditionalValue screenDPI="170" value="1082" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_right_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.layout" propertyName="orientation" value="columns" waitEvent="updateComplete" waitTarget="navigator.activeView.target.dataGroup" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1298">
+                    <ConditionalValue screenDPI="326" value="1600" />
+                    <ConditionalValue screenDPI="170" value="1304" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_small_left_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.layout" propertyName="orientation" value="columns" waitEvent="updateComplete" waitTarget="navigator.activeView.target.dataGroup" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_small_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="240">
+                    <ConditionalValue screenDPI="326" value="62" />
+                    <ConditionalValue screenDPI="170" value="234" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_down_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout (notice different than TileGroup)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="500" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_down" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1728">
+                    <ConditionalValue screenDPI="326" value="2381" />
+                    <ConditionalValue screenDPI="170" value="1734" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_up_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="2000" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_up" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="206">
+                    <ConditionalValue screenDPI="326" value="0" />
+                    <ConditionalValue screenDPI="170" value="221" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_right_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout (notice different than TileGroup)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.layout" propertyName="orientation" value="columns" waitEvent="updateComplete" waitTarget="navigator.activeView.target.dataGroup" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="700" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_right" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1858">
+                    <ConditionalValue screenDPI="326" value="2513" />
+                    <ConditionalValue screenDPI="170" value="1864" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_common_throw_large_left_list_tile" keywords="[List, Integration]" description="common scroll sequences with a List and TileLayout">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingListTileView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.layout" propertyName="orientation" value="columns" waitEvent="updateComplete" waitTarget="navigator.activeView.target.dataGroup" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="1000" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_left" waitEvent="touchInteractionEnd" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="102">
+                    <ConditionalValue screenDPI="326" value="0" />
+                    <ConditionalValue screenDPI="170" value="40" />
+                </AssertPropertyValue>
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

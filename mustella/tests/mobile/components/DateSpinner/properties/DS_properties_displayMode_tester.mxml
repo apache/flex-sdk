@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/DateSpinner/properties/"  
+			xmlns="*"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			testSWF="DateSpinnerMain.mxml">
+	
+	<fx:Script>
+		<![CDATA[
+			import assets.DSConstants;
+			import views.DisplayModeView; 
+			import spark.components.calendarClasses.DateSelectorDisplayMode;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+		    [Mixin]
+		]]>
+	</fx:Metadata>
+	
+	<!--This test file is to test "displayMode" property of spark DateSpinner-->
+	<testCases>
+        
+		<TestCase testID="DS_mode_date" description="date mode, verify all spinner lists show correctly" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date(2011,7,15,3,28)" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_mode_time" description="time mode, verify all spinner lists show correctly" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date(2011,7,15,3,28)" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time" description="dateAndTime mode, verify all spinner lists show correctly" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date(2011,7,15,3,28)" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_mode_time_am" description="time mode, verify am spinner list exist" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date('2011/7/9 2:00 AM')" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_time_pm" description="time mode, verify pm spinner list exist" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date('2011/5/9 3:00 PM')" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_am" description="dateAndTime mode, verify am spinner list exist" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date('2011/7/9 2:00 AM')" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_pm" description="dateAndTime mode, verify pm spinner list exist" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date('2011/5/9 3:00 PM')" waitEvent="valueCommit"/>
+				<WaitForEvent target="navigator.activeView.ds" eventName="enterFrame" />
+				<WaitForEvent target="navigator.activeView.ds" eventName="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines" numColorVariances="20" ignoreMaxColorVariance="true">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_overMaxDate" description="dateAndTime mode, selectedDate exceed maxDate" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds" valueExpression="value=new Date(1911,1,1,13,30)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="maxDate" target="navigator.activeView.ds" valueExpression="value=new Date(2111,12,31,13,30)" waitEvent="updateComplete"/>		
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date(2112,12,31,14,30)" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_overMinDate" description="dateAndTime mode, selectedDate exceed minDate" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds" valueExpression="value=new Date(1911,1,1,13,30)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="maxDate" target="navigator.activeView.ds" valueExpression="value=new Date(2111,12,31,13,30)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date(1910,1,1,11,30)" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_overMaxDate_Date" description="dateAndTime mode, selectedDate exceed maxDate" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds" valueExpression="value=new Date(1911,1,1)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="maxDate" target="navigator.activeView.ds" valueExpression="value=new Date(2111,12,31)" waitEvent="updateComplete"/>		
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date(2112,12,31)" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_overMinDate_Date" description="dateAndTime mode, selectedDate exceed minDate" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds" valueExpression="value=new Date(1911,1,1)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="maxDate" target="navigator.activeView.ds" valueExpression="value=new Date(2111,12,31)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date(1910,1,1)" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_mode_date_change_year_month" description="date mode, change year and month, verify the day retained the original value" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<!--Programatically change year and month spinner list-->
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2012,3,10,13,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2012,3,10,13,30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getYearRenderer(0).label" value="2012" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMonthRenderer(0).label" value="April" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_change_year_day" description="date mode, change year and day, verify the month retained the original value" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<!--Programatically change year and day spinner list-->
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2012,5,13,13,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2012,5,13,13,30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getYearRenderer(0).label" value="2012" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getDateRenderer(0).label" value="13" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_change_month_day" description="date mode, change month and day, verify the year retained the original value" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<!--Programatically change month and day spinner list-->
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,2,2,13,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2011,2,2,13,30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMonthRenderer(0).label" value="March" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getDateRenderer(0).label"  value="02">
+					<ConditionalValue value="02" os="win"/>
+					<ConditionalValue value="2" os="android"/>
+					<ConditionalValue value="2" os="iphone"/>
+					<ConditionalValue value="2" os="qnx"/>
+				</AssertMethodValue>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_time_change_hours" description="time mode, change hour, verify the minute retained the original value" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds_binding" valueExpression="value=DateSelectorDisplayMode.TIME" waitEvent="updateComplete"/>
+				<!--Programatically change hours spinner list-->
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,5,10,11,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2011,5,10,11,30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getHourRenderer(0).label" value="11" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_time_change_minute" description="time mode, change minute, verify the hour retained the original value" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />  
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds_binding" valueExpression="value=DateSelectorDisplayMode.TIME" waitEvent="updateComplete"/>
+				<!--Programatically change minute spinner list-->
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,5,10,13,50)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2011,5,10,13,50)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMinuteRenderer(0).label" value="50" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_time_change_meridian" description="time mode, change hour to less than 12, verify the meridian change from PM to AM" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds_binding" valueExpression="value=DateSelectorDisplayMode.TIME" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<!--SimulateMouseGesture to scroll the hours column-->
+				<SimulateMouseGesture target="navigator.activeView.ds_binding" dragYFrom="135" dragYTo="205" dragXFrom="25" dragXTo="25" waitEvent="touchInteractionEnd" recordedDPI="160"/>
+				<!--The meridian list can not change according to the hour list change. bug SDK-31105-->
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2011,5,10,23,30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMeridianRenderer(0).label" value="PM" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getHourRenderer(0).label" value="11" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_change_hours_minutes_meridian" description="dateAndTime mode, change hours,minutes,meridian, verify the date retained the original value" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds_binding" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<!--Programatically change hours, minutes, meridian spinner list-->
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,5,10,9,15)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2011,5,10,9,15)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getHourRenderer(0).label" value="9" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMinuteRenderer(0).label" value="15" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMeridianRenderer(0).label" value="AM" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_change_order_dt" description="dateAndTime mode, change date and time, verify the date retained the original value" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds_binding" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<!--Programatically change date list-->
+				<!--change date -> time, time -> date-->
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,6,10,13,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,6,10,10,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2011,6,10,10,30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getDateRenderer(0).label" value="Sun, Jul 10" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getHourRenderer(0).label" value="10" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMinuteRenderer(0).label" value="30" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMeridianRenderer(0).label" value="AM" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_change_order_dtd" description="dateAndTime mode, change date, time then date again, verify the date retained the original value" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds_binding" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<!--Programatically change date list-->
+				<!--change date -> time, time -> date-->
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,6,10,13,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,6,10,10,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,6,15,10,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2011,6,15,10,30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getDateRenderer(0).label" value="Fri, Jul 15" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getHourRenderer(0).label" value="10" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMinuteRenderer(0).label" value="30" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMeridianRenderer(0).label" value="AM" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_change_order_dtdt" description="dateAndTime mode, change date, time, date and time again, verify the date retained the original value" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds_binding" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<!--Programatically change date list-->
+				<!--change date -> time, time -> date-->
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,6,10,13,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,6,10,10,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,6,15,10,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+				<RunCode code="application.navigator.activeView.bindableDate = new Date(2011,6,15,16,30)" waitEvent="valueCommit" waitTarget="navigator.activeView.ds_binding" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2011,6,15,16,30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getDateRenderer(0).label" value="Fri, Jul 15" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getHourRenderer(0).label" value="4" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMinuteRenderer(0).label" value="30" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_binding.getMeridianRenderer(0).label" value="PM" />
+			</body>
+		</TestCase>
+	
+		<TestCase testID="DS_mode_date_time_12hour_en" description="dateAndTime mode, verify locale en_US will show time in 12 hour mode" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date(2011,7,15,3,28)" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="selectedDate" valueExpression="value=new Date(2011,7,15,3,28)" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_24hour_zh" description="dateAndTime mode, verify locale zh_CN will show time in 24 hour mode" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeViewZH)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds_zh" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds_zh" valueExpression="value=new Date('2011/5/9 3:00 PM')" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_zh" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_zh" propertyName="selectedDate" valueExpression="value=new Date('2011/5/9 3:00 PM')" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_zh.getHourRenderer(0).label" value="15">
+					<ConditionalValue value="15" os="win"/>
+					<ConditionalValue value="3时" os="android"/>
+					<ConditionalValue value="3时" os="iphone"/>
+					<ConditionalValue value="3时" os="qnx"/>
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds_zh.getMinuteRenderer(0).label" value="00">
+					<ConditionalValue value="00" os="win"/>
+					<ConditionalValue value="00分" os="android"/>
+					<ConditionalValue value="00分" os="iphone"/>
+					<ConditionalValue value="00分" os="qnx"/>
+				</AssertMethodValue>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_24hour_12hour_change_locale" description="dateAndTime mode, change locale from zh_CN to en_US, verify it change from 24 hour to 12 hour mode" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeViewZH)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<!--no change event is dispatched when locale changed (Bug SDK-31183 is field to track it)-->
+				<SetStyle styleName="locale" target="navigator.activeView.ds_zh" value="en_US"/>
+				<Pause timeout="500"/>
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds_zh" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds_zh" valueExpression="value=new Date('2011/5/9 3:00 PM')" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_zh" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_zh" propertyName="selectedDate" valueExpression="value=new Date('2011/5/9 3:00 PM')" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_zh.getDateRenderer(0).label" value="Mon, May 9" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_zh.getHourRenderer(0).label" value="3"/>
+				<AssertMethodValue method="value=application.navigator.activeView.ds_zh.getMinuteRenderer(0).label" value="00"/>
+				<AssertMethodValue method="value=application.navigator.activeView.ds_zh.getMeridianRenderer(0).label" value="PM"/>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_12hour_24hour_change_locale" description="dateAndTime mode, change locale from en_US to zh_CN, verify it change from 12 hour to 24 hour mode" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<!--no change event is dispatched when locale changed (Bug SDK-31183 is field to track it)-->
+				<SetStyle styleName="locale" target="navigator.activeView.ds" value="zh_CN"/>
+				<Pause timeout="500"/>
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds" valueExpression="value=new Date('2011/5/9 3:00 PM')" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="selectedDate" valueExpression="value=new Date('2011/5/9 3:00 PM')" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds.getHourRenderer(0).label" value="15">
+					<ConditionalValue value="15" os="win"/>
+					<ConditionalValue value="3时" os="android"/>
+					<ConditionalValue value="3时" os="iphone"/>
+					<ConditionalValue value="3时" os="qnx"/>
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds.getMinuteRenderer(0).label" value="00">
+					<ConditionalValue value="00" os="win"/>
+					<ConditionalValue value="00分" os="android"/>
+					<ConditionalValue value="00分" os="iphone"/>
+					<ConditionalValue value="00分" os="qnx"/>
+				</AssertMethodValue>
+				
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_binding_dateToTime" description="test binding of mode" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<RunCode code="application.navigator.activeView.bindableDisplayMode = DateSelectorDisplayMode.TIME" />
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds_binding" valueExpression="value=new Date(2011,7,15,3,28)" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2011,7,15,3,28)" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_binding_dateToDateTime" description="test binding of mode" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<RunCode code="application.navigator.activeView.bindableDisplayMode = DateSelectorDisplayMode.DATE_AND_TIME" />
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds_binding" valueExpression="value=new Date(2011,7,15,3,28)" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2011,7,15,3,28)" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_binding_timeToDate" description="test binding of mode" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<RunCode code="application.navigator.activeView.bindableDisplayMode = DateSelectorDisplayMode.TIME" />
+				<RunCode code="application.navigator.activeView.bindableDisplayMode = DateSelectorDisplayMode.DATE" />
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds_binding" valueExpression="value=new Date(2011,7,15,3,28)" waitEvent="valueCommit"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE" />
+				<AssertPropertyValue target="navigator.activeView.ds_binding" propertyName="selectedDate" valueExpression="value=new Date(2011,7,15,3,28)" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_today_highlight" description="test highlight of today under date mode" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE" />
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="selectedDate" valueExpression="value=new Date(2011, 8, 8, 10, 34, 30)" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_time_today_highlight" description="test highlight of today under time mode" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.TIME" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="selectedDate" valueExpression="value=new Date(2011, 8, 8, 10, 34, 30)" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_mode_date_time_today_highlight" description="test highlight of today under dateAndTime mode" keywords="[DateSpinner, mode]">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.DisplayModeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" /> 
+				<SetProperty propertyName="displayMode" target="navigator.activeView.ds" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds" propertyName="selectedDate" valueExpression="value=new Date(2011, 8, 8, 10, 34, 30)" />
+				<CompareBitmap target="navigator.activeView.ds" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+	</testCases>
+	
+</UnitTester>

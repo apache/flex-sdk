@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/DateSpinner/properties/"
+			xmlns="*"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			testSWF="DateSpinnerMain.mxml">
+	
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			import assets.DSConstants;
+			
+			import spark.components.calendarClasses.DateSelectorDisplayMode;
+			
+			import views.minuteStepSizeView;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+		    [Mixin]
+		]]>
+	</fx:Metadata>  
+	
+	<!-- end of set of lines that must be in each unit test  -->
+	
+	<testCases>
+		
+		<TestCase testID="DS_minuteStepSize1" keywords="[DateSpinner, property,minuteStepSize]" 
+				  description="Test minuteStepSize with number can be divided no remainder by sixty ">
+			<setup>
+				<ResetComponent target="navigator"
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="minuteStepSize" value="10"  />
+			</setup>
+			
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep"
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="minuteStepSize" valueExpression="value=10"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2011, 8, 8, 10, 30 ,30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-2).label" value="10" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-1).label" value="20" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="30" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(1).label" value="40" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(2).label" value="50" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DS_minuteStepSize2" keywords="[DateSpinner, property,minuteStepSize]" 
+				  description="Test minuteStepSize with number can be divided no remainder by sixty ">
+			<setup>
+				<ResetComponent target="navigator" 
+								className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep"
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="minuteStepSize" value="10"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep"
+									 propertyName="minuteStepSize" valueExpression="value=10"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2011, 8, 8, 10, 30, 30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-2).label" value="10" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-1).label" value="20" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="30" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(1).label" value="40" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(2).label" value="50" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DS_minuteStepSize3" keywords="[DateSpinner, property,minuteStepSize]" 
+				  description="Test minuteStepSize with number can be divided no remainder by sixty ">
+			<setup>
+				<ResetComponent target="navigator" 
+								className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="minuteStepSize" value="15"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="minuteStepSize" valueExpression="value=15"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2011, 8, 8, 10, 30, 30)" />
+				<CompareBitmap target="navigator.activeView.ds_minuteStep" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="30" />
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="DS_minuteStepSize4" keywords="[DateSpinner, property,minuteStepSize]" 
+				  description="Test minuteStepSize with number can be divided no remainder by sixty ">
+			<setup>
+				<ResetComponent target="navigator" 
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="minuteStepSize" value="15"  />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="minuteStepSize" valueExpression="value=15"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2011, 8, 8, 10, 30, 30)" />
+				<CompareBitmap target="navigator.activeView.ds_minuteStep" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="30" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_minuteStepSize5" keywords="[DateSpinner, property,minuteStepSize]" 
+				  description="Test minuteStepSize with number can divided with remainder by sixty ">
+			<setup>
+				<ResetComponent target="navigator" 
+								className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty  target="navigator.activeView.ds_minuteStep" 
+							 propertyName="minuteStepSize" value="13" />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+				<WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="minuteStepSize" valueExpression="value=1"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2011, 8, 8, 10, 34, 30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-2).label" value="32" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-1).label" value="33" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="34" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(1).label" value="35" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(2).label" value="36" />
+			</body>
+		</TestCase>	
+        
+		<TestCase testID="DS_minuteStepSize6" keywords="[DateSpinner, property,minuteStepSize]" 
+				  description="Test minuteStepSize with number can divided with remainder by sixty">
+			<setup>
+				<ResetComponent target="navigator" 
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty  target="navigator.activeView.ds_minuteStep" 
+                              propertyName="minuteStepSize" value="13"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="minuteStepSize" valueExpression="value=1"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2011, 8, 8, 10, 34, 30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-2).label" value="32" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-1).label" value="33" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="34" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(1).label" value="35" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(2).label" value="36" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_minuteStepSize7" keywords="[DateSpinner, property,minuteStepSize]" 
+				  description="Test minuteStepSize with number can not  divided  by sixty">
+			<setup>
+				<ResetComponent target="navigator" 
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty  target="navigator.activeView.ds_minuteStep" 
+                              propertyName="minuteStepSize" value="0"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="minuteStepSize" valueExpression="value=1"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2011, 8, 8, 10, 34, 30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-2).label" value="32" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-1).label" value="33" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="34" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(1).label" value="35" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(2).label" value="36" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_minuteStepSize8" keywords="[DateSpinner, property,minuteStepSize]" 
+				  description="Test minuteStepSize with number can not  divided  by sixty">
+			<setup>
+				<ResetComponent target="navigator" 
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty  target="navigator.activeView.ds_minuteStep" 
+                              propertyName="minuteStepSize" value="0"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="minuteStepSize" valueExpression="value=1"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2011, 8, 8, 10, 34, 30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-2).label" value="32" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-1).label" value="33" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="34" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(1).label" value="35" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(2).label" value="36" />
+			</body>
+		</TestCase>
+        
+		<TestCase testID="DS_minuteStepSize9" keywords="[DateSpinner, property,minuteStepSize]" 
+				  description="Test minuteStepSize with negative number">
+			<setup>
+				<ResetComponent target="navigator" 
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty  target="navigator.activeView.ds_minuteStep" 
+                              propertyName="minuteStepSize" value="-20"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="minuteStepSize" valueExpression="value=1"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2011, 8, 8, 10, 34, 30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-2).label" value="32" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-1).label" value="33" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="34" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(1).label" value="35" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(2).label" value="36" />
+			</body>
+		</TestCase>
+        
+        <TestCase testID="DS_minuteStepSize10" keywords="[DateSpinner, property,minuteStepSize]" 
+                  description="Test minuteStepSize with negative number">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+                <RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty  target="navigator.activeView.ds_minuteStep" 
+                              propertyName="minuteStepSize" value="-20"  />
+                <SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+                             propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+            </setup>
+            <body>		
+                <AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+                                     propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                <AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+                                     propertyName="minuteStepSize" valueExpression="value=1"/>
+                <AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2011, 8, 8, 10, 34, 30)" />
+                <AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-2).label" value="32" />
+                <AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-1).label" value="33" />
+                <AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="34" />
+                <AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(1).label" value="35" />
+                <AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(2).label" value="36" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="DS_minuteStepSize11" keywords="[DateSpinner, property,minuteStepSize]" 
+                  description="Test minuteStepSize with bigint">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+                <RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty  target="navigator.activeView.ds_minuteStep" 
+                              propertyName="minuteStepSize" value="232323"  />
+                <SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+                             propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+            </setup>
+            <body>		
+                <AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+                                     propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME"/>
+                <AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+                                     propertyName="minuteStepSize" valueExpression="value=1"/>
+                <AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+                                     valueExpression="value=new Date(2011, 8, 8, 10, 34, 30)" />
+                <AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-2).label" value="32" />
+                <AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-1).label" value="33" />
+                <AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="34" />
+                <AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(1).label" value="35" />
+                <AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(2).label" value="36" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="DS_minuteStepSize12" keywords="[DateSpinner, property,minuteStepSize]" 
+				  description="Test minuteStepSize with bigint">
+			<setup>
+				<ResetComponent target="navigator" 
+								className="comps.QANavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="application.navigator.pushView(views.minuteStepSizeView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.ds_minuteStep" 
+                             propertyName="minuteStepSize" value="232323"  />
+				<SetProperty waitEvent="updateComplete" target="navigator.activeView.ds_minuteStep" 
+							 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+                <WaitForEvent target="navigator.activeView.ds_minuteStep" eventName="enterFrame" />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" 
+									 propertyName="minuteStepSize" valueExpression="value=1"/>
+				<AssertPropertyValue target="navigator.activeView.ds_minuteStep" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2011, 8, 8, 10, 34, 30)" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-2).label" value="32" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(-1).label" value="33" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(0).label" value="34" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(1).label" value="35" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds_minuteStep.getMinuteRenderer(2).label" value="36" />
+			</body>
+		</TestCase>
+        
+	</testCases>
+	
+</UnitTester>

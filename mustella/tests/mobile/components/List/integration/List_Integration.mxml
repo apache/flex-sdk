@@ -1,0 +1,1223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/List/integration/"
+    testSWF="List.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+			import mx.events.TouchInteractionReason;
+			import mx.events.TouchInteractionEvent;
+			import mx.core.InteractionMode;
+			import spark.components.Scroller;
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+        <!--
+        ================================
+        General List Integration Testing
+        ================================
+        
+        allowMultipleSelection support
+        
+        + select multiple items via clicking ensure retained after a scroll
+        + select multiple items via 5-way ensure retained after a scroll
+        + select multiple items programmatically ensure they are retained after a scroll
+        
+        down state support
+        
+        + check sequence of state changes when pressing via click
+        + check sequence of state changes when pressing via mouseDown, wait, mouseUp
+        + check sequence of state changes when pressing down then dragging around the renderer
+        + check sequence of state changes when pressing down then dragging off the renderer
+        + check sequence of state changes when setting selection programmatically
+        + check sequence of state changes when setting caret via 5-way
+        + check sequence of state changes when setting selection via 5-way
+        
+        + check sequence of state changes on a selected item when pressing via click
+        + check sequence of state changes on a selected item when pressing via mouseDown, wait, mouseUp
+        + check sequence of state changes on a selected item when pressing down then moving off
+        + check sequence of state changes on a selected item when setting selection programmatically
+        + check sequence of state changes on a selected item when setting selection via 5-way
+        
+		+ drag scrolling when contentHeight equals height shouldn't highlight the renderer
+		+ drag scrolling when contentHeight less than height shouldn't highlight the renderer
+		
+        scroll policy 
+        
+		+ check default scroll policies are 'auto'
+		+ check default policy scrolls in both directions
+		+ turn off both scroll policies, ensure no scrolling happens
+		+ check that horizontal scroll policy is respected
+		+ check that vertical scroll policy is respected
+		+ check that turning scroll policy off then on works
+        
+        slop
+        
+		+ dragging by exactly slop value shouldn't scroll
+		+ dragging by less than slop shouldn't scroll
+		+ dragging by slightly more than slop should scroll by that amount
+		+ dragging by more than slop should scroll by that amount
+
+        minor axis scrolling
+        
+		+ check that scrolling in minor axis never happens in VerticalLayout
+		+ check that scrolling in minor axis never happens in HorizontalLayout
+		+ check that scrolling in minor axis never happens in TileLayout
+        
+        misc
+        
+		+ demonstrate how to use SimulateMouseGesture with a dragXFrom/dragXTo etc.
+		+ check that TouchInteractionEvents fire on a throw, and relatedObject is the scroller
+        + check the values of some touch related constants
+		+ check the default touchDelay values set globally to 0, but is set to 100 in Scroller
+		
+        -->
+        
+        <TestCase testID="List_Integration_multipleSelection_click" keywords="[List, Integration, allowMultipleSelection]" description="select multiple items via clicking ensure they are retained after a scroll">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <DispatchMouseClickEvent localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="selectedAndShowsCaretStateEnteredOnItem0" />
+                <DispatchMouseClickEvent localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(2)" waitTarget="navigator.activeView.target" waitEvent="selectedAndShowsCaretStateEnteredOnItem2" />
+                <DispatchMouseClickEvent localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(4)" waitTarget="navigator.activeView.target" waitEvent="selectedAndShowsCaretStateEnteredOnItem4" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndices" value="4,0,2" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(3)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(4)" x="5" y="5" value="0x000066" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" waitTarget="navigator.activeView.target" waitEvent="itemRenderer12SetData" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitTarget="navigator.activeView.target" waitEvent="itemRenderer0SetData" />
+                <Pause timeout="1000" /><!-- TODO: To run on Droid 1 -->
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(3)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(4)" x="5" y="5" value="0x000066" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_multipleSelection_5way" keywords="[List, Integration, allowMultipleSelection]" description="select multiple items via 5-way ensure retained after a scroll">
+            <bugs>
+                <Bug bugID="SDK-28636" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <Pause timeout="1000" /><!-- TODO: For Droid 1 -->
+                <DispatchMouseClickEvent localX="5" localY="5" target="navigator.activeView.target" waitTarget="navigator.activeView.target" waitEvent="selectedAndShowsCaretStateEnteredOnItem0" />
+                
+                <DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.target" /><!-- 5way down -->
+                <DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.target" /><!-- 5way down -->
+                <DispatchKeyEvent keyLocation="4" keyCode="13" waitTarget="navigator.activeView.target" waitEvent="updateComplete" /><!-- 5way enter -->
+                
+                <DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.target" /><!-- 5way down -->
+                <DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.target" /><!-- 5way down -->
+                <DispatchKeyEvent keyLocation="4" keyCode="13" waitTarget="navigator.activeView.target" waitEvent="updateComplete" /><!-- 5way enter -->
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndices" value="4,0,2" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(3)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(4)" x="5" y="5" value="0x000066" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" waitTarget="navigator.activeView.target" waitEvent="itemRenderer12SetData" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitTarget="navigator.activeView.target" waitEvent="itemRenderer0SetData" />
+                <Pause timeout="1000" /><!-- TODO: ON device seems to need a bit of extra time to process, removable? -->
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(3)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(4)" x="5" y="5" value="0x000066" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_multipleSelection_programmatically" keywords="[List, Integration, allowMultipleSelection]" description="select multiple items programmatically ensure retained after a scroll">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndices" valueExpression="value=new &lt;int&gt;[4, 0, 2]" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndices" value="4,0,2" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(3)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(4)" x="5" y="5" value="0x000066" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" waitTarget="navigator.activeView.target" waitEvent="itemRenderer12SetData" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitTarget="navigator.activeView.target" waitEvent="itemRenderer0SetData" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0x0000AA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(3)" x="5" y="5" value="0xAAAAAA" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(4)" x="5" y="5" value="0x000066" />
+            </body>
+        </TestCase>
+        
+        <!--
+        
+        down state support
+        
+        -->
+        
+        <TestCase testID="List_Integration_states_click" keywords="[List, Integration, states]" description="check sequence of state changes when pressing via click">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <DispatchMouseClickEvent localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="selectedAndShowsCaretStateEnteredOnItem0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,downAndSelectedStateEntered,selectedAndShowsCaretStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_slowClick" keywords="[List, Integration, states]" description="check sequence of state changes when pressing via mouseDown, wait, mouseUp">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <DispatchMouseEvent type="rollOver" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitEvent="rollOver" />
+                <DispatchMouseEvent type="mouseDown" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="downStateEnteredOnItem0" />
+                <DispatchMouseEvent type="mouseUp" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="selectedAndShowsCaretStateEnteredOnItem0" />
+                <DispatchMouseEvent type="click" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitEvent="click" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,downStateEntered,selectedAndShowsCaretStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_dragOver" keywords="[List, Integration, states]" description="check sequence of state changes when pressing down then dragging around the renderer">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <DispatchMouseEvent type="rollOver" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitEvent="rollOver" />
+                <DispatchMouseEvent type="mouseDown" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="downStateEnteredOnItem0" />
+                <DispatchMouseEvent type="mouseMove" localX="5" localY="40" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitEvent="mouseMove" />
+                <DispatchMouseEvent type="mouseUp" localX="5" localY="40" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="mouseUp" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,downStateEntered,normalStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_dragOff" keywords="[List, Integration, states]" description="check sequence of state changes when pressing down then dragging off the renderer">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <DispatchMouseEvent type="rollOver" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitEvent="rollOver" />
+                <DispatchMouseEvent type="mouseDown" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="downStateEnteredOnItem0" />
+                <DispatchMouseEvent type="mouseMove" localX="5" localY="100" target="navigator.activeView.target.dataGroup" waitEvent="mouseMove" />
+                <DispatchMouseEvent type="mouseUp" localX="5" localY="100" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="mouseUp" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,downStateEntered,normalStateEntered" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(1).dataArray" value="normalStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_setProgrammatically" keywords="[List, Integration, states]" description="check sequence of state changes when setting selection programmatically">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="0" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,selectedAndShowsCaretStateEntered" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(1).dataArray" value="normalStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_caretVia5way" keywords="[List, Integration, states]" description="check sequence of state changes when setting caret via 5-way">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <DispatchMouseClickEvent localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="selectedAndShowsCaretStateEnteredOnItem0" />
+                <DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.target.dataGroup.getElementAt(1)" waitEvent="updateComplete" /><!-- 5way down -->
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,downAndSelectedStateEntered,selectedAndShowsCaretStateEntered,selectedStateEntered" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(1).dataArray" value="normalStateEntered,normalAndShowsCaretStateEntered" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(2).dataArray" value="normalStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_selectionVia5way" keywords="[List, Integration, states]" description="check sequence of state changes when setting selection via 5-way">
+            <bugs>
+                <Bug bugID="SDK-28636" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <DispatchMouseClickEvent localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="selectedAndShowsCaretStateEnteredOnItem0" />
+                <DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.target" /><!-- 5way down -->
+                <DispatchKeyEvent keyLocation="4" keyCode="13" waitTarget="navigator.activeView.target" waitEvent="updateComplete" /><!-- 5way enter -->
+                
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="2" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,downAndSelectedStateEntered,selectedAndShowsCaretStateEntered,selectedStateEntered" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(1).dataArray" value="normalStateEntered,selectedAndShowsCaretStateEntered" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(2).dataArray" value="normalStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_selected_click" keywords="[List, Integration, states]" description="check sequence of state changes on a selected item when pressing via click">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="0" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="normalStateEnteredOnItem0" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,selectedAndShowsCaretStateEntered,downStateEntered,normalStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_selected_slowClick" keywords="[List, Integration, states]" description="check sequence of state changes on a selected item when pressing via mouseDown, wait, mouseUp">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="0" waitEvent="updateComplete" />
+                <DispatchMouseEvent type="rollOver" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitEvent="rollOver" />
+                <DispatchMouseEvent type="mouseDown" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="downAndSelectedStateEnteredOnItem0" />
+                <DispatchMouseEvent type="mouseUp" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="normalStateEnteredOnItem0" />
+                <DispatchMouseEvent type="click" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitEvent="click" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,selectedAndShowsCaretStateEntered,downAndSelectedStateEntered,normalStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_selected_dragOver" keywords="[List, Integration, states]" description="check sequence of state changes on a selected item when pressing down then dragging around the renderer">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="0" waitEvent="updateComplete" />
+                <DispatchMouseEvent type="rollOver" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitEvent="rollOver" />
+                <DispatchMouseEvent type="mouseDown" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="downAndSelectedStateEnteredOnItem0" />
+                <DispatchMouseEvent type="mouseMove" localX="5" localY="40" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitEvent="mouseMove" />
+                <DispatchMouseEvent type="mouseUp" localX="5" localY="40" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="mouseUp" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,selectedAndShowsCaretStateEntered,downAndSelectedStateEntered,selectedAndShowsCaretStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_selected_dragOff" keywords="[List, Integration, states]" description="check sequence of state changes on a selected item when pressing down then dragging off the renderer">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="0" waitEvent="updateComplete" />
+                <DispatchMouseEvent type="rollOver" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitEvent="rollOver" />
+                <DispatchMouseEvent type="mouseDown" localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="downAndSelectedStateEnteredOnItem0" />
+                <DispatchMouseEvent type="mouseMove" localX="5" localY="100" target="navigator.activeView.target.dataGroup" waitEvent="mouseMove" />
+                <DispatchMouseEvent type="mouseUp" localX="5" localY="100" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="mouseUp" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,selectedAndShowsCaretStateEntered,downAndSelectedStateEntered,selectedAndShowsCaretStateEntered" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(1).dataArray" value="normalStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_selected_setProgrammatically" keywords="[List, Integration, states]" description="check sequence of state changes on a selected item when setting selection programmatically">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="0" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="-1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,selectedAndShowsCaretStateEntered,normalStateEntered" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(1).dataArray" value="normalStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_states_selected_selectionVia5way" keywords="[List, Integration, states]" description="check sequence of state changes on a selected item when setting selection via 5-way">
+            <bugs>
+                <Bug bugID="SDK-28636" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="0" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent localX="5" localY="5" target="navigator.activeView.target.dataGroup.getElementAt(0)" waitTarget="navigator.activeView.target" waitEvent="normalStateEnteredOnItem0" />
+                <!-- press 5way down twice due to SDK-28636 -->
+                <DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.target" /><!-- 5way down -->
+                <DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.target" /><!-- 5way down -->
+                <DispatchKeyEvent keyLocation="4" keyCode="13" waitTarget="navigator.activeView.target" waitEvent="updateComplete" /><!-- 5way enter -->
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(0).dataArray" value="normalStateEntered,selectedAndShowsCaretStateEntered,downStateEntered,normalStateEntered" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(1).dataArray" value="normalStateEntered,selectedAndShowsCaretStateEntered" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider.getItemAt(2).dataArray" value="normalStateEntered" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_downState_contentEqualsSize_scrollDown" keywords="[List, Integration]" description="drag scrolling when contentHeight equals height shouldn't highlight the renderer">
+            <bugs>
+                <Bug bugID="SDK-27674" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MarketView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="50" dragXTo="50" dragYFrom="285" dragYTo="185" />
+                <AssertPropertyValue target="navigator.activeView.list1" propertyName="selectedIndex" value="-1" />
+                <AssertPixelValue target="navigator.activeView.list1.dataGroup.getElementAt(0)" value="0xFFFFFF" x="10" y="10" /> 
+                <AssertPixelValue target="navigator.activeView.list1.dataGroup.getElementAt(1)" value="0xFFFFFF" x="10" y="10" /> 
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_downState_contentEqualsSize_scrollUp" keywords="[List, Integration]" description="drag scrolling when contentHeight equals height shouldn't highlight the renderer">
+            <bugs>
+                <Bug bugID="SDK-27674" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MarketView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="50" dragXTo="50" dragYFrom="285" dragYTo="385" waitEvent="touchInteractionEnd"/>
+                <AssertPropertyValue target="navigator.activeView.list1" propertyName="selectedIndex" value="-1" />
+                <AssertPixelValue target="navigator.activeView.list1.dataGroup.getElementAt(0)" value="0xFFFFFF" x="10" y="10" /> 
+                <AssertPixelValue target="navigator.activeView.list1.dataGroup.getElementAt(1)" value="0xFFFFFF" x="10" y="10" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_downState_contentLessThanSize_scrollUp" keywords="[List, Integration]" description="drag scrolling when contentHeight less than height shouldn't highlight the renderer">
+            <bugs>
+                <Bug bugID="SDK-27674" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <!-- set dataProvider to null first to get fresh item renderers -->
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=null" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.createIdenticalItems(3, 100, 100, 'vertical')" waitEvent="normalStateEnteredOnItem2" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="10" dragXTo="10" dragYFrom="50" dragYTo="150" />
+                <Pause timeout="500" /><!-- wait long enough for the down state to go away -->
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndex" value="-1" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" value="0xAAAAAA" x="10" y="10" /> 
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" value="0xAAAAAA" x="10" y="10" /> 
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" value="0xAAAAAA" x="10" y="10" /> 
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_downState_contentLessThanSize_scrollDown" keywords="[List, Integration]" description="drag scrolling when contentHeight less than height shouldn't highlight the renderer">
+            <bugs>
+                <Bug bugID="SDK-27674" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MultipleSelectionView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <!-- set dataProvider to null first to get fresh item renderers -->
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=null" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.createIdenticalItems(3, 100, 100, 'vertical')" waitEvent="normalStateEnteredOnItem2" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="10" dragXTo="10" dragYFrom="150" dragYTo="50" />
+                <Pause timeout="500" /><!-- wait long enough for the down state to go away -->
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndex" value="-1" />
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" value="0xAAAAAA" x="10" y="10" /> 
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" value="0xAAAAAA" x="10" y="10" /> 
+                <AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" value="0xAAAAAA" x="10" y="10" /> 
+            </body>
+        </TestCase>
+        
+        <!-- Scroll policy testing -->
+        
+        <TestCase testID="List_Integration_scrollPolicy_default" keywords="[List, Integration]" description="check default scroll policies">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollPolicyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertStyleValue target="navigator.activeView.target.scroller" styleName="verticalScrollPolicy" value="on" />
+                <AssertStyleValue target="navigator.activeView.target.scroller" styleName="horizontalScrollPolicy" value="auto" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollPolicy_auto" keywords="[List, Integration]" description="check default policy scrolls in both directions">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollPolicyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="150" dragYFrom="150" dragXTo="100" dragYTo="100" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollPolicy_off" keywords="[List, Integration]" description="turn off both scroll policies">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollPolicyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetStyle target="navigator.activeView.target.scroller" styleName="verticalScrollPolicy" value="off" waitEvent="updateComplete" />
+                <SetStyle target="navigator.activeView.target.scroller" styleName="horizontalScrollPolicy" value="off" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="150" dragYFrom="150" dragXTo="100" dragYTo="100" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollPolicy_horizontal_off" keywords="[List, Integration]" description="check that horizontal scroll policy is respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollPolicyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetStyle target="navigator.activeView.target.scroller" styleName="horizontalScrollPolicy" value="off" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="150" dragYFrom="150" dragXTo="100" dragYTo="100" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollPolicy_vertical_off" keywords="[List, Integration]" description="check that vertical scroll policy is respected">
+            <bugs>
+                <Bug bugID="SDK-27734" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollPolicyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetStyle target="navigator.activeView.target.scroller" styleName="verticalScrollPolicy" value="off" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="150" dragYFrom="150" dragXTo="100" dragYTo="100" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionStarting" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionStart" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionEnd" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollPolicy_vertical_on" keywords="[List, Integration]" description="check that vertical scroll policy is respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollPolicyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="150" dragYFrom="150" dragXTo="100" dragYTo="100" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollPolicy_horizontal_on" keywords="[List, Integration]" description="check that horizontal scroll policy is respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollPolicyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetStyle target="navigator.activeView.target.scroller" styleName="horizontalScrollPolicy" value="on" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="150" dragYFrom="150" dragXTo="100" dragYTo="100" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollPolicy_turn_on" keywords="[List, Integration]" description="turn scroll policy off and on and check it works">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollPolicyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetStyle target="navigator.activeView.target.scroller" styleName="horizontalScrollPolicy" value="off" waitEvent="updateComplete" />
+                <SetStyle target="navigator.activeView.target.scroller" styleName="verticalScrollPolicy" value="off" waitEvent="updateComplete" />
+                <SetStyle target="navigator.activeView.target.scroller" styleName="horizontalScrollPolicy" value="on" waitEvent="updateComplete" />
+                <SetStyle target="navigator.activeView.target.scroller" styleName="verticalScrollPolicy" value="on" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="150" dragYFrom="150" dragXTo="100" dragYTo="100" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+            </body>
+        </TestCase>
+        
+        <!-- slop -->
+        
+        <TestCase testID="List_Integration_slop_exact" keywords="[List, Integration]" description="dragging by exactly slop value shouldn't scroll">
+            <bugs>
+                <Bug bugID="SDK-27546" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.GreydientView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <!-- Note: This test has to be updated every time we change the main run device, right now slop of 19 for Nexus S -->
+                <SimulateMouseGesture target="navigator.activeView.target">
+                    <fx:Object type="mouseMove" localX="115" localY="206" fakeTimeValue="14887" />
+                    <fx:Object type="rollOver" localX="115" localY="206" fakeTimeValue="14893" />
+                    <fx:Object type="mouseOver" localX="115" localY="206" fakeTimeValue="14897" />
+                    <fx:Object type="mouseDown" localX="115" localY="206" fakeTimeValue="14902" />
+                    <fx:Object type="mouseMove" localX="116" localY="206" fakeTimeValue="14916" />
+                    <fx:Object type="mouseMove" localX="117" localY="205" fakeTimeValue="14957" />
+                    <fx:Object type="mouseMove" localX="120" localY="205" fakeTimeValue="15629" />
+                    <fx:Object type="mouseMove" localX="118" localY="197" fakeTimeValue="15860" />
+                    <fx:Object type="mouseMove" localX="118" localY="191" fakeTimeValue="16078" />
+                    <fx:Object type="mouseMove" localX="118" localY="188" fakeTimeValue="16300" />
+                    <fx:Object type="mouseMove" localX="118" localY="187" fakeTimeValue="16528" />
+                    <fx:Object type="mouseUp" localX="119" localY="187" fakeTimeValue="16671" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0">
+                    <!-- the slop on a PlayBook is smaller so since we currently have no way of targetting a test at a single configuration
+                    we put in this conditional value so it will pass on PlayBook even tho the value isn't what we are trying to assert -->
+                    <ConditionalValue screenDPI="170" value="6" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_slop_less" keywords="[List, Integration]" description="dragging by less than slop shouldn't scroll">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.GreydientView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <!-- Note: This test has to be updated every time we change the main run device, right now slop of 19 for Nexus S -->
+                <SimulateMouseGesture target="navigator.activeView.target">
+                    <fx:Object type="mouseMove" localX="115" localY="206" fakeTimeValue="14887" />
+                    <fx:Object type="rollOver" localX="115" localY="206" fakeTimeValue="14893" />
+                    <fx:Object type="mouseOver" localX="115" localY="206" fakeTimeValue="14897" />
+                    <fx:Object type="mouseDown" localX="115" localY="206" fakeTimeValue="14902" />
+                    <fx:Object type="mouseMove" localX="115" localY="206" fakeTimeValue="14916" />
+                    <fx:Object type="mouseMove" localX="115" localY="205" fakeTimeValue="14957" />
+                    <fx:Object type="mouseMove" localX="115" localY="205" fakeTimeValue="15629" />
+                    <fx:Object type="mouseMove" localX="115" localY="197" fakeTimeValue="15860" />
+                    <fx:Object type="mouseMove" localX="115" localY="191" fakeTimeValue="16078" />
+                    <fx:Object type="mouseMove" localX="115" localY="189" fakeTimeValue="16300" />
+                    <fx:Object type="mouseMove" localX="115" localY="188" fakeTimeValue="16528" />
+                    <fx:Object type="mouseMove" localX="115" localY="188" fakeTimeValue="16598" />
+                    <fx:Object type="mouseUp" localX="115" localY="188" fakeTimeValue="16671" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedItems.length" value="1">
+                    <!-- the slop on a PlayBook is smaller so since we currently have no way of targetting a test at a single configuration
+                    we put in this conditional value so it will pass on PlayBook even tho the value isn't what we are trying to assert -->
+                    <ConditionalValue screenDPI="170" value="0" />
+                </AssertMethodValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0">
+                    <!-- the slop on a PlayBook is smaller so since we currently have no way of targetting a test at a single configuration
+                    we put in this conditional value so it will pass on PlayBook even tho the value isn't what we are trying to assert -->
+                    <ConditionalValue screenDPI="170" value="5" />
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_slop_more" keywords="[List, Integration]" description="dragging by slightly more than slop should scroll by that amount">
+            <bugs>
+                <Bug bugID="SDK-27546" />
+                <Bug bugID="SDK-29223" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.GreydientView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <!-- Note: This test has to be updated every time we change the main run device, right now slop of 19 for Nexus S -->
+                <SimulateMouseGesture target="navigator.activeView.target">
+                    <fx:Object type="mouseMove" localX="115" localY="206" fakeTimeValue="14887" />
+                    <fx:Object type="rollOver" localX="115" localY="206" fakeTimeValue="14893" />
+                    <fx:Object type="mouseOver" localX="115" localY="206" fakeTimeValue="14897" />
+                    <fx:Object type="mouseDown" localX="115" localY="206" fakeTimeValue="14902" />
+                    <fx:Object type="mouseMove" localX="115" localY="206" fakeTimeValue="14916" />
+                    <fx:Object type="mouseMove" localX="115" localY="205" fakeTimeValue="14957" />
+                    <fx:Object type="mouseMove" localX="115" localY="205" fakeTimeValue="15629" />
+                    <fx:Object type="mouseMove" localX="115" localY="197" fakeTimeValue="15860" />
+                    <fx:Object type="mouseMove" localX="115" localY="191" fakeTimeValue="16078" />
+                    <fx:Object type="mouseMove" localX="115" localY="188" fakeTimeValue="16300" />
+                    <fx:Object type="mouseMove" localX="115" localY="187" fakeTimeValue="16528" />
+                    <fx:Object type="mouseMove" localX="115" localY="186" fakeTimeValue="16598" />
+                    <fx:Object type="mouseUp" localX="115" localY="186" fakeTimeValue="16671" />
+                </SimulateMouseGesture>
+                <Pause timeout="1000" /><!-- TODO: For Droid 1-->
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0">
+                    <ConditionalValue screenDPI="326" value="1" /><!-- iPhone has a different DPI (SDK-29223) -->
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="1">
+                    <!-- the slop on a PlayBook is smaller so since we currently have no way of targetting a test at a single configuration
+                    we put in this conditional value so it will pass on PlayBook even tho the value isn't what we are trying to assert -->
+                    <ConditionalValue screenDPI="170" value="7" /><!-- PlayBook slop is smaller -->
+                    <ConditionalValue screenDPI="265" value="0" /><!-- Droid 1 has a slightly different DPI (SDK-29223) -->
+                    <ConditionalValue screenDPI="252" value="0" /><!-- Nexus 1 has a slightly different DPI (SDK-29223) -->
+                    <ConditionalValue screenDPI="254" value="0" /><!-- Nexus 1 has a slightly different DPI (SDK-29223) -->
+                    <ConditionalValue screenDPI="326" value="0" /><!-- iPhone has a different DPI (SDK-29223) -->
+                    <!-- TODO: This test only works on Nexus S, need other tests for other specific densities-->
+                </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_slop_more_2" keywords="[List, Integration]" description="dragging by more than slop should scroll by that amount">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.GreydientView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target">
+                    <fx:Object type="mouseMove" localX="115" localY="206" fakeTimeValue="14887" />
+                    <fx:Object type="rollOver" localX="115" localY="206" fakeTimeValue="14893" />
+                    <fx:Object type="mouseOver" localX="115" localY="206" fakeTimeValue="14897" />
+                    <fx:Object type="mouseDown" localX="115" localY="206" fakeTimeValue="14902" />
+                    <fx:Object type="mouseMove" localX="115" localY="206" fakeTimeValue="14916" />
+                    <fx:Object type="mouseMove" localX="115" localY="205" fakeTimeValue="14957" />
+                    <fx:Object type="mouseMove" localX="115" localY="210" fakeTimeValue="15629" />
+                    <fx:Object type="mouseMove" localX="115" localY="195" fakeTimeValue="15860" />
+                    <fx:Object type="mouseMove" localX="115" localY="188" fakeTimeValue="16078" />
+                    <fx:Object type="mouseMove" localX="115" localY="180" fakeTimeValue="16300" />
+                    <fx:Object type="mouseMove" localX="115" localY="176" fakeTimeValue="16528" />
+                    <fx:Object type="mouseMove" localX="115" localY="171" fakeTimeValue="16598" />
+                    <fx:Object type="mouseUp" localX="115" localY="171" fakeTimeValue="16671" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedItems.length" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(35 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <!-- minor axis scrolling -->
+        
+        <TestCase testID="List_Integration_minorAxis_vertical" keywords="[List, Integration]" description="check that scrolling in minor axis never happens">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MinorAxisScrollingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target1">
+                    <fx:Object type="mouseMove" localX="224" localY="11" fakeTimeValue="20432" />
+                    <fx:Object type="rollOver" localX="224" localY="11" fakeTimeValue="20433" />
+                    <fx:Object type="mouseOver" localX="224" localY="11" fakeTimeValue="20433" />
+                    <fx:Object type="mouseDown" localX="312" localY="114" fakeTimeValue="20918" />
+                    <fx:Object type="mouseMove" localX="311" localY="114" fakeTimeValue="20931" />
+                    <fx:Object type="mouseMove" localX="300" localY="114" fakeTimeValue="20965" />
+                    <fx:Object type="mouseMove" localX="237" localY="109" fakeTimeValue="20998" />
+                    <fx:Object type="mouseMove" localX="123" localY="93" fakeTimeValue="21037" />
+                    <fx:Object type="mouseMove" localX="36" localY="85" fakeTimeValue="21065" />
+                    <fx:Object type="mouseOut" localX="-7" localY="84" fakeTimeValue="21101" />
+                    <fx:Object type="rollOut" localX="-7" localY="84" fakeTimeValue="21101" />
+                    <fx:Object type="mouseMove" localX="4" localY="84" fakeTimeValue="21217" />
+                    <fx:Object type="rollOver" localX="4" localY="84" fakeTimeValue="21218" />
+                    <fx:Object type="mouseOver" localX="4" localY="84" fakeTimeValue="21218" />
+                    <fx:Object type="mouseMove" localX="43" localY="84" fakeTimeValue="21232" />
+                    <fx:Object type="mouseMove" localX="182" localY="84" fakeTimeValue="21266" />
+                    <fx:Object type="mouseMove" localX="373" localY="85" fakeTimeValue="21299" />
+                    <fx:Object type="mouseMove" localX="468" localY="85" fakeTimeValue="21333" />
+                    <fx:Object type="mouseOut" localX="504" localY="85" fakeTimeValue="21351" />
+                    <fx:Object type="rollOut" localX="504" localY="85" fakeTimeValue="21351" />
+                    <fx:Object type="mouseMove" localX="479" localY="75" fakeTimeValue="22089" />
+                    <fx:Object type="rollOver" localX="479" localY="75" fakeTimeValue="22089" />
+                    <fx:Object type="mouseOver" localX="479" localY="75" fakeTimeValue="22090" />
+                    <fx:Object type="mouseMove" localX="455" localY="66" fakeTimeValue="22105" />
+                    <fx:Object type="mouseMove" localX="420" localY="50" fakeTimeValue="22137" />
+                    <fx:Object type="mouseUp" localX="420" localY="50" fakeTimeValue="22137" />
+                    <fx:Object type="mouseOut" localX="420" localY="50" fakeTimeValue="22546" />
+                    <fx:Object type="rollOut" localX="405" localY="-10" fakeTimeValue="22557" />
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView" propertyName="hspChanged" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_minorAxis_horizontal" keywords="[List, Integration]" description="check that scrolling in minor axis never happens">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MinorAxisScrollingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target2">
+                    <fx:Object type="mouseMove" localX="198" localY="54" fakeTimeValue="14512" />
+                    <fx:Object type="rollOver" localX="198" localY="54" fakeTimeValue="14513" />
+                    <fx:Object type="mouseOver" localX="198" localY="54" fakeTimeValue="14513" />
+                    <fx:Object type="mouseDown" localX="231" localY="135" fakeTimeValue="15255" />
+                    <fx:Object type="mouseMove" localX="231" localY="137" fakeTimeValue="15700" />
+                    <fx:Object type="mouseMove" localX="233" localY="164" fakeTimeValue="15733" />
+                    <fx:Object type="mouseMove" localX="240" localY="198" fakeTimeValue="15767" />
+                    <fx:Object type="mouseOut" localX="244" localY="231" fakeTimeValue="15801" />
+                    <fx:Object type="rollOut" localX="244" localY="231" fakeTimeValue="15801" />
+                    <fx:Object type="mouseMove" localX="238" localY="188" fakeTimeValue="16035" />
+                    <fx:Object type="rollOver" localX="238" localY="188" fakeTimeValue="16035" />
+                    <fx:Object type="mouseOver" localX="238" localY="188" fakeTimeValue="16035" />
+                    <fx:Object type="mouseMove" localX="234" localY="157" fakeTimeValue="16052" />
+                    <fx:Object type="mouseMove" localX="225" localY="30" fakeTimeValue="16085" />
+                    <fx:Object type="mouseOut" localX="225" localY="-18" fakeTimeValue="16102" />
+                    <fx:Object type="rollOut" localX="225" localY="-18" fakeTimeValue="16102" />
+                    <fx:Object type="mouseMove" localX="231" localY="2" fakeTimeValue="16336" />
+                    <fx:Object type="rollOver" localX="231" localY="2" fakeTimeValue="16336" />
+                    <fx:Object type="mouseOver" localX="231" localY="2" fakeTimeValue="16336" />
+                    <fx:Object type="mouseMove" localX="233" localY="40" fakeTimeValue="16353" />
+                    <fx:Object type="mouseMove" localX="237" localY="122" fakeTimeValue="16386" />
+                    <fx:Object type="mouseMove" localX="237" localY="166" fakeTimeValue="16420" />
+                    <fx:Object type="mouseMove" localX="237" localY="189" fakeTimeValue="16453" />
+                    <fx:Object type="mouseMove" localX="237" localY="203" fakeTimeValue="16487" />
+                    <fx:Object type="mouseMove" localX="237" localY="211" fakeTimeValue="16520" />
+                    <fx:Object type="mouseMove" localX="237" localY="216" fakeTimeValue="16554" />
+                    <fx:Object type="mouseMove" localX="237" localY="219" fakeTimeValue="16587" />
+                    <fx:Object type="mouseMove" localX="237" localY="222" fakeTimeValue="16621" />
+                    <fx:Object type="mouseMove" localX="237" localY="212" fakeTimeValue="16671" />
+                    <fx:Object type="mouseMove" localX="233" localY="171" fakeTimeValue="16704" />
+                    <fx:Object type="mouseMove" localX="219" localY="111" fakeTimeValue="16738" />
+                    <fx:Object type="mouseOut" localX="219" localY="111" fakeTimeValue="16738" />
+                    <fx:Object type="mouseOver" localX="219" localY="111" fakeTimeValue="16739" />
+                    <fx:Object type="mouseMove" localX="211" localY="76" fakeTimeValue="16755" />
+                    <fx:Object type="mouseOut" localX="211" localY="76" fakeTimeValue="16755" />
+                    <fx:Object type="mouseOver" localX="211" localY="76" fakeTimeValue="16755" />
+                    <fx:Object type="mouseMove" localX="207" localY="56" fakeTimeValue="16772" />
+                    <fx:Object type="mouseMove" localX="204" localY="32" fakeTimeValue="16805" />
+                    <fx:Object type="mouseMove" localX="204" localY="20" fakeTimeValue="16839" />
+                    <fx:Object type="mouseMove" localX="204" localY="15" fakeTimeValue="16889" />
+                    <fx:Object type="mouseUp" localX="204" localY="15" fakeTimeValue="16999" />
+                    <fx:Object type="mouseOut" localX="217" localY="0" fakeTimeValue="17408" />
+                    <fx:Object type="rollOut" localX="239" localY="-26" fakeTimeValue="17424" />                    
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView" propertyName="vspChanged" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_minorAxis_tile" keywords="[List, Integration]" description="check that scrolling in minor axis never happens">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MinorAxisScrollingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target3">
+                    <fx:Object type="mouseMove" localX="224" localY="11" fakeTimeValue="20432" />
+                    <fx:Object type="rollOver" localX="224" localY="11" fakeTimeValue="20433" />
+                    <fx:Object type="mouseOver" localX="224" localY="11" fakeTimeValue="20433" />
+                    <fx:Object type="mouseDown" localX="312" localY="114" fakeTimeValue="20918" />
+                    <fx:Object type="mouseMove" localX="311" localY="114" fakeTimeValue="20931" />
+                    <fx:Object type="mouseMove" localX="300" localY="114" fakeTimeValue="20965" />
+                    <fx:Object type="mouseMove" localX="237" localY="109" fakeTimeValue="20998" />
+                    <fx:Object type="mouseMove" localX="123" localY="93" fakeTimeValue="21037" />
+                    <fx:Object type="mouseMove" localX="36" localY="85" fakeTimeValue="21065" />
+                    <fx:Object type="mouseOut" localX="-7" localY="84" fakeTimeValue="21101" />
+                    <fx:Object type="rollOut" localX="-7" localY="84" fakeTimeValue="21101" />
+                    <fx:Object type="mouseMove" localX="4" localY="84" fakeTimeValue="21217" />
+                    <fx:Object type="rollOver" localX="4" localY="84" fakeTimeValue="21218" />
+                    <fx:Object type="mouseOver" localX="4" localY="84" fakeTimeValue="21218" />
+                    <fx:Object type="mouseMove" localX="43" localY="84" fakeTimeValue="21232" />
+                    <fx:Object type="mouseMove" localX="182" localY="84" fakeTimeValue="21266" />
+                    <fx:Object type="mouseMove" localX="373" localY="85" fakeTimeValue="21299" />
+                    <fx:Object type="mouseMove" localX="468" localY="85" fakeTimeValue="21333" />
+                    <fx:Object type="mouseOut" localX="504" localY="85" fakeTimeValue="21351" />
+                    <fx:Object type="rollOut" localX="504" localY="85" fakeTimeValue="21351" />
+                    <fx:Object type="mouseMove" localX="479" localY="75" fakeTimeValue="22089" />
+                    <fx:Object type="rollOver" localX="479" localY="75" fakeTimeValue="22089" />
+                    <fx:Object type="mouseOver" localX="479" localY="75" fakeTimeValue="22090" />
+                    <fx:Object type="mouseMove" localX="455" localY="66" fakeTimeValue="22105" />
+                    <fx:Object type="mouseMove" localX="420" localY="50" fakeTimeValue="22137" />
+                    <fx:Object type="mouseUp" localX="420" localY="50" fakeTimeValue="22137" />
+                    <fx:Object type="mouseOut" localX="420" localY="50" fakeTimeValue="22546" />
+                    <fx:Object type="rollOut" localX="405" localY="-10" fakeTimeValue="22557" />            
+                </SimulateMouseGesture>
+                <AssertPropertyValue target="navigator.activeView" propertyName="hspChanged" value="false" />
+            </body>
+        </TestCase>
+        
+        
+        <!-- misc -->
+        
+        <TestCase testID="List_Integration_simpleDrag1" keywords="[List, Sample]" description="demonstrates how to use SimulateMouseGesture with a dragXFrom etc">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollPolicyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="150" dragYFrom="150" dragXTo="100" dragYTo="100" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(50 - List.getSlopValue())" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_simpleDrag2" keywords="[List, Sample]" description="demonstrates how to use SimulateMouseGesture with a dragXFrom etc">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollPolicyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="200" dragYFrom="200" dragXTo="100" dragYTo="100" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(100 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(100 - List.getSlopValue())" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_simpleDrag3" keywords="[List, Sample]" description="demonstrates how to use SimulateMouseGesture with a dragXFrom etc">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollPolicyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="50" dragYFrom="50" dragXTo="-100" dragYTo="-100" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=(150 - List.getSlopValue())" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=(150 - List.getSlopValue())" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_events_throw" keywords="[List, Integration]" description="check that TouchInteractionEvents fire on a throw, and relatedObject is the scroller">
+            <bugs>
+                <Bug bugID="SDK-27734" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.GreydientView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target">
+                    <fx:Object type="mouseMove" localX="212" localY="526" fakeTimeValue="11146" />
+                    <fx:Object type="rollOver" localX="212" localY="526" fakeTimeValue="11153" />
+                    <fx:Object type="mouseOver" localX="212" localY="526" fakeTimeValue="11155" />
+                    <fx:Object type="mouseDown" localX="212" localY="526" fakeTimeValue="11161" />
+                    <fx:Object type="mouseMove" localX="210" localY="514" fakeTimeValue="11176" />
+                    <fx:Object type="mouseMove" localX="210" localY="510" fakeTimeValue="11187" />
+                    <fx:Object type="mouseMove" localX="211" localY="499" fakeTimeValue="11255" />
+                    <fx:Object type="mouseMove" localX="217" localY="452" fakeTimeValue="11293" />
+                    <fx:Object type="mouseOut" localX="217" localY="452" fakeTimeValue="11294" />
+                    <fx:Object type="mouseOver" localX="217" localY="452" fakeTimeValue="11294" />
+                    <fx:Object type="mouseMove" localX="218" localY="443" fakeTimeValue="11346" />
+                    <fx:Object type="mouseOut" localX="218" localY="443" fakeTimeValue="11373" />
+                    <fx:Object type="mouseOver" localX="218" localY="443" fakeTimeValue="11374" />
+                    <fx:Object type="mouseMove" localX="230" localY="379" fakeTimeValue="11386" />
+                    <fx:Object type="mouseOut" localX="230" localY="379" fakeTimeValue="11429" />
+                    <fx:Object type="mouseOver" localX="230" localY="379" fakeTimeValue="11429" />
+                    <fx:Object type="mouseOut" localX="230" localY="379" fakeTimeValue="11434" />
+                    <fx:Object type="mouseOver" localX="230" localY="379" fakeTimeValue="11435" />
+                    <fx:Object type="mouseMove" localX="241" localY="312" fakeTimeValue="11445" />
+                    <fx:Object type="mouseOut" localX="241" localY="312" fakeTimeValue="11507" />
+                    <fx:Object type="mouseOver" localX="241" localY="312" fakeTimeValue="11507" />
+                    <fx:Object type="mouseOut" localX="241" localY="312" fakeTimeValue="11523" />
+                    <fx:Object type="mouseOver" localX="241" localY="312" fakeTimeValue="11524" />
+                    <fx:Object type="mouseMove" localX="258" localY="200" fakeTimeValue="11527" />
+                    <fx:Object type="mouseOut" localX="258" localY="200" fakeTimeValue="11597" />
+                    <fx:Object type="mouseOver" localX="258" localY="200" fakeTimeValue="11598" />
+                    <fx:Object type="mouseOut" localX="258" localY="200" fakeTimeValue="11603" />
+                    <fx:Object type="mouseOver" localX="258" localY="200" fakeTimeValue="11604" />
+                    <fx:Object type="mouseMove" localX="266" localY="163" fakeTimeValue="11609" />
+                    <fx:Object type="mouseOut" localX="266" localY="163" fakeTimeValue="11634" />
+                    <fx:Object type="mouseOver" localX="266" localY="163" fakeTimeValue="11635" />
+                    <fx:Object type="mouseOut" localX="266" localY="163" fakeTimeValue="11637" />
+                    <fx:Object type="mouseOver" localX="266" localY="163" fakeTimeValue="11638" />
+                    <fx:Object type="mouseUp" localX="266" localY="163" fakeTimeValue="11666" />
+                </SimulateMouseGesture>
+                
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionStarting" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionStart" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionEnd" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_constants" keywords="[List, Integration]" description="check the values of some touch related constants">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=InteractionMode.MOUSE" value="mouse" />
+                <AssertMethodValue method="value=InteractionMode.TOUCH" value="touch" />
+                <AssertMethodValue method="value=TouchInteractionReason.SCROLL" value="scroll" />
+                <AssertMethodValue method="value=TouchInteractionEvent.TOUCH_INTERACTION_STARTING" value="touchInteractionStarting" />
+                <AssertMethodValue method="value=TouchInteractionEvent.TOUCH_INTERACTION_START" value="touchInteractionStart" />
+                <AssertMethodValue method="value=TouchInteractionEvent.TOUCH_INTERACTION_END" value="touchInteractionEnd" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_touchDelay_default" keywords="[List, Integration]" description="check the default touchDelay values set globally to 0, but is set to 100 in Scroller">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.GreydientView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.getStyle('touchDelay')" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.getStyle('touchDelay')" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.scroller.getStyle('touchDelay')" value="100" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_changeContentSize" keywords="[List, Integration]" description="decreasing content size should reset to a proper scroll position (SDK-29281)">
+            <bugs>
+                <Bug bugID="SDK-29281" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ContentSizeChangeView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target.viewport" propertyName="verticalScrollPosition" value="100" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.target.viewport" propertyName="horizontalScrollPosition" value="100" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.rect" propertyName="width" value="100" />
+                <SetProperty target="navigator.activeView.rect" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="navigator.activeView.target" />
+                
+                <AssertPropertyValue target="navigator.activeView.target.viewport" propertyName="verticalScrollPosition" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.viewport" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_selectTwice" keywords="[List, Integration]" description="regression test for SDK-27011">
+            <bugs>
+                <Bug bugID="SDK-27011" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.GreydientView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <DispatchMouseClickEvent target="navigator.activeView.target.dataGroup.getElementAt(1)" />
+                <Pause timeout="1000" />
+                <DispatchMouseClickEvent target="navigator.activeView.target.dataGroup.getElementAt(2)" />
+                <Pause timeout="1000" />
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndex" value="2" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_interruptThrow_down" keywords="[List, Integration]" description="throw then quickly mouseDown should stop the throw from making it to its final destination">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="500" waitEvent="propertyChange" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="horizontalScrollPosition" value="500" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_down" waitEvent="simulationComplete" />
+                <DispatchMouseEvent target="navigator.activeView.target" type="mouseDown" />
+                <!-- this isn't a deterministic test, so we can only assert a range, not an exact value -->
+                <AssertMethodValue method="value=(application.navigator.activeView.viewport.verticalScrollPosition &lt; 1727)" value="true" />
+                <AssertMethodValue method="value=(application.navigator.activeView.viewport.horizontalScrollPosition &lt; 674)" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_interruptThrow_up" keywords="[List, Integration]" description="throw then quickly mouseDown should stop the throw from making it to its final destination">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.CommonTouchScrollingGroupBasicView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.viewport" propertyName="verticalScrollPosition" value="2200" waitEvent="propertyChange" />
+                <SimulateMouseGesture target="navigator.activeView.target" valueExpression="value=application.mouseSequences.throw_large_up" waitEvent="simulationComplete" />
+                <DispatchMouseEvent target="navigator.activeView.target" type="mouseDown" />
+                <!-- this isn't a deterministic test, so we can only assert a range, not an exact value -->
+                <AssertMethodValue method="value=(application.navigator.activeView.viewport.verticalScrollPosition &gt; 406)" value="true" />
+                <AssertMethodValue method="value=(application.navigator.activeView.viewport.horizontalScrollPosition &gt; 736)" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_rotation" keywords="[List, Integration]" description="just make sure setting 3D rotation doesn't crash">
+            <bugs>
+                <Bug bugID="SDK-28863" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.GreydientView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="rotationX" value="10" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="rotationY" value="10" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="rotationZ" value="10" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="rotationX" value="10" />
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="rotationY" value="10" />
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="rotationZ" value="10" />               
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_measure" keywords="[List, Integration]" description="make sure excess measures aren't happening">
+            <bugs>
+                <Bug bugID="SDK-27642" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.MeasureView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.navigator.activeView.getButtonSkinString()" value="measure|updateDisplayList|" />
+                <AssertMethodValue method="value=application.navigator.activeView.getVScrollBarSkinString()" value="measure|updateDisplayList|" />
+                <AssertMethodValue method="value=application.navigator.activeView.getIconItemRendererString()" value="measure -1|updateDisplayList -1|measure 0|updateDisplayList 0|" />
+            </body>
+        </TestCase>
+        
+        <!-- on-demand scrollbar creation -->
+        
+        <TestCase testID="List_Integration_scrollBarCreation_noScroll" keywords="[List, Integration]" description="make sure scrollbars aren't created on startup">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollBarCreationView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numVScrollBarsCreated" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numHScrollBarsCreated" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollBarCreation_hScrollPossible" keywords="[List, Integration]" description="make sure scrollbars aren't created on startup">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollBarCreationView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView" propertyName="currentState" value="horizontal" waitEvent="currentStateChange" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numVScrollBarsCreated" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numHScrollBarsCreated" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollBarCreation_vScrollPossible" keywords="[List, Integration]" description="make sure scrollbars aren't created on startup">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollBarCreationView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView" propertyName="currentState" value="vertical" waitEvent="currentStateChange" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numVScrollBarsCreated" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numHScrollBarsCreated" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollBarCreation_bothScrollPossible" keywords="[List, Integration]" description="make sure scrollbars aren't created on startup">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollBarCreationView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView" propertyName="currentState" value="both" waitEvent="currentStateChange" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numVScrollBarsCreated" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numHScrollBarsCreated" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollBarCreation_noScrollDrag" keywords="[List, Integration]" description="make sure scrollbars aren't created since nowhere to scroll">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollBarCreationView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.scroller" dragXFrom="100" dragXTo="50" dragYFrom="100" dragYTo="50" /> 
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numVScrollBarsCreated" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numHScrollBarsCreated" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollBarCreation_hScrollDrag" keywords="[List, Integration]" description="make sure only hscrollbar is created">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollBarCreationView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView" propertyName="currentState" value="horizontal" waitEvent="currentStateChange" />
+                <SimulateMouseGesture target="navigator.activeView.scroller" dragXFrom="100" dragXTo="50" dragYFrom="100" dragYTo="50" /> 
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numVScrollBarsCreated" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numHScrollBarsCreated" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollBarCreation_vScrollDrag" keywords="[List, Integration]" description="make sure only vscrollbar is created">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollBarCreationView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView" propertyName="currentState" value="vertical" waitEvent="currentStateChange" />
+                <SimulateMouseGesture target="navigator.activeView.scroller" dragXFrom="100" dragXTo="50" dragYFrom="100" dragYTo="50" /> 
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numVScrollBarsCreated" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numHScrollBarsCreated" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollBarCreation_bothScrollDragDiagonal" keywords="[List, Integration]" description="make sure both scrollbars are created">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollBarCreationView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView" propertyName="currentState" value="both" waitEvent="currentStateChange" />
+                <SimulateMouseGesture target="navigator.activeView.scroller" dragXFrom="100" dragXTo="50" dragYFrom="100" dragYTo="50" /> 
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numVScrollBarsCreated" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numHScrollBarsCreated" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollBarCreation_bothScrollDragHorizontal" keywords="[List, Integration]" description="make sure both scrollbars are created">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollBarCreationView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView" propertyName="currentState" value="both" waitEvent="currentStateChange" />
+                <SimulateMouseGesture target="navigator.activeView.scroller" dragXFrom="100" dragXTo="50" dragYFrom="100" dragYTo="100" /> 
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numVScrollBarsCreated" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numHScrollBarsCreated" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_scrollBarCreation_bothScrollDragVertical" keywords="[List, Integration]" description="make sure both scrollbars are created">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.ScrollBarCreationView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView" propertyName="currentState" value="both" waitEvent="currentStateChange" />
+                <SimulateMouseGesture target="navigator.activeView.scroller" dragXFrom="100" dragXTo="100" dragYFrom="100" dragYTo="50" /> 
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numVScrollBarsCreated" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.scroller.skin.numHScrollBarsCreated" value="1" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

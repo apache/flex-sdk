@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+	testDir="mobile/StageText/events/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns="*"    
+    testSWF="StageText.mxml" >
+
+    <fx:Script>
+    	<![CDATA[ 
+    		public static function init(o:DisplayObject):void 
+    		{ 
+    		} 
+    	]]>
+    </fx:Script>
+    <fx:Metadata>
+    	<![CDATA[ 
+    		[Mixin] 
+    	]]>
+    </fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+            import views.*;
+			import mx.core.FlexGlobals;
+        ]]>
+    </fx:Script>
+    
+    
+    <testCases>
+		<TestCase testID="StageText_Events_TextInput_focusIn_click" keywords="[StageText, Events, focusIn]" description="Test focusIn event from mouse click for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="navigator.activeView.myTI1" localX="5" localY="5" waitEvent="click"/>
+				<AssertEvent target="navigator.activeView.myTI1" eventName="focusIn" eventClass="flash.events::FocusEvent" numExpectedEvents="-1"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_Events_TextInput_focusOut_click" keywords="[StageText, Events, focusOut]" description="Test focusOut event for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="navigator.activeView.myTI1" localX="5" localY="5" waitEvent="click"/>
+				<DispatchMouseClickEvent target="navigator.activeView.myTI2" localX="5" localY="5" waitEvent="click"/>
+				<AssertEvent target="navigator.activeView.myTI1" eventName="focusOut" eventClass="flash.events::FocusEvent" numExpectedEvents="-1"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="StageText_Events_TextInput_appendText_change" keywords="[StageText, Events, focusIn]" description="Test change event for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>																
+				<AssertPropertyValue target="navigator.activeView.myTI1" propertyName="text" value="TextInput"/>	
+				<RunCode code="application.navigator.activeView.myTI1.appendText(' TI Hello World');" waitTarget="navigator.activeView.myTI1" waitEvent="updateComplete"/>
+				<AssertEvent target="navigator.activeView.myTI1" eventName="change" eventClass="spark.events::TextOperationEvent" numExpectedEvents="-1"/>
+				<AssertPropertyValue target="navigator.activeView.myTI1" propertyName="text" value="TextInput TI Hello World"/>											
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_Events_TextInput_insertText_change" keywords="[StageText, Events, focusIn]" description="Test change event for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>																
+				<AssertPropertyValue target="navigator.activeView.myTI1" propertyName="text" value="TextInput"/>	
+				<RunCode code="application.navigator.activeView.myTI1.insertText('TI Hello World ');" waitTarget="navigator.activeView.myTI1" waitEvent="updateComplete"/>
+				<AssertEvent target="navigator.activeView.myTI1" eventName="change" eventClass="spark.events::TextOperationEvent" numExpectedEvents="-1"/>
+				<AssertPropertyValue target="navigator.activeView.myTI1" propertyName="text" value="TI Hello World TextInput"/>											
+			</body>
+		</TestCase>	
+		<TestCase testID="StageText_Events_TextInput_softKeyboardActivate_click" keywords="[StageText, Events, softKeyboardActivate]" description="Test softKeyboardActivate event for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="navigator.activeView.myTI1" localX="5" localY="5" waitEvent="click"/>
+				<AssertEvent target="navigator.activeView.myTI1" eventName="softKeyboardActivate" eventClass="flash.events::SoftKeyboardEvent" numExpectedEvents="-1"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_Events_TextInput_softKeyboardActivating_click" keywords="[StageText, Events, softKeyboardActivating]" description="Test softKeyboardActivating event for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="navigator.activeView.myTI1" localX="5" localY="5" waitEvent="click"/>
+				<AssertEvent target="navigator.activeView.myTI1" eventName="softKeyboardActivating" eventClass="flash.events::SoftKeyboardEvent" numExpectedEvents="-1"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_Events_TextInput_softKeyboardDeactivate_click" keywords="[StageText, Events, softKeyboardDeactivate]" description="Test softKeyboardDeactivate event for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="navigator.activeView.myTI1" localX="5" localY="5" waitEvent="click"/>
+				<DispatchMouseClickEvent target="navigator.activeView.myBTN1" localX="5" localY="5" waitEvent="click"/>
+				<AssertEvent target="navigator.activeView.myTI1" eventName="softKeyboardDeactivate" eventClass="flash.events::SoftKeyboardEvent" numExpectedEvents="-1"/>
+			</body>
+		</TestCase>		
+		<!--TAB is not currently functioning with StageText.  The following tests will be commented out until TAB functionality works.		
+		<TestCase testID="StageText_Events_TextInput_focusIn_tab" keywords="[StageText, Events, focusIn]" description="Test focusIn event for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>												
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="navigator.activeView.myTI1"/>				
+				<AssertEvent target="navigator.activeView.myTI1" eventName="focusIn" eventClass="flash.events::FocusEvent" numExpectedEvents="-1"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_Events_TextInput_focusOut_tab" keywords="[StageText, Events, focusOut]" description="Test focusOut event for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>												
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="navigator.activeView.myTI1"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="navigator.activeView.myTI2"/>				
+				<AssertEvent target="navigator.activeView.myTI1" eventName="focusOut" eventClass="flash.events::FocusEvent" numExpectedEvents="-1"/>
+			</body>
+		</TestCase>			
+		<TestCase testID="StageText_Events_TextInput_softKeyboardActivate_tab" keywords="[StageText, Events, softKeyboardActivate]" description="Test softKeyboardActivate event for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>												
+				<DispatchKeyEvent keys="[TAB]" waitEvent="softKeyboardActivate" waitTarget="navigator.activeView.myTI1"/>				
+				<AssertEvent target="navigator.activeView.myTI1" eventName="softKeyboardActivate" eventClass="flash.events::SoftKeyboardEvent" numExpectedEvents="-1"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_Events_TextInput_softKeyboardActivating_tab" keywords="[StageText, Events, softKeyboardActivating]" description="Test softKeyboardActivating event for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>												
+				<DispatchKeyEvent keys="[TAB]" waitEvent="softKeyboardActivate" waitTarget="navigator.activeView.myTI1"/>				
+				<AssertEvent target="navigator.activeView.myTI1" eventName="softKeyboardActivating" eventClass="flash.events::SoftKeyboardEvent" numExpectedEvents="-1"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_Events_TextInput_softKeyboardDeactivate_tab" keywords="[StageText, Events, softKeyboardDeactivate]" description="Test softKeyboardDeactivate event for TextInput using StageText">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextInputTextArea)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />				
+			</setup>
+			<body>												
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="navigator.activeView.myTI1"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="navigator.activeView.myTI2"/>				
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="navigator.activeView.myBTN1"/>
+				<AssertEvent target="navigator.activeView.myTI1" eventName="softKeyboardDeactivate" eventClass="flash.events::FocusEvent" numExpectedEvents="-1"/>
+			</body>
+		</TestCase>		
+		-->
+		
+	</testCases>
+</UnitTester>

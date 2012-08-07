@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="ViewMenuItem" initialize="view1_initializeHandler(event)" >
+
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+
+			protected function view1_initializeHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				addEventListener("viewMenuOpen", listenerOpen);
+				addEventListener("viewMenuClose", listenerClose);
+			}
+			protected function listenerOpen(evt:Event):void
+			{
+				trace("viewMenuOpen");
+			}
+			protected function listenerClose(evt:Event):void
+			{
+				trace("viewMenuClose");
+			}
+		]]>
+	</fx:Script>
+
+
+	<s:states>
+		<s:State name="portrait"/>
+		<s:State name="landscape"/>
+		<s:State name="edit"/>
+	</s:states>
+	<s:viewMenuItems >
+		<s:ViewMenuItem id="i1" label="changeColor"  icon="@Embed('../menuIcons/addIcon.png')" click="btn.label='click1'"/>
+		<s:ViewMenuItem id="i2" label="edit" icon="@Embed('../menuIcons/cancelIcon.png')" click="btn.label='click2'" />
+		<s:ViewMenuItem id="i3" label="popView" icon="@Embed('../menuIcons/editIcon.png')" enabled.landscape="false" click="btn.label='click3'"/>
+		<s:ViewMenuItem id="i4" label="next view" icon="@Embed('../menuIcons/tagIcon.png')" color="#FF0000" click="btn.label='click4'"/>
+		<s:ViewMenuItem id="i5" label="visibility" icon="@Embed('../menuIcons/filterIcon.png')" click="btn.label='click5'" />
+		<s:ViewMenuItem id="i6" label="scaleY" icon="@Embed('../menuIcons/helpIcon.png')"  click="btn.label='click6'"/>
+	</s:viewMenuItems>
+
+	<s:Button id="btn" label="btn" width="100" height="70"/>
+
+</s:View>

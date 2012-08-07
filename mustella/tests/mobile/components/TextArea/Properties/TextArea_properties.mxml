@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/TextArea/Properties/"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:components="components.*"
+		xmlns="*" testSWF="TextArea1.mxml"
+    >
+	<!-- this set of lines form a template that must be in each unit test. -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+
+			import components.*;
+			import mx.core.FlexGlobals;
+			import spark.components.TextArea;
+			import spark.components.supportClasses.*;
+			import spark.skins.mobile.*;
+
+			public var someHTMLText:String = "<b>bold</b><br>break<br><font size='16' color='#ff0000'>small red</font><i>italic</i><br><p align='right'>paragraph</p><u>underline</u><br><textformat indent='10'>indented</textformat>";
+
+			public var longString:String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis nunc, ultrices nec molestie a, dictum sed lacus. Vestibulum adipiscing dolor sed libero aliquet consectetur.";
+
+			[Bindable]
+			private var reallyLongString:String = "One two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twenty-one twenty-two twenty-three twenty-four twenty-five twenty-six twenty-seven twenty-eight twenty-nine thirty thirty-one thirty-two thirty-three thirty-four thirty-five thirty-six thirty-seven thirty-eight thirty-nine forty forty-one forty-two forty-three forty-four forty-five forty-six forty-seven forty-eight forty-nine fifty fifty-one fifty-two fifty-three fifty-four fifty-five fifty-six fifty-seven fifty-eight fifty-nine sixty sixty-one sixty-two sixty-three sixty-four sixty-five sixty-six sixty-seven sixty-eight sixty-nine seventy seventy-one seventy-two seventy-three seventy-four seventy-five seventy-six seventy-seven seventy-eight seventy-nine eighty eighty-one eighty-two eighty-three eighty-four eighty-five eighty-six eighty-seven eighty-eight eighty-nine ninety ninety-one ninety-two ninety-three ninety-four ninety-five ninety-six ninety-seven ninety-eight ninety-nine one-hundred one-hundred-one one-hundred-two one-hundred-three one-hundred-four one-hundred-five one-hundred-six one-hundred-seven one-hundred-eight one-hundred-nine one-hundred-ten one-hundred-eleven one-hundred-twelve one-hundred-thirteen one-hundred-fourteen one-hundred-fifteen one-hundred-sixteen one-hundred-seventeen one-hundred-eighteen one-hundred-nineteen one-hundred-twenty.  Start Over.  One two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twenty-one twenty-two twenty-three twenty-four twenty-five twenty-six twenty-seven twenty-eight twenty-nine thirty thirty-one thirty-two thirty-three thirty-four thirty-five thirty-six thirty-seven thirty-eight thirty-nine.";
+
+		]]>
+	</fx:Script>
+
+
+	<fx:Declarations>
+
+	</fx:Declarations>
+
+	<testCases>
+
+		<TestCase testID="TextArea_clipping" keywords="[TextArea, clipping, SDK-29189]"
+		    description="Ensure that text does run past textarea boundaries.">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextAreaView4)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tac4" className="components.TextAreaComp4" waitEvent="updateComplete" />
+				<ResetComponent target="tac4.ta1" className="spark.components.TextArea" />
+			</setup>
+			<body>
+				<!-- need quick pause or else bitmap compare is called too soon and fails -->
+				<SetProperty target="tac4" propertyName="width" value="300" />
+				<SetProperty target="tac4" propertyName="height" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tac4.ta1" propertyName="text" value="{reallyLongString}" />
+				<SetProperty target="tac4.ta1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tac4.ta1" propertyName="percentHeight" value="30" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../Properties/baselines" target="tac4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<!-- prompt -->
+		<TestCase testID="TextArea_basic_prompt" keywords="[TextArea, prompt]"
+		    description="Ensure that basic prompt appears.">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextAreaView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tac1" className="components.TextAreaComp1" waitEvent="updateComplete" />
+			  <ResetComponent target="tac1.ta1" className="spark.components.TextArea" />
+			</setup>
+			<body>
+				<!-- need quick pause or else bitmap compare is called too soon and fails -->
+				<SetProperty target="tac1.ta1" propertyName="prompt" value="prompt" />
+				<Pause timeout="100" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../Properties/baselines" target="tac1.ta1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_prompt_disappears" keywords="[TextArea, prompt]"
+		    description="Ensure that prompt disappears after typing.">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextAreaView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tac1" className="components.TextAreaComp1" waitEvent="updateComplete" />
+			  	<ResetComponent target="tac1.ta1" className="spark.components.TextArea" />
+			</setup>
+			<body>
+				<SetProperty target="tac1.ta1" propertyName="prompt" value="prompt" />
+				<Pause timeout="100" />
+				<!--<DispatchMouseEvent  target="tac1.ta1" type="mouseDown" localX="15" localY="15" waitEvent="mouseDown" waitTarget="tac1.ta1" />
+				<DispatchMouseEvent  target="tac1.ta1" type="mouseUp" localX="15" localY="15" waitEvent="mouseUp" waitTarget="tac1.ta1" />
+				<DispatchKeyEvent char="abcDEF" waitTarget="tac1.ta1" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.tac1.ta2.setFocus()" waitTarget="tac1.ta2" waitEvent="focusIn" />-->
+				<SetProperty target="tac1.ta1" propertyName="text" value="abcDEF" />
+				<Pause timeout="100" />
+				<!--<RunCode code="application.stage.focus=null"/>-->
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../Properties/baselines" target="tac1.ta1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_prompt_returns_on_text_removal" keywords="[TextArea, prompt]"
+		    description="Ensure that prompt re-appears after deleting text and changing focus.">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextAreaView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tac1" className="components.TextAreaComp1" waitEvent="updateComplete" />
+
+			  <ResetComponent target="tac1.ta1" className="spark.components.TextArea" />
+			</setup>
+			<body>
+
+				<SetProperty target="tac1.ta1" propertyName="prompt" value="prompt" />
+
+				<Pause timeout="100" />
+		    <!--<DispatchMouseEvent  target="tac1.ta1" type="mouseDown" localX="15" localY="15" waitEvent="mouseDown" waitTarget="tac1.ta1" />
+		    <DispatchMouseEvent  target="tac1.ta1" type="mouseUp" localX="15" localY="15" waitEvent="mouseUp" waitTarget="tac1.ta1" />
+		    <DispatchKeyEvent char="a" waitTarget="tac1.ta1" waitEvent="updateComplete" />
+		    <AssertPropertyValue target="tac1.ta1" propertyName="text" value="a" />-->
+
+				<SetProperty target="tac1.ta1" propertyName="text" value="" />
+		   <!-- <DispatchMouseEvent  target="tac1.ta2" type="mouseDown" localX="15" localY="15" waitEvent="mouseDown" waitTarget="tac1.ta2" />
+		    <DispatchMouseEvent  target="tac1.ta2" type="mouseUp" localX="15" localY="15" waitEvent="mouseUp" waitTarget="tac1.ta2" />
+			<RunCode code="application.stage.focus=null"/>-->
+				<Pause timeout="100" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../Properties/baselines" target="tac1.ta1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+
+			</body>
+		</TestCase>
+
+		<!--****** baselinePosition ******-->
+		<TestCase testID="TextArea_baselinePosition_preValidation" keywords="[TextArea, baselinePosition]"
+		    description="Ensure that baselinePosition for TextArea is correct.">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextAreaView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tac1" className="components.TextAreaComp1" waitEvent="updateComplete" />
+			    <ResetComponent target="tac1.ta1" className="spark.components.TextArea" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="tac1.ta1" propertyName="baselinePosition">
+					<ConditionalValue deviceDensity="160" value="22.85" />
+					<ConditionalValue deviceDensity="240" value="33.25" />
+					<ConditionalValue deviceDensity="320" value="43.7" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="43.7"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_baselinePosition_postValidation" keywords="[TextArea, baselinePosition]"
+		    description="Ensure that baselinePosition for TextArea is correct.">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextAreaView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tac1" className="components.TextAreaComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="tac1.ta1" propertyName="baselinePosition">
+					<ConditionalValue deviceDensity="160" value="22.85" />
+					<ConditionalValue deviceDensity="240" value="33.25" />
+					<ConditionalValue deviceDensity="320" value="43.7" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="43.7"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+
+		<!--****** htmlText ******-->
+		<TestCase testID="TextArea_htmlText_basicTest" keywords="[TextArea, htmlText]"
+		    description="Just do a basic test of htmlText.">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextAreaView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tac1" className="components.TextAreaComp1" waitEvent="updateComplete" />
+				<SetProperty target="tac1.ta1" propertyName="width" value="300" />
+				<SetProperty target="tac1.ta1" propertyName="height" value="300" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tac1.ta1.skin.textDisplay.htmlText = someHTMLText" />
+				<Pause timeout="200" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../Properties/baselines" target="tac1.ta1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+	</testCases>
+
+
+</UnitTester>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		title="SingleLineSelection"
+		creationComplete="creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				this.currentState = "start";
+			}
+			
+			protected function startTest(event:FlexEvent):void
+			{
+				this.currentState = "step1";
+			}
+			
+			protected function step1ti(event:FlexEvent):void
+			{
+				var step1_ti_result:Object = new Object();
+				step1_ti_result.name = "Step1-TextInput";
+				step1_ti_result.result = 
+					step1_ti.selectionAnchorPosition < step1_ti.selectionActivePosition ? "pass" : 
+					"fail: anchor = " + step1_ti.selectionAnchorPosition + ", active = " + step1_ti.selectionActivePosition;
+				results.addItem(step1_ti_result);
+				
+				step1_ta.enabled = true;
+				step1_ta_con.enabled = true;
+				step1_ti.enabled = false;
+				step1_ti_con.enabled = false;
+			}
+			
+			protected function step1ta(event:FlexEvent):void
+			{
+				var step1_ta_result:Object = new Object();
+				step1_ta_result.name = "Step1-TextArea";
+				step1_ta_result.result = 
+					step1_ta.selectionAnchorPosition < step1_ta.selectionActivePosition ? "pass" : 
+					"fail: anchor = " + step1_ta.selectionAnchorPosition + ", active = " + step1_ta.selectionActivePosition;
+				results.addItem(step1_ta_result);
+				
+				this.currentState = "step2";
+			}
+			
+			protected function step2ti(event:FlexEvent):void
+			{
+				var step2_ti_result:Object = new Object();
+				step2_ti_result.name = "Step2-TextInput";
+				step2_ti_result.result = 
+					step2_ti.selectionAnchorPosition > step2_ti.selectionActivePosition ? "pass" : 
+					"fail: anchor = " + step2_ti.selectionAnchorPosition + ", active = " + step2_ti.selectionActivePosition;
+				results.addItem(step2_ti_result);
+				
+				step2_ta.enabled = true;
+				step2_ta_con.enabled = true;
+				step2_ti.enabled = false;
+				step2_ti_con.enabled = false;
+			}
+			
+			protected function step2ta(event:FlexEvent):void
+			{
+				var step2_ta_result:Object = new Object();
+				step2_ta_result.name = "Step2-TextArea";
+				step2_ta_result.result = 
+					step2_ta.selectionAnchorPosition > step2_ta.selectionActivePosition ? "pass" : 
+					"fail: anchor = " + step2_ta.selectionAnchorPosition + ", active = " + step2_ta.selectionActivePosition;
+				results.addItem(step2_ta_result);
+				
+				this.currentState = "results";
+			}
+			
+			/* Currently unsupported by StageText.
+			protected function step3ti(event:FlexEvent):void
+			{
+				var step3_ti_result:Object = new Object();
+				step3_ti_result.name = "Step3-TextInput";
+				step3_ti_result.result = 
+					step3_ti.selectionAnchorPosition == -1 && step3_ti.selectionActivePosition == -1 ? "pass" : 
+					"fail: anchor = " + step3_ti.selectionAnchorPosition + ", active = " + step3_ti.selectionActivePosition;
+				results.addItem(step3_ti_result);
+				
+				step3_ta.enabled = true;
+				step3_ta_con.enabled = true;
+				step3_ti.enabled = false;
+				step3_ti_con.enabled = false;
+			}
+			
+			protected function step3ta(event:FlexEvent):void
+			{
+				var step3_ta_result:Object = new Object();
+				step3_ta_result.name = "Step3-TextArea";
+				step3_ta_result.result = 
+					step3_ta.selectionAnchorPosition == -1 && step3_ta.selectionActivePosition == -1 ? "pass" : 
+					"fail: anchor = " + step3_ta.selectionAnchorPosition + ", active = " + step3_ta.selectionActivePosition;
+				results.addItem(step3_ta_result);
+				
+				this.currentState = "results";
+			}*/
+			
+		]]>
+	</fx:Script>
+	<s:navigationContent>
+		<s:Button label="Back" click="navigator.popView()" />
+	</s:navigationContent>
+	<s:states>
+		<s:State name="start"/>
+		<s:State name="step1"/>
+		<s:State name="step2"/>
+		<!--<s:State name="step3"/>-->
+		<s:State name="results"/>
+	</s:states>
+	<fx:Declarations>
+		<s:ArrayCollection id="results"/>
+	</fx:Declarations>
+	<s:Group width="100%" height="100%">
+		<s:VGroup includeIn="start" width="100%" height="100%">
+			<s:TextArea width="100%" height="100%" editable="false">
+				<s:text>This is the view for single line selection. Please follow the directions, results will be presented
+				at the end. Press continue when you're ready to start.</s:text>
+			</s:TextArea>
+			<s:Button label="Continue" buttonDown="startTest(event)"/>
+		</s:VGroup>
+		<s:VGroup includeIn="step1" width="100%" height="100%">
+			<s:TextArea width="100%" editable="false">
+				<s:text>Select text in the following two components from left to right. Press continue when you're done.</s:text>
+			</s:TextArea>
+			<s:HGroup width="100%">
+				<s:TextInput id="step1_ti" width="100%" text="Please select from left to right."/>
+				<s:Button id="step1_ti_con" label="Continue" buttonDown="step1ti(event)"/>
+			</s:HGroup>
+			<s:HGroup width="100%">
+				<s:TextArea id="step1_ta" width="100%" text="Please select from left to right." enabled="false"/>
+				<s:Button id="step1_ta_con" label="Continue" buttonDown="step1ta(event)" enabled="false"/>
+			</s:HGroup>
+		</s:VGroup>
+		<s:VGroup includeIn="step2" width="100%" height="100%">
+			<s:TextArea width="100%" editable="false">
+				<s:text>Select text in the following two components from right to left. Press continue when you're done.</s:text>
+			</s:TextArea>
+			<s:HGroup width="100%">
+				<s:TextInput id="step2_ti" width="100%" text="Please select from right to left."/>
+				<s:Button id="step2_ti_con" label="Continue" buttonDown="step2ti(event)"/>
+			</s:HGroup>
+			<s:HGroup width="100%">
+				<s:TextArea id="step2_ta" width="100%" text="Please select from right to left." enabled="false"/>
+				<s:Button id="step2_ta_con" label="Continue" buttonDown="step2ta(event)" enabled="false"/>
+			</s:HGroup>
+		</s:VGroup>
+<!--	Currently unsupported by StageText.
+		<s:VGroup includeIn="step3" width="100%" height="100%">
+			<s:TextArea width="100%" editable="false">
+				<s:text>Verify that you cannot select the text in the following fields. Press continue when you're done.</s:text>
+			</s:TextArea>
+			<s:HGroup width="100%">
+				<s:TextInput id="step3_ti" width="100%" text="You shouldn't be able to select this."/>
+				<s:Button id="step3_ti_con" label="Continue" buttonDown="step3ti(event)"/>
+			</s:HGroup>
+			<s:HGroup width="100%">
+				<s:TextArea id="step3_ta" width="100%" text="You shouldn't be able to select this." enabled="false"/>
+				<s:Button id="step3_ta_con" label="Continue" buttonDown="step3ta(event)" enabled="false"/>
+			</s:HGroup>
+		</s:VGroup>-->
+		<s:VGroup includeIn="results" width="100%" height="100%">
+			<s:DataGrid 
+				width="100%" height="100%" 
+				dataProvider="{results}">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn headerText="Name" dataField="name"/>
+						<s:GridColumn headerText="Result" dataField="result"/>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>
+		</s:VGroup>
+	</s:Group>
+</s:View>

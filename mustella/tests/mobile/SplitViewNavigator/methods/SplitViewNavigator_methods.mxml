@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/SplitViewNavigator/methods/"
+			testSWF="SplitViewNavigatorMain.mxml">
+
+	<fx:Script>
+		<![CDATA[ 
+		import mx.core.FlexGlobals;
+		import spark.components.ViewNavigator;	
+		import flash.geom.Point;
+		import comps.*;				
+			
+			
+		public static function init(o:DisplayObject):void { };
+	
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		
+		<TestCase testID="getViewNavigatorAt_multiple_navigators" keywords="[SplitViewNavigator, getViewNavigatorAt, numViewNavigators]" description="Verify ViewNavigator instances are accessible.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />					
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1" propertyName="numViewNavigators" value="2" />
+				<AssertMethodValue method="value=ViewNavigator(FlexGlobals.topLevelApplication.svn1.getViewNavigatorAt(0)).id" value="vn1" />
+				<AssertMethodValue method="value=ViewNavigator(FlexGlobals.topLevelApplication.svn1.getViewNavigatorAt(1)).id" value="vn2" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="getViewNavigatorAt_out_of_range" keywords="[SplitViewNavigator, getViewNavigatorAt, numViewNavigators]" description="Verify out of range index returns null.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />				
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1" propertyName="numViewNavigators" value="2" />
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.svn1.getViewNavigatorAt(2)" value="null" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="getViewNavigatorAt_one_navigator" keywords="[SplitViewNavigator, getViewNavigatorAt, numViewNavigators]" description="Verify only one ViewNavigator instance returned.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />				
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.removeElementAt(0);" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1" propertyName="numViewNavigators" value="1" />
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.svn1.getViewNavigatorAt(0) is ViewNavigator" value="true" />
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.svn1.getViewNavigatorAt(1)" valueExpression="null" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="getViewNavigatorAt_no_navigator" keywords="[SplitViewNavigator, getViewNavigatorAt, numViewNavigators]" description="Test the case when there is no ViewNavigator.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />				
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.removeAllElements();" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1" propertyName="numViewNavigators" value="0" />
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.svn1.getViewNavigatorAt(0)" valueExpression="null" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="getViewNavigatorAt_add_navigator" keywords="[SplitViewNavigator, getViewNavigatorAt, numViewNavigators]" description="Add a ViewNavigator at runtime.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.addElementAt(new ViewNavigator(), 0);" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1" propertyName="numViewNavigators" value="3" />
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.svn1.getViewNavigatorAt(0) is ViewNavigator" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="getViewNavigatorAt_change_navigator_order" keywords="[SplitViewNavigator, getViewNavigatorAt, numViewNavigators]" description="Reorder existing ViewNavigator.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />			
+				<RunCode code="FlexGlobals.topLevelApplication.reorderNavigators()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1" propertyName="numViewNavigators" value="2" />
+				<AssertMethodValue method="value=ViewNavigator(FlexGlobals.topLevelApplication.svn1.getViewNavigatorAt(0)).id=='vn2'" value="true" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="showFirstViewNavigatorInCallout_multiple_navigators" keywords="[SplitViewNavigator, showFirstViewNavigatorInCallout, viewNavigatorPopUp]" description="Open the first ViewNavigator in the callout when there are multiple ViewNavigators.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" waitTarget="svn1.viewNavigatorPopUp" waitEvent="open" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="true"/>
+				<!-- Pause for QNX where the callout bitmap taken too early. -->				
+				<Pause timeout="200" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../methods/baselines" target="svn1.viewNavigatorPopUp">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="showFirstViewNavigatorInCallout_one_navigator" keywords="[SplitViewNavigator, showFirstViewNavigatorInCallout, viewNavigatorPopUp]" description="Open the first ViewNavigator in the callout when there is only one ViewNavigator.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.removeElementAt(0)" waitTarget="svn1" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" waitTarget="svn1.viewNavigatorPopUp" waitEvent="open" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="true"/>
+				<!-- Need to wait before taking bitmap... Otherwise, bitmap is all black. -->
+				<Pause timeout="200" />
+				<CompareBitmap numColorVariances="50" ignoreMaxColorVariance="true" url="../methods/baselines" target="svn1.viewNavigatorPopUp">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="showFirstViewNavigatorInCallout_no_navigators" keywords="[SplitViewNavigator, showFirstViewNavigatorInCallout, viewNavigatorPopUp]" description="Try to opne where is no ViewNavigator.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.removeAllElements()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1" propertyName="numViewNavigators" value="0" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="false"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="first_viewnavigator_toggle_visible" keywords="[SplitViewNavigator, showFirstViewNavigatorInCallout, viewNavigatorPopUp]" description="Toggle visible property of the first ViewNavigator while it's in the callout.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="ViewNavigator(FlexGlobals.topLevelApplication.svn1.getViewNavigatorAt(0)).visible=false" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" waitTarget="svn1.viewNavigatorPopUp" waitEvent="open" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+				<RunCode code="ViewNavigator(FlexGlobals.topLevelApplication.svn1.getViewNavigatorAt(0)).visible=true" />
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Open_callout_when_already_open" keywords="[SplitViewNavigator, showFirstViewNavigatorInCallout, viewNavigatorPopUp]" description="Try to open the callout when it's already opened.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="trace(FlexGlobals.topLevelApplication.svn1)"/>
+				<RunCode code="trace(FlexGlobals.topLevelApplication.svn1.numViewNavigators)"/>
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication.svn1)" waitTarget="svn1.viewNavigatorPopUp" waitEvent="open" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Remove_1stVN_while_open_in_callout" keywords="[SplitViewNavigator, showFirstViewNavigatorInCallout, viewNavigatorPopUp]" description="Try to remove the first ViewNavigator while it's opened in the callout.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" waitTarget="svn1.viewNavigatorPopUp" waitEvent="open" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.viewNavigatorPopUp.contentGroup.removeElementAt(0)" />
+				<!-- Callout itself is still visible -->
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+			</body>
+		</TestCase>		
+	 
+		
+		<TestCase testID="Click_outside_of_callout" keywords="[SplitViewNavigator, showFirstViewNavigatorInCallout, viewNavigatorPopUp]" description="Verify the callout closes by clicking outside.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" waitTarget="svn1.viewNavigatorPopUp" waitEvent="open" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+				<!--<RunCode code="FlexGlobals.topLevelApplication.dispatchEvent(new MouseEvent(MouseEvent.CLICK, true, false,FlexGlobals.topLevelApplication.currentCalloutPosition.x-10, FlexGlobals.topLevelApplication.currentCalloutPosition.y-10, null, false, false, false, false,0,false,false,1));"/>-->
+				<DispatchMouseClickEvent target="svn1" stageX="10" stageY="10" waitTarget="svn1.viewNavigatorPopUp" waitEvent="close"/>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="false" />
+			</body>
+		</TestCase>		
+
+		<TestCase testID="hideViewNavigatorCallout_callout_not_open" keywords="[SplitViewNavigator, hideViewNavigatorCallout]" description="Verify the method does nothing when the callout is not opened.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="false" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.hideViewNavigatorPopUp();"/>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="false" />
+			</body>
+		</TestCase>			
+	
+		<TestCase testID="hideViewNavigatorCallout_callout_open" keywords="[SplitViewNavigator, hideViewNavigatorCallout]" description="Verify the method closes the callout when it's opened.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" waitTarget="svn1.viewNavigatorPopUp" waitEvent="open" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.hideViewNavigatorPopUp();"  waitTarget="svn1.viewNavigatorPopUp" waitEvent="close"/>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="false" />
+			</body>
+		</TestCase>			
+	
+		<TestCase testID="hideViewNavigatorCallout_no_navigators" keywords="[SplitViewNavigator, hideViewNavigatorCallout]" description="Verify the method does nothing when there is no ViewNavigator.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.removeAllElements()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1" propertyName="numViewNavigators" value="0" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.hideViewNavigatorPopUp();"/>
+				<AssertPropertyValue target="svn1.viewNavigatorPopUp" propertyName="isOpen" value="false" />
+			</body>
+		</TestCase>			
+		
+	</testCases>
+</UnitTester>

@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/TextArea/Styles/"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:m="http://ns.adobe.com/mxml/2009"
+		xmlns="*" testSWF="TextArea2.mxml"
+    >
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+            import spark.components.TextArea;
+
+		]]>
+	</fx:Script>
+
+	<testCases>
+		
+		<!-- color -->
+		<TestCase testID="TextArea_color_test1" keywords="[TextArea, color]" description="Ensure that color works in mxml.">
+			<setup>
+				 
+				
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="TextArea_color_test2" keywords="[TextArea, color]" description="Ensure that color works in AS.">
+			<setup>
+				 
+				
+			</setup>
+			<body>
+				<SetStyle target="grp2.ta2" styleName="color" value="0xff0000" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="TextArea_color_test3" keywords="[TextArea, color]" description="Ensure that color works in CSS.">
+			<setup>
+				
+				
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp3">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_color_test4" keywords="[TextArea, color]" description="Ensure that color works in disabled control.">
+			<setup>
+				<ResetComponent target="grp2" className="components.Group2" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp2.ta2" styleName="color" value="0xff0000"/>
+				<SetProperty target="grp2.ta2"  propertyName="enabled" value="false" waitEvent="updateComplete"  />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="TextArea_color_test5" keywords="[TextArea, color, inheritance]" description="Test inheritance.">
+			<setup>
+				<ResetComponent target="grp2" className="components.Group2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="grp2" styleName="color" value="0xff0000" waitEvent="updateComplete"  />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		
+		</TestCase>
+
+
+
+		<!-- focusColor.  Don't do screen shots because the blinking cursor gets in the way.  Grab a pixel at the corner.  The control is at 10,10 in the group. -->
+		<TestCase testID="TextArea_focusColor_test1" keywords="[TextArea, focusColor]" description="Ensure that focusColor works in mxml.">
+			<setup>
+				<ResetComponent target="grp1" className="components.Group1" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.grp1.ta1.focusManager.setFocus(FlexGlobals.topLevelApplication.grp1.ta1)" waitTarget="grp1.ta1" waitEvent="focusIn" />
+				<Pause timeout="200" />
+				<AssertPixelValue target="grp1" x="10" y="10" >
+					<ConditionalValue deviceDensity="160" value="0xB0FFB0" />
+					<ConditionalValue deviceDensity="240" value="0x99FF99"  />
+					<ConditionalValue deviceDensity="320" value="0xF7FFF7" />
+				</AssertPixelValue>
+			</body>
+		
+		</TestCase>
+
+		<TestCase testID="TextArea_focusColor_test2" keywords="[TextArea, focusColor]" description="Ensure that focusColor works in AS.">
+			<setup>
+				<ResetComponent target="grp2" className="components.Group2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="grp2.ta2" styleName="focusColor" value="0x00ff00" />
+				<RunCode code="FlexGlobals.topLevelApplication.grp2.ta2.focusManager.setFocus(FlexGlobals.topLevelApplication.grp2.ta2)" waitTarget="grp2.ta2" waitEvent="focusIn" />				
+				<Pause timeout="200" />
+				<AssertPixelValue target="grp2" x="10" y="10" >
+					<ConditionalValue deviceDensity="160" value="0xB0FFB0" />
+					<ConditionalValue deviceDensity="240" value="0x99FF99"  />
+					<ConditionalValue deviceDensity="320" value="0xF7FFF7" />
+				</AssertPixelValue>
+			</body>
+		
+		</TestCase>
+
+		<TestCase testID="TextArea_focusColor_test3" keywords="[TextArea, focusColor]" description="Ensure that focusColor works in CSS.">
+			<setup>
+				<ResetComponent target="grp3" className="components.Group3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.grp3.ta3.focusManager.setFocus(FlexGlobals.topLevelApplication.grp3.ta3)" waitTarget="grp3.ta3" waitEvent="focusIn" />				
+				<Pause timeout="200" />
+				<AssertPixelValue target="grp3" x="10" y="10" >
+					<ConditionalValue deviceDensity="160" value="0xB0FFB0" />
+					<ConditionalValue deviceDensity="240" value="0x99FF99"  />
+					<ConditionalValue deviceDensity="320" value="0xF7FFF7" />
+				</AssertPixelValue>
+			</body>
+			
+		</TestCase>
+
+
+
+		<!-- contentBackgroundColor -->
+		<TestCase testID="TextArea_contentBackgroundColor_test1" keywords="[TextArea, contentBackgroundColor]" description="Ensure that contentBackgroundColor works in mxml.">
+			<setup>
+				<ResetComponent target="grp1" className="components.Group1" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+			    <CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp1">
+						<ConditionalValue deviceDensity="160" />
+						<ConditionalValue deviceDensity="240"  />
+						<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+					</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_contentBackgroundColor_test2" keywords="[TextArea, contentBackgroundColor]" description="Ensure that contentBackgroundColor works in AS.">
+			<setup>
+				<ResetComponent target="grp2" className="components.Group2" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp2.ta2" styleName="contentBackgroundColor" value="0x0000ff" waitEvent="updateComplete" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp2">
+						<ConditionalValue deviceDensity="160" />
+						<ConditionalValue deviceDensity="240"  />
+						<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+					</CompareBitmap>
+			</body>
+		
+		</TestCase>
+
+		<TestCase testID="TextArea_contentBackgroundColor_test3" keywords="[TextArea, contentBackgroundColor]" description="Ensure that contentBackgroundColor works in CSS.">
+			<setup>
+				<ResetComponent target="grp3" className="components.Group3" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp3">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_contentBackgroundColor_test4" keywords="[TextArea, contentBackgroundColor]" description="Ensure that contentBackgroundColor works in a disabled field.">
+			<setup>
+				<ResetComponent target="grp2" className="components.Group2" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetProperty target="grp2.ta2"  propertyName="enabled" value="false" />
+				<SetStyle target="grp2.ta2" styleName="contentBackgroundColor" value="0x0000ff" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+	
+		</TestCase>
+
+
+
+		<!-- textAlign: left, right, center, justify, start, end -->
+		<TestCase testID="TextArea_textAlign_test1" keywords="[TextArea, textAlign]" description="textAlign left">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textAlign" value="left" />
+				<SetProperty target="grp4.ta4" propertyName="height" value="300" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="TextArea_textAlign_test2" keywords="[TextArea, textAlign]" description="textAlign center">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textAlign" value="center" />
+				<SetProperty target="grp4.ta4" propertyName="height" value="300" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="TextArea_textAlign_test3" keywords="[TextArea, textAlign]" description="textAlign right">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textAlign" value="right" />
+				<SetProperty target="grp4.ta4" propertyName="height" value="300" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_textAlign_test4" keywords="[TextArea, textAlign]" description="textAlign justify">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textAlign" value="justify" />
+				<SetProperty target="grp4.ta4" propertyName="height" value="300" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_textAlign_test5" keywords="[TextArea, textAlign]" description="textAlign start">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textAlign" value="start" />
+				<SetProperty target="grp4.ta4" propertyName="height" value="300" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_textAlign_test6" keywords="[TextArea, textAlign]" description="textAlign end">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textAlign" value="end" />
+				<SetProperty target="grp4.ta4" propertyName="height" value="300" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- fontWeight -->
+		<TestCase testID="TextArea_fontWeight_test1" keywords="[TextArea, fontWeight]" description="fontWeight normal">
+			<setup>
+				<ResetComponent target="grp2" className="components.Group2" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp2.ta2" styleName="fontWeight" value="normal" />
+				<SetProperty target="grp2.ta2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_fontWeight_test2" keywords="[TextArea, fontWeight]" description="fontWeight bold">
+			<setup>
+				<ResetComponent target="grp2" className="components.Group2" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp2.ta2" styleName="fontWeight" value="bold" />
+				<SetProperty target="grp2.ta2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- fontSize -->
+		<TestCase testID="TextArea_fontSize_test1" keywords="[TextArea, fontSize]" description="fontSize 1">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="fontSize" value="1" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_fontSize_test2" keywords="[TextArea, fontSize]" description="fontSize 12">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="fontSize" value="12" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_fontSize_test3" keywords="[TextArea, fontSize]" description="fontSize 48">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="fontSize" value="48" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_fontSize_test4" keywords="[TextArea, fontSize]" description="fontSize decrease">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="fontSize" value="48" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<SetStyle target="grp4.ta4" styleName="fontSize" value="12" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- textDecoration -->
+		<TestCase testID="TextArea_textDecoration_test1" keywords="[TextArea, textDecoration]" description="textDecoration normal">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textDecoration" value="normal" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_textDecoration_test2" keywords="[TextArea, textDecoration]" description="textDecoration underline">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textDecoration" value="underline" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- textIndent -->
+		<TestCase testID="TextArea_textIndent_test1" keywords="[TextArea, textIndent]" description="textIndent -10">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textIndent" value="-10" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_textIndent_test2" keywords="[TextArea, textIndent]" description="textIndent 0">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textIndent" value="0" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_textIndent_test3" keywords="[TextArea, textIndent]" description="textIndent 10">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textIndent" value="10" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_textIndent_test4" keywords="[TextArea, textIndent]" description="textIndent 50">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="textIndent" value="50" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- leading -->
+		<TestCase testID="TextArea_leading_test1" keywords="[TextArea, leading]" description="leading -10">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="leading" value="-10" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_leading_test2" keywords="[TextArea, leading]" description="leading 0">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="leading" value="0" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_leading_test3" keywords="[TextArea, leading]" description="leading 20">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="leading" value="20" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- letterSpacing -->
+		<TestCase testID="TextArea_letterSpacing_test1" keywords="[TextArea, letterSpacing]" description="letterSpacing -10">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="letterSpacing" value="-10" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_letterSpacing_test2" keywords="[TextArea, letterSpacing]" description="letterSpacing 0">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="letterSpacing" value="0" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextArea_letterSpacing_test3" keywords="[TextArea, letterSpacing]" description="letterSpacing 20">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetStyle target="grp4.ta4" styleName="letterSpacing" value="20" />
+				<SetProperty target="grp4.ta4" propertyName="height" value="100" />
+				<SetProperty target="grp4.ta4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- fontFamily -->
+		<TestCase testID="TextArea_fontFamily_test1" keywords="[TextArea, fontFamily]" description="fontFamily changed">
+			<setup>
+				<ResetComponent target="grp4" className="components.Group4" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<SetProperty target="grp4.ta4" propertyName="text" value="I0J" waitEvent="updateComplete" />
+				<SetStyle target="grp4.ta4" styleName="fontFamily" value="myVeraMonospaceNoCFF" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240"  />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- Can't do this until we have scrolling. -->
+		<!-- symbolColor -->
+
+	</testCases>
+</UnitTester>

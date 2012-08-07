@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 width="400" height="300" chromeColor="#000000" xmlns:components="comps.*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			public var labelTxt:String = "kdhf"
+			
+		
+			
+		]]>
+	</fx:Script>
+	
+	<components:myGroup width="{this.width}" labelTxt="1"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="2"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="3"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="4"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="5"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="6"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="7"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="8"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="9"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="10"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="11"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="12"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="13"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="14"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="15"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="16"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="17"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="18"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="19"> </components:myGroup>
+	<components:myGroup width="{this.width}" labelTxt="20"> </components:myGroup>
+</s:VGroup>
+
+
+

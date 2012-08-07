@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns="*" 
+	testDir="mobile/SkinnablePopupContainerSK/integration/"
+	testSWF="SkinnablePopUpContainerSKEffects.mxml">
+	
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[ 
+			import views.*;
+			import mx.events.TouchInteractionReason;
+			import mx.events.TouchInteractionEvent;
+			import mx.core.InteractionMode;
+			import spark.components.Scroller;
+			import spark.layouts.VerticalLayout;
+			import spark.layouts.HorizontalLayout;
+			import mx.core.FlexGlobals;
+			import spark.components.DataGroup;
+			
+		]]>
+	</fx:Script>
+	
+	<testCases>
+		<TestCase testID="SPUC_skEffects_resizeforsoftkeyboard_default_calloutbutton" keywords="[SPUC Callout SK]" description="verifies initial SK pops up and resizes the SPUC correctly">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<Pause timeout="3000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.CalloutButton)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<RunCode code="application.navigator.activeView.calloutButton_ForResize.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButton_ForResize"
+						 waitEvent="open" timeout="6000"/>
+				<!-- verify Callout is shown -->
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_ForResize.isDropDownOpen" value="true"/>
+				<Pause timeout="1000" />
+				<AssertPropertyValue target="navigator.activeView.calloutButton_ForResize.callout" propertyName="resizeForSoftKeyboard" value="true" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="SPUC_skEffects_moveforsoftkeyboard_default_calloutbuttonup" keywords="[SPUC Callout SK]" description="verifies default for callout with up arrow is false for move">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<Pause timeout="3000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.CalloutButton)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<RunCode code="application.navigator.activeView.calloutButton_ForResize.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButton_ForResize"
+						 waitEvent="open" timeout="6000"/>
+				<!-- verify Callout is shown -->
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_ForResize.isDropDownOpen" value="true"/>
+				<Pause timeout="1000" />
+				<AssertPropertyValue target="navigator.activeView.calloutButton_ForResize.callout"  propertyName="moveForSoftKeyboard" value="false" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="SPUC_skEffects_resizeforsoftkeyboard_setter_calloutbutton" keywords="[SPUC Callout SK]" description="verifies initial SK pops up and resizes the SPUC correctly">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<Pause timeout="3000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.CalloutButton)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<RunCode code="application.navigator.activeView.calloutButton_ForResize.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButton_ForResize"
+						 waitEvent="open" timeout="6000"/>
+				<!-- verify Callout is shown -->
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_ForResize.isDropDownOpen" value="true"/>
+				<Pause timeout="1000" />
+				<SetProperty target="navigator.activeView.calloutButton_ForResize.callout" propertyName="resizeForSoftKeyboard" value="false" />
+				<AssertPropertyValue target="navigator.activeView.calloutButton_ForResize.callout" propertyName="resizeForSoftKeyboard" value="false" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="SPUC_skEffects_moveforsoftkeyboard_setter_calloutbutton" keywords="[SPUC Callout SK]" description="verifies initial SK pops up and resizes the SPUC correctly">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<Pause timeout="3000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.CalloutButton)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<RunCode code="application.navigator.activeView.calloutButton_ForResize.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButton_ForResize"
+						 waitEvent="open" timeout="6000"/>
+				<!-- verify Callout is shown -->
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_ForResize.isDropDownOpen" value="true"/>
+				<Pause timeout="1000" />
+				<SetProperty target="navigator.activeView.calloutButton_ForResize.callout" propertyName="moveForSoftKeyboard" value="false" />
+				<AssertPropertyValue target="navigator.activeView.calloutButton_ForResize.callout" propertyName="moveForSoftKeyboard" value="false" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="SPUC_skEffects_softKeyboardEffectDuration_default_callout" keywords="[SPUC Callout SK]" description="verifies default for style property">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<Pause timeout="3000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.CalloutButton)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<RunCode code="application.navigator.activeView.calloutButton_ForResize.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButton_ForResize"
+						 waitEvent="open" timeout="6000"/>
+				<!-- verify Callout is shown -->
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_ForResize.isDropDownOpen" value="true"/>
+				<Pause timeout="1000" />
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_ForResize.callout.getStyle('softKeyboardEffectDuration')" value="150"/> 
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="SPUC_skEffects_setter_softKeyboardEffectDuration_default_callout" keywords="[SPUC Callout SK]" description="verifies setting the style for duration works">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<Pause timeout="3000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.CalloutButton)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<RunCode code="application.navigator.activeView.calloutButton_ForResize.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButton_ForResize"
+						 waitEvent="open" timeout="6000"/>
+				<!-- verify Callout is shown -->
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_ForResize.isDropDownOpen" value="true"/>
+				<Pause timeout="1000" />
+				<RunCode code="application.navigator.activeView.calloutButton_ForResize.callout.setStyle('softKeyboardEffectDuration', 250)"/>
+				<Pause timeout="200"/>
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_ForResize.callout.getStyle('softKeyboardEffectDuration')" value="250"/> 
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="SPUC_skEffects_initialresize_calloutbutton" keywords="[SPUC Callout SK]" description="verifies initial SK pops up and resizes the SPUC correctly">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<Pause timeout="3000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.CalloutButton)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<RunCode code="application.navigator.activeView.calloutButton_ForResize.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButton_ForResize"
+						 waitEvent="open" timeout="6000"/>
+				<!-- verify Callout is shown -->
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_ForResize.isDropDownOpen" value="true"/>
+				<Pause timeout="1000" />
+				<DispatchMouseClickEvent target="navigator.activeView.textinput_ForResize" localX="20" localY="20" waitEvent="softKeyboardActivate" timeout="6000"/>
+				<!-- callout did show up -->
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_ForResize.isDropDownOpen" value="true"/>
+				<!-- keyboard did come up -->
+				<Pause timeout="1000"/>
+				<AssertMethodValue method="value=application.stage.softKeyboardRect.top&gt;0" value="true"/>
+				<!-- validate resizing -->
+				<Pause timeout="500" />
+				<AssertMethodValue method="value=(application.navigator.activeView.calloutButton_ForResize.callout.height+application.navigator.activeView.calloutButton_ForResize.callout.y)&lt;=application.stage.softKeyboardRect.top" 
+								   valueExpression="value=true"/>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="SPUC_skEffects_initialNoresize_calloutbutton" keywords="[SPUC Callout SK]" description="verifies initial SK pops up and resizes the SPUC correctly">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<Pause timeout="3000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.CalloutButton)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<RunCode code="application.navigator.activeView.calloutButton_GreaterMinHeight.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButton_GreaterMinHeight"
+						 waitEvent="open" timeout="6000"/>
+				<Pause timeout="2000" />
+				<SimulateMouseGesture target="navigator.activeView.textInput_NoResize" dragXFrom="10%" dragXTo="11%" dragYFrom="50%" dragYTo="50%" waitTarget="navigator.activeView.textInput_NoResize" waitEvent="softKeyboardActivate" timeout="6000"/>
+				<!-- verify Callout is open -->
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButton_GreaterMinHeight.isDropDownOpen" value="true"/>
+				<!-- keyboard did come up -->
+				<Pause timeout="1000" />
+				<AssertMethodValue method="value=application.stage.softKeyboardRect.top&gt;0" value="true"/>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+			</body>
+		</TestCase>	
+		
+	</testCases>
+</UnitTester>

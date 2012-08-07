@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" title="Write Review">
+    
+	<fx:Script>
+		<![CDATA[
+			
+		]]>
+	</fx:Script>
+    <s:navigationContent>
+        <s:Button label="Back" click="navigator.popView()" />
+    </s:navigationContent>
+  
+    <s:actionContent>
+		<s:Button label="Next" click="navigator.pushView(EmailView)" />
+		<s:Button label="Home" click="navigator.pushView(HomeView)"/>
+    </s:actionContent>
+    
+	<s:layout>
+		<s:VerticalLayout paddingLeft="15" paddingTop="15" paddingRight="15" paddingBottom="15" gap="10" />
+	</s:layout>
+	
+	<s:Label text="Write a review for Gallo Giro Taco Truck:" />
+    <s:TextArea width="100%" height="100%">
+		<s:text><![CDATA[One day. Four taco trucks/stands. I don't know why. Maybe this fantastic city/neighborhood provide the opportunity to go to four different taco trucks/stands within a few blocks. Or maybe because I wanted an adventure. Wouldn't be the first time.
+
+The plan:
+
+Chicken taco at each location. See what customizing can be done. Sample a bit of each. Rank 'em. Save the rest and mix everything together for a massive burrito for dinner. Give away some as a replate. Post same yelp for all four to give context.
+
+The verdict:
+
+1. Tonayense. Average cost at $1.75. Way above average flavor. Black beans were a huge bonus, loved the mild green sauce and oil was minimal. This was easily my favorite.
+
+2. Mexicali. Second cheapest at $1.50. Tasty. Bonus points for having a bell you ring to get their attention, as well as giving me the opportunity to use a little spanish from 8th grade/Taco Bell to ask for lechuga (lettuce). The friendly lady obliged. More good stuff with the guy who wanted to pay with an ATM card. Didn't work. The lady working and me chipped in to cover his taco. I hope that karma pays off.
+
+3. Gallo Giro. Incredibly cheap at $1.25. Bit on the spicy side. Oil content seemed standard.
+
+4. Cachanilla. Most expensive at $2.00. Tasty. Made in the same building but different prep area than Mexicali. I give them credit for being up front saying if I order at the window (Mexicali) it's $1.50, and inside it's $2.00. I paid an extra $0.50 just for the experience.
+			]]>
+		</s:text>
+    </s:TextArea>
+</s:View>

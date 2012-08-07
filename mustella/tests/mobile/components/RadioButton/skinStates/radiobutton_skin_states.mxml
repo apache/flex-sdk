@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/RadioButton/skinStates/"
+    testSWF="MobileRadioButtonMain.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <testCases>
+
+
+<TestCase testID="Mobile_RadioButton_skinState_up" keywords="[Mobile, RadioButton, skinState]" description="Test skin when in normal state">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Test skinState" waitEvent="contentChange" waitTarget="styleComp.rb1" />
+	</setup>
+	<body>
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_up_and_selected" keywords="[Mobile, RadioButton, skinState]" description="Test skin when in normal selected state">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_skinState_down" keywords="[Mobile, RadioButton, skinState]" description="Test skin when pressed and unselected">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="styleComp.rb1" type="rollOver" localX="22" localY="11" waitEvent="rollOver" />	
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseMove" localX="23" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseMove" localX="23" localY="16" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseDown" localX="24" localY="19" waitEvent="mouseDown" buttonDown="true" />
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseUp" localX="24" localY="19" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_down_and_selected" keywords="[Mobile, RadioButton, skinState]" description="Test skin when pressed and selected">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="styleComp.rb1" type="rollOver" localX="22" localY="11" waitEvent="rollOver" waitTarget="styleComp.rb1"  />	
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseMove" localX="23" localY="14" waitEvent="mouseMove" waitTarget="styleComp.rb1"  />
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseDown" localX="23" localY="16" waitEvent="mouseDown" buttonDown="true" waitTarget="styleComp.rb1" />
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseUp" localX="23" localY="16" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<!-- RadioButton with custom chromeColor skin states tests -->
+
+<TestCase testID="Mobile_RadioButton_chromeColor_skinState_up" keywords="[Mobile, RadioButton, skinState]" description="Test skin when in normal state">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Test skinState" waitEvent="contentChange" waitTarget="styleComp.rb1" />
+		<SetStyle target="styleComp.rb1" styleName="chromeColor" value="#65B8DF" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_chromeColor_up_and_selected" keywords="[Mobile, RadioButton, skinState]" description="Test skin when in normal selected state">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.rb1" styleName="chromeColor" value="#65B8DF" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_chromeColor_skinState_down" keywords="[Mobile, RadioButton, skinState]" description="Test skin when pressed and unselected">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetStyle target="styleComp.rb1" styleName="chromeColor" value="#65B8DF" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="styleComp.rb1" type="rollOver" localX="22" localY="11" waitEvent="rollOver" />	
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseMove" localX="23" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseMove" localX="23" localY="16" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseDown" localX="24" localY="19" waitEvent="mouseDown"/>
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseUp" localX="24" localY="19" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_RadioButton_chromeColor_down_and_selected" keywords="[Mobile, RadioButton, skinState]" description="Test skin when pressed and selected">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.rb1" styleName="chromeColor" value="#65B8DF" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="styleComp.rb1" type="rollOver" localX="22" localY="11" waitEvent="rollOver" waitTarget="styleComp.rb1"  />	
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseMove" localX="23" localY="14" waitEvent="mouseMove" waitTarget="styleComp.rb1"  />
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseDown" localX="23" localY="16" waitEvent="mouseDown" buttonDown="true" waitTarget="styleComp.rb1" />
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseUp" localX="23" localY="16" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+ 
+<TestCase testID="Mobile_RadioButton_chromeColor_symbolColor_down_and_selected" keywords="[Mobile, RadioButton, skinState]" description="Test skin when pressed and selected">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.rb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetProperty target="styleComp.rb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.rb1" styleName="chromeColor" value="#65B8DF" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.rb1" styleName="symbolColor" value="#942323" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="styleComp.rb1" type="rollOver" localX="22" localY="11" waitEvent="rollOver" waitTarget="styleComp.rb1"  />	
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseMove" localX="23" localY="14" waitEvent="mouseMove" waitTarget="styleComp.rb1"  />
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseDown" localX="23" localY="16" waitEvent="mouseDown" buttonDown="true" waitTarget="styleComp.rb1" />
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.rb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="styleComp.rb1" type="mouseUp" localX="23" localY="16" waitEvent="mouseUp" />
+	</body>
+</TestCase> 
+
+    </testCases>
+</UnitTester>

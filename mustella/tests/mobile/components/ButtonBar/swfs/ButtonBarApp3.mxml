@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+             xmlns:custom="Assets.*"
+	         width="800" height="600" >
+
+<fx:Script>
+<![CDATA[
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+/*
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans_Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+        fontFamily: EmbeddedArial;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedArial;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedArial;
+        embedAsCFF: true;
+    }
+
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+		fontFamily: EmbeddedArno;
+		embedAsCFF: true;
+	}
+*/	
+
+    global{
+        kerning: "off";
+    }
+        
+/*    s|ButtonBar{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|ToggleButton{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    .fontFamily1{
+        fontFamily: EmbeddedArial;
+    }
+
+    .fontFamily2{
+        fontFamily: EmbeddedVerdana;
+    }
+*/    
+
+    .fontSize1{
+        fontSize: 8;
+    }
+
+    .fontSize2{
+        fontSize: 24;
+    }
+
+    .fontWeight1{
+        fontWeight: bold;
+    }
+
+    .fontWeight2{
+        fontWeight: normal;
+    }
+
+    .color1{
+        color: #ff0000;
+    }
+    
+    .direction1{
+        textAlign: left;
+        direction: rtl;
+    }
+
+    .direction2{
+        textAlign: left;
+        direction: ltr;
+    }
+    
+    .lineThrough1{
+        lineThrough: true;
+    }
+
+    .lineThrough2{
+        lineThrough: false;
+    }
+
+    .kerning1{
+        kerning: on;
+    }
+
+    .kerning2{
+        kerning: auto;
+    }
+
+    .kerning3{
+        kerning: off;
+    }
+    
+    .textAlign1{
+        textAlign: left;
+    }
+
+    .textAlign2{
+        textAlign: right;
+    }
+    
+    .textAlign3{
+        textAlign: center;
+    }
+    
+    .textAlign4{
+        textAlign: start;
+    }
+    
+    .textAlign5{
+        textAlign: end;
+    }
+    
+    .textDecoration1{
+        textDecoration: underline;
+    }
+
+    .textDecoration2{
+        textDecoration: none;
+    }
+
+    .textIndent1{
+        textAlign: left;
+        textIndent: 0;
+    }
+
+    .textIndent2{
+        textAlign: left;
+        textIndent: 10;
+    }
+
+    .textIndent3{
+        textAlign: left;
+        textIndent: -10;
+    }
+    
+    .paddingTop1{
+       
+    }
+
+    .paddingTop2{
+       
+    }
+
+    .paddingTop3{
+       
+    }
+    
+    .paddingLeft1{
+        
+    }
+
+    .paddingLeft2{
+        
+    }
+
+    .paddingLeft3{
+        
+    }
+
+    .paddingBottom1{
+        
+    }
+
+    .paddingBottom2{
+        
+    }
+
+    .paddingBottom3{
+        
+    }
+    
+    .paddingRight1{
+       
+    }
+
+    .paddingRight2{
+        
+    }
+
+    .paddingRight3{
+       
+    }  
+    
+    .top1{
+        top: 5;
+    }  
+
+    .top2{
+        top: 0;
+    }  
+
+    .top3{
+        top: -5;
+    }  
+    
+    .left1{
+        left: 5;
+    }
+
+    .left2{
+        left: 0;
+    }
+
+    .left3{
+        left: -5;
+    }
+    
+    .bottom1{
+        bottom: 5;
+    }    
+
+    .bottom2{
+        bottom: 0;
+    }    
+
+    .bottom3{
+        bottom: -5;
+    }
+    
+    .right1{
+        right: 5;
+    }
+
+    .right2{
+        right: 0;
+    }
+
+    .right3{
+        right: -5;
+    }
+    
+    .verticalCenter1{
+        verticalCenter: 5;
+    }
+
+    .verticalCenter2{
+        verticalCenter: 0;
+    }
+
+    .verticalCenter3{
+        verticalCenter: -5;
+    }
+    
+    .horizontalCenter1{
+        horizontalCenter: 5;
+    }
+
+    .horizontalCenter2{
+        horizontalCenter: 0;
+    }
+
+    .horizontalCenter3{
+        horizontalCenter: -5;
+    }
+</fx:Style>
+
+<fx:Declarations>
+
+    <s:ArrayCollection id="ac1">
+        <fx:String>one</fx:String>
+        <fx:String>two</fx:String>
+        <fx:String>three</fx:String>
+    </s:ArrayCollection>
+
+    <s:ArrayCollection id="ac2">
+        <fx:String>WAWAWAWAWA</fx:String>
+    </s:ArrayCollection>
+
+</fx:Declarations>
+
+<s:layout> <s:HorizontalLayout/> </s:layout>
+
+<s:VGroup>
+<!--    <s:ButtonBar id="fontFamilyBB1" dataProvider="{ac1}" fontSize="24" fontFamily="EmbeddedArial" />
+    <s:ButtonBar id="fontFamilyBB2" dataProvider="{ac1}" fontSize="24" fontFamily="EmbeddedVerdana" />-->
+    <s:ButtonBar id="fontSizeBB1" dataProvider="{ac1}" fontSize="8" />
+    <s:ButtonBar id="fontSizeBB2" dataProvider="{ac1}" fontSize="24" />
+    <s:ButtonBar id="fontWeightBB1" dataProvider="{ac1}" fontWeight="bold" />
+    <s:ButtonBar id="fontWeightBB2" dataProvider="{ac1}" fontWeight="normal" />
+    <s:ButtonBar id="colorBB1" dataProvider="{ac1}" color="0xff0000" />
+    <s:ButtonBar id="directionBB1" dataProvider="{ac1}" textAlign="left" direction="rtl" />
+    <s:ButtonBar id="directionBB2" dataProvider="{ac1}" textAlign="left" direction="ltr" />
+    <s:ButtonBar id="lineThroughBB1" dataProvider="{ac1}" lineThrough="true" />
+    <s:ButtonBar id="lineThroughBB2" dataProvider="{ac1}" lineThrough="false" />
+    <s:ButtonBar id="kerningBB1" dataProvider="{ac2}" kerning="on" />
+    <s:ButtonBar id="kerningBB2" dataProvider="{ac2}" kerning="auto" />
+    <s:ButtonBar id="kerningBB3" dataProvider="{ac2}" kerning="off" />
+    <s:ButtonBar id="textAlignBB1" dataProvider="{ac1}" textAlign="left" />
+    <s:ButtonBar id="textAlignBB2" dataProvider="{ac1}" textAlign="right" />
+    <s:ButtonBar id="textAlignBB3" dataProvider="{ac1}" textAlign="center" />
+    <s:ButtonBar id="textAlignBB4" dataProvider="{ac1}" textAlign="start" />
+    <s:ButtonBar id="textAlignBB5" dataProvider="{ac1}" textAlign="end" />
+    <s:ButtonBar id="textDecorationBB1" dataProvider="{ac1}" textDecoration="underline" />
+    <s:ButtonBar id="textDecorationBB2" dataProvider="{ac1}" textDecoration="none" />
+
+</s:Group>
+
+<s:VGroup>
+
+    <s:Group id="paddingTopBox1" >
+        <s:ButtonBar id="paddingTopBB1" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="paddingTopBox2" >
+        <s:ButtonBar id="paddingTopBB2" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="paddingTopBox3" >
+        <s:ButtonBar id="paddingTopBB3" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="paddingLeftBox1" >
+        <s:ButtonBar id="paddingLeftBB1" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="paddingLeftBox2" >
+        <s:ButtonBar id="paddingLeftBB2" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="paddingLeftBox3" >
+        <s:ButtonBar id="paddingLeftBB3" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="paddingBottomBox1" >
+        <s:ButtonBar id="paddingBottomBB1" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="paddingBottomBox2" >
+        <s:ButtonBar id="paddingBottomBB2" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="paddingBottomBox3" >
+        <s:ButtonBar id="paddingBottomBB3" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="paddingRightBox1" >
+        <s:ButtonBar id="paddingRightBB1" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="paddingRightBox2" >
+        <s:ButtonBar id="paddingRightBB2" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="paddingRightBox3" >
+        <s:ButtonBar id="paddingRightBB3" dataProvider="{ac1}"  />
+    </s:Group>
+
+    <s:Group id="topCanvas1" >
+        <s:ButtonBar id="topBB1" dataProvider="{ac1}" top="5" />
+    </s:Group>
+
+    <s:Group id="topCanvas2" >
+        <s:ButtonBar id="topBB2" dataProvider="{ac1}" top="0" />
+    </s:Group>
+
+    <s:Group id="topCanvas3" >
+        <s:ButtonBar id="topBB3" dataProvider="{ac1}" top="-5" />
+    </s:Group>
+
+    <s:Group id="leftCanvas1" >
+        <s:ButtonBar id="leftBB1" dataProvider="{ac1}" left="5" />
+    </s:Group>
+
+    <s:Group id="leftCanvas2" >
+        <s:ButtonBar id="leftBB2" dataProvider="{ac1}" left="0" />
+    </s:Group>
+
+    <s:Group id="leftCanvas3" >
+        <s:ButtonBar id="leftBB3" dataProvider="{ac1}" left="-5" />
+    </s:Group>
+
+    <s:Group id="bottomCanvas1" >
+        <s:ButtonBar id="bottomBB1" dataProvider="{ac1}" bottom="5" />
+    </s:Group>
+</s:VGroup>
+
+<s:VGroup>
+    <s:Group id="bottomCanvas2" >
+        <s:ButtonBar id="bottomBB2" dataProvider="{ac1}" bottom="0" />
+    </s:Group>
+
+    <s:Group id="bottomCanvas3" >
+        <s:ButtonBar id="bottomBB3" dataProvider="{ac1}" bottom="-5" />
+    </s:Group>
+
+    <s:Group id="rightCanvas1" >
+        <s:ButtonBar id="rightBB1" dataProvider="{ac1}" right="5" />
+    </s:Group>
+
+    <s:Group id="rightCanvas2" >
+        <s:ButtonBar id="rightBB2" dataProvider="{ac1}" right="0" />
+    </s:Group>
+
+    <s:Group id="rightCanvas3" >
+        <s:ButtonBar id="rightBB3" dataProvider="{ac1}" right="-5" />
+    </s:Group>
+
+    <s:Group id="verticalCenterCanvas1" >
+        <s:ButtonBar id="verticalCenterBB1" dataProvider="{ac1}" verticalCenter="5" />
+    </s:Group>
+
+    <s:Group id="verticalCenterCanvas2" >
+        <s:ButtonBar id="verticalCenterBB2" dataProvider="{ac1}" verticalCenter="0" />
+    </s:Group>
+
+    <s:Group id="verticalCenterCanvas3" >
+        <s:ButtonBar id="verticalCenterBB3" dataProvider="{ac1}" verticalCenter="-5" />
+    </s:Group>
+
+    <s:Group id="horizontalCenterCanvas1" >
+        <s:ButtonBar id="horizontalCenterBB1" dataProvider="{ac1}" horizontalCenter="5" />
+    </s:Group>
+
+    <s:Group id="horizontalCenterCanvas2" >
+        <s:ButtonBar id="horizontalCenterBB2" dataProvider="{ac1}" horizontalCenter="0" />
+    </s:Group>
+
+    <s:Group id="horizontalCenterCanvas3" >
+        <s:ButtonBar id="horizontalCenterBB3" dataProvider="{ac1}" horizontalCenter="-5" />
+    </s:Group>
+
+    <s:ButtonBar id="runtimeBB1" />
+    <custom:CustomFxButtonBar12 id="runtimeBox1" /> <!-- Contains runtimeBB2. -->
+    <custom:CustomFxButtonBar13 id="runtimeCanvas1" /> <!-- Contains runtimeBB3. -->
+</s:VGroup>
+
+</s:Application>

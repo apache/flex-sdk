@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/ViewAndViewNavigator/tests/"
+			testSWF="ViewAndViewNavigatorMain.mxml">
+
+		<fx:Script source="globalNotTabbed.as" />
+
+		<fx:Script>
+			<![CDATA[ 
+
+				import spark.layouts.HorizontalLayout;
+				import spark.layouts.VerticalLayout;
+				import spark.layouts.supportClasses.LayoutBase;
+				import mx.core.FlexGlobals;
+				import views.*;
+				import spark.components.ViewNavigator;
+				import spark.components.TabbedViewNavigator;
+				import spark.components.View;
+
+				public static function init(o:DisplayObject):void { } 
+				
+			]]>
+		</fx:Script>
+
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+
+		<TestCase testID="actionContentAndLayoutDefault" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = navigator().actionContent == null" value="true" />
+				<AssertMethodValue method="value = navigator().actionLayout == null" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="titleContentAndLayoutDefault" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = navigator().titleContent == null" value="true" />
+				<AssertMethodValue method="value = navigator().titleLayout == null" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="navigationContentAndLayoutDefault" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = navigator().navigationContent == null" value="true" />
+				<AssertMethodValue method="value = navigator().navigationLayout == null" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="actionContentAndLayout" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.resetContentAndLayout()" waitTarget="navigator" waitEvent="updateComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = navigator().actionContent == null" value="true" />
+				<AssertMethodValue method="value = navigator().actionLayout == null" value="true" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.setContent()" waitTarget="navigator" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.setLayout()" waitTarget="navigator" waitEvent="updateComplete" />
+				
+				<AssertMethodValue method="value = navigator().actionContent.length == 2" value="true" />
+				<AssertMethodValue method="value = flash.utils.getQualifiedClassName(navigator().actionLayout) == 'spark.layouts::VerticalLayout'" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="titleContentAndLayout" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.resetContentAndLayout()" waitTarget="navigator" waitEvent="updateComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = navigator().titleContent == null" value="true" />
+				<AssertMethodValue method="value = navigator().titleLayout == null" value="true" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.setContent()" waitTarget="navigator" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.setLayout()" waitTarget="navigator" waitEvent="updateComplete" />
+				
+				<AssertMethodValue method="value = navigator().titleContent.length == 2" value="true" />
+				<AssertMethodValue method="value = flash.utils.getQualifiedClassName(navigator().titleLayout) == 'spark.layouts::VerticalLayout'" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="navigationContentAndLayout" keywords="[]" description="">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.resetContentAndLayout()" waitTarget="navigator" waitEvent="updateComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = navigator().navigationContent == null" value="true" />
+				<AssertMethodValue method="value = navigator().navigationLayout == null" value="true" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.setContent()" waitTarget="navigator" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.setLayout()" waitTarget="navigator" waitEvent="updateComplete" />
+				
+				<AssertMethodValue method="value = navigator().navigationContent.length == 2" value="true" />
+				<AssertMethodValue method="value = flash.utils.getQualifiedClassName(navigator().navigationLayout) == 'spark.layouts::VerticalLayout'" value="true" />
+			</body>
+
+		</TestCase>
+
+
+	</testCases>
+</UnitTester>
+
+
+

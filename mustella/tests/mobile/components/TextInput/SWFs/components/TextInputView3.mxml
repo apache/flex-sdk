@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	width="100%" height="100%" >
+
+	<fx:Script>
+	<![CDATA[
+		
+		import components.*;
+	]]>
+	</fx:Script>
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		.colorStyle{
+			color: #ff0000;
+			focusColor: #00ff00;
+			contentBackgroundColor: #0000ff;
+		}
+	</fx:Style>
+
+	<s:VGroup x="0" y="20">
+		<!-- This field is used for styles set in MXML. -->
+		<s:Group id="grp1" percentWidth="100" height="60">
+			<s:TextInput text="iiii" id="ti1" 
+				x="10" y="10" percentWidth="80" height="50"
+				color="0xff0000" focusColor="0x00ff00" contentBackgroundColor="0x0000ff" />
+		</s:Group>
+		
+		<!-- This field is used for styles set in AS. -->
+		<s:Group id="grp2" percentWidth="100" height="60">
+			<s:TextInput text="iiii" id="ti2"
+				x="10" y="10" percentWidth="80" height="50" />
+		</s:Group>
+				
+		<!-- This field is used for styles set in CSS. -->
+		<s:Group id="grp3" percentWidth="100" height="60">
+			<s:TextInput text="iiii" id="ti3"
+				x="10" y="10" percentWidth="80" height="50"
+				styleName="colorStyle" />
+		</s:Group>
+
+		<!-- This field is used as a default. (e.g. To be sure height adjusts automatically.) -->
+		<s:Group id="grp4" >
+			<s:TextArea text="iiii" id="ti4" />
+		</s:Group>
+				
+	</s:VGroup>
+</s:View>

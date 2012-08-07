@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ViewNavigator xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         width="100%" height="100%"
+          firstView="views.HomeView"
+         creationComplete="init()" remove="cleanup()">
+
+    <fx:Script>
+        <![CDATA[
+            import mx.core.mx_internal;
+            import mx.effects.IEffect;
+            import mx.events.FlexEvent;
+            use namespace mx_internal;
+            
+            /** Indicates that view transitions should be paused for assertion */
+            public var requestSeek:Boolean = false;
+
+            /** The time (in milliseconds) into the effect to seek to */
+            public var requestSeekTime:Number = NaN;
+            
+            /** Add a listener for when the view transition starts */
+            private function init():void {
+                addEventListener("transitionStart", viewTransitionStartHandler);
+            }
+            
+            /** Remove the listener when this navigator gets reset via ResetComponent */
+            private function cleanup():void {
+                removeEventListener("transitionStart", viewTransitionStartHandler);
+            }
+            
+            /** Calls pauseAndSeek() a frame later */
+            private function viewTransitionStartHandler(event:Event):void {
+                // pause the view transition if requested
+                if (requestSeek){
+                    // need to wait a frame before we can pause
+                    addEventListener(Event.ENTER_FRAME, pauseAndSeek);
+                }
+            }
+
+            /** 
+             * Pauses the view transition and then seeks to an assertion point.
+             * 
+             * By default this seeks to the middle of the effect (duration / 2).
+             * You can control where to seek to by setting requestSeekTime to
+             * a value in milliseconds.
+             */
+            private function pauseAndSeek(e:Event):void {
+                removeEventListener(Event.ENTER_FRAME, pauseAndSeek);
+                
+                var effect:IEffect = activeTransition.effect;
+                // first pause the effect
+                effect.pause();
+                // then choose what time to seek to
+                effect.playheadTime = isNaN(requestSeekTime) ? (effect.duration / 2) : requestSeekTime;
+                // TODO: Why is this always 250?
+                trace("(effect.duration / 2)",(effect.duration / 2));
+                trace("playheadTime",effect.playheadTime);
+                // send an event on the navigator to notify we are ready for assertions
+                dispatchEvent(new Event("viewTransitionAssertionReady"));
+				
+				
+				var effectTarget:Array = new Array();
+				effectTarget = effect.targets;
+            }
+            
+            /** 
+            * Resumes the transition after the assertion is complete.
+            * ResetComponent doesn't work if you try to reset the navigator
+            * while the transition is in a paused state.  Call this to resume
+            * the transition before finishing a test case.
+            */
+            public function resumeTransition():void {
+                activeTransition.effect.resume();
+            }
+
+        ]]>
+    </fx:Script>
+    
+</s:ViewNavigator>

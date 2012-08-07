@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/MobileApplication/persistence/"  
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns="*" 
+	testSWF="MobileApplicationPersistenceCacheDisabled.mxml">
+    
+	<!-- this set of lines form a template that must be in each unit test.  -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }           
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+			import spark.components.View;
+			import spark.components.ViewNavigator;
+			import spark.managers.PersistenceManager;
+			
+			
+			private var fruitsArray:Array = new Array('apple','orange','banana');
+			
+			
+			public function activeView() : View {
+				return navigator().activeView;
+			}
+
+			public function navigator() : ViewNavigator {
+				return FlexGlobals.topLevelApplication.navigator;
+			}
+			
+			public function persistenceManager():PersistenceManager
+			{
+				return FlexGlobals.topLevelApplication.persistenceManager;
+			}
+			
+			public function getNamesVector():NamesVector
+			{
+				var vector:Vector.<String> = Vector.<String>(["joe","john"]);
+				return new NamesVector(vector);
+			}
+		]]>
+	</fx:Script>
+	
+    <testCases>
+	
+		<TestCase testID="mobileApp_cachingDisabled_set_get_property_String" description="Verify that PersistenceManager get and set property correctly handles String values" keywords="[MobileApplication, PersistenceManager]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+				<RunCode code="persistenceManager().setProperty('myStringProperty', 'test string')"/>
+				<RunCode code="navigator().pushView(components.ViewPersistence)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = persistenceManager().getProperty('myStringProperty') as String" value='test string'/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mobileApp_cachingDisabled_set_get_property_int" description="Verify that PersistenceManager get and set property correctly handles int values" keywords="[MobileApplication, PersistenceManager]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+				<RunCode code="persistenceManager().setProperty('myIntProperty', 999)"/>
+				<RunCode code="navigator().pushView(components.ViewPersistence)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = persistenceManager().getProperty('myIntProperty') as int" value="999"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_cachingDisabled_set_get_property_boolean" description="Verify persistenceManager get and set property correctly handles boolean values" keywords="[MobileApplication, PersistenceManager]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+				<RunCode code="persistenceManager().setProperty('myBooleanProperty', true)"/>
+				<RunCode code="navigator().pushView(components.ViewPersistence)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = persistenceManager().getProperty('myBooleanProperty') as Boolean" value="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mobileApp_cachingDisabled_set_get_property_Array" description="Verify PersistenceManager get and set property correctly handles Array values" keywords="[MobileApplication, PersistenceManager]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+				<RunCode code="persistenceManager().setProperty('myArrayProperty', fruitsArray)"/>
+				<RunCode code="navigator().pushView(components.ViewPersistence)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = Array(persistenceManager().getProperty('myArrayProperty')).toString()" value='apple,orange,banana'/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_cachingDisabled_set_get_property_Vector" description="Verify PersistenceManager get and set property correctly handles Vector values" keywords="[MobileApplication, PersistenceManager]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+				<RunCode code="persistenceManager().setProperty('myVectorProperty', getNamesVector())"/>
+				<RunCode code="navigator().pushView(components.ViewPersistence)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = NamesVector(persistenceManager().getProperty('myVectorProperty')).names" value='joe,john'/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_cachingDisabled_get_ApplicationVersion" description="Verify applicationVersion property is null" keywords="[MobileApplication, PersistenceManager]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+				<RunCode code="navigator().pushView(components.ViewPersistence)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = persistenceManager().getProperty('versionNumber')" value="null"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_cachingDisabled_clear" description="Verify calling clear method wipes persistence data" keywords="[MobileApplication, PersistenceManager]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+				<RunCode code="navigator().pushView(components.ViewPersistence)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.saveData()"/>
+				<Pause timeout="200"/>
+				<RunCode code="FlexGlobals.topLevelApplication.getData()"/>
+				<AssertPropertyValue target="tvo" propertyName="myString" value="string value"/>
+				<AssertPropertyValue target="tvo" propertyName="myInt" value="999"/>
+				<AssertPropertyValue target="tvo" propertyName="myBool" value="true"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tvo.myArray.toString()" value='apple,orange,banana'/>
+				<AssertPropertyValue target="tvo" propertyName="appVersion" value="null"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tvo.myVector.length" value="2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.clearData()"/>
+				<Pause timeout="200"/>
+				<RunCode code="FlexGlobals.topLevelApplication.getData()"/>
+				<AssertPropertyValue target="tvo" propertyName="myString" value="null"/>
+				<AssertPropertyValue target="tvo" propertyName="myInt" value="0"/>
+				<AssertPropertyValue target="tvo" propertyName="myBool" value="false"/>
+				<AssertPropertyValue target="tvo" propertyName="myArray" value="null"/>
+				<AssertPropertyValue target="tvo" propertyName="myVector" value="null"/>
+				<AssertPropertyValue target="tvo" propertyName="appVersion" value="null"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>

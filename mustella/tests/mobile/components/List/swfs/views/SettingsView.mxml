@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="Settings" creationComplete="init()">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.events.FlexEvent;
+            import mx.events.PropertyChangeEvent;
+            
+            import spark.events.IndexChangeEvent;
+            
+            private function init():void {
+                target.dataGroup.addEventListener("propertyChange", handle);
+            }
+            
+            /** Change the size of the shadows based on scroll position */
+            private function handle(e:PropertyChangeEvent):void {
+                if (e.property == "verticalScrollPosition"){
+                    var gradientHeight:int = 10;
+                    
+                    // top shadow
+                    if (e.newValue <= gradientHeight){
+                        shadowRectTop.height = e.newValue as Number;
+                    } else {
+                        shadowRectTop.height = gradientHeight;
+                    }
+                    
+                    // bottom shadow
+                    if (e.newValue >= e.target.contentHeight - e.target.height - gradientHeight){
+                        shadowRectBottom.height = ((e.target.contentHeight as Number) - (e.target.height as Number)) - (e.newValue as Number);
+                    } else {
+                        shadowRectBottom.height = gradientHeight;
+                    }
+                    
+                }
+            }
+
+        ]]>
+    </fx:Script>
+    
+    <s:List id="target" width="100%" height="100%" labelField="name" 
+            contentBackgroundColor="black" alternatingItemColors="black" selectionColor="0xFFBE00" downColor="0xFFBE00" 
+            change="navigator.pushView(views.SettingsWirelessNetworkView)">
+        <s:itemRenderer>
+            <fx:Component>
+                <s:IconItemRenderer height="98" iconField="icon"         
+                                    color="white" fontSize="34" fontWeight="normal" />
+            </fx:Component>
+        </s:itemRenderer>
+        <s:dataProvider>
+            <s:ArrayList>
+                <fx:Object name="Wireless &amp; networks" icon="assets/settingsIcon1.png" />
+                <fx:Object name="Call settings" icon="assets/settingsIcon2.png" />
+                <fx:Object name="Sound" icon="assets/settingsIcon3.png" />
+                <fx:Object name="Display" icon="assets/settingsIcon4.png" />
+                <fx:Object name="Location &amp; security" icon="assets/settingsIcon5.png" />
+                <fx:Object name="Applications" icon="assets/settingsIcon6.png" />
+                <fx:Object name="Accounts &amp; Sync"  icon="assets/settingsIcon7.png" />
+                <fx:Object name="Privacy"  icon="assets/settingsIcon8.png" />
+                <fx:Object name="SD card &amp; phone storage"  icon="assets/settingsIcon9.png" />
+                <fx:Object name="Search"  icon="assets/settingsIcon10.png" />
+                <fx:Object name="Language &amp; keyboard"  icon="assets/settingsIcon11.png" />
+                <fx:Object name="Voice input &amp; output"  icon="assets/settingsIcon12.png" />
+                <fx:Object name="Accessibility"  icon="assets/settingsIcon13.png" />
+                <fx:Object name="Dock"  icon="assets/settingsIcon14.png" />
+                <fx:Object name="Date &amp; time"  icon="assets/settingsIcon15.png" />
+                <fx:Object name="About phone" icon="assets/settingsIcon16.png" />
+            </s:ArrayList>
+        </s:dataProvider>
+    </s:List>
+    
+    <!-- top and bottom gradient effects -->
+    
+    <s:Rect id="shadowRectTop" width="100%" top="0" height="0">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="black" />
+                <s:GradientEntry color="black" alpha="0" />
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    
+    <s:Rect id="shadowRectBottom" width="100%" bottom="0" height="0">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="black" alpha="0" />
+                <s:GradientEntry color="black" />
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    
+</s:View>

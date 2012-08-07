@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/Label/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label2.mxml">
+
+    <mx:Script>
+        <![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+
+			}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+			[Mixin]
+        ]]>
+    </mx:Metadata>
+
+    <!-- ################################################################## -->
+
+    <mx:Style>
+        .bigRed {
+			color: red;
+			fontSize: 20;
+        }
+    </mx:Style>
+
+    <mx:Script>
+        <![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+			import mx.utils.ObjectUtil;
+
+			public var singleLineText:String = "The quick brown fox jumps over the lazy dog.";
+			public var multiLineText:String = "The quick brown\nfox jumps over\nthe lazy dog.";
+
+        ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <!-- property: className -->
+        <TestCase testID="Label_className" description="Check value of className property and some other defaults." keywords="[TextBox, className]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="className" value="Label" />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="width" value="0" />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="height" >
+					<ConditionalValue deviceDensity="160" os="win" value="15" />
+					<ConditionalValue deviceDensity="240" value="25" />
+					<ConditionalValue deviceDensity="320" value="30" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="16" />
+				</AssertPropertyValue>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" value="" />
+			</body>
+        </TestCase>
+
+        <!-- property: styleName -->
+        <TestCase testID="Label_styleName_default" description="Default styleName" keywords="[TextBox, nonInheritingStyles]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=singleLineText;" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="styleName" valueExpression="value=null;" />
+			</body>
+        </TestCase>
+
+        <TestCase testID="Label_styleName_bigRed" description="Set styleName" keywords="[TextBox, nonInheritingStyles]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl2" propertyName="styleName" value="bigRed" />				
+			    <SetProperty target="navigator.activeView.lbl2" propertyName="text" valueExpression="value=singleLineText;" waitTarget="navigator.activeView.lbl2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl2" propertyName="styleName" value="bigRed" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="10" url="../Properties/baselines/" target="navigator.activeView.lbl2" >
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+        </TestCase>
+
+
+        <!-- property: text -->
+        <TestCase testID="Label_singleLine" description="TextBox text set to a single line of text" keywords="[TextBox, text]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=singleLineText;" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="width" >
+					<ConditionalValue deviceDensity="160" os="win" value="277"/>
+					<ConditionalValue deviceDensity="240" value="488"/>
+					<ConditionalValue deviceDensity="320" value="579"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="593"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="302"/>
+				</AssertPropertyValue>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="height" >
+					<ConditionalValue deviceDensity="160" os="win" value="15" />
+					<ConditionalValue deviceDensity="240" value="25" />
+					<ConditionalValue deviceDensity="320" value="30" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="16"/>
+			    </AssertPropertyValue>
+				<CompareBitmap numColorVariances="20" maxColorVariance="10" url="../Properties/baselines/" target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+        </TestCase>
+
+        <TestCase testID="Label_multiLine" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="width" >
+					<ConditionalValue deviceDensity="160" os="win" value="103" />
+					<ConditionalValue deviceDensity="240" value="179" />
+					<ConditionalValue deviceDensity="320" value="215" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="219"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="112"/>
+				</AssertPropertyValue>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="height" value="82" >
+					<ConditionalValue deviceDensity="160" os="win" value="53" />
+					<ConditionalValue deviceDensity="240" value="82" />
+					<ConditionalValue deviceDensity="320" value="106" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="55"/>
+				</AssertPropertyValue>
+			    <CompareBitmap numColorVariances="20" maxColorVariance="10" url="../Properties/baselines/" target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+        </TestCase>
+
+
+        <!-- property: maxDisplayedLines -->
+        <TestCase testID="Label_multiLine_maxDisplayedLines_default" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="width" value="100" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="height" value="80" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="0" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="10" url="../Properties/baselines/" target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+        </TestCase>
+
+        <TestCase testID="Label_multiLine_maxDisplayedLines-1" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="width" value="100" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="height" value="80" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="-1" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="-1" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="10" url="../Properties/baselines/" target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+        </TestCase>
+        <TestCase testID="Label_multiLine_maxDisplayedLines1" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="width" value="100" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="height" value="80" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="1" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="1" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="10" url="../Properties/baselines/" target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>						
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+        </TestCase>
+
+       <TestCase testID="Label_multiLine_maxDisplayedLines2" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="width" value="100" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="height" value="120" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="2" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="2" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="10" url="../Properties/baselines/" target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+        </TestCase>
+
+        <TestCase testID="Label_singleLine_maxDisplayedLines_default" description="TextBox text set to a single line of text" keywords="[TextBox, text]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=singleLineText;" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="width" value="100" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="height" value="80" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="0" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="10" url="../Properties/baselines/" target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+        </TestCase>
+
+        <TestCase testID="Label_singleLine_maxDisplayedLines-1" description="TextBox text set to a single line of text" keywords="[TextBox, text]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=singleLineText;" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="width" value="100" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="height" value="80" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="-1" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="-1" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="10" url="../Properties/baselines/" target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>						
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+        </TestCase>
+
+        <TestCase testID="Label_singleLine_maxDisplayedLines1" description="TextBox text set to a single line of text" keywords="[TextBox, text]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=singleLineText;" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="width" value="100" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="height" value="80" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="1" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="1" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="10" url="../Properties/baselines/" target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+        </TestCase>
+
+        <TestCase testID="Label_singleLine_maxDisplayedLines2" description="TextBox text set to a single line of text" keywords="[TextBox, text]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelPlainView)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="text" valueExpression="value=singleLineText;" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="width" value="100" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="height" value="120" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			    <SetProperty target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="2" waitTarget="navigator.activeView.lbl1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+			    <AssertPropertyValue target="navigator.activeView.lbl1" propertyName="maxDisplayedLines" value="2" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="10" url="../Properties/baselines/" target="navigator.activeView.lbl1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+        </TestCase>
+
+     </testCases>
+
+</UnitTester>

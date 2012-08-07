@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/ToggleSwitch/integration/"
+    testSWF="ToggleSwitchEvents.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <testCases>
+
+		
+		
+		<!-- click on different locations -->
+		<!-- WaitForEffectsEnd might not work for spark components. For that case, use Pause -->
+		<TestCase testID="integration_click_on_track" keywords="[ToggleSwitch, mobile, click, event]" description="click on track">
+			<setup>
+				<ResetComponent target="eventsRoot" className="comps.EventsRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="eventsRoot.target1" type="mosueDown" localX="47" localY="20" />
+				<DispatchMouseEvent target="eventsRoot.target1" type="mosueUp" localX="47" localY="20" />
+				<WaitForEffectsToEnd waitTarget="eventsRoot.target1" />
+				<Pause timeout="300" />
+				<AssertPropertyValue target="eventsRoot.target1" propertyName="selected" value="false" />
+			</body>
+		</TestCase>
+		
+		
+		<!-- drag thumb a bit -->
+		<TestCase testID="integration_drag_thumb_1" keywords="[ToggleSwitch, mobile, drag]" description="Test change event is dispatched when clicking ToggleSwitch">
+			<setup>
+				<ResetComponent target="eventsRoot" className="comps.EventsRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="eventsRoot.target1" type="mouseDown" localX="20" localY="20" waitEvent="mouseDown" />
+				<DispatchMouseEvent target="eventsRoot.target1" type="mouseMove" localX="50" localY="20" waitEvent="mouseMove" />
+				<DispatchMouseEvent target="eventsRoot.target1" type="mouseUp" localX="50" localY="20" waitEvent="mouseUp" />
+				<Pause timeout="300" />
+				<AssertPropertyValue target="eventsRoot.target1" propertyName="selected" value="false"/>
+			</body>
+		</TestCase>
+		
+	
+		<!-- drag thumb to the other end then back to the starting point-->
+		<TestCase testID="integration_drag_thumb_5" keywords="[ToggleSwitch, mobile, drag]" description="Test dragging two ways">
+			<setup>
+				<ResetComponent target="eventsRoot" className="comps.EventsRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="eventsRoot.target1.thumb" type="mouseDown" localX="20" localY="20" />
+				<DispatchMouseEvent target="eventsRoot.target1.thumb" type="mouseMove"  localX="70" localY="20"/>
+				<DispatchMouseEvent target="eventsRoot.target1.thumb" type="mouseMove" localX="20" localY="20"/>
+				<DispatchMouseEvent target="eventsRoot.target1.thumb" type="mouseUp" localX="20" localY="20" />
+				<Pause timeout="300" />
+				<AssertPropertyValue target="eventsRoot.target1" propertyName="selected" value="false"/>
+			</body>
+		</TestCase>			
+		
+		
+		<!-- mouse down not up -->
+		<TestCase testID="integration_mouse_down_only" keywords="[ToggleSwitch, mobile, mouse down]" description="Test that mouse down doesn't triger selection change">
+			<setup>
+				<ResetComponent target="eventsRoot" className="comps.EventsRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="eventsRoot.target1.thumb" type="mouseDown" localX="20" localY="20"  />
+				<Pause timeout="300" />
+				<AssertPropertyValue target="eventsRoot.target1" propertyName="selected" value="false"/>
+			</body>
+		</TestCase>	
+		
+		
+		
+    </testCases>
+</UnitTester>

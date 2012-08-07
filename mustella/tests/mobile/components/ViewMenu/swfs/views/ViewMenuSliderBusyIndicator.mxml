@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" initialize="view1_initializeHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			protected function view1_initializeHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				addEventListener("viewMenuOpen", listenerOpen);
+				addEventListener("viewMenuClose", listenerClose);
+			}
+			protected function listenerOpen(evt:Event):void
+			{
+				trace("viewMenuOpen");
+			}
+			protected function listenerClose(evt:Event):void
+			{
+				trace("viewMenuClose");
+			}			
+		]]>
+	</fx:Script>	
+	<fx:Declarations>
+		<s:MultiDPIBitmapSource id="multiDPIIcon" 
+								source160dpi="menuIcons/Icon160.png" 
+								source240dpi="menuIcons/Icon240.png" 
+								source320dpi="menuIcons/Icon320.png"/>	
+		<s:MultiDPIBitmapSource id="multiDPIEmbed" 
+								source160dpi="@Embed('../menuIcons/Icon160.png')" 
+								source240dpi="@Embed('../menuIcons/Icon240.png')" 
+								source320dpi="@Embed('../menuIcons/Icon320.png')"/>		
+	</fx:Declarations>
+	<s:VGroup height="100%" width="100%"  paddingLeft="10" paddingTop="10" gap="50">
+		<s:BusyIndicator symbolColor="red" rotationInterval="1000000" id="bi"/>
+
+		<s:HSlider id="hsl" />
+
+	</s:VGroup>		
+	<s:viewMenuItems>
+		<s:ViewMenuItem id="i1" icon="@Embed('../menuIcons/tileIcon.png')" label="Embeded"  />
+		<s:ViewMenuItem id="i2" label="nonEmbeded" icon="menuIcons/tileIcon.png" />
+		<s:ViewMenuItem id="i3" label="multiDPIEmbed" icon="{multiDPIEmbed}" />
+		<s:ViewMenuItem id="i4" label="multiDPI" icon="{multiDPIIcon}" />
+		
+	</s:viewMenuItems>	
+</s:View>

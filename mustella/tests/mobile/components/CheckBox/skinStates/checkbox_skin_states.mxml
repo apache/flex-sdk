@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/CheckBox/skinStates/"
+    testSWF="MobileCheckBoxMain.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <testCases>
+
+
+<TestCase testID="Mobile_CheckBox_skinState_up" keywords="[Mobile, checkbox, skinStfate]" description="Test skin when in normal state">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Test skinState" waitEvent="contentChange" waitTarget="styleComp.cb1" />
+	</setup>
+	<body>
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkBox_up_and_selected" keywords="[Mobile, CheckBox, skinState]" description="Test skin when in normal selected state">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_CheckBox_skinState_down" keywords="[Mobile, CheckBox, skinState]" description="Test skin when pressed and unselected">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="styleComp.cb1" type="rollOver" localX="20" localY="16" waitEvent="rollOver" />	
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseMove" localX="20" localY="17" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseMove" localX="21" localY="21" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseDown" localX="20" localY="31" waitEvent="mouseDown"/>
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseUp" localX="20" localY="31" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_CheckBox_down_and_selected" keywords="[Mobile, CheckBox, skinState]" description="Test skin when pressed and selected">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="styleComp.cb1" type="rollOver" localX="20" localY="16" waitEvent="rollOver" waitTarget="styleComp.cb1"  />	
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseMove" localX="20" localY="17" waitEvent="mouseMove" waitTarget="styleComp.cb1"  />
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseDown" localX="21" localY="31" waitEvent="mouseDown" buttonDown="true" waitTarget="styleComp.cb1" />
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseUp" localX="21" localY="31" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<!-- checkbox with custom chromeColor skin states tests -->
+
+<TestCase testID="Mobile_CheckBox_chromeColor_skinState_up" keywords="[Mobile, checkbox, skinState]" description="Test skin when in normal state">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Test skinState" waitEvent="contentChange" waitTarget="styleComp.cb1" />
+		<SetStyle target="styleComp.cb1" styleName="chromeColor" value="#65B8DF" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_checkBox_chromeColor_up_and_selected" keywords="[Mobile, CheckBox, skinState]" description="Test skin when in normal selected state">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.cb1" styleName="chromeColor" value="#65B8DF" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_CheckBox_chromeColor_skinState_down" keywords="[Mobile, CheckBox, skinState]" description="Test skin when pressed and unselected">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetStyle target="styleComp.cb1" styleName="chromeColor" value="#65B8DF" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="styleComp.cb1" type="rollOver" localX="20" localY="16" waitEvent="rollOver" />	
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseMove" localX="20" localY="17" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseMove" localX="21" localY="21" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseDown" localX="20" localY="31" waitEvent="mouseDown"/>
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseUp" localX="20" localY="31" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_CheckBox_chromeColor_down_and_selected" keywords="[Mobile, CheckBox, skinState]" description="Test skin when pressed and selected">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.cb1" styleName="chromeColor" value="#65B8DF" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="styleComp.cb1" type="rollOver" localX="20" localY="16" waitEvent="rollOver" waitTarget="styleComp.cb1"  />	
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseMove" localX="21" localY="17" waitEvent="mouseMove" waitTarget="styleComp.cb1"  />
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseDown" localX="21" localY="31" waitEvent="mouseDown" buttonDown="true" waitTarget="styleComp.cb1" />
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseUp" localX="21" localY="31" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+ 
+<TestCase testID="Mobile_CheckBox_chromeColor_symbolColor_down_and_selected" keywords="[Mobile, CheckBox, skinState]" description="Test skin when pressed and selected">
+	<setup>
+		<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+		<SetProperty target="styleComp.cb1" propertyName="label" value="Test skinState" waitEvent="contentChange" />
+		<SetProperty target="styleComp.cb1" propertyName="selected" value="true" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.cb1" styleName="chromeColor" value="#65B8DF" waitEvent="updateComplete" />
+		<SetStyle target="styleComp.cb1" styleName="symbolColor" value="#942323" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="styleComp.cb1" type="rollOver" localX="43" localY="31" waitEvent="rollOver" waitTarget="styleComp.cb1"  />	
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseMove" localX="43" localY="31" waitEvent="mouseMove" waitTarget="styleComp.cb1"  />
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseDown" localX="44" localY="31" waitEvent="mouseDown" buttonDown="true" waitTarget="styleComp.cb1" />
+		<CompareBitmap url="../skinStates/baselines" target="styleComp.cb1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+		<DispatchMouseEvent target="styleComp.cb1" type="mouseUp" localX="44" localY="31" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               splashScreenImage="MySplashScreenSourceNull"
+               splashScreenMinimumDisplayTime="5000"
+               initialize="captureSplashScreen()">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.core.FlexGlobals;
+
+            /** A place to store the captured screenshot */
+            public var splashScreenBitmapData:BitmapData;
+            
+            /**
+            * At initialize time grab a screenshot of the splash screen from the systemManager.
+            */
+            private function captureSplashScreen():void
+            {
+                trace('captureSplashScreen');
+                splashScreenBitmapData = getScreenBits(systemManager.stage);
+            }
+            
+            /**
+            * Captures a bitmap of the given target.  This code is a simpler version of 
+            * CompareBitmap.getScreenBits() which should be all that is needed for this
+            * feature.
+            */
+            private function getScreenBits(target:DisplayObject):BitmapData{
+                var targetSize:Point = new Point(FlexGlobals.topLevelApplication.width,
+                                                 FlexGlobals.topLevelApplication.height);
+                var screenBits:BitmapData = new BitmapData(targetSize.x, targetSize.y);
+                var stagePt:Point = target.localToGlobal(new Point(0, 0));
+                var altPt:Point = target.localToGlobal(targetSize);
+                stagePt.x = Math.min(stagePt.x, altPt.x);
+                stagePt.y = Math.min(stagePt.y, altPt.y);
+                screenBits.draw(target.stage, new Matrix(1, 0, 0, 1, -stagePt.x, -stagePt.y));
+                
+                return screenBits;
+            }
+        ]]>
+    </fx:Script>
+    
+    <s:Button label="Show captured image" click="outputImage.source = splashScreenBitmapData" />
+    
+    <s:BitmapImage id="outputImage" />
+    
+    <!-- Sample Mustella TestCase to go along with this main application -->
+    <!-- (I haven't actually tried compiling and running this via Mustella, but this is the general idea) -->
+    
+   <!-- <TestCase testID="DynamicSplashScreen_1" keywords="[DynamicSplashScreen]" description="capture the splash screen image">
+        <setup>
+            <ResetComponent target="outputImage" className="spark.primitives.BitmapImage" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty target="outputImage" propertyName="source" valueExpression="value=application.splashScreenBitmapData" waitEvent="ready" />
+			<CompareBitmap url="../integration/baselines" target="actionBarStates">
+				<ConditionalValue deviceDensity="160" os="win"/>
+				<ConditionalValue deviceDensity="240" os="android"/>
+				<ConditionalValue deviceDensity="320" os="win"/>
+				<ConditionalValue deviceDensity="320" os="iphone" />
+				<ConditionalValue deviceDensity="160" os="qnx" />
+			</CompareBitmap>
+        </body>
+    </TestCase>-->
+    
+</s:Application>

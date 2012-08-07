@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testDir="mobile/SoftKeyboard/methods/"
+    testSWF="SoftKeyboard.mxml">
+
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+            import views.*;
+			import mx.core.FlexGlobals;
+        ]]>
+    </fx:Script>
+    	<testCases>
+
+			<TestCase testID="SoftKeyboard_method_requestSoftKeyboard_Button" keywords="[SoftKeyboard, method]" description="">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+					<RunCode code="application.navigator.pushView(views.PaddingTester)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<RunCode code="application.navigator.activeView.b1.requestSoftKeyboard() " waitTarget="navigator.activeView.b1" waitEvent="softKeyboardActivating" timeout="6000" />
+					<AssertEvent target="navigator.activeView.b1" eventName="softKeyboardActivate" eventClass="flash.events::SoftKeyboardEvent" numExpectedEvents="-1" />
+
+					<RunCode code="application.stage.focus=null" waitTarget="navigator.activeView.b1" waitEvent="softKeyboardDeactivate"/>
+				</body>
+			</TestCase>
+			<TestCase testID="SoftKeyboard_method_requestSoftKeyboard_Label" keywords="[SoftKeyboard, method]" description="">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+
+					<RunCode code="application.navigator.pushView(views.PaddingTester)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<RunCode code="application.tmpValue=application.navigator.activeView.height"  />
+					<RunCode code="application.navigator.activeView.lbl.requestSoftKeyboard() " waitTarget="navigator.activeView.lbl" waitEvent="softKeyboardActivate" timeout="6000" />
+					<AssertMethodValue  method="value=application.navigator.activeView.height == application.tmpValue" value = "false" />
+					<Pause timeout="100"/>
+
+
+					<RunCode code="application.stage.focus=null"  waitTarget="navigator.activeView.lbl" waitEvent="softKeyboardDeactivate"/>
+				</body>
+			</TestCase>
+			<TestCase testID="SoftKeyboard_method_requestSoftKeyboard_Label_button" keywords="[SoftKeyboard, method]" description="">
+				<setup>
+					<RunCode code="application.stage.focus=null" />
+					<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				</setup>
+				<body>
+					<RunCode code="application.navigator.pushView(views.PaddingTester)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+					<RunCode code="application.tmpValue=application.navigator.activeView.height"  />
+					<RunCode code="application.navigator.activeView.lbl.requestSoftKeyboard() " waitTarget="navigator.activeView.lbl" waitEvent="softKeyboardActivate" timeout="6000" />
+					<Pause timeout="100"/>
+					<AssertMethodValue  method="value=application.navigator.activeView.height == application.tmpValue" value = "false" />
+					<RunCode code="application.stage.focus=null" waitTarget="navigator.activeView.lbl" waitEvent="softKeyboardDeactivate"/>
+				</body>
+			</TestCase>
+
+	</testCases>
+</UnitTester>

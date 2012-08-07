@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/MobileApplication/properties/"  
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns="*" 
+	testSWF="MobileApplicationFirstViewFirstData.mxml">
+    
+	<!-- this set of lines form a template that must be in each unit test.  -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }           
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+	<fx:Declarations>
+		<fx:Array id="fruits">
+			<fx:String>apple</fx:String>
+			<fx:String>banana</fx:String>
+			<fx:String>kiwi</fx:String>
+		</fx:Array>
+		
+		<fx:Object id="person" label="Mike Smith"/>
+	</fx:Declarations>
+
+	<fx:Script>
+		<![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+
+			private var pi:Number = new Number(3.14159265);
+		]]>
+	</fx:Script>
+	
+    <testCases>
+	
+		<TestCase testID="mobileApp_firstView_as_childTag" description="Verify firstView property is set" keywords="[MobileApplication, firstView]">
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.firstView != null)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View1)" value="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mobileApplication_firstViewData_as_childTag" description="Verify firstViewData property is set" keywords="[MobileApplication, firstViewData]">
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.firstViewData == 'String data')" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.data == 'String data')" value="true"/>
+			</body>
+		</TestCase> 
+
+		<TestCase testID="mobileApp_firstViewData_int" description="Verify firstViewData property can be set to an int value" keywords="[MobileApplication, firstViewData]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.firstViewData=99" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.View1, FlexGlobals.topLevelApplication.firstViewData)" waitTarget="navigator" waitEvent="viewChangeComplete"/>			
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.firstViewData == 99)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.data == 99)" value="true"/>
+			</body>
+		</TestCase> 
+
+		<TestCase testID="mobileApp_firstViewData_Number" description="Verify firstViewData property can be set to a Number value" keywords="[MobileApplication, firstViewData]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.firstViewData=pi" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.View1, FlexGlobals.topLevelApplication.firstViewData)" waitTarget="navigator" waitEvent="viewChangeComplete"/>			
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.firstViewData == 3.14159265)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.data == 3.14159265)" value="true"/>
+			</body>
+		</TestCase> 
+
+		<TestCase testID="mobileApp_firstViewData_Boolean" description="Verify firstViewData property can be set to a boolean value" keywords="[MobileApplication, firstViewData]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.firstViewData=true" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.View1, FlexGlobals.topLevelApplication.firstViewData)" waitTarget="navigator" waitEvent="viewChangeComplete"/>			
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.firstViewData)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.data)" value="true"/>
+			</body>
+		</TestCase> 
+
+		<TestCase testID="mobileApp_firstViewData_Array" description="Verify firstViewData property can be set to an Array value" keywords="[MobileApplication, firstViewData]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.firstViewData=fruits" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.View1, FlexGlobals.topLevelApplication.firstViewData)" waitTarget="navigator" waitEvent="viewChangeComplete"/>			
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.firstViewData == fruits)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.data == fruits)" value="true"/>
+				<AssertMethodValue method="value = (View1(FlexGlobals.topLevelApplication.navigator.activeView).lbl.text == 'apple,banana,kiwi')" value="true"/>
+			</body>
+		</TestCase> 
+
+		<TestCase testID="mobileApp_firstViewData_Object" description="Verify firstViewData property can be set to a custom object value" keywords="[MobileApplication, firstViewData]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.firstViewData=person" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.View1, FlexGlobals.topLevelApplication.firstViewData)" waitTarget="navigator" waitEvent="viewChangeComplete"/>			
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.firstViewData == person)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.data == person)" value="true"/>
+			</body>
+		</TestCase> 
+		
+	</testCases>
+
+</UnitTester>

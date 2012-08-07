@@ -1,0 +1,204 @@
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+            xmlns:mx="library://ns.adobe.com/flex/mx" 
+            xmlns:s="library://ns.adobe.com/flex/spark" 
+            xmlns="*" 
+            testDir="mobile/components/HSlider/events/"
+            testSWF="HSlider.mxml">
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        import mx.events.FlexEvent;
+        public static function init(o:DisplayObject):void{}  
+        
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+       
+    <testCases>
+
+
+	<TestCase testID="HSlider_UpKeyEvents" keywords="[HSlider,valueCommit,change,Event,Up]" description="Test HSlider valueCommit and change events when keyboard UP is used">
+	    <setup>
+			<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+	    </setup>
+	    <body>	   
+	    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+	    	<CompareBitmap target="myHSlider" url="../events/baselines">
+				<ConditionalValue deviceDensity="160" os="win"/>
+				<ConditionalValue deviceDensity="240" os="android"/>
+				<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+			</CompareBitmap>
+	    	
+			<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="myHSlider" />				
+		
+			<AssertEvent target="myHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+			<AssertEvent target="myHSlider" eventName="change" eventClass="flash.events::Event" />
+	        <AssertPropertyValue target="myHSlider" propertyName="value" value="1" />	    		        
+	    </body>
+    </TestCase>
+
+	<TestCase testID="HSlider_DownKeyEvents" keywords="[HSlider,valueCommit,change,Event,Down]" description="Test HSlider valueCommit and change events when keyboard DOWN is used">
+	    <setup>
+	        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+	        <SetProperty target="myHSlider" propertyName="value" value="2" />
+	    </setup>
+	    <body>	       				
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+	    	<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="myHSlider" />				
+		
+			<AssertEvent target="myHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+			<AssertEvent target="myHSlider" eventName="change" eventClass="flash.events::Event" />
+			<AssertPropertyValue target="myHSlider" propertyName="value" value="1" />	    	
+	    </body>
+    </TestCase> 
+               
+	<TestCase testID="HSlider_RightKeyEvents" keywords="[HSlider,valueCommit,change,Event,Right]" description="Test HSlider valueCommit and change events when keyboard RIGHT is used">
+	    <setup>
+	        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+	    </setup>
+	    <body>	        	
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+	    	<DispatchKeyEvent keys="[RIGHT]" waitEvent="change" waitTarget="myHSlider" />				
+		
+			<AssertEvent target="myHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+			<AssertEvent target="myHSlider" eventName="change" eventClass="flash.events::Event" />
+			<AssertPropertyValue target="myHSlider" propertyName="value" value="1" />	    	
+	    </body>
+    </TestCase>    
+          
+	<TestCase testID="HSlider_LeftKeyEvents" keywords="[HSlider,valueCommit,change,Event,Left]" description="Test HSlider valueCommit and change events when keyboard LEFT is used">
+	    <setup>
+	        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+	        <SetProperty target="myHSlider" propertyName="value" value="2" />				
+	    </setup>
+	    <body>	       
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+	    	<DispatchKeyEvent keys="[LEFT]" waitEvent="change" waitTarget="myHSlider" />				
+		
+			<AssertEvent target="myHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+			<AssertEvent target="myHSlider" eventName="change" eventClass="flash.events::Event" />
+			<AssertPropertyValue target="myHSlider" propertyName="value" value="1" />	    	
+	    </body>
+    </TestCase>  
+        
+	<TestCase testID="HSlider_EndKeyEvents" keywords="[HSlider,valueCommit,change,Event,End]" description="Test HSlider valueCommit and change events when keyboard END is used">
+	    <setup>
+	        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+	        <SetProperty target="myHSlider" propertyName="value" value="2" />				
+	    </setup>
+	    <body>	       
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+	    	<DispatchKeyEvent keys="[END]" waitEvent="change" waitTarget="myHSlider" />				
+		
+			<AssertEvent target="myHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+			<AssertEvent target="myHSlider" eventName="change" eventClass="flash.events::Event" />
+			<AssertPropertyValue target="myHSlider" propertyName="value" value="10" />	    	
+	    </body>
+    </TestCase>     
+        
+	<TestCase testID="HSlider_HomeKeyEvents" keywords="[HSlider,valueCommit,change,Event,Home]" description="Test HSlider valueCommit and change events when keyboard HOME is used">
+	    <setup>
+	        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+	        <SetProperty target="myHSlider" propertyName="value" value="2" />				
+	    </setup>
+	    <body>	       
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+	    	<DispatchKeyEvent keys="[END]" waitEvent="change" waitTarget="myHSlider" />
+	    	<AssertPropertyValue target="myHSlider" propertyName="value" value="10" />	    	
+			<CompareBitmap target="myHSlider" url="../events/baselines">
+				<ConditionalValue deviceDensity="160" os="win"/>
+				<ConditionalValue deviceDensity="240" os="android"/>
+				<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+			</CompareBitmap>
+		
+			<DispatchKeyEvent keys="[HOME]" waitEvent="change" waitTarget="myHSlider" />				
+			<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	    	
+			<!--<CompareBitmap target="myHSlider">
+				<ConditionalValue deviceDensity="160" os="win" url="../events/baselines/testID_2"/>
+				<ConditionalValue deviceDensity="240" os="android" url="../events/baselines/testID_2"/>
+				<ConditionalValue deviceDensity="320" os="win" url="../events/baselines/testID_2"/>
+			
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+			</CompareBitmap>-->
+			<AssertEvent target="myHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+			<AssertEvent target="myHSlider" eventName="change" eventClass="flash.events::Event" />		
+	    </body>
+    </TestCase>         
+        
+	<TestCase testID="HSlider_UpKeyEvents_inGroup" keywords="[HSlider,valueCommit,change,Event,Up, Group]" description="Test HSlider in Group valueCommit and change events when keyboard UP is used">
+	    <setup>
+		<ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/> 
+	    </setup>
+	    <body>	   
+	    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupHSlider" />	    	
+			<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="myGroupHSlider" />				
+		
+			<AssertEvent target="myGroupHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+			<AssertEvent target="myGroupHSlider" eventName="change" eventClass="flash.events::Event" />
+	        <AssertPropertyValue target="myGroupHSlider" propertyName="value" value="1" />	    		        
+	    </body>
+    </TestCase>
+
+	<TestCase testID="HSlider_DownKeyEvents_inGroup" keywords="[HSlider,valueCommit,change,Event,Down, Group]" description="Test HSlider in Group valueCommit and change events when keyboard DOWN is used">
+	    <setup>
+	        <ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/> 
+	        <SetProperty target="myGroupHSlider" propertyName="value" value="2" />
+	    </setup>
+	    <body>	       				
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+	    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupHSlider" />	
+	    	<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="myGroupHSlider" />				
+		
+			<AssertEvent target="myGroupHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+			<AssertEvent target="myGroupHSlider" eventName="change" eventClass="flash.events::Event" />
+			<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="1" />	    	
+	    </body>
+    </TestCase> 
+               
+	<TestCase testID="HSlider_RightKeyEvents_inGroup" keywords="[HSlider,valueCommit,change,Event,Right, Group]" description="Test HSlider in Group valueCommit and change events when keyboard RIGHT is used">
+	    <setup>
+	        <ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/> 
+	    </setup>
+	    <body>	        	
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupHSlider" />
+	    	<DispatchKeyEvent keys="[RIGHT]" waitEvent="change" waitTarget="myGroupHSlider" />				
+		
+			<AssertEvent target="myGroupHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+			<AssertEvent target="myGroupHSlider" eventName="change" eventClass="flash.events::Event" />
+			<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="1" />	    	
+	    </body>
+    </TestCase>    
+          
+	<TestCase testID="HSlider_LeftKeyEvents_inGroup" keywords="[HSlider,valueCommit,change,Event,Left, Group]" description="Test HSlider in Group valueCommit and change events when keyboard LEFT is used">
+	    <setup>
+	        <ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/>
+	        <SetProperty target="myGroupHSlider" propertyName="value" value="2" />				
+	    </setup>
+	    <body>	       
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupHSlider" />
+	    	<DispatchKeyEvent keys="[LEFT]" waitEvent="change" waitTarget="myGroupHSlider" />				
+		
+			<AssertEvent target="myGroupHSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+			<AssertEvent target="myGroupHSlider" eventName="change" eventClass="flash.events::Event" />
+			<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="1" />	    	
+	    </body>
+    </TestCase>        
+
+    </testCases>
+    
+</UnitTester>        
+
+        

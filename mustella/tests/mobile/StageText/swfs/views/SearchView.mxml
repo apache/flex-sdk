@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="States">
+	
+	<s:navigationContent>
+		<s:Button label="Back" click="navigator.popView()" />
+	</s:navigationContent>
+	<s:titleContent>
+		<s:TextInput id="searchStringInput" width="100%" change="doSearch()" enter="doSearch()" />
+	</s:titleContent>
+	<s:actionContent>
+		<s:Button label="Clear" click="searchStringInput.text = ''; doSearch()" enabled="{searchString.length > 0}" />
+		<s:Button label="Home" click="navigator.pushView(HomeView)"/>
+	</s:actionContent>
+		
+	<fx:Script>
+		<![CDATA[
+			[Bindable]
+			public var searchString:String = "";
+			
+			private function filterFunc(item:Object):Boolean
+			{
+				if (searchString == "")
+					return true;
+				
+				return (item.toString().toLowerCase().indexOf(searchString.toLowerCase()) != -1);
+			}
+			
+			private function doSearch():void
+			{
+				searchString = searchStringInput.text;
+				stateData.refresh();
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:ArrayCollection id="stateData" filterFunction="filterFunc">
+			<fx:String>Alabama</fx:String>
+			<fx:String>Alaska</fx:String>
+			<fx:String>Arizona</fx:String>
+			<fx:String>Arkansas</fx:String>
+			<fx:String>California</fx:String>
+			<fx:String>Colorado</fx:String>
+			<fx:String>Connecticut</fx:String>
+			<fx:String>Delaware</fx:String>
+			<fx:String>Florida</fx:String>
+			<fx:String>Georgia</fx:String>
+			<fx:String>Hawaii</fx:String>
+			<fx:String>Idaho</fx:String>
+			<fx:String>Illinois</fx:String>
+			<fx:String>Indiana</fx:String>
+			<fx:String>Iowa</fx:String>
+			<fx:String>Kansas</fx:String>
+			<fx:String>Kentucky</fx:String>
+			<fx:String>Louisiana</fx:String>
+			<fx:String>Maine</fx:String>
+			<fx:String>Maryland</fx:String>
+			<fx:String>Massachusetts</fx:String>
+			<fx:String>Michigan</fx:String>
+			<fx:String>Minnesota</fx:String>
+			<fx:String>Mississippi</fx:String>
+			<fx:String>Missouri</fx:String>
+			<fx:String>Montana</fx:String>
+			<fx:String>Nebraska</fx:String>
+			<fx:String>Nevada</fx:String>
+			<fx:String>New Hampshire</fx:String>
+			<fx:String>New Jersey</fx:String>
+			<fx:String>New Mexico</fx:String>
+			<fx:String>New York</fx:String>
+			<fx:String>North Carolina</fx:String>
+			<fx:String>North Dakota</fx:String>
+			<fx:String>Ohio</fx:String>
+			<fx:String>Oklahoma</fx:String>
+			<fx:String>Oregon</fx:String>
+			<fx:String>Pennsylvania</fx:String>
+			<fx:String>Rhode Island</fx:String>
+			<fx:String>South Carolina</fx:String>
+			<fx:String>South Dakota</fx:String>
+			<fx:String>Tennessee</fx:String>
+			<fx:String>Texas</fx:String>
+			<fx:String>Utah</fx:String>
+			<fx:String>Vermont</fx:String>
+			<fx:String>Virginia</fx:String>
+			<fx:String>Washington</fx:String>
+			<fx:String>West Virginia</fx:String>
+			<fx:String>Wisconsin</fx:String>
+			<fx:String>Wyoming</fx:String>
+		</s:ArrayCollection>
+	</fx:Declarations>
+	
+	<s:List width="100%" height="100%" dataProvider="{stateData}">
+		
+	</s:List>
+</s:View>
+
+
+
+

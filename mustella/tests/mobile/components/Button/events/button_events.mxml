@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/Button/events/"
+    testSWF="MobileButtonMain2.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <testCases>
+
+
+<TestCase testID="Mobile_Button_events_click_dispatch" keywords="[Button, mobile, click, event]" description="Test button click event dispatch">
+	<setup>
+		<ResetComponent target="eventsRoot" className="comps.EventsRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="eventsRoot.eventButton" type="rollOver" localX="47" localY="20" waitEvent="rollOver" />
+		<DispatchMouseEvent target="eventsRoot.eventButton" type="mouseMove" localX="47" localY="20" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="eventsRoot.eventButton" type="mouseDown" localX="47" localY="20" waitEvent="mouseDown" />
+		<DispatchMouseEvent target="eventsRoot.eventButton" type="mouseUp" localX="47" localY="20" waitEvent="mouseUp" />
+		<DispatchMouseEvent target="eventsRoot.eventButton" type="click" localX="47" localY="20" />
+		<AssertEvent target="eventsRoot.eventButton" eventName="click" eventClass="flash.events::MouseEvent" numExpectedEvents="1" />
+	</body>
+</TestCase>
+ 
+<TestCase testID="Mobile_Button_events_move" keywords="[Button, mobile, move, event]" description="Test move event is dispatched when moving button">
+	<setup>
+		<ResetComponent target="eventsRoot" className="comps.EventsRoot" waitEvent="updateComplete" />
+		<SetProperty target="eventsRoot.eventButton" propertyName="x" value="5" />
+		<SetProperty target="eventsRoot.eventButton" propertyName="label" value="My Button" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetProperty target="eventsRoot.eventButton" propertyName="x" value="25" waitEvent="move" />
+		<AssertEvent target="eventsRoot.eventButton" eventName="move" eventClass="mx.events::MoveEvent" />
+		<AssertPropertyValue target="eventsRoot.eventButton" propertyName="height" >
+			<ConditionalValue deviceDensity="160" os="win" value="60" />
+			<ConditionalValue deviceDensity="240" os="android" value="60" />
+			<ConditionalValue deviceDensity="320" os="win" value="63"/>
+			<ConditionalValue deviceDensity="320" os="iphone" value="64"/>
+			<ConditionalValue deviceDensity="160" os="qnx" value="60"/>			
+		</AssertPropertyValue>
+		<CompareBitmap url="../events/baselines" target="eventsRoot" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="320" os="iphone" />
+			<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+		<TestCase testID="Mobile_Button_hide_Event" keywords="[Button, hide, Event]" description="Ensure that the hide event gets triggered when visible is false for Button.">
+			<setup>
+				<ResetComponent target="eventsRoot.eventButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="eventsRoot.eventButton"/>
+			</setup>
+			<body>
+				<SetProperty target="eventsRoot.eventButton" propertyName="visible" value="false" waitTarget="eventsRoot.eventButton" waitEvent="hide"/>
+				<AssertEvent target="eventsRoot.eventButton" eventName="hide" eventClass="mx.events::FlexEvent" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Mobile_Button_resize_event" keywords="[Button, resize, Event]" description="Make sure resize event gets fired when Button moves">
+			<setup>				
+				<ResetComponent target="eventsRoot.eventButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="eventsRoot.eventButton"/>
+				<SetProperty target="eventsRoot.eventButton" propertyName="width" value="50"/>
+				<SetProperty target="eventsRoot.eventButton" propertyName="label" value="My Button" waitEvent="contentChange" waitTarget="eventsRoot.eventButton"/>
+			</setup>
+			<body>
+				<SetProperty target="eventsRoot.eventButton" propertyName="width" value="70" waitEvent="resize" waitTarget="eventsRoot.eventButton"/>
+				<AssertEvent target="eventsRoot.eventButton" eventName="resize" eventClass="mx.events::ResizeEvent" />
+			</body>
+		</TestCase>
+
+    </testCases>
+</UnitTester>

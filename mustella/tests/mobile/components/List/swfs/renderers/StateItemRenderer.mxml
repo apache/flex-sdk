@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                xmlns:s="library://ns.adobe.com/flex/spark" 
+                currentStateChange="stateChangeHandler(event)" updateComplete="trace('updateComplete'+itemIndex)">
+    
+    <!--
+    
+    This renderer is useful when testing item renderer states in Mustella.
+    There is a different background color for each state and caret states 
+    are darker than their non caret equivalent.
+    
+    The states this renderer enters is tracked in its data property and 
+    events are also fired against the owner of the ItemRenderer.  Be aware 
+	when using this information for assertion in a virtual layout because 
+	item renderer recycling could cause extra states to be shown during/after 
+	scrolling when you might not be expecting them.
+    
+    0xFFFFFF - white       - default color 
+    0xAAAAAA - grey        - normal
+    0xAA00AA - purple      - hovered
+    0xAA0000 - red         - down
+    0x00AA00 - green       - downAndSelected
+    0x0000AA - blue        - selected
+    0x000066 - dark blue   - selectedAndShowsCaret
+    0x660066 - dark purple - hoveredAndShowsCaret
+    0x666666 - dark grey   - normalAndShowsCaret
+    
+    -->
+    
+    <fx:Script>
+        <![CDATA[
+            import comps.DataItem;
+            
+            import mx.events.StateChangeEvent;
+            
+            override public function set data(value:Object):void {
+                if (value == null)
+                    return;
+                
+                super.data = value;
+                
+                lbl.text = data.myItemIndex;
+                
+                // See renderers.InstrumentedLabelItemRenderer for more details
+                var setDataEventString:String = "itemRenderer" + itemIndex + "SetData"; 
+                owner.dispatchEvent(new Event(setDataEventString));
+                trace(setDataEventString);
+            }
+
+            /** Keep track of the states this renderer enters */
+            private function stateChangeHandler(event:StateChangeEvent):void {
+                var stateString:String = event.newState + "StateEntered";
+                var dataItem:DataItem = data as DataItem;
+                
+                // dispatch an event against the owner of this ItemRenderer with the state
+                // name and the item index for use in Mustella waitEvent
+                owner.dispatchEvent(new Event(stateString + "OnItem" + itemIndex));
+				
+                // track the history of events of this renderer in the data
+                dataItem.dataArray.push(stateString);
+            }
+        ]]>
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="hovered" />
+        <s:State name="down" />
+        <s:State name="downAndSelected" />
+        <s:State name="selected" />
+        <s:State name="selectedAndShowsCaret" />
+        <s:State name="hoveredAndShowsCaret" />
+        <s:State name="normalAndShowsCaret" />
+    </s:states>
+    
+    <s:Rect id="bgRect" width="100%" height="100%">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" 
+                          color.normal="0xAAAAAA"
+                          color.hovered="0xAA00AA"
+                          color.down="0xAA0000"
+                          color.downAndSelected="0x00AA00"
+                          color.selected="0x0000AA"
+                          color.selectedAndShowsCaret="0x000066"
+                          color.hoveredAndShowsCaret="0x660066"
+                          color.normalAndShowsCaret="0x666666" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:Label id="lbl" color="white" fontSize="24" top="35" left="20" right="20" bottom="35" verticalAlign="middle"/>
+    
+</s:ItemRenderer>

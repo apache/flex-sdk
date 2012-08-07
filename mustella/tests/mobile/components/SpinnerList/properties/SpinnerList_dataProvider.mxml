@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/SpinnerList/properties/"
+    testSWF="SpinnerList.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+        
+        <!--
+        ==============================
+        DataProvider Testing
+        ==============================
+        
+        These tests set different dataProviders on a SpinnerList.
+        
+        The NumericDataProvider tests verify a few indexes of the various
+        dataProviders via the getItemAt() method.  There are a couple tests 
+        that also verify those values make it into the item renderer's label.
+        
+        -->
+        
+        <!-- Misc -->
+        
+        <TestCase testID="SpinnerList_dataProvider_null" keywords="[SpinnerList, Properties]" description="ensure a SpinnerList with no dataProvider does not crash">
+            <bugs>
+                <Bug bugID="SDK-31178" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataProvider" value="null" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_dataProvider_empty" keywords="[SpinnerList, Properties]" description="ensure an empty dataProvider does not crash">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_0" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.dataProvider" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_dataProvider_1" keywords="[SpinnerList, Properties]" description="set a dataProvider of only one item">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_1" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="false" />
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2)" value="null" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1)" value="null" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label" value="$" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1)" value="null" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2)" value="null" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_dataProvider_2" keywords="[SpinnerList, Properties]" description="set a dataProvider of two items">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_2" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="false" />
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2)" value="null" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1)" value="null" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label" value="AM" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label" value="PM" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2)" value="null" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_dataProvider_3" keywords="[SpinnerList, Properties]" description="set a dataProvider of three items">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_3" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="false" />
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2)" value="null" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1)" value="null" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label" value="CAD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label" value="USD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label" value="GBP" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_dataProvider_4" keywords="[SpinnerList, Properties]" description="a dataProvider of four items still shouldn't wrap">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_4" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="false" />
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2)" value="null" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1)" value="null" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label" value="CAD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label" value="USD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label" value="GBP" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_dataProvider_5" keywords="[SpinnerList, Properties]" description="a dataProvider of five items should wrap">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_5" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="true" />
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="YEN" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="EUR" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label" value="CAD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label" value="USD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label" value="GBP" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_dataProvider_6" keywords="[SpinnerList, Properties]" description="a dataProvider of six items should wrap">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_6" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="true" />
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="EUR" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="CHF" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label" value="CAD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label" value="USD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label" value="GBP" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_dataProvider_addItem" keywords="[SpinnerList, Properties]" description="add an item at runtime">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_6" waitEvent="updateComplete" />
+                <RunCode code="application.navigator.activeView.target.dataProvider.addItem('XXX')" waitTarget="navigator.activeView.target" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="true" />
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="CHF" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="XXX" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label" value="CAD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label" value="USD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label" value="GBP" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_dataProvider_addItem_addsWrapping" keywords="[SpinnerList, Properties]" description="adding an item at runtime should cause wrapping to be enabled">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_4" waitEvent="updateComplete" />
+                <RunCode code="application.navigator.activeView.target.dataProvider.addItem('AUS')" waitTarget="navigator.activeView.target" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="true" />
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="YEN" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="AUS" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label" value="CAD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label" value="USD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label" value="GBP" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_dataProvider_removeItem" keywords="[SpinnerList, Properties]" description="removing an item at runtime here causes wrapping to be disabled">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_6" waitEvent="updateComplete" />
+                <RunCode code="application.navigator.activeView.target.dataProvider.removeItemAt(5)" waitTarget="navigator.activeView.target" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="true" />
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="YEN" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="EUR" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label" value="CAD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label" value="USD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label" value="GBP" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_dataProvider_removeItem_removesWrapping" keywords="[SpinnerList, Properties]" description="removing an item at runtime here causes wrapping to be disabled">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_5" waitEvent="updateComplete" />
+                <RunCode code="application.navigator.activeView.target.dataProvider.removeItemAt(4)" waitTarget="navigator.activeView.target" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="false" />
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2)" value="null" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1)" value="null" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label" value="CAD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label" value="USD" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label" value="GBP" />
+            </body>
+        </TestCase>
+        
+        <!-- NumericDataProvider -->
+        
+        <TestCase testID="SpinnerList_numericDataProvider_defaults" keywords="[SpinnerList, NumericDataProvider]" description="check default property values of NumericDataProvider">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertPropertyValue target="navigator.activeView.ndp_default" propertyName="minimum" value="0" />
+                <AssertPropertyValue target="navigator.activeView.ndp_default" propertyName="maximum" value="100" />
+                <AssertPropertyValue target="navigator.activeView.ndp_default" propertyName="stepSize" value="1" />
+                <AssertPropertyValue target="navigator.activeView.ndp_default" propertyName="length" value="101" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_minimum_0" keywords="[SpinnerList, NumericDataProvider]" description="ensure minimum can be zero">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_minimum_0" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_0.getItemAt(0)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_0.getItemAt(1)" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_0.getItemAt(50)" value="50" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_0.getItemAt(99)" value="99" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_0.getItemAt(100)" value="100" />
+                <AssertPropertyValue target="navigator.activeView.ndp_minimum_0" propertyName="length" value="101" />
+                
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="99" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="100" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label"  value="0" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label"  value="1" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label"  value="2" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_minimum_50" keywords="[SpinnerList, NumericDataProvider]" description="check a positive minimum">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_minimum_50" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_50.getItemAt(0)" value="50" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_50.getItemAt(1)" value="51" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_50.getItemAt(25)" value="75" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_50.getItemAt(49)" value="99" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_50.getItemAt(50)" value="100" />
+                <AssertPropertyValue target="navigator.activeView.ndp_minimum_50" propertyName="length" value="51" />
+                
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_minimum_10000" keywords="[SpinnerList, NumericDataProvider]" description="check a large minimum">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_minimum_10000" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_10000.getItemAt(0)" value="10000" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_10000.getItemAt(1)" value="10001" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_10000.getItemAt(5000)" value="15000" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_10000.getItemAt(9999)" value="19999" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_10000.getItemAt(10000)" value="20000" />
+                <AssertPropertyValue target="navigator.activeView.ndp_minimum_10000" propertyName="length" value="10001" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_minimum_negative" keywords="[SpinnerList, NumericDataProvider]" description="set a negative minimum">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_minimum_negative" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_negative.getItemAt(0)" value="-50" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_negative.getItemAt(1)" value="-49" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_negative.getItemAt(75)" value="25" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_negative.getItemAt(149)" value="99" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_negative.getItemAt(150)" value="100" />
+                <AssertPropertyValue target="navigator.activeView.ndp_minimum_negative" propertyName="length" value="151" />
+            </body>
+        </TestCase>    
+        
+        <TestCase testID="SpinnerList_numericDataProvider_minimum_decimal" keywords="[SpinnerList, NumericDataProvider]" description="check minimum works with a decimal value">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_minimum_decimal" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_decimal.getItemAt(0)" value="0.5" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_decimal.getItemAt(1)" value="1.5" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_decimal.getItemAt(5)" value="5.5" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_decimal.getItemAt(9)" value="9.5" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_minimum_decimal.getItemAt(10)" value="10.5" />
+                <AssertPropertyValue target="navigator.activeView.ndp_minimum_decimal" propertyName="length" value="11" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_maximum_0" keywords="[SpinnerList, NumericDataProvider]" description="check maximum can be set to 0">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_maximum_0" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_0.getItemAt(0)" value="-10" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_0.getItemAt(1)" value="-9" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_0.getItemAt(5)" value="-5" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_0.getItemAt(9)" value="-1" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_0.getItemAt(10)" value="0" />
+                <AssertPropertyValue target="navigator.activeView.ndp_maximum_0" propertyName="length" value="11" />
+                
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="-1" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="0" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label"  value="-10" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label"  value="-9" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label"  value="-8" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_maximum_50" keywords="[SpinnerList, NumericDataProvider]" description="check that maximum can be set to a positive number">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_maximum_50" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_50.getItemAt(0)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_50.getItemAt(1)" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_50.getItemAt(25)" value="25" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_50.getItemAt(49)" value="49" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_50.getItemAt(50)" value="50" />
+                <AssertPropertyValue target="navigator.activeView.ndp_maximum_50" propertyName="length" value="51" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_maximum_10000" keywords="[SpinnerList, NumericDataProvider]" description="check using a large maximum value">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_maximum_10000" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_10000.getItemAt(0)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_10000.getItemAt(1)" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_10000.getItemAt(5000)" value="5000" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_10000.getItemAt(9999)" value="9999" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_10000.getItemAt(10000)" value="10000" />
+                <AssertPropertyValue target="navigator.activeView.ndp_maximum_10000" propertyName="length" value="10001" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_maximum_negative" keywords="[SpinnerList, NumericDataProvider]" description="negative maximum should work when minimum is smaller">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_maximum_negative" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_negative.getItemAt(0)" value="-100" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_negative.getItemAt(1)" value="-99" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_negative.getItemAt(25)" value="-75" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_negative.getItemAt(49)" value="-51" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_negative.getItemAt(50)" value="-50" />
+                <AssertPropertyValue target="navigator.activeView.ndp_maximum_negative" propertyName="length" value="51" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_maximum_decimal" keywords="[SpinnerList, NumericDataProvider]" description="set maximum to a decimal value">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_maximum_decimal" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_decimal.getItemAt(0)" value="0.75" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_decimal.getItemAt(1)" value="1.75" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_decimal.getItemAt(5)" value="5.75" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_decimal.getItemAt(9)" value="9.75" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_maximum_decimal.getItemAt(10)" value="10.75" />
+                <AssertPropertyValue target="navigator.activeView.ndp_maximum_decimal" propertyName="length" value="11" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_stepSize_5" keywords="[SpinnerList, NumericDataProvider]" description="check a reasonable, positive stepSize">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_stepSize_5" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_5.getItemAt(0)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_5.getItemAt(1)" value="5" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_5.getItemAt(10)" value="50" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_5.getItemAt(19)" value="95" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_5.getItemAt(20)" value="100" />
+                <AssertPropertyValue target="navigator.activeView.ndp_stepSize_5" propertyName="length" value="21" />
+                
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="95" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="100" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label"  value="0" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label"  value="5" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label"  value="10" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_stepSize_2dot5" keywords="[SpinnerList, NumericDataProvider]" description="ensure decimal stepSize works">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_stepSize_2dot5" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_2dot5.getItemAt(0)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_2dot5.getItemAt(1)" value="2.5" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_2dot5.getItemAt(20)" value="50" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_2dot5.getItemAt(39)" value="97.5" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_2dot5.getItemAt(40)" value="100" />
+                <AssertPropertyValue target="navigator.activeView.ndp_stepSize_2dot5" propertyName="length" value="41" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_stepSize_negative1" keywords="[SpinnerList, NumericDataProvider]" description="negative stepSize should start with maximum value">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_stepSize_negative1" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative1.getItemAt(0)" value="100" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative1.getItemAt(1)" value="99" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative1.getItemAt(50)" value="50" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative1.getItemAt(99)" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative1.getItemAt(100)" value="0" />
+                <AssertPropertyValue target="navigator.activeView.ndp_stepSize_negative1" propertyName="length" value="101" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_stepSize_negative2" keywords="[SpinnerList, NumericDataProvider]" description="negative stepSize should start with maximum value">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_stepSize_negative2" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative2.getItemAt(0)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative2.getItemAt(1)" value="-1" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative2.getItemAt(50)" value="-50" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative2.getItemAt(99)" value="-99" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative2.getItemAt(100)" value="-100" />
+                <AssertPropertyValue target="navigator.activeView.ndp_stepSize_negative2" propertyName="length" value="101" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_stepSize_negative3" keywords="[SpinnerList, NumericDataProvider]" description="negative stepSize should start with maximum value">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_stepSize_negative3" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative3.getItemAt(0)" value="-100" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative3.getItemAt(1)" value="-101" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative3.getItemAt(50)" value="-150" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative3.getItemAt(99)" value="-199" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative3.getItemAt(100)" value="-200" />
+                <AssertPropertyValue target="navigator.activeView.ndp_stepSize_negative1" propertyName="length" value="101" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_stepSize_0" keywords="[SpinnerList, NumericDataProvider]" description="stepSize of 0 should RTE">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.ndp_stepSize_negative3" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.ndp_stepSize_negative3" propertyName="stepSize" value="0" />
+                <AssertError value="Error: stepSize cannot be set to a value of zero." />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_addItem" keywords="[SpinnerList, NumericDataProvider]" description="calling addItem() should RTE">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.assertError(function():void{application.navigator.activeView.ndp_default.addItem(200)})" value="Error: addItem() is not available in this class." />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_addItemAt" keywords="[SpinnerList, NumericDataProvider]" description="calling addItemAt() should RTE">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.assertError(function():void{application.navigator.activeView.ndp_default.addItemAt(0,1)})" value="Error: addItemAt() is not available in this class." />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_getItemAt_negative" keywords="[SpinnerList, NumericDataProvider]" description="calling getItemAt() with a negative index should RTE">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.assertError(function():void{application.navigator.activeView.ndp_default.getItemAt(-1)}).split(':')[0]" value="RangeError" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_getItemAt_excess" keywords="[SpinnerList, NumericDataProvider]" description="calling getItemAt() with too large of an index should RTE">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.assertError(function():void{application.navigator.activeView.ndp_default.getItemAt(101)}).split(':')[0]" value="RangeError" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_itemUpdated" keywords="[SpinnerList, NumericDataProvider]" description="calling itemUpdated() should RTE">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.assertError(function():void{application.navigator.activeView.ndp_default.itemUpdated(1)})" value="Error: itemUpdated() is not available in this class." />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_removeAll" keywords="[SpinnerList, NumericDataProvider]" description="calling removeAll() should RTE">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.assertError(function():void{application.navigator.activeView.ndp_default.removeAll()})" value="Error: removeAll() is not available in this class." />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_removeItemAt" keywords="[SpinnerList, NumericDataProvider]" description="calling removeItemAt() should RTE">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.assertError(function():void{application.navigator.activeView.ndp_default.removeItemAt(1)})" value="Error: removeItemAt() is not available in this class." />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_setItemAt" keywords="[SpinnerList, NumericDataProvider]" description="calling setItemAt() should RTE">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.assertError(function():void{application.navigator.activeView.ndp_default.setItemAt(1,1)})" value="Error: setItemAt() is not available in this class." />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_toArray" keywords="[SpinnerList, NumericDataProvider]" description="get the array representation of a NumericDataProvider">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_toArray.toArray()" value="[4,6,8,10]" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_getItemIndex_positive" keywords="[SpinnerList, NumericDataProvider]" description="check that getItemIndex() works with positive objects">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_default.getItemIndex(0)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_default.getItemIndex(1)" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_default.getItemIndex(50)" value="50" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_default.getItemIndex(99)" value="99" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_default.getItemIndex(100)" value="100" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_numericDataProvider_getItemIndex_negative" keywords="[SpinnerList, NumericDataProvider]" description="check that getItemIndex() works with negative objects">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative2.getItemIndex(-100)" value="100" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative2.getItemIndex(-99)" value="99" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative2.getItemIndex(-50)" value="50" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative2.getItemIndex(-1)" value="1" />
+                <AssertMethodValue method="value=application.navigator.activeView.ndp_stepSize_negative2.getItemIndex(0)" value="0" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

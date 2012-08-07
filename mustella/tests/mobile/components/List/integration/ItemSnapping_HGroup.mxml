@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+	testDir="mobile/components/List/integration/"
+    testSWF="ItemSnapping.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+			import mx.events.TouchInteractionReason;
+			import mx.events.TouchInteractionEvent;
+			import mx.core.InteractionMode;
+			import spark.components.Scroller;
+			import spark.layouts.VerticalLayout;
+			import spark.layouts.HorizontalLayout;
+			import mx.core.FlexGlobals;
+			import comps.snappingTouchEvents;
+			import spark.components.DataGroup;
+
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+			
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_leading_prog" keywords="[ItemSnapping, List]" description="verifies any prog transition on a horizontal group results in leading edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SetProperty target="navigator.activeView.imageGroup" propertyName="horizontalScrollPosition" valueExpression="value=application.navigator.activeView.imageGroup.width*2" />
+				<!-- ensure snapping lands at a complete page ie. horizontalscroll position aligns with the starting of first element in view -->
+<!--			This is an alternative approach to test snapping modes in H and V Groups but does not work for Tile 	
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).firstIndexInView)" value="1" /> 
+-->				<AssertMethodValue method="value=ItemSnapping.isLeading(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_leading_smalldrag" keywords="[ItemSnapping, List]" description="verifies any prog transition on a horizontal group results in leading edge snapped">
+			<bugs>
+				<Bug bugID="SDK-31506"/>
+			</bugs>			
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="35%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />			
+				<!-- ensure snapping lands at a complete page ie. horizontalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).firstIndexInView)" value="1" /> 
+				<AssertMethodValue method="value=ItemSnapping.isLeading(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_leading_largedrag" keywords="[ItemSnapping, List]" description="verifies any prog transition on a horizontal group results in leading edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="95%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />			
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).firstIndexInView)" value="1" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_leading_smallthrow" keywords="[ItemSnapping, List]" description="verifies any small throw on a horizontal group results in leading edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_small_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).firstIndexInView)" value="1" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_leading_largethrow" keywords="[ItemSnapping, List]" description="verifies any large throw on a horizontal group results in leading edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_large_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).firstIndexInView)" value="1" /> 
+			</body>
+		</TestCase>
+
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_trailing_prog" keywords="[ItemSnapping, List, trailing]" description="verifies any drag on a group results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SetProperty target="navigator.activeView.imageGroup" propertyName="horizontalScrollPosition" valueExpression="value=application.navigator.activeView.imageGroup.width*2" />
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_trailing_smalldrag" keywords="[ItemSnapping, List, trailing]" description="verifies any drag on a group results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="25%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />			
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_trailing_largedrag" keywords="[ItemSnapping, List, trailing]" description="verifies any drag on a group results in trailing edge snapped">
+			<bugs>
+				<Bug bugID="SDK-31506"/>
+			</bugs>		
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="95%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />			
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_trailing_smallthrow" keywords="[ItemSnapping, List, trailing]" description="verifies any drag on a group results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_small_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_trailing_largethrow" keywords="[ItemSnapping, List, trailing]" description="verifies any drag on a group results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_large_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.imageGroup.layout as HorizontalLayout).fractionOfElementInView((application.navigator.activeView.imageGroup.layout as HorizontalLayout).lastIndexInView)" value="1" /> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_center_prog" keywords="[ItemSnapping, List, center]" description="verifies any drag on a group results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="10000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="center" />
+				<SetProperty target="navigator.activeView.imageGroup" propertyName="horizontalScrollPosition" valueExpression="value=application.navigator.activeView.imageGroup.width*2" />
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_center_smalldrag" keywords="[ItemSnapping, List, center]" description="verifies any drag on a group results in center edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="10000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="center" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="25%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />			
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_center_largedrag" keywords="[ItemSnapping, List, center]" description="verifies any drag on a group results in center edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="10000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="center" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" dragXFrom="95%" dragXTo="0" dragYFrom="100" dragYTo="100" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />			
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_center_smallthrow" keywords="[ItemSnapping, List, center]" description="verifies any drag on a group results in center edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="10000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="center" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_small_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_group_horizontal_center_largethrow" keywords="[ItemSnapping, List, center]" description="verifies any large throw on a group results in center edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.SnappingHGroup)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="10000"/>
+				<SetProperty target="navigator.activeView.imageScroller" propertyName="scrollSnappingMode" value="center" />
+				<SimulateMouseGesture target="navigator.activeView.imageScroller" valueExpression="value=application.mouseSequences.throw_large_right" waitTarget="navigator.activeView.imageScroller" waitEvent="touchInteractionEnd" />
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.imageGroup,'horizontal')" value="true" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

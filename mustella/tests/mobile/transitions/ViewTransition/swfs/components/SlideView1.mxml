@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="SlideView1">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import mx.core.mx_internal;
+			
+			import spark.transitions.CrossFadeViewTransition;
+			
+			use namespace mx_internal;
+			import spark.transitions.SlideViewTransition;
+			import spark.transitions.ViewTransitionBase;
+			import spark.transitions.ViewTransitionDirection;
+			import mx.events.FlexEvent;
+			
+	
+			import spark.components.ViewNavigator;
+			
+			public function resetApp():void {
+				
+				if(navigator.length == 0) {
+					onResetComplete(null);
+				} else {	
+					navigator.addEventListener("viewChangeComplete", onResetComplete)
+					navigator.popAll();
+				}
+				
+			}
+	
+			
+			public function onResetComplete(e:Event):void {
+				navigator.dispatchEvent(new Event("myEvent"))
+			}
+			
+			
+			public function transition():ViewTransitionBase{
+				var slide:SlideViewTransition = new SlideViewTransition();
+				slide.duration=1000;
+				return slide;
+			}
+			public function transitionRight():ViewTransitionBase{
+				var rslide:SlideViewTransition = new SlideViewTransition();
+				
+				rslide.direction="right";
+				return rslide;
+				
+			}
+			public function transitionUp():ViewTransitionBase{
+				var uslide:SlideViewTransition = new SlideViewTransition();
+				
+				uslide.direction ="up";
+				return uslide;
+				
+			}
+			public function transitionDown():ViewTransitionBase{
+				var dslide:SlideViewTransition = new SlideViewTransition();
+				
+				dslide.direction ="down";
+				return dslide;
+			}
+			
+			public function fadeTransition():ViewTransitionBase{
+				var fade:CrossFadeViewTransition = new CrossFadeViewTransition();
+				return fade;
+			}
+			
+			public function doPopAll():void{
+				if(navigator.length == 0){
+					navigator.dispatchEvent(new Event(flash.events.Event.COMPLETE));
+				}else{
+					navigator.popAll();
+				}
+			}
+			public function clearAll():void{
+				
+			}
+		]]>
+	</fx:Script>
+	
+	<s:HGroup>
+		<s:Button id="ButtonOne" label="pushview" click="navigator.pushView(components.SlideView2, null, null, transition())" />
+		
+	</s:HGroup>
+</s:View>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		title="Sect1View2"
+		initialize="onInitialize(event)"
+		>
+
+	<fx:Script>
+		<![CDATA[
+			import mx.events.EffectEvent;
+			import spark.events.ViewNavigatorEvent;
+			import mx.events.FlexEvent;
+			import mx.core.FlexGlobals;
+			
+			//public var lastAction : String;
+			
+			protected function onInitialize(event:FlexEvent):void
+			{
+				//hasEffectEnded =false;
+				
+				addEventListener(ViewNavigatorEvent.VIEW_ACTIVATE, onViewActivate);
+				addEventListener(FlexEvent.ADD, onAdd);
+				addEventListener(ViewNavigatorEvent.VIEW_DEACTIVATE, onViewDectivate);
+				addEventListener(FlexEvent.REMOVE, onRemove);
+				addEventListener(ViewNavigatorEvent.REMOVING, onRemoving);
+				
+				//addEventListener(EffectEvent.EFFECT_END, onEffectEnd);
+			}
+			
+			private function onViewActivate(event:ViewNavigatorEvent):void {
+				FlexGlobals.topLevelApplication.eventArray.push("viewActivate_sect1view2");
+			}
+			
+			private function onAdd(event:FlexEvent):void {
+				FlexGlobals.topLevelApplication.eventArray.push("add_sect1view2");
+			}
+			
+			private function onViewDectivate(event:ViewNavigatorEvent):void {
+				FlexGlobals.topLevelApplication.eventArray.push("viewDeactivate_sect1view2");
+			}
+			
+			private function onRemove(event:FlexEvent):void
+			{
+				FlexGlobals.topLevelApplication.eventArray.push("remove_sect1view2");
+			}
+
+			private function onRemoving(event:ViewNavigatorEvent):void
+			{
+				if(FlexGlobals.topLevelApplication is ViewAndViewNavigatorMain)
+					FlexGlobals.topLevelApplication.lastAction = "push";
+				FlexGlobals.topLevelApplication.eventArray.push("removing_sect1view2");
+			}
+			
+			protected function onEffectEnd(event:EffectEvent):void
+			{
+				//hasEffectEnded = true;
+			}
+
+			override public function createReturnObject():Object {
+				return data;
+			}
+
+		]]>
+	</fx:Script>
+
+	<s:states>
+		<s:State name="portrait"/>
+		<s:State name="landscape"/>
+	</s:states>
+	
+	<s:navigationContent>
+		<s:Button id="homeButton" label="Home"/>
+	</s:navigationContent>
+	<s:actionContent>
+		<s:Button id="newItemButton" label="New Item"/>
+	</s:actionContent> 	
+	
+	<s:Button id="btn1" label="Sect1View2 Button" color="#333333"/>
+	
+</s:View>

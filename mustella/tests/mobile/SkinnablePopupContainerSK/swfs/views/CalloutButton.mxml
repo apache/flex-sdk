@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:components="components.*"
+		 viewActivate="view1_viewActivateHandler(event)" viewDeactivate="view1_viewDeactivateHandler(event)" added="view1_addedHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import mx.core.mx_internal;
+			import mx.events.EffectEvent;
+			import mx.events.FlexMouseEvent;
+			
+			import spark.effects.animation.Animation;
+			import spark.effects.supportClasses.AnimateInstance;
+			import spark.events.ViewNavigatorEvent;
+			import spark.skins.mobile.CalloutSkin;
+
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+			}
+			
+			protected function simplebutton_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+			}
+			
+		
+			
+			protected function view1_viewActivateHandler(event:ViewNavigatorEvent):void
+			{
+				addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, activateHandler);
+				addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, deactivateHandler);
+				addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, activatingHandler);
+			}
+			private function activateHandler(event:SoftKeyboardEvent): void
+			{
+				trace('activate');
+				trace("Callout's y: " + calloutButton_ForResize.y+" height: " + calloutButton_ForResize.height + " sk top: " + stage.softKeyboardRect.top);
+				
+			}
+			
+			private function deactivateHandler(event:SoftKeyboardEvent):void
+			{
+				trace('deactivated');
+			}
+			
+			private function activatingHandler(event:SoftKeyboardEvent): void
+			{
+				trace('activating');
+			}
+			
+			protected function textinput_ForResize_clickHandler(event:FocusEvent):void
+			{
+				trace('text input in focus');				
+			}
+			
+			protected function view1_viewDeactivateHandler(event:ViewNavigatorEvent):void
+			{
+				// TODO Auto-generated method stub
+				calloutButton_ForResize.closeDropDown();
+				calloutButton_GreaterMinHeight.closeDropDown();
+				removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, activateHandler);
+				removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, deactivateHandler);
+				removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, activatingHandler);
+			}
+			
+			protected function calloutButton_ForResize_clickHandler(event:MouseEvent):void
+			{
+				trace("Callout's y: " + calloutButton_ForResize.y+" height: " + calloutButton_ForResize.height + " sk top: " + stage.softKeyboardRect.top);
+				
+			}
+			
+			protected function textinput_ForResize_addedHandler(event:Event):void
+			{
+				// TODO Auto-generated method stub
+				trace('added to display list');
+			}
+			
+			protected function view1_addedHandler(event:Event):void
+			{
+				// TODO Auto-generated method stub
+				trace('view added to stage');
+			}
+			
+		]]>
+	</fx:Script>
+	<s:navigationContent>
+		<s:Button label="Back" click="navigator.popView()" />
+	</s:navigationContent>
+	
+	<s:actionContent>
+		<s:Button label="Home" click="navigator.pushView(HomeView)"/>
+	</s:actionContent>
+
+	<s:HGroup width="100%">
+		<s:CalloutButton id="calloutButton_ForResize" 
+						 label="Resizable Callout" 
+						 verticalPosition="before"
+						 horizontalPosition="middle" click="calloutButton_ForResize_clickHandler(event)">
+			<!-- Setting callout layout to "VerticalLayout" -->
+			<s:calloutLayout>
+				<s:VerticalLayout/>
+			</s:calloutLayout>
+			<!-- Setting a set of components to callout's content as an Array -->
+			<s:calloutContent>
+				<s:VGroup width="100%" height="100%" gap="8">
+					<s:ViewNavigator id="viewNav" width="100%" height="100%" firstView="views.HomeView">
+						<s:navigationContent>
+							<s:Button label="Back" click="viewNav.popView()"/>
+						</s:navigationContent>
+						<s:actionContent>
+							<s:Button label="Done" chromeColor="0x0099FF" click="calloutButton_ForResize.callout.close()"/>
+						</s:actionContent>
+					</s:ViewNavigator>
+					<s:TextInput width="100%" added="textinput_ForResize_addedHandler(event)" id="textinput_ForResize" text="{calloutButton_ForResize.callout.getStyle('softKeyboardEffectDuration')}" focusIn="textinput_ForResize_clickHandler(event)"/>
+					<s:Button label="Close" click="calloutButton_ForResize.callout.close()" width="100%"/>
+				</s:VGroup>
+			</s:calloutContent>
+		</s:CalloutButton>
+		
+
+					
+		<s:CalloutButton id="calloutButton_GreaterMinHeight" 
+						 label="Non-Resizable Callout" 
+						 verticalPosition="before"
+						 horizontalPosition="middle">
+			<!-- Setting callout layout to "VerticalLayout" -->
+			<s:calloutLayout>
+				<s:VerticalLayout/>
+			</s:calloutLayout>
+			<!-- Setting a set of components to callout's content as an Array -->
+			<s:calloutContent>
+				<s:DateSpinner id="startDateSpinner" displayMode="dateAndTime"  />
+				<s:Label text="This is a non-resizable alert box with greater min height"/>
+				<s:TextInput id="textInput_NoResize" width="100%"/>
+				<s:Button width="100%" label="Close" click="calloutButton_GreaterMinHeight.callout.close()"/>
+			</s:calloutContent>
+		</s:CalloutButton>
+	</s:HGroup>
+</s:View>

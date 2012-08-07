@@ -1,0 +1,81 @@
+/*
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+s|Button
+{
+	chromeColor: #AAAAAA;
+	color: #000000;
+	fontSize: 24;
+}
+
+.buttonStyle
+{
+	chromeColor: #999999;
+	color: #ffffff;
+	fontSize: 24;
+}
+
+@media all and (os-platform: "Android") and (application-dpi: 160)
+{
+	s|Button
+	{
+		color: #990000;
+		fontSize: 22;			
+	}
+
+	.buttonStyle
+	{
+		chromeColor: #000000;
+		color: #ff0000;
+		fontSize: 22;
+	}
+}
+
+@media screen and (os-platform: "Android") and (application-dpi: 240)
+{
+	s|Button
+	{
+		color: #009900;
+		fontSize: 26;			
+	}
+
+	.buttonStyle
+	{
+		chromeColor: #000000;
+		color: #00ff00;
+		fontSize: 26;
+	}
+}
+@media (os-platform: "IOS") and (application-dpi: 320)
+{
+	s|Button
+	{
+		chromeColor: #000099;
+		color: #ffffff;
+		fontSize: 28;			
+	}
+
+	.buttonStyle
+	{
+		chromeColor: #000000;
+		color: #0000ff;
+		fontSize: 28;
+	}
+}

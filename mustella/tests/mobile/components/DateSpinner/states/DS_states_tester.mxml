@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/DateSpinner/states/"
+            xmlns="*"
+            xmlns:fx="http://ns.adobe.com/mxml/2009"
+            xmlns:mx="library://ns.adobe.com/flex/mx"
+            xmlns:s="library://ns.adobe.com/flex/spark"
+            testSWF="DateSpinnerMain.mxml">
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+            import spark.components.calendarClasses.DateSelectorDisplayMode;
+            
+            import views.StatesView;
+			import assets.DSConstants;
+            
+            public static function init(o:DisplayObject):void
+            {
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>  
+    
+    <!-- end of set of lines that must be in each unit test  -->
+    
+    <testCases>
+        
+        <TestCase testID="DateSpinner_states_full_1" 
+                  keywords="[DateSpinner, property, selectedDate, set, get]" 
+                  description="Test the set get function of property selectedDate for DateSpinner component works well.">
+            <setup>
+                <ResetComponent target="navigator" 
+                                className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.StatesView)" 
+                         waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView" propertyName="currentState" 
+                                     valueExpression="value='firstSt'" />
+                <AssertPropertyValue target="navigator.activeView.ds_states_full" propertyName="displayMode" 
+                                     valueExpression="value=StatesView.def_displayMode" />
+                <AssertPropertyValue target="navigator.activeView.ds_states_full" propertyName="minDate" 
+                                     valueExpression="value=StatesView.def_minDate" />
+                <AssertPropertyValue target="navigator.activeView.ds_states_full" propertyName="maxDate" 
+                                     valueExpression="value=StatesView.def_maxDate" />
+                <AssertPropertyValue target="navigator.activeView.ds_states_full" propertyName="minuteStepSize" 
+                                     valueExpression="value=StatesView.def_minuteStepSize" />
+                <AssertPropertyValue target="navigator.activeView.ds_states_full" propertyName="selectedDate" 
+                                     valueExpression="value=StatesView.def_selectedDate" />
+                
+                <ChangeState changeTarget="navigator.activeView" toState="secondSt" 
+                             waitTarget="navigator.activeView" waitEvent="stateChangeComplete" />
+                <Pause timeout="3000"/>
+				<AssertPropertyValue target="navigator.activeView" propertyName="currentState" 
+									 valueExpression="value='secondSt'" />
+				
+				<AssertPropertyValue target="navigator.activeView.ds_states_full" propertyName="displayMode" 
+									 valueExpression="value=DateSelectorDisplayMode.TIME" />
+				<AssertPropertyValue target="navigator.activeView.ds_states_full" propertyName="selectedDate" 
+									 valueExpression="value=new Date(2007, 7, 11, 4, 36, 51)" />
+				<AssertPropertyValue target="navigator.activeView.ds_states_full" propertyName="minDate" 
+									 valueExpression="value=new Date(1698, 8, 3, 4, 15, 51)" />
+				<AssertPropertyValue target="navigator.activeView.ds_states_full" propertyName="maxDate" 
+									 valueExpression="value=new Date(2098, 8, 3, 4, 15, 51)" />
+				<AssertPropertyValue target="navigator.activeView.ds_states_full" propertyName="minuteStepSize" 
+									 valueExpression="value=2" />
+                
+                <CompareBitmap url="../states/baselines" target="navigator.activeView.ds_states_full">
+                    <ConditionalValue deviceDensity="160" os="win" />
+                    <ConditionalValue deviceDensity="320" os="win" />
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android" />
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+    </testCases>
+    
+</UnitTester>
+

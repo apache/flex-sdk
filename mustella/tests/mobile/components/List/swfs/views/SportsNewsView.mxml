@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        title="Sports News">
+    
+    <s:List id="target" width="100%" height="100%" labelField="name"  
+            contentBackgroundColor="black" selectionColor="0x00BEFF" downColor="0x00BEFF">
+        <s:itemRenderer>
+            <fx:Component>
+                <s:IconItemRenderer messageField="description" messageStyleName="myStyle"
+                                    fontSize="34" fontWeight="normal">
+                    <fx:Style>
+                        @namespace s "library://ns.adobe.com/flex/spark";
+                        .myStyle {
+                            color: #BDBEBD; 
+                            fontSize: 22;
+                        }
+                    </fx:Style>
+                </s:IconItemRenderer>
+            </fx:Component>
+        </s:itemRenderer>
+        <s:dataProvider>
+            <s:ArrayList>
+                <fx:Object name="Basketball Update"  />
+                <fx:Object name="Hockey Update" description="Nash sets up winning goal." />
+                <fx:Object name="Basketball Update"  />
+                <fx:Object name="Hockey Update" description="Sedin nets late goal."  />
+                <fx:Object name="Basketball Update"  />
+                <fx:Object name="Golf Update" description="Tiger wins again."  />
+                <fx:Object name="Basketball Update"  />
+                <fx:Object name="Football Update" description="Green Bay defeats Pittsburgh."  />
+                <fx:Object name="Basketball Update"  />
+                <fx:Object name="Tennis News" description="Grand slam events coming soon."  />
+                <fx:Object name="Basketball Update"  />
+                <fx:Object name="Curling News" description="Everyone is sweeping, yelling, and drinking."/>
+                <fx:Object name="Basketball Update"  />
+                <fx:Object name="Hockey Update" description="Pittsburgh loses again to Washington in a rematch Sunday from the winter classic a few months earlier."  />
+                <fx:Object name="Basketball Update"  />
+                <fx:Object name="Baseball Update" description="San Francisco is getting ready to repeat another championship victory this year after taking some well deserved time off."  />
+                <fx:Object name="Basketball Update"  />
+                <fx:Object name="Hockey Update" description="Vancouver is playing really well thanks to their stellar goaltending and some great offensive explosions resulting in multiple games won by over 3 goals."  />
+                <fx:Object name="Basketball Update" description="Nash still awesome."  />
+                <fx:Object name="Figure Skating News" description="Sale returns to the ice to destroy the rest of the field."  />
+                <fx:Object name="Hockey Update" description="Edmonton is on the brink of returning to the minors.  Hopefully their young talent can bring them back into a team that just sort of sucks instead of totally fails."  />
+                <fx:Object name="Hockey Update" description="Toronto intends to rename their stadium to Waffle Center to embrace suggestions from their fans on how to make the team better.  It's been rumoured that they might also try to stop acquiring washed up players in the near future."  />
+            </s:ArrayList>
+        </s:dataProvider>
+    </s:List>
+    
+</s:View>

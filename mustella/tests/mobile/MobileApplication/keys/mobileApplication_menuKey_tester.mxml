@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/MobileApplication/keys/"  
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="MobileApplicationNoView.mxml">
+
+
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+			import spark.components.View;
+			import spark.components.ViewNavigator;
+			
+			public function activeView() : View {
+				return navigator().activeView;
+			}
+
+			public function navigator() : ViewNavigator {
+				return FlexGlobals.topLevelApplication.navigator;
+			}
+			
+        ]]>
+    </fx:Script>
+	
+	<testCases>
+	
+		<TestCase testID="mobileApp_menuKey_firstView_null" keywords="[MobileApplication, ViewMenu]" description="Verify pressing menu key does nothing">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>				
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.length == 0)" value="true" />
+				<DispatchKeyEvent keys="[MENU]"/>
+				<Pause timeout="100"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen == false)" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mobileApp_menuKey_activeView_noMenu" keywords="[MobileApplication, ViewMenu]" description="Verify pressing menu on a view with no menu will do nothing">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>				
+				<RunCode code="navigator().pushView(components.View1)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View1)" value="true" />
+				<DispatchKeyEvent keys="[MENU]"/>
+				<Pause timeout="200"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen)" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_menuKey_activeView_withMenu" keywords="[MobileApplication, ViewMenu]" description="Verify pressing menu on a view with menu will open menu">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>				
+				<RunCode code="navigator().pushView(components.View1)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View1)" value="true" />
+				<DispatchKeyEvent keys="[MENU]"/>
+				<Pause timeout="200"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen)" value="false" />
+				<DispatchKeyEvent keys="[MENU]"/>
+				<Pause timeout="200"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen)" value="false" />
+				<RunCode code="navigator().pushView(components.View4)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View4)" value="true" />
+				<DispatchKeyEvent keys="[MENU]" waitTarget="navigator.activeView" waitEvent="viewMenuOpen" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen == true)" value="true" />
+				<DispatchKeyEvent keys="[MENU]" waitTarget="navigator.activeView" waitEvent="viewMenuClose" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen == false)" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_menuKey_close_onTapOutsideOfMenu" keywords="[MobileApplication, ViewMenu]" description="Verify tapping outside the menu will close it">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>				
+				<RunCode code="navigator().pushView(components.View4)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View4)" value="true" />
+				<DispatchKeyEvent keys="[MENU]" waitTarget="navigator.activeView" waitEvent="viewMenuOpen" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen)" value="true" />
+				<DispatchMouseClickEvent target="navigator.activeView" localX="20" localY="20" waitEvent="viewMenuClose"/>
+				<WaitForEffectsToEnd /> 
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen)" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_menuKey_close_onBackKeyPress" keywords="[MobileApplication, ViewMenu]" description="Verify tapping back key will close menu">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete"/>				
+				<RunCode code="navigator().pushView(components.View1)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="navigator().pushView(components.View4)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View4)" value="true" />
+				<DispatchKeyEvent keys="[MENU]" waitTarget="navigator.activeView" waitEvent="viewMenuOpen" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen)" value="true" />
+				<DispatchKeyEvent keys="[BACK]" waitTarget="navigator.activeView" waitEvent="viewMenuClose" />
+				<!--Pause timeout="200"/-->
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen)" value="false" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View4)" value="true" />
+				<DispatchKeyEvent keys="[MENU]" waitTarget="navigator.activeView" waitEvent="viewMenuOpen" />
+				<!--Pause timeout="200"/-->
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen)" value="true" />
+				<DispatchKeyEvent keys="[MENU]" waitTarget="navigator.activeView" waitEvent="viewMenuClose" />
+				<!--Pause timeout="200"/-->
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen)" value="false" />
+				<DispatchKeyEvent keys="[BACK]" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.viewMenuOpen)" value="false" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is View1)" value="true" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

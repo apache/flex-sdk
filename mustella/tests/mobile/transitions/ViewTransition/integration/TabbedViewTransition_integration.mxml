@@ -1,0 +1,1215 @@
+<UnitTester 
+	 xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	 xmlns:s="library://ns.adobe.com/flex/spark" 
+	 xmlns="*" 
+	 testDir="mobile/transitions/ViewTransition/integration/"
+	 testSWF="TabbedViewTransition.mxml">
+	 
+	 <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	 <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	 
+	 <fx:Script>
+		 <![CDATA[ 
+			 import views.*;
+			 import comps.*;
+		 ]]>
+	 </fx:Script>
+	 
+	 <testCases>
+		 
+		 <TestCase testID="TabbedViewTransition_slide_default" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlide)" />
+<!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+-->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_left" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideLeft)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_right" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideRight)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_up" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideUp)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_down" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideDown)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_push_left" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlidePushLeft)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+
+			 </body>
+		 </TestCase>
+ <TestCase testID="TabbedViewTransition_slide_push_right" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlidePushRight)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+
+			 </body>
+		 </TestCase>
+ <TestCase testID="TabbedViewTransition_slide_push_up" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlidePushUp)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+
+			 </body>
+		 </TestCase>
+ <TestCase testID="TabbedViewTransition_slide_push_down" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlidePushDown)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_cover_left" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideCoverLeft)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 
+		 <TestCase testID="TabbedViewTransition_slide_cover_right" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideCoverRight)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_cover_up" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideCoverUp)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_cover_down" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideCoverDown)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+ <TestCase testID="TabbedViewTransition_slide_uncover_left" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideUnCoverLeft)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+<TestCase testID="TabbedViewTransition_slide_uncover_right" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideUnCoverRight)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+<TestCase testID="TabbedViewTransition_slide_uncover_up" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideUnCoverUp)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+<TestCase testID="TabbedViewTransition_slide_uncover_down" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideUnCoverDown)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_zoom" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionZoom)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_zoomIn" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionZoomIn)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlip)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_right" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipRight)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_right_cube" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipRightCube)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_left" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipLeft)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_left_cube" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipLeftCube)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_up" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipUp)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_up_cube" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipUpCube)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_down" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipDown)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_down_cube" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipDownCube)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase> <TestCase testID="TabbedViewTransition_crossFade" keywords="[TabbedViewTransition, Integration]" description="TODO">
+						 <setup>
+							 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+							 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+							 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+						 </setup>
+						 <body>
+							 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFade)" />
+							 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+							 -->				 
+							 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+							 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+							 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+							 
+						 </body>
+					 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_default_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_left_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideLeftWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_right_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideRightWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_up_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideUpWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_down_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideDownWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_cover_left_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideCoverLeftWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 
+		
+		 <TestCase testID="TabbedViewTransition_slide_cover_right_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideCoverRightWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_cover_up_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideCoverUpWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_cover_down_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideCoverDownWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+ <TestCase testID="TabbedViewTransition_slide_uncover_down_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideUnCoverDownWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+<TestCase testID="TabbedViewTransition_slide_uncover_left_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideUnCoverLeftWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+<TestCase testID="TabbedViewTransition_slide_uncover_right_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideUnCoverRightWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+<TestCase testID="TabbedViewTransition_slide_uncover_up_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideUnCoverUpWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_zoom_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionZoomWOContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_zoomIn_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionZoomInWOContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_right_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipRightWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_right_cube_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipRightCubeWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_left_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipLeftWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_left_cube_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipLeftCubeWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_up_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipUpWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_up_cube_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipUpCubeWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_down_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipDownWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_down_cube_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipDownCubeWContent)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase> <TestCase testID="TabbedViewTransition_crossFade_w_content" keywords="[TabbedViewTransition, Integration]" description="TODO">
+						 <setup>
+							 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+							 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+							 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+						 </setup>
+						 <body>
+							 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFadeWContent)" />
+							 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+							 -->				 
+							 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+							 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+							 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+							 
+						 </body>
+					 </TestCase>
+		 
+		 <TestCase testID="TabbedViewTransition_slide_sine" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideWSine)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_bounce" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideWBounce)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_elastic" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideWElastic)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_power" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideWPower)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_linear" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionSlideWLinear)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_crossFade_sine" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFadeWSine)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_crossFade_bounce" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFadeWBounce)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_crossFade_elastic" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFadeWElastic)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_crossFade_power" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFadeWPower)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_crossFade_linear" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFadeWLinear)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_zoom_sine" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionZoomWSine)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_zoom_bounce" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionZoomWBounce)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_zoom_elastic" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionZoomWElastic)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_zoom_power" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionZoomWPower)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_zoom_linear" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionZoomWLinear)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_sine" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipWSine)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_bounce" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipWBounce)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_elastic" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipWElastic)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_power" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipWPower)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_flip_linear" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.pushView(views.NextView, null, null, application.testnavigator.activeView.transitionFlipWLinear)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="testnavigator.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="TabbedViewTransition_slide_popall" keywords="[TabbedViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="testnavigator" className="comps.QATabbedNavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="testnavigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="testnavigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.testnavigator.popAll(application.testnavigator.activeView.transitionSlide)" />
+				 <!--				 <WaitForEvent target="testnavigator" eventName="TabbedViewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="testnavigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="testnavigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 
+			 </body>
+		 </TestCase>
+	 </testCases>
+ </UnitTester>

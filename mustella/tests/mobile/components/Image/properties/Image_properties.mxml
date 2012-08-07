@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/Image/properties/"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:m="http://ns.adobe.com/mxml/2009"
+		xmlns="*" testSWF="ImageApp1.mxml"
+    >
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import assets.*;
+			import mx.core.FlexGlobals;
+		]]>
+	</fx:Script>
+
+	<testCases>
+		<TestCase testID="LetTheAppSetUp" keywords="[Image]" description="Let the app get set up." >
+			<body>
+				<Pause timeout="2000" />
+			</body>				
+		</TestCase>
+
+		<!-- enabled -->
+    <TestCase testID="Image_enabled_test1" keywords="[Image, enabled]" description="Disable Image, then load image" >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_enabled_test2" keywords="[Image, enabled]" description="Load image, then disable Image" >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_enabled_test3" keywords="[Image, enabled]" description="Disable, then attempt to load an invalid image." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="100" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallpurplerect.jpg" waitEvent="ioError" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_enabled_test4" keywords="[Image, enabled]" description="imageInvalid remains when Image becomes disabled (in other words, nothing happens).  Pause just in case something happens." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="100" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallpurplerect.jpg" waitEvent="ioError" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="enabled" value="false" />
+				<Pause timeout="100" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_enabled_test5" keywords="[Image, enabled]" description="loadingIndicator disappears when Image becomes disabled." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="100" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="skinClass" valueExpression="value = assets.ImageSkinStaticLoadingIndicator" waitEvent="skinChanged" />
+				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="enableLoadingState" value="true" />
+				<Pause timeout="1" />
+				<SetProperty target="navigator.activeView.imgComp1.img1.skin" propertyName="currentState" value="loading" />
+				<RunCode code="FlexGlobals.topLevelApplication.waitForLoadingIndicator()" waitEvent="foundLoadingIndicator" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="enabled" value="false" waitEvent="updateComplete" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<!-- height and width -->
+    <TestCase testID="Image_heightwidth_test1" keywords="[Image, height, width]" description="Load an image, then a smaller one" >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/greenrect.jpg" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_heightwidth_test2" keywords="[Image, height, width]" description="Load an image, then a larger one" >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/greenrect.jpg" waitEvent="ready" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_heightwidth_test3" keywords="[Image, height, width]" description="Scale 3x larger" >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="201" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="300" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_heightwidth_test4" keywords="[Image, height, width]" description="Scale 1/3 smaller" >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="133" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="200" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/greenrect.jpg" waitEvent="ready" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+		
+		<!-- Make sure loading and failure symbols adjust their position based on Image dimensions. -->
+    <TestCase testID="Image_heightwidth_test5" keywords="[Image, height, width]" description="imageInvalid is centered after a change." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="100" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallpurplerect.jpg" waitEvent="ioError" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="300" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="200" waitEvent="updateComplete" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_heightwidth_test6" keywords="[Image, height, width]" description="loadingIndicator is centered after a change." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="100" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="skinClass" valueExpression="value = assets.ImageSkinStaticLoadingIndicator" waitEvent="skinChanged" />
+				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="enableLoadingState" value="true" />
+				<Pause timeout="1" />
+				<SetProperty target="navigator.activeView.imgComp1.img1.skin" propertyName="currentState" value="loading" />
+				<RunCode code="FlexGlobals.topLevelApplication.waitForLoadingIndicator()" waitEvent="foundLoadingIndicator" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="300" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="200" waitEvent="updateComplete" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<!-- Make sure loading and failure symbols shrink if an Image is small. -->
+    <TestCase testID="Image_heightwidth_test7" keywords="[Image, height, width]" description="imageInvalid shrinks to match the spark Image size." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="20" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="20" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallpurplerect.jpg" waitEvent="ioError" />
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+		
+		<TestCase testID="Image_heightwidth_test8" keywords="[Image, height, width]" description="loadingIndicator shrinks to match the spark Image size." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="20" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="20" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="skinClass" valueExpression="value = assets.ImageSkinStaticLoadingIndicator" waitEvent="skinChanged" />
+				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="enableLoadingState" value="true" />
+				<Pause timeout="1" />
+				<SetProperty target="navigator.activeView.imgComp1.img1.skin" propertyName="currentState" value="loading" />
+				<RunCode code="FlexGlobals.topLevelApplication.waitForLoadingIndicator()" waitEvent="foundLoadingIndicator" />
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<!-- imageInvalidClass -->
+    <TestCase testID="Image_imageInvalidClass_test1" keywords="[Image]" description="Use a custom imageInvalidClass." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="skinClass" valueExpression="value = assets.ImageSkinRedImageInvalid" />
+				<Pause timeout="1" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallpurplerect.jpg" waitEvent="ioError" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+		
+		<!-- source -->
+    <TestCase testID="Image_source_test1" keywords="[Image]" description="Set a valid source." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_source_test2" keywords="[Image, source]" description="Loading invalid source shows imageInvalid." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="100" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallpurplerect.jpg" waitEvent="ioError" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_source_test3" keywords="[Image, source]" description="Start loading, then switch to invalid." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="100" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="skinClass" valueExpression="value = assets.ImageSkinStaticLoadingIndicator" waitEvent="skinChanged" />
+				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="enableLoadingState" value="true" />
+				<Pause timeout="1" />	
+				<SetProperty target="navigator.activeView.imgComp1.img1.skin" propertyName="currentState" value="loading" />
+				<RunCode code="FlexGlobals.topLevelApplication.waitForLoadingIndicator()" waitEvent="foundLoadingIndicator" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallpurplerect.jpg" waitEvent="ioError" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_source_test4" keywords="[Image]" description="Load an invalid image, then a valid image." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallpurplerect.jpg" waitEvent="ioError" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="Image_source_test5" keywords="[Image]" description="From the loading state, load a valid image." >
+			<setup>
+                <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="skinClass" valueExpression="value = assets.ImageSkinStaticLoadingIndicator" waitEvent="skinChanged" />
+				<SetStyle target="navigator.activeView.imgComp1.img1" styleName="enableLoadingState" value="true" />
+				<Pause timeout="1" />			
+				<SetProperty target="navigator.activeView.imgComp1.img1.skin" propertyName="currentState" value="loading" />
+				<RunCode code="FlexGlobals.topLevelApplication.waitForLoadingIndicator()" waitEvent="foundLoadingIndicator" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />				
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+		
+		<TestCase testID="Image_FillModescale_ScaleModezoom" keywords="[BitmapImage, scale, zoom]" description="Zoom image">
+      <setup>
+        <ResetComponent target="navigator.activeView.imgComp1" className="assets.ImageComp1" waitEvent="updateComplete" />
+        <SetProperty target="navigator.activeView.imgComp1.img1" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.imgComp1.img1" propertyName="fillMode" value="scale" />
+        <SetProperty target="navigator.activeView.imgComp1.img1" propertyName="scaleMode" value="zoom" />
+        <SetProperty target="navigator.activeView.imgComp1.img1" propertyName="source" value="assets/smallgreenrect.jpg" waitEvent="ready" />	
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/" target="navigator.activeView.imgComp1.img1">
+					<ConditionalValue os="win" deviceDensity="160" />
+					<ConditionalValue os="win" deviceDensity="240" />
+					<ConditionalValue os="win" deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

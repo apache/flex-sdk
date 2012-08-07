@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/ViewAndViewNavigator/tests/"
+			testSWF="ViewAndViewNavigatorMainTabbed.mxml">
+
+		<fx:Script source="globalTabbed.as" />
+
+		<fx:Script>
+			<![CDATA[ 
+
+				import mx.core.FlexGlobals;
+				import views.*;
+				import spark.transitions.SlideViewTransition;
+				import spark.components.TabbedViewNavigator;
+				import spark.components.ViewNavigator;
+				import spark.components.View;
+				import spark.events.IndexChangeEvent;
+				import mx.events.FlexEvent;
+				import spark.components.ButtonBar;
+				
+				import mx.core.mx_internal;
+				use namespace mx_internal;
+				
+				public var returnedData:Object;
+				
+				public static function init(o:DisplayObject):void { } 
+				
+			]]>
+		</fx:Script>
+
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		
+		<TestCase testID="creationPolicy" keywords="[view, viewnavigator]" description="">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.navigators[0].navigationStack.source[0].instance != null" value="true" />
+
+				<RunCode code="navigator().activeView.destructionPolicy='auto'"/>
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View2)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+
+				<AssertMethodValue method="value = activeView() is Sect1View2" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.navigators[0].navigationStack.source[0].instance == null" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.navigators[0].navigationStack.source[1].instance != null" value="true" />
+
+				<RunCode code="navigator().activeView.destructionPolicy='never'"/>
+				<RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.navigators[0].navigationStack.source[0].instance == null" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.navigators[0].navigationStack.source[1].instance != null" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.navigators[0].navigationStack.source[2].instance != null" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="lookAtDefaultSelectedTab" keywords="[view, viewnavigator]" description="">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<!-- first tab selected -->
+				<CompareBitmap target="tabbedNavigator.tabBar" url="../tests/baselines" >
+				    <ConditionalValue deviceDensity="160" os="win" />
+						<ConditionalValue deviceDensity="240" os="android"/>
+						<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap >
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="lookAtExplicitlySelectedTab" keywords="[view, viewnavigator]" description="">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<!-- second tab selected -->
+			  <RunCode code="navigator().selectedIndex = 1" waitTarget="tabbedNavigator" waitEvent="change" />
+				<CompareBitmap target="tabbedNavigator.tabBar" url="../tests/baselines" >
+				    <ConditionalValue deviceDensity="160" os="win" />
+						<ConditionalValue deviceDensity="240" os="android" />
+						<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap >
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="mixedAPICalls" keywords="[view, viewnavigator, destructionpolicy, popView]" description="Test that interaction is disabled on all views during transition">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+
+				<RunCode code="selectedNavigator().pushView(views.Sect1View2)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="navigator().selectedIndex = 1" waitTarget="tabbedNavigator" waitEvent="change"/>
+				<RunCode code="selectedNavigator().pushView(views.Sect2View2)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete"/>
+
+				<DispatchKeyEvent keys="[BACK]" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = activeView() is Sect2View1" value="true" />
+
+				<RunCode code="navigator().selectedIndex = 0" waitTarget="tabbedNavigator" waitEvent="change"/>
+				<!--<Pause timeout="50" />-->
+				<AssertMethodValue method="value = activeView() is Sect1View2" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="selectedIndex" keywords="[SDK-29649, view, viewnavigator, destructionpolicy]" description="Test setting selectedIndex changes sections">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+				<RunCode code="navigator().selectedIndex = 1" waitTarget="tabbedNavigator" waitEvent="change" />
+				<AssertMethodValue method="value = activeView() is Sect2View1" value="true" />
+
+				<CompareBitmap url="../tests/baselines/" target="tabbedNavigator.tabBar">
+					<ConditionalValue deviceDensity="160" os="win"  />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"  />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="popToFirstViewOnTabClick" keywords="[view, viewnavigator]" description="Test setting selectedIndex changes sections">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+				<RunCode code="selectedNavigator().pushView(views.Sect1View2)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete"/>
+				<AssertMethodValue method="value = activeView() is Sect1View2" value="true" />
+
+				<DispatchMouseEvent target="tabbedNavigator.tabBar" type="click" localX="47" localY="20"/>
+				<Pause timeout="900"/>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="resetNavigators" description="Verify resetting navigators works as expected" keywords="[SDK-27544, navigators, reset]">
+
+		    <setup>
+					<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+					<!-- <RunCode code="navigator().maintainNavigationStack = false" /> -->
+				  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+		    </setup>
+
+		    <body>
+					<RunCode code="selectedNavigator().pushView(views.Sect1View2)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.selectedNavigator.activeView is Sect1View2" value="true" />
+
+					<RunCode code="navigator().selectedIndex = 1" waitTarget="tabbedNavigator" waitEvent="change"/>
+					<AssertMethodValue method="value = navigator().selectedIndex == 1" value="true" />
+
+					<RunCode code="FlexGlobals.topLevelApplication.buildNavigators()"/>
+					<Pause timeout="10" />
+					
+					<CompareBitmap url="../tests/baselines" target="tabbedNavigator.tabBar">
+						<ConditionalValue deviceDensity="160" os="win"  />
+						<ConditionalValue deviceDensity="240" os="android" />
+						<ConditionalValue deviceDensity="320" os="win"  />
+						<ConditionalValue deviceDensity="320" os="iphone" />
+						<ConditionalValue deviceDensity="160" os="qnx" />
+					</CompareBitmap>
+					
+					<AssertMethodValue method="value = navigator().selectedIndex == 0" value="true" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.selectedNavigator.activeView is Sect1View1" value="true" />
+		    </body>
+		</TestCase>
+		
+		<TestCase testID="deletingLastNavigator" keywords="[SDK-28768, view, viewnavigator]" description="Verify no RTE when deleting last navigator">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+		  	<RunCode code="navigator().selectedIndex = 1" waitTarget="tabbedNavigator" waitEvent="change" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.selectedNavigator.activeView is Sect2View1" value="true" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.doRemove()" waitTarget="tabbedNavigator" waitEvent="change" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.selectedNavigator.activeView is Sect1View1" value="true" />
+			</body>
+
+		</TestCase>
+		
+		<TestCase testID="createEmptyNavigatorVector" keywords="[SDK-27542, view, viewnavigator]" description="Verify no RTE when settings empty navigator vector">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator.selectedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.setEmptyNavigatorsVector()"/>
+				<Pause timeout="10" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigators.length == 0" value="true" />
+			</body>
+
+		</TestCase>
+
+	</testCases>
+</UnitTester>

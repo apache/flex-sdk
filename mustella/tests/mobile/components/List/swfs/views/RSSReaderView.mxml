@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="RSS Reader">
+    <fx:Declarations>
+        <s:HTTPService id="myRSSFeed" url="{txtURL.text}" />
+    </fx:Declarations>
+    
+    <s:layout>
+        <s:VerticalLayout paddingTop="4" />
+    </s:layout>
+    
+    <s:HGroup verticalAlign="middle" width="100%">
+        <s:TextInput id="txtURL"  width="100%" height="100%" text="http://feeds2.feedburner.com/flexponential" />
+        <s:Button label="View" click="myRSSFeed.send()"/>
+    </s:HGroup>
+    
+    <s:List id="resultsList" dataProvider="{myRSSFeed.lastResult.rss.channel.item}" width="100%" height="100%">
+        <s:itemRenderer>
+            <fx:Component>
+                <s:ItemRenderer>
+                    <fx:Script>
+                        <![CDATA[
+                            private var url:String = "";
+                            
+                            override public function set data(value:Object):void {
+                                if (value == null)
+                                    return;
+                                
+                                if (super.data == value)
+                                    return;
+                                
+                                super.data = value;
+                                
+                                var title:String = String(data.title);
+                                var body:String = String(data.description);
+                                
+                                // display the title
+                                txtTitle.text = title;
+                                // trim the body to 50 characters
+                                txtBody.text = body.substr(0, 100) + ' ...';
+                                // update the url
+                                url = String(data.link);
+                            }
+                            
+                            private function readMore():void {
+                                navigateToURL(new URLRequest(url), "_self");
+                            }
+                        ]]>
+                    </fx:Script>
+                    <s:Rect width="100%" height="100%">
+                        <s:fill>
+                            <s:SolidColor color="white" alpha="0.1" />
+                        </s:fill>
+                    </s:Rect>
+                    <s:VGroup top="10" bottom="10" left="5" right="5" horizontalAlign="justify">
+                        <s:Label id="txtTitle" fontWeight="bold" />
+                        <s:Label id="txtBody" />
+                        <s:Label id="link" text="Read more..." color="blue" click="readMore()" />
+                    </s:VGroup>
+                </s:ItemRenderer>
+            </fx:Component>
+        </s:itemRenderer>
+        <s:layout>
+            <s:VerticalLayout gap="1" horizontalAlign="justify" />
+        </s:layout>
+    </s:List>
+</s:View>

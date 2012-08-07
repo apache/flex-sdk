@@ -1,0 +1,54 @@
+--------------------------
+
+StageText Manual Testing
+
+--------------------------
+https://zerowing.corp.adobe.com/display/megastar/StageText+Test+Plan
+--------------------------
+
+Setup Instructions: 
+
+This StageText Mustella folder is setup as a Flash Builder project.  
+You can easily import this project into Builder by:
+
+File > Import Flash Builder Project > Project Folder > pathTo/mustella/tests/mobile/StageText/
+
+Manual Test Cases:
+
+Run StageTextViewNav on the desktop
+
+1. Push the "EmailView", verify text can be edited using keyboard.
+
+Run StageText160dpi app on 240 and 320 DPI device
+
+1. Push the "ReviewView, click "Back", ensure ViewTransition is smooth (SDK-31433, SDK-31436, SDK-30739)
+2. Push the "CalloutView, click "CalloutButton", tap on TextArea, turn to landscape, ensure text resize is correct, and text does not spill out of callout (SDK-31459)
+3. Push the "SkinnablePopUpContainer" view, open SkinnablePopUpContainer, tap on "Bottom" TextInput, verify SkinnablePopUpContainer moves smoothly
+4. Push the "ReviewView, click on text, click "Home", and verify ViewTransition is fast
+5. Push the "EmailView", click on text, go to landscape state, and back to portrait, verify text resized correctly, and stays inside of it's border
+6. Push the "EmailView", tap on textInput, verify prompt looks correctly, verify caret is in the right position
+
+Run StageTextViewNav app on variety of devices
+
+1. Push the "ReviewView, long press on TextArea,verify text can be selected, verify copy/cut/paste work 
+2. Push the "ReviewView, ensure scroll,and throw TextArea operations feel smooth
+3. Push the "EmailView", start editing text, verify hints work the same as native hints
+4. Push the "EmailView", click on text, go to landscape state, and verify text can be edited in lanscape
+5. Push the "EmailView", click on text, click "Home", and verify ViewTransition is fast
+6. Push the "SkinnablePopUpContainer" view, open SkinnablePopUpContainer, tap on TextArea, tap on TextInput, verify Text can be edited, SPUC can be closed, opened, verify transitions are smooth 
+7. Push the "EmailView", tap close to the border of TextInput and TextArea, verify SoftKeyboard opens and stays open
+8. Push the "EmailView", tap between TextInput and TextArea, verify SoftKeyboard opens and stays open, no blinking, verify TextArea resizes only once
+9. Push the "ReviewView, scroll down,tap on text at the end, verify softKeyboard opens, and caret is at the end of text
+10. On Android device Push the "EmailView", go to landscape mode, tap on TextInput,click "Done", verify SoftKeyboard closes
+11. Push the "ReviewView, open soft keyboard, remove most of the text, verify no verticalScrollBar appears
+12. Push the "ReviewView, open soft keyboard,click "Back" button, verify softKeyboard closes. and HomeView appears
+13. Push the "EmailView", long press "MENU" button, verify softKeyboard opens.
+14. Push the "EmailView", tap TextInput to open SK, long press "MENU" button, verify softKeyboard closes.
+15. On Android device Push the "EmailView", tap on TextInput "To" ,click "Enter", verify text changes to "Enter" - sdk 31669
+16. Push the "SearchView", add text to TextInput ,go to ReviewView, verify titleContent does not have leftover text - sdk 31797
+17. Push the "SearchView", add "ca" to TextInput, tap on the list in an empty space above or below a label ,click "Clear", verify stage resizes correctly - sdk 31775
+
+18. Set Auto-Correct to false on android device.Push the "EmailView", tap between TextInput and TextArea, verify SoftKeyboard opens and stays open, no blinking, verify TextArea resizes only once
+
+
+

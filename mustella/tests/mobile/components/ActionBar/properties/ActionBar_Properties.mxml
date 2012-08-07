@@ -1,0 +1,899 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/components/ActionBar/properties/"
+			testSWF="ActionBar.mxml">
+
+	<fx:Script>
+		<![CDATA[ 
+			import spark.layouts.*;
+			
+			public static function init(o:DisplayObject):void { } 
+		]]>
+	</fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		<!-- ActionBar title tests -->
+		<TestCase testID="ActionBar_Default_Width" keywords="[ActionBar, width, property]" description="Checking the default width of the ActionBar">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="width">
+					<ConditionalValue deviceDensity="160" os="win" value="27"/>
+					<ConditionalValue deviceDensity="240" os="android" value="41"/>
+					<ConditionalValue deviceDensity="320" os="win" value="53"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="53"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="27"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Default_Height" keywords="[ActionBar, height, property]" description="Checking the default height of the ActionBar">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="height">
+					<ConditionalValue deviceDensity="160" os="win" value="45"/>
+					<ConditionalValue deviceDensity="240" os="android" value="67"/>
+					<ConditionalValue deviceDensity="320" os="win" value="90"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="90"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="45"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Visible_True" keywords="[ActionBar, visible, property]" description="Checking for ActionBar visibility set to true">
+			<setup>
+				<ResetComponent target="actionBarInGroup" className="comps.ActionBarInGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarInGroup.actionBar" propertyName="visible" value="true" />
+				<CompareBitmap url="../properties/baselines" target="actionBarInGroup">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Visible_False" keywords="[ActionBar, visible, property]" description="Checking for ActionBar visibility set to false">
+			<setup>
+				<ResetComponent target="actionBarInGroup" className="comps.ActionBarInGroup" waitEvent="updateComplete" />
+				<SetProperty target="actionBarInGroup.actionBar" propertyName="visible" value="false" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarInGroup.actionBar" propertyName="visible" value="false" />
+				<CompareBitmap url="../properties/baselines" target="actionBarInGroup">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Title_Null" keywords="[ActionBar, title, property]" description="Checking for ActionBar title set to null">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" valueExpression="value=null" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="title" valueExpression="value=null" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Title_Default" keywords="[ActionBar, title, property]" description="Checking for default ActionBar title">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="title" value="" />
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Title_Blank" keywords="[ActionBar, title, property]" description="Checking for blank ActionBar title">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="title" value="" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Title_Combination" keywords="[ActionBar, title, property]" description="Checking for ActionBar title set to letters, numbers, high ascii, unicode and multiple words">
+			<bugs>
+				<Bug bugID="SDK-27983" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="ab12 àç本 \u00F7\u03C0" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="title" value="ab12 àç本 \u00F7\u03C0" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Title_OneLetter" keywords="[ActionBar, title, property]" description="Checking for a one-letter ActionBar title">
+			<bugs>
+				<Bug bugID="SDK-27983" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="a" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="title" value="a" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Title_Long" keywords="[ActionBar, title, property]" description="Checking for long ActionBar title that does not fit">
+			<bugs>
+				<Bug bugID="SDK-27983" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBarInGroup" className="comps.ActionBarInGroup" waitEvent="updateComplete" />
+				<SetProperty target="actionBarInGroup.actionBar" propertyName="title" value="thisistestingaverylongtitlethatdoesnotfit" waitEvent="updateComplete" waitTarget="actionBarInGroup.actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarInGroup.actionBar" propertyName="title" value="thisistestingaverylongtitlethatdoesnotfit" />
+				<CompareBitmap url="../properties/baselines" target="actionBarInGroup">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Title_Binding_Destination" keywords="[ActionBar, title, property]" description="Checking for data binding with ActionBar title as destination">
+			<setup>
+				<ResetComponent target="actionBarTitleBinding" className="comps.ActionBarTitleBinding" waitEvent="updateComplete" />
+				<SetProperty target="actionBarTitleBinding.txtSource" propertyName="text" value="TextInput source" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarTitleBinding.actionBarDestination" propertyName="title" value="TextInput source" />
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Title_Binding_Source" keywords="[ActionBar, title, property]" description="Checking for data binding with ActionBar title as source">
+			<setup>
+				<ResetComponent target="actionBarTitleBinding" className="comps.ActionBarTitleBinding" waitEvent="updateComplete" />
+				<SetProperty target="actionBarTitleBinding.actionBarSource" propertyName="title" value="ActionBar source" waitEvent="updateComplete" waitTarget="actionBarTitleBinding.actionBarSource.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarTitleBinding.txtDestination" propertyName="text" value="ActionBar source" />
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Title_Runtime" keywords="[ActionBar, title, property]" description="Checking for ActionBar title set at runtime">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Title set at runtime" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="title" value="Title set at runtime" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<!-- ActionBar titleContent tests -->
+		<TestCase testID="ActionBar_TitleContent_Default" keywords="[ActionBar, titleContent, property]" description="Checking the default ActionBar titleContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="titleContent" valueExpression="value=null" />				
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleContent_EmptyArray" keywords="[ActionBar, titleContent, property]" description="Checking an empty array ActionBar titleContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" value="[]" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.titleContent" propertyName="length" value="0" />		
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleContent_1ElementArray" keywords="[ActionBar, titleContent, property]" description="Checking a one-element array ActionBar titleContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.arr1Element" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.titleContent" propertyName="length" value="1" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleContent_2ElementArray" keywords="[ActionBar, titleContent, property]" description="Checking a two-element array ActionBar titleContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.arr2Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.titleContent" propertyName="length" value="2" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleContent_8ElementArray" keywords="[ActionBar, titleContent, property]" description="Checking an array of many elements in ActionBar titleContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.arr8Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.titleContent" propertyName="length" value="8" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleContent_GraphicArray" keywords="[ActionBar, titleContent, property]" description="Checking an array with graphic elements in ActionBar titleContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.arrGraphic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.titleContent" propertyName="length" value="2" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleContent_ImageArray" keywords="[ActionBar, titleContent, property]" description="Checking an array of image elements in ActionBar titleContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.arrImage" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.titleContent" propertyName="length" value="2" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleContent_CustomComponentArray" keywords="[ActionBar, titleContent, property]" description="Checking an array with a custom component in ActionBar titleContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.arrCustomComponent" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.titleContent" propertyName="length" value="1" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<!-- ActionBar titleLayout tests -->
+		<TestCase testID="ActionBar_TitleLayout_Default_Layout" keywords="[ActionBar, titleLayout, property]" description="Checking the default titleLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.titleLayout is HorizontalLayout" value="true" />
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleLayout_Default_VerticalAlignment" keywords="[ActionBar, titleLayout, property]" description="Checking the default titleLayout vertical alignment">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.titleLayout.verticalAlign == VerticalAlign.MIDDLE" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleLayout_Default_Padding" keywords="[ActionBar, titleLayout, property]" description="Checking the default titleLayout padding">
+			<bugs>
+				<Bug bugID="SDK-27749" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.titleLayout" propertyName="paddingLeft">
+					<ConditionalValue deviceDensity="160" os="win" value="13"/>
+					<ConditionalValue deviceDensity="240" os="android" value="20"/>
+					<ConditionalValue deviceDensity="320" os="win" value="26"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="26"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="13"/>
+				</AssertPropertyValue>
+				<AssertPropertyValue target="actionBar.titleLayout" propertyName="paddingRight">
+					<ConditionalValue deviceDensity="160" os="win" value="13"/>
+					<ConditionalValue deviceDensity="240" os="android" value="20"/>
+					<ConditionalValue deviceDensity="320" os="win" value="26"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="26"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="13"/>
+				</AssertPropertyValue>
+				<AssertPropertyValue target="actionBar.titleLayout" propertyName="paddingTop" value="0"/>
+				<AssertPropertyValue target="actionBar.titleLayout" propertyName="paddingBottom" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleLayout_Title_Padding" keywords="[ActionBar, titleLayout, title, property]" description="Setting the left and right padding on titleLayout to check the effect on title">
+			<bugs>
+				<Bug bugID="SDK-27749" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleLayout" valueExpression="value=application.actionBar.horizontalLayoutWithPadding" />
+				<SetProperty target="actionBar" propertyName="title" value="Title Padding" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.titleLayout" propertyName="paddingLeft" value="10"/>
+				<AssertPropertyValue target="actionBar.titleLayout" propertyName="paddingRight" value="20"/>
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleLayout_TitleContent_Padding" keywords="[ActionBar, titleLayout, titleContent, property]" description="Setting the left and right padding on titleLayout to check the effect on titleContent">
+			<bugs>
+				<Bug bugID="SDK-27749" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleLayout" valueExpression="value=application.actionBar.horizontalLayoutWithPadding" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.arr2Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.titleLayout" propertyName="paddingLeft" value="10"/>
+				<AssertPropertyValue target="actionBar.titleLayout" propertyName="paddingRight" value="20"/>
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleLayout_Default_Gap" keywords="[ActionBar, titleLayout, property]" description="Checking the default titleLayout gap">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.titleLayout" propertyName="gap" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleLayout_VerticalLayout" keywords="[ActionBar, titleLayout, property]" description="Setting titleLayout to VerticalLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleLayout" valueExpression="value=application.actionBar.verticalLayout" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.arr4Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.titleLayout is VerticalLayout" value="true" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleLayout_TileLayout" keywords="[ActionBar, titleLayout, property]" description="Setting titleLayout to TileLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleLayout" valueExpression="value=application.actionBar.tileLayout" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.arr4Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.titleLayout is TileLayout" value="true" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleLayout_BasicLayout" keywords="[ActionBar, titleLayout, property]" description="Setting titleLayout to BasicLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleLayout" valueExpression="value=application.actionBar.basicLayout" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.arr2Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.titleLayout is BasicLayout" value="true" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<!-- ActionBar navigationContent tests -->
+		<TestCase testID="ActionBar_NavigationContent_Default" keywords="[ActionBar, navigationContent, property]" description="Checking the default ActionBar navigationContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="navigationContent" valueExpression="value=null" />				
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationContent_EmptyArray" keywords="[ActionBar, navigationContent, property]" description="Checking an empty array ActionBar navigationContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationContent" value="[]" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.navigationContent" propertyName="length" value="0" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationContent_1ElementArray" keywords="[ActionBar, navigationContent, property]" description="Checking a one-element array ActionBar navigationContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.arr1Element" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.navigationContent" propertyName="length" value="1" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationContent_2ElementArray" keywords="[ActionBar, navigationContent, property]" description="Checking a two-element array ActionBar navigationContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.arr2Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.navigationContent" propertyName="length" value="2" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationContent_8ElementArray" keywords="[ActionBar, navigationContent, property]" description="Checking an array of many elements in ActionBar navigationContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.arr8Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.navigationContent" propertyName="length" value="8" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationContent_GraphicArray" keywords="[ActionBar, navigationContent, property]" description="Checking an array with graphic elements in ActionBar navigationContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.arrGraphic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.navigationContent" propertyName="length" value="2" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationContent_ImageArray" keywords="[ActionBar, navigationContent, property]" description="Checking an array of image elements in ActionBar navigationContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.arrImage" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.navigationContent" propertyName="length" value="2" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationContent_CustomComponentArray" keywords="[ActionBar, navigationContent, property]" description="Checking an array with a custom component in ActionBar navigationContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.arrCustomComponent" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.navigationContent" propertyName="length" value="1" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<!-- ActionBar navigationLayout tests -->
+		<TestCase testID="ActionBar_NavigationLayout_Default_Layout" keywords="[ActionBar, navigationLayout, property]" description="Checking the default navigationLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.navigationLayout is HorizontalLayout" value="true" />
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationLayout_Default_Padding" keywords="[ActionBar, navigationLayout, property]" description="Checking the default navigationLayout padding">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.navigationLayout" propertyName="paddingLeft" value="0"/>
+				<AssertPropertyValue target="actionBar.navigationLayout" propertyName="paddingRight" value="0"/>
+				<AssertPropertyValue target="actionBar.navigationLayout" propertyName="paddingTop" value="0"/>
+				<AssertPropertyValue target="actionBar.navigationLayout" propertyName="paddingBottom" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationLayout_Default_Gap" keywords="[ActionBar, navigationLayout, property]" description="Checking the default navigationLayout gap">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.navigationLayout" propertyName="gap" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationLayout_VerticalLayout" keywords="[ActionBar, navigationLayout, property]" description="Setting navigationLayout to VerticalLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationLayout" valueExpression="value=application.actionBar.verticalLayout" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.arr4Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.navigationLayout is VerticalLayout" value="true" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationLayout_TileLayout" keywords="[ActionBar, navigationLayout, property]" description="Setting navigationLayout to TileLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationLayout" valueExpression="value=application.actionBar.tileLayout" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.arr4Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.navigationLayout is TileLayout" value="true" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_NavigationLayout_BasicLayout" keywords="[ActionBar, navigationLayout, property]" description="Setting navigationLayout to BasicLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationLayout" valueExpression="value=application.actionBar.basicLayout" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.arr2Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.navigationLayout is BasicLayout" value="true" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<!-- ActionBar actionContent tests -->
+		<TestCase testID="ActionBar_ActionContent_Default" keywords="[ActionBar, actionContent, property]" description="Checking the default ActionBar actionContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="actionContent" valueExpression="value=null" />				
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionContent_EmptyArray" keywords="[ActionBar, actionContent, property]" description="Checking an empty array ActionBar actionContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionContent" value="[]" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.actionContent" propertyName="length" value="0" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionContent_1ElementArray" keywords="[ActionBar, actionContent, property]" description="Checking a one-element array ActionBar actionContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.arr1Element" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.actionContent" propertyName="length" value="1" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionContent_2ElementArray" keywords="[ActionBar, actionContent, property]" description="Checking a two-element array ActionBar actionContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.arr2Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.actionContent" propertyName="length" value="2" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionContent_8ElementArray" keywords="[ActionBar, actionContent, property]" description="Checking an array of many elements in ActionBar actionContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.arr8Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.actionContent" propertyName="length" value="8" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionContent_GraphicArray" keywords="[ActionBar, actionContent, property]" description="Checking an array with graphic elements in ActionBar actionContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.arrGraphic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.actionContent" propertyName="length" value="2" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionContent_ImageArray" keywords="[ActionBar, actionContent, property]" description="Checking an array of image elements in ActionBar actionContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.arrImage" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.actionContent" propertyName="length" value="2" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionContent_CustomComponentArray" keywords="[ActionBar, actionContent, property]" description="Checking an array with a custom component in ActionBar actionContent">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.arrCustomComponent" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.actionContent" propertyName="length" value="1" />				
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<!-- ActionBar actionLayout tests -->
+		<TestCase testID="ActionBar_ActionLayout_Default_Layout" keywords="[ActionBar, actionLayout, property]" description="Checking the default actionLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.actionLayout is HorizontalLayout" value="true" />
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionLayout_Default_Padding" keywords="[ActionBar, actionLayout, property]" description="Checking the default actionLayout padding">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.actionLayout" propertyName="paddingLeft" value="0"/>
+				<AssertPropertyValue target="actionBar.actionLayout" propertyName="paddingRight" value="0"/>
+				<AssertPropertyValue target="actionBar.actionLayout" propertyName="paddingTop" value="0"/>
+				<AssertPropertyValue target="actionBar.actionLayout" propertyName="paddingBottom" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionLayout_Default_Gap" keywords="[ActionBar, actionLayout, property]" description="Checking the default actionLayout gap">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar.actionLayout" propertyName="gap" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionLayout_VerticalLayout" keywords="[ActionBar, actionLayout, property]" description="Setting actionLayout to VerticalLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionLayout" valueExpression="value=application.actionBar.verticalLayout" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.arr4Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.actionLayout is VerticalLayout" value="true" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionLayout_TileLayout" keywords="[ActionBar, actionLayout, property]" description="Setting actionLayout to TileLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionLayout" valueExpression="value=application.actionBar.tileLayout" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.arr4Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.actionLayout is TileLayout" value="true" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_ActionLayout_BasicLayout" keywords="[ActionBar, actionLayout, property]" description="Setting actionLayout to BasicLayout">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionLayout" valueExpression="value=application.actionBar.basicLayout" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.arr2Elements" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.actionBar.actionLayout is BasicLayout" value="true" />
+				<CompareBitmap url="../properties/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

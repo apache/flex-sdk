@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="TextCharacteristics">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			protected function next(event:FlexEvent):void
+			{
+				if(currentState == "first"){
+					currentState = "second";
+					return;
+				}else if(currentState == "second"){
+					currentState = "third";
+					return;
+				}else if(currentState == "third"){
+					currentState = "fourth";
+					return;
+				}else if(currentState == "fourth"){
+					currentState = "fifth";
+					return;
+				}else if(currentState == "fifth"){
+					currentState = "sixth";
+					return;
+				}
+			}
+			
+			protected function previous(event:FlexEvent):void
+			{
+				if(currentState == "fourth"){
+					currentState = "third";
+					return;
+				}else if(currentState == "second"){
+					currentState = "first";
+					return;
+				}else if(currentState == "third"){
+					currentState = "second";
+					return;
+				}else if(currentState == "fifth"){
+					currentState = "fourth";
+					return;
+				}else if(currentState == "sixth"){
+					currentState = "fifth";
+					return;
+				}
+			}
+			
+			protected function insertText(event:FlexEvent):void
+			{
+				event.target.insertText("Is the cursor at zero?");
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:navigationContent>
+		<s:Button label="Back" click="navigator.popView()" />
+	</s:navigationContent>
+	<s:states>
+		<s:State name="first"/>
+		<s:State name="second"/>
+		<s:State name="third"/>
+		<s:State name="fourth"/>
+		<s:State name="fifth"/>
+		<s:State name="sixth"/>
+	</s:states>
+	<s:VGroup width="100%" includeIn="first">
+		<s:Label text="-TextArea-"/>
+		
+		<s:TextArea editable="false" text="Verify that the statements in each component match it's properties" width="100%"/>
+		<s:TextArea color="0x0000FF" text="This text is blue." width="100%"/>
+		<s:TextArea fontFamily="_typewriter" text="This text is typewriter style." width="100%"/>
+		<s:TextArea fontWeight="bold" text="This text is bold." width="100%"/>
+		<s:TextArea fontStyle="italic" text="This text is italic." width="100%"/>
+		<s:TextArea fontSize="24" text="This text is 24pt." width="100%"/>
+		
+		<s:Button label="Next" buttonDown="next(event)"/>
+	</s:VGroup>
+	<s:VGroup width="100%" includeIn="second">
+		<s:TextArea editable="false" text="This text is uneditable." width="100%"/>
+		<s:TextArea restrict="abcdefghijklmnoprstuvwxyz" text="This text won't let you type the letter 'cue.'" width="100%"/>
+		<s:TextArea textAlign="center" text="This text is aligned to center." width="100%"/>
+		<s:TextArea textAlign="right" text="This text is aligned to right." width="100%"/>
+		<s:TextArea displayAsPassword="true" prompt="Text typed in this should appear as a password." width="100%"/>
+		<s:TextArea maxChars="3" prompt="There should be no more than 3 characters here." width="100%"/>
+		
+		<s:HGroup width="100%">
+			<s:Button label="Previous" buttonDown="previous(event)"/>
+			<s:Button label="Next" buttonDown="next(event)"/>
+		</s:HGroup>
+	</s:VGroup>
+	<s:VGroup width="100%" includeIn="third">
+		<s:TextArea enabled="false" text="This should be disabled." width="100%"/>
+		<s:TextArea maxChars="-10" prompt="You shouldn't be able to type here." width="100%"/>
+		<s:TextArea id="insertTA" prompt="" width="100%" creationComplete="insertText(event)"/>
+		<s:Button label="Set Focus" buttonDown="insertTA.setFocus()"/>
+		<s:Button label="Select All" buttonDown="insertTA.selectAll()"/>
+		
+		<s:HGroup width="100%">
+			<s:Button label="Previous" buttonDown="previous(event)"/>
+			<s:Button label="Next" buttonDown="next(event)"/>
+		</s:HGroup>
+	</s:VGroup>
+	<s:VGroup width="100%" includeIn="fourth">
+		<s:Label text="-TextInput-"/>
+		
+		<s:TextInput editable="false" text="Verify that the statements in each component match it's properties" width="100%"/>
+		<s:TextInput color="0x0000FF" text="This text is blue." width="100%"/>
+		<s:TextInput fontFamily="_typewriter" text="This text is typewriter style." width="100%"/>
+		<s:TextInput fontWeight="bold" text="This text is bold." width="100%"/>
+		<s:TextInput fontStyle="italic" text="This text is italic." width="100%"/>
+		<s:TextInput editable="false" text="This text is uneditable." width="100%"/>
+		
+		<s:HGroup width="100%">
+			<s:Button label="Previous" buttonDown="previous(event)"/>
+			<s:Button label="Next" buttonDown="next(event)"/>
+		</s:HGroup>
+	</s:VGroup>
+
+		
+
+	<s:VGroup width="100%" includeIn="fifth">
+		<s:TextInput fontSize="8" text="This text is 8pt." width="100%"/>
+		<s:TextInput restrict="abcdefghijklmnoprstuvwxyz" text="This text won't let you type the letter 'cue.'" width="100%"/>
+		<s:TextInput textAlign="center" text="This text is aligned to center." width="100%"/>
+		<s:TextInput textAlign="right" text="This text is aligned to right." width="100%"/>
+		<s:TextInput displayAsPassword="true" prompt="Text typed in this should appear as a password." width="100%"/>
+		<s:TextInput maxChars="3" prompt="There should be no more than 3 characters here." width="100%"/>
+		
+		<s:HGroup width="100%">
+			<s:Button label="Previous" buttonDown="previous(event)"/>
+			<s:Button label="Next" buttonDown="next(event)"/>
+		</s:HGroup>
+	</s:VGroup>
+	<s:VGroup width="100%" includeIn="sixth">
+		<s:TextInput enabled="false" text="This should be disabled." width="100%"/>
+		<s:TextInput maxChars="-10" prompt="You shouldn't be able to type here." width="100%"/>
+		<s:TextInput id="insertTI" prompt="" width="100%" creationComplete="insertText(event)"/>
+		<s:Button label="Set Focus" buttonDown="insertTI.setFocus()"/>
+		<s:Button label="Select All" buttonDown="insertTI.selectAll()"/>
+		
+		<s:Button label="Previous" buttonDown="previous(event)"/>
+	</s:VGroup>
+</s:View>

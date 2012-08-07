@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" title="Hockey Rosters">
+
+    <fx:Script>
+        <![CDATA[
+            public function sportsRendererFunction(item:*):IFactory {
+                if (item.teamName){
+                    return new ClassFactory(TeamRenderer);
+                } else {
+                    return new ClassFactory(PlayerRenderer);
+                }
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <fx:Component className="PlayerRenderer">
+            <s:ItemRenderer height="40">
+                <fx:Script>
+                    <![CDATA[
+                        override public function set data(value:Object):void {
+                            if (value == null)
+                                return;
+                            
+                            if (super.data == value)
+                                return;
+                            
+                            super.data = value;
+                            
+                            playerName.text = data.playerName;
+                            games.text = data.games;
+                            goals.text = data.goals;
+                            assists.text = data.assists;
+                        }
+                    ]]>
+                </fx:Script>
+                
+                <s:Rect width="100%" height="100%">
+                    <s:fill>
+                        <s:SolidColor color="white" />
+                    </s:fill>
+                </s:Rect>
+                
+                <s:Rect width="100%" bottom="0" height="1">
+                    <s:fill>
+                        <s:SolidColor color="0xe3e3FF" />
+                    </s:fill>
+                </s:Rect> 
+                
+                <s:Label id="playerName" verticalCenter="0" left="10" color="black" />
+                <s:Label id="games" verticalCenter="0" right="90" color="black" />
+                <s:Label id="goals" verticalCenter="0" right="50" color="black" />
+                <s:Label id="assists" verticalCenter="0" right="15" color="black" />
+                
+            </s:ItemRenderer>
+        </fx:Component>    
+        <fx:Component className="TeamRenderer">
+            <s:ItemRenderer height="35">
+                <fx:Script>
+                    <![CDATA[
+                        override public function set data(value:Object):void {
+                            if (value == null)
+                                return;
+                            
+                            if (super.data == value)
+                                return;
+                            
+                            super.data = value;
+                            
+                            teamName.text = data.teamName;
+                        }
+                    ]]>
+                </fx:Script>
+                
+                <s:Rect width="100%" height="100%">
+                    <s:fill>
+                        <s:SolidColor color="0x002664" />
+                    </s:fill>
+                </s:Rect>
+                
+                <s:Label id="teamName" verticalCenter="0" left="10" fontSize="14" fontWeight="bold" color="white" />
+                <s:Label text="GP" verticalCenter="0" right="90" fontSize="14" color="white" />
+                <s:Label text="G" verticalCenter="0" right="55" fontSize="14" color="white" />
+                <s:Label text="A" verticalCenter="0" right="20" fontSize="14" color="white" />
+                
+            </s:ItemRenderer>
+        </fx:Component>    
+    </fx:Declarations>
+    
+    <s:List id="target" width="100%" height="100%"  
+            itemRendererFunction="sportsRendererFunction">
+        <s:dataProvider>
+            <s:ArrayList>
+                <fx:Object teamName="Sports Team A" />
+                
+                <fx:Object playerName="RenFN BouLN" games="72" goals="12" assists="23" />
+                <fx:Object playerName="JayFN BouLN" games="70" goals="11" assists="34" />
+                <fx:Object playerName="CraFN ConLN" games="67" goals="21" assists="9" />
+                <fx:Object playerName="MarFN GioLN" games="34" goals="14" assists="14" />
+                <fx:Object playerName="JarFN IgiLN" games="65" goals="21" assists="23" />
+                <fx:Object playerName="OlFN JokLN" games="54" goals="32" assists="12" />
+                <fx:Object playerName="TimFN JacLN" games="54" goals="21" assists="11" />
+                <fx:Object playerName="DavFN MosLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="AdaFN ParLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="SteFN StaLN" games="76" goals="11" assists="12" />
+                <fx:Object playerName="CorFN SarLN" games="76" goals="22" assists="21" />
+                <fx:Object playerName="AleFN TanLN" games="79" goals="21" assists="1" />
+                
+                <fx:Object teamName="Sports Team B" />
+                
+                <fx:Object playerName="DavFN BolLN" games="72" goals="12" assists="23" />
+                <fx:Object playerName="NicFN BoyLN" games="70" goals="11" assists="34" />
+                <fx:Object playerName="BriFN CamLN" games="67" goals="21" assists="9" />
+                <fx:Object playerName="PatFN KanLN" games="34" goals="14" assists="14" />
+                <fx:Object playerName="MarFN ReaLN" games="65" goals="21" assists="23" />
+                <fx:Object playerName="BreFN SeaLN" games="54" goals="32" assists="12" />
+                <fx:Object playerName="JonFN ToeLN" games="54" goals="21" assists="11" />
+                <fx:Object playerName="DunFN KeiLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="JohFN ScoLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="TomFN KopLN" games="76" goals="11" assists="12" />
+                <fx:Object playerName="MarFN HosLN" games="76" goals="22" assists="21" />
+                <fx:Object playerName="TroFN BroLN" games="79" goals="21" assists="1" />
+                
+                <fx:Object teamName="Sports Team C" />
+                
+                <fx:Object playerName="CraFN AndLN" games="72" goals="12" assists="23" />
+                <fx:Object playerName="PetFN BudLN" games="70" goals="11" assists="34" />
+                <fx:Object playerName="KylFN CumLN" games="67" goals="21" assists="9" />
+                <fx:Object playerName="MatFN DucLN" games="34" goals="14" assists="14" />
+                <fx:Object playerName="ChrFN DurLN" games="65" goals="21" assists="23" />
+                <fx:Object playerName="AdaFN FotLN" games="54" goals="32" assists="12" />
+                <fx:Object playerName="TejFN GalLN" games="54" goals="21" assists="11" />
+                <fx:Object playerName="ScoLN HanLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="KevFN PorLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="BraFN YipLN" games="76" goals="11" assists="12" />
+                <fx:Object playerName="RyaFN WilLN" games="76" goals="22" assists="21" />
+                <fx:Object playerName="ChrFN SteLN" games="79" goals="21" assists="1" />
+                
+                <fx:Object teamName="Sports Team D" />
+                
+                <fx:Object playerName="TodFN BerLN" games="72" goals="12" assists="23" />
+                <fx:Object playerName="PatFN EavLN" games="70" goals="11" assists="34" />
+                <fx:Object playerName="NicFN LidLN" games="67" goals="21" assists="9" />
+                <fx:Object playerName="KirFN MalLN" games="34" goals="14" assists="14" />
+                <fx:Object playerName="BraFN MayLN" games="65" goals="21" assists="23" />
+                <fx:Object playerName="ChrFN OsgLN" games="54" goals="32" assists="12" />
+                <fx:Object playerName="BriFN RafLN" games="54" goals="21" assists="11" />
+                <fx:Object playerName="BraFN StuLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="JasFN WilLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="JanFN MurLN" games="76" goals="11" assists="12" />
+                <fx:Object playerName="JohFN FraLN" games="76" goals="22" assists="21" />
+                
+                <fx:Object teamName="Sports Team E" />
+                
+                <fx:Object playerName="AleFN HemLN" games="72" goals="12" assists="23" />
+                <fx:Object playerName="BenFN OndLN" games="70" goals="11" assists="34" />
+                <fx:Object playerName="SheFN SouLN" games="67" goals="21" assists="9" />
+                <fx:Object playerName="ZacFN StoLN" games="34" goals="14" assists="14" />
+                <fx:Object playerName="RyaFN WhiLN" games="65" goals="21" assists="23" />
+                <fx:Object playerName="BenFN OdrLN" games="54" goals="32" assists="12" />
+                <fx:Object playerName="ShaFN HorLN" games="54" goals="21" assists="11" />
+                <fx:Object playerName="MikFN ComLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="DusFN PenLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="JamFN VanLN" games="76" goals="11" assists="12" />
+                <fx:Object playerName="RyaFN WhiLN" games="76" goals="22" assists="21" />
+
+                <fx:Object teamName="Sports Team F" />
+                
+                <fx:Object playerName="DanFN BoyLN" games="72" goals="12" assists="23" />
+                <fx:Object playerName="RyaFN CloLN" games="70" goals="11" assists="34" />
+                <fx:Object playerName="LogFN CouLN" games="67" goals="21" assists="9" />
+                <fx:Object playerName="DanFN HeaLN" games="34" goals="14" assists="14" />
+                <fx:Object playerName="TorFN MitLN" games="65" goals="21" assists="23" />
+                <fx:Object playerName="JoeFN ThoLN" games="54" goals="32" assists="12" />
+                <fx:Object playerName="DevFN SetLN" games="54" goals="21" assists="11" />
+                <fx:Object playerName="JoeFN PavLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="JayFN LeaLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="ScoLN NicLN" games="76" goals="11" assists="12" />
+                <fx:Object playerName="JasFN DemLN" games="76" goals="22" assists="21" />
+                
+                <fx:Object teamName="Sports Team G" />
+                
+                <fx:Object playerName="RyaFN KesLN" games="72" goals="12" assists="23" />
+                <fx:Object playerName="RobFN LuoLN" games="70" goals="11" assists="34" />
+                <fx:Object playerName="AleFN BurLN" games="67" goals="21" assists="9" />
+                <fx:Object playerName="DanFN SedLN" games="34" goals="14" assists="14" />
+                <fx:Object playerName="HenFN SedLN" games="65" goals="21" assists="23" />
+                <fx:Object playerName="WilFN MitLN" games="54" goals="32" assists="12" />
+                <fx:Object playerName="KevFN BieLN" games="54" goals="21" assists="11" />
+                <fx:Object playerName="JefFN TamLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="ShaFN BriLN" games="80" goals="11" assists="9" />
+                <fx:Object playerName="MasFN RayLN" games="76" goals="11" assists="12" />
+                <fx:Object playerName="AarFN RomLN" games="76" goals="22" assists="21" />
+                
+            </s:ArrayList>
+        </s:dataProvider>
+    </s:List>
+    
+</s:View>

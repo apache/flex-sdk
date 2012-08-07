@@ -1,0 +1,55 @@
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="States View"
+        >
+    <fx:Script>
+        <![CDATA[
+			import mx.events.FlexEvent;
+			
+			import spark.components.calendarClasses.DateSelectorDisplayMode;
+			
+            public static const def_selectedDate:Date = new Date(2111, 11, 11, 11, 12, 11);
+            
+            public static const def_displayMode:String = DateSelectorDisplayMode.DATE_AND_TIME;
+            
+            public static const def_minDate:Date = new Date(2010, 3, 5, 6, 17, 6);
+            
+            public static const def_maxDate:Date = new Date(2390, 6, 9, 2, 3, 15);
+            
+            public static const def_minuteStepSize:int = 2;
+            
+		]]>
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="firstSt" />
+        <s:State name="secondSt" />
+    </s:states>
+    
+    <fx:Declarations>
+        
+    </fx:Declarations>
+    
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+    
+    <s:DateSpinner id="ds_states_full"
+                   
+                   selectedDate.firstSt="{def_selectedDate}" 
+                   selectedDate.secondSt="{new Date(2007, 7, 11, 4, 36, 51)}" 
+                   
+                   displayMode.firstSt="{def_displayMode}"
+                   displayMode.secondSt="{DateSelectorDisplayMode.TIME}"
+                   
+                   minDate.firstSt="{def_minDate}"
+                   minDate.secondSt="{new Date(1698, 8, 3, 4, 15, 51)}"
+                   
+                   maxDate.firstSt="{def_maxDate}"
+                   maxDate.secondSt="{new Date(2098, 8, 3, 4, 15, 51)}"
+                   
+                   minuteStepSize.firstSt="{def_minuteStepSize}"
+                   minuteStepSize.secondSt="{2}"
+                   />
+    
+</s:View>

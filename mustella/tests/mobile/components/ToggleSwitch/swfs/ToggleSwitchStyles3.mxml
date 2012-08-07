@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:comps="comps.*" >
+	
+	<s:layout>
+		<s:VerticalLayout paddingTop="20" paddingLeft="20" gap="20"/>
+	</s:layout>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		s|ToggleSwitch #selectedLabelDisplay {
+			
+			color:#663333;
+			textShadowColor:#cc9900;
+			textShadowAlpha:0.7;
+		}
+		
+		s|ToggleSwitch #unselectedLabelDisplay {
+			
+			color:#999900;
+			textShadowColor:#ffff00;
+			textShadowAlpha:1.0;
+		}
+		
+		
+		
+		.toggleSwitchStyle1 {
+			
+			color:#ffff00;
+			textShadowColor:#ff9900;
+			textShadowAlpha:0.6;
+		}
+		
+		
+		.toggleSwitchStyle2 #selectedLabelDisplay {
+			
+			color:#00ffff;
+			textShadowColor:#ffff00;
+			textShadowAlpha:0.5;
+			
+			
+		}
+		.toggleSwitchStyle2 #unselectedLabelDisplay {
+			
+			color:#ff44ff;
+			textShadowColor:#cc33cc;
+			textShadowAlpha:0.4;
+			
+		}
+		
+		.toggleSwitchStyle1 {
+			
+			color:#ffff00;
+			accentColor:#3300cc;
+			chromeColor:#660066;
+			textShadowColor:#ff9900;
+			textShadowAlpha:0.6;
+			slideDuration:777;
+		}
+		
+		
+	</fx:Style>
+	<s:Button label="Button" id="btn" />
+	<s:ToggleSwitch id="ts1" />
+	<s:ToggleSwitch id="ts2" styleName="toggleSwitchStyle1"/>
+	<s:ToggleSwitch id="ts3" styleName="toggleSwitchStyle2"/>
+	<!--<comps:StylesRoot id="stylesRoot" />-->
+</s:Application>

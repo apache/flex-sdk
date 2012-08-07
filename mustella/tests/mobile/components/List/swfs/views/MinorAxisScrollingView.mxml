@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="Minor Axis" creationComplete="setupListeners(event)">
+    
+    <fx:Script source="viewScript.as" />
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.events.FlexEvent;
+            import mx.events.PropertyChangeEvent;
+            [Bindable] public var hspChanged:Boolean = false;    
+            [Bindable] public var vspChanged:Boolean = false;
+
+            private function setupListeners(event:FlexEvent):void{
+                vl1.addEventListener("propertyChange", handle);
+                hl1.addEventListener("propertyChange", handle);
+                tl1.addEventListener("propertyChange", handle);
+            }
+            
+            private function handle(e:PropertyChangeEvent):void {
+                if (e.property == "verticalScrollPosition")
+                    vspChanged = true;
+                
+                if (e.property == "horizontalScrollPosition")
+                    hspChanged = true;
+            }
+
+        ]]>
+    </fx:Script>
+
+    <s:actionContent>
+        <s:Label text="{hspChanged + ',' + vspChanged}" click="hspChanged=vspChanged=false" />
+    </s:actionContent>
+    
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+    
+    <s:List id="target1" width="100%" height="100%" labelField="myItemIndex"  
+            dataProvider="{createIdenticalItems(100, 50, 50, 'vertical')}">
+        <s:layout>
+            <s:VerticalLayout id="vl1" horizontalAlign="justify"/>
+        </s:layout>
+    </s:List>
+    
+    <s:List id="target2" width="100%" height="100%" labelField="myItemIndex"  
+            dataProvider="{createIdenticalItems(100, 50, 50, 'vertical')}"
+            verticalScrollPolicy="off">
+        <s:layout>
+            <s:HorizontalLayout id="hl1" verticalAlign="justify"  />
+        </s:layout>
+    </s:List>
+    
+    <s:List id="target3" width="100%" height="100%" labelField="myItemIndex"  
+            dataProvider="{createIdenticalItems(100, 50, 50, 'vertical')}">
+        <s:layout>
+            <s:TileLayout id="tl1" requestedColumnCount="3" columnAlign="justifyUsingWidth" horizontalAlign="justify" />
+        </s:layout>
+    </s:List>
+    
+</s:View>

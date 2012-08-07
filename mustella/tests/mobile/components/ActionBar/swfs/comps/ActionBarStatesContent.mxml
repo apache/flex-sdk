@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ActionBar xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			 xmlns:s="library://ns.adobe.com/flex/spark">
+	<s:states>
+		<s:State name="stateNavigationContent1"/>
+		<s:State name="stateNavigationContent2"/>
+		<s:State name="stateTitle1"/>
+		<s:State name="stateTitle2"/>
+		<s:State name="stateTitleContent1"/>
+		<s:State name="stateTitleContent2"/>
+		<s:State name="stateActionContent1"/>
+		<s:State name="stateActionContent2"/>
+	</s:states>
+	
+	<s:title.stateNavigationContent1></s:title.stateNavigationContent1>
+	<s:title.stateNavigationContent2></s:title.stateNavigationContent2>
+	<s:title.stateTitle1>Title 1</s:title.stateTitle1>
+	<s:title.stateTitle2>Title 2</s:title.stateTitle2>
+	<s:title.stateTitleContent1></s:title.stateTitleContent1>
+	<s:title.stateTitleContent2></s:title.stateTitleContent2>
+	<s:title.stateActionContent1></s:title.stateActionContent1>
+	<s:title.stateActionContent2></s:title.stateActionContent2>
+	
+	<s:titleContent.stateNavigationContent1></s:titleContent.stateNavigationContent1>
+	<s:titleContent.stateNavigationContent2></s:titleContent.stateNavigationContent2>
+	<s:titleContent.stateTitle1>{null}</s:titleContent.stateTitle1>
+	<s:titleContent.stateTitle2>{null}</s:titleContent.stateTitle2>
+	<s:titleContent.stateTitleContent1><s:Label text="Title Content 1"/></s:titleContent.stateTitleContent1>
+	<s:titleContent.stateTitleContent2><s:Label text="Title Content 2"/></s:titleContent.stateTitleContent2>
+	<s:titleContent.stateActionContent1></s:titleContent.stateActionContent1>
+	<s:titleContent.stateActionContent2></s:titleContent.stateActionContent2>
+
+	<s:navigationContent.stateNavigationContent1><s:Button label="nav1"/></s:navigationContent.stateNavigationContent1>
+	<s:navigationContent.stateNavigationContent2><s:Button label="nav2"/></s:navigationContent.stateNavigationContent2>
+	<s:navigationContent.stateTitle1></s:navigationContent.stateTitle1>
+	<s:navigationContent.stateTitle2></s:navigationContent.stateTitle2>
+	<s:navigationContent.stateTitleContent1></s:navigationContent.stateTitleContent1>
+	<s:navigationContent.stateTitleContent2></s:navigationContent.stateTitleContent2>
+	<s:navigationContent.stateActionContent1></s:navigationContent.stateActionContent1>
+	<s:navigationContent.stateActionContent2></s:navigationContent.stateActionContent2>
+
+	<s:actionContent.stateNavigationContent1></s:actionContent.stateNavigationContent1>
+	<s:actionContent.stateNavigationContent2></s:actionContent.stateNavigationContent2>
+	<s:actionContent.stateTitle1></s:actionContent.stateTitle1>
+	<s:actionContent.stateTitle2></s:actionContent.stateTitle2>
+	<s:actionContent.stateTitleContent1></s:actionContent.stateTitleContent1>
+	<s:actionContent.stateTitleContent2></s:actionContent.stateTitleContent2>
+	<s:actionContent.stateActionContent1><s:Button label="action1"/></s:actionContent.stateActionContent1>
+	<s:actionContent.stateActionContent2><s:Button label="action2"/></s:actionContent.stateActionContent2>
+</s:ActionBar>

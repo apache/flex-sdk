@@ -1,0 +1,891 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/RadioButton/properties/"
+    testSWF="MobileRadioButtonMain.mxml">
+    
+  <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+  <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<fx:Script>
+	<![CDATA[
+			[Embed('../swfs/Assets/edit.png')]
+			[Bindable]
+			private var imgCls:Class;
+			
+	]]>
+	</fx:Script>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		.myStyle {
+			color:#ff0000;
+			font-weight:bold;
+			icon-placement:right;
+		}
+	</fx:Style>	
+<testCases>
+        <TestCase testID="Mobile_RadioButton_alpha_0.5" keywords="[RadioButton, alpha, property]" description="Test alpha 0.5 on a RadioButton">
+            <setup>
+                <ResetComponent target="styleComp.rbStyled" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rbStyled"/>
+                <SetProperty propertyName="label" value="Alpha RadioButton" target="styleComp.rbStyled" waitEvent="contentChange" waitTarget="styleComp.rbStyled"/>
+                <SetProperty propertyName="alpha" value=".5" target="styleComp.rbStyled" waitEvent="alphaChanged" waitTarget="styleComp.rbStyled"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rbStyled">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_down_alpha_0.5" keywords="[RadioButton, alpha, property]" description="Test alpha 0.5 on a RadioButton">
+            <setup>
+                <ResetComponent target="styleComp.rbStyled" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rbStyled"/>
+                <SetProperty propertyName="label" value="Alpha RadioButton" target="styleComp.rbStyled" waitEvent="contentChange" waitTarget="styleComp.rbStyled"/>
+                <SetProperty propertyName="alpha" value=".5" target="styleComp.rbStyled" waitEvent="alphaChanged" waitTarget="styleComp.rbStyled"/>
+            </setup>
+            <body>
+							<DispatchMouseEvent target="styleComp.rbStyled" type="rollOver" localX="20" localY="14" waitEvent="rollOver" />
+							<DispatchMouseEvent target="styleComp.rbStyled" type="mouseMove" localX="21" localY="18" waitEvent="mouseMove" />
+							<DispatchMouseEvent target="styleComp.rbStyled" type="mouseDown" localX="22" localY="23" waitEvent="mouseDown" />
+							<CompareBitmap url="../properties/baselines" target="styleComp.rbStyled" >
+								<ConditionalValue deviceDensity="160" os="win" />
+								<ConditionalValue deviceDensity="240" os="android" />
+								<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+							</CompareBitmap>
+							<DispatchMouseEvent target="styleComp.rbStyled" type="mouseUp" localX="22" localY="23" waitEvent="mouseUp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_alpha_0" keywords="[RadioButton, alpha, property]" description="Test alpha 0 on a RadioButton">
+            <setup>
+                <ResetComponent target="styleComp.rbStyled" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rbStyled"/>
+                <SetProperty propertyName="label" value="Alpha RadioButton" target="styleComp.rbStyled" waitEvent="contentChange" waitTarget="styleComp.rbStyled"/>
+                <SetProperty propertyName="alpha" value="0" target="styleComp.rbStyled" waitEvent="alphaChanged" waitTarget="styleComp.rbStyled"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rbStyled">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_height_default" keywords="[RadioButton, height, property]" description="Test height default on a RadioButton">
+            <setup>
+                <ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+            </setup>
+            <body>
+				<AssertPropertyValue target="styleComp.rb1" propertyName="height">
+					<ConditionalValue deviceDensity="160" os="win" value="32" />
+					<ConditionalValue deviceDensity="240" os="android" value="48" />
+					<ConditionalValue deviceDensity="320" os="win" value="64" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="64" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="32" />
+				</AssertPropertyValue>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_height_increase" description="Tests that the RadioButton height change is rendered correctly." keywords="[RadioButton, height, property]">
+            <setup>
+                <ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="Increase Height" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+            </setup>
+            <body>
+                <SetProperty target="styleComp.rb1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+                <AssertPropertyValue target="styleComp.rb1" propertyName="height" value="100"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_enabled_false" description="Tests RadioButton skin when disabled." keywords="[RadioButton, enabled]">
+            <setup>
+                <ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="Set Disabled" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_RadioButton_enabled_false_clicked" description="Tests RadioButton skin when disabled and clicked." keywords="[RadioButton, enabled]">
+            <setup>
+                <ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="Set Disabled" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+            </setup>
+            <body>
+								<DispatchMouseEvent target="styleComp.rb1" localX="42" localY="422" type="mouseDown" />
+                <CompareBitmap url="../properties/baselines" target="styleComp.rb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+								<DispatchMouseEvent target="styleComp.rb1" localX="42" localY="422" type="mouseUp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_enabled_false_runtime_change" description="Tests RadioButton skin when disabled at runtime." keywords="[RadioButton, enabled]">
+            <setup>
+                <ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="Set Disabled at Runtime" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="styleComp.rb1" propertyName="enabled" value="true"/>
+								<SetProperty target="styleComp.rb1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+                <AssertPropertyValue target="styleComp.rb1" propertyName="enabled" value="false"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_icon_inline" description="Tests setting icon has no effect." keywords="[RadioButton, icon]">
+            <setup>
+                <ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" waitTarget="styleComp"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rbInline">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>			
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_label_change_runtime_iconPlacement_right" keywords="[RadioButton, label, iconPlacement]" description="Test changing label at runtime">
+			<bugs>
+				<Bug bugID="SDK-27426" />
+			</bugs>
+			<setup>
+                <ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="ABC" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+								<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>		
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="label" value="ABC" target="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="Lorem ipsum dolor sit amet" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_label_change_runtime_iconPlacement_left" keywords="[RadioButton, label, iconPlacement]" description="Test changing label at runtime">
+            <bugs>
+				<Bug bugID="SDK-27426" />
+			</bugs>
+			<setup>
+                <ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="ABC" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="label" value="ABC" target="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="Lorem ipsum dolor sit amet" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+				
+        <TestCase testID="Mobile_RadioButton_label_change_runtime_iconPlacement_top" keywords="[RadioButton, label, iconPlacement]" description="Test changing label at runtime">
+            <bugs>
+				<Bug bugID="SDK-27426" />
+			</bugs>
+			<setup>
+                <ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="ABC" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+								<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="label" value="ABC" target="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="Lorem ipsum dolor sit amet" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_label_change_runtime_iconPlacement_bottom" keywords="[RadioButton, label, iconPlacement]" description="Test changing label at runtime">
+            <bugs>
+				<Bug bugID="SDK-27426" />
+			</bugs>
+			<setup>
+                <ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="ABC" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+								<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="label" value="ABC" target="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="Lorem ipsum dolor sit amet" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_label_short_iconPlacement_top" keywords="[RadioButton, label, iconPlacement]" description="Test short label with iconPlacement top">
+            <setup>
+                <ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="ABC" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+								<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>		
+            </setup>        
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_label_long_iconPlacement_right" keywords="[RadioButton, label, iconPlacement]" description="Test long label with iconPlacement right">
+            <setup>
+                <ResetComponent target="styleComp.rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>
+								<SetProperty target="styleComp.rb1" propertyName="label" value="ABCDEFGH IJKLMNOP QRSTUV" waitEvent="contentChange" waitTarget="styleComp.rb1"/>
+								<SetStyle target="styleComp.rb1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="styleComp.rb1"/>		
+            </setup>        
+            <body>
+                <CompareBitmap url="../properties/baselines" target="styleComp.rb1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+				
+        <TestCase testID="Mobile_RadioButton_label_databinding" keywords="[RadioButton, label, databinding]" description="Test databinding on RadioButton label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+								<SetStyle target="propComp.rbBinding" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>		
+            </setup>        
+            <body>
+								<RunCode code="application.propComp.rbLabel='Label Databinding'" waitTarget="propComp.rbBinding" waitEvent="contentChange" />
+                <CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_icon_scaleX_scaleY_1point5" keywords="[RadioButton, scaleX, scaleY]" description="Verifies the scaleX,scaleY value for RadioButton is 1.5">
+            <setup>
+                <ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+								<SetProperty target="propComp.rbBinding" propertyName="label" value="View Source Code" waitEvent="contentChange" waitTarget="propComp.rbBinding"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="scaleX" value="1.5" target="propComp.rbBinding" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+                <SetProperty propertyName="scaleY" value="1.5" target="propComp.rbBinding" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_icon_scaleX_scaleY_0point5" keywords="[RadioButton, scaleX, scaleY]" description="Verifies the scaleX,scaleY value for RadioButton is 1.5">
+            <setup>
+                <ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+								<SetProperty target="propComp.rbBinding" propertyName="label" value="View Source Code" waitEvent="contentChange" waitTarget="propComp.rbBinding"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="scaleX" value="0.5" target="propComp.rbBinding" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+                <SetProperty propertyName="scaleY" value="0.5" target="propComp.rbBinding" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+				
+        <TestCase testID="Mobile_RadioButton_icon_scaleX_scaleY_0point33" keywords="[RadioButton, scaleX, scaleY]" description="Verifies the scaleX,scaleY value for RadioButton is 1.5">
+            <setup>
+                <ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+								<SetProperty target="propComp.rbBinding" propertyName="label" value="View Source Code" waitEvent="contentChange" waitTarget="propComp.rbBinding"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="scaleX" value="0.33" target="propComp.rbBinding" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+                <SetProperty propertyName="scaleY" value="0.33" target="propComp.rbBinding" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+				
+        <TestCase testID="Mobile_RadioButton_selected_default" keywords="[RadioButton, selected]" description="Verifies the default selected value">
+            <setup>
+                <ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+								<SetProperty target="propComp.rbBinding" propertyName="label" value="Default" waitEvent="contentChange" waitTarget="propComp.rbBinding"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="selected" value="false" target="propComp.rbBinding"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_set_selected_actionscript" keywords="[RadioButton, selected]" description="Verifies the default selected value">
+            <setup>
+                <ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+								<SetProperty target="propComp.rbBinding" propertyName="label" value="Set in AS" waitEvent="contentChange" waitTarget="propComp.rbBinding"/>
+            </setup>
+            <body>
+								<SetProperty target="propComp.rbBinding" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+                <AssertPropertyValue propertyName="selected" value="true" target="propComp.rbBinding"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+				<TestCase testID="Mobile_RadioButton_set_selected_true_on_click" keywords="[RadioButton, selected]" description="Test clicking on RadioButton will set selected value">
+					<setup>
+            <ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+						<SetProperty target="propComp.rbBinding" propertyName="label" value="Selected Test" waitEvent="contentChange" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="propComp.rbBinding" propertyName="selected" value="false" />
+						<DispatchMouseClickEvent target="propComp.rbBinding" localX="24" localY="28" waitEvent="click" />
+						<AssertPropertyValue target="propComp.rbBinding" propertyName="selected" value="true" />
+						<CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>									
+					</body>
+				</TestCase>
+				
+
+				<TestCase testID="Mobile_RadioButton_set_selected_false_disabled" keywords="[RadioButton, selected, enabled]" description="Test clicking on disabled RadioButton will not change selected value">
+					<setup>
+            <ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+						<SetProperty target="propComp.rbBinding" propertyName="label" value="Disabled" waitEvent="contentChange" />
+						<SetProperty target="propComp.rbBinding" propertyName="enabled" value="false" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="propComp.rbBinding" propertyName="selected" value="false" />
+						<DispatchMouseEvent target="propComp.rbBinding" localX="47.5" localY="43" type="mouseDown" />
+						<AssertPropertyValue target="propComp.rbBinding" propertyName="selected" value="false" />
+						<CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>									
+						<DispatchMouseEvent target="propComp.rbBinding" localX="47.5" localY="43" type="mouseUp" />
+					</body>
+				</TestCase>		
+
+				<TestCase testID="Mobile_RadioButton_set_selected_true_disabled" keywords="[RadioButton, selected, enabled]" description="Test clicking on disabled RadioButton will not change selected value">
+					<setup>
+            <ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+						<SetProperty target="propComp.rbBinding" propertyName="label" value="Disabled" waitEvent="contentChange" />
+						<SetProperty target="propComp.rbBinding" propertyName="selected" value="true" waitEvent="updateComplete" />
+						<SetProperty target="propComp.rbBinding" propertyName="enabled" value="false" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="propComp.rbBinding" propertyName="selected" value="true" />
+						<DispatchMouseEvent target="propComp.rbBinding" localX="47.5" localY="43" type="mouseDown" />
+						<AssertPropertyValue target="propComp.rbBinding" propertyName="selected" value="true" />
+						<CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>												
+						<DispatchMouseEvent target="propComp.rbBinding" localX="47.5" localY="43" type="mouseUp" />
+					</body>
+				</TestCase>		
+
+        <TestCase testID="Mobile_RadioButton_selected_databinding" keywords="[RadioButton, selected, databinding]" description="Test databinding on RadioButton selected value">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+								<SetProperty target="propComp.rbBinding" propertyName="label" value="DataBinding Test" waitEvent="contentChange" />
+            </setup>        
+            <body>
+				<RunCode code="application.propComp.rbSelected='true'" waitTarget="propComp.rbBinding" waitEvent="updateComplete" />
+				<AssertPropertyValue target="propComp.rbBinding" propertyName="selected" value="true" />
+				<CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+				<TestCase testID="Mobile_RadioButton_stickyHighlighting_false" keywords="[RadioButton, stickyHighlighting]" description="Test skin when stickyHighlighting is false">
+					<setup>
+            <ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+						<SetProperty target="propComp.rbBinding" propertyName="label" value="Sticky Test" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="propComp.rbBinding" propertyName="stickyHighlighting" value="false" />
+						<DispatchMouseEvent target="propComp.rbBinding" type="mouseMove" localX="22" localY="11" waitEvent="mouseMove" />
+						<DispatchMouseEvent target="propComp.rbBinding" type="mouseDown" localX="22" localY="19" waitEvent="mouseDown" />
+						<DispatchMouseEvent target="propComp.rbBinding" type="mouseMove" localX="23" localY="26" waitEvent="mouseMove" />
+						<DispatchMouseEvent type="mouseMove" localX="23" localY="50" target="" />
+						<CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>						
+					</body>
+				</TestCase>				
+
+				<TestCase testID="Mobile_RadioButton_stickyHighlighting_true" keywords="[RadioButton, stickyHighlighting]" description="Test skin when stickyHighlighting is false">
+					<setup>
+            <ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+						<SetProperty target="propComp.rbBinding" propertyName="label" value="Sticky Test" waitEvent="contentChange" />
+						<SetProperty target="propComp.rbBinding" propertyName="stickyHighlighting" value="true" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="propComp.rbBinding" propertyName="stickyHighlighting" value="true" />
+						<DispatchMouseEvent target="propComp.rbBinding" type="mouseMove" localX="22" localY="11" waitEvent="mouseMove" />
+						<DispatchMouseEvent target="propComp.rbBinding" type="mouseDown" localX="22" localY="19" waitEvent="mouseDown" />
+						<DispatchMouseEvent target="propComp.rbBinding" type="mouseMove" localX="23" localY="26" waitEvent="mouseMove" />
+						<DispatchMouseEvent type="mouseMove" localX="23" localY="50" target="" />
+						<CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>						
+					</body>
+				</TestCase>				
+
+				<TestCase testID="Mobile_RadioButton_styleName_inline" keywords="[RadioButton, styleName]" description="Test skin when setting stylename inline">
+					<setup>
+						<ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" />
+					</setup>
+					<body>
+						<AssertStyleValue target="propComp.rbWithStyle" styleName="color" value="#ff0000" />
+						<AssertStyleValue target="propComp.rbWithStyle" styleName="fontWeight" value="bold" />
+						<AssertStyleValue target="propComp.rbWithStyle" styleName="iconPlacement" value="right" />
+						<CompareBitmap url="../properties/baselines" target="propComp.rbWithStyle">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>	
+					</body>
+				</TestCase>
+				
+				<TestCase testID="Mobile_RadioButton_set_styleName" keywords="[RadioButton, styleName, setStyle]" description="Test skin when setting styleName in actionscript">
+					<bugs>
+						<Bug bugID="SDK-27494" />
+					</bugs>
+					<setup>
+						<ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+						<SetProperty target="propComp.rbBinding" propertyName="label" value="Set Style" waitEvent="contentChange" />
+					</setup>
+					<body>
+						<SetProperty target="propComp.rbBinding" propertyName="styleName" value="myStyle" waitEvent="updateComplete" />
+						<AssertStyleValue target="propComp.rbBinding" styleName="color" value="#ff0000" />
+						<AssertStyleValue target="propComp.rbBinding" styleName="fontWeight" value="bold" />
+						<AssertStyleValue target="propComp.rbBinding" styleName="iconPlacement" value="right" />
+						<CompareBitmap url="../properties/baselines" target="propComp.rbBinding">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>						
+					</body>
+				</TestCase>				
+
+				<TestCase testID="Mobile_RadioButton_visible_false" keywords="[RadioButton, visible]" description="Verify RadioButton is not visible">
+					<setup>
+            <ResetComponent target="propComp.rbBinding" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>
+						<SetProperty target="propComp.rbBinding" propertyName="label" value="Visible Test" waitEvent="contentChange" />
+					</setup>
+					<body>
+						<SetProperty target="propComp.rbBinding" propertyName="visible" value="false" waitEvent="hide" />
+						<CompareBitmap url="../properties/baselines" target="propComp">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>						
+					</body>
+				</TestCase>
+				
+				<TestCase testID="Mobile_RadioButton_x" keywords="[RadioButton, x]" description="Test setting x value on a RadioButton">
+					<setup>
+						<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+						<SetProperty target="styleComp.rb1" propertyName="label" value="X Test" waitEvent="contentChange" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="styleComp.rb1" propertyName="x" value="0" />
+						<SetProperty target="styleComp.rb1" propertyName="x" value="15" waitEvent="updateComplete" />
+						<AssertPropertyValue target="styleComp.rb1" propertyName="x" value="15" />
+						<CompareBitmap url="../properties/baselines" target="styleComp.grp1">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>	
+					</body>
+				</TestCase>
+				
+				<TestCase testID="Mobile_RadioButton_y" keywords="[RadioButton, y]" description="Test setting y value">
+					<setup>
+						<ResetComponent target="styleComp" className="comps.StyleComp" waitEvent="updateComplete" />
+						<SetProperty target="styleComp.rb1" propertyName="label" value="Y Test" waitEvent="contentChange" />
+					</setup>
+					<body>
+						<AssertPropertyValue target="styleComp.rb1" propertyName="y" value="0" />
+						<SetProperty target="styleComp.rb1" propertyName="y" value="10" waitEvent="updateComplete" />
+						<AssertPropertyValue target="styleComp.rb1" propertyName="y" value="10" />
+						<CompareBitmap url="../properties/baselines" target="styleComp.grp1">
+							<ConditionalValue deviceDensity="160" os="win" />
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>						
+					</body>
+				</TestCase>
+        <TestCase testID="Mobile_RadioButton_percentWidth_0_100" keywords="[RadioButton, percentWidth]" description="Test percentWidth=0 on RadioButton label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+								<SetProperty target="propComp.rb1" propertyName="percentWidth" value="0" />
+								<SetProperty target="propComp.rb2" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="propComp.rb2"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_percentWidth_100_0" keywords="[RadioButton, percentWidth]" description="Test percentWidth=100 on RadioButton label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+								<SetProperty target="propComp.rb2" propertyName="percentWidth" value="0" />						
+								<SetProperty target="propComp.rb1" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="propComp.rb1"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_percentWidth_50" keywords="[RadioButton, percentWidth]" description="Test percentWidth=50 on RadioButton label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+								<SetProperty target="propComp.rb1" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="propComp.rb1"/>
+								<SetProperty target="propComp.rb2" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="propComp.rb2"/>
+                <AssertPropertyValue target="propComp.rb1" propertyName="width" value="232" />
+								<AssertPropertyValue target="propComp.rb2" propertyName="width" value="232" />
+								<CompareBitmap url="../properties/baselines" target="propComp.grp1">
+									<ConditionalValue deviceDensity="160" os="win" />
+									<ConditionalValue deviceDensity="240" os="android" />
+									<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+								</CompareBitmap>						
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_RadioButton_percentWidth_50_change_container_width" keywords="[RadioButton, percentWidth]" description="Test percentWidth=50 on RadioButton label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+								<SetProperty target="propComp.rb1" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="propComp.rb1"/>
+								<SetProperty target="propComp.rb2" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="propComp.rb2"/>
+            </setup>        
+            <body>
+								<SetProperty target="propComp.grp1" propertyName="width" value="370" waitEvent="updateComplete" waitTarget="propComp.grp1"/>						
+                <AssertPropertyValue target="propComp.rb1" propertyName="width" value="182" />
+								<AssertPropertyValue target="propComp.rb2" propertyName="width" value="182" />
+								<CompareBitmap url="../properties/baselines" target="propComp.grp1">
+									<ConditionalValue deviceDensity="160" os="win" />
+									<ConditionalValue deviceDensity="240" os="android" />
+									<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+								</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_percentHeight_0_100" keywords="[RadioButton, percentHeight]" description="Test percentHeight=0 on RadioButton label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+				<!--SetProperty target="propComp.rb3" propertyName="percentHeight" value="0" waitEvent="updateComplete" waitTarget="propComp.rb3"/-->
+				<SetProperty target="propComp.rb4" propertyName="percentHeight" value="100" waitEvent="updateComplete" waitTarget="propComp.rb4"/>
+                <CompareBitmap url="../properties/baselines" target="propComp.grp2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_percentHeight_100_0" keywords="[RadioButton, percentHeight]" description="Test percentHeight=100 on RadioButton label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+				<SetProperty target="propComp.rb3" propertyName="percentHeight" value="100" waitEvent="updateComplete" waitTarget="propComp.rb3"/>
+				<!--SetProperty target="propComp.rb4" propertyName="percentHeight" value="0" waitEvent="updateComplete" waitTarget="propComp.rb4"/-->
+                <CompareBitmap url="../properties/baselines" target="propComp.grp2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_percentHeight_50" keywords="[RadioButton, percentHeight]" description="Test percentHeight=50 on RadioButton label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+            </setup>        
+            <body>
+				<SetProperty target="propComp.rb3" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="propComp.rb3"/>
+				<SetProperty target="propComp.rb4" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="propComp.rb4"/>
+                <AssertPropertyValue target="propComp.rb3" propertyName="height"  value="77"/>
+				<AssertPropertyValue target="propComp.rb4" propertyName="height" value="77"/>
+				<CompareBitmap url="../properties/baselines" target="propComp.grp2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_RadioButton_percentHeight_50_change_container_height" keywords="[RadioButton, percentHeight]" description="Test percentHeight=50 on RadioButton label">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+				<SetProperty target="propComp.rb3" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="propComp.rb3"/>
+				<SetProperty target="propComp.rb4" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="propComp.rb4"/>
+            </setup>        
+            <body>
+				<SetProperty target="propComp.grp2" propertyName="height" value="320" waitEvent="updateComplete" waitTarget="propComp.grp2"/>						
+                <AssertPropertyValue target="propComp.rb3" propertyName="height" value="157" />
+				<AssertPropertyValue target="propComp.rb4" propertyName="height" value="157" />
+				<CompareBitmap url="../properties/baselines" target="propComp.grp2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>            
+			</body>
+        </TestCase>
+
+
+        <TestCase testID="Mobile_RadioButton_set_groupName" keywords="[RadioButton, groupName]" description="Test setting groupName on radiobuttons">
+            <setup>
+								<ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+								<SetProperty target="propComp.rbBinding" propertyName="label" value="Part of GroupA" waitEvent="contentChange" waitTarget="propComp.rbBinding"/>
+								<SetProperty target="propComp.rbWithStyle" propertyName="label" value="Part of GroupA" waitEvent="contentChange" waitTarget="propComp.rbWithStyle"/>
+								<SetProperty target="propComp.rbBinding" propertyName="groupName" value="a" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>						
+								<SetProperty target="propComp.rbWithStyle" propertyName="groupName" value="a" waitEvent="updateComplete" waitTarget="propComp.rbWithStyle"/>						
+								<SetStyle target="propComp.rbWithStyle" styleName="iconPlacement" value="left" waitEvent="updateComplete" waitTarget="propComp.rbWithStyle"/>						
+            </setup>        
+            <body>
+								<SetProperty target="propComp.rbBinding" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>						
+								<SetProperty target="propComp.rbWithStyle" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="propComp.rbWithStyle"/>						
+                <AssertPropertyValue target="propComp.rbBinding" propertyName="selected" value="false" />
+								<AssertPropertyValue target="propComp.rbWithStyle" propertyName="selected" value="true" />
+								<CompareBitmap url="../properties/baselines" target="propComp">
+									<ConditionalValue deviceDensity="160" os="win" />
+									<ConditionalValue deviceDensity="240" os="android" />
+									<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+								</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_change_groupName_runtime" keywords="[RadioButton, groupName]" description="Test changing groupName at runtime on radiobuttons">
+            <setup>
+								<ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+								<SetProperty target="propComp.rbBinding" propertyName="label" value="Part of GroupA" waitEvent="contentChange" waitTarget="propComp.rbBinding"/>
+								<SetProperty target="propComp.rbWithStyle" propertyName="label" value="Part of GroupB" waitEvent="contentChange" waitTarget="propComp.rbWithStyle"/>
+								<SetProperty target="propComp.rbBinding" propertyName="groupName" value="a" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>						
+								<SetProperty target="propComp.rbWithStyle" propertyName="groupName" value="a" waitEvent="updateComplete" waitTarget="propComp.rbWithStyle"/>						
+								<SetStyle target="propComp.rbWithStyle" styleName="iconPlacement" value="left" waitEvent="updateComplete" waitTarget="propComp.rbWithStyle"/>						
+            </setup>        
+            <body>
+								<SetProperty target="propComp.rbBinding" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>						
+								<SetProperty target="propComp.rbWithStyle" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="propComp.rbWithStyle"/>						
+                <AssertPropertyValue target="propComp.rbBinding" propertyName="selected" value="false" />
+								<AssertPropertyValue target="propComp.rbWithStyle" propertyName="selected" value="true" />
+								<SetProperty target="propComp.rbWithStyle" propertyName="groupName" value="b" waitEvent="updateComplete" waitTarget="propComp.rbWithStyle"/>					
+								<SetProperty target="propComp.rbBinding" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="propComp.rbBinding"/>							
+                <AssertPropertyValue target="propComp.rbBinding" propertyName="selected" value="true" />
+								<AssertPropertyValue target="propComp.rbWithStyle" propertyName="selected" value="true" />
+								<CompareBitmap url="../properties/baselines" target="propComp">
+									<ConditionalValue deviceDensity="160" os="win" />
+									<ConditionalValue deviceDensity="240" os="android" />
+									<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+								</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_group_enabled_false" keywords="[RadioButton, group, enabled]" description="Test disabled group on radiobutton">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+								<SetProperty target="propComp.rb3" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="propComp.rb3"/>						
+            </setup>        
+            <body>
+								<SetProperty target="propComp.grp2" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="propComp.grp2"/>						
+                <AssertPropertyValue target="propComp.grp2" propertyName="enabled" value="false" />
+								<CompareBitmap url="../properties/baselines" target="propComp.grp2">
+									<ConditionalValue deviceDensity="160" os="win" />
+									<ConditionalValue deviceDensity="240" os="android" />
+									<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+								</CompareBitmap>						
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_RadioButton_group_enabled_true_runtime_change" keywords="[RadioButton, group, enabled]" description="Test changing enabled group on radiobutton at runtime">
+            <setup>
+                <ResetComponent target="propComp" className="comps.PropertiesComp" waitEvent="updateComplete" waitTarget="propComp"/>
+								<SetProperty target="propComp.rb3" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="propComp.rb3"/>						
+            </setup>        
+            <body>
+								<SetProperty target="propComp.grp2" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="propComp.grp2"/>						
+                <AssertPropertyValue target="propComp.grp2" propertyName="enabled" value="false" />
+								<SetProperty target="propComp.grp2" propertyName="enabled" value="true" waitEvent="updateComplete" waitTarget="propComp.grp2"/>						
+                <AssertPropertyValue target="propComp.rb3" propertyName="enabled" value="true" />
+								<AssertPropertyValue target="propComp.rb4" propertyName="enabled" value="true" />
+								<SetProperty target="propComp.rb4" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="propComp.rb4"/>						
+								<CompareBitmap url="../properties/baselines" target="propComp.grp2">
+									<ConditionalValue deviceDensity="160" os="win" />
+									<ConditionalValue deviceDensity="240" os="android" />
+									<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+								</CompareBitmap>
+            </body>
+        </TestCase>
+
+</testCases>
+</UnitTester>

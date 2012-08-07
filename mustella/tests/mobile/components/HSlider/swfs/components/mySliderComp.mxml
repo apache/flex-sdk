@@ -1,0 +1,69 @@
+<s:SkinnableContainer
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark">
+        
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+                       
+    <s:states>
+    	<s:State name="state1"/>
+    	<s:State name="state2"/>
+    </s:states>
+    
+    <s:Button 
+        id="state1Button" 
+        label="Goto State 1" 
+        click="currentState='state1'"
+        includeIn="state2"/>
+        
+    <s:Button 
+        id="state2Button" 
+        label="Goto State 2" 
+        click="currentState='state2'"
+        includeIn="state1"/>
+    	
+    <mx:HBox>    
+    	<mx:Spacer width="15" />
+    	
+    	<s:HSlider
+    	    id="myHS1" 
+    	    includeIn="state1"/>
+        
+		<s:VSlider
+    	    id="myVS1" 
+    	    includeIn="state1"/>        
+    </mx:HBox>
+    
+    <mx:Text
+    	text="Current HSlider value = {myHS1.value}"
+    	includeIn="state1"/>
+    	
+	<mx:Text
+    	text="Current VSlider value = {myVS1.value}"
+    	includeIn="state1"/>    	
+    
+    <mx:HBox>    
+    	<mx:Spacer width="15" />
+    	
+    	<s:HSlider
+    	    id="myHS2" 
+    	    includeIn="state2"/>
+        
+		<s:VSlider
+    	    id="myVS2" 
+    	    includeIn="state2"/>        
+    </mx:HBox>
+       
+	<mx:Text
+    	text="Current HSlider value = {myHS2.value}"
+    	includeIn="state2"/>       
+    	
+	<mx:Text
+    	text="Current VSlider value = {myVS2.value}"
+    	includeIn="state2"/>           	
+            
+    <mx:Label 
+        text="Current state = {currentState}" 
+        fontSize="16"/>
+        
+</s:SkinnableContainer>

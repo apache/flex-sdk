@@ -1,0 +1,21 @@
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="Display Mode View" xmlns:comps="comps.*">
+	<fx:Script>
+		<![CDATA[
+			import assets.DSConstants;
+			import spark.components.calendarClasses.DateSelectorDisplayMode;
+			
+			[Bindable]
+			public var bindableDate:Date = new Date(2011,5,10,13,30);
+			
+			[Bindable]
+			public var bindableDisplayMode:String = DateSelectorDisplayMode.DATE;
+		]]>
+	</fx:Script>
+    <s:VGroup> 
+		<comps:InstrumentedDateSpinner id="ds" locale="en_US"/>
+		<comps:InstrumentedDateSpinner id="ds_binding" locale="en_US" selectedDate="{bindableDate}" displayMode="{bindableDisplayMode}"/>
+    </s:VGroup>
+    
+</s:View>

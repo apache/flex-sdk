@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/DateSpinner/properties/"  xmlns="*"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			testSWF="DateSpinnerMain.mxml">
+	
+	<!-- this set of lines form a template that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			import assets.DSConstants;
+			import spark.components.calendarClasses.DateSelectorDisplayMode;
+			import views.*
+
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+		    [Mixin]
+		]]>
+	</fx:Metadata>  
+	
+	<!-- end of set of lines that must be in each unit test  -->
+	
+	<testCases>
+		
+		<TestCase testID="DateSpinner_minDate_maxDate_normal_1" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, check year list">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />				
+				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date('2000/1/1') " waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date('2099/12/31') " waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date('2000/1/2') " waitEvent="valueCommit"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date('2000/1/1') "/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date('2099/12/31') "/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date('2000/1/2') "/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="January" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="02">
+					<ConditionalValue value="2" os="android" />
+					<ConditionalValue value="2" os="iphone" />
+					<ConditionalValue value="2" os="qnx" />
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2000" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateSpinner_minDate_maxDate_normal_DATE_AND_TIME_2" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, check year list">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />	
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date('2000/1/1') " waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date('2099/12/31') " waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date('2000/1/2') " waitEvent="valueCommit"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date('2000/1/1') "/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date('2099/12/31') "/>
+							
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Sun, Jan 2" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="00" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="AM" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_minDate_maxDate_normal_TIME_3" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Setting minDate and maxDate can work well for DateSpinner when it's in TIME mode">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />	
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="displayMode" valueExpression="value='time'" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date('2000/1/1') " waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date('2099/12/31') " waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date('2000/1/2') " waitEvent="valueCommit"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date('2000/1/1') "/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date('2099/12/31') "/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date('2000/1/2') "/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="00" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="AM" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_minDate_maxDate_with_hour_minutes_DATE_4" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Setting minDate and maxDate with hours and minutes can work well for DateSpinner ">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />	
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				
+				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1975,1,1,8,34,56)" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(2099,2,3,23,00,00)" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2012,5,6 )" waitEvent="valueCommit"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1975,1,1,8,34,56)"/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(2099,2,3,23,00)"/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2012,5,6)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="June" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="06" >
+					<ConditionalValue value="6" os="android" />
+					<ConditionalValue value="6" os="iphone" />
+					<ConditionalValue value="6" os="qnx" />
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2012" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_minDate_maxDate_with_hour_minutes_DATETIME_5" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Setting minDate and maxDate with hour and minutes can work well for DateSpinner">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />	
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date(1975,1,1,8,34,56 )"  waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date(2099,2,3,23,00,00 )" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date(1999,5,6 )" waitEvent="valueCommit"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date(1975,1,1,8,34,56)"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date(2099,2,3,23,00,00)"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date(1999,5,6)"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Sun, Jun 6" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="00" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="AM" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_minDate_maxDate_DATE_small_range_6" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very samll range">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				
+				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(2011,6,20 )"  waitEvent="updateComplete"/>				
+				<SetProperty target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(2011,6,21 )"  waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2011,6,20 )" waitEvent="valueCommit"/>	
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(2011,6,20 )"/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(2011,6,21 )"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="July" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="20" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2011" />
+				
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_minDate_maxDate_DATETIME_small_range_7" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very samll range">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				
+				<SetProperty target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date(2011,6,20 )"  waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date(2011,6,21 )" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date(2011,6,20 )" waitEvent="valueCommit"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date(2011,6,20 )"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date(2011,6,21 )"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Wed, Jul 20" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="00" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="AM" />
+				
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_only_minDate_no_maxDate_DATE_8" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="only minDate and no maxDate, set a valide between minDate and maxDate ">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />			
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				
+				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(2011,6,1 )" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2013,5,1 )" waitEvent="valueCommit"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(2011,6,1 )"/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2013,5,1 )"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="June" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="01" >
+					<ConditionalValue value="1" os="android" />
+					<ConditionalValue value="1" os="iphone" />
+					<ConditionalValue value="1" os="qnx" />
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2013" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_only_minDate_no_maxDate_DATE_9" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="only minDate and no maxDate, set a invalide which is smaller than minDate, it should be fallbck to minDate ">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />			
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				
+				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(2011,6,1 )"  waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2010,3,1 )" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(2011,6,1 )"/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2011,6,1 )"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="July" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="01" >
+					<ConditionalValue value="1" os="android" />
+					<ConditionalValue value="1" os="iphone" />
+					<ConditionalValue value="1" os="qnx" />
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2011" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateSpinner_only_minDate_no_maxDate_DATETIME_10" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test only minDate and no maxDate, when selectedDate is beyond of default maxDate , it show default maxDate. Default maxDate is changed, so this should be selectedDate ">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete"  />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				
+				<SetProperty target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date(2011,6,1 )"  waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date(2013,5,1 )" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date(2011,6,1 )"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date(2013,5,1 )"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Sat, Jun 1" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="00" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="AM" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_no_minDate_only_maxDate_DATE_11" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties no minDate and only maxDate can work well for DateSpinner component, valid date ">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete"  />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(2012,11,29 )"  waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2000,11,31,2,40 )" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(2012,11,29 )"/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2000,11,31,2,40 )"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="December" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="31" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_no_minDate_only_maxDate_DATE_testInvalid_12" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="no minDate and only maxDate , Verify that beyond maxDate is not selectable.">
+			<bugs>
+				<Bug bugID="SDK-31202"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete"  />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(2012,11,29 )"  waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2012,11,28,3,55 )" waitEvent="updateComplete" />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(2012,11,29 )"/>
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="December" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="28" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2012" />
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_no_minDate_only_maxDate_DATETIME_13" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description=" no minDate and only maxDate, smaller than default minDate , it will fall back to minDate. Default minDate is changed, this should be selectedDate now  ">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date(2012,11,29 )"  waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date(2000,11,31,2,40 )" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date(2012,11,29 )"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date(2000,11,31,2,40 )"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Sun, Dec 31" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="2" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="40" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="AM" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_no_minDate_only_maxDate_DATETIME_14" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description=" no minDate and only maxDate, beyond of maxDate , it will fall back to maxDate  ">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date(2012,11,29 )"  waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date(2012,11,30,20,12 )" waitEvent="updateComplete" />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date(2012,11,29 )"/>
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Sat, Dec 29" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="00" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="AM" />
+				
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_minDate_maxDate_with_hour_minute_DATETIME_15" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component">
+			<bugs>
+				<Bug bugID="SDK-31038"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date ( 2010,5,3, 12, 30 )" waitEvent="updateComplete" />	
+				<SetProperty target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date ( 2011,5,3, 12, 30 )" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date( 2010,5,3,12, 31 )" waitEvent="valueCommit"/>	
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date ( 2010,5,3, 12, 30 )"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date ( 2011,5,3, 12, 30 )"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Thu, Jun 3" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="31" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="PM" />
+				
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateSpinner_minDate_maxDate_with_hour_minute_DATE_16" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="displayMode" valueExpression="value='date'" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date ( 2010,5,3, 12, 30 )" waitEvent="updateComplete" />	
+				<SetProperty target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date ( 2011,5,3, 12, 30 )" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date( 2010,5,3,12, 31 )" waitEvent="updateComplete"/>	
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=new Date ( 2010,5,3, 12, 30 )"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=new Date ( 2011,5,3, 12, 30 )"/>
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMonthRenderer(0).label" value="June" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="03" >
+					<ConditionalValue value="3" os="android" />
+					<ConditionalValue value="3" os="iphone" />
+					<ConditionalValue value="3" os="qnx" />
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getYearRenderer(0).label" value="2010" />
+				
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_only_minDate_selectedDATE_with_hour_DATE_testInvalid_17" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="no minDate and only maxDate , Verify that beyond maxDate is not selectable.">
+			<bugs>
+				<Bug bugID="SDK-31202"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete"  />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date ( 2011,6,7)"  waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date ( 2011,6,8,4,30)" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date ( 2011,6,7)"/>
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="July" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="08" >
+					<ConditionalValue value="8" os="android" />
+					<ConditionalValue value="8" os="iphone" />
+					<ConditionalValue value="8" os="qnx" />
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2011" />
+				
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_set_minDate_to_null_DATE_18" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Set minDate to null and they should fallback to default value">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />				
+				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=null" />
+				<Pause timeout="1000" /> <!-- set minDate to null , don't have updateComplete can be waited --> 
+				<SetProperty target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(2099,11,31)" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2011,4,2) " waitEvent="valueCommit"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1601,0,1) "/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(2099,11,31) "/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2011,4,2) "/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_set_maxDate_to_null_DATEANDTIME_19" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Set  maxDate to null and they should fallback to default value">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />	
+				<SetProperty target="navigator.activeView.ds1" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.DATE_AND_TIME" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1970,0,1)" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=null" />
+				<Pause timeout="1000" /> <!-- set maxDate to null , no updateComplete event can be waited. --> 
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2011,10,8) " waitEvent="valueCommit"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1970,0,1) "/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(9999,11,31,23,59,59) "/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2011,10,8) "/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_set_minDate_maxDate_to_null_TIME_20" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Set minDate and maxDate to null and they should fallback to default value">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />	
+				<SetProperty target="navigator.activeView.ds1" propertyName="displayMode" valueExpression="value=DateSelectorDisplayMode.TIME" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=null"  />
+				<SetProperty target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=null" />
+				<Pause timeout="1000" /> 
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2088,9,10) " waitEvent="valueCommit"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1601,0,1) "/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(9999,11,31,23,59,59) "/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2088,9,10)  "/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateSpinner_prior_1601_minDate_fallback_default_21" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Set minDate and maxDate to prior 1601 and they should fallback to default value">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />	
+				<SetProperty target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1012,1,2)"  />
+				<Pause timeout="1000" /> 
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2088,9,10) " waitEvent="valueCommit"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=new Date(1601,0,1) "/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=new Date(9999,11,31,23,59,59) "/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date(2088,9,10)  "/>
+				
+			</body>
+		</TestCase>
+		
+	</testCases>
+	
+</UnitTester>
+
+		

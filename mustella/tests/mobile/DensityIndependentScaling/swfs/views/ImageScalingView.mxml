@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:comps="comps.*"
+        title="Image Scaling View"
+        viewActivate="init()">
+    
+    <fx:Script>
+        <![CDATA[
+            import spark.components.ButtonBarButton;
+            protected function init():void
+            {
+                title = "Screen DPI: " + Capabilities.screenDPI;
+            }
+            
+            protected function changeState(event:MouseEvent):void
+            {
+                if (currentState == 'start'){
+                    currentState = 'embedded';
+                } else if (currentState == 'embedded') {
+                    currentState = 'referenced';
+                } else {
+                    currentState = 'start';
+                }
+                trace("changing to", currentState);
+            }
+            
+        ]]>
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="start" />
+        <s:State name="embedded"/>
+        <s:State name="referenced"/>
+    </s:states>
+    
+    <s:actionContent>
+        <s:Button label="change state" click="changeState(event)" />
+    </s:actionContent>
+    
+    <s:layout>
+        <s:VerticalLayout paddingTop="10" paddingLeft="10" />
+    </s:layout>
+    
+    <s:HGroup>
+        <s:Group id="bitmapImageHolder">
+            <s:BitmapImage id="bitmapImage" source.embedded="@Embed('../icons/icon50x50embedded.png')" source.referenced="icons/icon50x50.png" />
+        </s:Group>
+        <s:Image id="image" source.embedded="@Embed('../icons/icon50x50embedded.png')" source.referenced="icons/icon50x50.png" />
+        <s:Button id="button" icon.embedded="@Embed('../icons/icon50x50embedded.png')" icon.referenced="icons/icon50x50.png" label="" skinClass="comps.SolidButtonSkin"/>
+    </s:HGroup>
+    
+    <s:HGroup>
+        
+        <s:List id="normalList" contentBackgroundColor="red">
+            <s:itemRenderer>
+                <fx:Component>
+                    <comps:InstrumentedIconItemRenderer iconField="icon" labelField="messsage" />
+                </fx:Component>
+            </s:itemRenderer>
+            <s:dataProvider>
+                <s:ArrayList>
+                    <comps:DataItem id="normalListDataItem" icon.embedded="@Embed('../icons/icon50x50embedded.png')" icon.referenced="icons/icon50x50.png" message="" />
+                </s:ArrayList>
+            </s:dataProvider>
+            <s:layout>
+                <s:VerticalLayout requestedMinRowCount="1" />
+            </s:layout>
+        </s:List>
+        
+        <s:List id="loadingList" contentBackgroundColor="green">
+            <s:itemRenderer>
+                <fx:Component>
+                    <comps:InstrumentedIconItemRenderer iconField="icon" labelField="messsage"
+                                                        iconPlaceholder="@Embed('../icons/icon50x50embedded.png')">
+                        <comps:iconContentLoader>
+                            <s:ContentCache id="imgCache" enableCaching="false" enableQueueing="true"
+                                            maxActiveRequests="0" maxCacheEntries="10"/>
+                        </comps:iconContentLoader>
+                    </comps:InstrumentedIconItemRenderer>
+                </fx:Component>
+            </s:itemRenderer>
+            <s:dataProvider>
+                <s:ArrayList>
+                    <comps:DataItem id="loadingListDataItem" icon="noIcon" message="" />
+                </s:ArrayList>
+            </s:dataProvider>
+            <s:layout>
+                <s:VerticalLayout requestedMinRowCount="1" />
+            </s:layout>
+        </s:List>
+        
+        <s:List id="decoratorList" contentBackgroundColor="blue">
+            <s:itemRenderer>
+                <fx:Component>
+                    <comps:InstrumentedIconItemRenderer labelField="messsage"
+                                                        decorator="@Embed('../icons/icon50x50embedded.png')" />
+                </fx:Component>
+            </s:itemRenderer>
+            <s:dataProvider>
+                <s:ArrayList>
+                    <comps:DataItem id="decoratorListDataItem" icon="noIcon" message="" />
+                </s:ArrayList>
+            </s:dataProvider>
+            <s:layout>
+                <s:VerticalLayout requestedMinRowCount="1" />
+            </s:layout>
+        </s:List>
+        
+    </s:HGroup>
+    
+    <s:TabbedViewNavigator id="tabbedNavigator" width="100" height="100">
+        <s:ViewNavigator id="viewNavigator" icon.embedded="@Embed('../icons/icon50x50embedded.png')" icon.referenced="icons/icon50x50.png" width="100%" height="100%" firstView="comps.SolidView" />
+    </s:TabbedViewNavigator>
+        
+</s:View>

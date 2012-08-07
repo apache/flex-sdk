@@ -1,0 +1,1645 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/Button/styles/"
+    testSWF="MobileButtonMain.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+		<fx:Style>			
+			.testStyle
+			{
+				color: #00FF00;
+			}
+
+			.fontStyle {
+				fontFamily: 'Courier New';
+				fontSize: 18;
+				fontWeight: bold;
+			}			
+		</fx:Style>    
+
+	<fx:Declarations>
+		<fx:Component className="DialerButtonSkin">
+			<s:SparkSkin>
+				<fx:Metadata>
+					<![CDATA[ 
+					[HostComponent("spark.components.Button")]
+					]]>
+				</fx:Metadata>
+				<s:states>
+					<s:State name="up" />
+					<s:State name="down" />
+					<s:State name="disabled" />
+					<s:State name="over" />
+				</s:states>
+				<s:Rect width="100%" height="100%" radiusX="5" radiusY="5">
+					<s:fill>
+						<s:SolidColor color.up="white"
+									  color.over="green"
+									  color.down="0xdddddd"/>
+					</s:fill>
+					<s:stroke>
+						<s:SolidColorStroke color="0x5A5D5A" pixelHinting="true" />
+					</s:stroke>
+				</s:Rect>
+				
+				<s:Label text="{hostComponent.label}" color="black" verticalCenter="0" horizontalCenter="0" fontWeight="bold" fontSize="24" />
+			</s:SparkSkin>
+		</fx:Component>
+	</fx:Declarations>
+	
+    <fx:Script>
+	<![CDATA[ 
+		import mx.core.FlexGlobals;
+	]]>
+	</fx:Script>
+    
+	<testCases>
+
+
+<TestCase testID="Mobile_Button_styles_skin_normal_no_label" keywords="[Button, ButtonSkin, label]" description="Test skin rendering on a button with no label">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="30" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="80" waitEvent="updateComplete" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_normal_no_label_chromeColor" keywords="[Button, ButtonSkin, label, chromeColor]" description="Test skin rendering on a button with no label and custom chromeColor">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="30" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="80" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="stylesRoot.b_skin_normal" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_normal_short_label" keywords="[Button, ButtonSkin, label]" description="Test skin rendering on a button with a short label">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="200" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Short Label" waitEvent="contentChange" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_normal_short_label_chromeColor" keywords="[Button, ButtonSkin, label, chromeColor]" description="Test skin rendering on a button with a short label and chromeColor">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="200" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Short Label" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="stylesRoot.b_skin_normal" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_normal_long_label" keywords="[Button, ButtonSkin, label]" description="Test skin rendering on a button with a long label">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="the Quick Brown Fox jumps over the lazy dog" waitEvent="contentChange" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal"  numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_normal_long_label_chromeColor" keywords="[Button, ButtonSkin, label, chromeColor]" description="Test skin rendering on a button with a long label and chromeColor">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="the Quick Brown Fox jumps over the lazy dog" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="stylesRoot.b_skin_normal" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal"  numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+ 
+<TestCase testID="Mobile_Button_styles_skin_selected_no_label" keywords="[Button, ButtonSkin, label]" description="Test skin rendering on a selected button without label">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="80" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="35" localY="14" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="35" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="35" localY="14" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_selected_no_label_chromeColor" keywords="[Button, ButtonSkin, label, chromeColor]" description="Test skin rendering on a selected button without label, with chromeColor">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="80" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="stylesRoot.b_skin_normal" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="35" localY="14" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="35" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="35" localY="14" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_selected_short_label" keywords="[Button, ButtonSkin, label, mouseDown]" description="Test skin rendering on a selected button with short label">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="200" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Short Label" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="35" localY="14" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="35" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="35" localY="14" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseUp" localX="35" localY="14" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_selected_short_label_chromeColor" keywords="[Button, ButtonSkin, label, mouseDown, chromeColor]" description="Test skin rendering on a selected button with short label and chromeColor">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="200" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Short Label" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="stylesRoot.b_skin_normal" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="35" localY="14" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="35" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="35" localY="14" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseUp" localX="35" localY="14" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_selected_long_label" keywords="[Button, ButtonSkin, label, mouseDown]" description="Test skin rendering on a selected button with a long label">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete"/>
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="the Quick Brown Fox jumps over the lazy dog" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="35" localY="14" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="35" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="35" localY="14" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal"  numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseUp" localX="35" localY="14" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_selected_long_label_chromeColor" keywords="[Button, ButtonSkin, label, mouseDown, chromeColor]" description="Test skin rendering on a selected button with a long label and chromeColor">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="the Quick Brown Fox jumps over the lazy dog" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="stylesRoot.b_skin_normal" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="35" localY="14" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="35" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="35" localY="14" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal"  numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseUp" localX="35" localY="14" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_disabled_no_label" keywords="[Button, ButtonSkin, disabled, label]" description="Test skin rendering on a disabled button without label">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="30" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="80" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal"  numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_disabled_no_label_chromeColor" keywords="[Button, ButtonSkin, disabled, label, chromeColor]" description="Test skin rendering on a disabled button without label, with chromeColor">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="30" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="80" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="stylesRoot.b_skin_normal" />
+	</setup>
+	<body>
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal"  numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_disabled_short_label" keywords="[Button, ButtonSkin, label, disabled]" description="Test skin rendering on a disabled button with short label">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="200" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Short Label" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_disabled_short_label_chromeColor" keywords="[Button, ButtonSkin, label, disabled, chromeColor]" description="Test skin rendering on a disabled button with short label and chromeColor">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="200" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Short Label" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="stylesRoot.b_skin_normal" />
+	</setup>
+	<body>
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_disabled_long_label" keywords="[Button, ButtonSkin, label, disabled]" description="Test skin rendering on a disabled button with a long label">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="the Quick Brown Fox jumps over the lazy dog" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_skin_disabled_long_label_chromeColor" keywords="[Button, ButtonSkin, label, disabled, chromeColor]" description="Test skin rendering on a disabled button with a long label and chromeColor">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="45" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="the Quick Brown Fox jumps over the lazy dog" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="stylesRoot.b_skin_normal" />
+	</setup>
+	<body>
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+
+<TestCase testID="Mobile_Button_styles_set_baseline" keywords="[Button, baseline]" description="Test button position when baseline is set">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.bOne" propertyName="x" value="70" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.bOne" styleName="baseline" value="35" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_default_baseline" keywords="[Button, baseline]" description="Test default baseline value">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.bOne" propertyName="x" value="70" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="baseline" value="null" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_default_horizontalCenter" keywords="[Button, horizontalCenter]" description="Test default horizontalCenter value">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="horizontalCenter" value="null" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_set_horizontalCenter" keywords="[Button, horizontalCenter]" description="Test button setting of style horizontalCenter">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.bOne" styleName="horizontalCenter" value="15" waitEvent="move" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="horizontalCenter" value="15" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_default_verticalCenter" keywords="[Button, mobile, verticalCenter]" description="Test default verticalCenter value">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="verticalCenter" value="null" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_set_verticalCenter_5" keywords="[Button, mobile, verticalCenter]" description="Test verticalCenter style setting">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.bOne" styleName="verticalCenter" value="5" waitEvent="move" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="verticalCenter" value="5" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_left_10" keywords="[Button, mobile, left]" description="Test setting left style">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.bOne" styleName="left" value="10" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="left" value="10" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_right_25" keywords="[Button, mobile, right]" description="Test setting right style">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.bOne" styleName="left" value="10" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.bOne" styleName="right" value="25" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="right" value="25" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_top_10" keywords="[Button, mobile, top]" description="Test button style setting to 10">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.bOne" styleName="top" value="10" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="top" value="10" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_bottom_10" keywords="[Button, mobile, bottom]" description="Test setting button bottom to 10">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.bOne" styleName="bottom" value="10" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="bottom" value="10" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.grp1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_color_default" keywords="[Button, mobile, label, color]" description="Test default text color on button label">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Color Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="color" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_color_blue" keywords="[Button, mobile, color, label]" description="Test button label color setting">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Color Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0x0000FF" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="color" value="0x0000FF" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_color_red_setStyle" keywords="[Button, mobile, color, label]" description="Test setting label color using setStyle">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Color Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<RunCode code="application.stylesRoot.b_skin_normal.setStyle('color','0xFF0000')" waitTarget="stylesRoot.b_skin_normal" waitEvent="updateComplete"/>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+<TestCase testID="Mobile_Button_styles_color_styleName_green" keywords="[Button, mobile, color, styleName]" description="Test button label color set on defined style">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Color Test" waitEvent="contentChange" />		
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="styleName" value="testStyle" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="color" value="0x00FF00" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_default_direction" keywords="[Button, mobile, direction]" description="Test default direction style">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Direction Testing" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="direction" value="ltr" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_default_fontFamily" keywords="[Button, mobile, fontFamily]" description="Test default fontFamily style">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="FontFamily Testing" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="_sans" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_fontFamily_CourierNew" keywords="[Button, mobile, fontFamily]" description="Test setting fontFamily style on button">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font Testing" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_fontFamily_CourierNew_setStyle" keywords="[Button, mobile, fontFamily, setStyle]" description="Test setting fontFamily on button label through setStyle">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font Testing" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<RunCode code="application.stylesRoot.b_skin_normal.setStyle('fontFamily','Courier New')" waitTarget="stylesRoot.b_skin_normal" waitEvent="updateComplete"/>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_fontSize_default" keywords="[Button, mobile, fontSize]" description="Test default fontSize">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font Testing" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontSize"  >
+			<ConditionalValue deviceDensity="160" os="win" value="16" />
+			<ConditionalValue deviceDensity="240" os="android" value="24" />
+			<ConditionalValue deviceDensity="320" os="win" value="32" />
+			<ConditionalValue deviceDensity="320" os="iphone" value="32" />
+			<ConditionalValue deviceDensity="160" os="qnx" value="16" />
+		</AssertStyleValue>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_fontSize_18" keywords="[Button, mobile, fontSize]" description="Test setting fontSize on button label">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font Testing" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="fontSize" value="18" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontSize" value="18" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_fontSize_18_setStyle" keywords="[Button, mobile, fontSize]" description="Test setting fontSize using setStyle method">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font Testing" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<RunCode code="application.stylesRoot.b_skin_normal.setStyle('fontSize',18)" waitTarget="stylesRoot.b_skin_normal" waitEvent="updateComplete"/>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontSize" value="18" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_fontWeight_default" keywords="[Button, mobile, fontWeight]" description="Test default fontWeight style">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font Testing" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontWeight" value="bold" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_fontWeight_bold" keywords="[Button, mobile, fontWeight]" description="Test setting fontWeight style">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font Testing" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="fontWeight" value="normal" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontWeight" value="bold" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_fontWeight_bold_setStyle" keywords="[Button, mobile, fontWeight]" description="Test setting fontWeight using setStyle">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font Testing" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="fontWeight" value="normal" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="application.stylesRoot.b_skin_normal.setStyle('fontWeight','bold')" waitTarget="stylesRoot.b_skin_normal" waitEvent="updateComplete"/>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontWeight" value="bold" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+<TestCase testID="Mobile_Button_styles_font_styleName" keywords="[Button, mobile, fontWeight, fontSize, fontFamily, styleName]" description="Test setting font-related styles using styleName">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font Testing" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="styleName" value="fontStyle" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontSize" value="18" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontWeight" value="bold" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+		<TestCase testID="Mobile_Button_styles_lineThrough_default" description="default value of lineThrough Button" keywords="[Button, mobile,lineThrough, style]">
+			<setup>
+				<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+				<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="lineThrough label" waitEvent="contentChange"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="lineThrough" value="false"/>
+				<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+<TestCase testID="Mobile_Button_styles_cornerRadius_default" keywords="[Button, mobile, cornerRadius]" description="Test default cornerRadius">
+	<setup>
+				<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="cornerRadius" value="2" />
+	</body>
+</TestCase>
+
+		<TestCase testID="Mobile_Button_styles_textDecoration_default" description="textDecoration default Button" keywords="[Button, mobile, textDecoration, style]">
+			<setup>
+				<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+				<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="contentChange" waitTarget="stylesRoot.b_skin_normal"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textDecoration" value="none"/>
+				<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="Mobile_Button_styles_textDecoration_underline" description="textDecoration underline Button" keywords="[Button, mobile, textDecoration, style]">
+			<setup>
+				<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+				<SetStyle styleName="textDecoration" value="underline" target="stylesRoot.b_skin_normal"/>
+				<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="The quick brown fox jumps" waitEvent="contentChange" waitTarget="stylesRoot.b_skin_normal"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textDecoration" value="underline"/>
+				<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+<TestCase testID="Mobile_Button_styles_fontSetting_selected" keywords="[Button, mobile, fontWeight, fontSize, fontFamily]" description="Test font settings on selected button">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font style Testing" waitEvent="contentChange" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="styleName" value="fontStyle" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="27" localY="16" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="27" localY="16" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="27" localY="16" waitEvent="mouseDown" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontSize" value="18" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontWeight" value="bold" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseUp" localX="27" localY="16" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_fontSetting_disabled" keywords="[Button, mobile, fontWeight, fontSize, fontFamily]" description="Test font styles setting on disabled button">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Font style Testing" waitEvent="contentChange" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="styleName" value="fontStyle" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontFamily" value="Courier New" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontSize" value="18" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontWeight" value="bold" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_fontStyle" keywords="[Button, mobile, fontStyle]" description="Test font styles setting on button">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="My Home" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="fontStyle" value="italic" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontStyle" value="italic" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_fontStyle_disabled" keywords="[Button, mobile, fontStyle]" description="Test font styles setting on disabled button">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="My Home" waitEvent="contentChange" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="fontStyle" value="italic" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="fontStyle" value="italic" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_kerning_off" keywords="[Button, mobile, kerning]" description="Test off kerning styles on button">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="LETTERS" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="kerning" value="off" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="kerning" value="off" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_kerning_on" keywords="[Button, mobile, kerning]" description="Test on kerning styles on button">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="LETTERS" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="kerning" value="on" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="kerning" value="on" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_over_customSkin" keywords="[Button, overSkin]" description="Verify that over skin does not take effect on a button">
+	<bugs>
+		<Bug bugID="SDK-27173" />
+	</bugs>
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="width" value="180" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="height" value="50" waitEvent="updateComplete" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="skinClass" value="{DialerButtonSkin}" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Hover Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="95" localY="13" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="88" localY="29" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseOver" localX="88" localY="29" waitEvent="mouseOver" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_textShadowAlpha_textShadowColor_default" keywords="[Button, textShadowAlpha, textShadowColor]" description="Test default text shadow styles">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="0.55" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0xFFFFFF" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_textShadowAlpha_0" keywords="[Button, textShadowAlpha]" description="Test button text when textShadowAlpha is 0">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="0" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="0" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0xFFFFFF" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_disabled_textShadowAlpha_0" keywords="[Button, textShadowAlpha]" description="Test disabled button text when textShadowAlpha is 0">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="0" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="0" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0xFFFFFF" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_down_textShadowAlpha_0" keywords="[Button, textShadowAlpha]" description="Test button text  when textShadowAlpha is 0">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="0" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="0" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="35" localY="14" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="35" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="35" localY="14" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseUp" localX="35" localY="14" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_textShadowAlpha_1point5" keywords="[Button, textShadowAlpha]" description="Test button text when textShadowAlpha is 1point5">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="1.5" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="1.5" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_disabled_textShadowAlpha_1point5" keywords="[Button, textShadowAlpha]" description="Test button text when textShadowAlpha is 1point5">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		 <SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="1.5" waitEvent="updateComplete" />
+		 <AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="1.5" />
+		 
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_down_textShadowAlpha_1point5" keywords="[Button, textShadowAlpha]" description="Test button text  when textShadowAlpha is 1point5">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="1.5" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="1.5" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="35" localY="14" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="35" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="35" localY="14" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseUp" localX="35" localY="14" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_textShadowColor" keywords="[Button, textShadowColor]" description="Test button text when textShadowColor is set">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0" waitEvent="updateComplete" />		
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_disabled_textShadowColor" keywords="[Button, textShadowColor]" description="Test button text when textShadowColor is set">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0" waitEvent="updateComplete" />		
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_down_textShadowColor" keywords="[Button, textShadowAlpha, textShadowColor]" description="Test button text when textShadowColor is set">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0" waitEvent="updateComplete" />		
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="35" localY="14" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="35" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="35" localY="14" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseUp" localX="35" localY="14" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_textShadowColor_textShadowAlpha_2" keywords="[Button, textShadowAlpha, textShadowColor]" description="Test button text when textShadowColor and textShadowAlpha are set">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0" waitEvent="updateComplete" />		
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="2.0" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="2" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_down_textShadowColor_textShadowAlpha_2" keywords="[Button, textShadowAlpha, textShadowColor]" description="Test button text when textShadowColor and textShadowAlpha are set">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Shadow Test" waitEvent="contentChange" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0" waitEvent="updateComplete" />		
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="2.0" waitEvent="updateComplete" />		
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowColor" value="0" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="textShadowAlpha" value="2" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="35" localY="14" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="35" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="35" localY="14" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" numColorVariances="100" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseUp" localX="35" localY="14" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_focus_color_alpha_thickness_blendmode_mxml" keywords="[Button, focusColor, focusAlpha, focusBlendMode, focusThickness]" description="Test button focus attributes set in mxml">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="focusColor" value="0xCC0033" />	
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="focusAlpha" value="2" />	
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="focusThickness" value="4" />	
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="focusBlendMode" value="difference" />	
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.setFocus(FlexGlobals.topLevelApplication.stylesRoot.b_skin_normal)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_focusColor_default" keywords="[Button, focusColor]" description="Test button focusColor">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="focusColor" value="7385838" />	
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.setFocus(FlexGlobals.topLevelApplication.stylesRoot.bOne)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_focusColor_set_in_AS" keywords="[Button, focusColor]" description="Test button focusColor">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.bOne" styleName="focusColor" value="0xCC0033" waitTarget="stylesRoot.bOne" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.bOne" styleName="focusColor" value="0xCC0033" />
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.setFocus(FlexGlobals.topLevelApplication.stylesRoot.bOne)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_focus_alpha_thickness_blendmode_default" keywords="[Button, focusAlpha, focusThickness, focusBlendMode]" description="Test button focusAlpha focusThickness and focusBlendMode default value">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="focusAlpha" value="0.55" />	
+		<AssertStyleValue target="stylesRoot.bOne" styleName="focusThickness" >
+			<ConditionalValue deviceDensity="160" os="win" value="2" />
+			<ConditionalValue deviceDensity="240" os="android" value="3" />
+			<ConditionalValue deviceDensity="320" os="win" value="3" />
+			<ConditionalValue deviceDensity="320" os="iphone" value="3" />
+			<ConditionalValue deviceDensity="160" os="qnx" value="2" />
+		</AssertStyleValue>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="focusBlendMode" value="normal" />	
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.setFocus(FlexGlobals.topLevelApplication.stylesRoot.bOne)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_focusAlpha_0" keywords="[Button, focusAlpha]" description="Test button focusAlpha">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.bOne" styleName="focusAlpha" value="0" waitTarget="stylesRoot.bOne" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.bOne" styleName="focusAlpha" value="0" />
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.setFocus(FlexGlobals.topLevelApplication.stylesRoot.bOne)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_focusAlpha_1point5" keywords="[Button, focusAlpha]" description="Test button focusAlpha">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.bOne" styleName="focusAlpha" value="1.5" waitTarget="stylesRoot.bOne" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.bOne" styleName="focusAlpha" value="1.5" />
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.setFocus(FlexGlobals.topLevelApplication.stylesRoot.bOne)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_focusThickness_0" keywords="[Button, focusAlpha]" description="Test button focusAlpha">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.bOne" styleName="focusThickness" value="0" waitTarget="stylesRoot.bOne" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.bOne" styleName="focusThickness" value="0" />
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.setFocus(FlexGlobals.topLevelApplication.stylesRoot.bOne)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot" >	
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_focusThickness_4" keywords="[Button, focusAlpha]" description="Test button focusAlpha">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.bOne" styleName="focusThickness" value="4" waitTarget="stylesRoot.bOne" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.bOne" styleName="focusThickness" value="4" />
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.setFocus(FlexGlobals.topLevelApplication.stylesRoot.bOne)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_focusBlendMode_invert" keywords="[Button, focusBlendMode]" description="Test button focusBlendMode">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.bOne" styleName="focusBlendMode" value="invert" waitTarget="stylesRoot.bOne" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.bOne" styleName="focusBlendMode" value="invert" />
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.setFocus(FlexGlobals.topLevelApplication.stylesRoot.bOne)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />		
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_focusBlendMode_subtract" keywords="[Button, focusBlendMode]" description="Test button focusBlendMode">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="stylesRoot.bOne" styleName="focusBlendMode" value="subtract" waitTarget="stylesRoot.bOne" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.bOne" styleName="focusBlendMode" value="subtract" />
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.setFocus(FlexGlobals.topLevelApplication.stylesRoot.bOne)" waitEvent="focusIn"/>
+		<RunCode code="FlexGlobals.topLevelApplication.stylesRoot.focusManager.showFocus()"/>
+		<Pause timeout="200"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_letterSpacing_default" keywords="[Button, letterSpacing]" description="Test button letterSpacing default">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="letterSpacing" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_letterSpacing_change_at_runtime" keywords="[Button, letterSpacing]" description="Test button letterSpacing">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="LetterSpacing Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="letterSpacing" value="0" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="letterSpacing" value="8" waitTarget="stylesRoot.b_skin_normal" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="letterSpacing" value="8" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_leading_default" keywords="[Button, leading]" description="Test button default leading style value">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Leading Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="leading" value="2" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_leading_change_at_runtime" keywords="[Button, leading]" description="Test changing leading style value">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Leading Test" waitEvent="contentChange" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="leading" value="2" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="leading" value="10" waitTarget="stylesRoot.b_skin_normal" waitEvent="updateComplete" />
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="leading" value="10" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_accentColor_default" keywords="[Button, accentColor]" description="Test button default accentColor style value">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.bOne" styleName="accentColor" value="0x0099FF" />
+		<SetProperty target="stylesRoot.bOne" propertyName="emphasized" value="true" waitEvent="updateComplete"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.bOne" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_accentColor_setInMxml" keywords="[Button, accentColor]" description="Test button accentColor style set inline">
+	<setup>
+		<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="accentColor" value="0xff9900" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="emphasized" value="true" waitEvent="updateComplete"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_accentColor_setInAS" keywords="[Button, accentColor]" description="Test button accentColor style set at runtime">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Button" waitEvent="contentChange" />		
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="emphasized" value="true" waitEvent="updateComplete"/>		
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="accentColor" value="0x0099FF" />
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="accentColor" value="0x00ff99" waitEvent="updateComplete"/>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="accentColor" value="0x00ff99" />		
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_accentColor_pressed" keywords="[Button, accentColor]" description="Test button accentColor when pressed">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Button" waitEvent="contentChange" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="emphasized" value="true" waitEvent="updateComplete"/>				
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="accentColor" value="0x00ff99" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="accentColor" value="0x00ff99" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="rollOver" localX="35" localY="14" waitEvent="rollOver" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseMove" localX="35" localY="14" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseDown" localX="35" localY="14" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="stylesRoot.b_skin_normal" type="mouseUp" localX="35" localY="14" waitEvent="mouseUp" />		
+	</body>
+</TestCase>
+
+<TestCase testID="Mobile_Button_styles_accentColor_disabled" keywords="[Button, accentColor]" description="Test button accentColor when disabled">
+	<setup>
+		<ResetComponent target="stylesRoot.b_skin_normal" className="spark.components.Button" waitEvent="updateComplete" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="label" value="Button" waitEvent="contentChange" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="emphasized" value="true" waitEvent="updateComplete"/>				
+		<SetStyle target="stylesRoot.b_skin_normal" styleName="accentColor" value="0x00ff99" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="stylesRoot.b_skin_normal" styleName="accentColor" value="0x00ff99" />
+		<SetProperty target="stylesRoot.b_skin_normal" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+		<CompareBitmap url="../styles/baselines" target="stylesRoot.b_skin_normal" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

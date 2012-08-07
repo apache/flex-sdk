@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/components/ActionBar/styles/"
+			testSWF="ActionBar.mxml">
+
+	<fx:Script>
+		<![CDATA[ 
+			import mx.core.FlexGlobals;
+			import mx.managers.FocusManager;
+			public static function init(o:DisplayObject):void { } 
+
+			protected function runcode1_codeHandler(event:Event):void
+			{
+				// TODO Auto-generated method stub
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		<!-- Text Styles -->
+		<TestCase testID="ActionBar_TitleDisplay_Default_TextAlign" keywords="ActionBar, titleDisplay, textAlign, style" description="Checking the default textAlign of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="textAlign" value="null"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="ActionBar_TitleDisplay_TextAlign" keywords="[ActionBar, titleDisplay, textAlign, style]" description="Setting the textAlign of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+				<SetProperty target="actionBar" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetStyle target="actionBar.titleDisplay" styleName="textAlign" value="right" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="textAlign" value="right" />
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_Default_FontFamily" keywords="ActionBar, titleDisplay, fontFamily, style" description="Checking the default fontFamily of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="fontFamily" value="_sans"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="ActionBar_TitleDisplay_FontFamily" keywords="[ActionBar, titleDisplay, fontFamily, style]" description="Setting the fontFamily of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar.titleDisplay" styleName="fontFamily" value="Georgia" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="fontFamily" value="Georgia" />
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_Default_FontWeight" keywords="[ActionBar, titleDisplay, fontWeight, style]" description="Checking the default fontWeight of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="fontWeight" value="bold" />
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_FontWeight" keywords="[ActionBar, titleDisplay, fontWeight, style]" description="Setting the fontWeight of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar.titleDisplay" styleName="fontWeight" value="normal" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="fontWeight" value="normal" />
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_Default_Color" keywords="[ActionBar, titleDisplay, color, style]" description="Checking the default color of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="color" value="16777215" />
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_Color" keywords="[ActionBar, titleDisplay, color, style]" description="Setting the color of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar.titleDisplay" styleName="color" value="#0099FF" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="color" value="#0099FF" />
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_Default_FontSize" keywords="[ActionBar, titleDisplay, fontSize, style]" description="Checking the default fontSize of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="fontSize">
+					<ConditionalValue deviceDensity="160" os="win" value="18"/>
+					<ConditionalValue deviceDensity="240" os="android" value="28"/>
+					<ConditionalValue deviceDensity="320" os="win" value="36"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="36"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="18"/>
+				</AssertStyleValue>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_FontSize" keywords="[ActionBar, titleDisplay, fontSize, style]" description="Setting the fontSize of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar.titleDisplay" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="fontSize" value="20">
+					
+				</AssertStyleValue>
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_Default_TextDecoration" keywords="ActionBar, titleDisplay, textDecoration, style" description="Checking the default textDecoration of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="textDecoration" value="none"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="ActionBar_TitleDisplay_TextDecoration" keywords="[ActionBar, titleDisplay, textDecoration, style]" description="Setting the textDecoration of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar.titleDisplay" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+				<Pause timeout="2000" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="textDecoration" value="underline" />
+				<CompareBitmap url="../styles/baselines" target="actionBar" numColorVariances="2" ignoreMaxColorVariance="true">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_Default_TextIndent" keywords="ActionBar, titleDisplay, textIndent, style" description="Checking the default textIndent of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="textIndent" value="0"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="ActionBar_TitleDisplay_TextIndent" keywords="[ActionBar, titleDisplay, textIndent, style]" description="Setting the textIndent of the ActionBar titleDisplay">
+			<bugs>
+				<Bug bugID="SDK-28280" />
+				<Bug bugID="SDK-28533" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar.titleDisplay" styleName="textIndent" value="40" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="textIndent" value="40" />
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_Default_Leading" keywords="ActionBar, titleDisplay, leading, style" description="Checking the default leading of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="leading" value="2"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="ActionBar_TitleDisplay_Leading" keywords="[ActionBar, titleDisplay, leading, style]" description="Setting the leading of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar.titleDisplay" styleName="leading" value="20" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="leading" value="20" />
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_Default_LetterSpacing" keywords="ActionBar, titleDisplay, letterSpacing, style" description="Checking the default letterSpacing of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="letterSpacing" value="0"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="ActionBar_TitleDisplay_LetterSpacing" keywords="[ActionBar, titleDisplay, letterSpacing, style]" description="Setting the letterSpacing of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar.titleDisplay" styleName="letterSpacing" value="5" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="letterSpacing" value="5" />
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<!-- Global Tests: See ActionBar_Styles_Global.mxml -->
+		
+		<!-- Local Tests -->
+		<TestCase testID="ActionBar_ChromeColor" keywords="[ActionBar, chromeColor, style]" description="Setting chromeColor of ActionBar">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="chromeColor" value="#996600" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar" styleName="chromeColor" value="#996600"/>
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="ActionBar_Color_WithTitleContent" keywords="[ActionBar, color, style]" description="Setting ActionBar color and checking all content groups are affected">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.titleArray" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.actionArray" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.navigationArray" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="color" value="#0099FF" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Color_WithTitle" keywords="[ActionBar, color, style]" description="Setting ActionBar color and checking titleDisplay is not affected">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Title" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.actionArray" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.navigationArray" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="color" value="#0099FF" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<!-- TODO: Add focusColor, focusAlpha, focusBlendMode, focusThickness, accentColor style tests here -->
+		<TestCase testID="ActionBar_AccentColor" keywords="[ActionBar, chromeColor, style]" description="Setting chromeColor of ActionBar">
+			<bugs>
+				<Bug bugID="SDK-28522" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="accentColor" value="#996600" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.arr1Element" waitEvent="updateComplete" />
+				<SetProperty target="actionBar.aButton" propertyName="emphasized" value="true" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+		<TestCase testID="ActionBar_FocusColor" keywords="[ActionBar, focusColor, style]" description="Setting focusColor to ActionBar" >
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.mobileArray" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="focusColor" value="#BF1616" waitEvent="updateComplete"/>
+<!--	           <RunCode code="FlexGlobals.topLevelApplication.FocusManager.setFocus(comps.ActionBarBasic.actionBar.titleContent.texti)" waitEvent="focusIn" waitTarget="actionBar.titleContent.texti" />
+-->			</setup>
+			<body>
+				<AssertStyleValue target="actionBar" styleName="focusColor" value="#BF1616"/>				
+			<CompareBitmap url="../styles/baselines" target="actionBar">
+				<ConditionalValue deviceDensity="160" os="win"/>
+				<ConditionalValue deviceDensity="240" os="android"/>
+				<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+			</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_FocusBlendMode" keywords="[ActionBar, focusColor, style]" description="Setting focusColor to ActionBar" >
+			<bugs>
+				<Bug bugID="SDK-28516" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.mobileArray" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="focusColor" value="#BF1616" waitEvent="updateComplete"/>
+				<SetStyle target="actionBar" styleName="focusBlendMode" value="invert" waitEvent="updateComplete" />
+<!--				<RunCode code="FlexGlobals.topLevelApplication.FocusManager.setFocus(comps.ActionBarBasic.actionBar.titleContent.texti)" waitEvent="focusIn" waitTarget="actionBar.titleContent.texti" />
+-->			</setup>
+			<body>
+				<AssertStyleValue target="actionBar" styleName="focusBlendMode" value="invert"/>				
+				<!--				<CompareBitmap url="../styles/baselines" target="actionBar"/>
+			-->			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_FocusAlpha_1" keywords="[ActionBar, focusColor, style]" description="Setting focusColor to ActionBar" >
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.mobileArray" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="focusColor" value="#BF1616" waitEvent="updateComplete"/>
+				<SetStyle target="actionBar.texti" styleName="focusAlpha" value="1" waitEvent="updateComplete" />
+<!--				<RunCode code="FlexGlobals.topLevelApplication.FocusManager.setFocus(comps.ActionBarBasic.actionBar.titleContent.texti)" waitEvent="focusIn" waitTarget="actionBar.titleContent.texti" />
+-->			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.texti" styleName="focusAlpha" value="1"/>				
+				<!--				<CompareBitmap url="../styles/baselines" target="actionBar"/>
+			-->			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_FocusAlpha_0.5" keywords="[ActionBar, focusColor, style]" description="Setting focusColor to ActionBar" >
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.mobileArray" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="focusColor" value="#BF1616" waitEvent="updateComplete"/>
+				<SetStyle target="actionBar.texti" styleName="focusAlpha" value="0.5" waitEvent="updateComplete" />
+<!--				<RunCode code="FlexGlobals.topLevelApplication.FocusManager.setFocus(comps.ActionBarBasic.actionBar.titleContent.texti)" waitEvent="focusIn" waitTarget="actionBar.titleContent.texti" />
+-->			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.texti" styleName="focusAlpha" value="0.5"/>				
+				<!--				<CompareBitmap url="../styles/baselines" target="actionBar"/>
+			-->			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_FocusAlpha_0" keywords="[ActionBar, focusColor, style]" description="Setting focusColor to ActionBar" >
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.mobileArray" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="focusColor" value="#BF1616" waitEvent="updateComplete"/>
+				<SetStyle target="actionBar.texti" styleName="focusAlpha" value="0" waitEvent="updateComplete" />
+<!--				<RunCode code="FlexGlobals.topLevelApplication.FocusManager.setFocus(comps.ActionBarBasic.actionBar.titleContent.texti)" waitEvent="focusIn" waitTarget="actionBar.titleContent.texti" />
+-->			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.texti" styleName="focusAlpha" value="0"/>				
+				<!--				<CompareBitmap url="../styles/baselines" target="actionBar"/>
+			-->			</body>
+		</TestCase>
+		
+		<TestCase testID="ActionBar_FocusThickness" keywords="[ActionBar, focusColor, style]" description="Setting focusColor to ActionBar" >
+			<bugs>
+				<Bug bugID="SDK-28516" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.mobileArray" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="focusColor" value="#BF1616" waitEvent="updateComplete"/>
+				<SetStyle target="actionBar.texti" styleName="focusThickness" value="20" waitEvent="updateComplete" />
+				<!--				<RunCode code="FlexGlobals.topLevelApplication.FocusManager.setFocus(comps.ActionBarBasic.actionBar.titleContent.texti)" waitEvent="focusIn" waitTarget="actionBar.titleContent.texti" />
+			-->			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.texti" styleName="focusThickness" value="20"/>				
+				<!--				<CompareBitmap url="../styles/baselines" target="actionBar"/>
+			-->			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_BackgroundAlpha" keywords="[ActionBar, backgroundAlpha, style, SDK-27708]" description="Setting backgroundAlpha of ActionBar">
+			<bugs>
+				<Bug bugID="SDK-27708"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="backgroundAlpha" value="0.5" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar" styleName="backgroundAlpha" value="0.5"/>
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TextShadowColor" keywords="[ActionBar, textShadowColor, style]" description="Setting textShadowColor of ActionBar">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar" styleName="textShadowColor" value="#00ff00" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar" styleName="textShadowColor" value="#00ff00"/>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="textShadowColor" value="#00ff00"/>
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TextShadowAlpha" keywords="[ActionBar, textShadowAlpha, style]" description="Setting textShadowAlpha of ActionBar">
+			<bugs>
+				<Bug bugID="SDK-28437"/>
+				<Bug bugID="SDK-30090"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar" styleName="textShadowColor" value="#00ff00" waitEvent="updateComplete"/>
+				<SetStyle target="actionBar" styleName="textShadowAlpha" value="0" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar" styleName="textShadowAlpha" value="0"/>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="textShadowAlpha" value="0"/>
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<!-- Other Misc Style Tests -->
+		<TestCase testID="ActionBar_Default_FontWeight" keywords="[ActionBar, fontWeight, style]" description="Checking titleDisplay is not affected by ActionBar fontWeight">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar" styleName="fontWeight" value="normal" />
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_Default_TextShadowColor" keywords="[ActionBar, titleDisplay, textShadowColor, style]" description="Checking the default textShadowColor of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="textShadowColor" value="#000000" />
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleDisplay_TextShadowColor" keywords="[ActionBar, titleDisplay, textShadowColor, style]" description="Setting the textShadowColor of the ActionBar titleDisplay">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Default Style" waitEvent="updateComplete"  waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar.titleDisplay" styleName="textShadowColor" value="#00FF00" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar.titleDisplay" styleName="textShadowColor" value="#00FF00" />
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_FontSize_WithTitleContent" keywords="[ActionBar, fontSize, style]" description="Setting ActionBar fontSize and checking all content groups are affected">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="titleContent" valueExpression="value=application.actionBar.titleArray" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.actionArray" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.navigationArray" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="fontSize" value="15" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_FontSize_WithTitle" keywords="[ActionBar, fontSize, style]" description="Setting ActionBar fontSize and checking titleDisplay is not affected">
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Title" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+				<SetProperty target="actionBar" propertyName="actionContent" valueExpression="value=application.actionBar.actionArray" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="navigationContent" valueExpression="value=application.actionBar.navigationArray" waitEvent="updateComplete" />
+				<SetStyle target="actionBar" styleName="fontSize" value="15" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_Styles_MXML" keywords="[ActionBar, mxml, style]" description="Checking that styles can be set in MXML">
+			<bugs>
+				<Bug bugID="SDK-27684" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBarMXMLStyles" className="comps.ActionBarMXMLStyles" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines" target="actionBarMXMLStyles" numColorVariances="2" ignoreMaxColorVariance="true">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_TitleAlign_Default" keywords="[ActionBar, title, titleAlign, style]" description="Checking the default ActionBar title alignment">
+			<bugs>
+				<Bug bugID="SDK-27682" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Title" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ActionBar_TitleAlign_Center" keywords="[ActionBar, title, titleAlign, style]" description="Setting the ActionBar title alignment to center">
+			<bugs>
+				<Bug bugID="SDK-27682" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Title" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar" styleName="titleAlign" value="center" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar" styleName="titleAlign" value="center" />
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ActionBar_TitleAlign_Right" keywords="[ActionBar, title, titleAlign, style]" description="Setting the ActionBar title alignment to right">
+			<bugs>
+				<Bug bugID="SDK-27682" />
+				<Bug bugID="SDK-28012" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Title" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay"/>
+				<SetStyle target="actionBar" styleName="titleAlign" value="right" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="actionBar" styleName="titleAlign" value="right" />
+				<CompareBitmap url="../styles/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ActionBar_TopBottomLeftRight" keywords="[ActionBar, top, bottom, left, right, style]" description="Setting top, bottom, left, right styles on ActionBar">
+			<setup>
+				<ResetComponent target="actionBarInGroup" className="comps.ActionBarInGroup" waitEvent="updateComplete" />
+				<SetStyle target="actionBarInGroup.actionBar" styleName="top" value="10" waitEvent="updateComplete" waitTarget="actionBarInGroup" />
+				<SetStyle target="actionBarInGroup.actionBar" styleName="bottom" value="10" waitEvent="updateComplete" waitTarget="actionBarInGroup" />
+				<SetStyle target="actionBarInGroup.actionBar" styleName="left" value="10" waitEvent="updateComplete" waitTarget="actionBarInGroup" />
+				<SetStyle target="actionBarInGroup.actionBar" styleName="right" value="10" waitEvent="updateComplete" waitTarget="actionBarInGroup" />
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines" target="actionBarInGroup">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_HorizontalCenter" keywords="[ActionBar, horizontalCenter, style]" description="Setting horizontalCenter on ActionBar">
+			<setup>
+				<ResetComponent target="actionBarInGroup" className="comps.ActionBarInGroup" waitEvent="updateComplete" />
+				<SetStyle target="actionBarInGroup.actionBar" styleName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="actionBarInGroup" />
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines" target="actionBarInGroup">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_VerticalCenter" keywords="[ActionBar, verticalCenter, style]" description="Setting verticalCenter on ActionBar">
+			<setup>
+				<ResetComponent target="actionBarInGroup" className="comps.ActionBarInGroup" waitEvent="updateComplete" />
+				<SetStyle target="actionBarInGroup.actionBar" styleName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="actionBarInGroup" />
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines" target="actionBarInGroup">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

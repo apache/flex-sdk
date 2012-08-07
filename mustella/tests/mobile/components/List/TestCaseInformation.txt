@@ -1,0 +1,154 @@
+List Testing Project
+---------------------------
+
+This project contains a MobileApplication with a set of common List/scrolling test cases
+for manual testing, and in general getting a feel for the current state of the feature.
+
+Each view covers at least one test case.  This file describes how this project is setup
+to cover some of those test cases and lists specific manual tests.
+
+========================
+General Testing Coverage
+========================
+
+NOTE: I am using DataItem.as in the dataProvider generation methods that has all bindable properties.
+
+- Expanding ItemRenderers View
+  - These item renderers expand to show more information when selected
+  - Check that selecting them looks smooth, scrolling after selection doesn't mess up
+  - Covers expanding item renderers with effects
+
+- Greydient View
+  - A very simple item renderer that is a different shade of grey based on its index
+  - Check scrolling performance and feel
+  - Covers basic vertical scrolling
+
+- Airline View
+  - This is a complicated real world (non optimized) MXML renderer that looks like a air travel application
+  - Check the responsiveness and feel of scrolling performance
+  - Make sure selection works
+  - This covers basic scrolling performance
+
+- Nested View
+  - Covers basics of nested scrolling
+
+- PhoneDialer View
+  - The first view the buttons are item renderers of a List.  Check the responsiveness of quickly
+    tapping (selecting) elements of the List and compare that to the behavior of the "Group" view 
+    that just uses Button's that aren't in a List or Scroller.
+  - Try quickly typing in your phone number into each view.  You should be able to type it pretty 
+    quickly without many errors.
+  - Note: Using a List like this isn't really a great use case, but it is informative to compare
+    selection of the List with the Group of Button's example, also compare the Scroller+Group case
+  - Also turn the orientation sideways to check how the scrolling works in this case.  
+  - This covers selection delay responsiveness and a List with contentSize = size
+
+- RSS Reader View
+  - This loads in an RSS feed and displays the results in a List.
+  - Check the scrolling feel and performance of this List
+  - Check the scrollbar size and position is correct and smooth and consistent
+  - This covers not renderers that are not all equal sizes as some have more text lines that others
+
+- Split List View
+  - Simple item renderers in two Lists using different layouts
+  - This covers scrolling multiple Lists at once and basic HorizontalLayout
+  - This covers performance of simple itemRendererFunction 
+  - This uses a simple itemRendererFunction
+
+- Hockey Rosters View
+  - A list of players on hockey teams.  This uses an itemRendererFunction with MXML (non-optimized)
+    item renderers
+  - Check scrolling performance and feel
+  - Covers scrolling performance of item renderer function + lots of renderers on screen
+
+- TileLayout View
+  - Basic List with selection in a TileLayout
+  - Check scrolling feel and quickness of selection
+  - Covers basic TileLayout
+  
+- Calculator View
+  - Buttons inside of a scroller
+  - Demonstrates having effects on click
+  - Demonstrates a Scroller skin that doesn't have scroll bars.
+  - Demonstrates no actionBarVisible=false
+  - Check mouse down on a button, scroll, scroll back, mouse up on that button shouldnt show fade effect (SDK-27363)
+  - TODO: Ideally I want this to demonstrate how to cancel some throws + drag scrolls so
+    you can only swipe to get the exra controls when you throw large enough... looks like that isn't possible tho
+  - Make sure you can scroll to the right to expose the extra buttons
+    
+- Hover View
+  - Use the List, drag, touch, tap, throw, select, play around.
+  - At no time should the title of the view display "FAIL" as that would mean a renderer went into the hovered state
+  
+- Button Down View
+  - Holding the increment buttons should repeatedly increment.
+  - Scrolling after holding down should stop the increment and actually scroll.
+  
+- Touch Delay View
+  - Demonstrates how the touchDelay style works on a Button/CheckBox/List
+  - Increase the slider to a higher touch delay and confirm that pressing down on the controls
+    takes longer before any visual feedback is shown.
+
+=====================
+Specific Manual Tests
+=====================
+
+1. Check that selecting an item renderer shows the highlight right away (SDK-27068)
+   a. Click on Sports Players view, ensure the selection highlights instantly while the view is loading
+   b. Click on different items in the Home View, ensure each renderer highlights equally fast as the others
+   
+2. Click on the Scroll Policy view
+   a. set auto/auto, scroll, ensure both scrollbars appear
+   b. set auto/on, scroll, ensure both scrollbars appear
+   c. set auto/off, scroll, ensure only horizontal scrollbar appears
+   d. set on/auto, scroll, ensure both scrollbars appear
+   e. set on/on, scroll, ensure both scrollbars appear
+   f. set on/off, scroll, ensure only horizontal scrollbar appears
+   g. set off/auto, scroll, ensure only vertical scrollbar appears
+   h. set off/on, scroll, ensure only vertical scrollbar appears
+   i. set off/off, scroll, ensure no scrollbars appear
+   j. scroll to the right, check size of scrollbars are equal to size of yellow bars
+   k. scroll, check that scrollbars appear instantly, and then fade away after scroll is complete
+ 
+3. Check that throw and then drag scroll doesn't cause scrollbar to jump (SDK-27031)
+   a. Click on the Greydient view, throw scroll down the list, wait for scrollbar to disappear, start a drag scroll, ensure scrollbar doesn't jump
+   
+4. Check that a horizontal scroll track doesn't appear when using the Home view's list (SDK-27368) 
+
+5. Check that orientation changes still work after a push transition happens (SDK-28633)
+
+6. Push a view, start a drag scroll, but don't mouse up yet.  Press back with your other finger then mouse up on the new view.  There shouldn't be an RTE (SDK-28654).
+
+7. Throw the Lists in the Split List View and make sure the scrollbars fade away (SDK-28414)
+
+8. Check that you can scroll the buttons in the Calculator view (SDK-28793)
+
+9. Check that in Checkmark Selection view if you mouse down on a renderer, then induce a scroll, that no fade transition plays (SDK-28578)
+
+10. Check that in Checkmark Selection view if you quickly tap a renderer to select that a transition plays.  Same for deselect.  Test both on ADL and device (SDK-28868)
+
+11. Pull the HomeView into the negative and ensure the scrollbar thumb doesn't get smaller than a circle (SDK-29046)
+
+12. Scroll to the bottom of the Contact List view in landscape mode. Change orientation to portrait.  Ensure bottom of List is still visible and scroll position did not animate. (SDK-29213) 
+
+13. Push the Button Renderer view, then go through to the TextInput view.  Ensure clicking on a TextInput does select the list item (SDK-29177)
+
+14. Try using the 5-way to navigate different lists.  It should affect the caret, but not selection when navigating.  Clicking the 5-way should select the item. (SDK-27016)
+
+15. Push the IconItemRenderer view.  Press next until "IIR_Styles_messageStyleName". Ensure the message text is red.
+
+16. Push the Sports News view.  Throw to the bottom in a single throw.  Ensure you made it to the bottom (SDK-28854)
+
+17. Drag scroll a List, then wait for the scrollbar to fade away.  Try scrolling again while the fade animation is running, the initial fade out shouldn't go to completion.
+
+18. Scroll the Home View, then select another view while the scrollbar is fading away, the view transition should still happen (SDK-27793)
+
+19. Disconnect the Internet, go to IconItemRendererView, cycle to the iconPlaceholder renderer, scroll around and ensure the placeholder icon is showing (SDK-30141)
+
+20. Go to the IconItemRenderer view, cycle to the textStyles renderer, ensure all text styles are being applied: red label, black message, underlined, letter spacing very small
+
+21. Go to Snapping in Tile Group view and make sure scrolling and snapping feels right on portrait mode (SDK-31511)
+
+22. Go to Paging Horozontal List and select full screen view. Ensure paging is smooth and does not flicker around before snapping (SDK-31348)
+
+23. Go to Snapping in HGroup and select center snapping mode. Then choose the first element and check if scrollbar size remains consistent while scrolling (SDK-30922)

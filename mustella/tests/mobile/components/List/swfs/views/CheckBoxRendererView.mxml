@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="CheckBox in Renderer">
+    
+    <fx:Script source="viewScript.as" />
+    
+    <fx:Script>
+        <![CDATA[
+            public var btnClickedOutput:String = "Not Clicked";    
+            public var btnChangedOutput:String = "Not Changed";
+        ]]>
+    </fx:Script>
+
+    <s:actionContent>
+        <s:Button label="RadioButton" click="navigator.pushView(views.RadioButtonRendererView)" />
+    </s:actionContent>
+    
+    <s:List id="target" width="100%" height="100%"  
+            dataProvider="{createIdenticalItems(100, 50, 50, 'vertical')}">
+        <s:itemRenderer>
+            <fx:Component>
+                <s:ItemRenderer height="80">
+                    <fx:Script>
+                        <![CDATA[
+                            override public function set data(value:Object):void {
+                                super.data = value;
+                                if (!data)
+                                    return;
+                                
+                                chk.selected = data.dataBoolean as Boolean;
+                            }
+                            
+                            protected function changeHandler(event:Event):void
+                            {
+                                var s:String = "CheckBox " + data.myItemIndex + " is " + event.target.selected;
+                                outerDocument.btnChangedOutput = s;
+
+                                // save the state for virtual layout
+                                data.dataBoolean = chk.selected;
+                            }
+                            
+                            private function clickHandler(event:MouseEvent):void {
+                                var s:String = "Button " + data.myItemIndex + " Clicked";
+                                outerDocument.btnClickedOutput = s;
+                            }
+
+                        ]]>
+                    </fx:Script>
+
+                    <s:Label id="lbl" text="{data.myItemIndex}" width="100" verticalCenter="0" left="5" />
+                    <s:CheckBox id="chk" label="CheckBox {data.myItemIndex}" 
+                                click="clickHandler(event)" change="changeHandler(event)" 
+                                verticalCenter="0" left="150" />
+                </s:ItemRenderer>
+            </fx:Component>
+        </s:itemRenderer>
+    </s:List>
+    
+</s:View>

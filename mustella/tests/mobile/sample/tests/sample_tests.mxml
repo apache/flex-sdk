@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/sample/tests/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns="*" testSWF="MainFile.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }           
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>  
+    
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+        ]]>
+    </fx:Script>
+
+    <testCases>
+
+		<!-- This test is a bitmap compare of a Button in a custom component in the active view. -->
+        <TestCase testID="lookAtASparkButton" description="Use CompareBitmap on a Spark Button" keywords="[Button]">
+            <setup>
+				<ResetComponent target="navigator.activeView.buttonComp1" className="components.ButtonComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+				<CompareBitmap target="navigator.activeView.buttonComp1.btn1" url="../tests/baselines">
+					<ConditionalValue os="android" />
+					<ConditionalValue os="win" />
+					<ConditionalValue os="mac" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+		
+		<!--
+			This test pushes a fresh view, writes some unique data to it, pushes another view, confirms it is a new view, 
+			presses the device's BACK button, and confirms the unique data is there.
+		-->
+        <!--TestCase testID="pressTheBackButton" description="Be sure the back button works." keywords="[Button, back]">
+            <setup>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView" propertyName="data" value="pressTheBackButtonRandomData" />
+            </setup>
+            <body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.data != 'pressTheBackButtonRandomData'" value="true" />
+				<DispatchKeyEvent keys="[BACK]" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.data == 'pressTheBackButtonRandomData'" value="true" />
+            </body>
+        </TestCase-->
+
+
+        <!--TestCase testID="pressTheMenuButton" description="Be sure the menu button works." keywords="[Button, menu]">
+            <setup>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+				<Pause timeout="1000" />
+				<DispatchKeyEvent keys="[MENU]" />
+				<Pause timeout="1000" />
+            </body>
+        </TestCase-->
+
+    </testCases>
+
+</UnitTester>

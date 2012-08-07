@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   	xmlns:s="library://ns.adobe.com/flex/spark"
+					initialize="onInit()"
+					creationComplete="view1_creationCompleteHandler(event)">
+	
+	<fx:Script source="globalTabbed.as" />
+	
+  <fx:Script>
+      <![CDATA[
+          import mx.core.DPIClassification;
+          import mx.core.FlexGlobals;
+          import mx.events.FlexEvent;
+          
+          import spark.components.Application;
+          
+          [Embed(source='assets/loop_160.png')]
+          private var icon160:Class;
+          
+          [Embed(source='assets/loop_240.png')]
+          private var icon240:Class;
+          
+          [Embed(source='assets/loop_320.png')]
+          private var icon320:Class;
+          
+          [Bindable]
+          private var iconClass:Class;
+          
+					public var eventArray : Array;
+					
+					private function onInit():void {
+					
+							eventArray = new Array();
+					
+					}
+					
+          protected function view1_creationCompleteHandler(event:FlexEvent):void
+          {
+              var applicationDPI:Number = Application(FlexGlobals.topLevelApplication).applicationDPI;
+              
+              if (applicationDPI == DPIClassification.DPI_160)
+                  iconClass = icon160;
+              else if (applicationDPI == DPIClassification.DPI_240)
+                  iconClass = icon240;
+              else if (applicationDPI == DPIClassification.DPI_320)
+                  iconClass = icon320;
+          }
+          
+      ]]>
+  </fx:Script>
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+
+
+      <s:ViewNavigator icon="{iconClass}" label="Home" firstView="views.Sect1View1"/>
+      <s:ViewNavigator icon="{iconClass}" label="Hello World" firstView="views.Sect1View1"/>
+      <s:ViewNavigator icon="{iconClass}" label="Double Rainbow" firstView="views.Sect1View1"/>
+
+</s:TabbedViewNavigatorApplication>

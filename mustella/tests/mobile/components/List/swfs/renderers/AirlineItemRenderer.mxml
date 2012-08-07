@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                xmlns:s="library://ns.adobe.com/flex/spark" 
+                autoDrawBackground="true" xmlns:mx="library://ns.adobe.com/flex/mx">
+    
+    <fx:Script>
+        <![CDATA[
+            override public function set data(value:Object):void {
+                if (value == null)
+                    return;
+                
+                super.data = value;
+                
+                // update the renderer and short circuit whenever possible
+                
+                
+                // carrier information
+                
+                if (airlineLogo.source != data.logo)
+                    airlineLogo.source = data.logo;
+
+                if (airlineName.text != data.airline)
+                    airlineName.text = data.airline as String;
+                
+                if (price.text != data.price)
+                    price.text = data.price as String;
+                
+                // departure information
+                
+                if (departingFrom.text != data.from)
+                    departingFrom.text = data.from as String;
+                
+                if (departingTo.text != data.to)
+                    departingTo.text = data.to as String;
+                
+                if (departingFromTime.text != data.departureTime)
+                    departingFromTime.text = data.departureTime as String;
+                
+                if (departingToTime.text != data.arrivalTime)
+                    departingToTime.text = data.arrivalTime as String;
+                
+                if (departingNumberOfConnections.text != data.numConnections)
+                    departingNumberOfConnections.text = data.numConnections + '';
+                
+                // return information
+                
+                if (returningFrom.text != data.to)
+                    returningFrom.text = data.to as String;
+                
+                if (returningTo.text != data.from)
+                    returningTo.text = data.from as String;
+                
+                if (returningFromTime.text != data.arrivalTime)
+                    returningFromTime.text = data.arrivalTime as String;
+                
+                if (returningToTime.text != data.departureTime)
+                    returningToTime.text = data.departureTime as String;
+                
+                if (returningNumberOfConnections.text != data.numConnections)
+                    returningNumberOfConnections.text = data.numConnections + '';
+                
+            }
+            
+        ]]>
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="selected" />
+    </s:states>
+    
+    <s:Rect width="100%" height="100%">
+        <s:fill>
+            <s:SolidColor color="white" color.selected="0xFFA812" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:Rect width="100%" height="1" bottom="0">
+        <s:fill>
+            <s:SolidColor color="0xeeeeee" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:Label id="airlineName" fontSize="28" fontWeight="bold" left="90" right="10" top="10" color="black"/>
+    <s:Image id="airlineLogo" smoothingQuality="high" smooth="true" width="60" height="60" top="10" left="14" />
+    <s:Label id="price" fontWeight="bold" left="10" top="80" color="black" />
+    
+    <s:VGroup id="departingInformation" left="90" top="60" bottom="10">
+        <s:HGroup verticalAlign="middle">
+            <s:Label id="departingFrom" color="0x999999" fontWeight="bold" />
+            <s:Path data="M 0 0 L 8 0 L 4 6 L 0 0 Z" rotation="-90">
+                <s:fill>
+                    <s:SolidColor color="0x111111" />
+                </s:fill>
+            </s:Path>
+            <s:Label id="departingTo" color="0x999999" fontWeight="bold" />
+        </s:HGroup>
+        
+        <s:HGroup  verticalAlign="middle">
+            <s:Label id="departingFromTime" fontSize="16" color="0x999999"/>
+            <s:Label id="departingNumberOfConnections" fontSize="16" color="black" fontWeight="bold" />
+            <s:Label id="departingToTime" fontSize="16" color="0x999999"/>
+        </s:HGroup>
+    </s:VGroup>
+
+    <s:VGroup id="returningInformation" right="20" top="60" bottom="10">
+        <s:HGroup  verticalAlign="middle">
+            <s:Label id="returningFrom" color="0x999999" fontWeight="bold"  />
+            <s:Path data="M 0 0 L 8 0 L 4 6 L 0 0 Z" rotation="-90">
+                <s:fill>
+                    <s:SolidColor color="0x111111" />
+                </s:fill>
+            </s:Path>
+            <s:Label id="returningTo" color="0x999999" fontWeight="bold"  />
+        </s:HGroup>
+        
+        <s:HGroup  verticalAlign="middle">
+            <s:Label id="returningFromTime" fontSize="16" color="0x999999"/>
+            <s:Label id="returningNumberOfConnections" fontSize="16" color="black" fontWeight="bold"/>
+            <s:Label id="returningToTime" fontSize="16" color="0x999999" />
+        </s:HGroup>
+    </s:VGroup>
+    
+</s:ItemRenderer>

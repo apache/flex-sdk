@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		title="Lorem">
+	<fx:Declarations>
+		
+		<fx:String id="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tempor lacus eget pede. Quisque congue consequat ligula. Nam purus erat, vehicula id, mattis id, congue a, arcu. Ut euismod dignissim enim. Praesent ante nibh, ornare id, auctor bibendum, egestas sit amet, ligula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam pede sapien, interdum a, pretium sed, ornare et, eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque vitae eros. Vivamus suscipit quam quis lorem.
+			Phasellus odio. Vestibulum molestie lorem. Nullam semper, nulla eu aliquet ornare, velit tortor mollis ante, a bibendum nisi sapien sit amet est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam cursus fringilla ligula. Cras a eros quis tortor tincidunt convallis. Nulla et odio vel neque ullamcorper ornare. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent congue felis vel nisl. Mauris euismod, est et fermentum commodo, nibh arcu malesuada lorem, in varius purus sem sit amet tortor. Integer egestas est ut augue. Quisque leo. Nullam sit amet nisi. Donec mollis fermentum neque. Quisque pede magna, posuere id, semper quis, mollis pharetra, nisi.
+			Aliquam erat volutpat. Aliquam aliquam orci posuere massa. Donec pulvinar ligula ut quam."
+		</fx:String>
+		<fx:String id="num">
+			1
+			2
+			3
+			4
+			5
+			6
+			7
+			8
+			9
+			10
+			11
+			12
+			13
+			14
+			15
+			16
+			17
+			18
+			19
+			20
+			21
+			22
+			23
+			24
+			25
+			26
+			27
+			28
+			29
+			30
+			31
+			32
+			33
+			34
+			35
+			36
+			37
+			38
+			39
+			40
+			41
+			42
+			43
+			44
+			45
+			46
+			47
+			48
+			49
+			50
+			51
+			52
+			53
+			54
+			55
+			56
+			57
+			58
+			59
+			60
+			61
+			62
+			63
+			64
+			65
+			66
+			67
+			68
+			69
+			70
+			71
+			72
+			73
+			74
+			75
+			76
+			77
+			78
+			79
+			80
+			81
+			82
+			83
+			84
+			85
+			86
+			87
+			88
+			89
+			90
+			91
+			92
+			93
+			94
+			95
+			96
+			97
+			98
+			99
+			100
+		</fx:String>
+	</fx:Declarations>
+	
+	<s:actionContent>
+		<s:Button label="Home" click="navigator.pushView(HomeView)"/>
+	</s:actionContent>
+	
+	<s:Scroller left="10" right="10" top="10" bottom="10" id="scroller">
+		<s:HGroup paddingTop="100" paddingLeft="5" paddingRight="10" paddingBottom="50" id="hg">
+			<s:TextArea  width="300" text="{lorem}" id="taLorem" />
+			<s:TextArea  width="200" text="{num}"   id="taNum"  />
+		</s:HGroup>	
+	</s:Scroller >
+	
+</s:View>
+

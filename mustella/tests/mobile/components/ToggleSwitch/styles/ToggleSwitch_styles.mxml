@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/ToggleSwitch/styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" 
+			testSWF="ToggleSwitchStyles1.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+            import spark.components.ToggleSwitch;
+
+		]]>
+	</fx:Script>
+
+	<testCases>
+		
+		<!-- accentColor -->
+		
+		<TestCase testID="styles_accentColor_default" keywords="[ToggleSwitch, styles, accentolor, default]" description="Default accentColor">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetProperty target="stylesRoot.target1" propertyName="selected" value="true" waitTarget="stylesRoot.target1" waitEvent="updateComplete" />
+			
+			</setup>
+
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="accentColor" value="4161466"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16"  url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+		
+		<!-- accentColor -->
+		
+		<TestCase testID="styles_accentColor_MXML" keywords="[ToggleSwitch, styles, accentColor, MXML]" description="Set accentColor in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetProperty target="stylesRoot.target2" propertyName="selected" value="true" waitTarget="stylesRoot.target2" waitEvent="updateComplete" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="accentColor" value="0x009900"/>
+			</body>
+		</TestCase>
+		
+		<!-- accentColor -->
+		
+		<TestCase testID="styles_accentColor_AS" keywords="[ToggleSwitch, styles, accentColor, AS]" description="Set accentColor">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="accentColor" value="0x3344ff"/>
+				<SetProperty target="stylesRoot.target1" propertyName="selected" value="true" waitTarget="stylesRoot.target1" waitEvent="updateComplete" />
+				
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="accentColor" value="0x3344ff"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+		
+		
+		<!-- slideDuration -->		
+		
+		<TestCase testID="styles_slideDuration_default" keywords="[ToggleSwitch, styles, slideDuration, default]" description="slideDuration default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="slideDuration" value="125"/>
+			</body>
+		</TestCase>		
+
+		<!-- slideDuration -->		
+		
+		<TestCase testID="styles_slideDuration_MXML" keywords="[ToggleSwitch, styles, slideDuration, MXML]" description="Set slideDuration in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="slideDuration" value="500"/>
+			</body>
+		</TestCase>		
+		
+		<!-- slideDuration -->		
+		
+		<TestCase testID="styles_slideDuration_AS" keywords="[ToggleSwitch, styles, slideDuration, AS]" description="Set slideDuration in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="slideDuration" value="800"/>
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="slideDuration" value="800"/>
+			</body>
+		</TestCase>		
+		
+		
+		
+		<!-- chromeColor -->		
+		
+		<TestCase testID="styles_chromeColor_default" keywords="[ToggleSwitch, styles, chromeColor, default]" description="chromeColor defualt">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="chromeColor" value="13421772"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>			</body>
+		</TestCase>	
+
+		<!-- Styles set in MXML: bitmap -->
+		<TestCase testID="styles_set_in_MXML" keywords="[ToggleSwitch, styles, MXML]" description="Set bunch of styles in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			
+			<body>
+					<CompareBitmap  numColorVariances="100"  ignoreMaxColorVariance="true" url="../styles/baselines" target="stylesRoot.target2">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+
+		<!-- chromeColor -->		
+		
+		<TestCase testID="styles_chromeColor_MXML" keywords="[ToggleSwitch, styles, chromeColor, MXML]" description="Set chromeColor in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="chromeColor" value="0xff6600"/>
+			</body>
+		</TestCase>	
+		
+		<!-- chromeColor -->		
+		<TestCase testID="styles_chromeColor_AS" keywords="[ToggleSwitch, styles, chromeColor, AS]" description="Set chromeColor in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="chromeColor" value="0xcc33ff" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="chromeColor" value="0xcc33ff"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>			</body>
+		</TestCase>		
+		
+		<!-- color -->		
+		<TestCase testID="styles_color_default" keywords="[ToggleSwitch, styles, color, default]" description="Check color default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="color" value="16777215"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_color_MXML" keywords="[ToggleSwitch, styles, color, MXML]" description="Set color in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="color" value="0xccffff"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_color_AS" keywords="[ToggleSwitch, styles, color, AS]" description="Set color in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="color" value="0x00ff00" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="color" value="0x00ff00"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+
+		<!-- focusColor -->
+		
+		<TestCase testID="styles_focusColor_default" keywords="[ToggleSwitch, styles, focusColor, default]" description="Check focusColor default">
+			<setup>
+			    <ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+		        <!--<DispatchMouseClickEvent target="stylesRoot.target1" localX="5" localY="5" waitEvent="updateComplete"
+			        waitTarget="stylesRoot.target1" />
+			    <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="stylesRoot.target1" />-->
+			</setup>
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="focusColor" value="7385838"/>
+				<!--<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>-->
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_focusColor_MXML" keywords="[ToggleSwitch, styles, focusColor, MXML]" description="Set focusColor in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<!--<DispatchMouseClickEvent target="stylesRoot.target2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="stylesRoot.target2" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="stylesRoot.target2" />-->
+			</setup>
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="focusColor" value="0xff00ff"/>
+				<!--<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target2">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>-->				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_focusColor_AS" keywords="[ToggleSwitch, styles, focusColor, AS]" description="Set focusColor in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="focusColor" value="0x9900ff" />
+				<!--<DispatchMouseClickEvent target="stylesRoot.target1" localX="5" localY="5" waitEvent="updateComplete" waitTarget="stylesRoot.target1" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="stylesRoot.target1" />-->
+			</setup>
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="focusColor" value="0x9900ff"/>
+				<!--<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>-->
+			</body>
+		</TestCase>
+		
+		<!-- focusAlpha -->
+		
+		<TestCase testID="styles_focusAlpha_default" keywords="[ToggleSwitch, styles, focusAlpha, default]" description="Check focusAlpha default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<!--<DispatchMouseClickEvent target="stylesRoot.target1" localX="5" localY="5" waitEvent="updateComplete" waitTarget="stylesRoot.target1" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="stylesRoot.target1" />-->
+			</setup>
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="focusAlpha" value="0.55"/>
+				<!--<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>-->
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_focusAlpha_MXML" keywords="[ToggleSwitch, styles, focusAlpha, MXML]" description="Set focusAlpha in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<!--<DispatchMouseClickEvent target="stylesRoot.target2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="stylesRoot.target2" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="stylesRoot.target2" />-->
+			</setup>
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="focusAlpha" value=".8"/>
+				<!--<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target2">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>	-->			
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_focusAlpha_AS" keywords="[ToggleSwitch, styles, focusAlpha, AS]" description="Set focusColor in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="focusAlpha" value=".5" />
+				<!--<DispatchMouseClickEvent target="stylesRoot.target1" localX="5" localY="5" waitEvent="updateComplete" waitTarget="stylesRoot.target1" />
+					<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="stylesRoot.target1" />-->
+			</setup>
+					<body>
+						<AssertStyleValue target="stylesRoot.target1" styleName="focusAlpha" value=".5"/>
+						<!--<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+							<ConditionalValue deviceDensity="160" os="win"/>
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>-->
+					</body>
+		</TestCase>
+		
+		
+		<!-- baseColor mouseOver -->
+		<TestCase testID="styles_baseColor_mouseOver" keywords="[ToggleSwitch, baseColor]" description="Ensure that baseColor works when you mouseOver">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" waitTarget="stylesRoot"/>
+			</setup>
+			<body>
+				<!--<DispatchMouseClickEvent target="stylesRoot.target1" localX="5" localY="5" waitEvent="mouseUp" waitTarget="stylesRoot.target1" />-->
+				<DispatchMouseEvent type="mouseOver" target="stylesRoot.target1" localX="9" localY="10" waitEvent="mouseOver"
+					waitTarget="stylesRoot.target1" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		
+		<!-- baseColor disabled -->
+		<TestCase testID="styles_baseColor_disabled" keywords="[ToggleSwitch, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" waitTarget="stylesRoot"/>
+			</setup>
+			<body>
+				<!--<SetStyle target="stylesRoot.target1" styleName="baseColor" value="0x9966cc"  waitEvent="updateComplete" waitTarget="stylesRoot.target1"/>-->
+				<SetProperty target="stylesRoot.target1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="stylesRoot.target1"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<!-- color disabled -->
+		<TestCase testID="styles_color_disabled" keywords="[ToggleSwitch, color]" description="Ensure that color still works when a ToggleButton is disabled.">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" waitTarget="stylesRoot"/>
+			</setup>
+			<body>
+				<SetStyle target="stylesRoot.target1" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="stylesRoot.target1"/>
+				<SetProperty target="stylesRoot.target1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="stylesRoot.target1"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		
+		<!-- fontSize -->
+		
+		<TestCase testID="styles_fontSize_default" keywords="[ToggleSwitch, styles, fontSize, default]" description="Check fontSize default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="fontSize" value="36" >
+					<ConditionalValue deviceDensity="160" os="win" value="18"/>
+					<ConditionalValue deviceDensity="240" os="android" value="27"/>
+					<ConditionalValue deviceDensity="320" os="win" value="36"/>
+					<ConditionalValue deviceDensity="320" os="iphone"  value="36"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="18"/>					
+				</AssertStyleValue>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_fontSize_MXML" keywords="[ToggleSwitch, styles, fontSize, MXML]" description="Set fontSize in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="fontSize" value="40"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_fontSize_AS" keywords="[ToggleSwitch, styles, fontSize, AS]" description="Set fontSize in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="fontSize" value="14" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="fontSize" value="14"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<!-- fontStyle -->
+		
+		<TestCase testID="styles_fontStyle_default" keywords="[ToggleSwitch, styles, fontStyle, default]" description="Check fontStyle default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="fontStyle" value="normal"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_fontStyle_MXML" keywords="[ToggleSwitch, styles, fontStyle, MXML]" description="Set fontStyle in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="fontStyle" value="italic"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_fontStyle_AS" keywords="[ToggleSwitch, styles, fontStyle, AS]" description="Set fontStyle in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="fontStyle" value="italic" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="fontStyle" value="italic"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		
+		<!-- fontWeight -->
+		
+		<TestCase testID="styles_fontWeight_default" keywords="[ToggleSwitch, styles, fontWeight, default]" description="Check fontWeight default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="fontWeight" value="normal"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_fontWeight_MXML" keywords="[ToggleSwitch, styles, fontWeight, MXML]" description="Set fontWeight in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="fontWeight" value="bold"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_fontWeight_AS" keywords="[ToggleSwitch, styles, fontWeight, AS]" description="Set fontWeight in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="fontWeight" value="bold" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="fontWeight" value="bold"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+		
+		<!-- fontFamily -->
+		
+
+		<TestCase testID="styles_fontFamily_default" keywords="[ToggleSwitch, styles, fontFamily, default]" description="Check fontFamily default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="fontFamily" value="_sans"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_fontFamily_MXML" keywords="[ToggleSwitch, styles, fontFamily, MXML]" description="Set fontFamily in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="fontFamily" value="Times New Roman"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_fontFamily_AS" keywords="[ToggleSwitch, styles, fontFamily, AS]" description="Set fontFamily in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="fontFamily" value="Verdana" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="fontFamily" value="Verdana"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+
+		<!-- textAlign -->
+		
+		<TestCase testID="styles_textAlign_default" keywords="[ToggleSwitch, styles, textAlign, default]" description="Check textAlign default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="textAlign" value="start"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="styles_textAlign_AS" keywords="[ToggleSwitch, styles, textAlign, AS]" description="Set textAlign in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="textAlign" value="left" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="textAlign" value="left"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>			
+		
+		<!-- textAlpha -->
+		
+		<TestCase testID="styles_textAlpha_default" keywords="[ToggleSwitch, styles, textAlpha, default]" description="Check textAlpha default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="textAlpha" value="1"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_textAlpha_MXML" keywords="[ToggleSwitch, styles, textAlpha, MXML]" description="Set textAlpha in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="textAlpha" value=".8"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_textAlpha_AS" keywords="[ToggleSwitch, styles, textAlpha, AS]" description="Set textAlpha in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="textAlpha" value=".4" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="textAlpha" value=".4"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+		
+		<!-- textDecoration -->
+		
+		<TestCase testID="styles_textDecoration_default" keywords="[ToggleSwitch, styles, textDecoration, default]" description="Check textDecoration default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="textDecoration" value="none"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_textDecoration_MXML" keywords="[ToggleSwitch, styles, textDecoration, MXML]" description="Set textDecoration in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="textDecoration" value="underline"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_textDecoration_AS" keywords="[ToggleSwitch, styles, textDecoration, AS]" description="Set textDecoration in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="textDecoration" value="underline" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="textDecoration" value="underline"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+		
+		<!-- lineHeight -->
+		
+		<TestCase testID="styles_lineHeight_default" keywords="[ToggleSwitch, styles, lineHeight, default]" description="Check lineHeight default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="lineHeight" value="120%"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_lineHeight_MXML" keywords="[ToggleSwitch, styles, lineHeight, MXML]" description="Set lineHeight in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="lineHeight" value="30"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_lineHeight_AS" keywords="[ToggleSwitch, styles, lineHeight, AS]" description="Set lineHeight in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="lineHeight" value="25" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="lineHeight" value="25"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<!-- lineThrough -->
+		
+		<TestCase testID="styles_lineThrough_default" keywords="[ToggleSwitch, styles, lineThrough, default]" description="Check lineThrough default">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="lineThrough" value="false"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_lineThrough_MXML" keywords="[ToggleSwitch, styles, lineThrough, MXML]" description="Set lineThrough in MXML">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+			</setup>			
+			<body>
+				<AssertStyleValue target="stylesRoot.target2" styleName="lineThrough" value="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="styles_lineThrough_AS" keywords="[ToggleSwitch, styles, lineThrough, AS]" description="Set lineThrough in AS">
+			<setup>
+				<ResetComponent target="stylesRoot" className="comps.StylesRoot" waitEvent="updateComplete" />
+				<SetStyle target="stylesRoot.target1" styleName="lineThrough" value="true" />
+			</setup>			
+			
+			<body>
+				<AssertStyleValue target="stylesRoot.target1" styleName="lineThrough" value="true"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../styles/baselines" target="stylesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+		
+		
+		
+	</testCases>
+</UnitTester>

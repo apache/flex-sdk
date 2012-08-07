@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			  xmlns:s="library://ns.adobe.com/flex/spark" 
+			  xmlns:mx="library://ns.adobe.com/flex/mx"
+			  xmlns:comps="comps.*">
+
+	<fx:Declarations>
+		<!-- Skaha settings objects that defines what test file we are currently working on and the favorite properties -->
+		<fx:Object id="skahaSettings" testDir="mobile/utils/MultiDPIBitmapSource/properties/" testFileName="MultiDPIBitmapSource_properties.mxml" testID="MultiDPIBitmapSource_properties" testKeywords="MultiDPIBitmapSource" />
+		<s:ArrayCollection id="propertiesToInspect">
+			<fx:Object propName="source160dpi" />
+			<fx:Object propName="source240dpi" />
+			<fx:Object propName="source320dpi" />
+		</s:ArrayCollection>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			public function changeSource(i:int): void {
+				propertiesRoot.changeSource(i);
+				
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="Embedded"/>
+		<s:State name="Referrenced"/>
+	</s:states>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<s:VGroup width="440" height="760">
+		<s:Label text="Grey Squares are 40x40 Pixels"/>
+		<s:Label text="Images are 1/2 of dpi in Pixels"/>
+		<s:Label text="DPI: {Capabilities.screenDPI}"/>
+		<s:HGroup gap="0" id="imagingGroup">
+			<comps:PropertiesRoot id="propertiesRoot" />
+			<s:VGroup id="referenceSquares" gap="0">
+				<s:Rect width="40" height="40">
+					<s:fill>
+						<s:SolidColor color="0xAAAAAA"/>
+					</s:fill>
+				</s:Rect>
+				<s:Rect width="40" height="40">
+					<s:fill>
+						<s:SolidColor color="0xDDDDDD"/>
+					</s:fill>
+				</s:Rect>
+				<s:Rect width="40" height="40">
+					<s:fill>
+						<s:SolidColor color="0xAAAAAA"/>
+					</s:fill>
+				</s:Rect>
+				<s:Rect width="40" height="40">
+					<s:fill>
+						<s:SolidColor color="0xDDDDDD"/>
+					</s:fill>
+				</s:Rect>
+			</s:VGroup>
+		</s:HGroup>
+	</s:VGroup>
+</s:Application>

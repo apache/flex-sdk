@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:local="component.*"
+		title="Lorem">
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+				lbl.text=scr.height.toString();
+				lbl1.text=navigator.activeView.height.toString();
+				
+			}
+			
+			
+			protected function button2_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				FlexGlobals.topLevelApplication.resizeForSoftKeyboard = false;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		
+		<fx:String id="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tempor lacus eget pede. Quisque congue consequat ligula. Nam purus erat, vehicula id, mattis id, congue a, arcu. Ut euismod dignissim enim. Praesent ante nibh, ornare id, auctor bibendum, egestas sit amet, ligula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam pede sapien, interdum a, pretium sed, ornare et, eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque vitae eros. Vivamus suscipit quam quis lorem.
+		Phasellus odio. Vestibulum molestie lorem. Nullam semper, nulla eu aliquet ornare, velit tortor mollis ante, a bibendum nisi sapien sit amet est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam cursus fringilla ligula. Cras a eros quis tortor tincidunt convallis. Nulla et odio vel neque ullamcorper ornare. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent congue felis vel nisl. Mauris euismod, est et fermentum commodo, nibh arcu malesuada lorem, in varius purus sem sit amet tortor. Integer egestas est ut augue. Quisque leo. Nullam sit amet nisi. Donec mollis fermentum neque. Quisque pede magna, posuere id, semper quis, mollis pharetra, nisi.
+		Aliquam erat volutpat. Aliquam aliquam orci posuere massa. Donec pulvinar ligula ut quam. Vestibulum rutrum ligula. Nunc non felis a est facilisis ullamcorper. Nunc volutpat malesuada erat. Quisque vestibulum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce sit amet arcu eget nisl pellentesque blandit. Maecenas pellentesque nisl sed sapien. Pellentesque interdum ante quis urna. Nam urna metus, aliquet eget, tempus vitae, vestibulum vitae, enim. Nulla venenatis ligula eget lectus. Morbi posuere leo ut tortor. Maecenas luctus, risus ut rutrum venenatis, mauris enim rhoncus mi, eu tristique massa massa non nisi. Aliquam erat volutpat. Aenean justo.
+		Quisque in dolor. Aenean vel neque. Curabitur rutrum, leo id cursus molestie, justo nunc imperdiet elit, id fringilla diam mi vitae orci. Proin vel massa. Phasellus id dolor a pede tincidunt cursus. Nullam ante nisi, egestas eget, malesuada eget, rutrum at, nibh. Ut leo mi, feugiat ac, vestibulum at, accumsan bibendum, risus. Suspendisse vel mauris bibendum sapien tempus gravida. Phasellus eu nibh. Vestibulum commodo tellus in quam. Donec metus. Duis enim massa, imperdiet in, aliquam non, mattis in, libero. Aenean lectus risus, tincidunt non, placerat nec, laoreet vitae, ipsum. Suspendisse potenti. Donec tempor elit vel pede. Vestibulum egestas auctor diam. Donec diam tortor, eleifend sit amet, dapibus id, molestie ut, enim. In et eros eu mi vestibulum bibendum.
+		Nam neque nulla, luctus vitae, placerat at, aliquam non, dui. Donec libero. Nullam tempor consectetur ipsum. Quisque nec elit ac risus semper lobortis. Morbi erat risus, viverra nec, feugiat eu, gravida et, eros. Morbi id enim non odio fermentum tempus. Aliquam orci velit, aliquet at, scelerisque porttitor, pretium ac, velit. Quisque ultricies massa ut orci. Duis iaculis euismod augue. Mauris ac elit. Cras fringilla.
+		Donec venenatis molestie felis. Sed elit justo, egestas et, ultrices mattis, aliquam eget, dolor. Cras nec dui. Sed posuere luctus ipsum. Integer eu nunc. Nulla semper sollicitudin lacus. In sagittis feugiat purus. Aenean sodales. Vestibulum sit amet pede. Etiam sed ligula. Aliquam rhoncus mi quis arcu. Proin ac ligula ut mi ultrices faucibus. Nunc eget lacus congue felis tempor mattis. Proin pulvinar. Proin vehicula eleifend nunc. Nulla magna. Nunc suscipit erat ac eros. Pellentesque tempor ullamcorper ante. Aliquam eu libero.
+		Etiam venenatis fringilla dolor. Quisque convallis ante et diam. Nulla facilisi. Aliquam pulvinar, sapien eu vehicula commodo, neque mauris adipiscing tortor, vitae condimentum risus orci iaculis enim. In porttitor sodales neque. Duis suscipit, tellus et porta volutpat, dolor neque bibendum ligula, vel malesuada lorem urna vel arcu. Integer libero. Donec elementum tortor et lectus dictum facilisis. Nam euismod tellus nec ipsum. In hac habitasse platea dictumst. Donec imperdiet, lacus luctus elementum cursus, metus lectus dignissim magna, convallis accumsan massa ligula gravida diam. Donec nibh leo, consequat vel, scelerisque at, euismod eget, nibh. Donec ac quam. Ut aliquet viverra leo. Morbi molestie sem non dui. Sed elementum. Mauris vitae enim. Praesent quis neque eget justo vulputate eleifend. Vivamus vel felis in felis fringilla consectetur.
+		In eget metus. Pellentesque tristique nisl in massa vestibulum bibendum. Phasellus est felis, ultrices sit amet, sagittis sit amet, feugiat et, magna. Aenean viverra purus ut est. Ut hendrerit posuere tortor. Pellentesque leo tortor, gravida ut, pulvinar vel, vestibulum eget, felis. Pellentesque consectetur enim sit amet magna. Phasellus ut metus ac nunc lacinia pretium. Nam hendrerit auctor tortor. Vestibulum at eros quis arcu posuere sagittis. Integer feugiat placerat nisl."
+		</fx:String>
+	</fx:Declarations>
+	
+	<s:actionContent>
+		<s:Button label="Home" click="navigator.pushView(HomeView)"/>
+	</s:actionContent>
+	
+	<s:Scroller left="10" right="100" top="50" bottom="10" id="scr">
+		<s:VGroup >
+			<s:HGroup width="100%">
+				<s:Button click="button2_clickHandler(event)" label="resize" />
+				<s:Button label="test" click="button1_clickHandler(event)" needsSoftKeyboard="true"/>
+			</s:HGroup>
+			<s:Label id="lbl" text="{scr.height.toString()}"/>
+			<s:Label id="lbl1" text="{navigator.activeView.height}"/>			
+			<s:TextArea height="100%" width="100%" text="{lorem}"/>
+		</s:VGroup>
+	</s:Scroller>
+	
+</s:View>

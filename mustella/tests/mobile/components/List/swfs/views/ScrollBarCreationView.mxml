@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="ScrollBar Creation">
+    
+    <!--
+    Infrastructure to support the On-Demand Scrollbars mini feature:
+    
+        "This feature updates the Scroller skinning contract so that ScrollBars can be 
+        specified as factory parts in order to allow deferred-creation. Additionally, 
+        it implements the defferred-creation optimization for the interactionMode="touch"
+        case. The new skinning contract should allow us to implement the optimization for 
+        interactionMode="mouse" at a later time without additional public API changes."
+    
+    This view has different states that enable 0, 1, or both scrollbars and the Mustella
+    test should check that TrackScrollBarCreationSkin.numVScrollBarsCreated/numHScrollBarsCreated
+    contains the correct values.
+    -->
+    
+    <fx:Script>
+        <![CDATA[
+            import skins.TrackScrollBarCreationSkin;
+            
+            /** Cycles between each possible state */
+            private function changeState(event:MouseEvent):void
+            {
+                if (currentState == 'none')
+                    currentState = 'horizontal';
+                else if (currentState == 'horizontal')
+                    currentState = 'vertical';
+                else if (currentState == 'vertical')
+                    currentState = 'both'
+                else
+                    currentState = 'none'
+            }
+            
+            /** Shows the count of creations on VScrollBar and HScrollBar */
+            private function traceCreationStats(event:MouseEvent):void
+            {
+                var skin:TrackScrollBarCreationSkin = TrackScrollBarCreationSkin(scroller.skin); 
+                trace('numVScrollBarsCreated', skin.numVScrollBarsCreated);
+                trace('numHScrollBarsCreated', skin.numHScrollBarsCreated);
+            }
+            
+        ]]>
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="none" />
+        <s:State name="horizontal" />
+        <s:State name="vertical" />
+        <s:State name="both" />
+    </s:states>
+    
+    <s:actionContent>
+        <s:Button label="change state" click="changeState(event)"/>
+        <s:Button label="trace" click="traceCreationStats(event)"/>
+    </s:actionContent>
+    
+    <s:Scroller id="scroller" width="100%" height="100%" skinClass="skins.TrackScrollBarCreationSkin">
+        <s:Group>
+            <s:Button includeIn="none" label="none" />
+            <s:Button includeIn="horizontal" label="horizontal" width="1200" />
+            <s:Button includeIn="vertical" label="vertical" height="1200" />
+            <s:Button includeIn="both" label="both" width="1200" height="1200" />
+        </s:Group>
+    </s:Scroller>
+    
+ </s:View>

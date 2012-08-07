@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        title="Slot Machine" backgroundColor="0x339933">
+    
+    <fx:Script>
+        <![CDATA[
+            [Embed(source="../../../../../../Assets/Images/smallredrect.jpg")][Bindable]public var icon1:Class;
+            [Embed(source="../../../../../../Assets/Images/smallorangerect.jpg")][Bindable]public var icon2:Class;
+            [Embed(source="../../../../../../Assets/Images/smallyellowrect.jpg")][Bindable]public var icon3:Class;
+            [Embed(source="../../../../../../Assets/Images/smallgreenrect.jpg")][Bindable]public var icon4:Class;
+            [Embed(source="../../../../../../Assets/Images/smallbluerect.jpg")][Bindable]public var icon5:Class;
+            [Embed(source="../../../../../../Assets/Images/smallpurplerect.jpg")][Bindable]public var icon6:Class;
+            
+            import mx.collections.ArrayList;
+            private function getArrayList(n:int = 100):ArrayList {
+                var a:Array = new Array(n);
+                for (var i:int = 0; i < n; i++)
+                {
+                    switch (i % 6)
+                    {
+                        case 0:
+                            a[i] = {image: icon1};
+                            break;
+                        case 1:
+                            a[i] = {image: icon2};
+                            break;
+                        case 2:
+                            a[i] = {image: icon3};
+                            break;
+                        case 3:
+                            a[i] = {image: icon4};
+                            break;
+                        case 4:
+                            a[i] = {image: icon5};
+                            break;
+                        default:
+                            a[i] = {image: icon6};
+                            break;
+                        
+                    }
+                }
+                return new ArrayList(a);
+            }
+            
+        ]]>
+    </fx:Script>
+    
+    <s:Group id="outerGroup" horizontalCenter="0" top="83">
+        <s:HGroup width="100%" height="330" horizontalAlign="center">
+            <s:SpinnerList id="sl1" width="100%" height="100%" itemRenderer="comps.SlotMachineRenderer" dataProvider="{getArrayList(120)}" />
+            <s:SpinnerList id="sl2" width="100%" height="100%" itemRenderer="comps.SlotMachineRenderer" dataProvider="{getArrayList(120)}" />
+            <s:SpinnerList id="sl3" width="100%" height="100%" itemRenderer="comps.SlotMachineRenderer" dataProvider="{getArrayList(120)}" />
+        </s:HGroup>
+        
+        <s:Rect verticalCenter="0" width="100%" height="3">
+            <s:fill>
+                <s:SolidColor color="red" alpha="0.5" />
+            </s:fill>
+        </s:Rect>
+    </s:Group>
+    
+</s:View>

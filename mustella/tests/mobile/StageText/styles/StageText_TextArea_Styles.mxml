@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns="*"
+	testDir="mobile/StageText/styles/"
+	testSWF="StageText.mxml">
+	
+	<fx:Script><![CDATA[
+		import spark.skins.mobile.StageTextAreaSkin;
+	 public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			/*
+			--Common--
+			+fontFamily
+			+fontSize
+			+color
+			+fontWeight
+			+fontStyle
+			textAlign
+			--Spark--
+			+borderVisible
+			+borderColor
+			+borderAlpha
+			+contentBackgroundAlpha
+			+contentBackgroundColor
+			+chromeColor
+			+focusAlpha
+			+focusColor
+			*/
+			import views.*;
+			import mx.core.FlexGlobals;
+			
+		]]>
+	</fx:Script>
+	<testCases>
+		<TestCase testID="StageText_TextArea_verifySkin" keywords="[StageText, TextArea, Skin, Styles]" description="Verify that the StageText component is wearing the right skin">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.svTextArea" 
+								  styleName="skinClass" 
+								  value="{spark.skins.mobile.StageTextAreaSkin}"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_TextArea_fontFamily_typewriter" keywords="[StageText, TextArea, fontFamily, Styles, typewriter]" description="Verify that the StageText components use the _typewriter font">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="fontFamily" value="_typewriter"/>				
+				<RunCode code="application.navigator.activeView.svTextArea.appendText('hello');" 
+						 waitTarget="navigator.activeView.svTextArea" 
+						 waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="fontFamily" value="_typewriter"/>
+				<CompareBitmap target="navigator.activeView.svTextArea" stageText="true" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_TextArea_fontSize_nominal_40" keywords="[StageText, TextArea, fontSize, Styles]" description="Verify that the StageText components can change their font size">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="fontSize" value="40"/>		
+				<RunCode code="application.navigator.activeView.svTextArea.appendText('hello');" 
+						 waitTarget="navigator.activeView.svTextArea" 
+						 waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="fontSize" value="40"/>
+				<CompareBitmap target="navigator.activeView.svTextArea" stageText="true" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_TextArea_fontSize_nominal_8" keywords="[StageText, TextArea, fontSize, Styles]" description="Verify that the StageText components can change their font size">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="fontSize" value="8" waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="fontSize" value="8"/>
+				<RunCode code="application.navigator.activeView.svTextArea.appendText('hello');" 
+						 waitTarget="navigator.activeView.svTextArea" 
+						 waitEvent="updateComplete"/>
+				<CompareBitmap target="navigator.activeView.svTextArea" stageText="true" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>				
+		<TestCase testID="StageText_TextArea_color_nominal" keywords="[StageText, TextArea, color, Styles]" description="Verify that the StageText components can change their font color">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="color" value="0x0000FF"/>
+				<RunCode code="application.navigator.activeView.svTextArea.appendText('hello');" 
+						 waitTarget="navigator.activeView.svTextArea" 
+						 waitEvent="updateComplete"/>			
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="color" value="0x0000FF"/>			
+				<SetStyle target="navigator.activeView.svTextArea" styleName="color" value="0x00FF00" waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="color" value="0x00FF00"/>
+				<CompareBitmap target="navigator.activeView.svTextArea" stageText="true" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_TextArea_fontWeight_nominal" keywords="[StageText, TextArea, fontWeight, Styles]" description="Verify that the StageText components can change their font weight">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="fontWeight" value="bold"/>			
+				<RunCode code="application.navigator.activeView.svTextArea.appendText('hello');" 
+						 waitTarget="navigator.activeView.svTextArea" 
+						 waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="fontWeight" value="bold"/>
+				<CompareBitmap target="navigator.activeView.svTextArea" stageText="true" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="fontWeight" value="normal" waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="fontWeight" value="normal"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_TextArea_fontStyle_nominal" keywords="[StageText, TextArea, fontStyle, Styles]" description="Verify that the StageText components can change their font style">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="fontStyle" value="italic"/>
+				<RunCode code="application.navigator.activeView.svTextArea.appendText('hello');" 
+						 waitTarget="navigator.activeView.svTextArea" 
+						 waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="fontStyle" value="italic"/>
+				<CompareBitmap target="navigator.activeView.svTextArea" stageText="true" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>	
+				<SetStyle target="navigator.activeView.svTextArea" styleName="fontStyle" value="normal" waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="fontStyle" value="normal"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_TextArea_contentBackgroundColor_nominal" keywords="[StageText, TextArea, background, Styles]" description="Verify that the StageText components can change their backgrounds">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete"/>				
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="contentBackgroundColor" value="0x0000FF"/>
+				<CompareBitmap target="navigator.activeView.svTextArea" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_TextArea_contentBackgroundAlpha_nominal" keywords="[StageText, TextArea, background, Styles]" description="Verify that the StageText components can change their backgrounds">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="contentBackgroundColor" value="0xFF0000" waitEvent="updateComplete"/>				
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="contentBackgroundColor" value="0xFF0000"/>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="contentBackgroundAlpha" value=".1" waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="contentBackgroundAlpha" value=".1"/>
+				<CompareBitmap target="navigator.activeView.svTextArea" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>						
+		<TestCase testID="StageText_TextArea_borderVisible_false" keywords="[StageText, TextArea, borderVisible, Styles]" description="Verify that the StageText components can change their borders">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="borderVisible" value="false" waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="borderVisible" value="false"/>
+				<CompareBitmap target="navigator.activeView.vGroup" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_TextArea_focusColor_nominal" keywords="[StageText, TextArea, focusColor, focusAlpha, Styles]" description="Verify that the StageText components can change their focus color and alpha">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.activeView.svTextArea.drawFocus(true)" />
+				<RunCode code="application.navigator.activeView.svTextArea.setFocus()" waitEvent="focusIn" waitTarget="navigator.activeView.svTextArea"/>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="focusColor" value="0x00FF00" waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="focusColor" value="0x00FF00"/>
+				<CompareBitmap target="navigator.activeView.vGroup" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_TextArea_focusAlpha_nominal" keywords="[StageText, TextArea, focusColor, focusAlpha, Styles]" description="Verify that the StageText components can change their focus color and alpha">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.activeView.svTextArea.drawFocus(true)" />
+				<RunCode code="application.navigator.activeView.svTextArea.setFocus()" waitEvent="focusIn" waitTarget="navigator.activeView.svTextArea"/>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="focusColor" value="0x00FF00" waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="focusColor" value="0x00FF00"/>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="focusAlpha" value=".1" waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="focusAlpha" value=".1"/>
+				<CompareBitmap target="navigator.activeView.vGroup" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>				
+		<TestCase testID="StageText_TextArea_textAlign_nominal_center" keywords="[StageText, TextArea, textAlign, Styles]" description="Verify that the StageText components can align text correctly">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="textAlign" value="center" waitEvent="updateComplete"/>
+				<RunCode code="application.navigator.activeView.svTextArea.appendText('hello');" 
+						 waitTarget="navigator.activeView.svTextArea" 
+						 waitEvent="updateComplete"/>	
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="textAlign" value="center"/>
+				<CompareBitmap target="navigator.activeView.svTextArea" stageText="true" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_TextArea_textAlign_nominal_right" keywords="[StageText, TextArea, textAlign, Styles]" description="Verify that the StageText components can align text correctly">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.activeView.svTextArea.appendText('hello');" 
+						 waitTarget="navigator.activeView.svTextArea" 
+						 waitEvent="updateComplete"/>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="textAlign" value="right" waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="textAlign" value="right"/>
+				<CompareBitmap target="navigator.activeView.svTextArea" stageText="true" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+		<TestCase testID="StageText_TextArea_lineBreak_nominal" keywords="[StageText, lineBreak, TO_FIT, Styles]" description="Verify that TextArea has linebreak 'TO_FIT' by default.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.ta" styleName="lineBreak" value="toFit"/>
+			</body>
+		</TestCase>
+		<!-- Test currently times out >
+		<TestCase testID="StageText_TextArea_direction_rtl" keywords="[StageText, TextArea, direction, rtl, Styles]" description="Verify that the StageText components can use direction rtl correctly">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.StylesView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.activeView.svTextArea.appendText('one two three');" 
+						 waitTarget="navigator.activeView.svTextArea" 
+						 waitEvent="updateComplete"/>
+				<SetStyle target="navigator.activeView.svTextArea" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+				<AssertStyleValue target="navigator.activeView.svTextArea" styleName="direction" value="rtl"/>
+				<CompareBitmap target="navigator.activeView.vGroup" stageText="true" url="../styles/baselines/TextArea/">
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+				</CompareBitmap>
+			</body>
+		</TestCase-->						
+	</testCases>
+</UnitTester>

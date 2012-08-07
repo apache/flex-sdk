@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="SmallContentView"
+		creationComplete="init()" >
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.PropertyChangeEvent;
+			import mx.events.TouchInteractionEvent;
+			
+			protected var newItems:ArrayList = new ArrayList(["Burma", "Japan", "Thailand", "Indonesia", "India", "Mongolia"]);
+			public var greatestScrollPosition:Number = 0;
+			public var leastScrollPosition:Number = 0;
+			public var listMaxScrollPosition:Number;
+			
+			protected function init(): void
+			{
+			    list1.scroller.viewport.addEventListener("propertyChange", propertyChange_handler);	
+			}
+			
+			protected function propertyChange_handler(event:PropertyChangeEvent): void
+			{
+				if (event.source == event.target && event.property == "verticalScrollPosition")
+				{
+					getGreatestLeastScrollPosition(Number(event.newValue));
+				}
+			}
+			
+			public function addItemsToData(): void
+			{
+				ArrayList(list1.dataProvider).addAll(newItems);
+			}
+			
+			protected function rbg1_changeHandler(event:Event):void
+			{
+				list1.scroller.setStyle("verticalScrollPolicy", rbg1.selectedValue);
+			}
+			
+			protected function getGreatestLeastScrollPosition(scrollPosition:Number): void
+			{
+			    if(scrollPosition > greatestScrollPosition)
+					greatestScrollPosition = Math.round(scrollPosition);
+				
+				if(scrollPosition < leastScrollPosition)
+					leastScrollPosition = Math.round(scrollPosition);
+				
+				//trace("scrollPosition: " + scrollPosition);
+			}
+			
+			public function findMaxScrollPosition(listComp:spark.components.List, direction:String): void
+			{
+				if(direction=="V")
+					listMaxScrollPosition = listComp.dataGroup.contentHeight - listComp.dataGroup.height; 
+				else
+					listMaxScrollPosition = listComp.dataGroup.contentWidth - listComp.dataGroup.width;
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<s:RadioButtonGroup id="rbg1" change="rbg1_changeHandler(event)"/>
+		<fx:Array id="throwDownGesture">
+			<fx:Object type="rollOver" localX="349" localY="129" fakeTimeValue="114956" />
+			<fx:Object type="mouseOver" localX="349" localY="129" fakeTimeValue="114958" />
+			<fx:Object type="mouseDown" localX="349" localY="129" fakeTimeValue="114978" />
+			<fx:Object type="mouseMove" localX="332" localY="80" fakeTimeValue="115009" />
+			<fx:Object type="mouseOut" localX="332" localY="80" fakeTimeValue="115043" />
+			<fx:Object type="mouseOver" localX="332" localY="80" fakeTimeValue="115046" />
+			<fx:Object type="mouseMove" localX="327" localY="40" fakeTimeValue="115053" />
+			<fx:Object type="mouseOut" localX="327" localY="40" fakeTimeValue="115071" />
+			<fx:Object type="mouseOver" localX="327" localY="40" fakeTimeValue="115072" />
+			<fx:Object type="mouseOut" localX="327" localY="40" fakeTimeValue="115075" />
+			<fx:Object type="mouseOver" localX="327" localY="40" fakeTimeValue="115076" />
+			<fx:Object type="mouseUp" localX="327" localY="40" fakeTimeValue="115085" />
+		</fx:Array>
+	</fx:Declarations>
+	<s:RadioButton label="auto" groupName="rbg1" y="5" x="5" selected="true"/>
+	<s:RadioButton label="on" groupName="rbg1" y="5" x="185"/>
+	<s:RadioButton label="off" groupName="rbg1" y="65" x="5"/>
+	
+	<s:List id="list1" height="250" right="0" left="0" y="130" >
+		<s:dataProvider>
+			<s:ArrayList>
+				<fx:String>Korea</fx:String>
+				<fx:String>China</fx:String>
+				<fx:String>Japan</fx:String>
+			</s:ArrayList>
+		</s:dataProvider>
+		
+	</s:List>
+	<s:Button label="add items" y="65" x="185" height="38" click="addItemsToData()" />
+</s:View>

@@ -1,0 +1,38 @@
+--------------------------
+
+SpinnerList Manual Testing
+
+--------------------------
+https://zerowing.corp.adobe.com/display/megastar/SpinnerList+Testplan
+--------------------------
+
+Setup Instructions: 
+
+This SpinnerList Mustella folder is setup as a Flash Builder project.  
+You can easily import this project into Builder by:
+
+File > Import Flash Builder Project > Project Folder > path/to/mustella/tests/mobile/components/SpinnerList/
+
+Manual Test Cases:
+
+1. Push the "Events" view, drag scroll another item very close to the middle, let go, ensure change event fires right after any final scrolling has completed (SDK-30970)
+
+2. Push the "Android Date Spinner" view, ensure click, drag, throw operations feel smooth
+
+3. Push the "Android Timer" view, click start, ensure animations look smooth, click stop, click reset
+
+4. Push the "iOS Date Spinner" view, change the month, day, year values and ensure the blue region updates (after any animations)
+
+5. Push the "iOS Time Spinner" view, scroll the AM/PM spinner to examine the bounce/pull behavior and make sure it feels natural
+
+6. Push the "Pop Up Date Spinner" view, click "Select start date", ensure the DateSpinner that is popped up feels natural
+
+7. Push the "Pop Up Date Spinner" view, click "January 14, 2011", ensure the SpinnerLists that pop up feel natural
+
+8. Push the "Pop Up Date Spinner" view, toggle Modal switch, click "January 14, 2011", ensure SpinnerLists that pop up feel natural
+
+9. Push the "Slot Machine" view, ensure spinning the icon only SpinnerList feels natural
+
+10. Push the "Virtual Layout" view, turn off virtual layout, ensure you can click/drag/throw naturally with no items truncated (...)
+
+11. Push the "Expanding" view, toggle between the large and small states and watch the transition between those states

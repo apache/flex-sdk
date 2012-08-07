@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+testDir="mobile/components/ToggleSwitch/properties/" testSWF="ToggleSwitchMain.mxml">
+
+	<fx:Script><![CDATA[ 
+		import mx.core.FlexGlobals;				
+		public static function init(o:DisplayObject):void { } 
+	
+	]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+
+		<!-- selected -->
+		<TestCase testID="selected_default" keywords="[ToggleSwitch, proerpty, selected]" description="Get default value of selected">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="propertiesRoot.target1" propertyName="selected" value="false"/>
+			</body>
+		</TestCase>
+		
+		<!-- selected -->
+		<TestCase testID="selected_MXML" keywords="[ToggleSwitch, proerpty, selected, MXML]" description="Set non-default value in MXML">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="propertiesRoot.target2" propertyName="selected" value="true"/>
+			</body>
+		</TestCase>		
+		
+		<!-- selected -->
+		<TestCase testID="selected_AS" keywords="[ToggleSwitch, proerpty, selected, AS]" description="Set non-default value in AS">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="propertiesRoot.target3" propertyName="selected" value="true"/>
+			</body>
+		</TestCase>
+		
+		<!-- selected -->
+		<TestCase testID="selected_binding" keywords="[ToggleSwitch, property, selected, binding]" description="Retreive default value of selected with binding">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="propertiesRoot.target4" propertyName="selected" value="true" />
+			</body>
+		</TestCase>		
+		
+		<!-- thumbPosition  -->
+		<TestCase testID="thumbPosition_default" keywords="[ToggleSwitch, property, thumbPosition]" description="Retreive default value of thumbPosition">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="propertiesRoot.target1" propertyName="thumbPosition" value="0" />
+			</body>
+		</TestCase>	
+		
+		<!-- thumbPosition -->
+		<TestCase testID="thumbPosition_after_changed" keywords="[ToggleSwitch, property, thumbPosition]" description="Retreive default value of thumbPosition">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="propertiesRoot.target1" propertyName="selected" value="true" />
+				<AssertPropertyValue target="propertiesRoot.target1" propertyName="thumbPosition" value="1" />
+			</body>
+		</TestCase>
+		
+
+		
+	
+		<!-- width, height -->
+		<TestCase testID="width_height_default" keywords="[ToggleSwitch, property, width, height]" description="Default size">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="propertiesRoot.target1" propertyName="width">
+					<ConditionalValue deviceDensity="160" os="win" value="103"/>
+					<ConditionalValue deviceDensity="240" os="android" value="153"/>
+					<ConditionalValue deviceDensity="320" os="win" value="205"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="205" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="103"/>					
+				</AssertPropertyValue>	
+				<AssertPropertyValue target="propertiesRoot.target1" propertyName="height" >
+					<ConditionalValue deviceDensity="160" os="win" value="30"/>
+					<ConditionalValue deviceDensity="240" os="android" value="44"/>
+					<ConditionalValue deviceDensity="320" os="win" value="60"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="60"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="30"/>					
+					
+				</AssertPropertyValue>	
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../properties/baselines" target="propertiesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+		
+		<!-- width, height -->
+		<TestCase testID="width_height_MXML" keywords="[ToggleSwitch, property, width, height, MXML]" description="Set width/height in MXML">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="propertiesRoot.target7" propertyName="width" value="200" />
+				<AssertPropertyValue target="propertiesRoot.target7" propertyName="height" value="80" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../properties/baselines" target="propertiesRoot.target7">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+		
+		<!-- width, height -->
+		<TestCase testID="width_height_AS" keywords="[ToggleSwitch, property, width, height, AS]" description="Set width/height in AS">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.propertiesRoot.target7.width=179;FlexGlobals.topLevelApplication.propertiesRoot.target7.height=79;" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="propertiesRoot.target7" propertyName="width" value="179" />
+				<AssertPropertyValue target="propertiesRoot.target7" propertyName="height" value="79" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../properties/baselines" target="propertiesRoot.target7">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+		
+	
+		<!-- percentWidth, percentHeight -->
+		<TestCase testID="percentWidth_percentHeight_MXML" keywords="[ToggleSwitch, property, percentWidth, percentHeight, MXML]" description="Set percentWidth/percentHeight in MXML">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+					<body>
+						<AssertPropertyValue target="propertiesRoot.target8" propertyName="percentWidth" value="40" />
+						<AssertPropertyValue target="propertiesRoot.target8" propertyName="percentHeight" value="20" />
+						<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../properties/baselines" target="propertiesRoot.target8">
+							<ConditionalValue deviceDensity="160" os="win"/>
+							<ConditionalValue deviceDensity="240" os="android" />
+							<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+						</CompareBitmap>
+					</body>
+		</TestCase>			
+		
+		<!-- percentWidth, percentHeight -->
+		<TestCase testID="percentWidth_percentHeight_AS" keywords="[ToggleSwitch, property, percentWidth, percentHeight, AS]" description="Set percentWidth/percentHeight in AS">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.propertiesRoot.target8.percentWidth=50;FlexGlobals.topLevelApplication.propertiesRoot.target8.percentHeight=40;" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="propertiesRoot.target8" propertyName="percentWidth" value="50" />
+				<AssertPropertyValue target="propertiesRoot.target8" propertyName="percentHeight" value="40" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../properties/baselines" target="propertiesRoot.target8">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+	
+		<!-- scaleX, scaleY -->
+		<TestCase testID="scaleX_scaleY_MXML" keywords="[ToggleSwitch, property, scaleX, scaleY, MXML]" description="Set scaleX/scaleY in MXML">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../properties/baselines" target="propertiesRoot.target9">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+	
+		<!-- scaleX, scaleY -->
+		<TestCase testID="scaleX_scaleY_AS" keywords="[ToggleSwitch, property, scaleX, scaleY, AS]" description="Set scaleX/scaleY in AS">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.propertiesRoot.target9.scaleX=1.5;FlexGlobals.topLevelApplication.propertiesRoot.target9.scaleY=1.5;" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../properties/baselines" target="propertiesRoot.target9">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>		
+
+		<!-- enabled -->
+		<TestCase testID="enabled_false" keywords="[ToggleSwitch, property, enabled]" description="Set enabled false">
+			<setup>
+				<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.propertiesRoot.target1.enabled=false;" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../properties/baselines" target="propertiesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>			
+		
+		<!-- enabled -->
+		<TestCase testID="enabled_true" keywords="[ToggleSwitch, property, enabled]" description="Set enabled true">
+			<setup>
+				<!--<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" />-->
+				<RunCode code="FlexGlobals.topLevelApplication.propertiesRoot.target1.enabled=true;" />
+				<Pause timeout="300" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../properties/baselines" target="propertiesRoot.target1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+	</testCases>
+</UnitTester>

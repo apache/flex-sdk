@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" add="addHandler()"
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Slide"  
+		backgroundColor="#606060">
+	
+	<s:navigationContent>
+		<s:Button label="Back" click="navigator.popView();"/>
+	</s:navigationContent>
+	
+	<s:actionContent>
+		<s:Button label="Home" left="0" click="navigator.popToFirstView();"/>
+	</s:actionContent>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.effects.easing.Bounce;
+			import mx.utils.ObjectUtil;
+			
+			import spark.effects.easing.Power;
+			import spark.transitions.FlipViewTransition;
+			import spark.transitions.ViewTransitionBase;
+			
+			private function popCurrentView():void
+			{
+				saveData();
+				navigator.popView(createTransition());
+			}
+			
+			private function pushNextView():void
+			{
+				saveData();
+				var newData:Object = ObjectUtil.clone(data);
+				newData.depth = data.depth ? data.depth + 1 : 1;
+				navigator.pushView(FlipTransitionView, newData, null, createTransition());
+			}
+			
+			private function saveData():void
+			{
+				data.mode = modeGroup.selectedValue;
+				data.direction = directionGroup.selectedValue;
+				data.full = full.selected;
+				data.duration = duration.text;
+			}
+			
+			private function addHandler():void
+			{
+				if (data.duration)
+					duration.text = data.duration;
+				
+				if (data.depth)
+					title = "Flip " + data.depth;
+				
+				full.selected = data.full;
+				
+				modeGroup.selectedValue = data.hasOwnProperty("mode") ? 
+					data.mode : "CARD";
+				
+				directionGroup.selectedValue = data.hasOwnProperty("direction") ? 
+					data.direction : "LEFT";
+				
+			}
+			
+			
+			private function createTransition():ViewTransitionBase
+			{
+				var slide:FlipViewTransition = new FlipViewTransition();
+				slide.transitionControlsWithContent = full.selected;
+				slide.duration = Number(duration.text);
+				switch(directionGroup.selectedValue)
+				{
+					case "LEFT":
+						slide.direction = "left";
+						break;
+					
+					case "UP":
+						slide.direction = "up";
+						break;
+					
+					case "DOWN":
+						slide.direction = "down";
+						break;
+					
+					default:
+						slide.direction = "right";
+						break;
+				}
+				
+				switch(modeGroup.selectedValue)
+				{
+					case "CARD":
+						slide.mode = "card";
+						break;
+					
+					case "CUBE":
+						slide.mode = "cube";
+						break;
+					
+					default:
+						slide.mode = "card";
+						break;
+				}
+				
+				return slide;
+			}
+		]]>
+	</fx:Script>
+	
+	<s:VGroup left="0" top="0" right="0" bottom="0" paddingTop="30" paddingLeft="30" paddingRight="30">
+		<s:Label text="Mode:"/>
+		<s:TileGroup width="100%" requestedColumnCount="2" horizontalAlign="left">
+			<s:RadioButton group="{modeGroup}" label="CARD" />
+			<s:RadioButton group="{modeGroup}" label="CUBE"/>
+		</s:TileGroup>
+		
+		
+		
+		<s:Label text="Direction:"/>
+		<s:TileGroup width="100%" requestedColumnCount="2"  horizontalAlign="left">
+			<s:RadioButton group="{directionGroup}" label="UP" />
+			<s:RadioButton group="{directionGroup}" label="DOWN"/>
+			<s:RadioButton group="{directionGroup}" label="LEFT"/>
+			<s:RadioButton group="{directionGroup}" label="RIGHT"/>
+		</s:TileGroup>
+		
+		<s:Rect height="40"/>
+		
+		<s:Label text="Duration (ms):"/>
+		<s:TextInput id="duration" text="400" width="200"/>
+		
+		<s:CheckBox id="full" label="transitionControlsWithContent"  selected="false"/>
+		
+	</s:VGroup>
+	
+	<s:HGroup bottom="0" width="100%" gap="0">
+		<s:Button label="PopView" width="100%" click="popCurrentView();" styleName="footer"/>
+		<s:Button label="PushView" width="100%" styleName="footer" click="pushNextView()"/>
+	</s:HGroup>
+	
+	<fx:Declarations>
+		<s:RadioButtonGroup id="modeGroup"/>
+		<s:RadioButtonGroup id="directionGroup" />
+	</fx:Declarations>
+	
+</s:View>

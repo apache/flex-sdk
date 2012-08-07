@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+							xmlns:s="library://ns.adobe.com/flex/spark" 
+							xmlns:components="comps.*" creationComplete="saveInitialOrientation(event)"
+							backgroundColor="0xe3e3e3"
+							applicationComplete="init(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<components:QANavigator id="navigator" />
+	<fx:Script>
+		<![CDATA[
+			import comps.myViewNavigator;
+			import comps.snappingTouchEvents;
+			
+			import flash.events.Event;
+			
+			import mx.collections.ArrayList;
+			import mx.core.FlexGlobals;
+			import mx.core.IVisualElement;
+			import mx.core.mx_internal;
+			import mx.events.FlexEvent;
+			
+			import spark.components.DataGroup;
+			import spark.components.Scroller;
+			import spark.components.supportClasses.GroupBase;
+			import spark.layouts.HorizontalLayout;
+			import spark.layouts.VerticalLayout;
+			use namespace mx_internal;
+			/**
+			 * Instantiate a copy of the common mouse event sequences
+			 */
+			public var mouseSequences:snappingTouchEvents = new snappingTouchEvents();
+			
+			/**
+			 * Since we aren't using ViewNavigatorApplication we need to setup the listeners to handle back button
+			 * support.  This also sets up a global error handler to log uncaught RTEs and write them to disk. 
+			 */
+			private function init(event:FlexEvent):void {
+				systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler);
+				systemManager.stage.addEventListener(KeyboardEvent.KEY_UP, deviceKeyUpHandler);
+				loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler);
+			}
+			
+			/**
+			 * Logs an uncaught RTE by writing a file with its information to the sdcard of the device.
+			 * The view title is also updated to show an error has happened.
+			 */
+			private function uncaughtErrorHandler(e:UncaughtErrorEvent):void {
+				// don't show the RTE window
+				e.stopImmediatePropagation();
+				e.preventDefault();
+				
+				// show the error in the title of the view and write to SD card in case needed later
+				var d:Date = new Date();
+				var writePath:String = "/sdcard/Flex/QA/List/RTE_" + d.fullYear.toString() + "-" + (d.month + 1).toString() + "-" + (d.date + 1).toString() + "_" + d.hours.toString() + "-" + d.minutes.toString() + "-" + d.seconds.toString() + "-" + d.getMilliseconds().toString()  + ".txt";
+				
+				if (e.error is Error) {
+					var error:Error = e.error as Error;
+					var errorString:String = error.name + " " + error.errorID + ": " + error.message + "\n" + error.getStackTrace();
+					trace(errorString);
+					navigator.activeView.title = errorString;
+					TouchScrollingUtil.writeFileToDisk(writePath, errorString);
+				} else {
+					var errorEvent:ErrorEvent = e.error as ErrorEvent;
+					trace(errorEvent);
+					navigator.activeView.title = "Error: " + errorEvent.errorID;
+					TouchScrollingUtil.writeFileToDisk(writePath, "Error: " + errorEvent.errorID + "\n" + errorEvent.toString());
+				}
+			}
+			
+			/** For back button support */
+			private function deviceKeyDownHandler(event:KeyboardEvent):void {
+				if (event.keyCode == Keyboard.BACK && !navigator.exitApplicationOnBackKey)
+					event.preventDefault();
+			}
+			
+			/** For back button support */
+			private function deviceKeyUpHandler(event:KeyboardEvent):void {
+				if (event.keyCode == Keyboard.BACK && !navigator.exitApplicationOnBackKey)
+					navigator.backKeyUpHandler();
+			}
+			
+			/** Keeps track of the initial orientation */
+			private var initialOrientation:String;
+			
+			/** Saves the orientation of the device at startup as the initial orientation */ 
+			private function saveInitialOrientation(event:FlexEvent):void
+			{
+				initialOrientation = aspectRatio;
+			}
+			
+			/** 
+			 * 
+			 * This method is used to reset orientation to portrait mode if not already in portrait to 
+			 * ensure all tests have the same set up. Orientation tests change this property that might leave 
+			 * tests in other orientations if not run to completion. This method should temporarily help with this 
+			 * issue until <RestComponent> mustella function implements to do this.
+			 *
+			 * 
+			 * Sample usage: <RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			 */
+			public function doResetOrientation():void 
+			{
+//				if (aspectRatio != initialOrientation)
+//				{
+//					systemManager.stage.setAspectRatio(initialOrientation);
+//					trace("current- "+ aspectRatio + " initial- "+initialOrientation);
+//				}
+//				else
+				
+				
+				if (systemManager.stage.orientation != StageOrientation.DEFAULT)
+				{
+					systemManager.stage.setOrientation(StageOrientation.DEFAULT);
+				}
+				else
+					systemManager.stage.dispatchEvent(new StageOrientationEvent('orientationChange'));
+			}			
+			/** 
+			 * This method gets all the current indices in view in groups in any layout
+			 */
+			public static function getIndicesInView(group:GroupBase):Vector.<int>
+			{
+				var visibleIndices:Vector.<int> = new Vector.<int>();
+				var eRect:Rectangle = new Rectangle();
+				
+				for (var i:int = 0; i < group.numElements; i++)
+				{
+					var e:IVisualElement = group.getElementAt(i);
+					if (e != null)
+					{
+						eRect.x = e.getLayoutBoundsX();
+						eRect.y = e.getLayoutBoundsY();
+						eRect.width = e.getLayoutBoundsWidth();
+						eRect.height = e.getLayoutBoundsHeight();   
+						if (group.scrollRect.intersects(eRect))
+							visibleIndices.push(i);
+					}
+				}
+				return visibleIndices;
+				
+			}
+			/* gets first item in view */
+			public static function getFirstInView(group:GroupBase):Number
+			{
+				return getIndicesInView(group).reverse().pop();
+				
+			}
+			/* gets last item in view */
+			public static function getLastInView(group:GroupBase):Number
+			{
+				return getIndicesInView(group).pop();
+				
+			}
+			/* gets center item in view */
+			public static function getCenterInView(group:GroupBase):Number
+			{
+				return (getFirstInView(group) + getLastInView(group)) /2;
+				
+			}
+			
+			/** 
+			 * This method is used to find whether the current state in a list is leadingEdge aligned. 
+			 * Takes the direction (vertical or horizontal) and DataGroup to validate that the scroll position is leading snapped.
+			 */
+			public static function isLeading(group:GroupBase, direction:String):String
+			{
+				
+				if(direction=="vertical")
+				{
+				
+					var top:Number= group.getElementAt(getIndicesInView(group).sort(Array.NUMERIC).reverse().pop()).getLayoutBoundsY();
+					var scrollPos:Number=group.verticalScrollPosition;
+					if(-1<=(top-scrollPos)<=1)
+						return "true";
+					else
+						return top + "!=" + scrollPos;
+				}
+				if(direction=="horizontal")
+				{
+					var left:Number= group.getElementAt(getIndicesInView(group).sort(Array.NUMERIC).reverse().pop()).getLayoutBoundsX();
+					scrollPos=group.horizontalScrollPosition;
+					if(-1<=(left-scrollPos)<=1)
+						return "true";
+					else
+						return left + "!=" + scrollPos;
+				}
+				return "incorrect direction";
+				
+			}
+			/** 
+			 * This method is used to find whether the current state in a list is trailingEdge aligned. 
+			 * Takes the direction (vertical or horizontal) and DataGroup to validate that the scroll position is trailing snapped.
+			 */
+			public static function isTrailing(group:GroupBase, direction:String):String
+			{
+				
+				if(direction=="vertical")
+				{
+					var bottomElement:IVisualElement=group.getElementAt(getIndicesInView(group).sort(Array.NUMERIC).pop());
+					var bottom:Number=bottomElement.getLayoutBoundsY() + bottomElement.getLayoutBoundsHeight();
+					var scrollPos:Number=group.height+group.verticalScrollPosition;
+					if(-1<=(bottom-scrollPos)<=1)
+						return "true";
+					else
+						return bottom + "!=" + scrollPos;
+				}
+				if(direction=="horizontal")
+				{
+					var rightElement:IVisualElement=group.getElementAt(getIndicesInView(group).sort(Array.NUMERIC).pop());
+					var right:Number=rightElement.getLayoutBoundsX() + rightElement.getLayoutBoundsWidth();
+					scrollPos=group.width+group.horizontalScrollPosition;
+					if(-1<=(right-scrollPos)<=1)
+						return "true";
+					else
+						return right + "!=" + scrollPos;
+				}
+				return "incorrect direction";
+				
+			}
+			
+			/** 
+			 * This method is used to find whether the current state in a list is center aligned. 
+			 * Takes the direction (vertical or horizontal) and DataGroup to validate that the scroll position is center snapped.
+			 */
+			public static function isCenterTile(group:GroupBase, direction:String):String
+			{
+				var firstInView:Number=getIndicesInView(group).sort(Array.NUMERIC).reverse().pop();
+				var lastInView:Number=getIndicesInView(group).sort(Array.NUMERIC).pop();
+				var centerInView:IVisualElement=group.getElementAt(((lastInView-firstInView)/2)+firstInView)
+				
+				if(direction=="vertical")
+				{
+					// # pixles below the center element
+					var bottom:Number = (group.verticalScrollPosition + group.height)-(centerInView.getLayoutBoundsY()+centerInView.getLayoutBoundsHeight());
+					// # pixles above the center element
+					var top:Number = centerInView.getLayoutBoundsY()-group.verticalScrollPosition;
+					if(-1<=(top-bottom)<=1)
+						return "true";
+					else
+						return  top + "!=" + bottom;
+				}
+				if(direction=="horizontal")
+				{
+					var right:Number = (group.layout.horizontalScrollPosition + group.width)-(centerInView.getLayoutBoundsX()+centerInView.getLayoutBoundsWidth());
+					// # pixles above the center element
+					var left:Number = centerInView.getLayoutBoundsX()-group.layout.horizontalScrollPosition
+					if(-1<=(left-right)<=1)
+						return "true";
+					else
+						return  left + "!=" + right;
+				}
+				return "incorrect direction";
+				
+			}
+		
+			
+		]]>
+	</fx:Script>
+
+</s:Application>

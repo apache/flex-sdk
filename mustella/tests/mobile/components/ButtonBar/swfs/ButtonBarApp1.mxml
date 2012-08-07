@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+             xmlns:custom="Assets.*"
+	         width="800" height="600"
+	         currentStateChange="doCurrentStateChange()" >
+
+<fx:Script>
+<![CDATA[
+
+    import mx.collections.IList;
+    import spark.components.ToggleButton;
+    import spark.components.Application;
+    import mx.core.IFlexDisplayObject;
+    import mx.managers.PopUpManager;
+    import mx.utils.ObjectUtil;
+    import spark.events.IndexChangeEvent;
+    import spark.components.ButtonBarButton;
+    import spark.skins.mobile.ButtonBarSkin;
+
+    public var thePopUp:IFlexDisplayObject;
+
+    /**
+    * Change the state of all custom components which
+    * have states defined.
+    **/
+    private function doCurrentStateChange():void{
+        bb4.currentState = currentState;
+        bb5.currentState = currentState;
+        bb6.currentState = currentState;
+        bb7.currentState = currentState;
+    }
+
+    /**
+    * Use this function to reset the dataProvider.  Do
+    * not just re-use the dataProvider that is in the
+    * main app. file because edits made to it will continue
+    * to appear in subsequent tests.
+    **/
+    public function setDataProvider(bb:ButtonBar, dpNum:int):void{
+        switch(dpNum){
+            case 1:
+                bb.dataProvider = IList(ObjectUtil.copy(ac1));
+                break;
+            case 2:
+                bb.dataProvider = IList(ObjectUtil.copy(ac2));
+                break;
+            case 3:
+                bb.dataProvider = IList(ObjectUtil.copy(ac3));
+                break;
+        }
+    }
+
+
+    /**
+    * Use this to set focus to the given FxButtonBar.
+    * (This is more reliable than pressing Tab and hoping there aren't
+    * any new children in the test app. which have changed the tab order.)
+    **/
+    public function setButtonBarFocus(bar:ButtonBar):void{
+        focusManager.findFocusManagerComponent(bar).setFocus();
+    }
+
+    /**
+    * Launch/dismiss popups.
+    **/
+    public function showPopUp():void {
+        thePopUp = PopUpManager.createPopUp(this, Assets.CustomTitleWindow, true);
+    }
+
+    public function hidePopUp():void{
+        try{
+            PopUpManager.removePopUp(thePopUp);
+        }catch(e:Error){}
+    }
+
+    [Bindable]
+    public var vacationIdeas:Array = [
+       {trip: "Australia", month: "November"},
+       {trip: "Thailand", month: "April"},
+       {trip: "Maui", month: "June"}
+       ];
+
+    public function addListener(): void
+    {
+        bb1.addEventListener("change", changeColor);
+    }
+
+    public function changeColor(event:IndexChangeEvent):void
+    {
+        ButtonBarButton(ButtonBarSkin(ButtonBar(event.target).skin).dataGroup.getElementAt(event.newIndex)).setStyle('chromeColor', 0xFF0000);
+    }
+
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+<!-- Disable embedding fonts for mobile tests -->
+
+
+  /*  @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans_Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+
+    global{
+        kerning: "off";
+    }
+
+    s|ButtonBar{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|CheckBox{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|RadioButton{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|ToggleButton{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }*/
+</fx:Style>
+
+<fx:Declarations>
+
+    <s:ArrayCollection id="ac1">
+        <fx:String>one</fx:String>
+        <fx:String>two</fx:String>
+        <fx:String>three</fx:String>
+    </s:ArrayCollection>
+
+    <s:ArrayCollection id="ac2">
+        <fx:String>one</fx:String>
+    </s:ArrayCollection>
+
+    <s:ArrayCollection id="ac3">
+        <fx:String>one</fx:String>
+        <fx:String>two</fx:String>
+    </s:ArrayCollection>
+
+    <s:ArrayCollection id="complexDP" source="{vacationIdeas}" />
+</fx:Declarations>
+
+<s:states>
+    <s:State name="state1" />
+    <s:State name="state2" />
+</s:states>
+
+<s:layout> <s:VerticalLayout/> </s:layout>
+<s:HGroup>
+<s:VGroup>
+<s:Button id="default_button"/>
+
+<s:Group id="box4" width="{bb1.width + 20}" height="{bb1.height + 20}" >
+    <s:ButtonBar id="bb1" />
+</s:Group>
+<custom:CustomFxButtonBar1 id="bb2" />
+<custom:CustomFxButtonBar2 id="bb3" />
+
+<!-- These are used for testing states. -->
+<custom:CustomFxButtonBar3 id="bb4" />
+<custom:CustomFxButtonBar4 id="bb5" />
+<custom:CustomFxButtonBar5 id="bb6" />
+<custom:CustomFxButtonBar6 id="bb7" />
+<custom:CustomFxButtonBar7 id="bb8" />
+
+<s:Group id="box1" width="300" height="200" >
+    <custom:CustomFxButtonBar8 id="box2" /> <!-- This contains bb9. -->
+</s:Group>
+
+<s:Group id="box3" width="300" height="200" >
+    <custom:CustomFxButtonBar9 id="panel1" /> <!-- This contains bb10. -->
+</s:Group>
+</s:VGroup>
+
+	<s:VGroup width="500" height="100%">
+	    <s:ButtonBar id="baseColor_btnBar"  dataProvider="{ac2}" chromeColor="0xFFFF00" />
+	    <s:ButtonBar id="color_btnBar"  dataProvider="{ac2}" color="0xFF0000" />
+	    <s:Group id="focusColor_btnBar_box" >
+	        <s:ButtonBar id="focusColor_btnBar" dataProvider="{ac2}" focusColor="0xCC0033" />
+	    </s:Group>
+    	</s:VGroup>
+</s:HGroup>
+</s:Application>

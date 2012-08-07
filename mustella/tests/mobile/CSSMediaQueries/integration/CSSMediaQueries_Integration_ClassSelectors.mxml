@@ -1,0 +1,1249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns="*" 
+	testDir="mobile/CSSMediaQueries/integration/"
+	testSWF="ClassSelectorApp.mxml">
+	
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import views.*;
+			import mx.core.FlexGlobals;
+		]]>
+	</fx:Script>
+	
+	<testCases>
+		<TestCase testID="ClassSelector_QNX" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query is applied to QNX devices, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_QNX_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="qnx" value="#000099"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_QNX160dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query is applied to QNX 160dpi devices, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_QNX160dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="qnx" deviceDensity="160" value="#000099"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="TextInputRegression" keywords="[CSS, Media, Query, Style, Integration, SDK-29308]" description="Checking that spark textinput skin is not included">
+			<bugs>
+				<Bug bugID="SDK-29455"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.TextInputRegression_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertMethodValue method="value=ApplicationDomain.currentDomain.hasDefinition('spark.skins.spark.TextInputSkin')" value="false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_MediaAll_NoFeatures" keywords="[CSS, Media, Query, Style, Integration, SDK-29308]" description="Checking that empty feature list means media all query always evaluates to true">
+			<bugs>
+				<Bug bugID="SDK-29308"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_MediaAll_NoFeatures_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#990000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_MediaScreen_NoFeatures" keywords="[CSS, Media, Query, Style, Integration, SDK-29308]" description="Checking that empty feature list means media screen query always evaluates to true">
+			<bugs>
+				<Bug bugID="SDK-29308"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_MediaScreen_NoFeatures_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#990000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_NOT_MediaAll_NoFeatures" keywords="[CSS, Media, Query, Style, Integration, SDK-29308]" description="Checking that empty feature list means NOT media all query never evaluates to true">
+			<bugs>
+				<Bug bugID="SDK-29308"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_NOT_MediaAll_NoFeatures_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_NOT_MediaScreen_NoFeatures" keywords="[CSS, Media, Query, Style, Integration, SDK-29308]" description="Checking that empty feature list means NOT media screen query never evaluates to true">
+			<bugs>
+				<Bug bugID="SDK-29308"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_NOT_MediaScreen_NoFeatures_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="ClassSelector_ClassReference_DPIBasedQueries" keywords="[CSS, Media, Query, Style, Integration]" description="Ensures that custom skins and class reference works correctly with media queries">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ClassReference_DPIBasedQueries_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue deviceDensity="160" value="22"/>
+					<ConditionalValue deviceDensity="240" value="26"/>
+					<ConditionalValue deviceDensity="320" value="28"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_DefaultSpecifiedAfterQuery_240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="When default style block is specified after a query, ensure that the last defined style(s) (default block in this case) get set">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.DefaultSpecifiedAfterQuery_240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_MultipleQueries" keywords="[CSS, Media, Query, Style, Integration]" description="When multiple queries are present, ensure that the correct one gets selected for each device">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.MultipleQueries_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" deviceDensity="160" value="#990000"/>
+					<ConditionalValue os="iphone" deviceDensity="160" value="#000099"/>
+					<ConditionalValue os="android" deviceDensity="240" value="#990000"/>
+					<ConditionalValue os="android" deviceDensity="320" value="#990000"/>
+					<ConditionalValue os="iphone" deviceDensity="320" value="#000099"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue os="android" deviceDensity="160" value="#990000"/>
+					<ConditionalValue os="iphone" deviceDensity="160" value="#990000"/>
+					<ConditionalValue os="android" deviceDensity="240" value="#009900"/>
+					<ConditionalValue os="android" deviceDensity="320" value="#009999"/>
+					<ConditionalValue os="iphone" deviceDensity="320" value="#009999"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue os="android" deviceDensity="160" value="22"/>
+					<ConditionalValue os="iphone" deviceDensity="160" value="22"/>
+					<ConditionalValue os="android" deviceDensity="240" value="26"/>
+					<ConditionalValue os="android" deviceDensity="320" value="28"/>
+					<ConditionalValue os="iphone" deviceDensity="320" value="28"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_MultipleQueriesEvaluateTrue" keywords="[CSS, Media, Query, Style, Integration]" description="When multiple queries evaluate to true for a device, ensure that the last defined style(s) get set">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.MultipleQueriesEvaluateTrue_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" value="#009900"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue os="android" deviceDensity="160" value="#000099"/>
+					<ConditionalValue deviceDensity="160" value="#009900"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue os="android" deviceDensity="160" value="28"/>
+					<ConditionalValue deviceDensity="160" value="26"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_160dpi_NoDefaultStyle" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure 160dpi query is applied to correct device, style defined by theme for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_160dpi_NoDefaultStyle_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue deviceDensity="160" value="#990000"/>
+				</AssertStyleValue>
+				<AssertMethodValue method="value=(FlexGlobals.topLevelApplication.navigator.activeView.testButton.getStyle('fontSize') == 22)" value="false">
+					<ConditionalValue deviceDensity="160" value="true"/>
+				</AssertMethodValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_160dpi_OR_320dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query is applied to 160dpi or 320dpi devices, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_160dpi_OR_320dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue deviceDensity="160" value="#990000"/>					
+					<ConditionalValue deviceDensity="320" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue deviceDensity="160" value="26"/>
+					<ConditionalValue deviceDensity="320" value="26"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_160dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure 160dpi query is applied to correct device, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_160dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue deviceDensity="160" value="#990000" />
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue deviceDensity="160" value="22" />
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure 240dpi query is applied to correct device, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue deviceDensity="240" value="#009900"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue deviceDensity="240" value="26"/>					
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_320dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure 320dpi query is applied to correct device, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_320dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue deviceDensity="320" value="#009999"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue deviceDensity="320" value="28"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_Android" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure android query is applied to android devices, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_Android_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_Android160dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query is applied to Android 160dpi devices, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_Android160dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" deviceDensity="160" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue os="android" deviceDensity="160" value="#ffffff"/>					
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue os="android" deviceDensity="160" value="22"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_Android240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query is applied to Android 240dpi devices, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_Android240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" deviceDensity="240" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue os="android" deviceDensity="240" value="#009900"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue os="android" deviceDensity="240" value="26"/>					
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_Android320dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query is applied to Android 320dpi devices, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_Android320dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" deviceDensity="320" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue os="android" deviceDensity="320" value="#009999"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue os="android" deviceDensity="320" value="28"/>					
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_InvalidDPI" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query with invalid DPI evaluates to false">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_InvalidDPI_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_InvalidFeature" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query with invalid feature evaluates to false">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_InvalidFeature_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_InvalidOS" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query with invalid OS evaluates to false">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_InvalidOS_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_IPHONE" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure iphone query is applied to iphone devices, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_IOS_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="iphone" value="#000099"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_IPHONE160dpi_OR_IPHONE320dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query is applied to iphone 160dpi or iphone 320dpi devices, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_IOS160dpi_OR_IOS320dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="iphone" deviceDensity="160" value="#000099"/>
+					<ConditionalValue os="iphone" deviceDensity="320" value="#000099"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue os="iphone" deviceDensity="160" value="#990000"/>
+					<ConditionalValue os="iphone" deviceDensity="320" value="#990000"/>
+				</AssertStyleValue>				
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue os="iphone" deviceDensity="160" value="26"/>
+					<ConditionalValue os="iphone" deviceDensity="320" value="26"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_IPHONE160dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query is applied to iphone 160dpi devices, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_IOS160dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="iphone" deviceDensity="160" value="#000099"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue os="iphone" deviceDensity="160" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue os="iphone" deviceDensity="160" value="22"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_IPHONE320dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query is applied to iphone 320dpi devices, regular style block for others">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_IOS320dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="iphone" deviceDensity="320" value="#000099"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue os="iphone" deviceDensity="320" value="#009999"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue os="iphone" deviceDensity="320" value="28"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_LowercaseIPHONE" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure OS value case does not matter">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_LowercaseIOS_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="iphone" value="#000099"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_MediaAll_240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure media type all query works like no media type being specified">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_MediaAll_240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue deviceDensity="240" value="#009900"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue deviceDensity="240" value="26"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_MediaOnlyScreen_240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure media type only screen query works the same as media type screen">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_MediaOnlyScreen_240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue deviceDensity="240" value="#009900"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue deviceDensity="240" value="26"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_MediaScreen_240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure media type screen query works like no media type being specified">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_MediaScreen_240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue deviceDensity="240" value="#009900"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue deviceDensity="240" value="26"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_MediaUnknown_240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure media type unknown query does not get applied to 240dpi device">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_MediaUnknown_240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ClassSelector_MissingDPI" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query with missing DPI evaluates to true on all devices">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_MissingDPI_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#990000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="22"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_MissingOS" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query with missing OS evaluates to true on all devices">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_MissingOS_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#009900"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_NoQuotesAndroid" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure OS value quotes or no quotes does not matter">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_NoQuotesAndroid_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_NOT_InvalidFeature" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure NOT query with invalid feature evaluates to true on all devices">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_NOT_InvalidFeature_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#990000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="22"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_NOT_MediaAll_240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query does not get applied to 240dpi devices">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_NOT_MediaAll_240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#009900">
+					<ConditionalValue deviceDensity="240" value="#000000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="26">
+					<ConditionalValue deviceDensity="240" value="24"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_NOT_MediaScreen_160dpi_OR_320dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query does not get applied to 160dpi or 320dpi devices">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_NOT_MediaScreen_160dpi_OR_320dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#990000">
+					<ConditionalValue deviceDensity="160" value="#000000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="26">
+					<ConditionalValue deviceDensity="160" value="24"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_NOT_MediaScreen_240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query does not get applied to 240dpi devices">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_NOT_MediaScreen_240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#009900">
+					<ConditionalValue deviceDensity="240" value="#000000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="26">
+					<ConditionalValue deviceDensity="240" value="24"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_NOT_MediaScreen_Android240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query does not get applied to Android 240dpi devices">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_NOT_MediaScreen_Android240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#990000">
+					<ConditionalValue os="android" deviceDensity="240" value="#AAAAAA"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#009900">
+					<ConditionalValue os="android" deviceDensity="240" value="#000000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="26">
+					<ConditionalValue os="android" deviceDensity="240" value="24"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_NOT_MediaScreen_IPHONE160dpi_OR_IPHONE320dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query does not get applied to iphone 160dpi or iphone 320dpi devices">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_NOT_MediaScreen_IOS160dpi_OR_IOS320dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#000099">
+					<ConditionalValue os="iphone" deviceDensity="160" value="#AAAAAA"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#990000">
+					<ConditionalValue os="iphone" deviceDensity="160" value="#000000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="26">
+					<ConditionalValue os="iphone" deviceDensity="160" value="24"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_NOT_MediaUnknown_240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure that this is equivalent to media screen and 240dpi query">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_NOT_MediaUnknown_240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#009900"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="26"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_QuotesAroundDPI" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure query with quotes around DPI evaluates to false">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_QuotesAroundDPI_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_UppercaseAND_Android240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure AND operator case does not matter">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_UppercaseAND_Android240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" deviceDensity="240" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue os="android" deviceDensity="240" value="#009900"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue os="android" deviceDensity="240" value="26"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_UppercaseAndroid" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure OS value case does not matter">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_UppercaseAndroid_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_UppercaseFeatureName_Android" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure feature name case does not matter">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_UppercaseFeatureName_Android_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_UppercaseMediaScreen_Android" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure media type case does not matter">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_UppercaseMediaScreen_Android_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_UppercaseMediaTag_Android" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure media tag case does not matter">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_UppercaseMediaTag_Android_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA">
+					<ConditionalValue os="android" value="#990000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24"/>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_UppercaseNOT_MediaAll_240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure ONLY operator case does not matter">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_UppercaseNOT_MediaAll_240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#009900">
+					<ConditionalValue deviceDensity="240" value="#000000"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="26">
+					<ConditionalValue deviceDensity="240" value="24"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ClassSelector_UppercaseONLY_MediaOnlyScreen_240dpi" keywords="[CSS, Media, Query, Style, Integration]" description="Ensure ONLY operator case does not matter">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.Query_UppercaseONLY_MediaOnlyScreen_240dpi_View)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="chromeColor" value="#AAAAAA"/>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="color" value="#000000">
+					<ConditionalValue deviceDensity="240" value="#009900"/>
+				</AssertStyleValue>
+				<AssertStyleValue target="navigator.activeView.testButton" styleName="fontSize" value="24">
+					<ConditionalValue deviceDensity="240" value="26"/>
+				</AssertStyleValue>
+				<CompareBitmap target="navigator.activeView.testButton" url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue os="android" deviceDensity="160" />
+					<ConditionalValue os="android" deviceDensity="240" />
+					<ConditionalValue os="android" deviceDensity="320" />
+					<ConditionalValue os="iphone" deviceDensity="160" />
+					<ConditionalValue os="iphone" deviceDensity="320" />
+					<ConditionalValue os="qnx" deviceDensity="160" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

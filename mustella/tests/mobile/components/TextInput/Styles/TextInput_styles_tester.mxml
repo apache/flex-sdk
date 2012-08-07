@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/TextInput/Styles/"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:m="http://ns.adobe.com/mxml/2009"
+		xmlns="*" testSWF="TextInput2.mxml"
+    >
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+            import spark.components.TextInput;
+
+		]]>
+	</fx:Script>
+
+	<testCases>
+		
+
+		<!-- color -->
+		<TestCase testID="TextInput_color_test1" keywords="[TextInput, color]" description="Ensure that color works in mxml.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>				
+		</TestCase>
+
+		<TestCase testID="TextInput_color_test2" keywords="[TextInput, color]" description="Ensure that color works in AS.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="color" value="0xff0000" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_color_test3" keywords="[TextInput, color]" description="Ensure that color works in CSS.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp3">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_color_test4" keywords="[TextInput, color]" description="Ensure that color works in disabled control.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="color" value="0xff0000"/>
+				<SetProperty target="tic3.ti2"  propertyName="enabled" value="false" waitEvent="updateComplete"  />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_color_test5" keywords="[TextInput, color, inheritance]" description="Test inheritance.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.grp2" styleName="color" value="0xff0000" waitEvent="updateComplete"  />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- focusColor.  Don't do screen shots because the blinking cursor gets in the way.  Grab a pixel at the corner.  The control is at 10,10 in the group. -->
+		<TestCase testID="TextInput_focusColor_test1" keywords="[TextInput, focusColor]" description="Ensure that focusColor works in mxml.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic3.ti1.focusManager.setFocus(FlexGlobals.topLevelApplication.tic3.ti1)" waitTarget="tic3.ti1" waitEvent="focusIn" />
+				<Pause timeout="200" />
+				<AssertPixelValue target="tic3.grp1" x="10" y="10" >
+					<ConditionalValue deviceDensity="160" value="0xB0FFB0" />
+					<ConditionalValue deviceDensity="240" value="0x99FF99" />
+					<ConditionalValue deviceDensity="320" value="0xF7FFF7" />
+				</AssertPixelValue>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_focusColor_test2" keywords="[TextInput, focusColor]" description="Ensure that focusColor works in AS.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="focusColor" value="0x00ff00" />
+				<RunCode code="FlexGlobals.topLevelApplication.tic3.ti2.focusManager.setFocus(FlexGlobals.topLevelApplication.tic3.ti2)" waitTarget="tic3.ti2" waitEvent="focusIn" />				
+				<Pause timeout="200" />
+				<AssertPixelValue target="tic3.grp2" x="10" y="10" >
+					<ConditionalValue deviceDensity="160" value="0xB0FFB0"/>
+					<ConditionalValue deviceDensity="240" value="0x99FF99" />
+					<ConditionalValue deviceDensity="320" value="0xF7FFF7" />
+				</AssertPixelValue>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_focusColor_test3" keywords="[TextInput, focusColor]" description="Ensure that focusColor works in CSS.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic3.ti3.focusManager.setFocus(FlexGlobals.topLevelApplication.tic3.ti3)" waitTarget="tic3.ti3" waitEvent="focusIn" />				
+				<Pause timeout="200" />				
+				<AssertPixelValue target="tic3.grp3" x="10" y="10" >
+					<ConditionalValue deviceDensity="160" value="0xB0FFB0"/>
+					<ConditionalValue deviceDensity="240" value="0x99FF99" />
+					<ConditionalValue deviceDensity="320" value="0xF7FFF7" />
+				</AssertPixelValue>
+			</body>
+		</TestCase>
+
+
+
+		<!-- contentBackgroundColor -->
+		<TestCase testID="TextInput_contentBackgroundColor_test1" keywords="[TextInput, contentBackgroundColor]" description="Ensure that contentBackgroundColor works in mxml.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="200" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp1">
+						<ConditionalValue deviceDensity="160" />
+						<ConditionalValue deviceDensity="240" />
+						<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+					</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_contentBackgroundColor_test2" keywords="[TextInput, contentBackgroundColor]" description="Ensure that contentBackgroundColor works in AS.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="contentBackgroundColor" value="0x0000ff" waitEvent="updateComplete" />
+			    <CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+						<ConditionalValue deviceDensity="160" />
+						<ConditionalValue deviceDensity="240" />
+						<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+					</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_contentBackgroundColor_test3" keywords="[TextInput, contentBackgroundColor]" description="Ensure that contentBackgroundColor works in CSS.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp3">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_contentBackgroundColor_test4" keywords="[TextInput, contentBackgroundColor]" description="Ensure that contentBackgroundColor works in a disabled field.">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="tic3.ti2"  propertyName="enabled" value="false" />
+				<SetStyle target="tic3.ti2" styleName="contentBackgroundColor" value="0x0000ff" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- textAlign: left, right, center, start, end -->
+		<TestCase testID="TextInput_textAlign_test1" keywords="[TextInput, textAlign]" description="textAlign left">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="textAlign" value="left" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_textAlign_test2" keywords="[TextInput, textAlign]" description="textAlign center">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="textAlign" value="center" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_textAlign_test3" keywords="[TextInput, textAlign]" description="textAlign right">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="textAlign" value="right" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_textAlign_test4" keywords="[TextInput, textAlign]" description="textAlign start">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="textAlign" value="start" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_textAlign_test5" keywords="[TextInput, textAlign]" description="textAlign end">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="textAlign" value="end" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_textAlign_test6" keywords="[TextInput, textAlign, SDK-27522]" description="textAlign end">
+			<setup>
+						<ResetComponent target="tic7" className="components.TextInputComp7" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="100" ignoreMaxColorVariance="true" url="../Styles/baselines" target="tic7.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<!-- fontWeight -->
+		<TestCase testID="TextInput_fontWeight_test1" keywords="[TextInput, fontWeight]" description="fontWeight normal">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="fontWeight" value="normal" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_fontWeight_test2" keywords="[TextInput, fontWeight]" description="fontWeight bold">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="fontWeight" value="bold" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- fontSize -->
+		<TestCase testID="TextInput_fontSize_test1" keywords="[TextInput, fontSize]" description="fontSize 1">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti4" styleName="fontSize" value="1" />
+				<SetProperty target="tic3.ti4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_fontSize_test2" keywords="[TextInput, fontSize]" description="fontSize 12">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti4" styleName="fontSize" value="12" />
+				<SetProperty target="tic3.ti4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_fontSize_test3" keywords="[TextInput, fontSize]" description="fontSize 48">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti4" styleName="fontSize" value="48" />
+				<SetProperty target="tic3.ti4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_fontSize_test4" keywords="[TextInput, fontSize]" description="fontSize decrease">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti4" styleName="fontSize" value="48" />
+				<SetProperty target="tic3.ti4" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<SetStyle target="tic3.ti4" styleName="fontSize" value="12" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- textDecoration -->
+		<TestCase testID="TextInput_textDecoration_test1" keywords="[TextInput, textDecoration]" description="textDecoration normal">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="textDecoration" value="normal" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_textDecoration_test2" keywords="[TextInput, textDecoration]" description="textDecoration underline">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="textDecoration" value="underline" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- textIndent -->
+		<TestCase testID="TextInput_textIndent_test1" keywords="[TextInput, textIndent]" description="textIndent -10">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="textIndent" value="-10" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_textIndent_test2" keywords="[TextInput, textIndent]" description="textIndent 0">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="textIndent" value="0" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_textIndent_test3" keywords="[TextInput, textIndent]" description="textIndent 10">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="textIndent" value="10" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_textIndent_test4" keywords="[TextInput, textIndent]" description="textIndent 50">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="textIndent" value="50" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+
+		<!-- letterSpacing -->
+		<TestCase testID="TextInput_letterSpacing_test1" keywords="[TextInput, letterSpacing]" description="letterSpacing -10">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="letterSpacing" value="-10" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_letterSpacing_test2" keywords="[TextInput, letterSpacing]" description="letterSpacing 0">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="letterSpacing" value="0" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_letterSpacing_test3" keywords="[TextInput, letterSpacing]" description="letterSpacing 20">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetStyle target="tic3.ti2" styleName="letterSpacing" value="20" />
+				<SetProperty target="tic3.ti2" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp2">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<!-- fontFamily -->
+		<TestCase testID="TextInput_fontFamily_test1" keywords="[TextInput, fontFamily]" description="fontFamily changed">
+			<setup>
+						<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="tic3.ti4" propertyName="text" value="I0J" waitEvent="updateComplete" />
+				<SetStyle target="tic3.ti4" styleName="fontFamily" value="myVeraMonospaceNoCFF" waitEvent="updateComplete" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="24" url="../Styles/baselines" target="tic3.grp4">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_fontFamily_test2" keywords="[TextInput, fontFamily]" description="Test CFF and non-CFF fonts in TextInput (MobileTextField) and Label (TLF).">
+			<setup>
+						<ResetComponent target="tic6" className="components.TextInputComp6" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="tic6.ti1" styleName="fontFamily" value="myVeraMonospaceCFF"/>
+				<AssertStyleValue target="tic6.lbl1" styleName="fontFamily" value="myVeraMonospaceCFF"/>
+				<AssertStyleValue target="tic6.ti2" styleName="fontFamily" value="myVeraMonospaceNoCFF"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="124" url="../Styles/baselines" target="tic6.grp1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+
+		<!-- Can't do this until we have scrolling. -->
+		<!-- symbolColor -->
+
+	</testCases>
+</UnitTester>

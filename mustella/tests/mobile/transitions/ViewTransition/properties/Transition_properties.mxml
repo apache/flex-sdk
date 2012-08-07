@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/transitions/ViewTransition/properties/"
+			xmlns:components="components.*"
+			
+			testSWF="ViewTransition.mxml">
+	
+	
+	<fx:Script><![CDATA[ 
+		import components.*;
+		
+		import mx.core.FlexGlobals;
+		import mx.core.mx_internal;
+		import mx.events.FlexEvent;
+		
+		import spark.transitions.CrossFadeViewTransition;
+		import spark.transitions.FlipViewTransition;
+		import spark.transitions.SlideViewTransition;
+		import spark.transitions.ZoomViewTransition;
+		
+		import transitions.Transition;
+	  
+		
+		public static function init(o:DisplayObject):void { } 
+		
+		
+		
+			
+	
+		
+	]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	
+	
+	
+	<testCases>
+		<TestCase testID="ViewTransitionBase_properties_default" keywords="[title]" description="verify default properties for ViewTransitionBase">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = new Transition().duration" valueExpression="value=250"  />
+				<AssertMethodValue method="value = new Transition().endView" value="null" />
+				<AssertMethodValue method="value = new Transition().startView" value="null" />
+				<AssertMethodValue method="value = new Transition().suspendBackgroundProcessing" value="true" />
+
+<!--	<AssertMethodValue method="value = new Transition().easer" valueExpression="value=Object[Sine(.5)]" />
+-->				<AssertMethodValue method="value = new Transition().transitionControlsWithContent" value="false" />
+				<AssertMethodValue method="value = new Transition().navigator" value="null" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="SlideViewTransition_properties_default" keywords="[title]" description="verify default properties for SlideViewTransition">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = new SlideViewTransition().duration" value="300" />
+				<AssertMethodValue method="value = new SlideViewTransition().mode" value="push" />
+				<AssertMethodValue method="value = new SlideViewTransition().direction" value="left" />
+				<AssertMethodValue method="value = new SlideViewTransition().endView" value="null" />
+				<AssertMethodValue method="value = new SlideViewTransition().startView" value="null" />
+				<AssertMethodValue method="value = new SlideViewTransition().suspendBackgroundProcessing" value="true" />
+
+		<AssertMethodValue method="value = new SlideViewTransition().transitionControlsWithContent" value="false" />
+				<AssertMethodValue method="value = new SlideViewTransition().navigator" value="null" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="CrossFadeViewTransition_properties_default" keywords="[title]" description="verify default properties for CrossFadeViewTransition">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertMethodValue method="value = new CrossFadeViewTransition().duration" value="400" />
+				<AssertMethodValue method="value = new CrossFadeViewTransition().endView" value="null" />
+				<AssertMethodValue method="value = new CrossFadeViewTransition().startView" value="null" />
+				<AssertMethodValue method="value = new CrossFadeViewTransition().transitionControlsWithContent" value="false" />
+				<AssertMethodValue method="value = new CrossFadeViewTransition().navigator" value="null" />
+				<AssertMethodValue method="value = new CrossFadeViewTransition().suspendBackgroundProcessing" value="true" />
+
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ZoomViewTransition_properties_default" keywords="[title]" description="verify default properties for ZoomViewTransition">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertMethodValue method="value = new ZoomViewTransition().duration" value="350" />
+				<AssertMethodValue method="value = new ZoomViewTransition().mode" value="out" />
+				<AssertMethodValue method="value = new ZoomViewTransition().endView" value="null" />
+				<AssertMethodValue method="value = new ZoomViewTransition().startView" value="null" />
+				<AssertMethodValue method="value = new ZoomViewTransition().minimumScale" value=".25" />
+<!--						<AssertMethodValue method="value = new ZoomViewTransition().easer" value="sin.5" />
+-->								<AssertMethodValue method="value =  new ZoomViewTransition().transitionControlsWithContent" value="true" />
+				<AssertMethodValue method="value = new ZoomViewTransition().navigator" value="null" />
+				<AssertMethodValue method="value = new ZoomViewTransition().suspendBackgroundProcessing" value="true" />
+
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FlipViewTransition_properties_default" keywords="[title]" description="verify default properties for FlipViewTransition">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertMethodValue method="value = new FlipViewTransition().duration" value="450" />
+				<AssertMethodValue method="value = new FlipViewTransition().mode" value="card" />
+				
+				<AssertMethodValue method="value = new FlipViewTransition().direction" value="left" />
+
+				<AssertMethodValue method="value = new FlipViewTransition().endView" value="null" />
+				<AssertMethodValue method="value = new FlipViewTransition().startView" value="null" />
+<!--								<AssertMethodValue method="value = new FlipViewTransition().easer" value="sin.5" />
+-->							<AssertMethodValue method="value = new FlipViewTransition().transitionControlsWithContent" value="false" />
+				<AssertMethodValue method="value = new FlipViewTransition().navigator" value="null" />
+				<AssertMethodValue method="value = new FlipViewTransition().suspendBackgroundProcessing" value="true" />
+
+			</body>
+		</TestCase>
+</testCases>
+</UnitTester>

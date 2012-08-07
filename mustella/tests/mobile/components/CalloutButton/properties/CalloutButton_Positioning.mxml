@@ -1,0 +1,1264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/components/CalloutButton/properties/"
+			testSWF="CalloutTest.mxml">
+	
+	<fx:Script>
+		<![CDATA[ 
+			import comps.*;
+            import views.*;
+			import mx.core.FlexGlobals;
+			
+			import spark.components.CalloutPosition;
+			
+			import spark.core.ContainerDestructionPolicy;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	
+	<testCases>
+        <!-- default positioning-->
+		<TestCase testID="CalloutButton_Default" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="Assert default positioniongs of CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="null" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="null" />
+                <RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+                         waitTarget="navigator.activeView.calloutButtonBasic"
+                         waitEvent="open" />
+				<!-- verify Callout is shown -->
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+				<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>
+		</TestCase>
+        <TestCase testID="CalloutButton_PositionSetTwice" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="set positions and assert them twice for CalloutButton">
+            
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="null" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="null" />
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before" />
+                <RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+                         waitTarget="navigator.activeView.calloutButtonBasic" 
+                         waitEvent="open" />
+                <!-- verify Callout is shown -->
+                <AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before" />
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after" />
+                <RunCode code="application.navigator.activeView.calloutButtonBasic.closeDropDown()" 
+                         waitTarget="navigator.activeView.calloutButtonBasic" 
+                         waitEvent="close" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after" />
+               
+            </body>
+        </TestCase>
+		
+        <!--tests for all possible combinations of callout positioning-->
+       
+		<TestCase testID="CalloutButton_AUTOAUTO" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AUTO positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto"/>
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VbeforeHbefore" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting BEFORE and BEFORE positions for CalloutButton">
+			<bugs>
+				<Bug bugID="SDK-31255"/>
+			</bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before" />
+				
+			<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+				<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VbeforeHstart" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting BEFORE and START positions for CalloutButton">
+		
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start" />
+					<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+				<ConditionalValue deviceDensity="160" os="win"/>
+				<ConditionalValue deviceDensity="240" os="android"/>
+				<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+				<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VbeforeHmiddle" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting BEFORE and MIDDLE positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle" />
+				
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VbeforeHend" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting BEFORE and END positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VbeforeHafter" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting BEFORE and AFTER positions for CalloutButton">
+			<bugs>
+				<Bug bugID="SDK-31255"/>
+			</bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="CalloutButton_VstartHbefore" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting START and BEFORE positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VstartHstart" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting START and START positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VstartHmiddle" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting START and MIDDLE positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VstartHend" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting START and END positisons for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VstartHafter" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting START and AFTER positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VmiddleHbefore" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting MIDDLE and BEFORE positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VmiddleHstart" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting MIDDLE and START positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VmiddleHmiddle" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting MIDDLE and MIDDLE positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VmiddleHend" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting MIDDLE and END positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VmiddleHafter" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting MIDDLE and AFTER positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VendHbefore" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting END and BEFORE positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VendHstart" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting END and START positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VendHmiddle" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting END and MIDDLE positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VendHend" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting END and END positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VendHafter" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting END and AFTER positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VafterHbefore" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AFTER and BEFORE positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VafterHstart" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AFTER and START positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VafterHmiddle" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AFTER and MIDDLE positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VafterHend" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AFTER and END positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end" />
+				
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VafterHafter" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AFTER and AFTER positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VautoHbefore" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AUTO and BEFORE positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="before" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VautoHstart" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AUTO and START positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+				
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start" />
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VautoHmiddle" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AUTO and MIDDLE positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="middle" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VautoHend" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AUTO and END positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="end" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VautoHafter" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AUTO and AFTER positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="auto" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="after" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VbeforeHauto" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting BEFORE and AUTO positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VstartHauto" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting START and AUTO positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="start" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VmiddleHauto" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting MIDDLE and AUTO positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+				
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="middle" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto" />
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VendHauto" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting END and AUTO positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="end" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_VafterHauto" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="setting AFTER and AUTO positions for CalloutButton">
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto"/>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="after" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="auto" />
+				 
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.containerBasic">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+        
+		<!-- tests for sdk-31190 Callout only repositions while open (A) when the systemManager is resized or (B) if horizontalPosition/verticalPosition values change. 
+		
+		-->
+		
+		<TestCase testID="CalloutButton_ChangePositionWhileOpen" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="verify callout correctly repositions while open">
+		  <bugs>
+              <Bug bugID="SDK-31190" />
+          </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+			
+				
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before" waitTarget="navigator.activeView.calloutButtonBasic.callout" waitEvent="updateComplete"/>
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start" waitTarget="navigator.activeView.calloutButtonBasic.callout" waitEvent="updateComplete"/>
+			
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="verticalPosition" value="before"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="horizontalPosition" value="start"/>
+
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+				
+			
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_ChangeOwnerSizeWhileOpen" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="make sure open and close event works for CalloutButton">
+			<bugs>
+				<Bug bugID="SDK-31190" />
+			</bugs>
+				
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+				
+				<SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="width" value="50" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="width" value="50" waitEvent="updateComplete" />
+
+				
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+				
+				
+			</body>
+		</TestCase>
+		<TestCase testID="CalloutButton_ChangeOwnerPositionWhileOpen" keywords="[CalloutButton, verticalPosition, horizontalPosition]" description="make sure open and close event works for CalloutButton">
+			<bugs>
+				<Bug bugID="SDK-31190" />
+			</bugs>
+			
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+                <RunCode code="application.navigator.pushView(views.CalloutTest)" waitTarget="navigator" waitEvent="viewChangeComplete"/>	
+                <SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="label" value="Callout Button"/>
+                
+            </setup>
+			<body>
+				<RunCode code="application.navigator.activeView.calloutButtonBasic.openDropDown()" 
+						 waitTarget="navigator.activeView.calloutButtonBasic" 
+						 waitEvent="open" />
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+				
+				<SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="x" value="1" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.calloutButtonBasic" propertyName="y" value="100" waitEvent="updateComplete"/>
+
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="x">
+                    <ConditionalValue deviceDensity="160" os="win" value="184"/>
+                    <ConditionalValue deviceDensity="240" os="android" value="147"/>
+                    <ConditionalValue deviceDensity="320" os="win" value="119"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" value="118"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" value="188"/>
+                   
+                    </AssertPropertyValue>
+                <AssertPropertyValue target="navigator.activeView.calloutButtonBasic" propertyName="y">
+                    <ConditionalValue deviceDensity="160" os="win" value="228"/>
+                    <ConditionalValue deviceDensity="240" os="android" value="217"/>
+                    <ConditionalValue deviceDensity="320" os="win" value="206"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" value="206"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" value="228"/>
+                </AssertPropertyValue>
+				<AssertMethodValue method="value = application.navigator.activeView.calloutButtonBasic.isDropDownOpen" value="true"/>
+				
+				
+				
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

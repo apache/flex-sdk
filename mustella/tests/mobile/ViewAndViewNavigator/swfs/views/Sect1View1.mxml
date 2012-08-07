@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		title="Sect1View1" 
+		initialize="onInitialize(event)"
+		add="getReturnObject(event)"
+		>
+
+		<fx:Script>
+			<![CDATA[
+				import mx.events.FlexEvent;
+				import spark.components.Label;
+				import spark.events.ViewNavigatorEvent;
+				import mx.core.FlexGlobals;
+				import spark.layouts.HorizontalLayout;
+				import spark.layouts.VerticalLayout;
+				
+        import spark.components.supportClasses.ViewReturnObject;
+
+				public var returnedObjectValue : ViewReturnObject;
+				
+				protected function onInitialize(event:FlexEvent):void
+				{
+					addEventListener(ViewNavigatorEvent.VIEW_ACTIVATE, onViewActivate);
+					addEventListener(ViewNavigatorEvent.VIEW_DEACTIVATE, onViewDeactivate);
+					addEventListener(FlexEvent.ADD, onAdd);
+					addEventListener(FlexEvent.REMOVE, onRemove);
+					addEventListener(ViewNavigatorEvent.REMOVING, onRemoving);
+				}
+
+				private function onViewActivate(event:ViewNavigatorEvent):void {
+					FlexGlobals.topLevelApplication.eventArray.push("viewActivate_sect1view1");
+				}
+
+				private function onAdd(event:FlexEvent):void {
+					FlexGlobals.topLevelApplication.eventArray.push("add_sect1view1");
+				}
+
+				private function onViewDeactivate(event:ViewNavigatorEvent):void {
+					FlexGlobals.topLevelApplication.eventArray.push("viewDeactivate_sect1view1");
+				}
+
+				private function onRemove(event:FlexEvent):void
+				{
+					FlexGlobals.topLevelApplication.eventArray.push("remove_sect1view1");
+				}
+
+				private function onRemoving(event:ViewNavigatorEvent):void
+				{
+					FlexGlobals.topLevelApplication.eventArray.push("removing_sect1view1");
+				}
+
+				public function getReturnObject(event:FlexEvent):void {
+					if(navigator.poppedViewReturnedObject)
+						returnedObjectValue = navigator.poppedViewReturnedObject;
+				}
+				
+				public function resetContentAndLayout():void {
+					navigator.actionContent = null;
+					navigator.actionLayout = null;
+					
+					navigator.titleContent = null;
+					navigator.titleLayout = null;
+					
+					navigator.navigationContent = null;
+					navigator.navigationLayout = null;
+				}
+				
+				public function setContent():void {
+
+					var l : Label = new Label();
+					l.text = "Label";
+					var l2 : Label = new Label();
+					l2.text = "Label 2";
+					var l3 : Label = new Label();
+					l3.text = "Label 3";
+					var l4 : Label = new Label();
+					l4.text = "Label 4";
+
+					var l5 : Label = new Label();
+					l5.text = "Label 5";
+					var l6 : Label = new Label();
+					l6.text = "Label 6";
+
+					navigator.actionContent = new Array(l3, l4);
+					navigator.titleContent = new Array(l, l2);
+					navigator.navigationContent = new Array(l5, l6);
+				}
+				
+				public function setLayout():void {
+					var hl : VerticalLayout 	= new VerticalLayout();
+					var vl : VerticalLayout 	= new VerticalLayout();
+					var nl : VerticalLayout 	= new VerticalLayout();
+					var nal : VerticalLayout 	= new VerticalLayout();
+					
+					navigator.actionLayout = vl;
+					navigator.titleLayout = hl;
+					navigator.navigationLayout = nal;
+				}
+
+			]]>
+		</fx:Script>
+		
+		<s:Button id="btn1" label="Ima Button" color="#333333"/>
+		<s:Label id="navigator_binding" text="{navigator.length}" />
+</s:View>

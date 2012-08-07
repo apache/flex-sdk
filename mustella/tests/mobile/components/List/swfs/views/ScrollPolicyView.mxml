@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="Scroll Policy">
+
+    <fx:Script>
+        <![CDATA[
+            protected function hRBG_changeHandler(event:Event):void
+            {
+                target.setStyle("horizontalScrollPolicy", hRBG.selectedValue);
+            }
+
+            protected function vRBG_changeHandler(event:Event):void
+            {
+                target.setStyle("verticalScrollPolicy", vRBG.selectedValue);
+            }
+        ]]>
+    </fx:Script>
+
+    <fx:Script source="viewScript.as" />
+    
+    <fx:Declarations>
+        <s:RadioButtonGroup id="hRBG" change="hRBG_changeHandler(event)" />
+        <s:RadioButtonGroup id="vRBG" change="vRBG_changeHandler(event)" />
+    </fx:Declarations>
+    
+    <s:actionContent>
+        <s:Button label="play" click="TouchScrollingUtil.simulateTouchScrollFrameBased(target, null, 150, 150, 100, 100, 35)" />
+        <s:Button label="show" click="trace(target.dataGroup.verticalScrollPosition, target.dataGroup.horizontalScrollPosition)" />
+    </s:actionContent>
+    
+    <s:layout>
+        <s:VerticalLayout horizontalAlign="center" paddingBottom="10" />
+    </s:layout>
+    
+    <s:Group width="100%">
+        <s:VGroup left="10" top="10" gap="10">
+            <s:Label text="horizontalScrollPolicy" />
+            <s:RadioButton label="auto" selected="true" group="{hRBG}" />
+            <s:RadioButton label="on" group="{hRBG}" />
+            <s:RadioButton label="off" group="{hRBG}" />
+        </s:VGroup>
+        
+        <s:VGroup right="10" top="10" gap="10">
+            <s:Label text="verticalScrollPolicy" />
+            <s:RadioButton label="auto" selected="true" group="{vRBG}" />
+            <s:RadioButton label="on" group="{vRBG}" />
+            <s:RadioButton label="off" group="{vRBG}" />
+        </s:VGroup>
+    </s:Group>
+    
+    <s:List id="target" width="80%" height="100%"  dataProvider="{createIdenticalItems(100, 100, 100, 'vertical')}">
+        <s:layout>
+            <s:VerticalLayout gap="1"/>
+        </s:layout>
+        <s:itemRenderer>
+            <fx:Component>
+                <s:ItemRenderer width="1100" height="80">
+                    <s:states>
+                        <s:State name="normal" />
+                        <s:State name="selected" />
+                    </s:states>
+                    <s:Rect width="100%" height="100%">
+                        <s:fill>
+                            <s:SolidColor color="white" />
+                        </s:fill>
+                    </s:Rect>
+                    <s:Label text="{data.myItemIndex}" color="black" fontWeight="bold" verticalCenter="0" left="100"  />
+                    <s:Label text="{data.myItemIndex}" color="blue" fontWeight="bold" verticalCenter="0" left="300"  />
+                    <s:Label text="{data.myItemIndex}" color="red" fontWeight="bold" verticalCenter="0" left="500"  />
+                    <s:Label text="{data.myItemIndex}" color="green" fontWeight="bold" verticalCenter="0" left="700"  />
+                    <s:Label text="{data.myItemIndex}" color="black" fontWeight="bold" verticalCenter="0" left="900"  />
+                    
+                    <s:Rect width="19" height="19" top="0" right="0">
+                        <s:fill>
+                            <s:SolidColor color="yellow" alpha="0.5" />
+                        </s:fill>
+                    </s:Rect>
+                    
+                    <s:Rect width="162" height="15" bottom="0" right="0">
+                        <s:fill>
+                            <s:SolidColor color="yellow" alpha="0.5" />
+                        </s:fill>
+                    </s:Rect>
+                </s:ItemRenderer>
+            </fx:Component>
+        </s:itemRenderer>
+    </s:List>
+    
+</s:View>

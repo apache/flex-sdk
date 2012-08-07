@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:local="component.*"
+		title="Email">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:actionContent>
+		<s:Button label="Home" click="navigator.pushView(HomeView)"/>
+	</s:actionContent>
+	
+	<s:VGroup paddingLeft="10" paddingTop="10" paddingRight="10" paddingBottom="10" gap="10" width="100%" height="100%">
+		<s:TextInput width="100%" prompt="To" enter="cc.setFocus()" showPromptWhenFocused ="true"/>
+		<s:TextInput width="100%" prompt="Cc" id="cc" enter="subject.setFocus()" />
+		<s:TextInput width="100%" prompt="Subject" id="subject" enter="message.setFocus()" showPromptWhenFocused ="false" />
+		<s:TextArea width="100%" minHeight="100" id="message" height="100%">
+			<s:text><![CDATA[Randy Troppmann wrote:
+				
+				I too just tested my first FLEX mobile project for iOS. I used a proof of concept project that I made in January with i5 prerelease drop (I think). Back then I had to painstakingly hand craft the command line to get ADT to build the ipa and the performance on my ipad was dismal. Buttons seem to take a couple taps to work. Scrolling of a simple list view was very clunky. Unusable. I changed my mind about a current project.
+				
+				Today I uninstalled FB 4.5 (lastest prerelease build) and installed 4.5.1 which went smoothly (OXS 10.6.7). I created a new Flex Mobile Project for both iOS (yay) and Android. Copy pasted my code from the previous project. ... just the main.mxml and one view. Ran fine in the emulator.  Located my certificate and provisioning and made the Ad-Hoc release build . Copied the ipa onto my iPad1 using Organizer. Install competed. No problems.
+				
+				WOW. What a difference. The app runs perfectly well. Completely usable. I have once again changed my mind about said project (it was stalled until now anyway). 
+				
+				Great work guys. I will give you more feedback as I dig further. 
+				]]>
+			</s:text>
+		</s:TextArea>
+	</s:VGroup>	
+
+	<s:viewMenuItems >
+		<s:ViewMenuItem label="Goto List"	click="navigator.pushView(EmailView)"/>
+	</s:viewMenuItems>	
+</s:View>

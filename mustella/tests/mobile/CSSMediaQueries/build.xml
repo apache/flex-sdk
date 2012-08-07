@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<project name="build-project" default="build-all">
+	<property name="flex.home" value="C:/FlexMobile/HeroPrivate" />
+		
+	<property name="ipa.cert.path" value="${basedir}/cert.p12" />
+	<property name="ipa.cert.password" value="sl1der" />
+	<property name="ipa.provisioning.profile" value="${basedir}/sliderTestProfile.mobileprovision" />
+	<property name="apk.cert.path" value="${flex.home}/tools/TestRunner/src/TestRunner.p12" />
+	<property name="apk.cert.password" value="TestRunner" />
+	
+	<condition property="batext" value=".bat" else="">
+		<os family="windows"/>
+	</condition>
+	
+	<property name="out.dir" value="${basedir}/bin" />
+	<property name="src.dir" value="${basedir}/swfs"/>
+
+	<target name="build-all" depends="clean">		
+		<build-app app.name="ClassSelectorApp"/>
+		<build-app app.name="TypeSelectorApp"/>
+		<build-app app.name="ExternalStylesheetApp"/>
+	</target>
+
+	<macrodef name="build-app">
+		<attribute name="app.name" />
+		<sequential>
+			<build-swf app.name="@{app.name}"/>
+			<build-airi app.name="@{app.name}"/>
+			<build-apk app.name="@{app.name}"/>
+			<build-ipa app.name="@{app.name}"/>
+		</sequential>
+	</macrodef>
+		
+	<target name="clean" >
+		<delete dir="${out.dir}" />
+	</target> 
+
+	
+	<macrodef name="build-swf">
+		<attribute name="app.name" />
+		<sequential>
+			<mkdir dir="${out.dir}" />
+			<property name="swf.dir" value="${out.dir}/swf" />
+			<mkdir dir="${swf.dir}" />
+			<echo message="Building SWF for @{app.name}"  />
+			<exec executable="${flex.home}/bin/amxmlc${batext}" failonerror="true">
+				<arg value="${src.dir}/@{app.name}.mxml" />
+				<arg value="-o" />
+				<arg value="${swf.dir}/@{app.name}.swf" />
+				<arg value="+configname=airmobile" />
+				<arg value="-load-config+=${flex.home}/frameworks/projects/framework/framework-config.xml" />
+			</exec>
+					
+			<copy file="${src.dir}/@{app.name}-app.xml"
+			      tofile="${swf.dir}/@{app.name}-app.xml" overwrite="true"/>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build-airi">
+		<attribute name="app.name" />
+		<sequential>
+						
+			<echo message="Creating airi for @{app.name}" />
+			<property name="swf.dir" value="${out.dir}/swf" />
+			<property name="airi.dir" value="${out.dir}/airi" />
+			<mkdir dir="${airi.dir}"/>
+				
+			<exec executable="${flex.home}/bin/adt${batext}" dir="${swf.dir}" failonerror="true">
+				<arg line="-prepare ${airi.dir}/@{app.name}.airi @{app.name}-app.xml @{app.name}.swf "/>
+			</exec>
+			
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="build-apk">
+		<attribute name="app.name" />
+		<sequential>
+							
+			<property name="airi.dir" value="${out.dir}/airi" />
+			<condition property="airi.not.available">
+				<not><available file="${airi.dir}/@{app.name}.airi" /></not>
+			</condition>
+							
+			<fail if="${airi.not.available}" message="Could not find ${airi.dir}/@{app.name}.airi. Run the build-airi target before running this target" />
+					
+			<echo message="Creating APK for @{app.name}" />
+			<property name="apk.dir" value="${out.dir}/apk" />
+			<mkdir dir="${apk.dir}" />
+			
+			<exec executable="${flex.home}/bin/adt${batext}" dir="${out.dir}" failonerror="true">
+				<arg value="-package" />
+				<arg value="-target" />
+				<arg value="apk" />
+				<arg value="-storetype" />
+				<arg value="pkcs12" />
+				<arg value="-keystore" />
+				<arg value="${apk.cert.path}" />
+				<arg value="-storepass" />
+				<arg value="${apk.cert.password}" />
+				<arg value="${apk.dir}/@{app.name}.apk" />
+				<arg value="${airi.dir}/@{app.name}.airi" />
+			</exec>	
+			
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="build-ipa">
+		<attribute name="app.name" />
+		<sequential>
+			<property name="airi.dir" value="${out.dir}/airi" />
+			<condition property="airi.not.available">
+				<not><available file="${airi.dir}/@{app.name}.airi" /></not>
+			</condition>
+				
+			<fail if="${airi.not.available}" message="Could not find ${airi.dir}/@{app.name}.airi. Run the build-airi target before running this target" />
+				
+			<echo message="Creating IPA for @{app.name}" />
+			<property name="ipa.dir" value="${out.dir}/ipa" />
+			<mkdir dir="${ipa.dir}" />
+			
+			<exec executable="${flex.home}/bin/adt${batext}" dir="${out.dir}" failonerror="true">
+				<arg value="-package" />
+				<arg value="-target" />
+				<arg value="ipa-test" />
+				<arg value="-provisioning-profile" />
+				<arg value="${ipa.provisioning.profile}" />
+				<arg value="-storetype" />
+				<arg value="pkcs12" />
+				<arg value="-keystore" />
+				<arg value="${ipa.cert.path}" />
+				<arg value="-storepass" />
+				<arg value="${ipa.cert.password}" />
+				<arg value="${ipa.dir}/@{app.name}.ipa" />
+				<arg value="${airi.dir}/@{app.name}.airi" />
+			</exec>		
+		</sequential>
+	</macrodef>
+</project>

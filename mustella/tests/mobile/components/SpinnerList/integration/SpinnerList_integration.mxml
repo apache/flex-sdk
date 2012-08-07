@@ -1,0 +1,1115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/SpinnerList/integration/"
+    testSWF="SpinnerList.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+            import spark.layouts.HorizontalLayout;
+            import spark.components.SpinnerList;
+            import skins.*;
+            import spark.core.NavigationUnit;
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+        
+        <!--
+        ==============================
+        Integration Testing
+        ==============================
+        -->
+                
+        <TestCase testID="SpinnerList_integration_drag_small_down" keywords="[SpinnerList, Events]" description="drag scroll another item to be selected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="15" dragXTo="15" dragYFrom="100" dragYTo="25" recordedDPI="240" waitEvent="touchInteractionEnd" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_drag_large_down" keywords="[SpinnerList, Events]" description="drag scroll another item to be selected">
+            <bugs>
+                <Bug bugID="SDK-31335" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="15" dragXTo="15" dragYFrom="95%" dragYTo="5%" waitEvent="touchInteractionEnd" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_drag_small_up" keywords="[SpinnerList, Events]" description="drag scroll another item to be selected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="15" dragXTo="15" dragYFrom="25" dragYTo="100" recordedDPI="240" waitEvent="touchInteractionEnd" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_drag_large_up" keywords="[SpinnerList, Events]" description="drag scroll another item to be selected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="15" dragXTo="15" dragYFrom="5%" dragYTo="95%" waitEvent="touchInteractionEnd" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_drag_large_up_noWrap" keywords="[SpinnerList, Events]" description="drag scroll into negative should snap back to zero">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="wrapElements" value="false" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="15" dragXTo="15" dragYFrom="5%" dragYTo="95%" waitEvent="touchInteractionEnd" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_drag_large_down_noWrap" keywords="[SpinnerList, Events]" description="drag scroll another item to be selected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="wrapElements" value="false" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="15" dragXTo="15" dragYFrom="95%" dragYTo="5%" waitEvent="touchInteractionEnd" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_throw_empty" keywords="[SpinnerList, Events]" description="throwing an empty SpinnerList shouldn't RTE">
+            <bugs>
+                <Bug bugID="SDK-31670" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.VirtualLayoutView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=null" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="width" value="300" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="height" value="150" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="wrapElements" value="false" waitEvent="updateComplete" />
+
+                <SimulateMouseGesture target="navigator.activeView.target">
+                    <MouseEventEntry type="mouseDown" localX="46" localY="187" fakeTimeValue="10380" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="186" fakeTimeValue="10690" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="180" fakeTimeValue="10722" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="174" fakeTimeValue="10741" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="168" fakeTimeValue="10755" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="160" fakeTimeValue="10772" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="145" fakeTimeValue="10788" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="133" fakeTimeValue="10812" />
+                    <MouseEventEntry type="mouseUp" localX="46" localY="133" fakeTimeValue="10812" />
+                </SimulateMouseGesture>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_throw_down_virtual" keywords="[SpinnerList, Events]" description="small throw scroll to another item">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.VirtualLayoutView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="typicalItem" value="Billy Jean" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.largerList" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="touchInteractionEnd">
+                    <MouseEventEntry type="mouseDown" localX="46" localY="187" fakeTimeValue="10380" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="186" fakeTimeValue="10690" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="180" fakeTimeValue="10722" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="174" fakeTimeValue="10741" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="168" fakeTimeValue="10755" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="160" fakeTimeValue="10772" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="145" fakeTimeValue="10788" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="133" fakeTimeValue="10812" />
+                    <MouseEventEntry type="mouseUp" localX="46" localY="133" fakeTimeValue="10812" />
+                </SimulateMouseGesture>
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_throw_down_nonVirtual" keywords="[SpinnerList, Events]" description="small throw scroll to another item (virtual layout off)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.VirtualLayoutView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="useVirtualLayout" value="false" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.largerList" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="touchInteractionEnd">
+                    <MouseEventEntry type="mouseDown" localX="46" localY="187" fakeTimeValue="10380" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="186" fakeTimeValue="10690" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="180" fakeTimeValue="10722" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="174" fakeTimeValue="10741" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="168" fakeTimeValue="10755" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="160" fakeTimeValue="10772" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="145" fakeTimeValue="10788" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="133" fakeTimeValue="10812" />
+                    <MouseEventEntry type="mouseUp" localX="46" localY="133" fakeTimeValue="10812" />
+                </SimulateMouseGesture>
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_throw_up" keywords="[SpinnerList, Events]" description="small throw scroll to another item">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.VirtualLayoutView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="typicalItem" value="Billy Jean" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.largerList" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="touchInteractionEnd">
+                    <MouseEventEntry type="mouseDown" localX="46" localY="42" fakeTimeValue="38088" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="42" fakeTimeValue="38128" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="43" fakeTimeValue="38142" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="44" fakeTimeValue="38159" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="48" fakeTimeValue="38175" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="52" fakeTimeValue="38192" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="57" fakeTimeValue="38212" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="65" fakeTimeValue="38229" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="74" fakeTimeValue="38242" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="83" fakeTimeValue="38259" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="91" fakeTimeValue="38275" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="102" fakeTimeValue="38295" />
+                    <MouseEventEntry type="mouseUp" localX="46" localY="102" fakeTimeValue="38307" />
+                </SimulateMouseGesture>
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_throw_up_nonVirtual" keywords="[SpinnerList, Events]" description="small throw scroll to another item (virtual layout off)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.VirtualLayoutView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="useVirtualLayout" value="false" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.largerList" waitEvent="updateComplete" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="touchInteractionEnd">
+                    <MouseEventEntry type="mouseDown" localX="46" localY="42" fakeTimeValue="38088" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="42" fakeTimeValue="38128" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="43" fakeTimeValue="38142" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="44" fakeTimeValue="38159" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="48" fakeTimeValue="38175" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="52" fakeTimeValue="38192" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="57" fakeTimeValue="38212" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="65" fakeTimeValue="38229" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="74" fakeTimeValue="38242" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="83" fakeTimeValue="38259" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="91" fakeTimeValue="38275" />
+                    <MouseEventEntry type="mouseMove" localX="46" localY="102" fakeTimeValue="38295" />
+                    <MouseEventEntry type="mouseUp" localX="46" localY="102" fakeTimeValue="38307" />
+                </SimulateMouseGesture>
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_causeWrap" keywords="[SpinnerList, Events]" description="add enough items to cause wrapping">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_4" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="false" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_5" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="true" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_causeUnwrap" keywords="[SpinnerList, Events]" description="remove an item to cause wrapping to turn off">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_5" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="true" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_4" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="wrapElements" value="false" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_changeSkin" keywords="[SpinnerList, Integration]" description="changing skin at runtime shouldn't RTE">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetStyle target="navigator.activeView.target" styleName="skinClass" valueExpression="value=skins.AndroidSpinnerListSkin" waitEvent="updateComplete" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_empty" keywords="[SpinnerList, Integration]" description="visual check of empty SpinnerListContainer">
+            <bugs>
+                <Bug bugID="SDK-31384" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EmptyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <CompareBitmap target="navigator.activeView.sl" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_empty_container" keywords="[SpinnerList, Integration]" description="visual check of empty SpinnerListContainer">
+            <bugs>
+                <Bug bugID="SDK-31466" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EmptyView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_nestedScrolling" keywords="[SpinnerList, Integration]" description="scrolling should only act on the inner SpinnerList">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.NestedScrollingView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.innerSpinnerList" dragXFrom="15" dragXTo="15" dragYFrom="60" dragYTo="10" waitEvent="touchInteractionEnd" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.outerViewport.verticalScrollPosition" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.innerSpinnerList.dataGroup.verticalScrollPosition != 0" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_width_virtual" keywords="[SpinnerList, Integration]" description="in virtual layout the spinnerlist should size to the typicalItem">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.VirtualLayoutView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_width_nonVirtual" keywords="[SpinnerList, Integration]" description="without virtual layout the spinnerlist should size to the largest item">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.VirtualLayoutView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="useVirtualLayout" value="false" waitEvent="updateComplete" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_states" keywords="[SpinnerList, Integration]" description="set selectedIndex, wrapElements, stepSize via state values">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.StatesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+                <Pause timeout="1000" /><!-- there is no event equivalent to 'all renderers are ready' so we unfortunately must pause -->
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_iconIR" keywords="[SpinnerList, Integration]" description="use a custom IconItemRenderer">
+            <bugs>
+                <Bug bugID="SDK-31473" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.SlotMachineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <CompareBitmap target="navigator.activeView.outerGroup" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_explicitSize_container" keywords="[SpinnerList, Integration]" description="explicitly size a SpinnerListContainer">
+            <bugs>
+                <Bug bugID="SDK-31387" /><!-- Notice the bottom item barely peeking up in the Android run -->
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.StatesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.slc" propertyName="width" value="200" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.slc" propertyName="height" value="200" waitEvent="updateComplete" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_explicitSize" keywords="[SpinnerList, Integration]" description="explicitly size a SpinnerList">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="width" value="200" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="height" value="200" waitEvent="updateComplete" />
+                <CompareBitmap target="navigator.activeView.target" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_customSkin" keywords="[SpinnerList, Integration]" description="custom skin a SpinnerList">
+            <bugs>
+                <Bug bugID="SDK-30894" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AndroidDateSpinnerView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <CompareBitmap target="navigator.activeView.daySpinner" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_styles_color" keywords="[SpinnerList, Integration]" description="setting color on a SpinnerListContainer should apply to the SpinnerLists">
+            <bugs>
+                <Bug bugID="SDK-30990" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.StylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetStyle target="navigator.activeView.slc" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+                <SetStyle target="navigator.activeView.s2" styleName="color" value="0x00FF00" waitEvent="updateComplete" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_styles_fontWeight" keywords="[SpinnerList, Integration]" description="setting fontWeight on a SpinnerListContainer should apply to the SpinnerLists">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.StylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetStyle target="navigator.activeView.slc" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+                <SetStyle target="navigator.activeView.s2" styleName="fontWeight" value="normal" waitEvent="updateComplete" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_styles_fontSize" keywords="[SpinnerList, Integration]" description="setting fontSize on a SpinnerListContainer should apply to the SpinnerLists">
+            <bugs>
+                <Bug bugID="SDK-30969" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.StylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetStyle target="navigator.activeView.slc" styleName="fontSize" value="60" waitEvent="updateComplete" />
+                <SetStyle target="navigator.activeView.s2" styleName="fontSize" value="12" waitEvent="updateComplete" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_styles_textAlign_center" keywords="[SpinnerList, Integration]" description="setting textAlign on a SpinnerListContainer should apply to the SpinnerLists">
+            <bugs>
+                <Bug bugID="SDK-30967" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.StylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetStyle target="navigator.activeView.slc" styleName="textAlign" value="center" waitEvent="updateComplete" />
+                <SetStyle target="navigator.activeView.s2" styleName="textAlign" value="left" waitEvent="updateComplete" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_styles_textAlign_right" keywords="[SpinnerList, Integration]" description="setting textAlign on a SpinnerListContainer should apply to the SpinnerLists">
+            <bugs>
+                <Bug bugID="SDK-30967" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.StylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetStyle target="navigator.activeView.slc" styleName="textAlign" value="right" waitEvent="updateComplete" />
+                <SetStyle target="navigator.activeView.s2" styleName="textAlign" value="center" waitEvent="updateComplete" />
+                <CompareBitmap target="navigator.activeView.slc" url="../integration/baselines/">
+                    <ConditionalValue deviceDensity="160" os="win"/>
+                    <ConditionalValue deviceDensity="320" os="win"/>
+                    <ConditionalValue deviceDensity="160" os="qnx" />
+                    <ConditionalValue deviceDensity="240" os="android"/>
+                    <ConditionalValue deviceDensity="320" os="iphone" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_noWrap_1" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="wrapElements" value="false" waitEvent="updateComplete" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(1, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_noWrap_2" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="wrapElements" value="false" waitEvent="updateComplete" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(2, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="2" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_noWrap_50" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="wrapElements" value="false" waitEvent="updateComplete" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(50, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="50" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_noWrap_100" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="wrapElements" value="false" waitEvent="updateComplete" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(100, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="100" />
+            </body>
+        </TestCase>
+                
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_1" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(1, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_2" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(2, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="2" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_3" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(3, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="3" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_5" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(5, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="5" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_49" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(49, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="49" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_50" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(50, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="50" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_51" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(51, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="51" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_75" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(75, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="75" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_98" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <bugs>
+                <Bug bugID="SDK-31454" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(98, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="98" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_99" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(99, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="99" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_animateToSelectedIndex_100" keywords="[SpinnerList, Integration]" description="check the scroll direction of animating the index (mx_internal)">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <RunCode code="application.navigator.activeView.target. mx_internal::animateToSelectedIndex(100, true)" waitTarget="navigator.activeView.target" waitEvent="change" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="100" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_layout_scrollPositionDelta" keywords="[SpinnerList, Integration]" description="confirm the layout's delta methods always return 0">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getVerticalScrollPositionDelta(NavigationUnit.LEFT)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getVerticalScrollPositionDelta(NavigationUnit.RIGHT)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getVerticalScrollPositionDelta(NavigationUnit.UP)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getVerticalScrollPositionDelta(NavigationUnit.DOWN)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getVerticalScrollPositionDelta(NavigationUnit.PAGE_UP)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getVerticalScrollPositionDelta(NavigationUnit.PAGE_DOWN)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getVerticalScrollPositionDelta(NavigationUnit.HOME)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getVerticalScrollPositionDelta(NavigationUnit.END)" value="0" />
+                
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getHorizontalScrollPositionDelta(NavigationUnit.LEFT)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getHorizontalScrollPositionDelta(NavigationUnit.UP)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getHorizontalScrollPositionDelta(NavigationUnit.DOWN)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_UP)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_DOWN)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getHorizontalScrollPositionDelta(NavigationUnit.HOME)" value="0" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.layout.getHorizontalScrollPositionDelta(NavigationUnit.END)" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_click_down" keywords="[SpinnerList, Events]" description="clicking on the next item should always animate positively">
+            <bugs>
+                <Bug bugID="SDK-31493" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.objectDataProvider" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="typicalItem" value="seventh" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelField" value="name" waitEvent="updateComplete" />
+                
+                <!-- move down by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="190" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="190" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="190" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="1" />
+                
+                <!-- move down by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="190" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="190" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="190" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="2" />
+                
+                <!-- move down by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="190" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="190" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="190" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="3" />
+                
+                <!-- move down by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="190" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="190" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="190" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="4" />
+                
+                <!-- move down by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="190" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="190" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="190" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="5" />
+                
+                <!-- move down by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="190" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="190" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="190" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="6" />
+                
+                <!-- move down by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="190" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="190" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="190" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="0" />
+                
+                <!-- move down by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="190" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="190" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="190" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_click_up" keywords="[SpinnerList, Events]" description="clicking on the previous item should always animate negatively">
+            <bugs>
+                <Bug bugID="SDK-31493" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.objectDataProvider" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="typicalItem" value="seventh" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelField" value="name" waitEvent="updateComplete" />
+                
+                <!-- move up by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="85" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="85" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="85" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="6" />
+                
+                <!-- move up by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="85" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="85" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="85" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="5" />
+                
+                <!-- move up by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="85" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="85" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="85" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="4" />
+                
+                <!-- move up by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="85" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="85" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="85" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="3" />
+                
+                <!-- move up by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="85" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="85" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="85" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="2" />
+                
+                <!-- move up by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="85" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="85" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="85" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="1" />
+                
+                <!-- move up by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="85" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="85" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="85" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="0" />
+                
+                <!-- move up by one item -->
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="85" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="85" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="85" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.selectedIndex" value="6" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_integration_click_up_two" keywords="[SpinnerList, Events]" description="clicking on the first item should animate negatively">
+            <bugs>
+                <Bug bugID="SDK-31315" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.AnimateToSelectedIndexView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <AssertMethodValue method="application.navigator.activeView.scrollPositions = new Array()" />
+                
+                <SimulateMouseGesture target="navigator.activeView.target2" waitEvent="change">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="5" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="5" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="5" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertMethodValue method="value=application.navigator.activeView.assertPositiveScrollDirection()" value="false" />
+                <AssertMethodValue method="value=application.navigator.activeView.assertNegativeScrollDirection()" value="true" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

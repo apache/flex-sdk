@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<!-- containers\spark\myComponents\MyAlertPopUp.mxml -->
+<s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						   xmlns:s="library://ns.adobe.com/flex/spark" 
+						   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	
+	<s:Panel title="My SkinnablePopUpContainer">
+		<s:Scroller height="100%" width="100%">
+			<s:VGroup height="100%" width="100%"
+					  paddingTop="10" paddingLeft="5" paddingRight="10">
+				
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="First Name: " 
+							 fontWeight="bold"/>
+					<s:TextInput width="225"/>
+				</s:HGroup>
+				
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="Last Name: " 
+							 fontWeight="bold"/>
+					<s:TextInput width="225"/>
+				</s:HGroup>
+				
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="First Name1: " 
+							 fontWeight="bold"/>
+					<s:TextInput width="225"/>
+				</s:HGroup>
+				
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="First Name2: " 
+							 fontWeight="bold"/>
+					<s:TextInput width="225"/>
+				</s:HGroup>
+				
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="First Name3: " 
+							 fontWeight="bold"/>
+					<s:TextInput width="225"/>
+				</s:HGroup>
+				
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="First Name4: " 
+							 fontWeight="bold"/>
+					<s:TextInput width="225"/>
+				</s:HGroup>
+				
+				
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="First Name5: " 
+							 fontWeight="bold"/>
+					<s:TextInput width="225"/>
+				</s:HGroup>
+				
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="First Name6: " 
+							 fontWeight="bold"/>
+					<s:TextInput width="225"/>
+				</s:HGroup>
+				<s:Button label="OK" click="close();"/>
+
+			</s:VGroup>
+			
+		</s:Scroller>	
+	
+	</s:Panel>
+	
+</s:SkinnablePopUpContainer>

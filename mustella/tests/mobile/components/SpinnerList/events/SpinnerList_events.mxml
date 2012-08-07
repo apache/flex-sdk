@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/SpinnerList/events/"
+    testSWF="SpinnerList.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+        
+        <!--
+        ==============================
+        Events Testing
+        ==============================
+        -->
+        
+        <TestCase testID="SpinnerList_events_programmatic" keywords="[SpinnerList, Events]" description="setting selection programmatically should fire valueCommit">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="1" />
+                <AssertEvent target="navigator.activeView.target" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+                <AssertNoEvent target="navigator.activeView.target" eventName="change" eventClass="spark.events::IndexChangeEvent" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_events_change_click" keywords="[SpinnerList, Events]" description="click should fire both change and valueCommit events">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="190" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="190" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="50" localY="190" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                <AssertEvent target="navigator.activeView.target" eventName="change" eventClass="spark.events::IndexChangeEvent" />
+                <AssertEventPropertyValue propertyName="oldIndex" value="0" />
+                <AssertEventPropertyValue propertyName="newIndex" value="1" />
+                <AssertEvent target="navigator.activeView.target" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_events_change_clickSelected" keywords="[SpinnerList, Events]" description="clicking the selected item shouldn't fire a change or valueCommit">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240">
+                    <MouseEventEntry type="mouseDown" localX="60" localY="140" fakeTimeValue="0" />
+                    <MouseEventEntry type="mouseUp" localX="60" localY="140" fakeTimeValue="80" />
+                    <MouseEventEntry type="click" localX="60" localY="140" fakeTimeValue="160" />
+                </SimulateMouseGesture>
+                
+                <AssertNoEvent target="navigator.activeView.target" eventName="change" eventClass="spark.events::IndexChangeEvent" />
+                <AssertNoEvent target="navigator.activeView.target" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_events_change_drag" keywords="[SpinnerList, Events]" description="drag scroll should fire change and valueCommit events">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="15" dragXTo="15" dragYFrom="100" dragYTo="25" recordedDPI="240" />
+                
+                <AssertEvent target="navigator.activeView.target" eventName="change" eventClass="spark.events::IndexChangeEvent" />
+                <AssertEventPropertyValue propertyName="oldIndex" value="0" />
+                <AssertEventPropertyValue propertyName="newIndex" value="1" />
+                <AssertEvent target="navigator.activeView.target" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_events_change_throw" keywords="[SpinnerList, Events]" description="throw scroll should fire both change and valueCommit events">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="230" fakeTimeValue="10684" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="229" fakeTimeValue="10761" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="228" fakeTimeValue="10777" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="224" fakeTimeValue="10794" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="217" fakeTimeValue="10810" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="203" fakeTimeValue="10828" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="180" fakeTimeValue="10844" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="151" fakeTimeValue="10861" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="118" fakeTimeValue="10877" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="86" fakeTimeValue="10894" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="86" fakeTimeValue="10909" />
+                </SimulateMouseGesture>
+                
+                <AssertEvent target="navigator.activeView.target" eventName="change" eventClass="spark.events::IndexChangeEvent" />
+                <AssertEvent target="navigator.activeView.target" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_events_dataProviderChanged" keywords="[SpinnerList, Events]" description="changing dataProvider should fire dataProviderChanged">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.newDataProvider" />
+                <AssertEvent target="navigator.activeView.target" eventName="dataProviderChanged" eventClass="flash.events::Event" />
+                <AssertNoEvent target="navigator.activeView.target" eventName="change" eventClass="mx.events::FlexEvent" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_events_touchInteraction_drag" keywords="[SpinnerList, Events]" description="drag scroll should fire touch interaction events">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.target" dragXFrom="15" dragXTo="15" dragYFrom="100" dragYTo="25" recordedDPI="240" />
+                
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionStarting" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionStart" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionEnd" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_events_touchInteraction_throw" keywords="[SpinnerList, Events]" description="throw scroll should fire touch interaction events">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.EventsView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                
+                <SimulateMouseGesture target="navigator.activeView.target" recordedDPI="240">
+                    <MouseEventEntry type="mouseDown" localX="50" localY="230" fakeTimeValue="10684" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="229" fakeTimeValue="10761" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="228" fakeTimeValue="10777" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="224" fakeTimeValue="10794" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="217" fakeTimeValue="10810" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="203" fakeTimeValue="10828" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="180" fakeTimeValue="10844" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="151" fakeTimeValue="10861" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="118" fakeTimeValue="10877" />
+                    <MouseEventEntry type="mouseMove" localX="50" localY="86" fakeTimeValue="10894" />
+                    <MouseEventEntry type="mouseUp" localX="50" localY="86" fakeTimeValue="10909" />
+                </SimulateMouseGesture>
+                
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionStarting" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionStart" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+                <AssertEvent target="navigator.activeView.target" eventName="touchInteractionEnd" eventClass="mx.events::TouchInteractionEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="relatedObject" valueExpression="value=application.navigator.activeView.target.scroller" />
+                <AssertEventPropertyValue propertyName="reason" value="scroll" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

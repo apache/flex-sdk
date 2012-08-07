@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/SplitViewNavigator/integration/"
+			testSWF="SPUCSkinApp.mxml">
+
+	<fx:Script>
+		<![CDATA[ 
+		import mx.core.FlexGlobals;
+		import spark.components.SplitViewNavigator;
+		import spark.components.ViewNavigator;	
+		import flash.geom.Point;
+		import comps.*;	
+		import spark.components.SkinnablePopUpContainer;
+		import spark.layouts.*;	
+		import views.*;	
+		import skins.*;
+			
+		public static function init(o:DisplayObject):void { };
+	
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		
+
+		<TestCase testID="PopUp_open" keywords="[SplitViewNavigator, SkinnablePopUpContainer]" description="Use SkinnablePopUpContainer instead of Callout.">
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.svn.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" waitTarget="svn.viewNavigatorPopUp" waitEvent="open"/>
+				<AssertPropertyValue target="svn.viewNavigatorPopUp" propertyName="isOpen" value="true"/>
+				<!-- Without pause, callout isn't captured in ADL runs -->
+				<Pause timeout="200"/>
+				<CompareBitmap numColorVariances="20" maxColorVariance="16" url="../integration/baselines" target="svn.viewNavigatorPopUp">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PopUp_change_view" keywords="[SplitViewNavigator, SkinnablePopUpContainer]" description="Change view inside PopUp">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.svn.viewNavigatorPopUp.isOpen?trace('opened'):FlexGlobals.topLevelApplication.svn.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication);"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn.viewNavigatorPopUp" propertyName="isOpen" value="true"/>			
+				<RunCode code="ViewNavigator(FlexGlobals.topLevelApplication.vn1).pushView(views.View2)" waitTarget="vn1" waitEvent="viewChangeComplete"/>
+
+				<!-- Pause for QNX where the skinned callout failed to be captured.-->
+				<Pause timeout="200"/>
+				<CompareBitmap numColorVariances="60" ignoreMaxColorVariance="true" url="../integration/baselines" target="svn.viewNavigatorPopUp">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="PopUp_close" keywords="[SplitViewNavigator, SkinnablePopUpContainer]" description="Need to close popup. Otherwise it will linger with next tests. ">
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.svn.hideViewNavigatorPopUp()" />
+				<AssertPropertyValue target="svn.viewNavigatorPopUp" propertyName="isOpen" value="false"/>
+			</body>
+		</TestCase>		
+		
+	</testCases>
+</UnitTester>

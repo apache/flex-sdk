@@ -1,0 +1,638 @@
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+            xmlns:mx="library://ns.adobe.com/flex/mx" 
+            xmlns:s="library://ns.adobe.com/flex/spark" 
+            xmlns="*" 
+            testDir="mobile/components/HSlider/properties/"
+            testSWF="HSlider.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{} 
+                
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+       
+    <testCases>
+
+
+
+        <TestCase testID="HSlider_liveDragging_Enabled" keywords="[HSlider, liveDragging]" description="Test liveDragging mode is enabled for HSlider">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myHSlider"/>				
+		    </setup>
+		    <body>
+		    	<AssertStyleValue target="myHSlider" styleName="liveDragging" value="true"/>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />		        
+	        
+	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+		        <DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="22" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="7"/>
+					<ConditionalValue deviceDensity="240" os="android" value="5"/>
+					<ConditionalValue deviceDensity="320" os="win" value="3"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="3"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="7"/>
+				</AssertPropertyValue>				
+				<DispatchMouseEvent target="myHSlider" localX="22" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />				
+		
+				<DispatchMouseEvent target="myHSlider" localX="21" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="21" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="39" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />	
+				
+<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="14"/>
+					<ConditionalValue deviceDensity="240" os="android" value="10"/>
+					<ConditionalValue deviceDensity="320" os="win" value="6"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="6"/>
+	<ConditionalValue deviceDensity="160" os="qnx" value="14"/>
+				</AssertPropertyValue>	
+				<DispatchMouseEvent target="myHSlider" localX="39" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="39" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="39" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider"  />
+				<DispatchMouseEvent target="myHSlider" localX="56" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="20"/>
+					<ConditionalValue deviceDensity="240" os="android" value="14"/>
+					<ConditionalValue deviceDensity="320" os="win" value="9"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="9"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="20"/>
+				</AssertPropertyValue>
+				<DispatchMouseEvent target="myHSlider" localX="56" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="56" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="56" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="74" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="27"/>
+					<ConditionalValue deviceDensity="240" os="android" value="18"/>
+					<ConditionalValue deviceDensity="320" os="win" value="12"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="12"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="27"/>
+				</AssertPropertyValue>
+				<DispatchMouseEvent target="myHSlider" localX="74" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="74" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="74" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="96" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="35"/>
+					<ConditionalValue deviceDensity="240" os="android" value="23"/>
+					<ConditionalValue deviceDensity="320" os="win" value="16"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="16"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="35"/>
+				</AssertPropertyValue>
+				<DispatchMouseEvent target="myHSlider" localX="96" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="96" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="96" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="78" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="28"/>
+					<ConditionalValue deviceDensity="240" os="android" value="18"/>
+					<ConditionalValue deviceDensity="320" os="win" value="13"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="13"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="28"/>
+				</AssertPropertyValue>
+				<DispatchMouseEvent target="myHSlider" localX="78" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="79" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="79" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="61" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="21"/>
+					<ConditionalValue deviceDensity="240" os="android" value="13"/>
+					<ConditionalValue deviceDensity="320" os="win" value="10"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="10"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="21"/>
+				</AssertPropertyValue>
+				<DispatchMouseEvent target="myHSlider" localX="61" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="62" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="62" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="45" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="15"/>
+					<ConditionalValue deviceDensity="240" os="android" value="9"/>
+					<ConditionalValue deviceDensity="320" os="win" value="7"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="7"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="15"/>
+				</AssertPropertyValue>
+				<DispatchMouseEvent target="myHSlider" localX="45" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="45" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="45" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="27" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="8"/>
+					<ConditionalValue deviceDensity="240" os="android" value="5"/>
+					<ConditionalValue deviceDensity="320" os="win" value="4"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="4"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="8"/>
+				</AssertPropertyValue>
+				<DispatchMouseEvent target="myHSlider" localX="27" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+				
+				<DispatchMouseEvent target="myHSlider" localX="27" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="27" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		    </body>
+    	</TestCase>
+ 
+		<TestCase testID="HSlider_liveDragging_Disabled2" keywords="[HSlider, liveDragging]" description="Test liveDragging disabled mode for HSlider">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetStyle target="myHSlider" styleName="liveDragging" value="false" />
+		    </setup>
+		    <body>	        		        
+		        <AssertStyleValue target="myHSlider" styleName="liveDragging" value="false" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+	        
+	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+                <DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="change" waitTarget="myHSlider" />
+
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="3"/>
+					<ConditionalValue deviceDensity="240" os="android" value="2"/>
+					<ConditionalValue deviceDensity="320" os="win" value="2"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="2"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="3"/>
+				</AssertPropertyValue>
+	    	</body>
+    	</TestCase>    
+            
+    	
+ 		<TestCase testID="HSlider_negative_positive_values" keywords="[HSlider, Values]" description="Test Large and Small Positive and Negative Values for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="maximum" value="9999" />
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-9999" />
+		        <SetProperty target="myHSlider" propertyName="value" value="-999" />
+		        <SetProperty target="myHSlider" propertyName="stepSize" value="999" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="maximum" value="9999" />
+            	<AssertPropertyValue target="myHSlider" propertyName="minimum" value="-9999" />
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="-999" />
+            	<AssertPropertyValue target="myHSlider" propertyName="stepSize" value="999" />
+            </body>
+    	</TestCase>      	
+    	
+		<TestCase testID="HSlider_negative_values" keywords="[HSlider, Values]" description="Test Negative Values for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="maximum" value="-9990" />
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-9999" />
+		        <SetProperty target="myHSlider" propertyName="value" value="-9995" />	      
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="maximum" value="-9990" />
+            	<AssertPropertyValue target="myHSlider" propertyName="minimum" value="-9999" />
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="-9995" />
+            </body>
+    	</TestCase>      	
+    	    	    	
+ 		<TestCase testID="HSlider_custom_max" keywords="[HSlider, Maximum]" description="Test Custom Positive Maximum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="maximum" value="300" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+            	
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="100"/>
+					<ConditionalValue deviceDensity="240" os="android" value="68"/>
+					<ConditionalValue deviceDensity="320" os="win" value="50"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="50"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="100"/>
+				</AssertPropertyValue>
+		
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase> 
+    	
+		<TestCase testID="HSlider_custom_max_2" keywords="[HSlider, Maximum]" description="Test Custom Positive Decimal Maximum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+	      		<SetProperty target="myHSlider" propertyName="maximum" value="125.5" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+            	
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="42"/>
+					<ConditionalValue deviceDensity="240" os="android" value="29"/>
+					<ConditionalValue deviceDensity="320" os="win" value="21"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="21"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="42"/>
+				</AssertPropertyValue>
+		
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="0"/>
+					<ConditionalValue deviceDensity="240" os="android" value="1"/>
+					<ConditionalValue deviceDensity="320" os="win" value="0"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="0"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="0"/>
+				</AssertPropertyValue>
+            </body>
+    	</TestCase>    	
+    	
+		<TestCase testID="HSlider_custom_max_3" keywords="[HSlider, Maximum]" description="Test Custom Negative Maximum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-110" />
+            	<SetProperty target="myHSlider" propertyName="maximum" value="-10" />
+            	<SetProperty target="myHSlider" propertyName="value" value="-110" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="-110" />
+            	
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider"/>
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="-77"/>
+					<ConditionalValue deviceDensity="240" os="android" value="-87"/>
+					<ConditionalValue deviceDensity="320" os="win" value="-93"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="-93"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="-77"/>
+				</AssertPropertyValue>
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider"/>
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="-110" />
+            </body>
+    	</TestCase>     	
+    	
+ 		<TestCase testID="HSlider_custom_max_4" keywords="[HSlider, Maximum]" description="Test Custom Negative Decimal Maximum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-50" />
+            	<SetProperty target="myHSlider" propertyName="maximum" value="-5.4" />
+            	<SetProperty target="myHSlider" propertyName="value" value="-50" />
+            	
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="-50" />
+            	
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="-35"/>
+					<ConditionalValue deviceDensity="240" os="android" value="-40"/>
+					<ConditionalValue deviceDensity="320" os="win" value="-43"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="-43"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="-35"/>
+				</AssertPropertyValue>
+		
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="-50" />
+            </body>
+    	</TestCase>                               
+    
+		<TestCase testID="HSlider_custom_min_2" keywords="[HSlider, Minimum]" description="Test Custom Positive Decimal Minimum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="minimum" value="1.5"/>
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="4.5"/>
+					<ConditionalValue deviceDensity="240" os="android" value="3.5"/>
+					<ConditionalValue deviceDensity="320" os="win" value="2.5"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="2.5"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="4.5"/>
+				</AssertPropertyValue>
+		
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="1.5"/>
+            </body>
+    	</TestCase> 
+    	
+		<TestCase testID="HSlider_custom_min_3" keywords="[HSlider, Minimum]" description="Test Custom Negative Minimum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-40" />
+		        <SetProperty target="myHSlider" propertyName="value" value="-40"/>
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="-23"/>
+					<ConditionalValue deviceDensity="240" os="android" value="-29"/>
+					<ConditionalValue deviceDensity="320" os="win" value="-32"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="-32"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="-23"/>
+				</AssertPropertyValue>
+		
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="-40" />
+            </body>
+    	</TestCase>     	
+    	
+		
+
+		<TestCase testID="HSlider_snapInterval_5" keywords="[HSlider, snapInterval]" description="Test decimal snapInterval for HSlider">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="0.1" />
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+		        <AssertPropertyValue target="myHSlider" propertyName="snapInterval" value="0.1" />
+	        
+	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="30" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="30" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="9.6"/>
+					<ConditionalValue deviceDensity="240" os="android" value="6.6"/>
+					<ConditionalValue deviceDensity="320" os="win" value="4.8"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="4.8"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="9.6"/>
+				</AssertPropertyValue>
+				
+	        	<DispatchMouseEvent target="myHSlider" localX="30" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="30" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="50" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="50" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="17"/>
+					<ConditionalValue deviceDensity="240" os="android" value="11.600000"/>
+					<ConditionalValue deviceDensity="320" os="win" value="8.5"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="8.5"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="17"/>
+				</AssertPropertyValue>				
+	
+		    </body>
+    	</TestCase>    	
+   
+    	<TestCase testID="HSlider_default_liveDragging_inGroup" keywords="[HSlider, liveDragging, Group]" description="Test Default liveDragging Mode for HSlider in a Group">
+	    	<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+	 	   </setup>
+	 	   <body>
+				<AssertStyleValue target="myHSlider" styleName="liveDragging" value="true" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	      
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />			
+	 	   </body>
+    	</TestCase>
+    	
+    	<TestCase testID="HSlider_liveDraggingDisabled_inGroup" keywords="[HSlider, liveDragging, Group]" description="Test Default liveDragging Mode for HSlider in a Group">
+	    	<setup>
+				<ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/> 
+				<SetStyle target="myGroupHSlider" styleName="liveDragging" value="false" />
+	 	   </setup>
+	 	   <body>
+				<AssertStyleValue target="myGroupHSlider" styleName="liveDragging" value="false" />
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />	        
+				<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />
+	 	   </body>
+    	</TestCase>    	
+    	
+ 		<TestCase testID="HSlider_custom_max_inGroup" keywords="[HSlider, Maximum, Group]" description="Test Custom Positive Maximum for HSlider in Group">
+            <setup>
+		        <ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/> 
+		        <SetProperty target="myGroupHSlider" propertyName="maximum" value="300" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />
+            	
+            	<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+           	<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+	
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />
+		
+			<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase>    	
+
+	
+		<TestCase testID="HSlider_stepSize" keywords="[HSlider,valueCommit,change,Event,Up]" description="Test HSlider valueCommit and change events when keyboard UP is used">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="stepSize" value="5" />
+		    </setup>
+		    <body>
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+	    	
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="myHSlider" />	
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="5" />	    	
+		
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="myHSlider" />					
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	    	
+	        
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="change" waitTarget="myHSlider" />		        
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="5" />	    	
+	        
+		        <DispatchKeyEvent keys="[LEFT]" waitEvent="change" waitTarget="myHSlider" />        
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	    		     
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="HSlider_thumbPos1" keywords="[HSlider, Thumb]" description="Test HSlider thumb positioning">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="value" value="150" waitEvent="updateComplete" waitTarget="myHSlider" />				
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="10"/>
+				<CompareBitmap target="myHSlider" url="../properties/baselines">
+						<ConditionalValue deviceDensity="160" os="win"/>
+						<ConditionalValue deviceDensity="240" os="android"/>
+						<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="HSlider_thumbPos2" keywords="[HSlider, Thumb]" description="Test HSlider thumb positioning">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="value" value="4" waitEvent="updateComplete" waitTarget="myHSlider" />
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="4" />	        	        	        	        	        	    				
+				<CompareBitmap target="myHSlider" url="../properties/baselines">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>		   
+			</body>
+    	</TestCase>       	
+    	
+		<TestCase testID="HSlider_step1" keywords="[HSlider, Step]" description="Test HSlider step function">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 				
+		    </setup>
+		    <body>
+		        <RunCode code="application.myHSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="1" />
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="HSlider_step2" keywords="[HSlider, Step]" description="Test HSlider step function">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 			
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myHSlider" />
+		    </setup>
+		    <body>
+		        <RunCode code="application.myHSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="10" />
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+		    </body>
+    	</TestCase> 
+    	
+		<TestCase testID="HSlider_step3" keywords="[HSlider, Step]" description="Test HSlider step function">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 			
+				<SetProperty target="myHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="value" value="5" waitEvent="updateComplete" waitTarget="myHSlider" />
+		    </setup>
+		    <body>
+		        <RunCode code="application.myHSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="20" />
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="10" />
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+		    </body>
+    	</TestCase> 
+    	
+		<TestCase testID="HSlider_step4" keywords="[HSlider, Step]" description="Test HSlider step function">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 			
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myHSlider" />				
+				<SetProperty target="myHSlider" propertyName="value" value="5" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="minimum" value="-3" waitEvent="updateComplete" waitTarget="myHSlider" />
+		    </setup>
+		    <body>		   
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="-3" />
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="-3" />
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="HSlider_step5" keywords="[HSlider, Step]" description="Test HSlider step function">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>				
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myHSlider" />				
+				<SetProperty target="myHSlider" propertyName="maximum" value="103" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="value" value="85" waitEvent="updateComplete" waitTarget="myHSlider" />				
+		    </setup>
+		    <body>		   
+		        <RunCode code="application.myHSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="100" />
+		        <RunCode code="application.myHSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="103" />
+		    </body>
+    	</TestCase>     	
+    	
+		
+		<TestCase testID="HSlider_baselinePosition_preValidation" keywords="[HSlider, baselinePosition]" description="Test baselinePosition HSlider">
+			<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+			</setup>
+			<body>				
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="0"/>
+					<ConditionalValue deviceDensity="240" os="android" value="0"/>
+					<ConditionalValue deviceDensity="320" os="win" value="0"/>
+<ConditionalValue deviceDensity="320" os="iphone" value="0"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="0"/>
+				</AssertPropertyValue>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="HSlider_baselinePosition_postValidation" keywords="[HSlider, baselinePosition]" description="Test baselinePosition HSlider">
+			<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+			</setup>
+			<body>				
+				<AssertPropertyValue target="myHSlider" propertyName="value">
+					<ConditionalValue deviceDensity="160" os="win" value="0"/>
+					<ConditionalValue deviceDensity="240" os="android" value="0"/>
+					<ConditionalValue deviceDensity="320" os="win" value="0"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="0"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="0"/>
+				</AssertPropertyValue>					
+			</body>
+		</TestCase>
+			
+    </testCases>
+    
+</UnitTester>

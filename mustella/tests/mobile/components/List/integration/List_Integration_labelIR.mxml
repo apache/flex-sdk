@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/List/integration/"
+    testSWF="List.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+            import renderers.*;
+            import spark.components.LabelItemRenderer;
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+        <!--
+        =========================
+        Testing LabelItemRenderer
+        =========================
+        
+        Directly testing the properties of LabelItemRenderer isn't all that beneficial, it should be tested
+        in the context of a List.  We check the default values of the public variables directly, but everything
+        else will be making changes to the List and then digging down into a renderer to assert correct values.
+        
+        Don't spend too much time on this class beyond the basics as testing IconItemRenderer will cover
+        a lot more of this base class.
+        
+        Properties:
+        
+        data
+        + check default is null
+        + sanity check that the appropriate dataProvider values are coming through 
+        
+        dragging (not currently supported in mobile)
+        + check default is false
+        
+        itemIndex
+        + check default is 0
+        + sanity check that this works given a dataProvider
+        
+        label
+        + check default is ""
+        + set labelField on the List, check label contains that field
+        + set labelFunction on the List, check this is set correctly
+        + set both labelField and labelFunction, check labelFunction takes precedence
+        
+        selected
+        + check default is false
+        + click on an item in the List, check selected is set
+        + programmatically set selection on the List, check selected is set
+        
+        showsCaret
+        + check default is false
+        + fake a 5-way down, check that this is set
+        + click on an item in the List, check this is set
+        + programmatically set selection, check this is set
+		
+		Styles:
+		
+		alternatingItemColors 
+		+ check default is undefined
+		+ change these colors and ensure they are respected
+		
+		focusColor  
+		+ check default is 0x70B2EE
+		+ not supported
+		
+		paddingBottom  
+		+ check default is 15
+		+ check that the labelDisplay is moved to respect this
+		
+		paddingTop 
+		+ check default is 15
+		+ check that the labelDisplay is moved to respect this
+		
+		paddingLeft 
+		+ check default is 15
+		+ check that the labelDisplay is moved to respect this
+		
+		paddingRight
+		+ check default is 15
+		+ check that the labelDisplay is resized to respect this
+		
+		downColor 
+		+ check default is 0xA8C6EE
+		+ change this color and mouse down on a renderer to ensure it is respected
+		
+		verticalAlign 
+		+ check default is middle
+		+ set to top 
+		+ set to bottom
+		
+		rollOverColor 
+		+ check default is 0xCEDBEF
+		+ not supported
+		
+		selectionColor 
+		+ check default is 0xA8C6EE
+		+ change this color and click on a renderer to ensure it is respected
+		
+		symbolColor 
+		+ check default is 0x000000
+		+ not supported
+		
+		Text Styles:
+		
+		+ textAlign
+		+ fontFamily
+		+ fontWeight
+		+ color
+		+ fontSize
+		+ textDecoration
+		+ textIndent
+		+ leading
+		+ letterSpacing
+        
+        Integration:
+        
+        + visual check of what it looks like
+        + subclass LabelItemRenderer and override drawBackground/layoutContents
+        + scroll and ensure selection is maintained in virtual layout 
+
+        -->
+                
+		<TestCase testID="List_Integration_labelIR_defaultStyles" keywords="[List, Integration, LabelItemRenderer]" description="assert the default style values">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(renderers.InstrumentedLabelItemRenderer)" waitEvent="itemRenderer1SetData" />
+				<AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="alternatingItemColors" valueExpression="value=0xFFFFFF" />
+				<AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="focusColor" valueExpression="value=0x70B2EE" />
+				<AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="downColor" valueExpression="value=0xE0E0E0" />
+				<AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="verticalAlign" valueExpression="value='middle'" />
+				<AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="rollOverColor" valueExpression="value=0xCEDBEF" />
+				<AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="selectionColor" valueExpression="value=0xE0E0E0" />
+				<AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="symbolColor" valueExpression="value=0x000000" />
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="paddingBottom" valueExpression="value=24">
+                    <ConditionalValue screenDPI="170" value="16" />
+                    <ConditionalValue screenDPI="326" value="32" />
+                </AssertStyleValue>
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="paddingTop" valueExpression="value=24">
+                    <ConditionalValue screenDPI="170" value="16" />
+                    <ConditionalValue screenDPI="326" value="32" />
+                </AssertStyleValue>
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="paddingLeft" valueExpression="value=15">
+                    <ConditionalValue screenDPI="170" value="10" />
+                    <ConditionalValue screenDPI="326" value="20" />
+                </AssertStyleValue>
+                <AssertStyleValue target="navigator.activeView.target.dataGroup.getElementAt(1)" styleName="paddingRight" valueExpression="value=15">
+                    <ConditionalValue screenDPI="170" value="10" />
+                    <ConditionalValue screenDPI="326" value="20" />
+                </AssertStyleValue>
+			</body>
+		</TestCase>
+		
+        <TestCase testID="List_Integration_labelIR_alternatingItemColors" keywords="[List, Integration, LabelItemRenderer]" description="change these colors and ensure they are respected">
+        	<setup>
+        		<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+        	</setup>
+        	<body>
+        		<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+        		<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_alternatingItemColors)" />
+        		<Pause timeout="200" /><!-- must pause to wait for all renderers to be created, no guarantee on order -->
+        		<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(0)" x="5" y="5" value="0xFF0000" />
+        		<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000FF" />
+        		<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(2)" x="5" y="5" value="0xFF0000" />
+        		<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(3)" x="5" y="5" value="0x0000FF" />
+        	</body>
+        </TestCase>
+		
+		<TestCase testID="List_Integration_labelIR_padding" keywords="[List, Integration, LabelItemRenderer]" description="ensure padding is respected">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_padding)" waitEvent="itemRenderer1SetData" timeout="9000" />
+                <WaitForEvent target="navigator.activeView.target.dataGroup.getElementAt(1)" eventName="creationComplete" timeout="9000" />
+				<CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+					<ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_Integration_labelIR_downColor" keywords="[List, Integration, LabelItemRenderer]" description="change this color and mouse down on a renderer to ensure it is respected">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>    
+			<body>
+				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_downColor)" waitEvent="itemRenderer1SetData" timeout="9000" />
+                <Pause timeout="1000" /><!-- TODO: Why does this test + related hate me!?-->
+                <DispatchMouseEvent type="mouseMove" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseMove" />
+                <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
+                <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
+                <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
+                <Pause timeout="1000" /><!-- must pause to wait for the down color to show up -->
+				<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0xCE0000"><!-- pure red plus a bit of gradient -->
+                    <ConditionalValue screenDPI="170" value="0xCF0000" /><!-- PlayBook is slightly different size so the gradient is slightly different -->
+                </AssertPixelValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_Integration_labelIR_selectedColor" keywords="[List, Integration, LabelItemRenderer]" description="change this color and click on a renderer to ensure it is respected">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_selectionColor)" waitEvent="itemRenderer1SetData" timeout="9000" />
+                <Pause timeout="1000" /><!-- TODO: Why does this test + related hate me!? -->
+                <DispatchMouseEvent type="mouseMove" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseMove" />
+                <DispatchMouseEvent type="rollOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="rollOver" />
+                <DispatchMouseEvent type="mouseOver" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseOver" />
+                <DispatchMouseEvent type="mouseDown" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseDown" />
+                <DispatchMouseEvent type="mouseUp" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="mouseUp" />
+                <DispatchMouseEvent type="click" target="navigator.activeView.target.dataGroup.getElementAt(1)" localX="5" localY="5" waitEvent="click" />
+                <Pause timeout="1000" /><!-- must pause to wait for the down color to show up -->
+				<AssertPixelValue target="navigator.activeView.target.dataGroup.getElementAt(1)" x="5" y="5" value="0x0000CE"><!-- pure blue plus a bit of gradient -->
+                    <ConditionalValue screenDPI="170" value="0x0000CF" /><!-- PlayBook is slightly different size so the gradient is slightly different -->
+                </AssertPixelValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_Integration_labelIR_verticalAlign_top" keywords="[List, Integration, LabelItemRenderer]" description="set to top">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_verticalAlign_top)" waitEvent="itemRenderer1SetData" timeout="9000" />
+                <Pause timeout="250" /><!-- TODO: For iOS interpreter -->
+				<CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+					<ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_Integration_labelIR_verticalAlign_bottom" keywords="[List, Integration, LabelItemRenderer]" description="set to bottom">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.LabelItemRendererStylesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+				<SetProperty target="navigator.activeView.target" propertyName="itemRenderer" valueExpression="value=new ClassFactory(views.LIR_Styles_verticalAlign_bottom)" waitEvent="itemRenderer1SetData" timeout="9000" />
+                <Pause timeout="250" /><!-- TODO: For iOS interpreter --> 
+				<CompareBitmap target="navigator.activeView.target.dataGroup.getElementAt(1)" url="../integration/baselines/">
+					<ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+        <TestCase testID="List_Integration_labelIR_defaults" keywords="[List, Integration, LabelItemRenderer]" description="check the default values of public properties">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=((new LabelItemRenderer()).baselinePosition)" valueExpression="value=NaN" />
+                <AssertMethodValue method="value=((new LabelItemRenderer()).data)" valueExpression="value=null" />
+                <AssertMethodValue method="value=((new LabelItemRenderer()).dragging)" valueExpression="value=false" />
+                <AssertMethodValue method="value=((new LabelItemRenderer()).itemIndex)" valueExpression="value=0" />
+                <AssertMethodValue method="value=((new LabelItemRenderer()).label)" valueExpression="value=''" />
+                <AssertMethodValue method="value=((new LabelItemRenderer()).selected)" valueExpression="value=false" />
+                <AssertMethodValue method="value=((new LabelItemRenderer()).showsCaret)" valueExpression="value=false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_baselinePosition" keywords="[List, Integration, LabelItemRenderer]" description="check what baselinePosition returns">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).baselinePosition &lt; 29 " value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.target.dataGroup.getElementAt(0).baselinePosition &gt; 9" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_dragging" keywords="[List, Integration, LabelItemRenderer]" description="dragging is a no-op so just make sure you can set it for coverage">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="dragging" value="false" />
+                <SetProperty target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="dragging" value="true" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="dragging" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_data" keywords="[List, Integration, LabelItemRenderer]" description="sanity check that the appropriate dataProvider values are coming through">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0).data" propertyName="myItemIndex" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1).data" propertyName="myItemIndex" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2).data" propertyName="myItemIndex" value="2" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(3).data" propertyName="myItemIndex" value="3" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_itemIndex" keywords="[List, Integration, LabelItemRenderer]" description="sanity check that this works given a dataProvider">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="itemIndex" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="itemIndex" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2)" propertyName="itemIndex" value="2" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(3)" propertyName="itemIndex" value="3" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_label_labelField" keywords="[List, Integration, LabelItemRenderer]" description="set labelField on the List, check label contains that field">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="label" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="label" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2)" propertyName="label" value="2" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(3)" propertyName="label" value="3" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelField" value="majorAxis" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="label" value="vertical" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="label" value="vertical" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2)" propertyName="label" value="vertical" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(3)" propertyName="label" value="vertical" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_label_labelFunction" keywords="[List, Integration, LabelItemRenderer]" description="set labelField on the List, check label contains that field">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelFunction" valueExpression="value=function(item:Object):String{return 'LabelFunction '+item.myItemIndex}" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="label" value="LabelFunction 0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="label" value="LabelFunction 1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2)" propertyName="label" value="LabelFunction 2" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(3)" propertyName="label" value="LabelFunction 3" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_label_labelField_labelFunction" keywords="[List, Integration, LabelItemRenderer]" description="set both labelField and labelFunction, check labelFunction takes precedence">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelFunction" valueExpression="value=function(item:Object):String{return 'LabelFunction '+item.myItemIndex}" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelField" value="majorAxis" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="label" value="LabelFunction 0" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="label" value="LabelFunction 1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2)" propertyName="label" value="LabelFunction 2" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(3)" propertyName="label" value="LabelFunction 3" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_selected_click" keywords="[List, Integration, LabelItemRenderer]" description="click on an item in the List, check selected is set">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="10" localY="10" waitEvent="click" />
+                <Pause timeout="1000" /><!-- TODO: Remove this pause by figuring out what event to wait for -->
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2)" propertyName="selected" value="false" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(3)" propertyName="selected" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_selected_programmatic" keywords="[List, Integration, LabelItemRenderer]" description="programmatically set selection on the List, check selected is set">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="0" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2)" propertyName="selected" value="false" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(3)" propertyName="selected" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_showsCaret_5way" keywords="[List, Integration, LabelItemRenderer]" description="fake a 5-way down, check that this is set">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <!-- Give the List focus then press the 5-way DOWN key -->
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="10" localY="10" waitEvent="click" />
+                <Pause timeout="500" /><!-- need to wait for selection to show up before pressing 5-way -->
+                <DispatchKeyEvent keyLocation="4" keyCode="40" waitTarget="navigator.activeView.target.dataGroup.getElementAt(1)" />
+                <Pause timeout="1000" /><!-- TODO: Look into removing this pause, updateComplete doesn't work on device -->
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="showsCaret" value="false" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="showsCaret" value="true" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2)" propertyName="showsCaret" value="false" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(3)" propertyName="showsCaret" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_showsCaret_click" keywords="[List, Integration, LabelItemRenderer]" description="click on an item in the List, check this is set">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="10" localY="10" waitEvent="click" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="showsCaret" value="true" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="showsCaret" value="false" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2)" propertyName="showsCaret" value="false" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(3)" propertyName="showsCaret" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_showsCaret_programmatic" keywords="[List, Integration, LabelItemRenderer]" description="programmatically set selection, check this is set">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="0" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="0" waitEvent="updateComplete" />
+                <AssertPropertyValue target="navigator.activeView.target.selectedItems" propertyName="length" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(0)" propertyName="showsCaret" value="true" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(1)" propertyName="showsCaret" value="false" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(2)" propertyName="showsCaret" value="false" />
+                <AssertPropertyValue target="navigator.activeView.target.dataGroup.getElementAt(3)" propertyName="showsCaret" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_scroll" keywords="[List, Integration, LabelItemRenderer]" description="scroll and ensure selection is maintained in virtual layout ">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <DispatchMouseClickEvent target="navigator.activeView.target" localX="10" localY="10" waitEvent="click" />
+                <Pause timeout="500" /><!-- TODO: For Droid1 -->
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndex" value="0" />
+                <AssertPixelValue target="navigator.activeView.target" x="5" y="10" value="0xB6B6B6">
+                    <ConditionalValue screenDPI="170" value="0xB8B8B8" />
+                </AssertPixelValue>
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="800" waitEvent="propertyChange" />
+                <AssertPixelValue target="navigator.activeView.target" x="5" y="10" value="0xFFFFFF" />
+                <SetProperty target="navigator.activeView.target.dataGroup" propertyName="verticalScrollPosition" value="0" waitEvent="itemRenderer0SetData" waitTarget="navigator.activeView.target" timeout="9000" />
+                <AssertPixelValue target="navigator.activeView.target" x="5" y="10" value="0xB6B6B6">
+                    <ConditionalValue screenDPI="170" value="0xB8B8B8" />
+                </AssertPixelValue>
+            </body>
+        </TestCase>
+                
+        <TestCase testID="List_Integration_labelIR_addItem" keywords="[List, Integration, LabelItemRenderer]" description="adding an item should show the separator (SDK-29194)">
+            <bugs>
+                <Bug bugID="SDK-29194" />
+            </bugs>
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <RunCode code="application.navigator.activeView.target.dataProvider = application.navigator.activeView.createIdenticalItems(1, 50, 50, 'vertical')" waitEvent="itemRenderer0SetData" waitTarget="navigator.activeView.target" timeout="9000" />
+                <RunCode code="application.navigator.activeView.target.dataProvider.addItem({myItemIndex: 1})" waitEvent="itemRenderer1SetData" waitTarget="navigator.activeView.target" timeout="9000" />
+                <Pause timeout="1000" /><!-- TODO: The server iPod doesn't seem to be ready yet sometimes, pause to see if that helps -->
+                <CompareBitmap target="navigator.activeView.target" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_visual" keywords="[List, Integration, LabelItemRenderer]" description="visual check of what the renderer looks like">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_Integration_labelIR_visual_subclass" keywords="[List, Integration, LabelItemRenderer]" description="visual check of what the subclass renderer looks like">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.LabelItemRendererView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="9000" />
+                <CompareBitmap target="navigator.activeView.target2" url="../integration/baselines/">
+                    <ConditionalValue os="android" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+        
+        
+    </testCases>
+</UnitTester>

@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns="*" 
+				testDir="mobile/components/BusyIndicator/integration/"
+				testSWF="FMFBusyIndicator.mxml">
+		
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+    <fx:Script>
+	<![CDATA[ 
+		import mx.core.FlexGlobals;
+		import components.*;
+
+	]]>
+	</fx:Script>
+    
+	<testCases>
+		<TestCase testID="BI_weak_ref_test" keywords="[BusyIndicator]" description="Test for memory leak. A weak reference dictionary holds a reference to BI. Once the parent view is cut the reference to the bi is cut. This is tracked via the weak ref dictionary">
+			<setup>
+				<ResetComponent target="bi02" className="components.MemLeakTestView" waitEvent="updateComplete" />
+				<RunCode code="application.bi02.createPanel()" waitTarget="bi02" waitEvent="createPanelComplete"/>
+				<RunCode code="application.bi02.removeElements()" waitTarget="bi02" waitEvent="removeElementsComplete"/>
+				<RunCode code="application.bi02.doGC()" waitTarget="bi02" waitEvent="GCComplete"/>
+				<RunCode code="application.bi02.doGC()" waitTarget="bi02" waitEvent="GCComplete"/>
+				<RunCode code="application.bi02.doGC()" waitTarget="bi02" waitEvent="GCComplete"/>
+				<RunCode code="application.bi02.doGC()" waitTarget="bi02" waitEvent="GCComplete"/>
+				<RunCode code="application.bi02.doGC()" waitTarget="bi02" waitEvent="GCComplete"/>
+				<RunCode code="application.bi02.doGC()" waitTarget="bi02" waitEvent="GCComplete"/>
+				<RunCode code="application.bi02.doGC()" waitTarget="bi02" waitEvent="GCComplete"/>
+				<RunCode code="application.bi02.doGC()" waitTarget="bi02" waitEvent="GCComplete"/>
+				<RunCode code="application.bi02.showObjReferences()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="bi02" propertyName="isInMemory">
+					<ConditionalValue deviceDensity="240" os="android" value="false"/>					
+					<ConditionalValue deviceDensity="160" os="win" value="false"/>
+					<ConditionalValue deviceDensity="320" os="win" value="false"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="false"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="true"/>
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+
+		<TestCase testID="BI_symbolColor" keywords="[BusyIndicator]" description="Test symbolColor">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500" waitEvent="updateComplete"/>
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100"  waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200"  waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" valueExpression="value=true;" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="symbolColor" value="0xCCCFFF" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="bi01.bi" styleName="symbolColor" value="0xCCCFFF" />
+				<CompareBitmap url="../integration/baselines/"  target="bi01.p">
+					<ConditionalValue deviceDensity="240"/>					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BI_symbolColor_default" keywords="[BusyIndicator]" description="Test default symbolColor">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" valueExpression="value=true;" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="bi01.bi" styleName="symbolColor" value="0x000000" />
+				<CompareBitmap url="../integration/baselines/"  target="bi01.p">
+					<ConditionalValue deviceDensity="240"/>					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BI_rotationInterval_default" keywords="[BusyIndicator]" description="Test:  default value">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" valueExpression="value=true;" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="bi01.bi" styleName="rotationInterval" value="50" />
+			</body>
+		</TestCase>
+		
+		<!--**************** Scaling, Size & Dimension Tests **********************-->
+		<TestCase testID="BI_size_default" keywords="[BusyIndicator]" description="Test: default dimensions">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" valueExpression="value=true;" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines/"  target="bi01.p">
+					<ConditionalValue deviceDensity="240"/>					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BI_size_dif_width_height" keywords="[BusyIndicator]" description="Test: define bi with >default w using default h">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="width" value="50" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" valueExpression="value=true;" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines/"  target="bi01.p">
+					<ConditionalValue deviceDensity="240"/>					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BI_size_dif_height_width" keywords="[BusyIndicator]" description="Test: define bi with >default h using default w">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="height" value="50" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" valueExpression="value=true;" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines/"  target="bi01.p">
+					<ConditionalValue deviceDensity="240"/>					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BI_size_comp_size_0x0" keywords="[BusyIndicator]" description="Test: should result as the default size overlaying the panel">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" valueExpression="value=true;" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="height" value="0" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="width" value="0" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines/"  target="bi01.p">
+					<ConditionalValue deviceDensity="240"/>					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BI_size_comp_size_25x25" keywords="[BusyIndicator]" description="Test: sizes at various dimensions">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetProperty target="bi01.bi" propertyName="height" value="25" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="width" value="25" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" valueExpression="value=true;" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines/"  target="bi01.p">
+					<ConditionalValue deviceDensity="240"/>					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BI_size_comp_size_100x100" keywords="[BusyIndicator]" description="Test: sizes at various dimensions">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" valueExpression="value=true;" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="width" value="100" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines/"  target="bi01.p">
+					<ConditionalValue deviceDensity="240"/>					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="BI_size_comp_size_200x200" keywords="[BusyIndicator]" description="Test: sizes at various dimensions">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetProperty target="bi01.bi" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="height" value="300" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" value="true" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines/"  target="bi01.p">
+					<ConditionalValue deviceDensity="240"/>					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BI_size_comp_scaleXandscaleY" keywords="[BusyIndicator]" description="Test: Use a string value">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetProperty target="bi01.bi" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="width" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="scaleX" value="0.5" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="scaleY" value="0.5" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" value="true" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines/"  target="bi01.p">
+					<ConditionalValue deviceDensity="240"/>					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BI_size_comp_scaleXandscaleYandscaleZ" keywords="[BusyIndicator]" description="Test: Use a string value">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" valueExpression="value=true;" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="width" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="scaleX" value="1.5" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="scaleY" value="1.5" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="scaleY" value="1.5" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines/"  target="bi01.p">
+					<ConditionalValue deviceDensity="240"/>					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BI_DesignLayer" keywords="[BusyIndicator]" description="Test: functionality in with mx.core.DesignLayer dynamically">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="visible" valueExpression="value=true;" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi" propertyName="width" value="100" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetStyle target="bi01.bi" styleName="symbolColor" value="red"  waitEvent="updateComplete"/>
+				<RunCode code="application.bi01.createLayerHierarchy()" waitTarget="bi01" waitEvent="TestDone"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="bi01.layerA" propertyName="visible" value="false"  />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BI_DesignLayer_02" keywords="[BusyIndicator]" description="Test: functionality in with mx.core.DesignLayer">
+			<setup>
+				<ResetComponent target="bi01" className="components.BusyIndicatorView001" waitEvent="updateComplete" />
+				<SetProperty target="bi01.A1" propertyName="visible" value="true" waitEvent="layerPropertyChange" />
+				<SetProperty target="bi01.p1" propertyName="height" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p1" propertyName="width" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p1" propertyName="x" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.p1" propertyName="y" value="200" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi1" propertyName="visible" value="true" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="bi01.bi1" propertyName="width" value="100" waitEvent="updateComplete" />
+				<SetStyle target="bi01.bi1" styleName="rotationInterval" value="500"  waitEvent="updateComplete"/>
+				<SetStyle target="bi01.bi1" styleName="symbolColor" value="red"  waitEvent="updateComplete"/>
+				<SetProperty target="bi01.A1" propertyName="visible" value="false" waitEvent="layerPropertyChange" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="bi01.A1" propertyName="visible" value="false"  />
+			</body>
+		</TestCase>
+		<TestCase testID="BI_SDK_29330" keywords="[BusyIndicator, animate, animating]" description="BusyIndicator should listen for INITIALIZE event and check visible property to determine if it should be animating">
+			<setup>
+				<ResetComponent target="bi03" className="components.SDK29346TestView" waitEvent="updateComplete" />
+				<SetProperty target="bi03.bi" propertyName="visible" value="true" waitEvent="updateComplete" />
+				<SetStyle target="bi03.bi" styleName="rotationInterval" value="300"  waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines/"  target="bi03.g">
+					<ConditionalValue deviceDensity="240"  />					
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

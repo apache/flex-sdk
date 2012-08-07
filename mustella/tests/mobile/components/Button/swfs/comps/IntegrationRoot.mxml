@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+
+	<s:states>
+		<s:State name="default"/>
+		<s:State name="state1"/>
+		<s:State name="state2"/>
+		<s:State name="noButton"/>
+	</s:states>
+	
+	<s:Group left="10" top="10" right="10" height="80">
+		<s:Rect left="0" top="0" right="0" bottom="0">
+			<s:fill>
+				<s:SolidColor id="bgFill" color="0xE8E8E8" />
+			</s:fill>
+		</s:Rect>
+		
+		<s:VGroup id="stateBtnGroup" baseline="20" horizontalCenter="0">
+			<s:Button id="b1" label="default" label.state1="state1"
+					  label.state2="state2" excludeFrom="noButton" 
+					  click.state1="b1.label='click1'" click.state2="b1.label='click2'" 
+					  chromeColor.state1="0xFF0000" chromeColor.state2="0x0000FF" />
+			<s:Button id="b2" label="includeIn" includeIn="noButton" 
+					  label.state1="state1" click.state1="b2.label='click1'"/>
+		</s:VGroup>
+	</s:Group>	
+</s:VGroup>
+	

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                xmlns:s="library://ns.adobe.com/flex/spark"
+                minHeight="80">
+    
+    <fx:Script>
+        <![CDATA[
+            override public function set data(value:Object):void{
+                super.data = value;
+                if (data == null)
+                    return;
+                
+                lbl.text = data + "";
+            } 
+        ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <s:Parallel id="transitionEffect" effectEnd="dispatchEvent(new Event('transitionEffectComplete'))">
+            <s:AnimateColor target="{bgColor}" />
+            <s:AnimateColor target="{lbl}" />
+            <s:AnimateColor target="{pathColor}" />
+        </s:Parallel>
+    </fx:Declarations>
+    
+    <!--
+    
+    TODO: Post on thinking about 2-d states via state groups
+    
+    normalGroup = {normal, normalAndShowsCaret, selected, selectedAndShowsCaret}
+    hoveredGroup = {hovered, hoveredAndShowsCaret}
+    downGroup = {down, downAndSelected}
+    
+    selectedGroup = {selected, selectedAndShowsCaret, downAndSelected}
+    notSelectedGroup = {normal, hovered, down, hoveredAndShowsCaret, normalAndShowsCaret}
+    
+    caretGroup = {selectedAndShowsCaret, hoveredAndShowsCaret, normalAndShowsCaret}
+    notCaretGroup = {normal, hovered, down, downAndSelected, selected}
+    
+    -->
+    
+    <s:states>
+        <s:State name="normal" stateGroups="normalGroup, notSelectedGroup, notCaretGroup" />
+        <s:State name="hovered" stateGroups="hoveredGroup, notSelectedGroup, notCaretGroup" />
+        <s:State name="down" stateGroups="downGroup, notSelectedGroup, notCaretGroup" />
+        <s:State name="downAndSelected" stateGroups="downGroup, selectedGroup, notCaretGroup" />
+        <s:State name="selected" stateGroups="normalGroup, selectedGroup, notCaretGroup" />
+        <s:State name="selectedAndShowsCaret" stateGroups="normalGroup, selectedGroup, caretGroup"/>
+        <s:State name="hoveredAndShowsCaret" stateGroups="hoveredGroup, notSelectedGroup, caretGroup"/>
+        <s:State name="normalAndShowsCaret" stateGroups="normalGroup, notSelectedGroup, caretGroup"/>
+    </s:states>
+    
+    <s:transitions>
+        <s:Transition fromState="down" toState="normal" effect="{transitionEffect}" />
+        <s:Transition fromState="downAndSelected" toState="normal" effect="{transitionEffect}" />
+        <s:Transition fromState="down" toState="selected" effect="{transitionEffect}" />
+        <s:Transition fromState="downAndSelected" toState="selected" effect="{transitionEffect}" />
+        <s:Transition fromState="down" toState="selectedAndShowsCaret" effect="{transitionEffect}" />
+        <s:Transition fromState="downAndSelected" toState="selectedAndShowsCaret" effect="{transitionEffect}" />
+    </s:transitions>
+    
+    <s:Rect id="bgRect" width="100%" height="100%">
+        <s:fill>
+            <s:SolidColor id="bgColor" color="0xFFFFFF" color.downGroup="0x4861D8" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:Rect id="separator" width="100%" height="1" bottom="0">
+        <s:fill>
+            <s:SolidColor color="0xe9e9e9" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:Path right="15" verticalCenter="0" includeIn="selectedGroup"
+            winding="evenOdd" data="M 6 12 L 10 16 L 16 0 L 24 0 L 10 22 L 0 12 L 6 12 Z">
+        <s:fill> 
+            <s:SolidColor id="pathColor" color="0x2E3C70" color.downAndSelected="white" />
+        </s:fill>
+    </s:Path>
+    
+    <s:Label id="lbl" text="1" fontWeight="bold"
+             color="black" color.downGroup="white" color.selected="0x2E3C70" color.selectedAndShowsCaret="0x2E3C70"
+             top="10" left="15" right="45" bottom="10" verticalAlign="middle"/>
+    
+</s:ItemRenderer>

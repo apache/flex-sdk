@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/Label/Styles/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label1.mxml">
+
+	<mx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</mx:Metadata>
+
+	<mx:Script>
+		<![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+			
+			import spark.components.RichText;
+
+			import flash.text.engine.BreakOpportunity;
+			import flash.text.engine.CFFHinting;
+			import flash.text.engine.DigitCase;
+			import flash.text.engine.DigitWidth;
+			import flash.text.engine.FontPosture;
+			import flash.text.engine.FontWeight;
+			import flash.text.engine.JustificationStyle;
+			import flash.text.engine.Kerning;
+			import flash.text.engine.LigatureLevel;
+			import flash.text.engine.RenderingMode;
+			import flash.text.engine.TextBaseline;
+
+			import flashx.textLayout.formats.VerticalAlign;
+			import flashx.textLayout.formats.BaselineShift;
+			import flashx.textLayout.formats.Direction;
+			import flashx.textLayout.formats.JustificationRule;
+			import flashx.textLayout.formats.LineBreak;
+
+			public var singleLineText:String = "The quick brown fox jumps over the lazy dog.";
+			public var multiLineText:String = "The quick brown\nfox jumps over\nthe lazy dog.";
+			public var singleLineNumbers:String = "The quick brown fox jumps over the lazy dog. 1234567890";
+			public var longLine:String="Spark DropDownList long long long long long Spark Drop Down List long long long long long   long long long long long Spark Drop Down List l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l";
+			public var ligatureLevelText:String = "fi fj fl ft ffi ffj ffl ct st Th";
+			public var kerningText:String = "YMMVAWAWAWAWA";
+
+		]]>
+	</mx:Script>
+
+	<testCases>
+
+		<!-- This is just a copy of the Desktop Label tests. -->
+
+		<!-- style: alignmentBaseline -->
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_default" description="Check default value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" value="useDominantBaseline" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_ascent" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.ASCENT;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" value="ascent" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_descent" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.DESCENT;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" value="descent" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_ideographicBottom" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.IDEOGRAPHIC_BOTTOM;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" value="ideographicBottom" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>		
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_ideographicCenter" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.IDEOGRAPHIC_CENTER;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" value="ideographicCenter" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_ideographicTop" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.IDEOGRAPHIC_TOP;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" value="ideographicTop" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_roman" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.ROMAN;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="alignmentBaseline" value="roman" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>		
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- style: baselineShift -->
+		<TestCase testID="Compare_Label_RichText_baselineShift_default" description="Check default value of baselineShift style" keywords="[Spark Label, RichText, baselineShift, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="baselineShift" value="0" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>		
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_baselineShift_pos10" description="Check default value of baselineShift style" keywords="[Spark Label, RichText, baselineShift, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="baselineShift" value="10" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="baselineShift" value="10" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>		
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- style: cffHinting -->
+		<TestCase testID="Compare_Label_RichText_cffHinting_default" description="Check default value of cffHinting style" keywords="[Spark Label, RichText, cffHinting, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="cffHinting" value="horizontalStem" />
+			</body>
+		</TestCase>
+
+		<!-- style: color -->
+		<TestCase testID="Compare_Label_RichText_color_default" description="Check default value of color style" keywords="[Spark Label, RichText, color, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="backgroundColor" value="0" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp7" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="5000" />
+				<AssertStyleValue target="navigator.activeView.textBoxComp7" styleName="color" value="0" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container7" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>		
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_color_red" description="Set color style" keywords="[Spark Label, RichText, color, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="color" value="0xff0000" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="color" value="0xff0000" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- style: digitCase -->
+		<TestCase testID="Compare_Label_RichText_digitCase_default" description="Check default value of digitCase style" keywords="[Spark Label, RichText, digitCase, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="16" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="1234567890" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="digitCase" value="default" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_digitCase_oldStyle" description="Check oldStyle value of digitCase style" keywords="[Spark Label, RichText, digitCase, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="digitCase" value="oldStyle" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="16" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="1234567890" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="digitCase" value="oldStyle" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_digitCase_lining" description="Check oldStyle value of digitCase style" keywords="[Spark Label, RichText, digitCase, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="digitCase" value="lining" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="16"  />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="1234567890" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="digitCase" value="lining" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+
+		<!-- style: digitWidth -->
+		<TestCase testID="Compare_Label_RichText_digitWidth_default" description="Check default value of digitWidth style" keywords="[Spark Label, RichText, digitWidth, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="16" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="14,817,611" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="digitWidth" value="default" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_digitWidth_tabular" description="Check tabular value of digitWidth style" keywords="[Spark Label, RichText, digitWidth, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="digitWidth" value="tabular" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="16" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="14,817,611" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="digitWidth" value="tabular" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>		
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_digitWidth_proportional" description="Check proportional value of digitWidth style" keywords="[Spark Label, RichText, digitWidth, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="digitWidth" value="proportional" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="16" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="14,817,611" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="digitWidth" value="proportional" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>		
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+
+		<!-- style: direction -->
+		<TestCase testID="Compare_Label_RichText_direction_default" description="Check default value of direction style" keywords="[Spark Label, RichText, direction, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="direction" value="ltr" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_direction_rtl" description="Check 'rtl' value of direction style" keywords="[Spark Label, RichText, direction, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete"/>
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="direction" valueExpression="value=Direction.RTL" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="direction" value="rtl" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- style: dominantBaseline -->
+		<!-- These tests all have the same result (same way in the desktop tests).  Don't bother with baselines. -->
+		<TestCase testID="Compare_Label_RichText_dominantBaseline_default" description="Check default value of dominantBaseline style" keywords="[Spark Label, RichText, dominantBaseline, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="dominantBaseline" value="auto" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_dominantBaseline_ascent" description="Check 'ascent' value of dominantBaseline style" keywords="[Spark Label, RichText, dominantBaseline, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="dominantBaseline" valueExpression="value=TextBaseline.ASCENT;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="dominantBaseline" value="ascent" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_dominantBaseline_ideographicTop" description="Check 'ideographicTop' value of dominantBaseline style" keywords="[Spark Label, RichText, dominantBaseline, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="dominantBaseline" valueExpression="value=TextBaseline.IDEOGRAPHIC_TOP;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="dominantBaseline" value="ideographicTop" />
+			</body>
+		</TestCase>
+
+		<!-- style: fontFamily -->
+		<TestCase testID="Compare_Label_RichText_fontFamily_default" description="Check default value of fontFamily style" keywords="[Spark Label, RichText, fontFamily, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" />
+			</body>
+		</TestCase>
+
+		<!-- style: fontLookup -->
+		<TestCase testID="Compare_Label_RichText_fontLookup_default" description="Check default value of fontFamily style" keywords="[Spark Label, RichText, fontLookup, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="fontLookup" value="embeddedCFF" />
+			</body>
+		</TestCase>
+
+		<!-- style: fontSize -->
+		<TestCase testID="Compare_Label_RichText_fontSize_default" description="Check default value of fontSize style" keywords="[Spark Label, RichText, fontSize, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" >
+					<ConditionalValue deviceDensity="160" value="16" />
+					<ConditionalValue deviceDensity="240" value="24" />
+					<ConditionalValue deviceDensity="320" value="32"/>
+				</AssertStyleValue>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_fontSize_8" description="Check fontSize = 8" keywords="[Spark Label, RichText, fontSize, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="8" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="8" />
+				<CompareBitmap numColorVariances="10" maxColorVariance="20" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>		
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- style: fontStyle -->
+		<TestCase testID="Compare_Label_RichText_fontStyle_italic" description="Check 'italic' value of fontStyle style" keywords="[Spark Label, RichText, fontStyle, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="myVeraCFF" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontStyle" valueExpression="value=FontPosture.ITALIC" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="fontStyle" value="italic" />
+				<CompareBitmap numColorVariances="10" maxColorVariance="20" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>			
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_justificationRule_space" description="Check 'space' value of justificationRule style" keywords="[Spark Label, RichText, justificationRule, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="こんにちは由香里。 御元気ですか?" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="_serif" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="justificationRule" valueExpression="value=JustificationRule.SPACE" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="justificationRule" value="space" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_justificationRule_eastAsian" description="Check 'eastAsian' value of justificationRule style" keywords="[Spark Label, RichText, justificationRule, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="こんにちは由香里。 御元気ですか?" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="_serif" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="justificationRule" valueExpression="value=JustificationRule.EAST_ASIAN" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="justificationRule" value="eastAsian" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- style: kerning -->
+		<TestCase testID="Compare_Label_RichText_kerning_default" description="Check default value of kerning style" keywords="[Spark Label, RichText, kerning, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="16" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded"  />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=kerningText" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="kerning" value="default" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_kerning_on" description="Check 'on' value of kerning style" keywords="[Spark Label, RichText, kerning, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="16" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=kerningText" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="kerning" valueExpression="value=Kerning.ON" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="kerning" value="on" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_kerning_off" description="Check 'off' value of kerning style" keywords="[Spark Label, RichText, kerning, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="16" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=kerningText" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="kerning" valueExpression="value=Kerning.OFF" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="kerning" value="off" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+
+		<!-- style: ligatureLevel -->
+		<TestCase testID="Compare_Label_RichText_ligatureLevel_default" description="Check default value of ligatureLevel style" keywords="[Spark Label, RichText, ligatureLevel, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="fontSize" value="16" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=ligatureLevelText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="ligatureLevel" value="common" />
+			</body>
+		</TestCase>
+
+		<!-- style: lineBreak -->
+		<TestCase testID="Compare_Label_RichText_lineBreak_default" description="Check default value of lineBreak style" keywords="[Spark Label, RichText, lineBreak, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="lineBreak" value="toFit" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_truncation_lineBreak_explicit" description="Check 'explicit' value of lineBreak style, line should be truncated" keywords="[Spark Label, RichText, lineBreak, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.label2" propertyName="text" valueExpression="value=longLine;" />
+				<SetStyle target="navigator.activeView.label2" styleName="lineBreak" valueExpression="value = LineBreak.EXPLICIT" waitTarget="navigator.activeView.label2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.label2" styleName="lineBreak" value="explicit" />
+				<CompareBitmap numColorVariances="10" maxColorVariance="20" url="../Styles/baselines/" target="navigator.activeView.panel1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_truncation_lineBreak_tofit" description="Check 'tofit' value of lineBreak style, line should be truncated" keywords="[Spark Label, RichText, lineBreak, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.label2" propertyName="text" valueExpression="value=longLine;" waitTarget="navigator.activeView.label2" waitEvent="updateComplete" />
+				<SetStyle target="navigator.activeView.label2" styleName="lineBreak" valueExpression="value=LineBreak.TO_FIT;" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.label2" styleName="lineBreak" valueExpression="value=LineBreak.TO_FIT" />
+				<CompareBitmap numColorVariances="10" maxColorVariance="20" url="../Styles/baselines/" target="navigator.activeView.panel1" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- style: lineHeight -->
+		<TestCase testID="Compare_Label_RichText_lineHeight_default" description="Check default value of lineHeight style" keywords="[Spark Label, RichText, lineHeight, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="width" value="150" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="resize" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="lineHeight" value="120%" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_lineHeight_40" description="Check lineHeight 40px" keywords="[Spark Label, RichText, lineHeight, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="width" value="150" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="resize" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="lineHeight" value="40" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="lineHeight" value="40" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+
+		<!-- style: lineThrough -->
+		<TestCase testID="Compare_Label_RichText_lineThrough_true" description="Check 'true' value of lineThrough style" keywords="[Spark Label, RichText, lineThrough, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="width" value="150" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="resize" />
+				<SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="lineThrough" value="true" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp.textBox" styleName="lineThrough" value="true" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- style: paddingBottom -->
+		<TestCase testID="Compare_Label_RichText_paddingBottom_30" description="Check value of 30 for paddingBottom style" keywords="[Spark Label, RichText, paddingBottom, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp7" styleName="color" value="0x00ff00" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="text" value="hi" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="width" value="100" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="height" value="100" />
+				<SetStyle target="navigator.activeView.textBoxComp7" styleName="verticalAlign" value="bottom" />
+				<SetStyle target="navigator.activeView.textBoxComp7" styleName="paddingBottom" value="30" waitTarget="navigator.activeView.textBoxComp7" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp7" styleName="paddingBottom" value="30" />
+				<CompareBitmap url="../Styles/baselines/" target="navigator.activeView.textBoxComp7" numColorVariances="20" maxColorVariance="10" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- style: paddingLeft -->
+		<TestCase testID="Compare_Label_RichText_paddingLeft_default" description="Check default value of paddingBottom style" keywords="[Spark Label, RichText, paddingLeft, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp7" styleName="color" value="0x00ff00" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="text" valueExpression="value=singleLineText;" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="width" value="150" waitTarget="navigator.activeView.textBoxComp7" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp7" styleName="paddingLeft" value="0" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.textBoxComp7" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- style: paddingRight -->
+		<TestCase testID="Compare_Label_RichText_paddingRight_30" description="Check value of 30 for paddingRight style" keywords="[Spark Label, RichText, paddingRight, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp7" styleName="color" value="0x00ff00" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="text" valueExpression="value=singleLineText;" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="width" value="100" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="height" value="100" />
+				<SetStyle target="navigator.activeView.textBoxComp7" styleName="direction" value="rtl" />
+				<SetStyle target="navigator.activeView.textBoxComp7" styleName="verticalAlign" value="middle" />
+				<SetStyle target="navigator.activeView.textBoxComp7" styleName="paddingRight" value="30" waitTarget="navigator.activeView.textBoxComp7" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp7" styleName="paddingRight" value="30" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="7" url="../Styles/baselines/" target="navigator.activeView.textBoxComp7" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- style: paddingTop -->
+		<TestCase testID="Compare_Label_RichText_paddingTop_70" description="Check value of 70 for paddingTop style" keywords="[Spark Label, RichText, paddingTop, Graphic]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<SetStyle target="navigator.activeView.textBoxComp7" styleName="color" value="0x00ff00" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="text" valueExpression="value=singleLineText;" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="width" value="100" />
+				<SetProperty target="navigator.activeView.textBoxComp7" propertyName="height" value="100" />
+				<SetStyle target="navigator.activeView.textBoxComp7" styleName="verticalAlign" value="top" />
+				<SetStyle target="navigator.activeView.textBoxComp7" styleName="paddingTop" value="70" waitTarget="navigator.activeView.textBoxComp7" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="navigator.activeView.textBoxComp7" styleName="paddingTop" value="70" />
+				<CompareBitmap url="../Styles/baselines/" target="navigator.activeView.textBoxComp7" numColorVariances="20" maxColorVariance="10" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+			</body>
+		</TestCase>
+
+		<!-- verticalAlign -->
+        <TestCase testID="Compare_Label_RichText_verticalAlign_bottom" description="Check bottom value of verticalAlign style" keywords="[TextGraphic, typographicCase, Graphic]">
+            <setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+                <SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="verticalAlign" valueExpression="value=VerticalAlign.BOTTOM" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="hello mister dog" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="width" value="100" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="height" value="100" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+
+        <TestCase testID="Compare_Label_RichText_verticalAlign_justify" description="Check justify value of verticalAlign style" keywords="[TextGraphic, typographicCase, Graphic]">
+            <setup>
+				<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.LabelStylesView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+                <SetStyle target="navigator.activeView.textBoxComp.textBox" styleName="verticalAlign" valueExpression="value=VerticalAlign.JUSTIFY" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="text" value="hello mister dog" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="width" value="100" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.textBoxComp.textBox" propertyName="height" value="100" waitTarget="navigator.activeView.textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../Styles/baselines/" target="navigator.activeView.container" >
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>				
+            </body>
+        </TestCase>
+	</testCases>
+
+</UnitTester>

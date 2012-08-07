@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/utils/MultiDPIBitmapSource/integration/"
+			testSWF="MultiDPIBitmapSourceInteg.mxml">
+	
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void {
+			}
+		]]>
+	</fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	<testCases>
+		
+		<TestCase testID="MultiDPIBitmapSource_integ_160_embed" keywords="MultiDPIBitmapSource,160,button,embedded" description="Check behavior with one the 160dpi image specified.">
+			<setup>
+				<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />
+				<SetProperty target="integrationRoot" propertyName="currentState" value="Embedded"/>
+			</setup>
+			<body>
+				<RunCode code="application.integrationRoot.changeSource(4)" waitTarget="integrationRoot" waitEvent="rootReady" />
+				<CompareBitmap target="integrationRoot"  url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							
+							
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="MultiDPIBitmapSource_integ_160_refer" keywords="MultiDPIBitmapSource,160,button,referrenced" description="Check behavior with one the 160dpi image specified.">
+			<setup>
+				<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />
+				<SetProperty target="integrationRoot" propertyName="currentState" value="Referrenced"/>
+			</setup>
+			<body>
+				<RunCode code="application.integrationRoot.changeSource(4)" waitTarget="integrationRoot" waitEvent="rootReady" />
+				<CompareBitmap target="integrationRoot"  url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							
+							
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="MultiDPIBitmapSource_integ_240_embed" keywords="MultiDPIBitmapSource,240,button,embedded" description="Check behavior with one the 240dpi image specified.">
+			<setup>
+				<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />
+				<SetProperty target="integrationRoot" propertyName="currentState" value="Embedded"/>
+			</setup>
+			<body>
+				<RunCode code="application.integrationRoot.changeSource(5)" waitTarget="integrationRoot" waitEvent="rootReady" />
+				<CompareBitmap target="integrationRoot"  url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="MultiDPIBitmapSource_integ_240_refer" keywords="MultiDPIBitmapSource,240,button,referrenced" description="Check behavior with one the 240dpi image specified.">
+			<setup>
+				<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />
+				<SetProperty target="integrationRoot" propertyName="currentState" value="Referrenced"/>
+			</setup>
+			<body>
+				<RunCode code="application.integrationRoot.changeSource(5)" waitTarget="integrationRoot" waitEvent="rootReady" />
+				<CompareBitmap target="integrationRoot"  url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							
+							
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="MultiDPIBitmapSource_integ_320_embed" keywords="MultiDPIBitmapSource,320,button,embedded" description="Check behavior with one the 320dpi image specified.">
+			<setup>
+				<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />
+				<SetProperty target="integrationRoot" propertyName="currentState" value="Embedded"/>
+			</setup>
+			<body>
+				<RunCode code="application.integrationRoot.changeSource(6)" waitTarget="integrationRoot" waitEvent="rootReady" />
+				<CompareBitmap target="integrationRoot"  url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="MultiDPIBitmapSource_integ_320_refer" keywords="MultiDPIBitmapSource,320,button,referrenced" description="Check behavior with one the 320dpi image specified.">
+			<setup>
+				<ResetComponent target="integrationRoot" className="comps.IntegrationRoot" waitEvent="updateComplete" />
+				<SetProperty target="integrationRoot" propertyName="currentState" value="Referrenced"/>
+			</setup>
+			<body>
+				<RunCode code="application.integrationRoot.changeSource(6)" waitTarget="integrationRoot" waitEvent="rootReady" />
+				<CompareBitmap target="integrationRoot"  url="../integration/baselines/">
+					<ConditionalValue deviceDensity="160"/>
+					<ConditionalValue deviceDensity="320"/>
+							
+				</CompareBitmap>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:comps="comps.*"
+         gap="0" creationComplete="creationCompleteHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import spark.components.ButtonBarButton;
+			import spark.utils.MultiDPIBitmapSource;
+			
+			[Bindable]
+			public var embed:MultiDPIBitmapSource;
+			
+			[Bindable]
+			public var refer:MultiDPIBitmapSource;
+			
+            private var i:int = 0;
+			
+            /**
+            * Used to keep track of all the ready events
+            */
+			private var eventCount:int = 0;
+            
+            /**
+            * Sets the referenced and embedded images to the given MultiDPIBitmapSource in the ArrayList
+            * The BitmapImage, Button, IconItemRenderers, and TabbedViewNavigator pick up this change.
+            */
+            public function changeSource(i:int): void {
+                embed = embed_list.getItemAt(i) as MultiDPIBitmapSource;
+                refer = refer_list.getItemAt(i) as MultiDPIBitmapSource;
+                
+                // update the loading icon list
+                var cf:ClassFactory = new ClassFactory(IconLoadingRenderer);
+                cf.properties = {iconPlaceholder:embed};
+                loadingList.itemRenderer  = cf;
+				
+				// reset the event count
+				eventCount = 0;
+            }
+            
+            /**
+            * Add listeners to all the images
+            */
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				bitmapImage.addEventListener(FlexEvent.READY, ready, false, 0, true);
+				button.addEventListener(FlexEvent.UPDATE_COMPLETE, ready, false, 0, true);
+				normalList.addEventListener("itemRenderer0IconReady", ready, false, 0, true);
+				loadingList.addEventListener("itemRenderer0IconPlaceholderReady", ready, false, 0, true);
+				(tabbedNavigator.tabBar.dataGroup.getElementAt(0) as ButtonBarButton).addEventListener(FlexEvent.UPDATE_COMPLETE, ready, false, 0, true);
+			}
+			
+            /**
+            * Count up the ready events from all the images before firing rootReady
+            */
+			protected function ready(event:Event):void{
+				eventCount++;
+				
+				if(currentState == "Embedded"){
+					if(eventCount == 5){
+						dispatchEvent(new Event("rootReady"));
+					}
+				}else{
+					if(eventCount == 7){
+						dispatchEvent(new Event("rootReady"));
+					}
+				}
+			}
+
+		]]>
+	</fx:Script>
+    
+    <fx:Declarations>
+        <s:ArrayList id="embed_list">
+            <s:MultiDPIBitmapSource id="embed_full" 
+                                    source160dpi="@Embed('../assets/80x80.png')"
+                                    source240dpi="@Embed('../assets/120x120.png')"
+                                    source320dpi="@Embed('../assets/160x160.png')"/>
+            <s:MultiDPIBitmapSource id="embed_23" 
+                                    source240dpi="@Embed('../assets/120x120.png')"
+                                    source320dpi="@Embed('../assets/160x160.png')"/>
+            <s:MultiDPIBitmapSource id="embed_13" 
+                                    source160dpi="@Embed('../assets/80x80.png')"
+                                    source320dpi="@Embed('../assets/160x160.png')"/>
+            <s:MultiDPIBitmapSource id="embed_12" 
+                                    source160dpi="@Embed('../assets/80x80.png')"
+                                    source240dpi="@Embed('../assets/120x120.png')"/>
+            <s:MultiDPIBitmapSource id="embed_1" 
+                                    source160dpi="@Embed('../assets/80x80.png')"/>
+            <s:MultiDPIBitmapSource id="embed_2"
+                                    source240dpi="@Embed('../assets/120x120.png')"/>
+            <s:MultiDPIBitmapSource id="embed_3" 
+                                    source320dpi="@Embed('../assets/160x160.png')"/>
+        </s:ArrayList>
+        
+        <s:ArrayList id="refer_list">
+            <s:MultiDPIBitmapSource id="refer_full" 
+                                    source160dpi="assets/80x80.png"
+                                    source240dpi="assets/120x120.png"
+                                    source320dpi="assets/160x160.png"/>
+            <s:MultiDPIBitmapSource id="refer_23" 
+                                    source240dpi="assets/120x120.png"
+                                    source320dpi="assets/160x160.png"/>
+            <s:MultiDPIBitmapSource id="refer_13" 
+                                    source160dpi="assets/80x80.png"
+                                    source320dpi="assets/160x160.png"/>
+            <s:MultiDPIBitmapSource id="refer_12" 
+                                    source160dpi="assets/80x80.png"
+                                    source240dpi="assets/120x120.png"/>
+            <s:MultiDPIBitmapSource id="refer_1" 
+                                    source160dpi="assets/80x80.png"/>
+            <s:MultiDPIBitmapSource id="refer_2" 
+                                    source240dpi="assets/120x120.png"/>
+            <s:MultiDPIBitmapSource id="refer_3"
+                                    source320dpi="assets/160x160.png"/>
+        </s:ArrayList>
+    </fx:Declarations>
+	
+	<s:states>
+		<s:State name="Embedded"/>
+		<s:State name="Referrenced"/>
+	</s:states>
+    
+	<s:HGroup>
+		<s:BitmapImage id="bitmapImage" source.Embedded="{embed}" source.Referrenced="{refer}"/>
+		<s:VGroup id="referenceSquares" gap="0">
+			<s:Rect width="40" height="40">
+				<s:fill>
+					<s:SolidColor color="0xAAAAAA"/>
+				</s:fill>
+			</s:Rect>
+			<s:Rect width="40" height="40">
+				<s:fill>
+					<s:SolidColor color="0xDDDDDD"/>
+				</s:fill>
+			</s:Rect>
+			<s:Rect width="40" height="40">
+				<s:fill>
+					<s:SolidColor color="0xAAAAAA"/>
+				</s:fill>
+			</s:Rect>
+			<s:Rect width="40" height="40">
+				<s:fill>
+					<s:SolidColor color="0xDDDDDD"/>
+				</s:fill>
+			</s:Rect>
+		</s:VGroup>
+		<s:Button id="button" label="" width="160" height="160" icon.Embedded="{embed}" icon.Referrenced="{refer}" click="changeSource(i++)" skinClass="comps.SolidButtonSkin"/>
+	</s:HGroup>
+    
+	<s:HGroup width="100%">
+		<s:List width="200" height="200" id="normalList" itemRenderer="comps.IconLabelRenderer">
+            <s:ArrayList>
+                <comps:IconLabel message="" icon.Embedded="{embed}" icon.Referrenced="{refer}"/>
+            </s:ArrayList>
+		</s:List>
+        
+		<s:List width="200" height="200" id="loadingList" itemRenderer="comps.IconLoadingRenderer">
+			<s:ArrayList>
+				<comps:IconLabel icon="noIcon" message="" />
+			</s:ArrayList>
+		</s:List>
+	</s:HGroup>
+    
+    <s:TabbedViewNavigator id="tabbedNavigator" width="200" height="200">
+        <s:ViewNavigator id="viewNavigator" icon="{embed}" width="100%" height="100%" firstView="comps.SolidView" />
+    </s:TabbedViewNavigator>
+	
+</s:VGroup>

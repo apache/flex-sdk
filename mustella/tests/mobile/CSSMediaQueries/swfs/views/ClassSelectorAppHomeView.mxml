@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:renderers="renderers.*"
+		xmlns:q="*"
+		title="CSS Media Query Testing"
+		viewDeactivate="saveScrollPosition()">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import spark.events.ElementExistenceEvent;
+			import spark.events.IndexChangeEvent;
+			
+			private function testCaseSelected(event:IndexChangeEvent):void {
+				navigator.pushView(event.target.selectedItem.className);
+			}
+			
+			private function getLabel(item:Object):String {
+				return ((testCaseViews.getItemIndex(item) as Number) + 1) + ".  " + item.name;
+			}
+			
+			private function restoreScrollPosition(event:FlexEvent):void {
+				
+				// the data might be null if it has never been set
+				if (data == null)
+					return;
+				
+				// restore the saved scroll position
+				var vsp:Number = data.verticalScrollPosition as Number;
+				var hsp:Number = data.horizontalScrollPosition as Number;
+				
+				testCaseList.dataGroup.verticalScrollPosition = (vsp) ? vsp : 0;
+				testCaseList.dataGroup.horizontalScrollPosition =  (hsp) ? hsp : 0;
+			}
+			
+			private function saveScrollPosition():void {
+				if (data == null)
+					data = new Object();
+				
+				// save the current scroll position of the List when the screen is deactivated
+				data.verticalScrollPosition   = testCaseList.dataGroup.verticalScrollPosition;
+				data.horizontalScrollPosition = testCaseList.dataGroup.horizontalScrollPosition;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:ArrayList id="testCaseViews">
+			<fx:Object name="QNX query" className="{views.Query_QNX_View}" />
+			<fx:Object name="QNX 160dpi query" className="{views.Query_QNX160dpi_View}" />
+			<fx:Object name="Media all no features query" className="{views.Query_MediaAll_NoFeatures_View}" />
+			<fx:Object name="Media screen no features query" className="{views.Query_MediaScreen_NoFeatures_View}" />
+			<fx:Object name="Not Media all no features query" className="{views.Query_NOT_MediaAll_NoFeatures_View}" />
+			<fx:Object name="Not Media screen no features query" className="{views.Query_NOT_MediaScreen_NoFeatures_View}" />
+			<fx:Object name="160dpi query" className="{views.Query_160dpi_View}" />
+			<fx:Object name="240dpi query" className="{views.Query_240dpi_View}" />
+			<fx:Object name="320dpi query" className="{views.Query_320dpi_View}" />
+			<fx:Object name="Media type all and 240dpi query" className="{views.Query_MediaAll_240dpi_View}" />
+			<fx:Object name="Media type screen and 240dpi query" className="{views.Query_MediaScreen_240dpi_View}" />
+			<fx:Object name="Media type only screen and 240dpi query" className="{views.Query_MediaOnlyScreen_240dpi_View}" />
+			<fx:Object name="Android query" className="{views.Query_Android_View}" />
+			<fx:Object name="IOS query" className="{views.Query_IOS_View}" />
+			<fx:Object name="Android 160dpi query" className="{views.Query_Android160dpi_View}" />
+			<fx:Object name="IOS 160dpi query" className="{views.Query_IOS160dpi_View}" />
+			<fx:Object name="Android 240dpi query" className="{views.Query_Android240dpi_View}" />
+			<fx:Object name="Android 320dpi query" className="{views.Query_Android320dpi_View}" />
+			<fx:Object name="IOS 320dpi query" className="{views.Query_IOS320dpi_View}" />
+			<fx:Object name="160dpi or 320dpi query" className="{views.Query_160dpi_OR_320dpi_View}" />
+			<fx:Object name="IOS 160dpi or IOS 320dpi query" className="{views.Query_IOS160dpi_OR_IOS320dpi_View}" />
+			<fx:Object name="Not Media type all and 240dpi query" className="{views.Query_NOT_MediaAll_240dpi_View}" />
+			<fx:Object name="Not Media type screen and 240dpi query" className="{views.Query_NOT_MediaScreen_240dpi_View}" />
+			<fx:Object name="Not Media type screen and Android 240dpi query" className="{views.Query_Android240dpi_View}" />
+			<fx:Object name="Not Media type screen and 160dpi or 320dpi query" className="{views.Query_NOT_MediaScreen_160dpi_OR_320dpi_View}" />
+			<fx:Object name="Not Media type screen and IOS 160dpi or IOS 320dpi query" className="{views.Query_NOT_MediaScreen_IOS160dpi_OR_IOS320dpi_View}" />
+			<fx:Object name="Media type unknown and 240dpi query" className="{views.Query_MediaUnknown_240dpi_View}" />
+			<fx:Object name="Not Media type unknown and 240dpi query" className="{views.Query_NOT_MediaUnknown_240dpi_View}" />
+			<fx:Object name="No Default Style and 160dpi query" className="{views.Query_160dpi_NoDefaultStyle_View}" />
+			<fx:Object name="Class reference with DPI based queries" className="{views.ClassReference_DPIBasedQueries_View}" />
+			<fx:Object name="Multiple Queries Evaluate to True" className="{views.MultipleQueriesEvaluateTrue_View}" />
+			<fx:Object name="Multiple Queries" className="{views.MultipleQueries_View}" />
+			<fx:Object name="Default specified after 240dpi query" className="{views.DefaultSpecifiedAfterQuery_240dpi_View}" />
+			<fx:Object name="Uppercase Media Tag Android Query" className="{views.Query_UppercaseMediaTag_Android_View}" />
+			<fx:Object name="Uppercase Media Screen Android Query" className="{views.Query_UppercaseMediaScreen_Android_View}" />
+			<fx:Object name="Uppercase Feature Name Android Query" className="{views.Query_UppercaseFeatureName_Android_View}" />
+			<fx:Object name="Uppercase AND and Android Query" className="{views.Query_UppercaseAND_Android240dpi_View}" />
+			<fx:Object name="Uppercase ONLY and Media type only screen and 240dpi query" className="{views.Query_UppercaseONLY_MediaOnlyScreen_240dpi_View}" />
+			<fx:Object name="Uppercase NOT NOT Media All and 240dpi query" className="{views.Query_UppercaseNOT_MediaAll_240dpi_View}" />
+			<fx:Object name="Uppercase Android Query" className="{views.Query_UppercaseAndroid_View}" />
+			<fx:Object name="Lowercase IOS Query" className="{views.Query_LowercaseIOS_View}" />
+			<fx:Object name="No Quotes Android Query" className="{views.Query_NoQuotesAndroid_View}" />
+			<fx:Object name="Missing OS Query" className="{views.Query_MissingOS_View}" />
+			<fx:Object name="Missing DPI Query" className="{views.Query_MissingDPI_View}" />
+			<fx:Object name="Invalid Feature Query" className="{views.Query_InvalidFeature_View}" />
+			<fx:Object name="Not Invalid Feature Query" className="{views.Query_NOT_InvalidFeature_View}" />
+			<fx:Object name="Invalid OS Query" className="{views.Query_InvalidOS_View}" />
+			<fx:Object name="Invalid DPI Query" className="{views.Query_InvalidDPI_View}" />
+			<fx:Object name="Quotes Around DPI Query" className="{views.Query_QuotesAroundDPI_View}" />
+		</s:ArrayList>
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="portrait"/>
+		<s:State name="landscape"/>
+	</s:states>
+	
+	<s:List id="testCaseList" labelFunction="getLabel" top="0" left="0" right="0" bottom="0"
+			dataProvider="{testCaseViews}"
+			creationComplete="restoreScrollPosition(event)"
+			change="testCaseSelected(event)">
+		<s:itemRenderer>
+			<fx:Component>
+				<s:LabelItemRenderer height="100"/>
+			</fx:Component>
+		</s:itemRenderer>
+		<s:layout>
+			<s:VerticalLayout horizontalAlign="justify" gap="0" />
+		</s:layout>
+	</s:List>
+	
+</s:View>

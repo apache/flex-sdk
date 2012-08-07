@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/SpinnerList/properties/"
+    testSWF="SpinnerList.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+            import spark.layouts.HorizontalLayout;
+            import spark.layouts.VerticalLayout;
+            import spark.components.SpinnerList;
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+        
+        <!--
+        ==============================
+        Properties Testing
+        ==============================
+        -->
+        
+        <TestCase testID="SpinnerList_properties_default" keywords="[SpinnerList, Properties]" description="default property values">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=(new spark.components.SpinnerList).wrapElements" value="true" />
+                <AssertMethodValue method="value=(new spark.components.SpinnerList).selectedIndex" value="-1" />
+                <AssertMethodValue method="value=(new spark.components.SpinnerList).caretIndex" value="-1" />
+                <AssertMethodValue method="value=(new spark.components.SpinnerList).requireSelection" value="true" />
+                <AssertMethodValue method="value=(new spark.components.SpinnerList).useVirtualLayout" value="true" />
+                <AssertMethodValue method="value=(new spark.components.SpinnerList).dataProvider" value="null" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_properties_requireSelection" keywords="[SpinnerList, Properties]" description="setting requireSelection to false should be ignored">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_6" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="requireSelection" value="false" waitEvent="enterFrame" />
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="-1" waitEvent="enterFrame" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="requireSelection" value="true" />
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndex" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_properties_caretIndex" keywords="[SpinnerList, Properties]" description="caretIndex should be the same as selectedIndex">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_6" waitEvent="updateComplete" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndex" value="0" />
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="caretIndex" value="0" />
+                
+                <SetProperty target="navigator.activeView.target" propertyName="selectedIndex" value="1" waitEvent="valueCommit" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="selectedIndex" value="1" />
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="caretIndex" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_properties_layout" keywords="[SpinnerList, Properties]" description="setting layout should be ignored">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_6" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="enterFrame" />
+                
+                <AssertPropertyValue target="navigator.activeView.target" propertyName="layout" valueExpression="value='[object VerticalSpinnerLayout]'" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_properties_containerLayout" keywords="[SpinnerList, Integration]" description="should be able to set any layout on a SpinnerListContainer">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.StatesView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.slc" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />
+                <AssertMethodValue method="value=application.navigator.activeView.s1.y &lt; application.navigator.activeView.s2.y" value="true" />
+                <AssertMethodValue method="value=application.navigator.activeView.s2.y &lt; application.navigator.activeView.s3.y" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_properties_labelField" keywords="[SpinnerList, Properties]" description="labelField should be respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_objects" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelField" value="firstName" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="Daniel" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="Christian" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label"  value="Roberto" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label"  value="Pavel" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label"  value="Trevor" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="SpinnerList_properties_labelFunction" keywords="[SpinnerList, Properties]" description="labelFunction should be respected">
+            <setup>
+                <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.navigator.pushView(views.DataProviderView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+                <SetProperty target="navigator.activeView.target" propertyName="dataProvider" valueExpression="value=application.navigator.activeView.arrayList_objects" waitEvent="updateComplete" />
+                <SetProperty target="navigator.activeView.target" propertyName="labelFunction" valueExpression="value=application.navigator.activeView.customLabelFunction" waitEvent="updateComplete" />
+                
+                <AssertMethodValue method="value=application.assertRendererPositions(application.navigator.activeView.target)" value="pass" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -2).label" value="Sedin" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, -1).label" value="Ehrhoff" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 0).label"  value="Luongo" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 1).label"  value="Bure" />
+                <AssertMethodValue method="value=application.getRenderer(application.navigator.activeView.target, 2).label"  value="Linden" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

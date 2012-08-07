@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   initialize="initializeHandler(event)" >
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.net.registerClassAlias;
+			
+			import mx.events.FlexEvent;
+			
+			import spark.components.ViewNavigator;
+			import spark.components.supportClasses.NavigationStack;
+			import spark.components.supportClasses.ViewDescriptor;
+			import spark.managers.PersistenceManager;
+			
+			import views.View1;
+			import views.View2;
+			
+			public var persistenceManager:PersistenceManager;
+			
+			
+			protected function initializeHandler(event:FlexEvent):void
+			{
+				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
+				
+				registerClassAlias("ViewDescriptor", ViewDescriptor);
+				registerClassAlias("NavigationStack", NavigationStack);
+				
+				persistenceManager = new PersistenceManager();
+				persistenceManager.load();
+				
+				var data:Object = persistenceManager.getProperty("navigatorState");
+				if(data)
+					svn1.loadViewData(data); 
+				
+			}
+			
+			protected function onDeactivate(event:Event):void
+			{
+				persistenceManager.setProperty("navigatorState", svn1.saveViewData());
+				persistenceManager.save();
+			}
+		
+			public function switchViewWithData(viewNavigator:ViewNavigator, data:Object):void
+			{
+				if(viewNavigator.id == 'vn1')
+				{
+					viewNavigator.pushView(views.View2, data);
+				}else if(viewNavigator.id == 'vn2')
+				{
+					viewNavigator.pushView(views.View1, data);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+
+	<s:SplitViewNavigator id="svn1" width="100%" height="100%" >
+		<s:ViewNavigator id="vn1" firstView="views.View1" height="100%" width="100%"/>
+		<s:ViewNavigator id="vn2" firstView="views.View2" width="100%" height="100%"/>
+	</s:SplitViewNavigator>
+	
+	
+</s:Application>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        title="DataProvider">
+    
+    <fx:Script>
+        <![CDATA[
+            /** The index into the array of dataProviders */
+            private var currentDataProvider:int = 0;
+            
+            /** Cycles through the possible dataProviders */
+            private function changeDataProvider():void
+            {
+                if (currentDataProvider >= dataProviderList.length)
+                    currentDataProvider = 0;
+                
+                target.dataProvider = dataProviderList[currentDataProvider];
+                currentDataProvider++;
+            }
+            
+            /** A custom labelFunction */
+            public function customLabelFunction(item:Object):String
+            {
+                if (item)
+                    return item.lastName;
+                else
+                    return "null";
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <fx:Array id="dataProviderList">
+            <!-- misc -->
+            <s:ArrayList id="arrayList_0" />
+            <s:ArrayList id="arrayList_1" source="{['$']}" />
+            <s:ArrayList id="arrayList_2" source="{['AM', 'PM']}" />
+            <s:ArrayList id="arrayList_3" source="{['CAD','USD','GBP']}" />
+            <s:ArrayList id="arrayList_4" source="{['CAD','USD','GBP','YEN']}" />
+            <s:ArrayList id="arrayList_5" source="{['CAD','USD','GBP','YEN','EUR']}" />
+            <s:ArrayList id="arrayList_6" source="{['CAD','USD','GBP','YEN','EUR','CHF']}" />
+            
+            <!-- default -->
+            <s:NumericDataProvider id="ndp_default" />
+            
+            <!-- minimum -->
+            <s:NumericDataProvider id="ndp_minimum_0" minimum="0" maximum="100" />
+            <s:NumericDataProvider id="ndp_minimum_50" minimum="50" maximum="100" />
+            <s:NumericDataProvider id="ndp_minimum_10000" minimum="10000" maximum="20000" />
+            <s:NumericDataProvider id="ndp_minimum_negative" minimum="-50" maximum="100" />
+            <s:NumericDataProvider id="ndp_minimum_decimal" minimum="0.5" maximum="10.5" />
+            
+            <!-- maximum -->
+            <s:NumericDataProvider id="ndp_maximum_0" minimum="-10" maximum="0" />
+            <s:NumericDataProvider id="ndp_maximum_50" minimum="0" maximum="50" />
+            <s:NumericDataProvider id="ndp_maximum_10000" minimum="0" maximum="10000" />
+            <s:NumericDataProvider id="ndp_maximum_negative" minimum="-100" maximum="-50" />
+            <s:NumericDataProvider id="ndp_maximum_decimal" minimum="0.75" maximum="10.75" />
+            
+            <!-- step size -->
+            <s:NumericDataProvider id="ndp_stepSize_5" minimum="0" maximum="100" stepSize="5" />
+            <s:NumericDataProvider id="ndp_stepSize_2dot5" minimum="0" maximum="100" stepSize="2.5" />
+            <s:NumericDataProvider id="ndp_stepSize_negative1" minimum="0" maximum="100" stepSize="-1" />
+            <s:NumericDataProvider id="ndp_stepSize_negative2" minimum="-100" maximum="0" stepSize="-1" />
+            <s:NumericDataProvider id="ndp_stepSize_negative3" minimum="-200" maximum="-100" stepSize="-1" />
+            
+            <!-- toArray -->
+            <s:NumericDataProvider id="ndp_toArray" minimum="4" maximum="10" stepSize="2" />
+            
+            <!-- objects -->
+            <s:ArrayList id="arrayList_objects">
+                <fx:Object firstName="RobFN" lastName="LuoLN" />
+                <fx:Object firstName="PavFN" lastName="BurLN" />
+                <fx:Object firstName="TreFN" lastName="LinLN" />
+                <fx:Object firstName="MarFN" lastName="NasLN" />
+                <fx:Object firstName="RyaFN" lastName="KesLN" />
+                <fx:Object firstName="AleFN" lastName="BurLN" />
+                <fx:Object firstName="SamFN" lastName="SalLN" />
+                <fx:Object firstName="HenFN" lastName="SedLN" />
+                <fx:Object firstName="DanFN" lastName="SedLN" />
+                <fx:Object firstName="ChrFN" lastName="EhrLN" />
+            </s:ArrayList>
+        </fx:Array>
+    </fx:Declarations>
+    
+    <s:actionContent>
+        <s:Button label="change" click="changeDataProvider()" />
+    </s:actionContent>
+    
+    <s:SpinnerListContainer id="slc" horizontalCenter="0" width="50%">
+        <s:SpinnerList id="target" width="100%" />
+    </s:SpinnerListContainer>
+    
+</s:View>

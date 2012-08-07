@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:components="components.*"
+	width="100%" height="100%" >
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+
+
+	</fx:Style>
+
+	<s:VGroup y="20">
+		
+		
+		<s:VGroup id="container" styleName="style1" paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20">
+			<components:LabelBasic id="textBoxComp" />
+		</s:VGroup>
+		<s:HGroup id="container2" >
+				<s:Label id="textBoxComp2" />
+				<s:Label id="textBoxComp3" />
+				<s:Label id="textBoxComp4" />
+		</s:HGroup>
+		<s:Group>
+				<s:Label id="textBoxComp5" styleName="greenText"/>
+		</s:Group>
+		<s:SkinnableContainer id="container3" >
+			<s:Label id="textBoxComp6" styleName="fadedText"/>
+		</s:SkinnableContainer>
+		<s:VGroup id="container7" >
+			<s:Label id="textBoxComp7" />
+		</s:VGroup>
+
+
+		<s:VGroup>
+			<s:Panel width="200" id="panel1" height="200" >
+				<s:VGroup width="100" height="150" id="vgp1">
+					<s:Label id="label2" color="0x00ff00" width="100" height="100" text="Spark DropDownList long long long long long Spark Drop Down List long long long long long   long long long long long Spark Drop Down List l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l " />
+				</s:VGroup>
+			</s:Panel>
+		</s:VGroup>
+
+	</s:VGroup>
+
+</s:View>

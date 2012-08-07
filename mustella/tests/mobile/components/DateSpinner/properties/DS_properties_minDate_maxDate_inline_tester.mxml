@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/DateSpinner/properties/"  xmlns="*"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			testSWF="DateSpinnerMain.mxml">
+	
+	<!-- this set of lines form a template that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			
+			import assets.DSConstants;			
+			import views.*;		
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+		    [Mixin]
+		]]>
+	</fx:Metadata>  
+	
+	<!-- end of set of lines that must be in each unit test  -->
+	
+	<testCases>
+		
+		<TestCase testID="DS_inline_minDate_maxDate_normal_1" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, check year list">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />	
+			</setup>
+			<body>	
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="minDate" valueExpression="value=DSConstants.minDLarge"/>
+				<AssertPropertyValue target="navigator.activeView.ds1" propertyName="maxDate" valueExpression="value=DSConstants.maxDLarge"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_minDate_maxDate_DATE_large_range_2" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very large range">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date (2011, 7, 3 )" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="August" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="03" >
+					<ConditionalValue value="3" os="android" />
+					<ConditionalValue value="3" os="iphone" />
+					<ConditionalValue value="3" os="qnx" />
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2011" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_minDate_maxDate_DATE_large_range_year1750_3" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very large range">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date ( 1750, 3, 3 )" waitEvent="updateComplete" />
+			</setup>
+			<body>		
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="April" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="03" >
+					<ConditionalValue value="3" os="android" />
+					<ConditionalValue value="3" os="iphone" />
+					<ConditionalValue value="3" os="qnx" />
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="1750" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DS_inline_minDate_maxDate_DATE_large_range_year1615_4" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very large range">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date (1615,2,28)" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="March" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="28" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="1615" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_minDate_maxDate_DATE_large_range_year3012_5" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very large range">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date ( 3012,5,1)" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="June" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="01" >
+					<ConditionalValue value="1" os="android" />
+					<ConditionalValue value="1" os="iphone" />
+					<ConditionalValue value="1" os="qnx" />
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="3012" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_minDate_maxDate_DATE_large_range_year9999_6" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very large range">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds1" propertyName="selectedDate" valueExpression="value=new Date ( 9999,5,1)" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="June" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="01" >
+					<ConditionalValue value="1" os="android" />
+					<ConditionalValue value="1" os="iphone" />
+					<ConditionalValue value="1" os="qnx" />
+				</AssertMethodValue>
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="9999" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_minDate_maxDate_DATETIME_7" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, check year list">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=DSConstants.minDdetail"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=DSConstants.maxDdetail"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_minDate_maxDate_DATETIME_large_range_8" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very large range">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date (2011, 7, 3, 3, 40 )" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=DSConstants.minDdetail"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=DSConstants.maxDdetail"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Wed, Aug 3" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="3" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="40" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="AM" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_minDate_maxDate_DATETIME_large_range_year1750_9" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very large range">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date ( 1750, 3, 3 , 3, 10)" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=DSConstants.minDdetail"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=DSConstants.maxDdetail"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Fri, Apr 3" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="3" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="10" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="AM" />
+			</body>
+		</TestCase>
+	
+		<TestCase testID="DS_inline_minDate_maxDate_DATETIME_large_range_year1615_10" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very large range">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date (1615,2,28,8,00)" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=DSConstants.minDdetail"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=DSConstants.maxDdetail"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Sat, Mar 28" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="8" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="00" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="AM" />
+			</body>
+		</TestCase>
+	
+		<TestCase testID="DS_inline_minDate_maxDate_DATETIME_large_range_year3012_11" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very large range">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date ( 3012,5,1, 12, 22)" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=DSConstants.minDdetail"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=DSConstants.maxDdetail"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Mon, Jun 1" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="12" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="22" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="PM" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_minDate_maxDate_DATETIME_large_range_year9999_12" keywords="[DateSpinner, property, minDate, maxDate]" 
+				  description="Test properties minDate and maxDate can work well for DateSpinner component, set very large range">
+			<bugs>
+				<Bug bugID="SDK-31201"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="12000" />
+				<SetProperty target="navigator.activeView.ds2" propertyName="selectedDate" valueExpression="value=new Date ( 9999,5,1, 21, 30)" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="minDate" valueExpression="value=DSConstants.minDdetail"/>
+				<AssertPropertyValue target="navigator.activeView.ds2" propertyName="maxDate" valueExpression="value=DSConstants.maxDdetail"/>
+				
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getDateRenderer(0).label" value="Tue, Jun 1" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getHourRenderer(0).label" value="9" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMinuteRenderer(0).label" value="30" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds2.getMeridianRenderer(0).label" value="PM" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_DATE_dragToMinDate_13" keywords="[DateSpinner, minDate, maxDate]"
+				  description="Set minDate and maxDate properties for DateSpinner and drag to minDate and check prior minDate is not selected. " >
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2009,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="maxDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2010,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2009,8,17)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<!-- Drag month list to May --> 
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="12" dragYTo="92" dragXFrom="50" dragXTo="50" recordedDPI="160" waitEvent="touchInteractionEnd"/>
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="12" dragYTo="92" dragXFrom="50" dragXTo="50" recordedDPI="160" waitEvent="touchInteractionEnd"/>
+				<!-- Drag day list to 15 --> 
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="12" dragYTo="92" dragXFrom="117" dragXTo="117" recordedDPI="160" waitEvent="touchInteractionEnd"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_DATE_dragToMaxDate_14" keywords="[DateSpinner, minDate, maxDate]"
+				  description="Set minDate and maxDate properties for DateSpinner and drag to minDate and check prior minDate is not selected. " >
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2009,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="maxDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2010,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2010,1,12)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				 <!-- Drag the month list to May -->
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="160" dragYTo="82" dragXFrom="50" dragXTo="50" recordedDPI="160" waitEvent="change" />
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="125" dragYTo="82" dragXFrom="50" dragXTo="50" recordedDPI="160" waitEvent="change" />
+				<!-- Drag the day list to 15  -->
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="160" dragYTo="82" dragXFrom="117" dragXTo="117" recordedDPI="160" waitEvent="change" />
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="125" dragYTo="82" dragXFrom="117" dragXTo="117" recordedDPI="160" waitEvent="change" />
+                
+                <WaitForEvent target="navigator.activeView.ds1" eventName="enterFrame" /><!-- wait two frames for any excess animation to finish rendering -->
+                <WaitForEvent target="navigator.activeView.ds1" eventName="enterFrame" />
+                <Pause timeout="1000" /><!-- the server runs seem to still have issues, adding a pause to see if this helps -->
+                
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_DATETIME_dragToMinDate_15" keywords="[DateSpinner, minDate, maxDate]"
+				  description="Set minDate and maxDate properties for DateSpinner and drag to minDate and check prior minDate is not selected. " >
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds2" valueExpression="value=new Date(2009,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="maxDate" target="navigator.activeView.ds2" valueExpression="value=new Date(2010,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds2" valueExpression="value=new Date(2009,4,18)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SimulateMouseGesture target="navigator.activeView.ds2" dragYFrom="12" dragYTo="92" dragXFrom="56" dragXTo="56" recordedDPI="160" waitEvent="touchInteractionEnd"/>
+				<SimulateMouseGesture target="navigator.activeView.ds2" dragYFrom="52" dragYTo="92" dragXFrom="56" dragXTo="56" recordedDPI="160" waitEvent="touchInteractionEnd"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_DATETIME_dragToMaxDate_16" keywords="[DateSpinner, minDate, maxDate]"
+				  description="Set minDate and maxDate properties for DateSpinner and drag to minDate and check prior minDate is not selected. " >
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds2" valueExpression="value=new Date(2009,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="maxDate" target="navigator.activeView.ds2" valueExpression="value=new Date(2010,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds2" valueExpression="value=new Date(2010,4,12)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SimulateMouseGesture target="navigator.activeView.ds2" dragYFrom="160" dragYTo="82" dragXFrom="56" dragXTo="56" recordedDPI="160" waitEvent="change" />
+				<SimulateMouseGesture target="navigator.activeView.ds2" dragYFrom="125" dragYTo="82" dragXFrom="56" dragXTo="56" recordedDPI="160" waitEvent="change" />
+                
+                <WaitForEvent target="navigator.activeView.ds2" eventName="enterFrame" /><!-- wait two frames for any excess animation to finish rendering -->
+                <WaitForEvent target="navigator.activeView.ds2" eventName="enterFrame" />
+                <Pause timeout="1000" /><!-- the server runs seem to still have issues, adding a pause to see if this helps -->
+                
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_DATE_not_draggable_year_17" keywords="[DateSpinner, minDate, maxDate]"
+				  description="Set minDate and maxDate properties for DateSpinner and drag to minDate and check prior minDate is not selected. " >
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2010,2,1)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="maxDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2010,5,1)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2010,4,12)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="92" dragYTo="12" dragXFrom="117" dragXTo="117" recordedDPI="160" waitEvent="change" />
+                
+                <WaitForEvent target="navigator.activeView.ds1" eventName="enterFrame" /><!-- wait two frames for any excess animation to finish rendering -->
+                <WaitForEvent target="navigator.activeView.ds1" eventName="enterFrame" />
+                
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_DATE_drag_month_auto_adjust_toMaxDay_18" keywords="[DateSpinner, minDate, maxDate]"
+				  description="Set minDate and maxDate properties for DateSpinner and drag to minDate and check prior minDate is not selected. " >
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2009,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="maxDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2010,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2010,3,25)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="132" dragYTo="92" dragXFrom="50" dragXTo="50" recordedDPI="160" waitEvent="change" />
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_DATE_drag_month_auto_adjust_toMinDay_19" keywords="[DateSpinner, minDate, maxDate]"
+				  description="Set minDate and maxDate properties for DateSpinner and drag to minDate and check prior minDate is not selected. " >
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2009,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="maxDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2010,4,15)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2009,5,10)" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="52" dragYTo="92" dragXFrom="50" dragXTo="50" recordedDPI="160" waitEvent="change" />
+				<CompareBitmap url="../properties/baselines" target="navigator.activeView.ds1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="DS_inline_DATE_setWhenScroll_laterThanMin_20" keywords="[DateSpinner, minDate, maxDate]"
+				  description="Set minDate and selectedDate when scrolling - bug  SDK-31535" >
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+			</setup>
+			<body>
+				<!-- Drag year list --> 
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="96" dragYTo="169" dragXFrom="162" dragXTo="162" recordedDPI="160" waitEvent="touchInteractionEnd"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2009,8,17)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds1" valueExpression="value=new Date(1900,3,15)" waitEvent="updateComplete"/>
+				<WaitForEvent target="navigator.activeView.ds1" eventName="enterFrame" />
+                <WaitForEvent target="navigator.activeView.ds1" eventName="enterFrame" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="2009" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="September" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="17" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DS_inline_DATE_setWhenScroll_earlierThanMin_21" keywords="[DateSpinner, minDate, maxDate]"
+				  description="Set minDate and selectedDate when scrolling - bug  SDK-31535" >
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.MinDateMaxDateInlineView)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" timeout="18000" />
+			</setup>
+			<body>
+				<!-- Drag year list --> 
+				<SimulateMouseGesture target="navigator.activeView.ds1" dragYFrom="96" dragYTo="169" dragXFrom="162" dragXTo="162" recordedDPI="160" waitEvent="touchInteractionEnd"/>
+				<SetProperty propertyName="selectedDate" target="navigator.activeView.ds1" valueExpression="value=new Date(2009,8,17)" waitEvent="updateComplete"/>
+				<SetProperty propertyName="minDate" target="navigator.activeView.ds1" valueExpression="value=new Date(3200,3,15)" waitEvent="updateComplete"/>
+				<WaitForEvent target="navigator.activeView.ds1" eventName="enterFrame" />
+                <WaitForEvent target="navigator.activeView.ds1" eventName="enterFrame" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getYearRenderer(0).label" value="3200" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getMonthRenderer(0).label" value="April" />
+				<AssertMethodValue method="value=application.navigator.activeView.ds1.getDateRenderer(0).label" value="15" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+	
+</UnitTester>
+
+		

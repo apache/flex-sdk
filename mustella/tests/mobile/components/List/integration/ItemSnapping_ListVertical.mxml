@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+	testDir="mobile/components/List/integration/"
+    testSWF="ItemSnapping.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[ 
+            import views.*;
+			import mx.events.TouchInteractionReason;
+			import mx.events.TouchInteractionEvent;
+			import mx.core.InteractionMode;
+			import spark.components.Scroller;
+			import spark.layouts.VerticalLayout;
+			import mx.core.FlexGlobals;
+			import comps.snappingTouchEvents;
+        ]]>
+    </fx:Script>
+    
+    <testCases>
+			
+		
+		<!--
+		ListVertical:
+		1. Verify  when scrollSnapping mode is none and a drag is performed, snaps at any absolute pixel
+		2. Verify that when scrollSnappping mode is Leading/Trailing, an item is perfectly alinged with the top/bottom of viewport ie. VerticalLayout.fractionOfElementInView(firstElementInViewIndex) should be 1
+		3. Change orientation of the deivce and verify the snapping modes are respected
+		-->
+		<TestCase testID="ItemSnapping_snapping_list_vertical_leading_prog" keywords="[ItemSnapping, List]" description="verifies any drag on a list results in leading edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<!-- use delta to index insted -->
+				<RunCode code="application.navigator.activeView.itemList.ensureIndexIsVisible(12)" waitTarget="navigator.activeView.itemList.dataGroup" waitEvent="propertyChange"/>
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+<!--				<AssertMethodValue method="value=(application.navigator.activeView.itemList.layout as VerticalLayout).fractionOfElementInView((application.navigator.activeView.itemList.layout as VerticalLayout).firstIndexInView)" value="1" /> 
+-->
+				<AssertMethodValue method="value=ItemSnapping.isLeading(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_leading_smalldrag" keywords="[ItemSnapping, List]" description="verifies any prog transition on a vertical list results in leading edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" dragYFrom="25%" dragYTo="0" dragXFrom="100" dragXTo="100" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />			
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isLeading(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_leading_largedrag" keywords="[ItemSnapping, List]" description="verifies any prog transition on a vertical list results in leading edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" dragYFrom="95%" dragYTo="0" dragXFrom="100" dragXTo="100" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />			
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isLeading(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_leading_smallthrow" keywords="[ItemSnapping, List]" description="verifies any small throw on a vertical list results in leading edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" valueExpression="value=application.mouseSequences.throw_small_down" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isLeading(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_leading_largethrow" keywords="[ItemSnapping, List]" description="verifies any large throw on a vertical list results in leading edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="leadingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" valueExpression="value=application.mouseSequences.throw_large_down" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isLeading(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="ItemSnapping_snapping_list_vertical_trailing_prog" keywords="[ItemSnapping, List, trailing]" description="verifies any drag on a list results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<!-- use delta to index insted -->
+				<RunCode code="application.navigator.activeView.itemList.ensureIndexIsVisible(12)" waitTarget="navigator.activeView.itemList.dataGroup" waitEvent="propertyChange"/>
+				<!-- ensure snapping lands at a complete page ie. verticalscroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=(application.navigator.activeView.itemList.layout as VerticalLayout).fractionOfElementInView((application.navigator.activeView.itemList.layout as VerticalLayout).lastIndexInView)" value="1" /> 
+				<AssertMethodValue method="value=ItemSnapping.isTrailing(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_trailing_smalldrag" keywords="[ItemSnapping, List, trailing]" description="verifies any drag on a list results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" dragYFrom="25%" dragYTo="0" dragXFrom="100" dragXTo="100" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />			
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isTrailing(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_trailing_largedrag" keywords="[ItemSnapping, List, trailing]" description="verifies any drag on a list results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" dragYFrom="95%" dragYTo="0" dragXFrom="100" dragXTo="100" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />			
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isTrailing(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_trailing_smallthrow" keywords="[ItemSnapping, List, trailing]" description="verifies any drag on a list results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" valueExpression="value=application.mouseSequences.throw_small_down" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isTrailing(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_trailing_largethrow" keywords="[ItemSnapping, List, trailing]" description="verifies any drag on a list results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="trailingEdge" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" valueExpression="value=application.mouseSequences.throw_large_down" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />
+				<!-- ensure scroll position aligns with the starting of first element in view -->
+				<AssertMethodValue method="value=ItemSnapping.isTrailing(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_center_prog" keywords="[ItemSnapping, List, center]" description="verifies any drag on a list results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="10000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="center" />
+				<!-- use delta to index insted -->
+				<RunCode code="application.navigator.activeView.itemList.ensureIndexIsVisible(12)" waitTarget="navigator.activeView.itemList.dataGroup" waitEvent="propertyChange"/>
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_center_smalldrag" keywords="[ItemSnapping, List, center]" description="verifies any drag on a list results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="10000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="center" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" dragYFrom="25%" dragYTo="0" dragXFrom="100" dragXTo="100" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />			
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_center_largedrag" keywords="[ItemSnapping, List, center]" description="verifies any drag on a list results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="10000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="center" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" dragYFrom="95%" dragYTo="0" dragXFrom="100" dragXTo="100" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />			
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_center_smallthrow" keywords="[ItemSnapping, List, center]" description="verifies any drag on a list results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="10000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="center" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" valueExpression="value=application.mouseSequences.throw_small_down" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ItemSnapping_snapping_list_vertical_center_largethrow" keywords="[ItemSnapping, List, center]" description="verifies any drag on a list results in trailing edge snapped">
+			<setup>
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" timeout="6000" /> 
+				<RunCode code="application.doResetOrientation()" waitTarget="stage" waitEvent="orientationChange" /> 
+			</setup>
+			<body>
+				<RunCode code="application.navigator.pushView(views.ListVertical)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="10000"/>
+				<SetProperty target="navigator.activeView.itemList" propertyName="scrollSnappingMode" value="center" />
+				<SimulateMouseGesture target="navigator.activeView.itemList" valueExpression="value=application.mouseSequences.throw_large_down" waitTarget="navigator.activeView.itemList" waitEvent="touchInteractionEnd" />
+				<AssertMethodValue method="value=ItemSnapping.isCenterTile(application.navigator.activeView.itemList.dataGroup,'vertical')" value="true" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

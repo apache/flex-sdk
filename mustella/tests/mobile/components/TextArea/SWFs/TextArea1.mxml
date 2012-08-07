@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:components="components.*" width="100%" height="100%">
+<s:layout>
+	<s:VerticalLayout />
+</s:layout>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+		<fx:Script>
+			<![CDATA[
+				import spark.components.TextArea;
+
+				// Force styles to be used.
+				private var blah:TextArea;
+
+				public var shortString:String = "Lorem ipsum";
+				public var longString:String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis nunc, ultrices nec molestie a, dictum sed lacus. Vestibulum adipiscing dolor sed libero aliquet consectetur.";
+
+				/*public function doPopAll():void{
+					if(navigator.length == 0){
+						navigator.dispatchEvent(new Event(flash.events.Event.COMPLETE));
+					}else{
+						navigator.popAll();
+					}
+				}*/
+
+			]]>
+		</fx:Script>
+
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: myVeraNoCFF;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: myVeraNoCFF;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: myVeraNoCFF;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+			fontWeight: bold;
+			fontStyle: italic;
+			fontFamily: myVeraNoCFF;
+			embedAsCFF: false;
+		}
+
+
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: myVeraMonospaceNoCFF;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: myVeraMonospaceNoCFF;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: myVeraMonospaceNoCFF;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+			fontWeight: bold;
+			fontStyle: italic;
+			fontFamily: myVeraMonospaceNoCFF;
+			embedAsCFF: false;
+		}
+
+
+
+		s|TextArea{
+			skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
+			fontAntiAliasType: "normal";
+			fontFamily: myVeraNoCFF;
+		}
+
+	</fx:Style>
+
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+
+		.colorStyle{
+			color: #ff0000;
+			focusColor: #00ff00;
+			contentBackgroundColor: #0000ff;
+		}
+	</fx:Style>
+
+	<components:TextAreaComp1 id="tac1" />
+	<components:TextAreaComp2 id="tac2" />
+	<components:TextAreaComp3 id="tac3" />
+	<components:TextAreaComp4 id="tac4" />
+
+
+
+</s:Application>

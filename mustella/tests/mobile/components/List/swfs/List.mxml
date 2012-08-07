@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:comps="comps.*" 
+               backgroundColor="0xe3e3e3"
+               splashScreenImage="@Embed('assets/splashScreen.png')"
+               splashScreenScaleMode="none" 
+               applicationComplete="init(event)">
+    <fx:Script>
+        <![CDATA[
+            import comps.MouseSequences;
+            
+            import mx.core.FlexGlobals;
+            import mx.core.mx_internal;
+            import mx.events.FlexEvent;
+            
+            import spark.components.Scroller;
+            use namespace mx_internal;
+
+            /**
+            * Instantiate a copy of the common mouse event sequences
+            */
+            public var mouseSequences:MouseSequences = new MouseSequences();
+            
+            /**
+            * Since we aren't using ViewNavigatorApplication we need to setup the listeners to handle back button
+            * support.  This also sets up a global error handler to log uncaught RTEs and write them to disk. 
+            */
+            private function init(event:FlexEvent):void {
+                systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler);
+                systemManager.stage.addEventListener(KeyboardEvent.KEY_UP, deviceKeyUpHandler);
+                loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler);
+                
+                // TODO: Remove this code when we have proper support for excluding things in Mustella
+                // In the mean time we detect when running in Mustella on a 160dpi run and fail "gracefully"
+                // We throw an error and exit so there is a single List failure:
+                //      "mobile/components/List/swfs/List.swf  Failed Timed out"
+                // rather than a couple hundred failures.  It keeps the run cleaner.
+                if (CONFIG::skaha == false){
+                    // adl_extras: -screensize 320x455:320x480 -profile mobileDevice -XscreenDPI 170
+                    // adl_extras: -screensize 640x960:640x960 -profile mobileDevice -XscreenDPI 320
+                    if (FlexGlobals.topLevelApplication.width == 320 || /* upcoming 170 ADL run */
+                         (FlexGlobals.topLevelApplication.width == 640 && (Capabilities.os.indexOf('Win') == 0 || Capabilities.os.indexOf('Mac') == 0) ) || /* upcoming 326 ADL run */
+                        Capabilities.screenDPI == 160 || /* current 160ADL run */
+                        Capabilities.screenDPI == 320  /* current 320 ADL run */ ){
+                        
+                        // quietly fail on all 160 + 320 ADL runs whether they are current or next
+                        var errorString:String = "Error: List tests excluded for 160dpi and 320dpi ADL Mustella runs";
+                        trace(errorString);
+                        throw new Error(errorString);
+                        NativeApplication.nativeApplication.exit(-1);                        
+                    }
+                }
+            }
+
+            /**
+            * Logs an uncaught RTE by writing a file with its information to the sdcard of the device.
+            * The view title is also updated to show an error has happened.
+            */
+            private function uncaughtErrorHandler(e:UncaughtErrorEvent):void {
+                // don't show the RTE window
+                e.stopImmediatePropagation();
+                e.preventDefault();
+                
+                // show the error in the title of the view and write to SD card in case needed later
+                var d:Date = new Date();
+                var writePath:String = "/sdcard/Flex/QA/List/RTE_" + d.fullYear.toString() + "-" + (d.month + 1).toString() + "-" + (d.date + 1).toString() + "_" + d.hours.toString() + "-" + d.minutes.toString() + "-" + d.seconds.toString() + "-" + d.getMilliseconds().toString()  + ".txt";
+                
+                if (e.error is Error) {
+                    var error:Error = e.error as Error;
+                    var errorString:String = error.name + " " + error.errorID + ": " + error.message + "\n" + error.getStackTrace();
+                    trace(errorString);
+                    navigator.activeView.title = errorString;
+                    TouchScrollingUtil.writeFileToDisk(writePath, errorString);
+                } else {
+                    var errorEvent:ErrorEvent = e.error as ErrorEvent;
+                    trace(errorEvent);
+                    navigator.activeView.title = "Error: " + errorEvent.errorID;
+                    TouchScrollingUtil.writeFileToDisk(writePath, "Error: " + errorEvent.errorID + "\n" + errorEvent.toString());
+                }
+            }
+            
+            /** For back button support */
+            private function deviceKeyDownHandler(event:KeyboardEvent):void {
+                if (event.keyCode == Keyboard.BACK && !navigator.exitApplicationOnBackKey)
+                    event.preventDefault();
+            }
+            
+            /** For back button support */
+            private function deviceKeyUpHandler(event:KeyboardEvent):void {
+                if (event.keyCode == Keyboard.BACK && !navigator.exitApplicationOnBackKey)
+                    navigator.backKeyUpHandler();
+            }
+            
+            /** 
+            * This method returns the "slop" threshold between selection and scrolling in pixels
+            * given the exact DPI of the current device.  The SDK uses a value defined in inches and
+            * converts that to pixels based on the DPI so we do the same here.
+            * 
+            * Useful when doing pure vertical/horizontal drags using SimulateMouseGesture's 
+            * dragXFrom/dragXTo/dragYFrom/dragYTo properties, less useful when simulating recorded
+            * throw and drag gestures.
+            * 
+            * The slop used to be calculated based on a circle, but now its a square so this calculation
+            * is greatly simplified (see SDK-29362).
+            */
+            public static function getSlopValue():Number {
+                var dpi:Number = flash.system.Capabilities.screenDPI; // see SDK-29372
+                var slopInInches:Number = 0.079365; // see Scroller.minHorizontalSlopInches (see SDK-29223)
+                var slopInPixels:Number = Math.round(slopInInches * dpi); // round to match the framework (see SDK-29371)
+                return slopInPixels;
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Style>
+        @namespace s "library://ns.adobe.com/flex/spark";
+        s|View {
+            backgroundColor: #e3e3e3;
+        }
+    </fx:Style>
+    
+    <!-- root component -->
+    <comps:QANavigator id="navigator" />
+    
+    <!--Back Button for iOS: <s:Button label="Back" bottom="20" right="20" click="if (!(navigator.activeView is HomeView)) navigator.popView()" />-->
+    
+</s:Application>

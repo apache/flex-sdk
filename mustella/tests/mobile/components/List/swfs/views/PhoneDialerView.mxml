@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="Phone Dialer (Group)" backgroundColor="black">
+    
+    <fx:Script>
+        <![CDATA[
+            protected function backspaceButtonDown(event:Event):void
+            {
+                phoneNumber.text = (phoneNumber.text).substr(0, phoneNumber.text.length-1);
+            }
+
+            protected function buttonClick(event:MouseEvent):void
+            {
+                phoneNumber.text += (event.target as Button).label;
+            }
+            
+            protected function button1_clickHandler(event:MouseEvent):void
+            {
+                // call the number
+                navigateToURL(new URLRequest("tel://" + phoneNumber.text));
+            }
+
+        ]]>
+    </fx:Script>
+    
+    <s:actionContent>
+        <s:Button label="Scroller" click="navigator.pushView(views.PhoneDialerScrollerView)" />
+    </s:actionContent>
+    
+    <s:layout>
+        <s:VerticalLayout horizontalAlign="center" paddingBottom="20" gap="20" />
+    </s:layout>
+    
+    <s:Group width="100%">
+        <s:Rect width="100%" height="100%">
+            <s:fill>
+                <s:LinearGradient x = "24" y = "0" scaleX = "106" rotation = "90">
+                    <s:GradientEntry color="#a4ba49" ratio="0" alpha="1"/>
+                    <s:GradientEntry color="#7b9120" ratio="0.5" alpha="1"/>
+                    <s:GradientEntry color="#9cb649" ratio="1" alpha="1"/>
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        <s:Label id="phoneNumber" color="white" maxDisplayedLines="1" fontSize="40" fontWeight="bold" textAlign="center" top="20" left="10" right="10" bottom="20" />
+    </s:Group>
+    
+    <s:Group id="list1" width="90%" height="90%">
+        <s:layout>
+            <s:TileLayout requestedColumnCount="3" requestedRowCount="4" horizontalGap="10" verticalGap="10" columnAlign="justifyUsingWidth" rowAlign="justifyUsingHeight"/>
+        </s:layout>
+        <s:Button label="1" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+        <s:Button label="2" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+        <s:Button label="3" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+        <s:Button label="4" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+        <s:Button label="5" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+        <s:Button label="6" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+        <s:Button label="7" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+        <s:Button label="8" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+        <s:Button label="9" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+        <s:Button label="#" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+        <s:Button label="0" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+        <s:Button label="*" click="buttonClick(event)" skinClass="skins.BlackOrangeButtonSkin" />
+    </s:Group>
+    
+    <s:HGroup width="80%" horizontalAlign="center" height="55" verticalAlign="justify">
+        <s:Button label="VM" />
+        <s:Button label="CALL" click="button1_clickHandler(event)"   />
+        <s:Button label="Backspace" autoRepeat="true" repeatDelay="500" repeatInterval="100" buttonDown="backspaceButtonDown(event)" width="100%" />
+    </s:HGroup>
+    
+</s:View>

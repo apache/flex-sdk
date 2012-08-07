@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   	xmlns:s="library://ns.adobe.com/flex/spark"
+					initialize="onCreationComplete()">
+	
+	<fx:Script source="globalTabbed.as" />
+
+	
+	<fx:Script>
+		<![CDATA[
+		
+		import mx.events.FlexEvent;
+		import mx.core.FlexGlobals;
+		import mx.effects.IEffect;
+		import spark.events.ElementExistenceEvent;
+		import spark.events.IndexChangeEvent;
+		import spark.transitions.SlideViewTransition;
+		import spark.components.supportClasses.ViewNavigatorBase;
+		
+		public var eventArray : Array;
+		public var hasEffectEnded : Boolean;
+		
+		private function onCreationComplete():void {
+		
+			hasEffectEnded = false;
+		
+			eventArray = new Array();
+			
+			tabbedNavigator.addEventListener( Event.COMPLETE, onComplete );
+			tabbedNavigator.addEventListener( FlexEvent.VALUE_COMMIT, onValueCommit );
+			
+			tabbedNavigator.addEventListener( IndexChangeEvent.CHANGE, onIndexChange );
+			
+			tabbedNavigator.addEventListener( FlexEvent.CHANGE_START, onChangeStart );
+			tabbedNavigator.addEventListener( FlexEvent.CHANGE_END, onChangeEnd );
+			tabbedNavigator.addEventListener( IndexChangeEvent.CHANGING, onChanging ); // index change event
+			
+			tabbedNavigator.addEventListener( ElementExistenceEvent.ELEMENT_ADD, onElementAdd );
+			tabbedNavigator.addEventListener( ElementExistenceEvent.ELEMENT_REMOVE, onElementRemove );
+			
+			//navigator.defaultPushTransition.addEventListener(Event.COMPLETE, onEffectEnd);
+		}
+		
+		private function onIndexChange(event:IndexChangeEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("onIndexChange");
+		}
+		
+		private function onComplete(event:Event):void {
+			FlexGlobals.topLevelApplication.eventArray.push("complete");
+		}
+		
+		private function onValueCommit(event:FlexEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("valueCommit");
+		}
+		
+		private function onChangeStart(event:FlexEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("changeStart");
+		}
+		
+		private function onChangeEnd(event:FlexEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("changeEnd");
+		}
+		
+		private function onChanging(event:IndexChangeEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("changing");
+		}
+		
+		private function onElementAdd(event:ElementExistenceEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("elementAdd");
+		}
+		
+		private function onElementRemove(event:ElementExistenceEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("elementRemove");
+		}
+		
+		protected function onEffectEnd(event:Event):void
+		{
+			hasEffectEnded = true;
+		}
+		
+		public function doRemove():void
+    {
+        var navs:Vector.<ViewNavigatorBase> = new Vector.<ViewNavigatorBase>();
+        navs.push(one);
+        navigators = navs;
+    }
+
+		public function buildNavigators():void {
+			var navigators : Vector.<ViewNavigatorBase> = new Vector.<ViewNavigatorBase>();
+			
+			var nav : ViewNavigator = new ViewNavigator();
+			nav.setStyle("width", "100%");
+			nav.setStyle("height", "100%");
+			nav.label = "Sect1View1";
+			nav.firstView = views.Sect1View1;
+			navigators.push(nav);
+			
+			var nav2 : ViewNavigator = new ViewNavigator();
+			nav2.setStyle("width", "100%");
+			nav2.setStyle("height", "100%");
+			nav2.label = "Sect2View1";
+			nav2.firstView = views.Sect2View1;
+			navigators.push(nav2);
+			
+			FlexGlobals.topLevelApplication.navigators = navigators;
+		}
+		
+		public function setEmptyNavigatorsVector():void
+    {
+			FlexGlobals.topLevelApplication.navigators = new Vector.<ViewNavigatorBase>();
+    }
+
+		]]>
+	</fx:Script>
+	
+  <s:ViewNavigator id="one" width="100%" height="100%" label="Sect1" firstView="views.Sect1View1"/>
+  <s:ViewNavigator id="two" width="100%" height="100%" label="Sect2" firstView="views.Sect2View1"/>
+
+</s:TabbedViewNavigatorApplication>

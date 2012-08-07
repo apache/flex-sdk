@@ -1,0 +1,1005 @@
+<UnitTester 
+	 xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	 xmlns:s="library://ns.adobe.com/flex/spark" 
+	 xmlns="*" 
+	 testDir="mobile/transitions/ViewTransition/integration/"
+	 testSWF="SplitViewNavTransitionMain.mxml">
+	 
+	 <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	 <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	 
+	 <fx:Script>
+		 <![CDATA[ 
+			 import views.*;
+			 import comps.*;
+             import mx.core.FlexGlobals;
+		 ]]>
+	 </fx:Script>
+	 
+	 <testCases>
+         <!-- pushView(), pushToFirstView(), popView(), popAll(), replaceView() tests inside Callout in SplitViewNavigator -->
+		 <TestCase testID="SplitViewNavTransitionInCallout_slide_default" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="Default SlideViewTransition inside callout">
+			 <setup>
+                <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+			 </setup>
+			    <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+               <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlide)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+			 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+            	 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_right" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="Slide right transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+              <body>
+                  <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                         <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                         <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideRight)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                         <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                         <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                     </body>
+         </TestCase>
+       
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_up" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide up transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+         </setup>
+                     <body>
+                         <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                         <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                         <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideUp)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                         <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                         <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                     </body>
+         </TestCase>
+        
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_down" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide down transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+          </setup>
+                     <body>
+                         <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                         <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                         <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideDown)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                         
+                         <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                       
+                         <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                     </body>
+         </TestCase>
+        
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_push_left" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide push left transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+              
+             </setup>
+                     <body>
+                         <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                         <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                         <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlidePushLeft)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                         
+                         <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                        
+                         <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                     </body>
+         </TestCase>
+        
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_push_right" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide push right transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+                     <body>
+                         <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                         <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                         <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlidePushRight)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                         <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                         <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                     </body>
+         </TestCase>
+       
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_push_upReplaced" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide push up transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+                     <body>
+                         <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                         <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                         <RunCode code="application.svnwskin.snav1.replaceView(views.ReplacedView, null, null, application.svnwskin.snav1.activeView.transitionSlidePushUp)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                         <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                         <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="ReplacedView" />
+                    </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_push_down" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide push down transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+                     <body>
+                         <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                         <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                         <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlidePushDown)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                         
+                         <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                          <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                     </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_cover_left" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide cover left transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideCoverLeft)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+        
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_cover_up" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide cover up transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideCoverUp)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                   <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_cover_down" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide cover down transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                  <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideCoverDown)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_uncover_left" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide uncover left transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideUnCoverLeft)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_uncover_up" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide uncover up transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideUnCoverUp)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_uncover_down" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide uncover down transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideUnCoverDown)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_zoom" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="zoom transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionZoom)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                  <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_zoomIn" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="zoom in transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 
+                 
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionZoomIn)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+                          
+         <TestCase testID="SplitViewNavTransitionInCallout_flip" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="flip transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlip)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>  
+                      
+          <TestCase testID="SplitViewNavTransitionInCallout_flip_rightReplaceView" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="flip right transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.replaceView(views.ReplacedView, null, null, application.svnwskin.snav1.activeView.transitionFlipRight)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="ReplacedView" />
+               </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_right_cube" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="flip right cube transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipRightCube)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_left" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="flip left transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipLeft)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_up" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="flip up transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipUp)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_up_cube" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="flip up cube transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipUpCube)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_down_cube" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="flip down cube transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipDownCube)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase> 
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_default_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide with transitionControlsWithContent set to true inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 
+                 
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_left_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide left transitionControlsWithContent true inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideLeftWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_right_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide right transitionControlsWithContent true inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideRightWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_up_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideUpWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_down_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideDownWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_cover_left_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideCoverLeftWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                       <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_cover_right_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideCoverRightWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_cover_up_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideCoverUpWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_cover_down_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideCoverDownWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_uncover_down_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideUnCoverDownWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                   <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_uncover_left_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideUnCoverLeftWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_uncover_right_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideUnCoverRightWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_uncover_up_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 
+                 
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideUnCoverUpWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                  <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+          <TestCase testID="SplitViewNavTransitionInCallout_flip_right_cube_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipRightCubeWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_left_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipLeftWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+      
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_up_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipUpWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_up_cube_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipUpCubeWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_down_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipDownWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_down_cube_w_content" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipDownCubeWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase> 
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_sine" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideWSine)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_bounce" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideWBounce)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+               
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_elastic" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+               </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideWElastic)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_power" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideWPower)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_linear" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideWLinear)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_sine" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipWSine)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_bounce" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipWBounce)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_elastic" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipWElastic)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_power" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <AssertPropertyValue target="svnwskin" propertyName="autoHideFirstViewNavigator" value="false" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipWPower)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+       
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_popall" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <AssertPropertyValue target="svnwskin" propertyName="autoHideFirstViewNavigator" value="false" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlide)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <RunCode code="application.svnwskin.snav1.popAll(application.svnwskin.snav1.activeView.transitionSlide)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_crossFade_sine" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFadeWSine)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_crossFade_bounce" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFadeWBounce)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_crossFade_elastic" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFadeWElastic)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_crossFade_power" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFadeWPower)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_crossFade_linear" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFadeWLinear)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_zoom_sine" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionZoomWSine)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_zoom_bounce" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionZoomWBounce)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_zoom_elastic" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionZoomWElastic)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_zoom_power" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionZoomWPower)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_zoom_linear" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionZoomWLinear)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+         
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_leftPopToFirst" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="Slide left transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideLeft)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                 <RunCode code="application.svnwskin.snav1.popToFirstView(application.svnwskin.snav1.activeView.transitionSlideLeft)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="Pause + Seek" />
+                 
+             </body>
+         </TestCase>
+         
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_cover_rightPopView" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide cover right transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideCoverRight)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                 <RunCode code="application.svnwskin.snav1.popView(application.svnwskin.snav1.activeView.transitionSlideCoverRight)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="Pause + Seek" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_slide_uncover_rightPopAll" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="slide uncover right transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionSlideUnCoverRight)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                 <RunCode code="application.svnwskin.snav1.popAll(application.svnwskin.snav1.activeView.transitionSlideUnCoverRight)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_left_cubePopView" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="flip left cube transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipLeftCube)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                 <RunCode code="application.svnwskin.snav1.popView(application.svnwskin.snav1.activeView.transitionFlipLeftCube)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="Pause + Seek" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_downPopAll" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="flip down transition inside callout">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipDown)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                 <RunCode code="application.svnwskin.snav1.popAll(application.svnwskin.snav1.activeView.transitionFlipDown)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+             </body>
+         </TestCase>
+         
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_right_w_contentPopToFirstView" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipRightWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="NextView" />
+                 <RunCode code="application.svnwskin.snav1.popToFirstView(application.svnwskin.snav1.activeView.transitionFlipRightWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertPropertyValue target="svnwskin.snav1.actionBar" propertyName="title" value="Pause + Seek" />
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransitionInCallout_flip_right_openCallout" keywords="[SplitViewNavigator, ViewTransiton, Callout]" description="transitions inside callout in SplitViewNavigator">
+             <bugs>
+                 <Bug bugID="SDK-31577" />
+             </bugs>
+             <setup>
+                 <ResetComponent target="svnwskin" className="comps.TestNavWSkin" waitEvent="updateComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.svnwskin.snav1.pushView(views.NextView, null, null, application.svnwskin.snav1.activeView.transitionFlipRightWContent)" waitEvent="transitionStart" waitTarget="svnwskin.snav1"/>
+                 <AssertEvent target="svnwskin.snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.svnwskin.showFirstViewNavigatorInPopUp(FlexGlobals.topLevelApplication)" />
+                 <AssertPropertyValue target="svnwskin.viewNavigatorPopUp" propertyName="isOpen" value="true" />
+                
+             </body>
+         </TestCase>
+	 </testCases>
+ </UnitTester>

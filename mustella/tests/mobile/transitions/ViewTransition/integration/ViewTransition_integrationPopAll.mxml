@@ -1,0 +1,1568 @@
+<UnitTester 
+	 xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	 xmlns:s="library://ns.adobe.com/flex/spark" 
+	 xmlns="*" 
+	 testDir="mobile/transitions/ViewTransition/integration/"
+	 testSWF="ViewTransition.mxml">
+	 
+	 <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	 <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	 
+	 <fx:Script>
+		 <![CDATA[ 
+			 import views.*;
+			 import comps.*;
+		 ]]>
+	 </fx:Script>
+	 
+	 <testCases>
+		 
+		 <TestCase testID="ViewTransition_popAll_slide" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlide)" />
+<!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+-->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_left" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideLeft)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_right" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideRight)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_up" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideUp)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_down" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideDown)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+
+			 </body>
+		 </TestCase>
+		
+		 <TestCase testID="ViewTransition_popall_slide_cover_left" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideCoverLeft)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_cover_left" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideCoverLeft)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_cover_right" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideCoverRight)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_cover_up" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideCoverUp)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_cover_down" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideCoverDown)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_zoom" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoom)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_zoomIn" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomIn)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlip)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_right" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipRight)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_right_cube" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipRightCube)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_left" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipLeft)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_left_cube" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipLeftCube)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_up" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipUp)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_up_cube" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipUpCube)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_down" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipDown)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_down_cube" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipDownCube)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase> <TestCase testID="ViewTransition_popall_crossFade" keywords="[ViewTransition, Integration]" description="TODO">
+						 <setup>
+							 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+							 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+							 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+						 </setup>
+						 <body>
+							 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFade)" />
+							 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+							 -->				 
+							 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+							 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+							 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+							 
+						 </body>
+					 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_default_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_left_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideLeftWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_right_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideRightWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_up_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideUpWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_down_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideDownWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_cover_left_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideCoverLeftWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 
+		
+		 <TestCase testID="ViewTransition_popall_slide_cover_right_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideCoverRightWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_cover_up_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideCoverUpWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_cover_down_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideCoverDownWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_zoom_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomWOContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_zoomIn_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomInWOContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_right_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipRightWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_right_cube_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipRightCubeWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_left_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipLeftWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_left_cube_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipLeftCubeWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_up_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipUpWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_up_cube_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipUpCubeWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_down_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipDownWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_down_cube_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipDownCubeWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase> <TestCase testID="ViewTransition_popall_crossFade_w_content" keywords="[ViewTransition, Integration]" description="TODO">
+						 <setup>
+							 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+							 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+							 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+						 </setup>
+						 <body>
+							 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWContent)" />
+							 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+							 -->				 
+							 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+							 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+							 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+							 
+						 </body>
+					 </TestCase>
+		 
+		 <TestCase testID="ViewTransition_popall_slide_sine" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideWSine)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_bounce" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideWBounce)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_elastic" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideWElastic)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_power" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideWPower)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_slide_linear" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideWLinear)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_crossFade_sine" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWSine)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_crossFade_bounce" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWBounce)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_crossFade_elastic" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWElastic)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_crossFade_power" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWPower)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_crossFade_linear" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWLinear)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_zoom_sine" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomWSine)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_zoom_bounce" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomWBounce)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_zoom_elastic" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomWElastic)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_zoom_power" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomWPower)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_zoom_linear" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomWLinear)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_sine" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWSine)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_bounce" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWBounce)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_elastic" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWElastic)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_power" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWPower)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_popall_flip_linear" keywords="[ViewTransition, Integration]" description="TODO">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWLinear)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_slide_uncover_left_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideUnCoverLeftWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_slide_uncover_right_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideUnCoverRightWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_slide_uncover_up_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideUnCoverUpWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_slide_uncover_down_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideUnCoverDownWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_right_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipRightWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_right_cube_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipRightWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_left_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipLeftWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_left_cube_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipLeftCubeWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_up_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_up_cube_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipUpCubeWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_down_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+			<!--	 <SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipDownWContent)" />
+				 <!--			 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />-->
+				 				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase> 
+		 <TestCase testID="ViewTransition_Integration_popall_flip_down_cube_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipDownCubeWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_fade_wcontent">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWContent)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_slide_wsine">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideWSine)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_slide_wbounce">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideWBounce)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_slide_wpower">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideWPower)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_slide_welastic">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideWElastic)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_slide_wlinear">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionSlideWLinear)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_fade_wsine">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWSine)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_fade_wbounce">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWBounce)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_fade_wpower">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWPower)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_fade_welastic">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWElastic)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_fade_wlinear">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFadeWLinear)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_zoom_wsine">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomWSine)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_zoom_wbounce">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomWBounce)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_zoom_wpower">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomWPower)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_zoom_welastic">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomWElastic)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_zoom_wlinear">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionZoomWLinear)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_wsine">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWSine)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_wbounce">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWBounce)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_wpower">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWPower)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_welastic">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWElastic)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+		 <TestCase testID="ViewTransition_Integration_popall_flip_wlinear">
+			 <setup>
+				 <ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+				 <SetProperty target="navigator" propertyName="requestSeek" value="false" /> 
+				 <!--<SetProperty target="navigator" propertyName="requestSeekTime" value="100" />-->
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.navigator.popAll(application.navigator.activeView.transitionFlipWLinear)" />
+				 <!--				 <WaitForEvent target="navigator" eventName="viewTransitionAssertionReady" />
+				 -->				 
+				 <AssertEvent target="navigator" eventName="transitionStart" eventClass="mx.events::FlexEvent"/>
+				 <AssertEvent target="navigator" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+				 <AssertPropertyValue target="navigator.actionBar" propertyName="title" value="null" />
+				 
+			 </body>
+		 </TestCase>
+	 </testCases>
+ </UnitTester>

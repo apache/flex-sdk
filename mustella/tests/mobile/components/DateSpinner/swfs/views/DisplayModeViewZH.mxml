@@ -1,0 +1,9 @@
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="Display Mode View" xmlns:comps="comps.*">
+    <s:VGroup> 
+        <s:Label id="lb" /> 
+		<comps:InstrumentedDateSpinner id="ds_zh" locale="zh_CN"/>
+    </s:VGroup>
+    
+</s:View>

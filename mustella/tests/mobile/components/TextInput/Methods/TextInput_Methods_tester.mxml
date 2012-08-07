@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/TextInput/Methods/"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns="*"
+		testSWF="TextInput1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+			import mx.utils.StringUtil;
+			import spark.components.TextInput;
+			import spark.components.supportClasses.*;
+			import spark.skins.mobile.*;
+		]]>
+
+	</fx:Script>
+
+	
+	<testCases>
+		<!-- Note that the selectionChange event does not fire (known bug), so we use pauses. -->
+	
+		<!-- ******************** insertText() ******************** -->
+		<TestCase testID="TextInput_insertText_test1" keywords="[TextInput, insertText]" description="Insert text into an empty field." >
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="100" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.insertText('Silver Musician')" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="Silver Musician"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_insertText_test2" keywords="[TextInput, insertText]" description="Select all, then insert text." >
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="100" waitEvent="updateComplete" />				
+				<SetProperty target="tic1.ti1" propertyName="text" value="Dummy text" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectAll()" />
+				<Pause timeout="100" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.insertText('Silver Musician')" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="Silver Musician"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_insertText_test3" keywords="[TextInput, insertText]" description="Select some, then insert text.">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="Silver Musician" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(4,5)" />
+				<Pause timeout="100"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.insertText('eth')" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="Silveth Musician"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_insertText_test4" description="Insert text at the beginning." keywords="[TextInput, insertText]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="Dummy text" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(0,0)" />
+				<Pause timeout="100" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.insertText('pre ')" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="pre Dummy text"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_insertText_test5" description="Insert text at the end." keywords="[TextInput, insertText]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="Dummy text" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(10,10)" />
+				<Pause timeout="100" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.insertText(' post')" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="Dummy text post" />
+			</body>
+		</TestCase>
+
+		<!-- ******************** appendText() ******************** -->
+		<TestCase testID="TextInput_appendText_test1" description="Append text to existing text" keywords="[TextInput, appendText]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.appendText(' jumped over the lazy dog')" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog"/>
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="44" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="44" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_appendText_test2" description="Append text to empty field" keywords="[TextInput, appendText]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="100" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.appendText('The quick brown fox')" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="The quick brown fox"/>
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="19" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="19" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_appendText_test3" description="Append empty string" keywords="[TextInput, appendText]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.appendText('')" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="The quick brown fox"/>
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="19" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="19" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_appendText_test4" description="Append text multiple times" keywords="[TextInput, appendText]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="100" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<!--<RunCode code="trace('1')" />-->
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.appendText('The quick brown fox')" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<!--<RunCode code="trace('2')" />-->
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="The quick brown fox"/>
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="19" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="19" />
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.appendText('The quick brown fox')" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="38" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="38" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_appendText_test5" description="Append text in the beginning multiple times" keywords="[TextInput, appendText]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="151" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.appendText('The quick brown fox')" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="The quick brown fox"/>
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="19" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="19" />
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(0,0)" />
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.appendText(' jumped over the lazy dog')" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog"/>
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="44" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="44" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_appendText_test6" description="Append text when text is selected" keywords="[TextInput, appendText]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectAll()" />
+				<Pause timeout="100" />
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.appendText(' jumped over the lazy dog')" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog"/>
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="44" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="44" />
+			</body>
+		</TestCase>
+
+		<!-- ******************** selectRange() and selectAll()) ******************** -->
+		<TestCase testID="TextInput_selectAll_test1" description="Select all" keywords="[TextInput, selectRange]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="tic1.ti1" localX="15" localY="15" waitEvent="focusIn" waitTarget="tic1.ti1" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectAll()" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="45" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_selectRange_test1" description="-1, -1" keywords="[TextInput, selectRange]">
+			<bugs>
+				<Bug bugID="SDK-27972" />
+			</bugs>
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<Pause timeout="100" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="tic1.ti1" localX="15" localY="15" waitEvent="focusIn" waitTarget="tic1.ti1" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(-1,-1)" />
+				<!--AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="-1" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="-1" /-->
+				<CompareBitmap numColorVariances="100" ignoreMaxColorVariance="true" url="../Methods/baselines/" target="tic1.ti1"	>
+						<ConditionalValue deviceDensity="160" />
+						<ConditionalValue deviceDensity="240" />
+						<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+					</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_selectRange_test3" description="10, 10" keywords="[TextInput, selectRange]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="tic1.ti1" localX="15" localY="15" waitEvent="focusIn" waitTarget="tic1.ti1" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(10,10)" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="10" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="10" />
+				<CompareBitmap numColorVariances="200" ignoreMaxColorVariance="true" url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_selectRange_test4" description="Ascending" keywords="[TextInput, selectRange]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="tic1.ti1" localX="15" localY="15" waitEvent="focusIn" waitTarget="tic1.ti1" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(5,10)" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="5" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="10" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_selectRange_test5" description="Descending, note that these results differ from desktop b/c we are using the older Flash TextField." keywords="[TextInput, selectRange]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="tic1.ti1" localX="15" localY="15" waitEvent="focusIn" waitTarget="tic1.ti1" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(10,5)" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="5" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="10" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_selectRange_test6" description="Anchor only" keywords="[TextInput, selectRange]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="tic1.ti1" localX="15" localY="15" waitEvent="focusIn" waitTarget="tic1.ti1" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(10, int.MAX_VALUE)" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="10" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="45" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_selectRange_test7" description="Anchor is NaN" keywords="[TextInput, selectRange]">
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="tic1.ti1" localX="15" localY="15" waitEvent="focusIn" waitTarget="tic1.ti1" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectRange(NaN, 10)" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="10" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_selectRange_test8" description="Set text after selecting text." keywords="[TextInput, selectRange, method, SDK-16435]">
+			<bugs>
+				<Bug bugID="SDK-27974" />
+			</bugs>
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="tic1.ti1" localX="15" localY="15" waitEvent="focusIn" waitTarget="tic1.ti1" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic1.ti1.selectAll()" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="45" />
+				<SetProperty target="tic1.ti1" propertyName="text" value="Silver Musician" waitTarget="tic1.ti1" waitEvent="updateComplete" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="tic1.ti1" propertyName="selectionActivePosition" value="0" />
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<!-- ******************** truncateToFit() ******************** -->		
+		<TestCase testID="TextInput_truncateToFit_test1" keywords="[TextInput, truncatedToFit]" description="No truncation needed" >
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.shortString" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).truncateToFit()" />
+				<Pause timeout="200" />
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="false"/>
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text" valueExpression="value = FlexGlobals.topLevelApplication.shortString"/>
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_truncateToFit_test2" keywords="[TextInput, truncatedToFit]" description="Default indicator ..." >
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).truncateToFit()" />
+				<Pause timeout="200" />
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text">
+					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, cons..." />
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor si..."/>
+					<ConditionalValue deviceDensity="320" value="Lorem ipsum d..." />
+					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum d..." />
+				</AssertMethodValue>
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_truncateToFit_test3" keywords="[TextInput, truncatedToFit]" description="Pass in null" >
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).truncateToFit(null)" />
+				<Pause timeout="200" />
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text">
+					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, cons..." />
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor si..."/>
+					<ConditionalValue deviceDensity="320" value="Lorem ipsum d..." />
+					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum d..." />
+				</AssertMethodValue>
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_truncateToFit_test4" keywords="[TextInput, truncatedToFit]" description="Pass in ''" >
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).truncateToFit('')" />
+				<Pause timeout="200" />
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text">
+					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, cons..." />
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor si..."/>
+					<ConditionalValue deviceDensity="320" value="Lorem ipsum d..." />
+					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum d..." />
+				</AssertMethodValue>
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_truncateToFit_test5" keywords="[TextInput, truncatedToFit]" description="Pass in ' '" >
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).truncateToFit(' ')" />
+				<Pause timeout="200" />
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text">
+					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, conse " />
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit  "/>
+					<ConditionalValue deviceDensity="320" value="Lorem ipsum do " />
+					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum do " />
+				</AssertMethodValue>
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_truncateToFit_test6" keywords="[TextInput, truncatedToFit]" description="Pass in §¥©" >
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).truncateToFit('§¥©')" />
+				<Pause timeout="200" />
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text">
+					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, co§¥©" />
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor§¥©"/>
+					<ConditionalValue deviceDensity="320" value="Lorem ipsu§¥©" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsu§¥©" />
+				</AssertMethodValue>				
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_truncateToFit_test7" keywords="[TextInput, truncatedToFit]" description="Pass in newline" >
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).truncateToFit('\n')" />
+				<Pause timeout="200" />
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
+				<AssertMethodValue method="value = StringUtil.trim(StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text)">
+					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, conse" />
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit"/>
+					<ConditionalValue deviceDensity="320" value="Lorem ipsum dol" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum dol" />
+				</AssertMethodValue>				
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_truncateToFit_test8" keywords="[TextInput, truncatedToFit]" description="Pass in cr" >		
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).truncateToFit('\r')" />
+				<Pause timeout="200" />
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
+				<AssertMethodValue method="value = StringUtil.trim(StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text)">
+					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, conse" />
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit"/>
+					<ConditionalValue deviceDensity="320" value="Lorem ipsum dol" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum dol" />
+				</AssertMethodValue>				
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextInput_truncateToFit_test9" keywords="[TextInput, truncatedToFit]" description="Pass in newline cr" >
+			<setup>
+				<!--<RunCode code="FlexGlobals.topLevelApplication.doPopAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.TextInputView1)" waitTarget="navigator" waitEvent="viewChangeComplete" />-->
+				<ResetComponent target="tic1" className="components.TextInputComp1" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="width" value="300" waitEvent="updateComplete" />
+				<SetProperty target="tic1.ti1" propertyName="text" valueExpression="value = FlexGlobals.topLevelApplication.longString" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).truncateToFit('\n\r')" />
+				<Pause timeout="200" />
+				<AssertMethodValue method="value = StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).isTruncated" value="true"/>
+				<AssertMethodValue method="value = StringUtil.trim(StyleableTextField(TextInputSkin(FlexGlobals.topLevelApplication.tic1.ti1.skin).textDisplay).text)">
+					<ConditionalValue deviceDensity="160" value="Lorem ipsum dolor sit amet, conse" />
+					<ConditionalValue deviceDensity="240" value="Lorem ipsum dolor sit"/>
+					<ConditionalValue deviceDensity="320" value="Lorem ipsum dol" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="Lorem ipsum dol" />
+				</AssertMethodValue>				
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/" target="tic1.ti1">
+					<ConditionalValue deviceDensity="160" />
+					<ConditionalValue deviceDensity="240" />
+					<ConditionalValue deviceDensity="320" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<!-- ******************** setFocus() ******************** -->
+		<!-- Need to exclude to refactor this test for iOS -->
+		<!--
+		<TestCase testID="TextInput_setFocus_test1" keywords="[TextInput, setFocus]" description="Tab to a TextInput to give it focus" >
+			<setup>
+
+				<ResetComponent target="tic3" className="components.TextInputComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="tic3.vg1.grp1.ti1" propertyName="text" value="" waitEvent="updateComplete" />
+				<SetProperty target="tic3.grp2.ti2" propertyName="text" value="" waitEvent="updateComplete" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tic3.vg1.grp1.ti1" />
+				<DispatchKeyEvent char="1" waitEvent="updateComplete" waitTarget="tic3.vg1.grp1.ti1" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tic3.grp2.ti2" />
+				<DispatchKeyEvent char="2" waitEvent="updateComplete" waitTarget="tic3.grp2.ti2" />
+				<AssertPropertyValue target="tic3.vg1.grp1.ti1" propertyName="text" value="1"/>
+				<AssertPropertyValue target="tic3.grp2.ti2" propertyName="text" value="2"/>
+			</body>
+		</TestCase>-->
+		<!--
+		<TestCase testID="TextInput_setFocus_test2" keywords="[TextInput, setFocus]" description="Call setFocus" >
+			<setup>
+
+				<ResetComponent target="tic4" className="components.TextInputComp4" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.tic4.vg1.ti2.focusManager.setFocus(FlexGlobals.topLevelApplication.tic4.vg1.ti2)" waitEvent="focusIn" waitTarget="tic4.vg1.ti2" />
+				<DispatchKeyEvent char="2" waitEvent="updateComplete" waitTarget="tic4.vg1.ti2" />
+				<AssertPropertyValue target="tic4.vg1.ti1" propertyName="text" value=""/>
+				<AssertPropertyValue target="tic4.vg1.ti2" propertyName="text" value="2"/>
+			</body>
+		</TestCase>
+	-->
+
+		
+	</testCases>
+</UnitTester>

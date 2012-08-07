@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/ViewAndViewNavigator/tests/"
+			testSWF="ViewAndViewNavigatorMainTabbed.mxml">
+
+		<fx:Script source="globalTabbed.as" />
+
+		<fx:Script>
+			<![CDATA[ 
+
+				import spark.layouts.HorizontalLayout;
+				import spark.layouts.VerticalLayout;
+				import spark.layouts.supportClasses.LayoutBase;
+				import mx.core.FlexGlobals;
+				import views.*;
+				import spark.components.ViewNavigator;
+				import spark.components.TabbedViewNavigator;
+				import spark.components.View;
+
+				public static function init(o:DisplayObject):void { } 
+				
+				public function resetProperties():void {
+					navigator().transitionsEnabled = true;
+					selectedNavigator().transitionsEnabled = true;
+				}
+			]]>
+		</fx:Script>
+
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		<TestCase testID="customActionBarAtIndex0" keywords="[SDK-28267, overlay, view, tabBar, show, hide]" description="Verify can push view with custom actionbar skin when at index 0">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.buildNavigators()"/>
+				<Pause timeout="10" />
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+				<RunCode code="resetProperties()" />
+			  <RunCode code="selectedNavigator().pushView(views.CustomActionBarAtIndex0)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.tabbedNavigator.activeView is CustomActionBarAtIndex0" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="showHideTabBar" keywords="[view, tabBar, show, hide]" description="Basic use of show and hide tabBar">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+				<RunCode code="resetProperties()" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == true" value="true" />
+
+				<!-- hideTabBar() should change the visibility but not the value of tabBarVisible since it's still created and there, just hidden -->
+				<RunCode code="navigator().hideTabBar()"/>
+
+				<!-- transition should still be taking place -->
+				<Pause timeout="50"/>
+				<AssertMethodValue method="value = (navigator().tabBar.visible == true)" value="true" />
+				<AssertMethodValue method="value = (navigator().tabBar.includeInLayout == false)" value="true" />
+				<AssertMethodValue method="value = (activeView().tabBarVisible == true)" value="true" />
+
+				<!-- transition should be over -->
+				<Pause timeout="300"/>
+				<AssertMethodValue method="value = navigator().tabBar.visible == false" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == false" value="true" />
+
+				<!-- showTabBar() should change the visibility but not the value of tabBarVisible since it's still created and there, just hidden -->
+				<RunCode code="navigator().showTabBar()"/>
+
+				<!-- transition should still be taking place -->
+				<Pause timeout="50"/>
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == false" value="true" />
+
+				<!-- transition should be over -->
+				<Pause timeout="300"/>
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == true" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="showHideTabBarTransitionsDisabled" keywords="[view, tabBar, show, hide, transitions]" description="Basic use of show and hide tabBar">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+				<RunCode code="resetProperties()" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == true" value="true" />
+
+				<RunCode code="navigator().transitionsEnabled = false"/>
+
+				<!-- hideTabBar() should change the visibility but not the value of tabBarVisible since it's still created and there, just hidden -->
+				<RunCode code="navigator().hideTabBar()"/>
+				<Pause timeout="10"/>
+				<AssertMethodValue method="value = navigator().tabBar.visible == false" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == false" value="true" />
+
+				<!-- showTabBar() should change the visibility but not the value of tabBarVisible since it's still created and there, just hidden -->
+				<RunCode code="navigator().showTabBar()"/>
+				<Pause timeout="10"/>
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == true" value="true" />
+
+				<!-- KEEP THIS! It needs time to catch up or the next test might fail -->
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="showHideTabBarNoAnimation" keywords="[view, tabBar, show, hide, animation]" description="Show and hide tabBar without animation">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+				<RunCode code="resetProperties()" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == true" value="true" />
+
+				<!-- hideTabBar() should change the visibility but not the value of tabBarVisible since it's still created and there, just hidden -->
+				<RunCode code="navigator().hideTabBar(false)"/>
+				<Pause timeout="10"/>
+				<AssertMethodValue method="value = navigator().tabBar.visible == false" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == false" value="true" />
+
+				<!-- showTabBar() should change the visibility but not the value of tabBarVisible since it's still created and there, just hidden -->
+				<RunCode code="navigator().showTabBar(false)"/>
+				<Pause timeout="10"/>
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == true" value="true" />
+
+				<!-- KEEP THIS! It needs time to catch up or the next test might fail -->
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="showHideTabBarAnimations" keywords="[view, tabBar, show, hide, animation]" description="Default animations occur when showing and hiding tabBar">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+				<RunCode code="resetProperties()" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+
+				<!-- NOTE: this doesn't actually test that an animation occurs. 
+				However a default animation takes longer than no animation, so we verify that the final
+				properties still aren't set after the amount of time that the 'no animation' took in the previous test -->
+
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == true" value="true" />
+
+				<RunCode code="navigator().hideTabBar(true)"/>
+				<Pause timeout="50"/>
+				<!-- animation should not be complete -->
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == true" value="true" />
+
+				<Pause timeout="300"/>
+				<!-- animation should be complete -->
+				<AssertMethodValue method="value = navigator().tabBar.visible == false" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == false" value="true" />
+
+				<RunCode code="navigator().showTabBar(true)"/>
+				<Pause timeout="50"/>
+				<!-- animation should not be complete -->
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == false" value="true" />
+
+				<Pause timeout="300"/>
+				<!-- animation should be complete -->
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == true" value="true" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="showHideActionBar" keywords="[view, actionBar, show, hide]" description="Show and hide actionBar">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+				<RunCode code="resetProperties()" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+				<AssertMethodValue method="value = (selectedNavigator().actionBar.x == 0)" value="true" />
+				<AssertMethodValue method="value = (selectedNavigator().actionBar.y == 0)" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == true" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == true" value="true" />
+
+				<!-- hideActionBar() should change the visibility but not the value of actionBarVisible since it's still created and there, just hidden -->
+				<RunCode code="selectedNavigator().hideActionBar()"/>
+				<Pause timeout="400"/>
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == false" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == false" value="true" />
+
+				<!-- showActionBar() should change the visibility but not the value of actionBarVisible since it's still created and there, just hidden -->
+				<RunCode code="selectedNavigator().showActionBar()"/>
+				<Pause timeout="400"/>
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == true" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == true" value="true" /> 
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="showHideActionBarTransitionsDisabled" keywords="[view, actionBar, show, hide, transitions]" description="Basic use of show and hide actionBar">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+				<RunCode code="resetProperties()" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == true" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == true" value="true" />
+
+				<RunCode code="selectedNavigator().transitionsEnabled = false"/>
+
+				<!-- hideActionBar() should change the visibility but not the value of actionBarVisible since it's still created and there, just hidden -->
+				<RunCode code="selectedNavigator().hideActionBar()"/>
+				<Pause timeout="10"/>
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == false" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == false" value="true" />
+
+				<!-- showActionBar() should change the visibility but not the value of actionBarVisible since it's still created and there, just hidden -->
+				<RunCode code="selectedNavigator().showActionBar()"/>
+				<Pause timeout="10"/>
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == true" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == true" value="true" />
+
+				<!-- KEEP THIS! It needs time to catch up or the next test might fail -->
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="showHideActionBarNoAnimations" keywords="[view, actionBar, show, hide, animation]" description="Default animations occur when showing and hiding actionBar">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+				<RunCode code="resetProperties()" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == true" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == true" value="true" />
+
+				<!-- hideActionBar() should change the visibility but not the value of actionBarVisible since it's still created and there, just hidden -->
+				<RunCode code="selectedNavigator().hideActionBar(false)"/>
+				<Pause timeout="10"/>
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == false" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == false" value="true" />
+
+				<!-- showActionBar() should change the visibility but not the value of actionBarVisible since it's still created and there, just hidden -->
+				<RunCode code="selectedNavigator().showActionBar(false)"/>
+				<Pause timeout="10"/>
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == true" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == true" value="true" />
+
+				<!-- KEEP THIS! It needs time to catch up or the next test might fail -->
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="tabBarVisible" keywords="[view, tabBar, visible]" description="Set tabBar visible property">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+				<RunCode code="resetProperties()" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == true" value="true" />
+
+				<RunCode code="activeView().tabBarVisible = false"/>
+				<Pause timeout="400"/>
+				<AssertMethodValue method="value = (navigator().tabBar.visible == false)" value="true" />
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().tabBarVisible == false" value="true" />
+
+				<RunCode code="activeView().tabBarVisible = true"/>
+				<Pause timeout="400"/>
+				<RunCode code="trace('a')"/>
+				<AssertMethodValue method="value = navigator().tabBar.visible == true" value="true" />
+				<RunCode code="trace('b')"/>
+				<AssertMethodValue method="value = navigator().tabBar.includeInLayout == true" value="true" />
+				<RunCode code="trace('c')"/>
+				<AssertMethodValue method="value = activeView().tabBarVisible == true" value="true" />
+				<RunCode code="trace('d')"/>
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="actionBarVisible" keywords="[view, actionBar, visible]" description="Set actionBar visible property">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="tabbedNavigator" waitEvent="myEvent" />
+				<RunCode code="resetProperties()" />
+			  <RunCode code="selectedNavigator().pushView(views.Sect1View1)" waitTarget="tabbedNavigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = activeView() is Sect1View1" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == true" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == true" value="true" />
+
+				<RunCode code="activeView().actionBarVisible = false"/>
+				<Pause timeout="400"/>
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == false" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == false" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == false" value="true" />
+
+				<RunCode code="activeView().actionBarVisible = true"/>
+				<Pause timeout="400"/>
+				<AssertMethodValue method="value = selectedNavigator().actionBar.visible == true" value="true" />
+				<AssertMethodValue method="value = selectedNavigator().actionBar.includeInLayout == true" value="true" />
+				<AssertMethodValue method="value = activeView().actionBarVisible == true" value="true" />
+			</body>
+
+		</TestCase>
+
+	</testCases>
+</UnitTester>
+
+
+

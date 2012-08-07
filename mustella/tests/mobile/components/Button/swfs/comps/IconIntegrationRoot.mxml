@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+
+	<fx:Declarations>
+		<s:MultiDPIBitmapSource id="deleteIcon" 
+			source160dpi="@Embed('../../../../../../Assets/Images/ButtonImages/delete24x24.png')" 
+			source240dpi="@Embed('../../../../../../Assets/Images/ButtonImages/delete36x36.png')" 
+			source320dpi="@Embed('../../../../../../Assets/Images/ButtonImages/delete48x48.png')"/>
+		
+		<s:MultiDPIBitmapSource id="editIcon" 
+			source160dpi="@Embed('../../../../../../Assets/Images/ButtonImages/edit24x24.png')" 
+			source240dpi="@Embed('../../../../../../Assets/Images/ButtonImages/edit36x36.png')" 
+			source320dpi="@Embed('../../../../../../Assets/Images/ButtonImages/edit48x48.png')"/>
+		
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import comps.ACircle;
+			import comps.ARect;
+		]]>
+	</fx:Script>
+
+	<s:states>
+		<s:State name="default"/>
+		<s:State name="state1"/>
+		<s:State name="noIcon"/>
+	</s:states>
+	
+	
+		<s:Button id="btn1" y="10" left="10"
+				  y.default="5" left.default="10" width.default="100" label.default="Add"
+				  width.state1="250" label.state1="Add a Diary Entry"/> 
+		
+		<s:Button id="btn2" x="10" y="115"
+				  x.default="12" y.default="124" icon.default="{editIcon}"
+				  icon.state1="{deleteIcon}"/>
+		
+		<s:Button id="btn3" x="100" y="115" icon="{editIcon}" excludeFrom="default" 
+					label.state1="Edit"/>
+		
+		<s:Button id="btn4" x="10" y="215" icon="{deleteIcon}"
+				  x.default="10" y.default="224" iconPlacement.default="bottom"
+				  label.state1="Del" iconPlacement.state1="right"/>
+		
+		<s:Button id="btn5" x="190" y="215" label="Edit" icon="{editIcon}"
+				  x.default="192" y.default="224" iconPlacement.default="right"
+				  iconPlacement.state1="top"/>
+
+		<s:Button id="btn6" x="10" y="350"
+				  x.default="10" y.default="329" icon.default="{comps.ACircle}"
+				  label.noIcon="No Icon" icon.noIcon="@Clear()"
+				  label.state1="Rectangle" icon.state1="{comps.ARect}"/>
+				
+</s:Group>
+	

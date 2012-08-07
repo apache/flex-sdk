@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/MobileApplication/properties/"  
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns="*" 
+	testSWF="MobileApplicationNoViewWithActionContent.mxml">
+    
+	<!-- this set of lines form a template that must be in each unit test.-->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }           
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+			import components.*;
+			import mx.core.FlexGlobals;
+			import spark.layouts.*;
+			import spark.layouts.supportClasses.LayoutBase;
+			
+			public var vertical:LayoutBase = new VerticalLayout();
+			public var horizontal:LayoutBase = new HorizontalLayout();
+			public var tile:LayoutBase = new TileLayout();
+			public var basic:LayoutBase = new BasicLayout();			
+        ]]>
+    </fx:Script>
+
+	<fx:Declarations>
+		<fx:Array id="ac1">
+			<s:Button label="Prev"/>
+			<s:Button label="Next"/>
+		</fx:Array>
+
+		<fx:Array id="ac2">
+			<s:TextInput width="200"/>
+		</fx:Array>
+
+		<fx:Array id="ac3">
+			<s:Label x="0" y="13" text="Input"/>
+			<!--<s:TextInput x="64" y="4" width="200"/>-->
+			<s:Button x="272" y="0" label="Search"/>
+		</fx:Array>			
+	</fx:Declarations>
+	
+    <testCases>
+	
+		<TestCase testID="mobileApp_actionContent_default" description="Verify default actionLayout and actionContent" keywords="[MobileApplication, actionLayout, actionContent]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout == null)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionContent.length == 2)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionContent.length == 2)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					<ConditionalValue deviceDensity="160" os="win"  />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"  />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionContent_useDefault" description="Verify default actionConten is applied on view that did not define its own content" keywords="[MobileApplication, actionContent, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionContent.length == 2)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					<ConditionalValue deviceDensity="160" os="win"  />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"  />				
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionContent_useViewContent" description="Verify the view's actionContent is used when active" keywords="[MobileApplication, actionContent, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionContent.length == 2)" value="true"/>
+				<AssertPropertyValue target="navigator.actionBar.actionContent" propertyName="length" value="2" />
+				<!---AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionContent.length == 3)" value="true"/-->				
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionContent=ac1" waitTarget="navigator" waitEvent="updateComplete"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionContent.length == 2)" value="true"/>
+				<AssertPropertyValue target="navigator.actionBar.actionContent" propertyName="length" value="2" />
+				<!--AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionContent.length == 1)" value="true"/-->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.View1)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionContent.length == 2)" value="true"/>				
+				<AssertPropertyValue target="navigator.actionBar.actionContent" propertyName="length" value="1" />
+				<!--AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionContent.length == 1)" value="true"/-->
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mobileApp_actionLayout_vertical_noView" description="Verify setting actionLayout to vertical and navigator has no view" keywords="[MobileApplication, actionLayout]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=[]" waitTarget="navigator" waitEvent="updateComplete"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=vertical" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=ac3" waitTarget="navigator" waitEvent="updateComplete"/>					
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is VerticalLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is VerticalLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionLayout_horizontal_noView" description="Verify setting actionLayout to horizontal and navigator has no view" keywords="[MobileApplication, actionLayout]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=[]" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=horizontal" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=ac3" waitTarget="navigator" waitEvent="updateComplete"/>				
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is HorizontalLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is HorizontalLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionLayout_tile_noView" description="Verify setting actionLayout to tile and navigator has no view" keywords="[MobileApplication, actionLayout]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=[]" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=tile" waitTarget="navigator" waitEvent="updateComplete"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=ac3" waitTarget="navigator" waitEvent="updateComplete"/>				
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is TileLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is TileLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionLayout_basic_noView" description="Verify setting actionLayout to basic and navigator has no view" keywords="[MobileApplication, actionLayout]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+	  			<RunCode code="FlexGlobals.topLevelApplication.actionLayout=basic" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=[]" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>				  
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=ac3" waitTarget="navigator.actionBar" waitEvent="updateComplete"/>			
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is BasicLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is BasicLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mobileApp_actionLayout_vertical_withView" description="Verify default actionLayout is applied on view that did not define its own layout" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=[]" waitTarget="navigator" waitEvent="updateComplete"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=vertical" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=ac3" waitTarget="navigator" waitEvent="updateComplete"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is VerticalLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is VerticalLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionLayout_horizontal_withView" description="Verify default actionLayout is applied on view that did not define its own layout" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=[]" waitTarget="navigator" waitEvent="updateComplete"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=horizontal" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=ac3" waitTarget="navigator" waitEvent="updateComplete"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is HorizontalLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is HorizontalLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionLayout_tile_withView" description="Verify default actionLayout is applied on view that did not define its own layout" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=[]" waitTarget="navigator" waitEvent="updateComplete"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=tile" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=ac3" waitTarget="navigator" waitEvent="updateComplete"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is TileLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is TileLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="100" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionLayout_basic_withView" description="Verify default actionLayout is applied on view that did not define its own layout" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=[]" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=basic" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=ac3" waitTarget="navigator" waitEvent="updateComplete"/>				
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is BasicLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is BasicLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mobileApp_actionLayout_vertical_withView2" description="Verify view actionLayout is used when it is active" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=vertical" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is VerticalLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is VerticalLayout)" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionLayout=horizontal" waitTarget="navigator" waitEvent="updateComplete"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is VerticalLayout)" value="true"/>				
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is HorizontalLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionLayout_horizontal_withView2" description="Verify view actionLayout is used when it is active" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=horizontal" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is HorizontalLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is HorizontalLayout)" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionLayout=tile" waitTarget="navigator" waitEvent="updateComplete"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is TileLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="100" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionLayout_tile_withView2" description="Verify views actionLayout is used when it is active" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=tile" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is TileLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is TileLayout)" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionLayout=horizontal" waitTarget="navigator" waitEvent="updateComplete"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is HorizontalLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionLayout_basic_withView2" description="Verify views actionLayout is used when it is active" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=basic" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is BasicLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is BasicLayout)" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionLayout=vertical" waitTarget="navigator" waitEvent="updateComplete"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is BasicLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is VerticalLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mobileApp_actionLayout_vertical_withView3" description="Verify views horizontal actionLayout and actionContent is used when it is active" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=vertical" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionLayout=horizontal" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionContent=ac1" waitTarget="navigator" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is VerticalLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is HorizontalLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar"  numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mobileApp_actionLayout_horizontal_withView3" description="Verify views tile actionLayout and actionContent are used when it is active" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=horizontal" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionLayout=tile" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionContent=ac1" waitTarget="navigator" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is HorizontalLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is TileLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionLayout_tile_withView3" description="Verify views vertical actionLayout and actionContent are used when it is active" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=tile" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionLayout=vertical" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionContent=ac1" waitTarget="navigator" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is TileLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is VerticalLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_actionLayout_basic_withView3" description="Verify views vertical actionLayout and actionContent are used when it is active" keywords="[MobileApplication, actionLayout, View]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.actionLayout=basic" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(components.ViewNoActionBarContent)" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionLayout=vertical" waitTarget="navigator" waitEvent="updateComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.actionContent=ac1" waitTarget="navigator" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionLayout is BasicLayout)" value="true"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.actionBar.actionLayout is VerticalLayout)" value="true"/>
+				<CompareBitmap url="../properties/baselines" target="navigator.actionBar" numColorVariances="50" ignoreMaxColorVariance="true">
+					 <ConditionalValue deviceDensity="160" os="win"  />
+					 <ConditionalValue deviceDensity="240" os="android" />
+					 <ConditionalValue deviceDensity="320" os="win"  />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="mobileApp_set_actionContent" description="Verify setting values to actionContent" keywords="[MobileApplication, actionContent]">
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="resetComplete" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.actionContent=ac1" waitTarget="navigator" waitEvent="updateComplete"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.actionContent.length == 2)" value="true"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+
+	
+</UnitTester>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark" title="SoftKeyboard">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+
+			import spark.events.ElementExistenceEvent;
+			import spark.events.IndexChangeEvent;
+
+
+			protected function testCaseSelected(event:IndexChangeEvent):void
+			{
+				navigator.pushView(event.target.selectedItem.className);
+			}
+
+			private function getLabel(item:Object):String {
+				return ((testCaseViews.getItemIndex(item) as Number) + 1) + ".  " + item.name;
+			}
+
+			private function restoreScrollPosition(event:FlexEvent):void {
+
+				// the data might be null if it has never been set
+				if (data == null)
+					return;
+
+				// restore the saved scroll position
+				var vsp:Number = data.verticalScrollPosition as Number;
+				var hsp:Number = data.horizontalScrollPosition as Number;
+
+				testCaseList.dataGroup.verticalScrollPosition = (vsp) ? vsp : 0;
+				testCaseList.dataGroup.horizontalScrollPosition =  (hsp) ? hsp : 0;
+			}
+
+			private function saveState(event:FlexEvent):void
+			{
+				if (data == null)
+					data = new Object();
+
+				// save the current scroll position of the List when the screen is deactivated
+				data.verticalScrollPosition   = testCaseList.dataGroup.verticalScrollPosition;
+				data.horizontalScrollPosition = testCaseList.dataGroup.horizontalScrollPosition;
+			}
+
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<s:ArrayList id="testCaseViews">
+			<fx:Object name="EmailView" className="{views.EmailView}" />
+			<fx:Object name="Contacts" className="{views.ContactView}" />
+			<fx:Object name="PaddingTester" className="{views.PaddingTester}" />			
+			<fx:Object name="ListTextArea" className="{views.ListTextArea}" />
+			<fx:Object name="TextAreaConstrained" className="{views.TextAreaConstrained}" />
+			<fx:Object name="TextShort" className="{views.TextShort}" />
+			<fx:Object name="TextMediumHeight" className="{views.TextMediumHeight}" />
+			<fx:Object name="TextArea2" className="{views.TextArea2}" />
+			<fx:Object name="TextInHGroup" className="{views.HTextArea2}" />
+			<fx:Object name="LoremViewPercentHeight" className="{views.LoremView100}" />
+			<fx:Object name="EmailViewNoScroller" className="{views.EmailViewNoScroller}" />
+		</s:ArrayList>
+	</fx:Declarations>
+
+	<s:states>
+		<s:State name="portrait"/>
+		<s:State name="landscape"/>
+	</s:states>
+
+	<s:Label text="Choose test case:" horizontalCenter="0" top="10" color="white" fontWeight="bold" />
+
+	<s:List id="testCaseList" labelFunction="getLabel" top="10" left="30" right="30" bottom="10"
+			dataProvider="{testCaseViews}"
+			creationComplete="restoreScrollPosition(event)"
+			change="testCaseSelected(event)">
+		<s:itemRenderer>
+			<fx:Component>
+				<s:LabelItemRenderer height="100"/>
+			</fx:Component>
+		</s:itemRenderer>
+		<s:layout>
+			<s:VerticalLayout horizontalAlign="justify" gap="0" />
+		</s:layout>
+	</s:List>
+
+</s:View>
+

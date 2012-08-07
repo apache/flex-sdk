@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/SplitViewNavigator/properties/"
+			testSWF="SplitViewNavigatorMain.mxml">
+
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { }
+	
+		import mx.core.FlexGlobals;
+		import spark.components.ViewNavigator;	
+		import flash.geom.Point;
+		import mx.events.FlexEvent;
+		//import views.MainCompView;
+	
+	]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		
+		<TestCase testID="autoHideFirstViewNavigator_true_MXML" keywords="[SplitViewNavigator, autoHideFirstViewNavigator, true, MXML]" description="Set ture in MXML and verify the first view navigator invisible in portrait and visible in landscape.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />					
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.vn1" propertyName="visible">
+					<ConditionalValue deviceDensity="160" os="win" value="false"/>
+					<ConditionalValue deviceDensity="240" os="android" value="false"/>
+					<ConditionalValue deviceDensity="320" os="win" value="false"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="false" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="true"/>					
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="autoHideFirstViewNavigator_false_AS" keywords="[SplitViewNavigator, autoHideFirstViewNavigator]" description="TODO">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />					
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.autoHideFirstViewNavigator=false" />
+				<DispatchEvent eventClass="mx.events.ResizeEvent" target="" type="resize" timeout="5000"/>
+			</setup>
+			<body>
+				<!-- SDK-31563: Setting false at runtime has no effect by design. Controlling visibility is developers' work.-->
+				<AssertPropertyValue target="svn1.vn1" propertyName="visible" value="false">
+					<ConditionalValue deviceDensity="160" os="qnx" value="true"/>					
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="autoHideFirstViewNavigator_true_AS" keywords="[SplitViewNavigator, autoHideFirstViewNavigator, true, AS]" description="Set autoHideFirstViewNavigator property to true in AS.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.svn1.autoHideFirstViewNavigator=true" />
+				<!-- resize event to trigger updating view navigator -->
+				<!-- no waitEvent because updateComplete not fired on QNX as no update occurs. -->
+				<DispatchEvent eventClass="mx.events.ResizeEvent" target="" type="resize" timeout="5000"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.vn1" propertyName="visible">
+					<ConditionalValue deviceDensity="160" os="win" value="false"/>
+					<ConditionalValue deviceDensity="240" os="android" value="false"/>
+					<ConditionalValue deviceDensity="320" os="win" value="false"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="false" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="true"/>					
+				</AssertPropertyValue>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="parentNavigator_from_first_ViewNavigator" keywords="[SplitViewNavigator, parentNavigator]" description="Verify SplitViewNavigator is accessible from ViewNavigator.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.svn1.vn1.parentNavigator.id" value="svn1" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="parentNavigator_from_second_ViewNavigator" keywords="[SplitViewNavigator, parentNavigator]" description="Verify SplitViewNavigator is accessible from ViewNavigator.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.svn1.vn2.parentNavigator.id" value="svn1" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="parentNavigator_from_View_of_firstVN" keywords="[SplitViewNavigator, parentNavigator]" description="Verify SplitViewNavigator is accessible from ViewNavigator.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.svn1.vn1.activeView.navigator.parentNavigator.id" value="svn1" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="parentNavigator_from_View_of_secondVN" keywords="[SplitViewNavigator, parentNavigator]" description="Verify SplitViewNavigator is accessible from ViewNavigator.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.svn1.vn2.activeView.navigator.parentNavigator.id" value="svn1" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="inherited_API" keywords="[SplitViewNavigator, inherited API, activeView]" description="Make sure inherited APIs don't cause anything bad.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.svn1.activeView" valueExpression="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="toggle_firstViewNavigator_visible" keywords="[SplitViewNavigator, autoHideFirstViewNavigator, first ViewNavigtor, visible]" description="Set ture in the first view navigaotr's visible property. False to QNX.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />				
+				<!--<RunCode code="trace(FlexGlobals.topLevelApplication.currentOS)"/>-->
+				<RunCode code="FlexGlobals.topLevelApplication.currentOS.indexOf('QNX')!=-1?FlexGlobals.topLevelApplication.svn1.vn1.visible=false:FlexGlobals.topLevelApplication.svn1.vn1.visible=true;"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.vn1" propertyName="visible">
+					<ConditionalValue deviceDensity="160" os="win" value="true"/>
+					<ConditionalValue deviceDensity="240" os="android" value="true"/>
+					<ConditionalValue deviceDensity="320" os="win" value="true"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="true" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="false"/>					
+				</AssertPropertyValue>
+				
+				<CompareBitmap numColorVariances="50" ignoreMaxColorVariance="true" url="../properties/baselines" target="svn1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="toggle_secondViewNavigator_visible" keywords="[SplitViewNavigator, autoHideFirstViewNavigator, second ViewNavigator, visible]" description="Toggle visible property of the second  view navigaotr.">
+			<setup>
+				<SetProperty target="svn2" propertyName="visible" value="false" />
+				<SetProperty target="svn3" propertyName="visible" value="false" />			
+				<ResetComponent target="svn1" className="comps.MainTestComp" waitEvent="updateComplete" />
+				<SetProperty target="svn1.vn2" propertyName="visible" value="false" waitTarget="svn1.vn2" waitEvent="hide"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="svn1.vn2" propertyName="visible" value="false" />
+				<CompareBitmap numColorVariances="50" ignoreMaxColorVariance="true" url="../properties/baselines" target="svn1">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win"/>
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+				
+			</body>
+		</TestCase>		
+		
+	</testCases>
+</UnitTester>

@@ -1,0 +1,61 @@
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+            xmlns:mx="library://ns.adobe.com/flex/mx" 
+            xmlns:s="library://ns.adobe.com/flex/spark" 
+            xmlns="*" 
+            testDir="mobile/components/HSlider/effects/"
+            testSWF="HSlider.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{} 
+                
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    
+	<fx:Script>
+        <![CDATA[
+			import mx.core.FlexGlobals;               
+        ]]>
+    </fx:Script>    
+       
+    <testCases>
+
+		<TestCase testID="HSlider_Effects_slideDuration" keywords="[HSlider, Effects, slideDuration]" description="Test slideDuration on HSlider">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetStyle target="myHSlider" styleName="slideDuration" value="1000" waitEvent="updateComplete" waitTarget="myHSlider"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0"/>
+				<DispatchMouseClickEvent target="myHSlider" localX="95" localY="4"/>
+				<Pause timeout="100"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.checkHSliderVal()" value="false"/>
+				<Pause timeout="900"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.checkHSliderVal()" value="false"/>
+		    </body>
+    	</TestCase>   	      	
+
+		<TestCase testID="HSlider_Effects_slideDuration2" keywords="[HSlider, Effects, slideDuration]" description="Test slideDuration on HSlider">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetStyle target="myHSlider" styleName="slideDuration" value="100" waitEvent="updateComplete" waitTarget="myHSlider"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0"/>
+				<DispatchMouseClickEvent target="myHSlider" localX="95" localY="4"/>
+				<Pause timeout="100"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.checkHSliderVal()" value="false"/>				
+		    </body>
+    	</TestCase>
+
+
+    </testCases>
+    
+</UnitTester>

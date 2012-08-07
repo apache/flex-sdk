@@ -1,0 +1,1188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/Button/properties/"
+    testSWF="MobileButtonMain.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+		<fx:Style>
+			.myStyle {
+				color: #FF0000
+			}
+
+      @font-face {
+          src:url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+          fontFamily: myFontFamily;
+          fontWeight: bold;
+          embedAsCFF: false;
+					}
+		</fx:Style>
+    
+		<testCases>
+
+
+				<TestCase testID="Mobile_Button_properties_autoRepeat_true" keywords="[Button, autoRepeat, property]" description="Test that checks repeated buttonDown events are sent when autoRepeat is true">
+					<setup>
+						<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot" />
+						<SetProperty target="propertiesRoot.button1" propertyName="autoRepeat" value="true"  />
+					</setup>
+					<body>		
+						<DispatchMouseEvent target="propertiesRoot.button1" type="rollOver" localX="33" localY="8"/>
+						<DispatchMouseEvent target="propertiesRoot.button1" type="mouseOver" localX="33" localY="8"/>
+						<DispatchMouseEvent target="propertiesRoot.button1" type="mouseDown" localX="33" localY="8" waitEvent="buttonDown" waitTarget="propertiesRoot.button1"/>
+						<AssertEvent target="propertiesRoot.button1" eventName="buttonDown" eventClass="mx.events::FlexEvent" />      
+						<DispatchMouseEvent target="propertiesRoot.button1" type="mouseUp" localX="33" localY="8" />
+						<AssertPropertyValue target="propertiesRoot.button1" propertyName="autoRepeat" value="true" />
+					</body>
+				</TestCase>
+
+        <TestCase testID="Mobile_Button_autoRepeat_property_true_repeatInterval" description="Test that checks repeated buttonDown events are sent when autoRepeat is true" keywords="[Button, autoRepeat, property]">
+            <setup>
+						<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot" />
+							<SetProperty target="propertiesRoot.button1" propertyName="autoRepeat" value="true"  />
+              <SetStyle target="propertiesRoot.button1" styleName="repeatDelay" value="10"/>
+              <SetStyle target="propertiesRoot.button1" styleName="repeatInterval" value="500"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="propertiesRoot.button1" type="rollOver" localX="33" localY="8"/>
+                <DispatchMouseEvent target="propertiesRoot.button1" type="mouseOver" localX="33" localY="8"/>
+                <DispatchMouseEvent target="propertiesRoot.button1" type="mouseDown" localX="33" localY="8" waitEvent="buttonDown" waitTarget="propertiesRoot.button1"/>
+                <AssertEvent target="propertiesRoot.button1" eventName="buttonDown" numExpectedEvents="2" eventClass="mx.events::FlexEvent" />        
+                <DispatchMouseEvent target="propertiesRoot.button1" type="mouseUp" localX="33" localY="8" />
+                <AssertPropertyValue target="propertiesRoot.button1" propertyName="autoRepeat" value="true"/>
+            </body>
+        </TestCase>
+ 
+        <TestCase testID="Mobile_Button_enabled_false_property" description="Tests that the button is not enabled" keywords="[Button, enabled, properties]">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="propertiesRoot.button1" propertyName="enabled" value="false"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase> 
+
+        <TestCase testID="Mobile_Button_enabled_default_property" description="Tests that the button is not enabled" keywords="[Button, enabled, properties]">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="propertiesRoot.button1" propertyName="enabled" value="true"/>
+            </body>
+        </TestCase> 
+
+        <TestCase testID="Mobile_Button_stickyHighlighting_true_property" description="Button down skin displays even after user drags mouse off the button" keywords="[Button, stickyHighlighting, properties]">
+            <setup>
+								<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot" />
+                <SetProperty target="propertiesRoot.button1" propertyName="stickyHighlighting" value="true" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="rollOver" localX="33" localY="1" target="propertiesRoot.button1" waitEvent="rollOver" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseOver" localX="33" localY="1" target="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="33" localY="3" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="33" localY="4" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="33" localY="5" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="33" localY="6" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="33" localY="7" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseDown" localX="33" localY="8" target="propertiesRoot.button1" waitEvent="mouseDown" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="33" localY="7" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="33" localY="6" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="33" localY="5" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="33" localY="4" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="33" localY="2" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseOut" localX="27" localY="-1" target="propertiesRoot.button1" />
+                <DispatchMouseEvent type="rollOut" localX="27" localY="-1" target="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" stageX="127" stageY="23" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="23" target=""/>
+                <DispatchMouseEvent type="mouseMove" stageX="127" stageY="22" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="22" target=""/>
+                <DispatchMouseEvent type="mouseMove" stageX="127" stageY="21" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="21" target=""/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_stickyHighlighting_false_property" description="Button down skin does not display even after user drags mouse off the button" keywords="[Button, stickyHighlighting, properties]">
+            <setup>
+								<ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot" />
+                <SetProperty target="propertiesRoot.button1" propertyName="stickyHighlighting" value="false" />
+                <DispatchMouseEvent type="rollOver" localX="23" localY="1" target="propertiesRoot.button1" waitEvent="rollOver" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseOver" localX="23" localY="1" target="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="23" localY="3" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="23" localY="4" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="23" localY="5" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="23" localY="6" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="23" localY="7" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseDown" localX="23" localY="8" target="propertiesRoot.button1" waitEvent="mouseDown" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="23" localY="7" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="23" localY="6" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="23" localY="5" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="23" localY="4" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseMove" localX="23" localY="2" target="propertiesRoot.button1" waitEvent="mouseMove" waitTarget="propertiesRoot.button1"/>
+                <DispatchMouseEvent type="mouseOut" localX="27" localY="-1" target="propertiesRoot.button1" />
+                <DispatchMouseEvent type="rollOut" localX="27" localY="-1" target="propertiesRoot.button1"/>
+                <!--DispatchMouseEvent type="mouseMove" stageX="127" stageY="23" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="23" target=""/>
+                <DispatchMouseEvent type="mouseMove" stageX="127" stageY="22" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="22" target=""/>
+                <DispatchMouseEvent type="mouseMove" stageX="127" stageY="21" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="21" target=""/-->
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_height_property" description="Tests that the button height is rendered correctly." keywords="[Button, height, properties]">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="propertiesRoot.button1" propertyName="height" value="50"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_height_default_property" keywords="[Button, width, property]" description="Verifies the default height of a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="height" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" value="43"/>
+					<ConditionalValue deviceDensity="240" os="android" value="65" />
+					<ConditionalValue deviceDensity="320" os="win" value="86"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="86"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="43"/>
+				</AssertPropertyValue>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_Checking_height_less_than_label" keywords="[Button, width, property]" description="Verifies the default height of a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="height" value="5" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="height" value="5" target="propertiesRoot.button2"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_Checking_label_property" description="Test that label sets the label" keywords="[Button, label, properties]">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="propertiesRoot.button1" propertyName="label" value="target"/>	
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Changing_label_property" description="Test that changing label sets the label" keywords="[Button, label, properties]">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="label" value="Abc 1234567890 日本語" waitEvent="contentChange" waitTarget="propertiesRoot.button1"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="propertiesRoot.button1" propertyName="label" value="Abc 1234567890 日本語"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_Checking_styleName_property" description="Test that setting the styleName property renders the Button properly." keywords="[Button, styleName, property]">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="styleName" value="myStyle"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="label" value="styleName Button" waitTarget="propertiesRoot.button1" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_Checking_visible_true_property" keywords="[Button, visible, property]" description="Ensure the visible property of true shows the Button.">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="visible" value="true" target="propertiesRoot.button1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_Checking_visible_true_property_visually" keywords="[Button, visible, property]" description="Ensure the visible property of true shows the Button.">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="visible" value="true"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Mobile_Button_Checking_visible_false_property" keywords="[Button, visible, property]" description="Ensure the visible property of false does not show the Button.">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="visible" value="false"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot" numColorVariances="60" ignoreMaxColorVariance="true">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_width_default" keywords="[Button, width, property]" description="Verifies the default width of a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="label" value="Button" waitEvent="contentChange" waitTarget="propertiesRoot.button1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="width" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" value="73"/>
+					<ConditionalValue deviceDensity="240" os="android" value="113" />
+					<ConditionalValue deviceDensity="320" os="win" value="142"/>
+					<ConditionalValue deviceDensity="320" os="iphone"  value="144"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="70"/>
+				</AssertPropertyValue>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_noLabel_width_default" keywords="[Button, width, property]" description="Verifies the default width of a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="width" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" value="32"/>
+					<ConditionalValue deviceDensity="240" os="android" value="48" />
+					<ConditionalValue deviceDensity="320" os="win" value="64" />
+					<ConditionalValue deviceDensity="320" os="iphone"  value="64"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="32"/>
+				</AssertPropertyValue>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_width_50" keywords="[Button, width, property]" description="Verifies the width of the Button is 50">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="width" value="50" />
+                <SetProperty target="propertiesRoot.button1" propertyName="label" value="Button" waitEvent="contentChange" waitTarget="propertiesRoot.button1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="width" value="50" target="propertiesRoot.button1"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_width_26point5" keywords="[Button, width, property]" description="Verifies the width of the Button is 26.5">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="width" value="26.5"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="label" value="Button" waitEvent="contentChange" waitTarget="propertiesRoot.button1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="width" value="26.5" target="propertiesRoot.button1"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_width_100" keywords="[Button, width, property]" description="Verifies the width of the Button is 50">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="width" value="100"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="label" value="Button" waitEvent="contentChange" waitTarget="propertiesRoot.button1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="width" value="100" target="propertiesRoot.button1"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_x_default" keywords="[Button, x, property]" description="Verifies the default x of a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot.button2" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="label" value="x Button" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="x" value="0" target="propertiesRoot.button2"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Mobile_Button_Checking_x_50" keywords="[Button, x, property]" description="Verifies the x of the Button is 50">
+            <setup>
+                <ResetComponent target="propertiesRoot.button2" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="x" value="50"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="label" value="50 x Button" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="x" value="50" target="propertiesRoot.button2"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Mobile_Button_Checking_neg5point6_x" keywords="[Button, x, property]" description="Verifies the x of the Button is -5.6">
+            <setup>
+                <ResetComponent target="propertiesRoot.button2" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="x" value="-5.6"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="label" value="-5.6 x Button" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+            </setup>        
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Mobile_Button_Checking_y_default" keywords="[Button, y, property]" description="Verifies the default x of a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot.button2" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="label" value="y Button" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="y" value="0" target="propertiesRoot.button2"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Mobile_Button_Checking_y_56" keywords="[Button, y, property]" description="Verifies the y of the Button is 56">
+            <setup>
+                <ResetComponent target="propertiesRoot.button2" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="y" value="56"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="label" value="56 y Button" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="y" value="56" target="propertiesRoot.button2"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Mobile_Button_Checking_neg5point6_y" keywords="[Button, y, property]" description="Verifies the y of the Button is -5.6">
+            <setup>
+                <ResetComponent target="propertiesRoot.button2" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="y" value="-5.6"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="label" value="-5.6 y Button" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+            </setup>        
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_maxHeight_property_default" keywords="[Button, maxHeight, property]" description="Verifies the maxHeight default of the Button is 10000">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="maxHeight" target="propertiesRoot.button1" value="10000"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_maxHeight_property_50" keywords="[Button, maxHeight, property]" description="Verifies the maxHeight default of the Button is 10000">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="label" value="maxHeight 50" waitEvent="contentChange" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="maxHeight" value="50" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="maxHeight" target="propertiesRoot.button1" value="50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_maxWidth_property_10" keywords="[Button, maxWidth, property]" description="Verifies the maxWidth of the Button is 10">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="maxWidth" value="10"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="label" value="This is a really long label that should not appear." waitEvent="updateComplete"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="maxWidth" target="propertiesRoot.button1" value="10"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Mobile_Button_Changing_maxWidth_property_10_to_100" keywords="[Button, maxWidth, property]" description="Verifies the maxWidth of the Button is 10 to 100">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="maxWidth" value="10"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="label" value="This is a really long label that should not appear." waitEvent="contentChange" waitTarget="propertiesRoot.button1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="maxWidth" target="propertiesRoot.button1" value="10"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="maxWidth" value="100" waitEvent="explicitMaxWidthChanged" waitTarget="propertiesRoot.button1"/>								
+                <AssertPropertyValue propertyName="maxWidth" target="propertiesRoot.button1" value="100"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+				
+        <TestCase testID="Mobile_Button_Checking_maxWidth_property_default" keywords="[Button, maxWidth, property]" description="Verifies the maxWidth default of the Button is 10000">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="maxWidth" target="propertiesRoot.button1" value="10000"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_minHeight_property_100" keywords="[Button, minHeight, property]" description="Verifies the minHeight of a Button is set to 100">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="minHeight" value="100" waitEvent="explicitMinHeightChanged" waitTarget="propertiesRoot.button1"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_minWidth_property_100" keywords="[Button, minWidth, property]" description="Verifies the minWidth of a Button is set to 100">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="minWidth" value="100" waitEvent="explicitMinWidthChanged" waitTarget="propertiesRoot.button1"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+		<TestCase testID="Mobile_Button_Checking_percentHeight_property_0" keywords="[Button, percentHeight, property]" description="Verifies the percentHeight of a Button is set to 0">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="percentHeight" value="0" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+				<RunCode code="trace(application.propertiesRoot.button2.height)"/>
+				<CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_Checking_percentHeight_property_1" keywords="[Button, percentHeight, property]" description="Verifies the percentHeight of a Button is set to 1">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="percentHeight" value="1" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+			
+				<AssertPropertyValue target="propertiesRoot.button2" propertyName="height" >
+					<ConditionalValue deviceDensity="160" os="win" value="32" />
+					<ConditionalValue deviceDensity="240" os="android" value="47" />
+					<ConditionalValue deviceDensity="320" os="win" value="63" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="64" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="30" />					
+				</AssertPropertyValue>
+				
+				
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_Checking_percentHeight_property_50" keywords="[Button, percentHeight, property]" description="Verifies the percentHeight of a Button is set to 50">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_percentHeight_property_100" keywords="[Button, percentHeight, property]" description="Verifies the percentHeight of a Button is set to 100">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="percentHeight" value="100" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_percentWidth_property_0" keywords="[Button, percentWidth, property]" description="Verifies the percentWidth of a Button is set to 0">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="percentWidth" value="0" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+				<AssertPropertyValue target="propertiesRoot.button2" propertyName="width" >
+					<ConditionalValue deviceDensity="160" os="win" value="32" />
+					<ConditionalValue deviceDensity="240" os="android" value="47" />
+					<ConditionalValue deviceDensity="320" os="win" value="63" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="64" />				
+					<ConditionalValue deviceDensity="160" os="qnx" value="30" />
+				</AssertPropertyValue>
+				
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_percentWidth_property_1" keywords="[Button, percentWidth, property]" description="Verifies the percentWidth of a Button is set to 1">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="percentWidth" value="1" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+
+				<AssertPropertyValue target="propertiesRoot.button2" propertyName="width" >
+					<ConditionalValue deviceDensity="160" os="win" value="32" />
+					<ConditionalValue deviceDensity="240" os="android" value="47" />
+					<ConditionalValue deviceDensity="320" os="win" value="63" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="64" />				
+					<ConditionalValue deviceDensity="160" os="qnx" value="30" />
+				</AssertPropertyValue>
+				
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_percentWidth_property_50" keywords="[Button, percentWidth, property]" description="Verifies the percentWidth of a Button is set to 50">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+				<AssertPropertyValue target="propertiesRoot.button2" propertyName="width" value="120"/>						
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_percentWidth_property_100" keywords="[Button, percentWidth, property]" description="Verifies the percentWidth of a Button is set to 100">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty target="propertiesRoot.button2" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+				<AssertPropertyValue target="propertiesRoot.button2" propertyName="width" value="240"/>									
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_Checking_percentWidth_percentHeight_property_100" keywords="[Button, percentWidth, percentHeight, property]" description="Verifies the percentWidth, percentHeight of a Button is set to 100">
+            <setup>
+                <ResetComponent target="propertiesRoot.button3" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button3"/>
+                <ResetComponent target="propertiesRoot.button4" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button4"/>
+                <SetProperty target="propertiesRoot.button3" propertyName="percentWidth" value="100" waitEvent="resize" waitTarget="propertiesRoot.button3"/>
+                <SetProperty target="propertiesRoot.button3" propertyName="percentHeight" value="100" waitEvent="resize" waitTarget="propertiesRoot.button3"/>
+                <SetProperty target="propertiesRoot.button4" propertyName="percentWidth" value="100" waitEvent="resize" waitTarget="propertiesRoot.button4"/>
+                <SetProperty target="propertiesRoot.button4" propertyName="percentHeight" value="100" waitEvent="resize" waitTarget="propertiesRoot.button4"/>
+            </setup>
+            <body>
+				<AssertPropertyValue propertyName="height" value="50" target="propertiesRoot.button3"/>
+				<AssertPropertyValue propertyName="height" value="50" target="propertiesRoot.button4"/>
+				<AssertPropertyValue propertyName="width" value="72" target="propertiesRoot.button3"/>
+				<AssertPropertyValue propertyName="width" value="72" target="propertiesRoot.button4"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_Checking_scaleX_default_property" keywords="[Button, scaleX, property]" description="Verifies the default scaleX value for Button is 1.0">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="scaleX" value="1.0" target="propertiesRoot.button2"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_scaleX_2_property" keywords="[Button, scaleX, property]" description="Verifies the default scaleX value for Button is 2.0">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+								<SetStyle target="propertiesRoot.button2" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty propertyName="scaleX" value="2.0" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_scaleX_point565_property" keywords="[Button, scaleX, property]" description="Verifies the scaleX value for Button is .565">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+								<SetStyle target="propertiesRoot.button2" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty propertyName="scaleX" value=".565" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_scaleX_point5_property" keywords="[Button, scaleX, property]" description="Verifies the default scaleX value for Button is 0.5">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+								<SetStyle target="propertiesRoot.button2" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty propertyName="scaleX" value=".5" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_scaleY_default_property" keywords="[Button, scaleY, property]" description="Verifies the default scaleY value for Button is 1.0">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="scaleY" value="1.0" target="propertiesRoot.button2"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_scaleY_2_property" keywords="[Button, scaleY, property]" description="Verifies the default scaleY value for Button is 2.0">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+								<SetStyle target="propertiesRoot.button2" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty propertyName="scaleY" value="2.0" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_scaleY_point565_property" keywords="[Button, scaleY, property]" description="Verifies the scaleY value for Button is .565">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+								<SetStyle target="propertiesRoot.button2" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty propertyName="scaleY" value=".565" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_scaleY_point5_property" keywords="[Button, scaleY, property]" description="Verifies the default scaleY value for Button is 0.5">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+								<SetStyle target="propertiesRoot.button2" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+                <SetProperty propertyName="scaleY" value=".5" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_alpha_property" keywords="[Button, alpha, property]" description="Verifies the default scaleY value for Button is 0.5">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty propertyName="label" value="Alpha Button" target="propertiesRoot.button2" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+                <SetProperty propertyName="alpha" value=".2" target="propertiesRoot.button2" waitEvent="alphaChanged" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_rotation_property" keywords="[Button, rotation, property]" description="Rotating a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty propertyName="label" value="rotation" target="propertiesRoot.button2" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+				<SetProperty propertyName="x" value="60" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+				<SetStyle target="propertiesRoot.button2" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+				<SetProperty propertyName="rotation" value="30" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />				
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_rotationX_property" keywords="[Button, rotationX, property]" description="Rotating a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty propertyName="label" value="rotationX" target="propertiesRoot.button2" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+								<SetProperty propertyName="rotationX" value="45" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Mobile_Button_rotationY_property" keywords="[Button, rotationY, property]" description="Rotating a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty propertyName="label" value="rotationY" target="propertiesRoot.button2" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+								<SetProperty propertyName="rotationY" value="-45" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_rotationZ_property" keywords="[Button, rotationY, property]" description="Rotating a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty propertyName="label" value="rotation" target="propertiesRoot.button2" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+				<SetProperty propertyName="x" value="60" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+				<SetStyle target="propertiesRoot.button2" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+				<SetProperty propertyName="rotation" value="30" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.grp1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />				
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_scaleZ_property" keywords="[Button, scaleX, property]" description="Scaling a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty propertyName="label" value="scaleZ" target="propertiesRoot.button2" waitEvent="contentChange" waitTarget="propertiesRoot.button2"/>
+								<SetProperty propertyName="scaleZ" value="5" target="propertiesRoot.button2" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Mobile_Button_content_property" keywords="[Button, content, property]" description="Setting content in a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty propertyName="label" value="The quick brown fox jumps" target="propertiesRoot.button1" waitEvent="contentChange" waitTarget="propertiesRoot.button1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="content" value="The quick brown fox jumps" target="propertiesRoot.button1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Mobile_Button_set_content_property" keywords="[Button, content, property]" description="Setting content in a FxButton">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty propertyName="content" value="The quick brown fox jumps" target="propertiesRoot.button1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="content" value="The quick brown fox jumps" target="propertiesRoot.button1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_set_content_get_label_property" keywords="[Button, content, property]" description="Setting content in a Button">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty propertyName="content" value="The quick brown fox jumps" target="propertiesRoot.button1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="label" value="The quick brown fox jumps" target="propertiesRoot.button1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_baselinePosition_property_prevalidation" keywords="[Button, baselinePosition, property]" description="Get read only property baselinePosition of Button">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+                <SetProperty propertyName="label" value="The quick brown fox jumps" target="propertiesRoot.button1" waitEvent="contentChange" />
+            </setup>
+            <body>
+             <AssertPropertyValue propertyName="baselinePosition" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" value="27" />
+					<ConditionalValue deviceDensity="240" os="android" value="41" />
+					<ConditionalValue deviceDensity="320" os="win" value="54"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="55"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="26" />
+				</AssertPropertyValue>
+				
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_baselinePosition_property_prevalidation_noLabel" keywords="[Button, baselinePosition, property]" description="Get read only property baselinePosition of Button">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="baselinePosition" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" value="33" />
+					<ConditionalValue deviceDensity="240" os="android" value="49" />
+					<ConditionalValue deviceDensity="320" os="win" value="66" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="67" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="31" />
+				</AssertPropertyValue> 
+            </body>
+        </TestCase>
+        <TestCase testID="Mobile_Button_Change_label_runtime" keywords="[Button, label, property]" description="Test changing label to long text at runtime">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" />
+								<SetProperty propertyName="label" value="Label" target="propertiesRoot.button1" waitEvent="contentChange" waitTarget="propertiesRoot.button1"/>								
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="label" value="Label" target="propertiesRoot.button1"/>
+								<SetProperty propertyName="label" value="Quick Brown Fox jumps" target="propertiesRoot.button1" waitEvent="contentChange" waitTarget="propertiesRoot.button1"/>								
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1" numColorVariances="60" ignoreMaxColorVariance="true">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_height_width_300" keywords="[Button, width, height]" description="Verifies the width  and height of the Button set to 300">
+			<bugs>
+				<Bug bugID="SDK-27007" />
+			</bugs>
+			<setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="width" value="300"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="height" value="300"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="label" value="Button" waitEvent="contentChange" waitTarget="propertiesRoot.button1"/>
+								<SetStyle target="propertiesRoot.button1" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="propertiesRoot.button1" />
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="width" value="300" target="propertiesRoot.button1"/>
+								<AssertPropertyValue propertyName="height" value="300" target="propertiesRoot.button1"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+				
+        <TestCase testID="Mobile_Button_emphasized_true" keywords="[Button, emphasized]" description="Verifies the emphasized=true shows mobile skin">
+            <setup>
+                <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="label" value="Button" waitEvent="contentChange" waitTarget="propertiesRoot.button1"/>
+                <SetProperty target="propertiesRoot.button1" propertyName="emphasized" value="true" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="emphasized" value="true" target="propertiesRoot.button1"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+            </body>
+        </TestCase>
+
+		<TestCase testID="Mobile_Button_container_scaleX_scaleY_point33" keywords="[Button, scaleX, scaleY]" description="Verify correct scaling when set to .33">
+			<bugs>
+				<Bug bugID="SDK-27659" />
+			</bugs>
+			<setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+				<SetProperty target="propertiesRoot.grp1" propertyName="width" value="300" waitEvent="updateComplete"/>
+				<SetProperty target="propertiesRoot.grp1" propertyName="height" value="300" waitEvent="updateComplete"/>
+				<SetProperty target="propertiesRoot.grp1" propertyName="scaleX" value="0.33" waitEvent="updateComplete"/>
+				<SetProperty target="propertiesRoot.grp1" propertyName="scaleY" value="0.33" waitEvent="updateComplete"/>	
+				<SetStyle target="propertiesRoot.button2" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="propertiesRoot.button2" propertyName="width" value="300" waitEvent="updateComplete"/>
+				<AssertPropertyValue propertyName="width" value="300" target="propertiesRoot.button2"/>
+                <CompareBitmap url="../properties/baselines" target="propertiesRoot.button2">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Mobile_Button_no_label" keywords="[Button, label]" description="Verify width and height of button without label">
+			<bugs>
+				<Bug bugID="SDK-27468" />
+			</bugs>
+			<setup>
+				 <ResetComponent target="propertiesRoot.button1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="propertiesRoot.button1"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" value="32" />
+					<ConditionalValue deviceDensity="240" os="android" value="48" />
+					<ConditionalValue deviceDensity="320" os="win" value="64" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="64" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="32" />
+				</AssertPropertyValue>
+				<AssertPropertyValue propertyName="height" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" value="43" />
+					<ConditionalValue deviceDensity="240" os="android" value="65" />
+					<ConditionalValue deviceDensity="320" os="win" value="86" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="86" />
+					<ConditionalValue deviceDensity="160" os="qnx" value="43" />
+				</AssertPropertyValue>
+				<RunCode code="trace('Mobile Button height: ' + application.propertiesRoot.button1.height)"/>
+				<CompareBitmap url="../properties/baselines" target="propertiesRoot.button1">
+					<ConditionalValue deviceDensity="160" os="win" />
+					<ConditionalValue deviceDensity="240" os="android" />
+					<ConditionalValue deviceDensity="320" os="win" />
+					<ConditionalValue deviceDensity="320" os="iphone" />
+					<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_minHeight" keywords="[Button, minHeight, property]" description="Verifies minHeight of a button">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+            </setup>
+            <body>
+				<AssertPropertyValue target="propertiesRoot.button2" propertyName="minHeight" >
+					<ConditionalValue deviceDensity="160" os="win" value="32" />
+					<ConditionalValue deviceDensity="240" os="android" value="47" />
+					<ConditionalValue deviceDensity="320" os="win" value="63" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="64" />				
+					<ConditionalValue deviceDensity="160" os="qnx" value="30" />
+				</AssertPropertyValue>			
+                <SetProperty target="propertiesRoot.grp1" propertyName="height" value="28" waitEvent="updateComplete" waitTarget="propertiesRoot.grp1"/>				
+                <SetProperty target="propertiesRoot.button2" propertyName="percentHeight" value="100" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mobile_Button_Checking_minWidth" keywords="[Button, minWidth, property]" description="Verifies minWidth of a button">
+            <setup>
+                <ResetComponent target="propertiesRoot" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="propertiesRoot"/>
+            </setup>
+            <body>
+				<AssertPropertyValue target="propertiesRoot.button2" propertyName="minWidth" >
+					<ConditionalValue deviceDensity="160" os="win" value="32" />
+					<ConditionalValue deviceDensity="240" os="android" value="47" />
+					<ConditionalValue deviceDensity="320" os="win" value="63" />
+					<ConditionalValue deviceDensity="320" os="iphone" value="64" />					
+					<ConditionalValue deviceDensity="160" os="qnx" value="30" />
+				</AssertPropertyValue>			
+
+                <SetProperty target="propertiesRoot.grp1" propertyName="width" value="28" waitEvent="updateComplete" waitTarget="propertiesRoot.grp1"/>				
+                <SetProperty target="propertiesRoot.button2" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="propertiesRoot.button2"/>
+				
+            </body>
+        </TestCase>
+
+ 		
+    </testCases>
+</UnitTester>

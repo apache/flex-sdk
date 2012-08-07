@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/ButtonBar/methods/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:m="http://ns.adobe.com/mxml/2009" 
+    xmlns="*" 
+    testSWF="ButtonBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</fx:Script>
+	<fx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import spark.events.ElementExistenceEvent;
+
+	]]>
+	</fx:Script>
+
+	<testCases>
+
+<!--
+==========================================================
+dataGroup_itemAddHandler(event:ElementExistenceEvent)
+==========================================================
+-->
+
+<TestCase testID="dataGroup_itemAddHandler_test1" keywords="[ButtonBar,dataGroup_itemAddHandler]" description="Item in the skin is not selected.  Verify various aspects of it to be sure it was created correctly." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 2)" waitTarget="bb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertMethodValue method="value=application.bb1.selectedItem == application.bb1.dataProvider.getItemAt(0)" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataGroup_itemAddHandler_test2" keywords="[ButtonBar,dataGroup_itemAddHandler]" description="Item in the skin is not selected.  Click on it to be sure it was created correctly." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 2)" waitTarget="bb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="bb1.dataGroup.getElementAt(0)"  />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertMethodValue method="value=application.bb1.selectedItem == application.bb1.dataProvider.getItemAt(0)" value="true" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

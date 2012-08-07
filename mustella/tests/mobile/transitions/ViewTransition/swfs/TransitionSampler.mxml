@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009"   preinitialize="application1_preinitializeHandler(event)"
+					 xmlns:s="library://ns.adobe.com/flex/spark" backgroundColor="#3f3f3f"
+					 firstView="views.TransitionSampler2Home">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			protected function application1_preinitializeHandler(event:FlexEvent):void
+			{
+				//flash.profiler.showRedrawRegions(true);
+				//DisplayObject(systemManager).scaleX = DisplayObject(systemManager).scaleY = 1.5;
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Style>
+		/* Sets colors that more closely match the "dark" theme of the preview
+		release of Flash Builder "Burrito". */
+		
+		@namespace "library://ns.adobe.com/flex/spark";
+		
+		ActionBar #titleDisplay
+		{
+			color: #FFFFFF;
+			textShadowColor: #000000;
+		}
+		
+		ActionBar Button:down
+		{
+			chromeColor: #464646;
+		}
+		
+		MobileApplication
+		{
+			backgroundColor: #484848;
+		}
+		
+		.mobileIconItemRendererMessageStyle
+		{
+			font-weight: normal;
+			color: #DDDDDD;
+		}
+		
+		Button.footer
+		{
+			skinClass: ClassReference("spark.skins.mobile.NavigationButtonSkin");
+		}
+		
+		TabbedMobileApplication
+		{
+			backgroundColor: #464646;
+			skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorApplicationSkin");
+		}
+		
+		ViewMenuItem
+		{
+			color: #000000;
+			textShadowColor: #FFFFFF;
+		}
+				
+		global
+		{
+			/* Looks */
+			chromeColor: #464646;
+			contentBackgroundColor: #3F3F3F;
+			rollOverColor: #CEDBEF;
+			focusColor: #56A6FF;
+			selectionColor: #3F3F3F;
+			color: #FFFFFF;
+			textShadowColor: #000000;
+		}
+
+	</fx:Style>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:ViewNavigatorApplication>

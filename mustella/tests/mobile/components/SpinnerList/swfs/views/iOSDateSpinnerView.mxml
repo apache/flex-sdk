@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        title="iOS Date Spinner">
+    
+    <s:BitmapImage source="@Embed('../../../../../../Assets/Images/ltgrayrect.jpg')" scaleMode="stretch" fillMode="repeat" width="100%" height="100%" />
+    
+    <s:VGroup width="100%" height="100%">
+        <s:Group height="100%" width="100%">
+            
+            <s:Group verticalCenter="0" horizontalCenter="0" width="90%">
+        
+                <s:Rect left="0" right="0" height="100%"  radiusX="15" radiusY="15">
+                    <s:fill>
+                        <s:SolidColor color="white" />
+                    </s:fill>
+                    <s:stroke>
+                        <s:SolidColorStroke color="0xABABAB" weight="2" />
+                    </s:stroke>
+                </s:Rect>
+                
+                <s:Rect left="0" right="0" height="50%" radiusX="15" radiusY="15">
+                    <s:fill>
+                        <s:LinearGradient rotation="90">
+                            <s:GradientEntry color="0x015ee6" />
+                        </s:LinearGradient>
+                    </s:fill>
+                    <s:stroke>
+                        <s:SolidColorStroke color="0xABABAB" weight="2" />
+                    </s:stroke>
+                </s:Rect>
+                <s:Rect left="2" right="2" height="30" verticalCenter="-15">
+                    <s:fill>
+                        <s:LinearGradient rotation="90">
+                            <s:GradientEntry color="0x015ee6" />
+                        </s:LinearGradient>
+                    </s:fill>
+                </s:Rect>
+                
+                <s:VGroup horizontalCenter="0" verticalCenter="0" gap="25" paddingBottom="20" paddingTop="20" paddingLeft="40" paddingRight="40" horizontalAlign="justify">
+                    <s:Label id="output" color="white" text="{monthSpinner.selectedItem} {daySpinner.selectedItem.label}, {yearSpinner.selectedItem}" textAlign="center" />
+                    <s:Label id="output2" color="0x385487" text="8:51 PM" textAlign="center" />
+                </s:VGroup>
+                
+            </s:Group>
+    
+        </s:Group>
+        
+        <s:Group width="100%">
+            <s:Rect width="100%" height="100%">
+                <s:fill>
+                    <s:SolidColor color="0x252634" />
+                </s:fill>
+            </s:Rect>  
+            <s:Rect width="100%" height="50%">
+                <s:fill>
+                    <s:SolidColor color="0xFFFFFF" alpha="0.5" />
+                </s:fill>
+            </s:Rect>  
+            
+            <s:Rect width="100%" height="2">
+                <s:fill>
+                    <s:SolidColor color="0x313945" />
+                </s:fill>
+            </s:Rect>
+            
+            <s:Rect width="100%" height="2" y="2">
+                <s:fill>
+                    <s:SolidColor color="0xD4D7DE" />
+                </s:fill>
+            </s:Rect>
+            
+            <!-- http://bugs.adobe.com/jira/browse/SDK-30894 - It can be hard to figure out what to use for a typicalItem -->
+            <s:SpinnerListContainer fontWeight="bold" left="30" right="30" top="20" bottom="20" skinClass="skins.iOSDateSpinnerSkin">
+                <s:SpinnerList id="monthSpinner" textAlign="right" typicalItem="September" width="100%">
+                    <s:dataProvider>
+                        <s:ArrayList>
+                            <fx:String>January</fx:String>
+                            <fx:String>February</fx:String>
+                            <fx:String>March</fx:String>
+                            <fx:String>April</fx:String>
+                            <fx:String>May</fx:String>
+                            <fx:String>June</fx:String>
+                            <fx:String>July</fx:String>
+                            <fx:String>August</fx:String>
+                            <fx:String>September</fx:String>
+                            <fx:String>October</fx:String>
+                            <fx:String>November</fx:String>
+                            <fx:String>December</fx:String>
+                        </s:ArrayList>
+                    </s:dataProvider>
+                </s:SpinnerList>
+
+                <s:SpinnerList id="daySpinner" textAlign="center" typicalItem="30" labelField="label">
+                    <s:dataProvider>
+                        <s:ArrayList>
+                            <s:source>
+                                <fx:Object label="1" />
+                                <fx:Object label="2" />
+                                <fx:Object label="3" />
+                                <fx:Object label="4" />
+                                <fx:Object label="5" />
+                                <fx:Object label="6" />
+                                <fx:Object label="7" />
+                                <fx:Object label="8" />
+                                <fx:Object label="9" />
+                                <fx:Object label="10" />
+                                <fx:Object label="11" />
+                                <fx:Object label="12" />
+                                <fx:Object label="13" />
+                                <fx:Object label="14" />
+                                <fx:Object label="15" />
+                                <fx:Object label="16" />
+                                <fx:Object label="17" />
+                                <fx:Object label="18" />
+                                <fx:Object label="19" />
+                                <fx:Object label="20" />
+                                <fx:Object label="21" />
+                                <fx:Object label="22" />
+                                <fx:Object label="23" />
+                                <fx:Object label="24" />
+                                <fx:Object label="25" />
+                                <fx:Object label="26" />
+                                <fx:Object label="27" />
+                                <fx:Object label="28" />
+                                <fx:Object label="29" _enabled_="false" />
+                                <fx:Object label="30" _enabled_="false" />
+                                <fx:Object label="31" _enabled_="false" />
+                            </s:source>
+                        </s:ArrayList>
+                    </s:dataProvider>
+                </s:SpinnerList>
+                
+                <s:SpinnerList id="yearSpinner" textAlign="center">
+                    <s:dataProvider>
+                        <s:ArrayList>
+                            <s:source>
+                                [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014]
+                            </s:source>
+                        </s:ArrayList>
+                    </s:dataProvider>
+                </s:SpinnerList>
+            </s:SpinnerListContainer>
+        </s:Group>
+    </s:VGroup>
+</s:View>

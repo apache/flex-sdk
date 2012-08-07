@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Paging List Tile" >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script source="viewScript.as"/>
+	<fx:Script>
+		
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			import mx.events.TouchInteractionEvent;
+			
+			import spark.components.Image;
+			
+	
+			
+			protected function radiobutton1_clickHandler(event:MouseEvent):void
+			{
+				itemList.pageScrollingEnabled=true;
+			}
+			
+			protected function radiobutton2_clickHandler(event:MouseEvent):void
+			{
+				itemList.pageScrollingEnabled=false;
+			}
+			
+			protected function itemList_touchInteractionEndHandler(event:TouchInteractionEvent):void
+			{
+				trace("Item snapped");
+			}
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				navigator.popView();
+			}
+			protected function view1_creationCompleteHandler(event:FlexEvent):void
+			{
+				currentState = data.toString();	
+			}
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="ios"/>
+		<s:State name="android"/>
+		<s:State name="playbook"/>
+	</s:states>
+	
+	<s:navigationContent>
+		<s:Button label="Back" includeIn="ios,playbook" click="button1_clickHandler(event)"/>
+	</s:navigationContent>
+	<s:actionContent>
+		<s:RadioButton label="disabled" click="radiobutton2_clickHandler(event)"/>
+		<s:RadioButton x="-2" width="163" height="47" label="enabled"
+					   click="radiobutton1_clickHandler(event)"/>
+	</s:actionContent>
+	<s:List id="itemList" top="61" width="100%" height="100%" dataProvider="{createData()}" touchInteractionEnd="itemList_touchInteractionEndHandler(event)" itemRenderer="renderers.myItemRenderer">
+		<!--<s:itemRenderer>
+				<fx:Component>
+					<s:IconItemRenderer width="25%" height="50%" iconField="imageIcon" labelField="imageName" messageField="imageDesc" iconWidth="100" iconHeight="100"/>
+				</fx:Component>
+			</s:itemRenderer>-->
+		<s:layout>
+			<s:TileLayout/>
+		</s:layout>
+	</s:List>
+</s:View>

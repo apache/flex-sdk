@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/ViewAndViewNavigator/tests/"
+			testSWF="ViewAndViewNavigatorTransitions.mxml">
+
+		<fx:Script source="globalNotTabbed.as" />
+
+		<fx:Script>
+			<![CDATA[ 
+
+				import mx.core.FlexGlobals;
+				import views.*;
+			
+				public static function init(o:DisplayObject):void {} 
+
+				public function resetProperties():void {
+					FlexGlobals.topLevelApplication.hasEffectEnded = false;
+					//FlexGlobals.topLevelApplication.navigator.useDefaultTransitions = true;
+					FlexGlobals.topLevelApplication.navigator.transitionsEnabled = true;
+				}
+
+			]]>
+		</fx:Script>
+
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+
+		<TestCase testID="updatePropertyDuringTransition" keywords="[SDK-27856, view, transitions]" description="Verify updating view property during transition works">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="resetProperties()" />
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.UpdatePropertyDuringTransition)" waitTarget="navigator.defaultPushTransition" waitEvent="transitionEnd"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.title == 'View2')" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="pushViewOnViewActivate" keywords="[SDK-29575, view, transitions]" description="Verify pushing view on activate of one view, goes to proper view">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="resetProperties()" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.length == 0" value="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.PushesAnotherViewOnActivate)" waitTarget="navigator.defaultPushTransition" waitEvent="transitionEnd"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is PushesAnotherViewOnActivate)" value="true" />
+				<WaitForEvent eventName="transitionEnd" target="navigator.defaultPushTransition" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is Sect1View3)" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="multipleBackButtonPressFast" keywords="[SDK-29476, view, transitions, back, stack]" description="Verify pressing back key during transition doesnt corrupt stack">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="resetProperties()" />
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View1)" waitTarget="navigator.defaultPushTransition" waitEvent="transitionEnd"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator.defaultPushTransition" waitEvent="transitionEnd"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View3)" waitTarget="navigator.defaultPushTransition" waitEvent="transitionEnd"/>
+
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.length == 3" value="true" />
+
+				<DispatchKeyEvent keys="[BACK]" />
+				<Pause timeout="50" />
+				<DispatchKeyEvent keys="[BACK]" />
+				<Pause timeout="50" />
+				<WaitForEvent numExpectedEvents="1" eventName="transitionEnd" target="navigator.defaultPopTransition"/>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2)" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.length == 2" value="true" />
+			</body>
+
+		</TestCase>
+
+		
+		<TestCase testID="backDuringTransition" keywords="[SDK-29476, view, transitions, back, stack]" description="Verify pressing back key during transition doesnt corrupt stack">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="resetProperties()" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.length == 0" value="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator.defaultPushTransition" waitEvent="transitionEnd"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.length == 1" value="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View3)"/>
+				<Pause timeout="50" />
+				<DispatchKeyEvent keys="[BACK]" waitTarget="navigator.defaultPushTransition" waitEvent="transitionEnd" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.length == 2" value="true" />
+				<WaitForEvent eventName="transitionEnd" target="navigator.defaultPopTransition" />
+
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.length == 1" value="true" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2)" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="defaultTransition" keywords="[view, tabBar, transitions]" description="Verify default transitions occur for pushView()">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="resetProperties()" />
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)"/>
+				<Pause timeout="100" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.hasEffectEnded == false" value="true" />
+
+				<Pause timeout="1000" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.hasEffectEnded == true" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="nonDefaultTransition" keywords="[view, tabBar, transitions]" description="Verify explicit (non-default) transitions occur for pushView()">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="resetProperties()" />
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2, null, null, FlexGlobals.topLevelApplication.trans)"/>
+
+				<Pause timeout="500" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.hasEffectEnded == false" value="true" />
+
+				<Pause timeout="800" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.hasEffectEnded == true" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="transitionsDisabled" keywords="[view, tabBar]" description="Turn off default transitions">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="resetProperties()" />
+			</setup>
+
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.transitionsEnabled = false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)"/>
+				<Pause timeout="100" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.hasEffectEnded == false" value="true" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2)" value="true" />
+
+			</body>
+
+		</TestCase>
+	</testCases>
+	
+</UnitTester>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:components="components.*" addedToStage="view1_addedToStageHandler(event)"
+         removedFromStage="view1_removedFromStageHandler(event)" deactivate="view1_deactivateHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import mx.core.mx_internal;
+			import mx.events.EffectEvent;
+			import mx.events.FlexMouseEvent;
+			
+			import spark.effects.animation.Animation;
+			import spark.effects.supportClasses.AnimateInstance;
+			import spark.events.ViewNavigatorEvent;
+			import spark.skins.mobile.CalloutSkin;
+			
+            protected function view1_addedToStageHandler(event:Event):void
+            {
+				addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardHandler);
+				addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardHandler);
+				addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardHandler);
+                stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, softKeyboardHandler);
+                stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, softKeyboardHandler);
+            }
+            
+            protected function view1_removedFromStageHandler(event:Event):void
+            {
+				removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardHandler);
+				removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardHandler);
+				removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardHandler);
+				stage.removeEventListener(StageOrientationEvent.ORIENTATION_CHANGING, softKeyboardHandler);
+                stage.removeEventListener(StageOrientationEvent.ORIENTATION_CHANGE, softKeyboardHandler);
+            }
+            
+            protected function softKeyboardHandler(event:Event):void
+            {
+                log.addItemAt(event.type + " " + stage.softKeyboardRect.height, 0);
+            }
+            
+			protected function view1_deactivateHandler(event:Event):void
+			{
+				// TODO Auto-generated method stub
+				if(calloutButton_ForResize.isDropDownOpen)
+					calloutButton_ForResize.closeDropDown();
+				
+				if(calloutButton_GreaterMinHeight.isDropDownOpen)
+					calloutButton_GreaterMinHeight.closeDropDown();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:navigationContent>
+		<s:Button label="Back" click="navigator.popView()" />
+	</s:navigationContent>
+	
+	<s:actionContent>
+		<s:Button label="Home" click="navigator.pushView(HomeView)"/>
+	</s:actionContent>
+	<s:HGroup width="100%">
+		<s:CalloutButton id="calloutButton_ForResize" 
+						 label="Resizable Callout" 
+						 verticalPosition="before"
+						 horizontalPosition="middle">
+			<!-- Setting callout layout to "VerticalLayout" -->
+			<s:calloutLayout>
+				<s:VerticalLayout/>
+			</s:calloutLayout>
+			<!-- Setting a set of components to callout's content as an Array -->
+			<s:calloutContent>
+				<s:VGroup width="100%" height="100%" gap="8">
+					<s:List width="100%" height="100%">
+                        <s:ArrayCollection id="log">
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                            <fx:String>Test</fx:String>
+                        </s:ArrayCollection>
+                    </s:List>
+					<s:TextInput width="100%" id="textinput_ForResize" />
+					<s:Button label="Close" click="calloutButton_ForResize.callout.close()" width="100%"/>
+				</s:VGroup>
+			</s:calloutContent>
+		</s:CalloutButton>
+		
+			<s:BorderContainer height="50" width="50" id="containerBasic">
+				<s:CalloutButton id="calloutButtonBasic" horizontalCenter="0" verticalCenter="0">
+					<s:BorderContainer width="10" height="10"/>
+				</s:CalloutButton>
+			</s:BorderContainer>
+					
+		<s:CalloutButton id="calloutButton_GreaterMinHeight" 
+						 label="Non-Resizable Callout" 
+						 verticalPosition="before"
+						 horizontalPosition="middle">
+			<!-- Setting callout layout to "VerticalLayout" -->
+			<s:calloutLayout>
+				<s:VerticalLayout/>
+			</s:calloutLayout>
+			<!-- Setting a set of components to callout's content as an Array -->
+			<s:calloutContent>
+				<s:DateSpinner id="startDateSpinner" displayMode="dateAndTime"  />
+				<s:Label text="This is a non-resizable alert box with greater min height"/>
+				<s:TextInput id="calloutText" width="100%"/>
+				<s:Button width="100%" label="Close" click="calloutButton_GreaterMinHeight.callout.close()"/>
+			</s:calloutContent>
+		</s:CalloutButton>
+	</s:HGroup>
+</s:View>

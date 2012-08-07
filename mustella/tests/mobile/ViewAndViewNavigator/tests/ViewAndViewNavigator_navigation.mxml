@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/ViewAndViewNavigator/tests/"
+			testSWF="ViewAndViewNavigatorMain.mxml">
+
+		<fx:Script source="globalNotTabbed.as" />
+
+		<fx:Script>
+			<![CDATA[ 
+
+				import mx.core.FlexGlobals;
+				
+				use namespace mx_internal;
+				
+				import spark.transitions.SlideViewTransition;
+				
+				public static function init(o:DisplayObject):void { } 
+				
+				public function slideTrans():SlideViewTransition {
+					var t:SlideViewTransition = new SlideViewTransition();
+					t.direction = 'left';
+					t.duration = 600;
+					return t;
+				}
+				
+			]]>
+		</fx:Script>
+
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		
+
+		<TestCase testID="replaceView" keywords="[view, viewnavigator, replaceView]" description="Test replaceView">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1)" value="true" />
+
+				<!-- push() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2, 'myData')" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2)" value="true" />
+
+				<!-- replaceView() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.replaceView(views.Sect1View3)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is Sect1View3)" value="true" />
+
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.length == 2)" value="true" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.returnedObjectValue.object == 'myData')" value="true" />
+
+				<!-- pop() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1)" value="true" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="push_pop" keywords="[view, viewnavigator, destructionpolicy, pushView, popView]" description="Test basic push and pop">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+				<!-- push() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2" value="true" />
+
+				<!-- push() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View3)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View3" value="true" />
+
+				<!-- pop() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2" value="true" />
+
+				<!-- pop() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="multiple_push_pop" keywords="[view, viewnavigator, destructionpolicy, pushView, popView]" description="Do multiple pushView and popViews in a row">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+				<!-- push() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View3)"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View3)"/>
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete"/>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="popToFirstView" keywords="[view, viewnavigator, destructionpolicy, popView]" description="Test popping to firstView">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+				<!-- push() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2" value="true" />
+
+				<!-- push() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View3)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View3" value="true" />
+
+				<!-- popToRoot() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popToFirstView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="popAll" keywords="[view, viewnavigator, destructionpolicy, popAll]" description="Test popAll">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2" value="true" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View3)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View3" value="true" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popAll()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView == null" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="popBackFromRoot" keywords="[view, viewnavigator, destructionpolicy, popView]" description="Test popping back from root">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView == null" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="interactionDisabledDuringTransition" keywords="[view, viewnavigator, destructionpolicy, popView]" description="Test that interaction is disabled on all views during transition">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2, null, slideTrans())" />
+				<Pause timeout="200" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.mouseEnabled == false" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.mouseChildren == false" value="true" />
+			  <RunCode code="trace('')" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="createReturnObject" keywords="[view, viewnavigator, popView]" description="Verify createReturnObject() returns views data when popped">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<!-- pop() -->
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2, 'myData')" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.navigator.activeView.returnedObjectValue.object == 'myData')" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="destructionPolicyDefault" keywords="[view, viewnavigator, destructionpolicy]" description="Verify views are destroyed when destructionPolicy is set to default (auto)">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.btn1.getStyle('color').toString(16) == '333333'" value="true" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.btn1.setStyle('color', '666666')" waitTarget="navigator.activeView.btn1" waitEvent="updateComplete" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2" value="true" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.btn1.getStyle('color').toString(16) == '333333'" value="true" />
+			</body>
+
+		</TestCase>
+
+
+		<TestCase testID="destructionPolicyAuto" keywords="[view, viewnavigator, destructionpolicy]" description="Verify views are destroyed when destructionPolicy is set to auto">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.btn1.getStyle('color').toString(16) == '333333'" value="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.destructionPolicy = 'auto'" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.btn1.setStyle('color', '666666')" waitTarget="navigator.activeView.btn1" waitEvent="updateComplete" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2" value="true" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.btn1.getStyle('color').toString(16) == '333333'" value="true" />
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="destructionPolicyAlways" keywords="[view, viewnavigator, destructionpolicy]" description="Verify views are destroyed when destructionPolicy is set to always">
+
+			<setup>
+				<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+			  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+			</setup>
+
+			<body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.btn1.getStyle('color').toString(16) == '333333'" value="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.destructionPolicy = 'always'" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.btn1.setStyle('color', '666666')" waitTarget="navigator.activeView.btn1" waitEvent="updateComplete" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2" value="true" />
+
+				<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.btn1.getStyle('color').toString(16) == '333333'" value="true" />
+			</body>
+			
+		</TestCase>
+
+
+		<TestCase testID="destructionPolicyNever" keywords="[view, viewnavigator, destructionpolicy]" description="Verify views are not destroyed when destructionPolicy is set to never">
+
+				<setup>
+					<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+				  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+				</setup>
+
+				<body>
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.btn1.getStyle('color').toString(16) == '333333'" value="true" />
+
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.destructionPolicy = 'never'" />
+
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.activeView.btn1.setStyle('color', '#666666')" waitTarget="navigator.activeView.btn1" waitEvent="updateComplete" />
+
+					<!-- push() -->
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2" value="true" />
+
+					<!-- pop() -->
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.popView()" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.btn1.getStyle('color').toString(16) == '666666'" value="true" />
+				</body>
+
+		</TestCase>
+
+		<TestCase testID="pressTheBackButton" description="Be sure the back button works." keywords="[Button, back]">
+
+		    <setup>
+					<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+				  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+		    </setup>
+
+		    <body>
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					<SetProperty target="navigator.activeView" propertyName="data" value="pressTheBackButtonRandomData" />
+
+
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.data != 'pressTheBackButtonRandomData'" value="true" />
+					<DispatchKeyEvent keys="[BACK]" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.data == 'pressTheBackButtonRandomData'" value="true" />
+		    </body>
+		</TestCase>
+
+		<TestCase testID="exitApplicationOnBackKeyDefault" description="Verify exitApplicationOnBackKey is set properly" keywords="[Button, back]">
+
+		    <setup>
+					<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+				  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+		    </setup>
+
+		    <body>
+				<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.exitApplicationOnBackKey == true" value="true" />
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.exitApplicationOnBackKey == false" value="true" />
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View3)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View3" value="true" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.exitApplicationOnBackKey == false" value="true" />
+					
+					<DispatchKeyEvent keys="[BACK]" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View2" value="true" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.exitApplicationOnBackKey == false" value="true" />
+					
+					
+					<DispatchKeyEvent keys="[BACK]" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.exitApplicationOnBackKey == true" value="true" />
+					
+					
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.Sect1View2)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.exitApplicationOnBackKey == false" value="true" />
+					
+					<DispatchKeyEvent keys="[BACK]" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.exitApplicationOnBackKey == true" value="true" />
+					
+					<DispatchKeyEvent keys="[BACK]"/>
+					<Pause timeout="1000" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView is Sect1View1" value="true" />
+		    </body>
+		</TestCase>
+
+		<TestCase testID="updateTemplateProperty" description="Verify properties get updated when setting them during a transition." keywords="[SDK-27856, view, navigation]">
+
+		    <setup>
+					<RunCode code="FlexGlobals.topLevelApplication.resetApp()" waitTarget="navigator" waitEvent="myEvent" />
+				  <RunCode code="navigator().pushView(views.Sect1View1)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+		    </setup>
+
+		    <body>
+					<RunCode code="FlexGlobals.topLevelApplication.navigator.pushView(views.UpdateTemplateProperty)" waitTarget="navigator" waitEvent="viewChangeComplete" />
+					<AssertMethodValue method="value = FlexGlobals.topLevelApplication.navigator.activeView.title == 'View2'" value="true" />
+		    </body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

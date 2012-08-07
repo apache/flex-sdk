@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        title="Calculator" actionBarVisible="false" backgroundColor="black">
+    
+	<!-- TODO: I want to be able to turn off pull/spring on the Scroller in this view -->
+	
+    <s:VGroup gap="1" width="100%" height="100%">
+        
+        <s:Label id="txt" width="100%" textAlign="right" maxDisplayedLines="1" verticalAlign="middle" color="white" fontSize="88" height="150" />
+        
+        <s:HGroup id="clearButtonGroup" gap="1" width="100%" height="80">
+            <s:Rect width="75%" height="100%">
+                <s:fill>
+                    <s:LinearGradient x = "17" y = "0" scaleX = "86" rotation = "90">
+                        <s:GradientEntry color="#313031" ratio="0" alpha="1"/>
+                        <s:GradientEntry color="#000400" ratio="1" alpha="1"/>
+                    </s:LinearGradient>
+                </s:fill>
+            </s:Rect>
+            
+            <s:Group width="25%" height="100%" click="txt.text = ''">
+                <s:Rect width="100%" height="100%">
+                    <s:fill>
+                        <s:LinearGradient id="blackGradient" x = "-241" y = "-1" scaleX = "129" rotation = "90">
+                            <s:GradientEntry color="#313031" ratio="0" alpha="1"/>
+                            <s:GradientEntry color="#000000" ratio="1" alpha="1"/>
+                        </s:LinearGradient>
+                    </s:fill>
+                </s:Rect> 
+                <s:Label text="CLEAR" fontWeight="bold" color="white" horizontalCenter="0" verticalCenter="0" />
+            </s:Group>
+            
+        </s:HGroup>
+        
+        <s:Scroller width="100%" height="100%" skinClass="skins.NoScrollbarScrollerSkin">
+            <s:Group>
+                
+                <s:DataGroup id="dg1" width="100%" height="100%">
+                    <s:layout>
+                        <s:TileLayout requestedColumnCount="4" requestedRowCount="4" 
+                                      columnAlign="justifyUsingWidth" rowAlign="justifyUsingHeight" 
+                                      horizontalGap="1" verticalGap="0"/>
+                    </s:layout>
+                    <s:itemRenderer>
+                        <fx:Component>
+                            <s:ItemRenderer click="itemrenderer1_clickHandler(event)">
+                                <fx:Script>
+                                    <![CDATA[
+                                        override public function set data(value:Object):void {
+                                            super.data = value;
+                                            
+                                            if (String(data) == "\u00F7" ||
+                                                String(data) == "\u00D7" ||
+                                                String(data) == "\u2212" ||
+                                                String(data) == "\u003D" ||
+                                                String(data) == "\u002B"){
+                                                
+                                                bgRect.fill = blackGradient;
+                                            } else {
+                                                bgRect.fill = blueGradient;
+                                            }
+                                        }
+                                        
+                                        protected function itemrenderer1_clickHandler(event:MouseEvent):void {
+                                            fadeEffect.play();
+                                            
+                                            // append the value to the display
+                                            outerDocument.txt.text += (event.target as ItemRenderer).data;
+                                        }
+                                        
+                                    ]]>
+                                </fx:Script>
+                                <fx:Declarations>
+                                    <s:Fade id="fadeEffect" target="{borderRect}" alphaFrom="1" alphaTo="0" duration="350" />
+                                    
+                                    <s:LinearGradient id="blueGradient" x = "-1" y = "-1" scaleX = "129" rotation = "90">
+                                        <s:GradientEntry color="#293441" ratio="0" alpha="1"/>
+                                        <s:GradientEntry color="#081420" ratio="1" alpha="1"/>
+                                    </s:LinearGradient>
+                                    
+                                    <s:LinearGradient id="blackGradient" x = "-241" y = "-1" scaleX = "129" rotation = "90">
+                                        <s:GradientEntry color="#313031" ratio="0" alpha="1"/>
+                                        <s:GradientEntry color="#000000" ratio="1" alpha="1"/>
+                                    </s:LinearGradient>
+                                </fx:Declarations>
+                                <s:Rect id="bgRect" width="100%" height="100%" />
+                                <s:Rect id="borderRect" top="0" left="0" right="0" bottom="0" alpha="0">
+                                    <s:stroke>
+                                        <s:SolidColorStroke color="white" weight="2" />
+                                    </s:stroke>
+                                </s:Rect>
+                                <s:Label mouseEnabled="false" text="{data}" color="white" horizontalCenter="0" verticalCenter="0" fontSize="88" />
+                            </s:ItemRenderer>
+                        </fx:Component>
+                    </s:itemRenderer>
+                    <s:dataProvider>
+                        <s:ArrayList>
+                            <fx:String>7</fx:String>
+                            <fx:String>8</fx:String>
+                            <fx:String>9</fx:String>
+                            <fx:String>\u00F7</fx:String>
+                            <fx:String>4</fx:String>
+                            <fx:String>5</fx:String>
+                            <fx:String>6</fx:String>
+                            <fx:String>\u00D7</fx:String>
+                            <fx:String>1</fx:String>
+                            <fx:String>2</fx:String>
+                            <fx:String>3</fx:String>
+                            <fx:String>\u2212</fx:String>
+                            <fx:String>.</fx:String>
+                            <fx:String>0</fx:String>
+                            <fx:String>\u003D</fx:String>
+                            <fx:String>\u002B</fx:String>
+                        </s:ArrayList>
+                    </s:dataProvider>
+                </s:DataGroup>
+                
+                <s:DataGroup id="dg2" width="{dg1.width}" height="100%" x="{dg1.width}">
+                    <s:layout>
+                        <s:TileLayout requestedColumnCount="3" requestedRowCount="4" 
+                                      columnAlign="justifyUsingWidth" rowAlign="justifyUsingHeight" 
+                                      horizontalGap="1" verticalGap="0"/>
+                    </s:layout>
+                    <s:itemRenderer>
+                        <fx:Component>
+                            <s:ItemRenderer click="itemrenderer1_clickHandler(event)">
+                                <fx:Script>
+                                    <![CDATA[
+                                        override public function set data(value:Object):void {
+                                            super.data = value;
+                                            
+                                            bgRect.fill = blackGradient;
+                                        }
+                                        
+                                        protected function itemrenderer1_clickHandler(event:MouseEvent):void
+                                        {
+                                            fadeEffect.play();
+                                            
+                                            outerDocument.txt.text += (event.target as ItemRenderer).data;
+                                        }
+                                        
+                                    ]]>
+                                </fx:Script>
+                                <fx:Declarations>
+                                    <s:Fade id="fadeEffect" target="{borderRect}" alphaFrom="1" alphaTo="0" duration="350" />
+                                    
+                                    <s:LinearGradient id="blueGradient" x = "-1" y = "-1" scaleX = "129" rotation = "90">
+                                        <s:GradientEntry color="#293441" ratio="0" alpha="1"/>
+                                        <s:GradientEntry color="#081420" ratio="1" alpha="1"/>
+                                    </s:LinearGradient>
+                                    
+                                    <s:LinearGradient id="blackGradient" x = "-241" y = "-1" scaleX = "129" rotation = "90">
+                                        <s:GradientEntry color="#313031" ratio="0" alpha="1"/>
+                                        <s:GradientEntry color="#000000" ratio="1" alpha="1"/>
+                                    </s:LinearGradient>
+                                </fx:Declarations>
+                                <s:Rect id="bgRect" width="100%" height="100%" />
+                                <s:Rect id="borderRect" top="0" left="0" right="0" bottom="0" alpha="0">
+                                    <s:stroke>
+                                        <s:SolidColorStroke color="white" weight="2" />
+                                    </s:stroke>
+                                </s:Rect>
+                                <s:Label mouseEnabled="false" text="{data}" color="white" horizontalCenter="0" verticalCenter="0" fontSize="88" />
+                            </s:ItemRenderer>
+                        </fx:Component>
+                    </s:itemRenderer>
+                    <s:dataProvider>
+                        <s:ArrayList>
+                            <fx:String>sin</fx:String>
+                            <fx:String>cos</fx:String>
+                            <fx:String>tan</fx:String>
+                            <fx:String>ln</fx:String>
+                            <fx:String>log</fx:String>
+                            <fx:String>!</fx:String>
+                            <fx:String>\u03C0</fx:String>
+                            <fx:String>e</fx:String>
+                            <fx:String>^</fx:String>
+                            <fx:String>(</fx:String>
+                            <fx:String>)</fx:String>
+                            <fx:String>\u221A</fx:String>
+                        </s:ArrayList>
+                    </s:dataProvider>
+                </s:DataGroup>
+                
+            </s:Group>
+        </s:Scroller>
+        
+    </s:VGroup>
+</s:View>

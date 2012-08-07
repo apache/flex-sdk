@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testDir="mobile/components/ActionBar/integration/"
+			testSWF="ActionBar.mxml">
+
+	<fx:Script>
+		<![CDATA[ 
+			public static function init(o:DisplayObject):void { } 
+		]]>
+	</fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		<TestCase testID="ActionBar_TitleAndEmptyTitleContent" keywords="[ActionBar, title, titleContent, integration, SDK-28006, SDK-27745]" description="Regression test for SDK-27745 and SDK-28006">
+			<bugs>
+				<Bug bugID="SDK-27745" />
+				<Bug bugID="SDK-28006" />
+			</bugs>
+			<setup>
+				<ResetComponent target="actionBar" className="comps.ActionBarBasic" waitEvent="updateComplete" />
+				<SetProperty target="actionBar" propertyName="title" value="Title" waitEvent="updateComplete" waitTarget="actionBar.skin.titleDisplay" />
+				<SetProperty target="actionBar" propertyName="titleContent" value="[]" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBar" propertyName="width">
+					<ConditionalValue deviceDensity="160" os="win" value="26"/>
+					<ConditionalValue deviceDensity="240" os="android" value="40"/>
+					<ConditionalValue deviceDensity="160" os="qnx" value="26"/>
+					<ConditionalValue deviceDensity="320" os="win" value="52"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="52"/>
+				</AssertPropertyValue>
+				<CompareBitmap url="../integration/baselines" target="actionBar">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_NavigationContent_Title_ActionContent" keywords="[ActionBar, states, integration]" description="Checking state where navigationContent, title and actionContent are set in the ActionBar">
+			<setup>
+				<ResetComponent target="actionBarStates" className="comps.ActionBarStates" waitEvent="updateComplete" />
+				<!-- Default state is stateNavigationContentTitleActionContent so it's not necessary to set it -->
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarStates" propertyName="title" value="Title" />
+				<AssertPropertyValue target="actionBarStates" propertyName="titleContent" valueExpression="value=null" />
+				<AssertPropertyValue target="actionBarStates.navigationContent" propertyName="length" value="1" />
+				<AssertPropertyValue target="actionBarStates.actionContent" propertyName="length" value="1" />
+				<CompareBitmap url="../integration/baselines" target="actionBarStates">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_NavigationContent_TitleContent_ActionContent" keywords="[ActionBar, states, integration]" description="Checking state where navigationContent, titleContent and actionContent are set in the ActionBar">
+			<setup>
+				<ResetComponent target="actionBarStates" className="comps.ActionBarStates" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStates" propertyName="currentState" value="stateNavigationContentTitleContentActionContent" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarStates" propertyName="title" value="" />
+				<AssertPropertyValue target="actionBarStates.titleContent" propertyName="length" value="1" />
+				<AssertPropertyValue target="actionBarStates.navigationContent" propertyName="length" value="1" />
+				<AssertPropertyValue target="actionBarStates.actionContent" propertyName="length" value="1" />
+				<CompareBitmap url="../integration/baselines" target="actionBarStates">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_NavigationContent" keywords="[ActionBar, states, integration]" description="Checking state where navigationContent is set in the ActionBar">
+			<setup>
+				<ResetComponent target="actionBarStates" className="comps.ActionBarStates" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStates" propertyName="currentState" value="stateNavigationContent" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarStates" propertyName="title" value="" />
+				<AssertPropertyValue target="actionBarStates" propertyName="titleContent" valueExpression="value=null" />
+				<AssertPropertyValue target="actionBarStates.navigationContent" propertyName="length" value="1" />
+				<AssertPropertyValue target="actionBarStates.actionContent" propertyName="length" value="0" />
+				<CompareBitmap url="../integration/baselines" target="actionBarStates">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_Title" keywords="[ActionBar, states, integration]" description="Checking state where title is set in the ActionBar">
+			<setup>
+				<ResetComponent target="actionBarStates" className="comps.ActionBarStates" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStates" propertyName="currentState" value="stateTitle" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarStates" propertyName="title" value="Title" />
+				<AssertPropertyValue target="actionBarStates" propertyName="titleContent" valueExpression="value=null" />
+				<AssertPropertyValue target="actionBarStates.navigationContent" propertyName="length" value="0" />
+				<AssertPropertyValue target="actionBarStates.actionContent" propertyName="length" value="0" />
+				<CompareBitmap url="../integration/baselines" target="actionBarStates">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_TitleContent" keywords="[ActionBar, states, integration]" description="Checking state where titleContent is set in the ActionBar">
+			<setup>
+				<ResetComponent target="actionBarStates" className="comps.ActionBarStates" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStates" propertyName="currentState" value="stateTitleContent" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarStates" propertyName="title" value="" />
+				<AssertPropertyValue target="actionBarStates.titleContent" propertyName="length" value="1" />
+				<AssertPropertyValue target="actionBarStates.navigationContent" propertyName="length" value="0" />
+				<AssertPropertyValue target="actionBarStates.actionContent" propertyName="length" value="0" />
+				<CompareBitmap url="../integration/baselines" target="actionBarStates">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_ActionContent" keywords="[ActionBar, states, integration]" description="Checking state where actionContent is set in the ActionBar">
+			<setup>
+				<ResetComponent target="actionBarStates" className="comps.ActionBarStates" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStates" propertyName="currentState" value="stateActionContent" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarStates" propertyName="title" value="" />
+				<AssertPropertyValue target="actionBarStates" propertyName="titleContent" valueExpression="value=null" />
+				<AssertPropertyValue target="actionBarStates.navigationContent" propertyName="length" value="0" />
+				<AssertPropertyValue target="actionBarStates.actionContent" propertyName="length" value="1" />
+				<CompareBitmap url="../integration/baselines" target="actionBarStates">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_NavigationContent_Title" keywords="[ActionBar, states, integration]" description="Checking state where navigationContent and title are set in the ActionBar">
+			<setup>
+				<ResetComponent target="actionBarStates" className="comps.ActionBarStates" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStates" propertyName="currentState" value="stateNavigationContentTitle" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarStates" propertyName="title" value="Title" />
+				<AssertPropertyValue target="actionBarStates" propertyName="titleContent" valueExpression="value=null" />
+				<AssertPropertyValue target="actionBarStates.navigationContent" propertyName="length" value="1" />
+				<AssertPropertyValue target="actionBarStates.actionContent" propertyName="length" value="0" />
+				<CompareBitmap url="../integration/baselines" target="actionBarStates">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_NavigationContent_TitleContent" keywords="[ActionBar, states, integration]" description="Checking state where navigationContent and titleContent are set in the ActionBar">
+			<setup>
+				<ResetComponent target="actionBarStates" className="comps.ActionBarStates" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStates" propertyName="currentState" value="stateNavigationContentTitleContent" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarStates" propertyName="title" value="" />
+				<AssertPropertyValue target="actionBarStates.titleContent" propertyName="length" value="1" />
+				<AssertPropertyValue target="actionBarStates.navigationContent" propertyName="length" value="1" />
+				<AssertPropertyValue target="actionBarStates.actionContent" propertyName="length" value="0" />
+				<CompareBitmap url="../integration/baselines" target="actionBarStates">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_NavigationContent_ActionContent" keywords="[ActionBar, states, integration]" description="Checking state where navigationContent and actionContent are set in the ActionBar">
+			<setup>
+				<ResetComponent target="actionBarStates" className="comps.ActionBarStates" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStates" propertyName="currentState" value="stateNavigationContentActionContent" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarStates" propertyName="title" value="" />
+				<AssertPropertyValue target="actionBarStates" propertyName="titleContent" valueExpression="value=null" />
+				<AssertPropertyValue target="actionBarStates.navigationContent" propertyName="length" value="1" />
+				<AssertPropertyValue target="actionBarStates.actionContent" propertyName="length" value="1" />
+				<CompareBitmap url="../integration/baselines" target="actionBarStates">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_Title_ActionContent" keywords="[ActionBar, states, integration]" description="Checking state where title and actionContent are set in the ActionBar">
+			<setup>
+				<ResetComponent target="actionBarStates" className="comps.ActionBarStates" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStates" propertyName="currentState" value="stateTitleActionContent" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarStates" propertyName="title" value="Title" />
+				<AssertPropertyValue target="actionBarStates" propertyName="titleContent" valueExpression="value=null" />
+				<AssertPropertyValue target="actionBarStates.navigationContent" propertyName="length" value="0" />
+				<AssertPropertyValue target="actionBarStates.actionContent" propertyName="length" value="1" />
+				<CompareBitmap url="../integration/baselines" target="actionBarStates">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_TitleContent_ActionContent" keywords="[ActionBar, states, integration]" description="Checking state where titleContent and actionContent are set in the ActionBar">
+			<setup>
+				<ResetComponent target="actionBarStates" className="comps.ActionBarStates" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStates" propertyName="currentState" value="stateTitleContentActionContent" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="actionBarStates" propertyName="title" value="" />
+				<AssertPropertyValue target="actionBarStates.titleContent" propertyName="length" value="1" />
+				<AssertPropertyValue target="actionBarStates.navigationContent" propertyName="length" value="0" />
+				<AssertPropertyValue target="actionBarStates.actionContent" propertyName="length" value="1" />
+				<CompareBitmap url="../integration/baselines" target="actionBarStates">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_Content_NavigationContent1" keywords="[ActionBar, states, integration]" description="Changing navigationContent between states">
+			<setup>
+				<ResetComponent target="actionBarStatesContent" className="comps.ActionBarStatesContent" waitEvent="updateComplete" />
+				<!-- Default state is stateNavigationContent1 so it's not necessary to set it -->
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines" target="actionBarStatesContent">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_Content_NavigationContent2" keywords="[ActionBar, states, integration]" description="Changing navigationContent between states">
+			<setup>
+				<ResetComponent target="actionBarStatesContent" className="comps.ActionBarStatesContent" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStatesContent" propertyName="currentState" value="stateNavigationContent2" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines" target="actionBarStatesContent">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_Content_Title1" keywords="[ActionBar, states, integration]" description="Changing title between states">
+			<setup>
+				<ResetComponent target="actionBarStatesContent" className="comps.ActionBarStatesContent" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStatesContent" propertyName="currentState" value="stateTitle1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines" target="actionBarStatesContent">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_Content_Title2" keywords="[ActionBar, states, integration]" description="Changing title between states">
+			<setup>
+				<ResetComponent target="actionBarStatesContent" className="comps.ActionBarStatesContent" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStatesContent" propertyName="currentState" value="stateTitle2" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines" target="actionBarStatesContent">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_Content_TitleContent1" keywords="[ActionBar, states, integration]" description="Changing titleContent between states">
+			<setup>
+				<ResetComponent target="actionBarStatesContent" className="comps.ActionBarStatesContent" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStatesContent" propertyName="currentState" value="stateTitleContent1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines" target="actionBarStatesContent">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_Content_TitleContent2" keywords="[ActionBar, states, integration]" description="Changing titleContent between states">
+			<setup>
+				<ResetComponent target="actionBarStatesContent" className="comps.ActionBarStatesContent" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStatesContent" propertyName="currentState" value="stateTitleContent2" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines" target="actionBarStatesContent">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_Content_ActionContent1" keywords="[ActionBar, states, integration]" description="Changing actionContent between states">
+			<setup>
+				<ResetComponent target="actionBarStatesContent" className="comps.ActionBarStatesContent" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStatesContent" propertyName="currentState" value="stateActionContent1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines" target="actionBarStatesContent">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_Content_ActionContent2" keywords="[ActionBar, states, integration]" description="Changing actionContent between states">
+			<setup>
+				<ResetComponent target="actionBarStatesContent" className="comps.ActionBarStatesContent" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStatesContent" propertyName="currentState" value="stateActionContent2" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines" target="actionBarStatesContent">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_NavigationLayout_Vertical" keywords="[ActionBar, states, integration]" description="Changing navigationLayout between states">
+			<setup>
+				<ResetComponent target="actionBarStatesLayout" className="comps.ActionBarStatesLayout" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStatesLayout" propertyName="currentState" value="stateNavigationLayoutVertical" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines" target="actionBarStatesLayout">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_TitleLayout_Vertical" keywords="[ActionBar, states, integration]" description="Changing titleLayout between states">
+			<setup>
+				<ResetComponent target="actionBarStatesLayout" className="comps.ActionBarStatesLayout" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStatesLayout" propertyName="currentState" value="stateTitleLayoutVertical" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines" target="actionBarStatesLayout">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="ActionBar_States_ActionLayout_Vertical" keywords="[ActionBar, states, integration]" description="Changing actionLayout between states">
+			<setup>
+				<ResetComponent target="actionBarStatesLayout" className="comps.ActionBarStatesLayout" waitEvent="updateComplete" />
+				<SetProperty target="actionBarStatesLayout" propertyName="currentState" value="stateActionLayoutVertical" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../integration/baselines" target="actionBarStatesLayout">
+					<ConditionalValue deviceDensity="160" os="win"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="win"/>
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

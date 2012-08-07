@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns="*"
+	testDir="mobile/StageText/properties/"
+	testSWF="StageText.mxml" xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import views.*;
+			import mx.core.FlexGlobals;
+			/*
+			 *
+			+displayAsPassword
+			-editable: Needs Manual
+			+enabled
+			+horizontalScrollPosition
+			-lineBreak: Only on option TO_FIT
+			+maxChars
+			-multiline: Does not exist on TextInput or TextArea.
+			-restrict: Needs Manual
+			-selectable: Only option is "true"
+			+selectionActivePosition
+			+selectionAnchorPosition
+			+verticalScrollPosition
+			-text: Implied use
+			+isTruncated
+			-styleName: Special setup 
+			 */
+		]]>
+	</fx:Script>
+
+	
+	<testCases>
+		<TestCase testID="StageText_TextArea_displayAsPassword_nominal" keywords="[StageText, displayAsPassword, Properties]" description="Verify that the StageText component can display text as a password.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+				<SetProperty target="navigator.activeView.ta" propertyName="text" value="Shorter string so that we don't have to worry about scrolling causing failures" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="displayAsPassword" value="true" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="displayAsPassword" value="true"/>
+				<CompareBitmap target="navigator.activeView.ta" stageText="true" url="../properties/baselines/TextArea/">
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_TextArea_enabled_nominal" keywords="[StageText, enabled, Properties]" description="Verify that the StageText can be set to disabled.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="enabled" value="false"/>
+				<CompareBitmap target="navigator.activeView.ta" stageText="true" url="../properties/baselines/TextArea/">
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_TextArea_autoCapitalize_default" keywords="[StageText, autoCapitalize, Properties]" description="Verify that the StageText component has a default autoCapitalize value of none">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>				
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="autoCapitalize" value="none"/>
+			</body>
+		</TestCase>			
+		<TestCase testID="StageText_TextArea_autoCapitalize_word" keywords="[StageText, autoCapitalize, Properties]" description="Verify that the StageText component can have autoCapitalize set to word">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="autoCapitalize" value="word" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="autoCapitalize" value="word"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_TextArea_autoCapitalize_sentence" keywords="[StageText, autoCapitalize, Properties]" description="Verify that the StageText component can have autoCapitalize set to sentence">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />				
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="autoCapitalize" value="sentence" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="autoCapitalize" value="sentence"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_TextArea_autoCapitalize_all" keywords="[StageText, autoCapitalize, Properties]" description="Verify that the StageText component can have autoCapitalize set to all">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="autoCapitalize" value="all" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="autoCapitalize" value="all"/>
+			</body>
+		</TestCase>				
+		<TestCase testID="StageText_TextArea_returnKeyLabel_default" keywords="[StageText, returnKeyLabel, Properties]" description="Verify that the StageText component has a default returnKeyLabel value of default">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>				
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="returnKeyLabel" value="default"/>
+			</body>
+		</TestCase>			
+		<TestCase testID="StageText_TextArea_returnKeyLabel_done" keywords="[StageText, returnKeyLabel, Properties]" description="Verify that the StageText component can have returnKeyLabel set to done">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="returnKeyLabel" value="done" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="returnKeyLabel" value="done"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_TextArea_returnKeyLabel_go" keywords="[StageText, returnKeyLabel, Properties]" description="Verify that the StageText component can have returnKeyLabel set to go">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />				
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="returnKeyLabel" value="go" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="returnKeyLabel" value="go"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_TextArea_returnKeyLabel_next" keywords="[StageText, returnKeyLabel, Properties]" description="Verify that the StageText component can have returnKeyLabel set to next">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="returnKeyLabel" value="next" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="returnKeyLabel" value="next"/>
+			</body>
+		</TestCase>			
+		<TestCase testID="StageText_TextArea_returnKeyLabel_search" keywords="[StageText, returnKeyLabel, Properties]" description="Verify that the StageText component can have returnKeyLabel set to search">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="returnKeyLabel" value="search" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="returnKeyLabel" value="search"/>
+			</body>
+		</TestCase>				
+		<TestCase testID="StageText_TextArea_softKeyboardType_default" keywords="[StageText, softKeyboardType, Properties]" description="Verify that the StageText component has a default softKeyboardType value of default">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>				
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="softKeyboardType" value="default"/>
+			</body>
+		</TestCase>			
+		<TestCase testID="StageText_TextArea_softKeyboardType_punctuation" keywords="[StageText, softKeyboardType, Properties]" description="Verify that the StageText component can have softKeyboardType set to punctuation">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="softKeyboardType" value="punctuation" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="softKeyboardType" value="punctuation"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_TextArea_softKeyboardType_url" keywords="[StageText, softKeyboardType, Properties]" description="Verify that the StageText component can have softKeyboardType set to url">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />				
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="softKeyboardType" value="url" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="softKeyboardType" value="url"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_TextArea_softKeyboardType_number" keywords="[StageText, softKeyboardType, Properties]" description="Verify that the StageText component can have softKeyboardType set to number">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="softKeyboardType" value="number" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="softKeyboardType" value="number"/>
+			</body>
+		</TestCase>			
+		<TestCase testID="StageText_TextArea_softKeyboardType_contact" keywords="[StageText, softKeyboardType, Properties]" description="Verify that the StageText component can have softKeyboardType set to contact">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="softKeyboardType" value="contact" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="softKeyboardType" value="contact"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="StageText_TextArea_softKeyboardType_email" keywords="[StageText, softKeyboardType, Properties]" description="Verify that the StageText component can have softKeyboardType set to email">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="softKeyboardType" value="email" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="softKeyboardType" value="email"/>
+			</body>
+		</TestCase>				
+		<TestCase testID="StageText_TextArea_autoCorrect_default" keywords="[StageText, autoCorrect, Properties]" description="Verify that the StageText component has a default autoCorrect value of true">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>				
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="autoCorrect" value="true"/>
+			</body>
+		</TestCase>			
+		<TestCase testID="StageText_TextArea_autoCorrect_false" keywords="[StageText, autoCorrect, Properties]" description="Verify that the StageText component can have autoCorrect set to false">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.TextShort)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.ta" propertyName="autoCorrect" value="false" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.ta" propertyName="autoCorrect" value="false"/>
+			</body>
+		</TestCase>
+		<!-- Not for Mega, re-evaluate in Ultra
+		<TestCase testID="StageText_horizontalScrollPosition_nominal" keywords="[StageText, horizontalScrollPosition, Properties]" description="Verify that the StageText component can set the horizontalScrollPosition.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.LoremView100)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.lvTextArea" propertyName="horizontalScrollPosition" value="800" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.lvTextInput" propertyName="horizontalScrollPosition" value="800" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextArea" propertyName="horizontalScrollPosition" value="800"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextInput" propertyName="horizontalScrollPosition" value="800"/>
+				<CompareBitmap target="navigator.activeView.ta"  url="../properties/baselines/TextArea/">
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+				</CompareBitmap>
+				<CompareBitmap target="navigator.activeView.ti1"  url="../properties/baselines/TextInput/">
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>-->
+		<!-- isTruncated not available in Mega, re-evalutate in Ultra
+		<TestCase testID="StageText_maxChars_isTruncated_nominal" keywords="[StageText, maxChars, isTruncated, Properties]" description="Verify that the StageText component can set the maxChars, and that it will register as truncated.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.LoremView100)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.lvTextArea" propertyName="maxChars" value="4" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.lvTextInput" propertyName="maxChars" value="4" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextArea" propertyName="maxChars" value="4"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextInput" propertyName="maxChars" value="4"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextArea" propertyName="isTruncated" value="true"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextInput" propertyName="isTruncated" value="true"/>
+				<SetProperty target="navigator.activeView.lvTextArea" propertyName="text" value="password" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.lvTextInput" propertyName="text" value="password" waitEvent="updateComplete"/>
+				<CompareBitmap target="navigator.activeView.lvTextArea" stageText="true" url="../properties/baselines/TextArea/">
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+				</CompareBitmap>
+				<CompareBitmap target="navigator.activeView.lvTextInput" stageText="true" url="../properties/baselines/TextInput/">
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+				</CompareBitmap>
+			</body>
+		</TestCase-->
+		<!--TestCase testID="StageText_restrict_setFirst" keywords="[StageText, restrict, Properties]" description="Verify that the StageText component does not change the text already in the field when restrict is set.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.LoremView100)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.lvTextArea" propertyName="text" value="fun park in london" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.lvTextInput" propertyName="text" value="fun park in london" waitEvent="updateComplete"/>
+				
+				<SetProperty target="navigator.activeView.lvTextArea" propertyName="restrict" value="afil" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.lvTextInput" propertyName="restrict" value="afil" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextArea" propertyName="restrict" value="afil"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextInput" propertyName="restrict" value="afil"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextArea" propertyName="text" value="fun park in london"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextInput" propertyName="text" value="fun park in london"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StageText_restrict_setSecond" keywords="[StageText, restrict, Properties]" description="Verify that the StageText component does not change the text already in the field when restrict is set.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.LoremView100)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.lvTextArea" propertyName="restrict" value="aps" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.lvTextInput" propertyName="restrict" value="aps" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextArea" propertyName="restrict" value="aps"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextInput" propertyName="restrict" value="aps"/>
+				
+				<SetProperty target="navigator.activeView.lvTextArea" propertyName="text" value="" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.lvTextInput" propertyName="text" value="" waitEvent="updateComplete"/>
+				<RunCode code="application.navigator.activeView.lvTextArea.insertText('please use')" 
+						 waitTarget="navigator.activeView.lvTextArea" waitEvent="updateComplete" 
+						 timeout="7000" />
+				<RunCode code="application.navigator.activeView.lvTextInput.insertText('please use')" 
+						 waitTarget="navigator.activeView.lvTextInput" waitEvent="updateComplete" 
+						 timeout="7000" />
+
+				<AssertPropertyValue target="navigator.activeView.lvTextArea" propertyName="text" value="pass"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextInput" propertyName="text" value="pass"/>
+			</body>
+		</TestCase-->
+		<!-- Not for Mega, re-evaluate in Ultra
+		<TestCase testID="StageText_verticalScrollPosition_nominal" keywords="[StageText, verticalScrollPosition, Properties]" description="Verify that the StageText component set verticalScrollPosition">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" 
+								waitEvent="viewChangeComplete" />
+				<RunCode code="application.navigator.pushView(views.LoremView100)" 
+						 waitTarget="navigator" waitEvent="viewChangeComplete" 
+						 timeout="7000" />
+			</setup>
+			<body>
+				<SetProperty target="navigator.activeView.lvTextArea" propertyName="verticalScrollPosition" value="48" waitEvent="updateComplete"/>
+				<SetProperty target="navigator.activeView.lvTextInput" propertyName="verticalScrollPosition" value="48" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextArea" propertyName="selectionAnchorPosition" value="48"/>
+				<AssertPropertyValue target="navigator.activeView.lvTextInput" propertyName="selectionAnchorPosition" value="48"/>
+				<CompareBitmap target="navigator.activeView.ta"  url="../properties/baselines/TextArea/">
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+				</CompareBitmap>
+				<CompareBitmap target="navigator.activeView.ti1"  url="../properties/baselines/TextInput/">
+					<ConditionalValue deviceDensity="160" os="qnx"/>
+					<ConditionalValue deviceDensity="240" os="android"/>
+					<ConditionalValue deviceDensity="320" os="iphone"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>-->
+	</testCases>
+</UnitTester>

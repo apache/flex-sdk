@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:comps="comps.*"
+			   applicationComplete="init(event)" resizeForSoftKeyboard="true">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+
+		s|TextInput {
+			skinClass: ClassReference("spark.skins.mobile.TextInputSkin");
+		}
+
+		s|TextArea {
+			skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
+		}
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.mx_internal;
+			import mx.events.FlexEvent;
+			import flash.events.*;
+			use namespace mx_internal;
+
+			public var tmpValue:int;
+
+			public function doResetFocus():void{
+				if(stage.focus == null){
+					navigator.dispatchEvent(new Event(flash.events.Event.COMPLETE));
+				}else{
+					stage.focus=null;
+				}
+			}
+
+			private function init(event:FlexEvent):void {
+				// setup the global error handler
+				loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler);
+			}
+
+			/**
+			 * Writes the given content string to the disk at location fileName.
+			 *
+			 * Useful for writing sequences of mouse events to disk on the phone and
+			 * transferring that off of the device.
+			 *
+			 * Sample usage:
+			 *
+			 * writeFileToDisk('/sdcard/Flex/QA/List/mouseEvents.txt',
+			 *                 TouchScrollingUtil.getEventsAsMXMLString(TouchScrollingUtil.recordedMouseEvents));
+			 */
+			public static function writeFileToDisk(fileName:String, content:String):void
+			{
+				var file:File = new File (fileName);
+				var fileStream:FileStream = new FileStream();
+
+				fileStream.open(file, FileMode.WRITE);
+				fileStream.writeUTF(content);
+				fileStream.close();
+			}
+
+			private function uncaughtErrorHandler(e:UncaughtErrorEvent):void {
+				// don't show the RTE window
+				e.stopImmediatePropagation();
+				e.preventDefault();
+
+				// show the error in the title of the view and write to SD card in case needed later
+				var d:Date = new Date();
+				var writePath:String = "/sdcard/Flex/QA/SoftKeyboard/RTE_" + d.fullYear.toString() + "-" + (d.month + 1).toString() + "-" + (d.date + 1).toString() + "_" + d.hours.toString() + "-" + d.minutes.toString() + "-" + d.seconds.toString() + "-" + d.getMilliseconds().toString()  + ".txt";
+
+				if (e.error is Error) {
+					var error:Error = e.error as Error;
+					var errorString:String = error.name + " " + error.errorID + ": " + error.message + "\n" + error.getStackTrace();
+					trace(errorString);
+					navigator.activeView.title = errorString;
+					writeFileToDisk(writePath, errorString);
+				} else {
+					var errorEvent:ErrorEvent = e.error as ErrorEvent;
+					trace(errorEvent);
+					navigator.activeView.title = "Error: " + errorEvent.errorID;
+					writeFileToDisk(writePath, "Error: " + errorEvent.errorID + "\n" + errorEvent.toString());
+				}
+			}
+
+			/** For back button support */
+			private function deviceKeyDownHandler(event:KeyboardEvent):void {
+				if (event.keyCode == Keyboard.BACK && !navigator.exitApplicationOnBackKey)
+					event.preventDefault();
+			}
+
+			/** For back button support */
+			private function deviceKeyUpHandler(event:KeyboardEvent):void {
+				if (event.keyCode == Keyboard.BACK && !navigator.exitApplicationOnBackKey)
+					navigator.backKeyUpHandler();
+			}
+		]]>
+	</fx:Script>
+
+	<comps:QANavigator id="navigator" />
+
+</s:Application>

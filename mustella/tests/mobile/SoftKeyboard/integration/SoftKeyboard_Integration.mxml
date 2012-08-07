@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testDir="mobile/SoftKeyboard/integration/"
+    testSWF="SoftKeyboard.mxml" xmlns:mx="library://ns.adobe.com/flex/mx">
+
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+            import views.*;
+			import mx.core.FlexGlobals;
+			public var tmp:int;
+        ]]>
+    </fx:Script>
+    <testCases>
+		<TestCase testID="SoftKeyboard_noscroll" keywords="[SoftKeyboard, integration]" description="Edit Text. Close soft keyboard. Verify the scroll positions remains 0">
+			<setup>
+				<RunCode code="application.stage.focus=null"  />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.TextShort)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<Pause timeout="100"/>
+				<DispatchMouseClickEvent target="navigator.activeView.ta" localX="50" localY="20" waitEvent="softKeyboardActivate" />
+				<Pause timeout="100" />
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &lt; 5 " value = "true" />
+				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.ta" />
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &lt; 5 " value = "true" />
+			</body>
+		</TestCase>
+		<TestCase testID="SoftKeyboard_noscroll_mediumHeight" keywords="[SoftKeyboard, integration]" description="Tap on text on top to open the soft keyboard. Close soft keyboard. Verify the scroll positions remains 0.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.TextMediumHeight)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<DispatchMouseEvent type="rollOver"  target="navigator.activeView.ta" localX="20" localY="20"  waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseOver" target="navigator.activeView.ta" localX="20" localY="20"  waitEvent="mouseOver"/>
+				<DispatchMouseClickEvent target="navigator.activeView.ta" localX="20" localY="20" waitEvent="softKeyboardActivate" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<Pause timeout="500"/>
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &lt; 10 " value = "true" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.ta" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<Pause timeout="300"/>
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &lt; 10 " value = "true" />
+			</body>
+		</TestCase>
+		<TestCase testID="SoftKeyboard_mediumHeight_TextBottom" keywords="[SoftKeyboard, integration]" description="Open the soft keyboard. Edit Text. Close the soft keyboard. Verify the Scroller restores the scroll positions back to 0.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.TextMediumHeight)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<DispatchMouseClickEvent target="navigator.activeView.ta1" localX="50" localY="50" waitEvent="softKeyboardActivate" />
+				<Pause timeout="200"/>
+				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.ta1" />
+				<AssertPropertyValue target="navigator.activeView.vg" propertyName="verticalScrollPosition" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="SoftKeyboard_mediumHeight_scrollToBottom" keywords="[SoftKeyboard, integration]" description="ScrollTo Bottom. Open the soft keyboard. Close the soft keyboard. Verify the Scroller restores the scroll positions back to 0.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.TextMediumHeight)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<DispatchMouseClickEvent target="navigator.activeView.ta1" localX="50" localY="50" waitEvent="softKeyboardActivate" />
+				<Pause timeout="100"/>
+				<SetProperty    target="navigator.activeView.sc1.viewport" propertyName="verticalScrollPosition"
+								valueExpression="value=application.navigator.activeView.sc1.viewport.contentHeight - application.navigator.activeView.sc1.viewport.height" waitEvent="propertyChange" waitTarget="navigator.activeView.sc1.viewport"/>
+				<Pause timeout="100"/>
+				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.ta1" />
+				<AssertMethodValue  method="value=application.navigator.activeView.sc1.viewport.contentHeight&lt;=application.navigator.activeView.sc1.viewport.height" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="SoftKeyboard_mediumHeight_scrollToBottom_TextInput" keywords="[SoftKeyboard, integration]" description="ScrollTo Bottom. Open the soft keyboard. Close the soft keyboard. Verify the Scroller restores the scroll positions back to 0.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.TextMediumHeight)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<DispatchMouseClickEvent target="navigator.activeView.ti2" localX="50" localY="10" waitEvent="softKeyboardActivate" />
+				<Pause timeout="100"/>
+				<SetProperty    target="navigator.activeView.sc1.viewport" propertyName="verticalScrollPosition"
+								valueExpression="value=application.navigator.activeView.sc1.viewport.contentHeight - application.navigator.activeView.sc1.viewport.height" waitEvent="propertyChange" waitTarget="navigator.activeView.sc1.viewport"/>
+				<SetProperty target="navigator.activeView.ti2" propertyName="text" value="TEST" waitEvent="updateComplete"/>
+
+				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.ti2" />
+				<AssertMethodValue  method="value=application.navigator.activeView.sc1.viewport.contentHeight&lt;=application.navigator.activeView.sc1.viewport.height" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="SoftKeyboard_Contact_top" keywords="[SoftKeyboard, integration]" description="Tap on text on top to open the soft keyboard. Close soft keyboard. Verify the scroll positions remains 0.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<DispatchMouseClickEvent target="navigator.activeView.fn" localX="50" localY="10" waitEvent="softKeyboardActivate" />
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="navigator.activeView.vg" propertyName="verticalScrollPosition" value="0"/>
+				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.fn" />
+				<AssertPropertyValue target="navigator.activeView.vg" propertyName="verticalScrollPosition" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="SoftKeyboard_Contact_TextMiddle" keywords="[SoftKeyboard, integration]" description="Open the soft keyboard. Edit Text. Close the soft keyboard. Verify the Scroller restores the scroll positions back ">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<RunCode code="application.navigator.activeView.scroller.ensureElementIsVisible(application.navigator.activeView.email) "  timeout="6000" />
+				<Pause timeout="100"/>
+				<DispatchMouseClickEvent target="navigator.activeView.email" localX="50" localY="10" waitEvent="softKeyboardActivate" />
+				<Pause timeout="100"/>
+				<RunCode code="application.tmpValue=application.navigator.activeView.vg.verticalScrollPosition"/>
+				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.email" />
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition==application.tmpValue" value = "true" />
+			</body>
+		</TestCase>
+		<TestCase testID="SoftKeyboard_Contact_scrollToBottom" keywords="[SoftKeyboard, integration]" description="ScrollTo Bottom. Open the soft keyboard. Close the soft keyboard. Verify the Scroller restores the scroll positions back to 0.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<DispatchMouseClickEvent target="navigator.activeView.fn" localX="50" localY="10" waitEvent="softKeyboardActivate" />
+				<Pause timeout="100"/>
+				<SetProperty    target="navigator.activeView.scroller.viewport" propertyName="verticalScrollPosition"
+								valueExpression="value=application.navigator.activeView.scroller.viewport.contentHeight - application.navigator.activeView.scroller.viewport.height" waitEvent="propertyChange" waitTarget="navigator.activeView.scroller.viewport"/>
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 500 " value = "true" />
+				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.fn" />
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 500 " value = "true" />
+			</body>
+		</TestCase>
+		<TestCase testID="SoftKeyboard_Contact_scrollToBottom_TextInput" keywords="[SoftKeyboard, integration]" description="ScrollTo Bottom. Open the soft keyboard. Close the soft keyboard. Verify the Scroller restores the scroll positions back to 0.">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.ContactView)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<SetProperty    target="navigator.activeView.scroller.viewport" propertyName="verticalScrollPosition"
+								valueExpression="value=application.navigator.activeView.scroller.viewport.contentHeight - application.navigator.activeView.scroller.viewport.height" waitEvent="propertyChange" waitTarget="navigator.activeView.scroller.viewport"/>
+				<DispatchMouseClickEvent target="navigator.activeView.tiMore" localX="50" localY="10" waitEvent="softKeyboardActivate" />
+				<Pause timeout="100"/>
+				<SetProperty target="navigator.activeView.tiMore" propertyName="text" value="TEST" waitEvent="updateComplete"/>
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 500 " value = "true" />
+				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.tiMore" />
+				<AssertMethodValue  method="value=application.navigator.activeView.vg.verticalScrollPosition &gt; 500 " value = "true" />
+			</body>
+		</TestCase>
+		<TestCase testID="SoftKeyboard_TextArea_grow" keywords="[SoftKeyboard, integration]" description="add text to the TextArea">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.TextArea2)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<Pause timeout="100"/>
+				<DispatchMouseClickEvent target="navigator.activeView.ta" localX="50" localY="20" waitEvent="softKeyboardActivate" />
+				<Pause timeout="100"/>
+				<SetProperty target="navigator.activeView.ta" propertyName="text" valueExpression="value=application.navigator.activeView.num" waitEvent="updateComplete"/>
+
+				<AssertPropertyValue target="navigator.activeView.vg" propertyName="verticalScrollPosition" value="0"/>
+				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.ta" />
+				<AssertPropertyValue target="navigator.activeView.vg" propertyName="verticalScrollPosition" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="SoftKeyboard_TextArea_shrink" keywords="[SoftKeyboard, integration]" description="delete text from the TextArea">
+			<setup>
+				<RunCode code="application.stage.focus=null" />
+				<ResetComponent target="navigator" className="comps.QANavigator" waitEvent="viewChangeComplete" />
+			</setup>
+			<body>
+
+				<RunCode code="application.navigator.pushView(views.TextArea2)" waitTarget="navigator" waitEvent="viewChangeComplete" timeout="6000" />
+				<Pause timeout="100"/>
+				<DispatchMouseClickEvent target="navigator.activeView.ta1" localX="50" localY="20" waitEvent="softKeyboardActivate" />
+				<Pause timeout="100"/>
+				<SetProperty target="navigator.activeView.ta1" propertyName="text" valueExpression="value='abcd'" waitEvent="updateComplete"/>
+
+				<AssertPropertyValue target="navigator.activeView.vg" propertyName="verticalScrollPosition" value="0"/>
+				<RunCode code="application.stage.focus=null"  waitEvent="softKeyboardDeactivate" waitTarget="navigator.activeView.ta1" />
+				<AssertPropertyValue target="navigator.activeView.vg" propertyName="verticalScrollPosition" value="0"/>
+			</body>
+		</TestCase>
+		</testCases>
+</UnitTester>

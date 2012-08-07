@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="Pop Up Spinner">
+    
+    <fx:Script>
+        <![CDATA[
+            import spark.events.PopUpEvent;
+            
+            private function showDialog():void
+            {
+                // size relative to the stage
+                popUp.width = systemManager.screen.width - 50;
+                popUp.height = systemManager.screen.height * (2/3);
+                
+                popUp.x = (systemManager.screen.width - 50 / 2) - (popUp.width);
+                popUp.y = (systemManager.screen.height / 2) - (popUp.height / 2);
+                popUp.open(this, modalSwitch.selected);
+            }
+            
+            private function closePopUp(event:MouseEvent):void
+            {
+                dateButton.label = monthSpinner.selectedItem + " " + daySpinner.selectedItem + ", " + yearSpinner.selectedItem;
+                popUp.close();
+            }
+        ]]>
+    </fx:Script>
+    <fx:Declarations>
+        <s:SkinnablePopUpContainer id="popUp" backgroundColor="0xe3e3e3">
+            <s:Rect left="0" right="0" bottom="0" top="0">
+                <s:stroke>
+                    <s:SolidColorStroke color="black" weight="3" />
+                </s:stroke>
+            </s:Rect>
+            <s:Group left="5" right="5" bottom="5" top="5">
+                <s:layout>
+                    <s:VerticalLayout horizontalAlign="justify" />
+                </s:layout>
+                <s:SpinnerListContainer width="100%" height="100%">
+                    <s:layout>
+                        <s:HorizontalLayout gap="20" paddingLeft="25" paddingRight="25" />
+                    </s:layout>
+                    <s:SpinnerList id="monthSpinner" width="50%" height="100%">
+                        <s:dataProvider>
+                            <s:ArrayList>
+                                <fx:String>January</fx:String>
+                                <fx:String>February</fx:String>
+                                <fx:String>March</fx:String>
+                                <fx:String>April</fx:String>
+                                <fx:String>May</fx:String>
+                                <fx:String>June</fx:String>
+                                <fx:String>July</fx:String>
+                                <fx:String>August</fx:String>
+                                <fx:String>September</fx:String>
+                                <fx:String>October</fx:String>
+                                <fx:String>November</fx:String>
+                                <fx:String>December</fx:String>
+                            </s:ArrayList>
+                        </s:dataProvider>
+                    </s:SpinnerList>
+                    <s:SpinnerList id="daySpinner" width="20%" height="100%">
+                        <s:dataProvider>
+                            <s:NumericDataProvider minimum="1" maximum="31" />
+                        </s:dataProvider>
+                    </s:SpinnerList>
+                    <s:SpinnerList id="yearSpinner" width="30%" height="100%">
+                        <s:dataProvider>
+                            <s:NumericDataProvider minimum="1970" maximum="2036" />
+                        </s:dataProvider>
+                    </s:SpinnerList>
+                </s:SpinnerListContainer>
+                <s:Button label="Close" click="closePopUp(event)" />
+            </s:Group>
+        </s:SkinnablePopUpContainer>
+    </fx:Declarations>
+    
+    <s:layout>
+        <s:VerticalLayout horizontalAlign="center" paddingTop="20" />
+    </s:layout>
+    
+    <s:HGroup verticalAlign="middle" width="90%">
+        <s:Label text="Use 24-hour time" width="100%" />
+        <s:ToggleSwitch />
+    </s:HGroup>
+    
+    <s:HGroup verticalAlign="middle" width="90%">
+        <s:Label text="Set time automatically" width="100%" />
+        <s:ToggleSwitch />
+    </s:HGroup>
+    <s:HGroup verticalAlign="middle" width="90%">
+        <s:Label text="Modal" width="100%" />
+        <s:ToggleSwitch id="modalSwitch" />
+    </s:HGroup>
+    
+    <s:Spacer height="70" />
+    
+    <s:Button id="dateButton" label="January 14, 2011" width="90%" click="showDialog()" />
+    
+    <s:CalloutButton label="Select Start Date">
+        <s:DateSpinner />
+    </s:CalloutButton>
+    
+</s:View>

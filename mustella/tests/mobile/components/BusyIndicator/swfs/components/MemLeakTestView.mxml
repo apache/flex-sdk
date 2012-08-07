@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark">
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import spark.components.BusyIndicator;
+			import spark.components.Panel;
+			
+			import utils.qe.WeakReferenceDictionary;
+			
+			public var bi:spark.components.BusyIndicator;
+			public var p:Panel;
+			public var wrd:WeakReferenceDictionary ;
+			
+			[Bindable]
+			public var isInMemory:Boolean = false;
+			[Bindable]
+			public var isOnDisplayList:Boolean = false;
+			
+			public function runTest():void
+			{
+				createPanel();
+				removeElements();
+				doGC();
+				doGC();
+				showObjReferences();	
+			}
+			public function showObjReferences():void
+			{
+				var strong:Object = new Object();
+				try{
+					strong = wrd.get();
+					
+					if( strong != null )
+					{
+						isInMemory=true;
+					}
+					else
+					{
+						// garbage collector has disposed of the object
+						isInMemory=false;
+					}
+					trace(isInMemory);
+				}
+				catch(e:Error)
+				{
+					trace(e);
+				}
+				
+				dispatchEvent(new FlexEvent("TestDone"));
+			}
+			public function createPanel():void
+			{
+				p = new Panel();
+				addElement(p);
+				bi = new spark.components.BusyIndicator();
+				p.addElement(bi);
+				wrd = new WeakReferenceDictionary(bi);
+				dispatchEvent(new FlexEvent("createPanelComplete"));
+			}
+
+			public function doGC():void
+			{
+				System.gc();
+				dispatchEvent(new FlexEvent("GCComplete"));
+			}
+			public function doShowObjReferences():void
+			{
+				showObjReferences();	
+			}
+			public function removeElements():void
+			{
+				removeElement(p);
+				p=null;
+				bi=null;
+				dispatchEvent(new FlexEvent("removeElementsComplete"));
+			}
+			
+			public function doTraceDisplayList():void
+			{
+				traceDisplayList(Group(this));
+			}			
+			public function traceDisplayList(container:DisplayObjectContainer):void
+			{
+				var child:DisplayObject;
+				for (var i:uint=0; i < container.numChildren; i++)
+				{
+					child = container.getChildAt(i);
+					if(!String(child.name).lastIndexOf('FMFBusyIndicatorDPI160'))
+					{
+						isOnDisplayList=true;
+						trace("isOnDisplayList: " + isOnDisplayList);
+					}
+					else
+					{
+						isOnDisplayList=false;
+					}
+					if (container.getChildAt(i) is DisplayObjectContainer)
+					{
+						traceDisplayList(DisplayObjectContainer(child))
+					}
+				}
+			}
+		]]>
+	</fx:Script>
+</s:Group>

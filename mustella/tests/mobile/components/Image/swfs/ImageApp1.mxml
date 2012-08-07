@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:components="components.*" firstView="assets.ImageView1"
+		>
+
+	<fx:Script>
+		<![CDATA[
+		    import flash.events.TimerEvent;
+			import flash.utils.Timer;
+
+			private var t:Timer;
+			private var waitTime:int = 100;
+			private var maxTime:int = 10000;
+			private var currentTotalTime:int = 0;
+			
+			/**
+			* Entry point from a test case to wait until the loading indicator appears.
+			**/
+			public function waitForLoadingIndicator(wait:int = 100, max:int = 10000):void{
+				currentTotalTime = 0;
+				waitTime = wait;
+				maxTime = max;
+				setUpLoadingIndicatorTimer();
+			}
+			
+			/**
+			* Set up the timer.
+			**/
+			private function setUpLoadingIndicatorTimer():void{
+				t = new Timer(waitTime);
+				t.addEventListener(TimerEvent.TIMER, doLoadingIndicatorCheck);
+				t.start();			
+			}
+			
+			/**
+			* See if the loading indicator is there yet.
+			**/
+			private function doLoadingIndicatorCheck(e:TimerEvent):void{
+				var found:Boolean = false;
+				
+				t.stop();
+				
+				if(Object(navigator.activeView).imgComp1 != null){
+					if(Object(navigator.activeView).imgComp1.img1 != null){
+						if(Object(navigator.activeView).imgComp1.img1.skin != null){
+							if(Object(navigator.activeView).imgComp1.img1.skin.theLoadingIndicator != null){
+								found = true;
+							}
+						}
+					}
+				}
+				
+				if(found){
+					dispatchEvent(new Event("foundLoadingIndicator"));
+				}else{
+					currentTotalTime += waitTime;
+					
+					if(currentTotalTime <= maxTime){
+						setUpLoadingIndicatorTimer();
+					}else{
+						if(Object(navigator.activeView).imgComp1 != null){
+							if(Object(navigator.activeView).imgComp1.img1 != null){
+								if(Object(navigator.activeView).imgComp1.img1.skin != null){
+									if(Object(navigator.activeView).imgComp1.img1.skin.theLoadingIndicator != null){
+										dispatchEvent(new Event("foundLoadingIndicator"));
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+		]]>
+	</fx:Script>
+
+
+    <fx:Style>
+
+	</fx:Style>
+
+</s:ViewNavigatorApplication>

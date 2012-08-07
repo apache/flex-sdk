@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" title="Contacts">
+    <fx:Script>
+        <![CDATA[
+            import mx.events.FlexEvent;
+            import mx.core.mx_internal;
+            use namespace mx_internal;
+            protected function target_creationCompleteHandler(event:FlexEvent):void
+            {
+                // TODO Auto-generated method stub
+                //target.scroller.throwEffectDecelFactor = 0.9984;
+                //target.scroller.throwEffectDecelFactor = 0.990;
+            }
+            
+        ]]>
+    </fx:Script>
+    
+    <fx:Script source="viewScript.as" />
+    
+    <s:actionContent>
+        <s:Button label="+" click="target.dataGroup.verticalScrollPosition=0;target.itemRenderer = new ClassFactory(renderers.ContactItemRendererAS)" />
+    </s:actionContent>
+    
+    <s:navigationContent>
+        <s:Button label="Groups" click="target.dataGroup.verticalScrollPosition=0;target.itemRenderer = new ClassFactory(renderers.ContactItemRenderer)" />
+    </s:navigationContent>
+    
+    <s:List id="target" dataProvider="{createContactListItems(true)}" typicalItem="AdaFN Case" itemRenderer="renderers.ContactItemRenderer"
+            width="100%" top="0" bottom="75" creationComplete="target_creationCompleteHandler(event)"/>
+    
+    <s:Group bottom="0" width="100%" height="75">
+        <s:Rect x="0" y="0" width="100%" height="100%">
+            <s:fill>
+                <s:SolidColor color="#000000" alpha="1"/>
+            </s:fill>
+        </s:Rect>
+        <s:Rect x="0" y="2" width="100%" height="38">
+            <s:fill>
+                <s:LinearGradient rotation = "90">
+                    <s:GradientEntry color="#2e2e2e" ratio="0" alpha="1"/>
+                    <s:GradientEntry color="#151515" ratio="1" alpha="1"/>
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        <s:Rect x="0" y="1" width="100%" height="1">
+            <s:fill>
+                <s:SolidColor color="#434343" alpha="1"/>
+            </s:fill>
+        </s:Rect>    
+        
+        <s:HGroup width="100%" gap="10" bottom="5" top="5">
+            <s:ToggleButton label="Favorites" skinClass="skins.StarButtonSkin" height="65" width="100%" />
+            <s:ToggleButton label="Recents" skinClass="skins.StarButtonSkin" height="65" width="100%" />
+            <s:ToggleButton label="Contacts" skinClass="skins.StarButtonSkin" height="65" width="100%" selected="true" />
+            <s:ToggleButton label="Keypad" skinClass="skins.StarButtonSkin" height="65" width="100%" />
+            <s:ToggleButton label="Voicemail" skinClass="skins.StarButtonSkin" height="65" width="100%" />
+        </s:HGroup>
+
+    </s:Group>
+    
+    
+    <s:Label mouseEnabled="false" textAlign="center" width="17" right="20" top="20" bottom="60" text="ABCDEFGH I JKLMNOPQRSTUVWXYZ#" fontSize="18" fontWeight="bold" color="0x717A83" />
+    
+</s:View>

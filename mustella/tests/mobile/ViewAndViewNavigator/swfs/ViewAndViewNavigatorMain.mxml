@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   	xmlns:s="library://ns.adobe.com/flex/spark"
+					firstView="views.Sect1View1"
+					initialize="onCreationComplete()">
+	
+	<fx:Script source="globalNotTabbed.as" />
+
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+		
+		import mx.events.FlexEvent;
+		import mx.core.FlexGlobals;
+		import spark.events.ElementExistenceEvent;
+		import spark.events.IndexChangeEvent;
+		
+		public var lastAction : String;
+		
+		public var eventArray : Array;
+		public var hasEffectEnded : Boolean;
+		
+		private function onCreationComplete():void {
+		
+			hasEffectEnded = false;
+		
+			eventArray = new Array();
+			
+			navigator.addEventListener( Event.COMPLETE, onComplete );
+			navigator.addEventListener( FlexEvent.VALUE_COMMIT, onValueCommit );
+			
+			//navigator.addEventListener( FlexEvent.NAVIGATOR_ACTIVATE, onNavigatorActivate );
+			//navigator.addEventListener( FlexEvent.CHANGE, onNavigatorActivate );
+			//navigator.addEventListener( FlexEvent.NAVIGATOR_DEACTIVATE, onNavigatorDeactivate );
+			
+			navigator.addEventListener( FlexEvent.CHANGE_START, onChangeStart );
+			navigator.addEventListener( FlexEvent.CHANGE_END, onChangeEnd );
+			navigator.addEventListener( IndexChangeEvent.CHANGING, onChanging ); // index change event
+			
+			navigator.addEventListener( ElementExistenceEvent.ELEMENT_ADD, onElementAdd );
+			navigator.addEventListener( ElementExistenceEvent.ELEMENT_REMOVE, onElementRemove );
+			
+			//navigator.defaultPushTransition.addEventListener(Event.COMPLETE, onEffectEnd);
+		}
+		
+		private function onNavigatorActivate(event:Event):void {
+			FlexGlobals.topLevelApplication.eventArray.push("onNavigatorActivate");
+		}
+		
+		private function onNavigatorDeactivate(event:Event):void {
+			FlexGlobals.topLevelApplication.eventArray.push("onNavigatorDeactivate");
+		}
+		
+		private function onComplete(event:Event):void {
+			FlexGlobals.topLevelApplication.eventArray.push("complete");
+		}
+		
+		private function onValueCommit(event:FlexEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("valueCommit");
+		}
+		
+		private function onChangeStart(event:FlexEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("changeStart");
+		}
+		
+		private function onChangeEnd(event:FlexEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("changeEnd");
+		}
+		
+		private function onChanging(event:IndexChangeEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("changing");
+		}
+		
+		private function onElementAdd(event:ElementExistenceEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("elementAdd");
+		}
+		
+		private function onElementRemove(event:ElementExistenceEvent):void {
+			FlexGlobals.topLevelApplication.eventArray.push("elementRemove");
+		}
+		
+		protected function onEffectEnd(event:Event):void
+		{
+			hasEffectEnded = true;
+		}
+	
+		]]>
+	</fx:Script>
+	
+</s:ViewNavigatorApplication>

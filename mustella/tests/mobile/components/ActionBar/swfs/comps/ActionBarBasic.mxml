@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ActionBar xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 	 xmlns:s="library://ns.adobe.com/flex/spark"
+			 xmlns:comps="comps.*">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.FocusManager;
+		
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:VerticalLayout id="verticalLayout" />
+		<s:TileLayout id="tileLayout" />
+		<s:BasicLayout id="basicLayout" />
+		
+		<s:HorizontalLayout id="horizontalLayoutWithPadding" paddingLeft="10" paddingRight="20" />
+		<fx:Array id="mobileArray">
+			<s:TextInput id="texti"/>
+		</fx:Array>
+		<fx:Array id="navigationArray">
+			<s:Button label="nav"/>
+		</fx:Array>
+		<fx:Array id="titleArray">
+			<s:Label text="TitlLbl"/>
+		</fx:Array>
+		<fx:Array id="actionArray">
+			<s:Button label="action"/>
+		</fx:Array>
+		
+		<fx:Array id="arr1Element">
+			<s:Button label="button" id="aButton"/>
+		</fx:Array>
+		<fx:Array id="arr2Elements">
+			<s:Button label="button" />
+			<s:Label text="lab_l" />
+		</fx:Array>
+		<fx:Array id="arr4Elements">
+			<s:Button label="button1" />
+			<s:Label text="lab_l1" />
+			<s:Button label="button2" />
+			<s:Label text="lab_l_" />
+		</fx:Array>
+		<fx:Array id="arr8Elements">
+			<s:Button label="button1"/>
+			<s:Label text="lab_l1" />
+			<s:Button label="button2"/>
+			<s:Label text="lab_l_" />
+			<s:Button label="button3"/>
+			<s:Label text="lab_l3" />
+			<s:Button label="button4"/>
+			<s:Label text="lab_l4" />
+		</fx:Array>
+		<fx:Array id="arrGraphic">
+			<s:Ellipse width="40" height="40">
+				<s:fill>
+					<s:SolidColor color="green"/>
+				</s:fill>
+			</s:Ellipse>
+			<s:Rect width="40" height="40">
+				<s:fill>
+					<s:SolidColor color="blue"/>
+				</s:fill>
+			</s:Rect>
+		</fx:Array>
+		<fx:Array id="arrImage">
+			<s:Image source="assets/TestImage1.png" width="50" height="50" />
+			<s:Image source="@Embed(source='/assets/TestImage2.png')" width="50" height="50" />
+		</fx:Array>
+		<fx:Array id="arrCustomComponent">
+			<comps:CustomGroup />			
+		</fx:Array>
+	</fx:Declarations>	
+</s:ActionBar>

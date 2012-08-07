@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mobile/components/ButtonBar/properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:m="http://ns.adobe.com/mxml/2009"
+    xmlns="*"
+    testSWF="ButtonBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</fx:Script>
+	<fx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import spark.components.*;
+
+	]]>
+	</fx:Script>
+
+	<testCases>
+
+<!--
+=========
+enabled
+=========
+-->
+
+<TestCase testID="ButtonBar_properties_arrowKeysWrapFocus_default" keywords="[ButtonBar,arrowKeysWrapFocus]"
+    description="The default of the arrowKeysWrapFocus property should be false." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+        <RunCode code="application.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb1" propertyName="arrowKeysWrapFocus" value="false" />
+        <DispatchKeyEvent key="TAB" waitTarget="bb1" waitEvent="focusIn" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="SPACE" waitTarget="bb1" waitEvent="change" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+<TestCase testID="ButtonBar_properties_arrowKeysWrapFocus_false_leftKey" keywords="[ButtonBar,arrowKeysWrapFocus]"
+    description="The default of the arrowKeysWrapFocus property should be false and pressing LEFT key should not wrap." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+        <RunCode code="application.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb1" propertyName="arrowKeysWrapFocus" value="false" />
+        <DispatchKeyEvent key="TAB" waitTarget="bb1" waitEvent="focusIn" />
+        <DispatchKeyEvent key="LEFT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="SPACE" waitTarget="bb1" waitEvent="change" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+<TestCase testID="ButtonBar_properties_arrowKeysWrapFocus_true_rightKey" keywords="[ButtonBar,arrowKeysWrapFocus]"
+    description="When arrowKeysWrapFocus property is true, the focus should wrap when using the right key." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+        <SetProperty propertyName="arrowKeysWrapFocus" target="bb1" value="true" />
+        <RunCode code="application.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+    </setup>
+    <body>
+        <DispatchKeyEvent key="TAB" waitTarget="bb1" waitEvent="focusIn" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="SPACE" waitTarget="bb1" waitEvent="change" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+<TestCase testID="ButtonBar_properties_arrowKeysWrapFocus_true_leftKey" keywords="[ButtonBar,arrowKeysWrapFocus]"
+    description="When arrowKeysWrapFocus property is true, the focus should wrap when using the LEFT key." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+        <SetProperty propertyName="arrowKeysWrapFocus" target="bb1" value="true" />
+        <RunCode code="application.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+    </setup>
+    <body>
+        <DispatchKeyEvent key="TAB" waitTarget="bb1" waitEvent="focusIn" />
+        <DispatchKeyEvent key="LEFT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="bb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="SPACE" waitTarget="bb1" waitEvent="change" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+<TestCase testID="ButtonBar_properties_baselinePosition_preValidation" keywords="[ButtonBar,baselinePosition]"
+    description="The default of the arrowKeysWrapFocus property should be false and pressing LEFT key should not wrap." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb1" propertyName="baselinePosition" value="41" >
+        	<ConditionalValue deviceDensity="240" os="android" value="41" />
+        	<ConditionalValue deviceDensity="160" value="27"/>
+        	<ConditionalValue deviceDensity="160" os="qnx" value="26"/>
+        	<ConditionalValue deviceDensity="320" value="54"/>
+        	<ConditionalValue deviceDensity="320" os="iphone" value="55"/>
+        </AssertPropertyValue>
+    </body>
+</TestCase>
+<TestCase testID="ButtonBar_properties_baselinePosition_postValidation" keywords="[ButtonBar,baselinePosition]"
+    description="The default of the arrowKeysWrapFocus property should be false and pressing LEFT key should not wrap." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitEvent="updateComplete" waitTarget="bb1"/>
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb1" propertyName="baselinePosition" value="41" >
+                 	<ConditionalValue deviceDensity="240" os="android" value="41" />
+		        	<ConditionalValue deviceDensity="160" value="27"/>
+		        	<ConditionalValue deviceDensity="160" os="qnx" value="26"/>
+                	<ConditionalValue deviceDensity="320" value="54"/>
+					<ConditionalValue deviceDensity="320" os="iphone" value="55"/>
+        </AssertPropertyValue>
+    </body>
+</TestCase>
+</testCases>
+</UnitTester>

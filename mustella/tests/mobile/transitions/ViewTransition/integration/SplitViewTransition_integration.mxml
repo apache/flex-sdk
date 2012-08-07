@@ -1,0 +1,1739 @@
+<UnitTester 
+	 xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	 xmlns:s="library://ns.adobe.com/flex/spark" 
+	 xmlns="*" 
+	 testDir="mobile/transitions/ViewTransition/integration/"
+	 testSWF="SplitViewNavTransition.mxml">
+	 
+	 <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	 <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	 
+	 <fx:Script>
+		 <![CDATA[ 
+			 import views.*;
+			 import comps.*;
+		 ]]>
+	 </fx:Script>
+	 
+	 <testCases>
+		 
+		 <TestCase testID="SplitViewNavTransition_slide_default" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition in SplitViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+				 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlide)" waitEvent="transitionStart" waitTarget="snav1"/>
+				 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_default2" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition inside the second ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlide)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_left" keywords="[SplitViewNavigator, ViewTransition]" description="Slide left transition first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+				 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideLeft)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+      <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+		    </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_left2" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition Left in the second ViewNavigator ">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideLeft)" waitEvent="transitionStart" waitTarget="snav2"/>
+                <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_right" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransiton Right in the first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideRight)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+        	 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_right2" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition Right in the second ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideRight)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_up" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition UP in the first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUp)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_up2" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition UP in the second viewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideUp)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_down" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition Down in the first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+				 <AssertMethodValue method="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideDown)" />
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideLeft)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_down2" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition Down in the second ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+              
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideDown)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_push_left" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition Push Left in the first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideLeft)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_push_left2" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition push left in the second ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlidePushLeft)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+                 
+             </body>
+         </TestCase>
+ <TestCase testID="SplitViewNavTransition_slide_push_right" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition Push right in the first ViewTransition">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideLeft)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_push_right2" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition push right in the second viewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlidePushRight)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+                 
+             </body>
+         </TestCase>
+ <TestCase testID="SplitViewNavTransition_slide_push_up" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition push up in the first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlidePushUp)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_push_up2" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition push up in the second ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+               
+             </setup>
+             <body>
+              <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlidePushUp)" waitEvent="transitionStart" waitTarget="snav2"/>
+             <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+             <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+ <TestCase testID="SplitViewNavTransition_slide_push_down" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition Push Down in the first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlidePushDown)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_push_down2" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition push down in the second viewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+               
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlidePushDown)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_cover_left" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition cover left in the first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideCoverLeft)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_cover_left2" keywords="[SplitViewNavigator, ViewTransition]" description="slide cover left transition in the second ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideCoverLeft)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_cover_right" keywords="[SplitViewNavigator, ViewTransition]" description="Slide code right transition in the first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideCoverRight)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_cover_right2" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition cover right">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideCoverRight)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_cover_up" keywords="[SplitViewNavigator, ViewTransition]" description="SlideViewTransition cover up">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideCoverUp)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_cover_up2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideCoverUp)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_cover_down" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideCoverDown)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_cover_down2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideCoverDown)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+ <TestCase testID="SplitViewNavTransition_slide_uncover_left" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUnCoverLeft)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_uncover_left2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideUnCoverLeft)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+                 
+             </body>
+         </TestCase>
+<TestCase testID="SplitViewNavTransition_slide_uncover_right" keywords="[SplitViewNavigator, ViewTransition]" description="slide uncover right transition">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUnCoverRight)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_uncover_right2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideUnCoverRight)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+                 
+             </body>
+         </TestCase>
+<TestCase testID="SplitViewNavTransition_slide_uncover_up" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUnCoverUp)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_uncover_up2" keywords="[SplitViewNavigator, ViewTransition]" description="slide uncover transition inside second ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideUnCoverUp)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+<TestCase testID="SplitViewNavTransition_slide_uncover_down" keywords="[SplitViewNavigator, ViewTransition]" description="slide uncover down transition inside the first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUnCoverDown)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_uncover_down2" keywords="[SplitViewNavigator, ViewTransition]" description="slide uncover down transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+               
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideUnCoverDown)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_zoom" keywords="[SplitViewNavigator, ViewTransition]" description="zoom transition inside the first viewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionZoom)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_zoom2" keywords="[SplitViewNavigator, ViewTransition]" description="zoom transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+               
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionZoom)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_zoomIn" keywords="[SplitViewNavigator, ViewTransition]" description="zoom in transition inside the first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionZoomIn)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_zoomIn2" keywords="[SplitViewNavigator, ViewTransition]" description="zoom in transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionZoomIn)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip" keywords="[SplitViewNavigator, ViewTransition]" description="flip transition inside the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipLeftCube)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 <RunCode code="application.snav1.pushView(views.ReplacedView, null, null, application.snav1.activeView.transitionSlide)" waitEvent="transitionStart" waitTarget="snav1"/>
+
+          	 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip2" keywords="[SplitViewNavigator, ViewTransition]" description="flip transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+               
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlip)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_right" keywords="[SplitViewNavigator, ViewTransition]" description="flip right transition inside the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipRight)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_right2" keywords="[SplitViewNavigator, ViewTransition]" description="flip right transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipRight)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_right_cube" keywords="[SplitViewNavigator, ViewTransition]" description="flip right cute transition inside the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipRightCube)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_right_cube2" keywords="[SplitViewNavigator, ViewTransition]" description="flip right cube transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipRightCube)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_left" keywords="[SplitViewNavigator, ViewTransition]" description="flip left transition inside the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipLeft)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+                 
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_left2" keywords="[SplitViewNavigator, ViewTransition]" description="flip left transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipLeft)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_left_cube" keywords="[SplitViewNavigator, ViewTransition]" description="flip left cube transition inside the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipLeftCube)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_left_cube2" keywords="[SplitViewNavigator, ViewTransition]" description="flip left cube transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipLeftCube)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_up" keywords="[SplitViewNavigator, ViewTransition]" description="flip up transition inside the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipUp)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_up2" keywords="[SplitViewNavigator, ViewTransition]" description="flip up transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipUp)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_up_cube" keywords="[SplitViewNavigator, ViewTransition]" description="flip up cube transition inside the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipUpCube)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_up_cube2" keywords="[SplitViewNavigator, ViewTransition]" description="flip up cube transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipUpCube)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_down" keywords="[SplitViewNavigator, ViewTransition]" description="flip down transition inside the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipDown)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_down2" keywords="[SplitViewNavigator, ViewTransition]" description="flip down transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipDown)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_down_cube" keywords="[SplitViewNavigator, ViewTransition]" description="flip down cube transition inside the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipDownCube)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase> 
+         <TestCase testID="SplitViewNavTransition_flip_down_cube2" keywords="[SplitViewNavigator, ViewTransition]" description="flip down cube transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipDownCube)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase> 
+         <TestCase testID="SplitViewNavTransition_crossFade" keywords="[SplitViewNavigator, ViewTransition]" description="crossFade transition inside the 1st ViewNavigator">
+						 <setup>
+							 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+							
+						 </setup>
+						 <body>
+                             <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFade)" waitEvent="transitionStart" waitTarget="snav1"/>
+                             <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                             <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+							 
+						 </body>
+					 </TestCase>
+         <TestCase testID="SplitViewNavTransition_crossFade2" keywords="[SplitViewNavigator, ViewTransition]" description="crossFade transition inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFade)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_default_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="slide transition with controlsWithContent on inside the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_default_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="slide transition with controlsWithContent inside the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_left_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="slide left with content">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_left_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="slide left transitionControlsWithContent in the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+                              </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideLeftWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_right_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="slide right transitionControlsWithContent in the first ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideRightWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_right_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="slide right transition with content in the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideRightWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_up_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="slide up transition with content in the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUpWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_up_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="Slide up with content transition in the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideUpWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_down_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="slide down with content transition in the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideDownWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_down_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="slide down with content transition in the 2nd ViewNavgator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                              </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideDownWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_cover_left_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="slide cover left with content transition in the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideCoverLeftWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_cover_left_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="slide cover left with content transition in the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideCoverLeftWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		
+		 <TestCase testID="SplitViewNavTransition_slide_cover_right_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="slide cover right with content transition in the 1st ViewNavigator">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideCoverRightWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_cover_right_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="slide cover right with content transition in the 2nd ViewNavigator">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                              </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideCoverRightWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_cover_up_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideCoverUpWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_cover_up_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideCoverUpWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_cover_down_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideCoverDownWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_cover_down_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideCoverDownWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+ <TestCase testID="SplitViewNavTransition_slide_uncover_down_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUnCoverDownWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_uncover_down_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideUnCoverDownWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+<TestCase testID="SplitViewNavTransition_slide_uncover_left_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUnCoverLeftWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_uncover_left_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideUnCoverLeftWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+<TestCase testID="SplitViewNavTransition_slide_uncover_right_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUnCoverRightWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_uncover_right_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideUnCoverRightWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+<TestCase testID="SplitViewNavTransition_slide_uncover_up_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUnCoverUpWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_uncover_up_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideUnCoverUpWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_zoom_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionZoomWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_zoom_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionZoomWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		
+		 <TestCase testID="SplitViewNavTransition_flip_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_right_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipRightWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_right_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipRightWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_right_cube_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipRightCubeWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_right_cube_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+              
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipRightCubeWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_left_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipLeftWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_left_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipLeftWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_left_cube_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipLeftCubeWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_left_cube_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipLeftCubeWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_up_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipUpWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_up_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipUpWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_up_cube_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipUpCubeWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_up_cube_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipUpCubeWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_down_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipDownWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_down_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipDownWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_down_cube_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipDownCubeWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase> 
+         <TestCase testID="SplitViewNavTransition_flip_down_cube_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipDownCubeWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+         <TestCase testID="SplitViewNavTransition_crossFade_w_content" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+						 <setup>
+							 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+							
+						 </setup>
+						 <body>
+                             <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFadeWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                             <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                             <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+							 
+						 </body>
+					 </TestCase>
+         <TestCase testID="SplitViewNavTransition_crossFade_w_content2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFadeWContent)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_sine" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideWSine)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_sine2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+               
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideWSine)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_bounce" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUnCoverRightWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_bounce2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideWBounce)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_elastic" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideWElastic)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_elastic2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+              
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideWElastic)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_power" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideWPower)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_power2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideWPower)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_linear" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionSlideUnCoverRightWContent)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_linear2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+               
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionSlideWLinear)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_crossFade_sine" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFadeWSine)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_crossFade_sine2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFadeWSine)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+                 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_crossFade_bounce" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFadeWBounce)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_crossFade_bounce2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFadeWBounce)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_crossFade_elastic" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFadeWElastic)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_crossFade_elastic2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFadeWElastic)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_crossFade_power" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFadeWPower)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_crossFade_power2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFadeWPower)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_crossFade_linear" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFadeWLinear)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_crossFade_linear2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFadeWLinear)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_zoom_sine" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionZoomWSine)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" /> 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_zoom_sine2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionZoomWSine)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_zoom_bounce" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionZoomWBounce)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_zoom_bounce2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+             
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionZoomWBounce)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_zoom_elastic" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionZoomWElastic)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" /> 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_zoom_elastic2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionZoomWElastic)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_zoom_power" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionZoomWPower)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_zoom_power2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionZoomWPower)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_zoom_linear" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionZoomWLinear)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" />
+				 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_zoom_linear2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                 
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionZoomWLinear)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_sine" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipWSine)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" /> 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_sine2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+              
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipWSine)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_bounce" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipWBounce)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" /> 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_bounce2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipWBounce)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" /> 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_elastic" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipWElastic)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" /> 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_elastic2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipWElastic)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />   
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_power" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				 
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipWPower)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" /> 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_power2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipWPower)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" />
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_flip_linear" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.pushView(views.NextView, null, null, application.snav1.activeView.transitionFlipWLinear)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav1.actionBar" propertyName="title" value="NextView" /> 
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_flip_linear2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+              
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.pushView(views.NextView, null, null, application.snav2.activeView.transitionFlipWLinear)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+                 <AssertPropertyValue target="snav2.actionBar" propertyName="title" value="NextView" /> 
+             </body>
+         </TestCase>
+		 <TestCase testID="SplitViewNavTransition_slide_popall" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+			 <setup>
+				 <ResetComponent target="snav1" className="comps.QASplitNavigator1" waitEvent="viewChangeComplete" />
+				
+			 </setup>
+			 <body>
+                 <RunCode code="application.snav1.popAll(application.snav1.activeView.transitionSlide)" waitEvent="transitionStart" waitTarget="snav1"/>
+                 <AssertEvent target="snav1" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+			 </body>
+		 </TestCase>
+         <TestCase testID="SplitViewNavTransition_slide_popall2" keywords="[SplitViewNavigator, ViewTransition]" description="TODO">
+             <setup>
+                 <ResetComponent target="snav2" className="comps.QASplitNavigator2" waitEvent="viewChangeComplete" />
+                
+             </setup>
+             <body>
+                 <RunCode code="application.snav2.popAll(application.snav2.activeView.transitionSlide)" waitEvent="transitionStart" waitTarget="snav2"/>
+                 <AssertEvent target="snav2" eventName="transitionEnd" eventClass="mx.events::FlexEvent"/>
+             </body>
+         </TestCase>
+	 </testCases>
+ </UnitTester>

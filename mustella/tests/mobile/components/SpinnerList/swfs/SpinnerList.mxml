@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:comps="comps.*"
+               backgroundColor="0xE3E3E3"
+               splashScreenImage="@Embed('../../../../../Assets/Images/rgrect.jpg')"
+               splashScreenScaleMode="none" 
+               applicationComplete="init(event)">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.core.IVisualElement;
+            import mx.core.mx_internal;
+            import mx.events.FlexEvent;
+            
+            import spark.components.DateSpinner;
+            import spark.components.SpinnerList;
+            use namespace mx_internal;
+            
+            /**
+             * Since we aren't using ViewNavigatorApplication we need to setup the listeners to handle back button
+             * support. 
+             */
+            private function init(event:FlexEvent):void {
+                systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler);
+                systemManager.stage.addEventListener(KeyboardEvent.KEY_UP, deviceKeyUpHandler);
+            }
+            
+            /** For back button support */
+            private function deviceKeyDownHandler(event:KeyboardEvent):void {
+                if (event.keyCode == Keyboard.BACK && !navigator.exitApplicationOnBackKey)
+                    event.preventDefault();
+            }
+            
+            /** For back button support */
+            private function deviceKeyUpHandler(event:KeyboardEvent):void {
+                if (event.keyCode == Keyboard.BACK && !navigator.exitApplicationOnBackKey)
+                    navigator.backKeyUpHandler();
+            }
+            
+            /**
+             * Given a SpinnerList it returns the renderer with the given offset from
+             * the selectedIndex.
+             * 
+             * ex: getRenderer(0) is the selected item
+             * ex: getRenderer(1) is the next item
+             * ex: getRenderer(-1) is the previous item 
+             */
+            public function getRenderer(spinnerList:spark.components.SpinnerList, offset:int):IVisualElement
+            {
+                // return null when a negative index is requested and not possible
+                if (offset < 0 && spinnerList.wrapElements == false)
+                    return null;
+                
+                // return null when the offset is too large
+                if (offset >= spinnerList.dataGroup.numElements)
+                    return null;
+                
+                // start at the offset of the current selected index
+                offset += spinnerList.selectedIndex;
+                
+                // then adjust for wrapping
+                offset %= spinnerList.dataGroup.numElements;
+                if (offset < 0)
+                    offset += spinnerList.dataGroup.numElements;
+                
+                return spinnerList.dataGroup.getElementAt(offset);
+            }
+            
+            /**
+            * Asserts that the y position of the 5 renderers is non-decreasing.  The combination of this
+            * method with getRenderer() can be useful for asserting a SpinnerList in a situation that doesn't
+            * require a CompareBitmap.
+            */
+            public function assertRendererPositions(spinnerList:spark.components.SpinnerList):String
+            {
+                var indices:Array = [-2, -1, 0, 1, 2];
+                var previousY:Number = Number.NEGATIVE_INFINITY;
+                
+                for (var i:int = 0; i < indices.length; i++)
+                {
+                    var nextRenderer:IVisualElement = getRenderer(spinnerList, indices[i]);
+                    
+                    if (nextRenderer != null)
+                    {
+                        if (nextRenderer.y < previousY)
+                            return "fail: unexpected position of renderer " + indices[i];
+                        
+                        previousY = nextRenderer.y;
+                    }
+                }
+                
+                return "pass";
+            }
+            
+            /**
+             * This method is an alternative to using AssertError in Mustella.
+             * It tries to call a method and returns the error string if that caused an RTE.
+             * 
+             * This is used in these SpinnerList Mustella tests because AssertError wasn't 
+             * handling all of the RTE cases. 
+             */
+            public function assertError(func:Function):String 
+            {
+                try 
+                {
+                    func.call();
+                } 
+                catch (e:Error) 
+                {
+                    return e.toString();
+                }
+                return "no error";
+            }
+        ]]>
+    </fx:Script>
+    
+    <!-- root component -->
+    <comps:QANavigator id="navigator" />
+    
+</s:Application>

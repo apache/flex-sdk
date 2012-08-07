@@ -1,0 +1,1167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="mobile/components/Button/styles/"
+    testSWF="iconButtonTester.mxml">
+    
+  <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+  <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<fx:Script>
+		<![CDATA[
+			import comps.CustomButtonSkin;
+			
+			/*[Embed(source='../../../../../Assets/Images/ButtonImages/save48x48.png')]
+			[Bindable] 
+			private var pngCls:Class;
+*/
+			[Embed(source='../../../../../Assets/Images/ButtonImages/save48x48.swf')]
+			[Bindable]
+			private var swfCls:Class;
+			
+		]]>
+	</fx:Script>
+
+	
+	<fx:Declarations>
+		<s:MultiDPIBitmapSource id="pngCls" 
+			source160dpi="@Embed('../../../../../Assets/Images/ButtonImages/save24x24.png')" 
+			source240dpi="@Embed('../../../../../Assets/Images/ButtonImages/save36x36.png')" 
+			source320dpi="@Embed('../../../../../Assets/Images/ButtonImages/save48x48.png')"/>		
+	</fx:Declarations>  
+	
+	<fx:Style>
+		.myIcon {
+			icon-placement:bottom;			
+		}
+		
+		@font-face {
+		  src:url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+		  fontFamily: myFontFamily;
+		  fontWeight: bold;
+		  embedAsCFF: false;
+		}
+		
+		.myIconStyle {
+			icon:ClassReference("comps.ACircle");
+		}
+	</fx:Style>
+    
+<testCases>
+
+<TestCase testID="mobile_button_iconPlacement_inline" keywords="[Mobile, ButtonSkin, icon, iconPlacement]" description="Test button skin when icon and iconPlacement is set inline in mxml">
+	<body>
+		<AssertStyleValue target="pngBtn" styleName="iconPlacement" value="right" />			
+		<CompareBitmap url="../styles/baselines" target="pngBtn" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_css_selectionID" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement in button when set in stylesheet">
+	<setup>
+		<ResetComponent target="styledBtn" className="spark.components.Button" waitEvent="updateComplete"/>
+		<SetProperty target="styledBtn" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="styledBtn"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="styledBtn" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../styles/baselines" target="styledBtn" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_default" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test default iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_left" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to left">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="left" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_iconPlacement_left" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to left">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="left" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_right" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to right">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_iconPlacement_right" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to right">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_top" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to top">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_iconPlacement_top" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to top">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_bottom" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to bottom">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_iconPlacement_bottom" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to bottom">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_css_styleName" keywords="[Mobile, ButtonSkin, iconPlacement, style]" description="Test iconPlacement when set in stylesheet">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Place at Bottom" waitEvent="contentChange" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="styleName" value="myIcon" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_clearStyle" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test clearing iconPlacement on button at runtime">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<RunCode code="application.btn1.clearStyle('iconPlacement')" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_setStyle" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test setting iconPlacement on button using AS">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<RunCode code="application.btn1.setStyle('iconPlacement','bottom')" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_left_to_top" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test changing iconPlacement on button at runtime">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Left to Top" waitEvent="contentChange" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="btn1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_bottom_to_right" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test changing iconPlacement on button at runtime">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Bottom To Right" waitEvent="contentChange" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_color" keywords="[Mobile, ButtonSkin, icon, color, label]" description="Test color change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="color" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="color" value="0xff0000" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_fontFamily" keywords="[Mobile, ButtonSkin, icon, fontFamily, label]" description="Test fontFamily change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontFamily" value="_sans" />		
+		<SetStyle target="btn1" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontFamily" value="myFontFamily" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_fontFamily_down" keywords="[Mobile, ButtonSkin, icon, fontFamily, label]" description="Test down skin on fontFamily change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontFamily" value="_sans" />		
+		<SetStyle target="btn1" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontFamily" value="myFontFamily" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_fontSize" keywords="[Mobile, ButtonSkin, icon, fontSize, label]" description="Test fontSize change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontSize">
+			<ConditionalValue deviceDensity="160" os="win" value="16" />
+			<ConditionalValue deviceDensity="240" os="android" value="24" />
+			<ConditionalValue deviceDensity="320" os="win" value="32"/>
+			<ConditionalValue deviceDensity="320" os="iphone" value="32"/>
+			<ConditionalValue deviceDensity="160" os="qnx" value="16" />
+		</AssertStyleValue>
+		<SetStyle target="btn1" styleName="fontSize" value="26" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontSize" value="26" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="320" os="iphone" />
+			<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_fontSize_down" keywords="[Mobile, ButtonSkin, icon, fontSize, label]" description="Test down skin on fontSize change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontSize"  >
+			<ConditionalValue deviceDensity="160" os="win" value="16" />
+			<ConditionalValue deviceDensity="240" os="android" value="24" />
+			<ConditionalValue deviceDensity="320" os="win" value="32"/>
+			<ConditionalValue deviceDensity="320" os="iphone" value="32"/>
+			<ConditionalValue deviceDensity="160" os="qnx" value="16" />
+		</AssertStyleValue>		
+		<SetStyle target="btn1" styleName="fontSize" value="26" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontSize" value="26" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="320" os="iphone" />
+			<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_fontWeight" keywords="[Mobile, ButtonSkin, icon, fontWeight, label]" description="Test fontWeight change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontWeight" value="bold" />		
+		<SetStyle target="btn1" styleName="fontWeight" value="normal" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontWeight" value="normal" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_fontWeight_down" keywords="[Mobile, ButtonSkin, icon, fontWeight, label]" description="Test down skin on fontWeight change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontWeight" value="bold" />		
+		<SetStyle target="btn1" styleName="fontWeight" value="normal" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontWeight" value="normal" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_textDecoration" keywords="[Mobile, ButtonSkin, icon, textDecoration, label]" description="Test textDecoration change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Text Decor" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="textDecoration" value="none" />		
+		<SetStyle target="btn1" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="textDecoration" value="underline" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" numColorVariances="10" ignoreMaxColorVariance="true" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_textDecoration_down" keywords="[Mobile, ButtonSkin, icon, textDecoration, label]" description="Test down skin on textDecoration change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Text Decoration" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="textDecoration" value="none" />		
+		<SetStyle target="btn1" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="textDecoration" value="underline" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="btn1" numColorVariances="10" ignoreMaxColorVariance="true">
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_fontStyle" keywords="[Mobile, ButtonSkin, icon, fontStyle, label]" description="Test fontStyle change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontStyle" value="normal" />		
+		<SetStyle target="btn1" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontStyle" value="italic" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_fontStyle_dowwn" keywords="[Mobile, ButtonSkin, icon, fontStyle, label]" description="Test down skin on fontStyle change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontStyle" value="normal" />		
+		<SetStyle target="btn1" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontStyle" value="italic" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_chromeColor_up" keywords="[Mobile, ButtonSkin, icon, chromeColor, label]" description="Test chromeColor change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="chromeColor" value="0xff0000" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_chromeColor_down" keywords="[Mobile, ButtonSkin, icon, chromeColor, label]" description="Test down skin on chromeColor change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="chromeColor" value="0xff0000" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_chromeColor_disabled" keywords="[Mobile, ButtonSkin, icon, chromeColor, label]" description="Test chromeColor change on disabled button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_chromeColor_up" keywords="[Mobile, ButtonSkin, icon, chromeColor]" description="Test chromeColor change on button with icon">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="chromeColor" value="0xff0000" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_chromeColor_down" keywords="[Mobile, ButtonSkin, icon, chromeColor]" description="Test down skin on chromeColor change on button with icon">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="chromeColor" value="0xff0000" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_chromeColor_disabled" keywords="[Mobile, ButtonSkin, icon, chromeColor, label]" description="Test chromeColor change on disabled button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_custom_upSkin" keywords="[Button, icon, skinClass]" description="Test button up skin rendering when using a custom skin">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<!--SetStyle target="btn1" styleName="skinClass" valueExpression= "value = comps.CustomButtonSkin" waitEvent="updateComplete"/-->
+		<SetStyle target="btn1" styleName="chromeColor" value="#004e4e" waitEvent="updateComplete"/>
+		<RunCode code="application.btn1.setStyle('skinClass', comps.CustomButtonSkin)" waitTarget="btn1" waitEvent="updateComplete"/>
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_custom_downSkin" keywords="[Button, icon, skinClass]" description="Test button down skin rendering when using a custom skin">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="#004e4e" waitEvent="updateComplete"/>
+		<RunCode code="application.btn1.setStyle('skinClass', comps.CustomButtonSkin)" waitTarget="btn1" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_css_styleName" keywords="[Button, icon]" description="Test setting icon in css">
+	<bugs>
+		<Bug bugID="SDK-27904" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Icon in CSS" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="styleName" value="myIconStyle" waitEvent="updateComplete"/>
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_increase_letterSpacing" keywords="[Mobile, ButtonSkin, icon, letterSpacing]" description="Test letterSpacing change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="letterSpacing test" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="letterSpacing" value="0" />		
+		<SetStyle target="btn1" styleName="letterSpacing" value="8" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="letterSpacing" value="8" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_with_label_decrease_letterSpacing" keywords="[Mobile, ButtonSkin, icon, letterSpacing]" description="Test letterSpacing change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="letterSpacing test" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="letterSpacing" value="8" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="letterSpacing" value="8" />	
+		<SetStyle target="btn1" styleName="letterSpacing" value="0" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="letterSpacing" value="0" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_accentColor_normal" keywords="[Mobile, Button, icon, accentColor]" description="Test accentColor on button with icon">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="accentColor" value="0xFF9900" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="emphasized" value="true" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="accentColor" value="0xFF9900" />	
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+			<ConditionalValue deviceDensity="320" os="iphone" />
+			<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_accentColor_pressed" keywords="[Mobile, Button, icon, accentColor]" description="Test accentColor on button with icon when pressed">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="accentColor" value="0xFF9900" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="emphasized" value="true" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="accentColor" value="0xFF9900" />	
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_icon_accentColor_disabled" keywords="[Mobile, Button, icon, accentColor]" description="Test accentColor on button with icon when disabled">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="accentColor" value="0xFF9900" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="emphasized" value="true" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="accentColor" value="0xFF9900" />	
+		<SetProperty target="btn1" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_top_explicitHeight" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to top when height is greater than text and icon">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Wj" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>		
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_bottom_explicitHeight" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to bottom when height is greater than text and icon">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Wj" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>		
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_left_explicitHeight" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to left when height is greater than text and icon">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Wj" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>		
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_right_explicitHeight" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement set to bottom when height is greater than text and icon">
+	<bugs>
+		<Bug bugID="SDK-29187" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Wj" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>		
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_left_label_noIcon" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement with label and without icon ">
+	<bugs>
+		<Bug bugID="SDK-29193" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Wj" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_right_label_noIcon" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement with label and without icon ">
+	<bugs>
+		<Bug bugID="SDK-29193" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetProperty target="btn1" propertyName="label" value="Wj" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_bottom_label_noIcon" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement with label and without icon ">
+	<bugs>
+		<Bug bugID="SDK-29193" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetProperty target="btn1" propertyName="label" value="Wj" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconPlacement_top_label_noIcon" keywords="[Mobile, ButtonSkin, iconPlacement]" description="Test iconPlacement with label and without icon ">
+	<bugs>
+		<Bug bugID="SDK-29193" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetProperty target="btn1" propertyName="label" value="Wj" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../styles/baselines" target="btn1" >
+			<ConditionalValue deviceDensity="160" os="win" />
+			<ConditionalValue deviceDensity="240" os="android" />
+			<ConditionalValue deviceDensity="320" os="win" />
+							<ConditionalValue deviceDensity="320" os="iphone" />
+							<ConditionalValue deviceDensity="160" os="qnx" />
+		</CompareBitmap>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconOnly_increase_fontSize" keywords="[Mobile, ButtonSkin]" description="Test button with icon only should not have height increase when fontSize increases ">
+	<bugs>
+		<Bug bugID="SDK-28985" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertPropertyValue target="btn1" propertyName="height" >
+			<ConditionalValue deviceDensity="160" os="win" value="44" />
+			<ConditionalValue deviceDensity="240" os="android" value="66" />
+			<ConditionalValue deviceDensity="320" os="win" value="88" />
+			<ConditionalValue deviceDensity="320" os="iphone" value="88" />
+			<ConditionalValue deviceDensity="160" os="qnx" value="44" />
+		</AssertPropertyValue>
+		<AssertStyleValue target="grp1" styleName="fontSize">
+			<ConditionalValue deviceDensity="160" os="win" value="16" />
+			<ConditionalValue deviceDensity="240" os="android" value="24" />
+			<ConditionalValue deviceDensity="320" os="win" value="32" />
+			<ConditionalValue deviceDensity="320" os="iphone" value="32" />
+			<ConditionalValue deviceDensity="160" os="qnx" value="16" />
+		</AssertStyleValue>		
+		<SetStyle target="grp1" styleName="fontSize" value="28" waitEvent="updateComplete" waitTarget="grp1"/>
+		<AssertPropertyValue target="btn1" propertyName="height" >
+			<ConditionalValue deviceDensity="160" os="win" value="44" />
+			<ConditionalValue deviceDensity="240" os="android" value="66" />
+			<ConditionalValue deviceDensity="320" os="win" value="88"/>
+			<ConditionalValue deviceDensity="320" os="iphone" value="88" />
+			<ConditionalValue deviceDensity="160" os="qnx" value="44" />
+		</AssertPropertyValue>
+	</body>
+</TestCase>
+
+<TestCase testID="mobile_button_iconOnly_decrease_fontSize" keywords="[Mobile, ButtonSkin]" description="Test button with icon only should not have height decrease when fontSize decreases ">
+	<bugs>
+		<Bug bugID="SDK-28985" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />		
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertPropertyValue target="btn1" propertyName="height"  >
+			<ConditionalValue deviceDensity="160" os="win" value="44" />
+			<ConditionalValue deviceDensity="240" os="android" value="66" />
+			<ConditionalValue deviceDensity="320" os="win" value="88"/>
+			<ConditionalValue deviceDensity="320" os="iphone" value="88" />
+			<ConditionalValue deviceDensity="160" os="qnx" value="44" />
+		</AssertPropertyValue>		
+		<SetStyle target="grp1" styleName="fontSize" value="14" waitEvent="updateComplete" waitTarget="grp1"/>
+		<AssertPropertyValue target="btn1" propertyName="height" >
+			<ConditionalValue deviceDensity="160" os="win" value="44" />
+			<ConditionalValue deviceDensity="240" os="android" value="66" />
+			<ConditionalValue deviceDensity="320" os="win" value="88"/>
+			<ConditionalValue deviceDensity="320" os="iphone" value="88" />
+			<ConditionalValue deviceDensity="160" os="qnx" value="44" />
+		</AssertPropertyValue>		
+	</body>
+</TestCase>
+
+</testCases>
+</UnitTester>
