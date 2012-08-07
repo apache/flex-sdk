@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/List/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ListMain_spark.mxml">
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <mx:Script>
+    <![CDATA[
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.managers.ToolTipManager;
+    import mx.controls.Alert;
+    import mx.collections.ArrayCollection;
+
+    public function addSpecialDP1():void{
+          application.mybox.mylist.dataProvider.removeAll();
+        application.mybox.mylist.dataProvider=[{ label:'Album A' },{ label:'Album B' },{ label:'Album C' },{ label:'Album D' },{ label:'Album E' },{ label:'Other' },{ label:'Album A1' },{ label:'Album B1' },{ label:'Album C1' },{ label:'Album D1' },{ label:'Album E1' },{ label:'Other1' },{ label:'Album A2' },{ label:'Album B2' },{ label:'Album C2' },{ label:'Album D2' },{ label:'Album E2' },{ label:'Other2' },{ label:'Album A3' },{ label:'Album B3' },{ label:'Album C3' },{ label:'Album D3' },{ label:'Album E3' },{ label:'Other3' },{ label:'Album A4' },{ label:'Album B4' },{ label:'Album C4' },{ label:'Album D4' },{ label:'Album E4' },{ label:'Other4' },{ label:'Album A5' },{ label:'Album B5' },{ label:'Album C5' },{ label:'Album D5' },{ label:'Album E5' },{ label:'Other5' }];
+    }
+    public function setActualSizeToList():void
+    {
+    application.mybox.mylist.setActualSize(200, 45);
+    }
+    ]]>
+    </mx:Script>
+
+      <testCases>
+
+    <TestCase testID="Spark_list_methods_setActualSize" keywords="[list, methods, setActualSize]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+           <RunCode code="addSpecialDP1()"/>
+           <RunCode code="setActualSizeToList()"/>
+           <WaitForEffectsToEnd />
+         </setup>
+        <body>
+           <AssertPropertyValue target="mybox.mylist" propertyName="height" value="45" />
+           <AssertPropertyValue target="mybox.mylist" propertyName="width" value="200" />
+         </body>
+    </TestCase>
+    <TestCase testID="Spark_list_methods_calculateHeight" keywords="[list, methods, calculateHeight]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+           <RunCode code="addSpecialDP1()"/>
+           <RunCode code="application.mybox.mylist.measureHeightOfItems(1,4)"/>
+           <WaitForEffectsToEnd />
+         </setup>
+        <body>
+           <AssertMethodValue method="value=application.mybox.mylist.measureHeightOfItems(1,4)" value="104" />
+         </body>
+    </TestCase>
+    <TestCase testID="Spark_list_methods_calculateWidth" keywords="[list, methods, calculateWidth]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+           <RunCode code="addSpecialDP1()"/>
+           <RunCode code="application.mybox.mylist.measureWidthOfItems(0,1)"/>
+           <WaitForEffectsToEnd />
+         </setup>
+        <body>
+           <AssertMethodValue method="value=application.mybox.mylist.measureHeightOfItems(1,4)" value="104" />
+         </body>
+    </TestCase>
+    <TestCase testID="Spark_list_methods_move" keywords="[list, methods, move]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+           <RunCode code="addSpecialDP1()"/>
+           <RunCode code="application.mybox.mylist.move(10,10)"/>
+           <WaitForEffectsToEnd />
+         </setup>
+        <body>
+           <AssertPropertyValue target="mybox.mylist" propertyName="x" value="10" />
+           <AssertPropertyValue target="mybox.mylist" propertyName="y" value="10" />
+         </body>
+    </TestCase>
+  </testCases>
+</UnitTester>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="0xCC0000" backgroundImage="">
+
+<mx:Script>
+<![CDATA[
+
+	import mx.controls.Alert;
+	import mx.events.CloseEvent;
+
+	public var jPop:Alert;
+
+	public function showPopup():void {
+	   jPop = Alert.show("Do you want to change the color of your box?", "Box Change", Alert.YES | Alert.NO, null, changeColor);
+	}
+
+	public function showPopupWithParent(myParent:*):void {
+	   jPop = Alert.show("Who is my parent?", "Alert With Parent", Alert.YES | Alert.NO, myParent);
+	}
+
+	public function popUpFromCompatible(): void {
+	   jPop = Alert.show("Who is my parent?", "Alert With Parent", Alert.YES | Alert.NO, Sprite(this.systemManager.getSandboxRoot()));
+	}
+
+	public function changeColor(event:CloseEvent):void {
+	  if(event.detail == Alert.YES)
+	  {
+	      if(box2.getStyle("backgroundColor") == 0x0000FF)
+		  {
+		      box2.setStyle("backgroundColor", 0xFF0000);
+		  }
+		  else
+		  {
+		      box2.setStyle("backgroundColor", 0x0000FF);
+		  }
+	  }
+	  text1.text = "event.detail: " + String(event.detail);
+	}
+
+]]>
+</mx:Script>
+<mx:Style source="../../../../../../Assets/Fonts/myStyles.css" />
+
+<mx:Text width="400" text="Alert - Integration - alertClickHandler" fontSize="15" />
+<mx:Text width="400" text="Directions: click the button and select yes or no in the Alert. Verify that the background changes of the Box if you clicked Yes" />
+<mx:Box id="box2" height="200" width="200" >
+  <mx:Button id="showAlert_button" label="show alert" click="showPopup()" />
+  <mx:TextInput id="text1" />
+</mx:Box>
+
+</mx:Application>

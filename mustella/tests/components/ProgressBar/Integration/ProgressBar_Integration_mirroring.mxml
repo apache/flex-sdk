@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ProgressBar/Integration/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ProgressBar_Mirroring.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+            public static function init(o:DisplayObject):void { }
+        ]]>
+    </fx:Script>
+    <fx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        ]]>
+    </fx:Script>
+    <testCases>
+        
+        <TestCase testID="ProgressBar_Integration_mirroring_defaults" keywords="[ProgressBar, Mirroring]" description="check default values of the layoutDirection style and property">
+            <setup>
+                <ResetComponent target="mirroringRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mirroringRoot.target" propertyName="layoutDirection" value="ltr" />
+                <AssertStyleValue target="mirroringRoot.target" styleName="layoutDirection" value="ltr" />
+                <AssertStyleValue target="mirroringRoot.target" styleName="direction" value="ltr" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ProgressBar_Integration_mirroring_rtl" keywords="[ProgressBar, Mirroring]" description="check default rtl">
+            <setup>
+                <ResetComponent target="mirroringRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="mirroringRoot" propertyName="layoutDirection" value="rtl" waitEvent="updateComplete" />
+                <SetStyle target="mirroringRoot" styleName="direction" value="rtl" waitEvent="updateComplete" />
+                <AssertPropertyValue target="mirroringRoot.target" propertyName="layoutDirection" value="rtl" />
+                <CompareBitmap url="../Integration/baselines/$testID.png" target="mirroringRoot.target" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ProgressBar_Integration_mirroring_indeterminate" keywords="[ProgressBar, Mirroring]" description="check indeterminate rtl">
+            <setup>
+                <ResetComponent target="mirroringRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="mirroringRoot.target" propertyName="indeterminate" value="true" waitEvent="updateComplete" />
+                <SetStyle target="mirroringRoot" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" />
+                <SetStyle target="mirroringRoot" styleName="direction" value="rtl" waitEvent="updateComplete" />
+                <AssertStyleValue target="mirroringRoot.target" styleName="layoutDirection" value="rtl" />
+                <CompareBitmap url="../Integration/baselines/$testID.png" target="mirroringRoot.target" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ProgressBar_Integration_mirroring_right" keywords="[ProgressBar, Mirroring]" description="right label placement should be on the left">
+            <setup>
+                <ResetComponent target="mirroringRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="mirroringRoot.target" propertyName="labelPlacement" value="right" waitEvent="updateComplete" />
+                <SetStyle target="mirroringRoot" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" />
+                <SetStyle target="mirroringRoot" styleName="direction" value="rtl" waitEvent="updateComplete" />
+                <AssertStyleValue target="mirroringRoot.target" styleName="layoutDirection" value="rtl" />
+                <CompareBitmap url="../Integration/baselines/$testID.png" target="mirroringRoot.target" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ProgressBar_Integration_mirroring_left" keywords="[ProgressBar, Mirroring]" description="left label placement should be on the right">
+            <setup>
+                <ResetComponent target="mirroringRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="mirroringRoot.target" propertyName="labelPlacement" value="left" waitEvent="updateComplete" />
+                <SetStyle target="mirroringRoot" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" />
+                <SetStyle target="mirroringRoot" styleName="direction" value="rtl" waitEvent="updateComplete" />
+                <AssertStyleValue target="mirroringRoot.target" styleName="layoutDirection" value="rtl" />
+                <CompareBitmap url="../Integration/baselines/$testID.png" target="mirroringRoot.target" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ProgressBar_Integration_mirroring_top" keywords="[ProgressBar, Mirroring]" description="top label placement should be top right">
+            <setup>
+                <ResetComponent target="mirroringRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="mirroringRoot.target" propertyName="labelPlacement" value="top" waitEvent="updateComplete" />
+                <SetStyle target="mirroringRoot" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" />
+                <SetStyle target="mirroringRoot" styleName="direction" value="rtl" waitEvent="updateComplete" />
+                <AssertStyleValue target="mirroringRoot.target" styleName="layoutDirection" value="rtl" />
+                <CompareBitmap url="../Integration/baselines/$testID.png" target="mirroringRoot.target" />
+            </body>
+        </TestCase>
+        
+        
+        
+    </testCases>
+</UnitTester>

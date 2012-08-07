@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/MenuBar/Spark/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MenuBar_ForDataProvider_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	    import mx.controls.MenuBar;
+		import mx.managers.SystemManager;
+	    import mx.events.MenuEvent;
+	    import mx.collections.*;
+
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+    [Bindable]
+	public var myDP:Object = {label: "top", children: [
+		{label: "file", name: "FILE", children: [
+			{label:"I am a Menu", name:"MENU"},
+			{label:"here goes Nothing", name:"NOTHING", children: [
+				{label:"aw, don't sell yourself short", name:"AW"},
+				{type:"check", label:"can you check me?", name:"CHECK ME"}
+			]}
+		]}
+	]};
+
+	[Bindable]
+    public var xmlObjE4X2:XML;
+
+    public function setXMLDP() : void
+    {
+		xmlObjE4X2 = new XML("<topnode><node label='Mailbox'><node label='Inbox'><node label='Old' data='old' /></node><node label='Personal' data='personal'><node label='Old' data='old' /></node></node></topnode>");
+        application.mb.labelField = "@label";
+        application.mb.showRoot = false;
+	    application.mb.dataProvider = xmlObjE4X2;
+	}
+
+	public function setXMLDP_AS() : void
+	{
+        application.mb.dataProvider = testXMLDP;
+        application.mb.showRoot=false;
+        application.mb.labelField='@label';
+	}
+
+	 [Bindable]
+	 public var myCol:ArrayCollection;
+	 public var myDPArray:Array = [{label: "menu 2", children: [
+				{label: "mail", name: "MAIL", children: [
+					{label:"inbox", name:"INBOX"},
+					{label:"outbox", name:"OUTBOX", children: [
+						{label:"you are a draft", name:"DRAFT"},
+						{type:"check", label:"check me", name:"CHECK"}
+					]}
+				]}
+		]},
+		{label: "menu 1", children: [
+				{label: "file", name: "FILE", children: [
+					{label:"I am a Menu", name:"MENU"},
+					{label:"here goes Nothing", name:"NOTHING", children: [
+						{label:"aw, don't sell yourself short", name:"AW"},
+						{type:"check", label:"can you check me?", name:"CHECK ME"}
+					]}
+				]}
+		]}];
+
+	public function setArrayCollectionDP() : void
+	{
+		myCol = new ArrayCollection(myDPArray);
+		application.mb.dataProvider = myCol;
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+<mx:XML id="testXMLDP" format="e4x">
+   <topnode>
+		<node label="file" name="FILE">
+			<node label="I am a Menu" name="MENU"/>
+			<node label="here goes Nothing" name="NOTHING" >
+				<node label="aw, don't sell yourself short" name="AW"/>
+				<node type="check" label="can you check me?" name="CHECK ME"/>
+			</node>
+		</node>
+   </topnode>
+</mx:XML>
+	<testCases>
+		<TestCase testID="ASObject_setInAS" description="Set an AS object as a dataProvider for MenuBar in AS" keywords="[MenuBar, dataProvider]">
+			<setup>
+			    <RunCode code="application.mb.dataProvider = myDP;application.mb.showRoot=false;" waitEvent="updateComplete" waitTarget="mb" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="mb" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, DOWN, DOWN, RIGHT, SPACE]" waitTarget="mb" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="mb" />
+			    <AssertEventPropertyValue propertyName="label" value="aw, don't sell yourself short" />
+			</body>
+		</TestCase>
+		<TestCase testID="ASObject_setWithBinding" description="Set an AS object as a dataProvider for MenuBar With Binding" keywords="[MenuBar, dataProvider]">
+			<setup>
+			    <RunCode code="application.mb_ASBinding.setFocus()" waitEvent="focusIn" waitTarget="mb_ASBinding" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, DOWN, DOWN, RIGHT, SPACE]" waitTarget="mb_ASBinding" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="mb_ASBinding" />
+			    <AssertEventPropertyValue propertyName="label" value="aw, don't sell yourself short" />
+			</body>
+		</TestCase>
+		<TestCase testID="XMLObject_setInAS" description="Set an XML object as a dataProvider for MenuBar in AS" keywords="[MenuBar, dataProvider, XML]">
+			<setup>
+			    <ResetComponent target="mb" className="mx.controls.MenuBar" />
+				<RunCode code="setXMLDP_AS()" waitEvent="updateComplete" waitTarget="mb" />
+			    <RunCode code="application.mb.setFocus()" waitEvent="focusIn" waitTarget="mb" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, DOWN, DOWN, RIGHT, DOWN, SPACE]" waitTarget="mb" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="mb" />
+			    <AssertEventPropertyValue propertyName="label" value="can you check me?" />
+			</body>
+		</TestCase>
+		<TestCase testID="XMLObject_setWithBinding" description="Set an XML object as a dataProvider for MenuBar with Binding" keywords="[MenuBar, dataProvider, XML]">
+			<setup>
+			    <RunCode code="application.mb_XMLBinding.setFocus()" waitEvent="focusIn" waitTarget="mb_XMLBinding" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, DOWN, DOWN, RIGHT, SPACE]" waitTarget="mb_XMLBinding" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="mb_XMLBinding" />
+			    <AssertEventPropertyValue propertyName="label" value="aw, don't sell yourself short" />
+			</body>
+		</TestCase>
+		<TestCase testID="XMLBuiltAS_setWithBinding" description="Set an XML object as a dataProvider for MenuBar with Binding" keywords="[MenuBar, dataProvider, XML]">
+			<setup>
+			    <RunCode code="application.MenuDP3.setFocus()" waitEvent="focusIn" waitTarget="MenuDP3" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, DOWN, SPACE]" waitTarget="MenuDP3" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="MenuDP3" />
+			    <AssertEventPropertyValue propertyName="label" value="Sent" />
+			</body>
+		</TestCase>
+		<TestCase testID="XMLBuiltAS_setWithAS" description="Set an XML object as a dataProvider for MenuBar with AS" keywords="[MenuBar, dataProvider, XML]">
+			<setup>
+			    <ResetComponent target="mb" className="mx.controls.MenuBar" />
+				<RunCode code="setXMLDP()" waitEvent="updateComplete" waitTarget="mb" />
+			    <RunCode code="application.mb.setFocus()" waitEvent="focusIn" waitTarget="mb" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, DOWN, RIGHT, SPACE]" waitTarget="mb" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="mb" />
+			    <AssertEventPropertyValue propertyName="label" value="Old" />
+			</body>
+		</TestCase>
+        <TestCase testID="Model_setWithBinding" description="Set a Model as a dataProvider for MenuBar with Binding" keywords="[MenuBar, dataProvider, Model]">
+			<setup>
+			    <RunCode code="application.MenuDP3B.setFocus()" waitEvent="focusIn" waitTarget="MenuDP3B" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, RIGHT, DOWN, DOWN, DOWN, SPACE]" waitTarget="MenuDP3B" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="MenuDP3B" />
+			    <AssertEventPropertyValue propertyName="label" value="Whisk" />
+			</body>
+		</TestCase>
+		<TestCase testID="Model_setWithAS" description="Set Model as a dataProvider for MenuBar with AS" keywords="[MenuBar, dataProvider, Model]">
+			<setup>
+			    <ResetComponent target="mb" className="mx.controls.MenuBar" />
+				<RunCode code="application.mb.dataProvider=application.model1.Product" waitEvent="updateComplete" waitTarget="mb" />
+			    <RunCode code="application.mb.setFocus()" waitEvent="focusIn" waitTarget="mb" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, RIGHT, DOWN, DOWN, SPACE]" waitTarget="mb" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="mb" />
+			    <AssertEventPropertyValue propertyName="label" value="Cooking Pot" />
+			</body>
+		</TestCase>
+		<TestCase testID="ArrayCollection_setWithAS" description="Set ArrayCollection as a dataProvider for MenuBar with AS" keywords="[MenuBar, dataProvider, ArrayCollection]">
+			<setup>
+			    <ResetComponent target="mb" className="mx.controls.MenuBar" />
+				<RunCode code="setArrayCollectionDP()" waitEvent="updateComplete" waitTarget="mb" />
+			    <RunCode code="application.mb.setFocus()" waitEvent="focusIn" waitTarget="mb" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, RIGHT, DOWN, RIGHT, DOWN, RIGHT, DOWN, SPACE]" waitTarget="mb" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="mb" />
+			    <AssertEventPropertyValue propertyName="label" value="can you check me?" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/LinkBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LinkBar_InContainer_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import MyLinkBar;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import RedFocusRect;
+    import flash.display.BlendMode;
+
+    ]]>
+    </mx:Script>
+    <testCases>
+        <TestCase testID="Spark_backgroundAlpha_0" description="LinkBar style backgroundAlpha=0" keywords="[styles, backgroundAlpha, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="contentBackgroundAlpha" target="linkBar_1" value="0" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="contentBackgroundColor" target="linkBar_1" value="0xFF00000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/backgroundAlpha_0_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_backgroundAlpha_08" description="LinkBar style backgroundAlpha=0" keywords="[styles, backgroundAlpha, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="contentBackgroundAlpha" target="linkBar_1" value="0.8" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="contentBackgroundColor" target="linkBar_1" value="0xFF00000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/backgroundAlpha_08_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_backgroundColor_0x" description="LinkBar style backgroundAlpha=0" keywords="[styles, backgroundAlpha, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="contentBackgroundColor" target="linkBar_1" value="0xFF00000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/backgroundColor_0x_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_backgroundColor_classSelector" description="LinkBar style backgroundColor set through css" keywords="[styles, backgroundColor, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetProperty propertyName="styleName" target="linkBar_1" value="myBackground" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/backgroundColor_classSelector_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_backgroundImage_jpg" description="LinkBar style backgroundColor set through css" keywords="[styles, backgroundColor, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="backgroundImage" target="linkBar_1" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/backgroundImage_jpg_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_backgroundSize_50" description="LinkBar style backgroundColor set through css" keywords="[styles, backgroundColor, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="backgroundImage" target="linkBar_1" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="backgroundSize" target="linkBar_1" value="50%" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/backgroundSize_50_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_backgroundSize_100" description="LinkBar style backgroundColor set through css" keywords="[styles, backgroundColor, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="backgroundImage" target="linkBar_1" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="backgroundSize" target="linkBar_1" value="100%" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/backgroundSize_100_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_borderColor_0x" description="LinkBar style borderAlpha=0" keywords="[styles, borderAlpha, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderColor" target="linkBar_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderThickness" target="linkBar_1" value="5" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <AssertPixelValue target="linkBar_1" value="0xFFFFFF" x="20" y="2" />
+                <AssertPixelValue target="linkBar_1" value="0xFFFFFF" x="3" y="20" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_borderColor_classSelector" description="LinkBar style borderColor set through css" keywords="[styles, borderColor, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetProperty propertyName="styleName" target="linkBar_1" value="myBorder" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <AssertPixelValue target="linkBar_1" value="0xFFFFFF" x="20" y="2" />
+                <AssertPixelValue target="linkBar_1" value="0xFFFFFF" x="3" y="20" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_borderSides_topleft" description="LinkBar style borderSides set to left,top" keywords="[styles, borderSides, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderSides" target="linkBar_1" value="left, top" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderColor" target="linkBar_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderThickness" target="linkBar_1" value="5" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetProperty propertyName="height" target="linkBar_1" value="24" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="contentBackgroundColor" value="0xFFFFFF" target="linkBar_1" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <AssertPixelValue target="linkBar_1" value="0xCC0000" x="20" y="2" />
+                <AssertPixelValue target="linkBar_1" value="0xCC0000" x="3" y="20" />
+                <AssertPixelValue target="linkBar_1" value="0" x="15" y="23" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_borderSides_topbottom" description="LinkBar style borderSides set to top,bottom" keywords="[styles, borderSides, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderSides" target="linkBar_1" value="top, bottom" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderColor" target="linkBar_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderThickness" target="linkBar_1" value="5" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetProperty propertyName="height" target="linkBar_1" value="24" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="contentBackgroundColor" value="0xFFFFFF" target="linkBar_1" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <AssertPixelValue target="linkBar_1" value="0xCC0000" x="20" y="2" />
+                <AssertPixelValue target="linkBar_1" value="0xFFFFFF" x="3" y="12" />
+                <AssertPixelValue target="linkBar_1" value="0xCC0000" x="15" y="23" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_borderStyle_solid" description="LinkBar style borderStyle=solid" keywords="[styles, borderStyle, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderColor" target="linkBar_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderThickness" target="linkBar_1" value="5" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/borderStyle_solid_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_borderStyle_inset" description="LinkBar style borderStyle=inset" keywords="[styles, borderStyle, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderColor" target="linkBar_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderThickness" target="linkBar_1" value="5" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="inset" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/borderStyle_inset_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_borderStyle_default" description="LinkBar style borderStyle=none" keywords="[styles, borderStyle, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderColor" target="linkBar_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderThickness" target="linkBar_1" value="5" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/borderStyle_default_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_borderStyle_outset" description="LinkBar style borderStyle=outset" keywords="[styles, borderStyle, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderColor" target="linkBar_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderThickness" target="linkBar_1" value="5" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="outset" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/borderStyle_outset_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_borderThickness_8" description="LinkBar style borderThickness=8" keywords="[styles, borderThickness, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderColor" target="linkBar_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderThickness" target="linkBar_1" value="8" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetProperty propertyName="height" target="linkBar_1" value="24" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="contentBackgroundColor" value="0xFFFFFF" target="linkBar_1" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <AssertPixelValue target="linkBar_1" value="0xCC0000" x="20" y="0" />
+                <AssertPixelValue target="linkBar_1" value="0xCC0000" x="20" y="7" />
+                <AssertPixelValue target="linkBar_1" value="0xCC0000" x="20" y="23" />
+                <AssertPixelValue target="linkBar_1" value="0xFFFFFF" x="20" y="9" />
+                <AssertPixelValue target="linkBar_1" value="0xCC0000" x="20" y="16" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_color_0x" description="LinkBar style color=none" keywords="[styles, color, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="color" target="linkBar_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/color_0x_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_color_css" description="LinkBar style color=outset" keywords="[styles, color, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetProperty propertyName="styleName" target="linkBar_1" value="colorStyle" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/color_css_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_cornerRadius_1" description="LinkBar style cornerRadius=none" keywords="[styles, cornerRadius, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="cornerRadius" target="linkBar_1" value="1" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/cornerRadius_1_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_cornerRadius_css" description="LinkBar style cornerRadius=10" keywords="[styles, cornerRadius, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetProperty propertyName="styleName" target="linkBar_1" value="cornerRadiusStyle" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/cornerRadius_css_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_cornerRadius_1_child" description="LinkBar style cornerRadius=none" keywords="[styles, cornerRadius, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="cornerRadius" target="linkBar_1" value="1" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="linkBar_1.getChildAt(0)" localX="5" localY="8" waitEvent="mouseUp" waitTarget="linkBar_1.getChildAt(0)" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1.getChildAt(0)" url="../Styles/baselines/cornerRadius_1_linkbutton_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_cornerRadius_css_child" description="LinkBar style cornerRadius=outset" keywords="[styles, cornerRadius, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetProperty propertyName="styleName" target="linkBar_1" value="cornerRadiusStyle" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="linkBar_1.getChildAt(0)" localX="5" localY="8" waitEvent="mouseUp" waitTarget="linkBar_1.getChildAt(0)" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1.getChildAt(0)" url="../Styles/baselines/cornerRadius_css_linkbutton_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_disabledColor_0x" description="LinkBar style disabledColor=none" keywords="[styles, disabledColor, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="disabledColor" target="linkBar_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <SetProperty propertyName="enabled" target="linkBar_1" value="false" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/disabledColor_0x_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_disabledColor_css" description="LinkBar style disabledColor=outset" keywords="[styles, disabledColor, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetProperty propertyName="styleName" target="linkBar_1" value="disabledColorStyle" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                 <SetProperty propertyName="enabled" target="linkBar_1" value="false" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                 <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/disabledColor_css_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_disabledOverlayAlpha_01" description="LinkBar style disabledOverlayAlpha=none" keywords="[styles, disabledOverlayAlpha, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="disabledOverlayAlpha" target="linkBar_1" value="0.1" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="disabledColor" target="linkBar_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <SetProperty propertyName="enabled" target="linkBar_1" value="false" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/disabledOverlayAlpha_01_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_disabledOverlayAlpha_css" description="LinkBar style disabledOverlayAlpha=outset" keywords="[styles, disabledOverlayAlpha, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetProperty propertyName="styleName" target="linkBar_1" value="disabledOverlayAlphaStyle" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                 <SetProperty propertyName="enabled" target="linkBar_1" value="false" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                 <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="linkBar_1" url="../Styles/baselines/disabledOverlayAlpha_css_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_dropShadowEnabled_true" description="LinkBar style dropShadowEnabled=true" keywords="[styles, dropShadowEnabled, LinkBar]">
+            <setup>
+                <SetProperty propertyName="height" target="canvas1" value="200" />
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="dropShadowEnabled" target="linkBar_1" value="true" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="canvas1" url="../Styles/baselines/dropShadowEnabled_true_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_dropShadowColor_0x" description="LinkBar style dropShadowColor=0x00FF00" keywords="[styles, dropShadowColor, LinkBar]">
+            <setup>
+                <SetProperty propertyName="height" target="canvas1" value="200" />
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="dropShadowEnabled" target="linkBar_1" value="true" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="dropShadowColor" target="linkBar_1" value="0x00FF00" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="canvas1" url="../Styles/baselines/dropShadowColor_0x_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_dropShadowColor_css" description="LinkBar style dropShadowColor set in css" keywords="[styles, dropShadowColor, LinkBar]">
+            <setup>
+                <SetProperty propertyName="height" target="canvas1" value="200" />
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetProperty propertyName="styleName" target="linkBar_1" value="dropShadowColorStyle" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="canvas1" url="../Styles/baselines/dropShadowColor_css_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_paddingLeft_0" description="LinkBar style paddingLeft=0" keywords="[styles, paddingLeft, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="paddingLeft" target="linkBar_1" value="0" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="linkBar_1.getChildAt(0)" value="0" />
+                <AssertPropertyValue propertyName="x" target="linkBar_1.getChildAt(0).getChildAt(1)" value="2" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_paddingLeft_10" description="LinkBar style paddingLeft=10" keywords="[styles, paddingLeft, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="paddingLeft" target="linkBar_1" value="10" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="linkBar_1.getChildAt(0)" value="10" />
+                <AssertPropertyValue propertyName="x" target="linkBar_1.getChildAt(0).getChildAt(1)" value="2" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_paddingRight_0" description="LinkBar style paddingRight=0" keywords="[styles, paddingRight, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="paddingRight" target="linkBar_1" value="0" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="width" target="linkBar_1" value="223" />
+                <AssertPropertyValue propertyName="width" target="linkBar_1.getChildAt(0)" value="51" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_paddingRight_10" description="LinkBar style paddingRight=10" keywords="[styles, paddingRight, LinkBar]">
+            <setup>
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="paddingRight" target="linkBar_1" value="10" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="width" target="linkBar_1" value="233" />
+                <AssertPropertyValue propertyName="width" target="linkBar_1.getChildAt(0)" value="51" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_shadowDirection_left" description="LinkBar style shadowDirection=left" keywords="[styles, shadowDirection, LinkBar]">
+            <setup>
+                <SetProperty propertyName="height" target="canvas1" value="200" />
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="dropShadowEnabled" target="linkBar_1" value="true" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="shadowDirection" target="linkBar_1" value="left" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="canvas1" url="../Styles/baselines/shadowDirection_left_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_shadowDirection_right" description="LinkBar style shadowDirection=right" keywords="[styles, shadowDirection, LinkBar]">
+            <setup>
+                <SetProperty propertyName="height" target="canvas1" value="200" />
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="dropShadowEnabled" target="linkBar_1" value="true" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="shadowDirection" target="linkBar_1" value="right" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="canvas1" url="../Styles/baselines/shadowDirection_right_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_shadowDirection_default" description="LinkBar style shadowDirection=default" keywords="[styles, shadowDirection, LinkBar]">
+            <setup>
+                <SetProperty propertyName="height" target="canvas1" value="200" />
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="dropShadowEnabled" target="linkBar_1" value="true" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="canvas1" url="../Styles/baselines/shadowDirection_default_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_shadowDistance_10" description="LinkBar style shadowDistanc=10" keywords="[styles, shadowDistance, LinkBar]">
+            <setup>
+                <SetProperty propertyName="height" target="canvas1" value="200" />
+                <ResetComponent target="linkBar_1" className="MyLinkBar" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="dropShadowEnabled" target="linkBar_1" value="true" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="borderStyle" target="linkBar_1" value="solid" waitEvent="updateComplete" waitTarget="linkBar_1" />
+                <SetStyle styleName="shadowDistance" target="linkBar_1" value="10" waitEvent="updateComplete" waitTarget="linkBar_1" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="canvas1" url="../Styles/baselines/shadowDistance_10_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

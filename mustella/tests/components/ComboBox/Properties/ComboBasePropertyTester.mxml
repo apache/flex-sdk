@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="components/ComboBox/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ComboBoxMain.mxml">
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	
+	private var arr1:Array = [{slno:"1",name:"Joseph",data:"23"},{slno:"2",name:"Jeena",data:"21"},{slno:"3",name:"Jerry",data:"4"}
+	   	 ,{slno:"4",name:"Tom",data:"1"},{slno:"5",name:"Rick",data:"12"},{slno:"6",name:"John",data:"52"}];
+	 
+	 private var arr2:Array = [{slno:"1",label:"Joseph",age:"23"},{slno:"2",label:"Jeena",age:"21"},{slno:"3",label:"Jerry",age:"4"}
+	   	 ,{slno:"4",label:"Tom",age:"1"},{slno:"5",label:"Rick",age:"12"},{slno:"6",label:"John",age:"52"}];
+	   	 
+	public function addItems():void
+	{
+	   for(var i:int=0;i<15;i++)
+	   {
+	      var obj:Object={slno:i,name:"Added Item",age:100+i}
+	      application.mybox.myCB.dataProvider.addItem(obj);
+	   }	   
+	}
+	
+	public function addLongItem():void
+	{
+	      var obj:Object={slno:0,name:"Added Looooooooooooooooooooooooooooooooooooooooooooooooooooooooong Item",age:100}
+	      application.mybox.myCB.dataProvider.addItemAt(obj,0);
+	}
+	
+	public function myCBLabelFunction(obj:Object):String
+	{
+	      return(obj.name + "[check]");
+	}
+	
+	public function remove_and_repopulate():void
+	{
+	    application.mybox.myCB.dataProvider.removeAll();
+	    application.mybox.myCB.dataProvider=[{slno:"1",label:"Joseph",age:"23"},{slno:"2",label:"Jeena",age:"21"},{slno:"3",label:"Jerry",age:"4"}
+	   	 ,{slno:"4",label:"Tom",age:"1"},{slno:"5",label:"Rick",age:"12"},{slno:"6",label:"John",age:"52"}];
+	}
+	]]>
+	</mx:Script>
+	
+      <testCases>	           
+	<TestCase testID="combobase_properties_editable" keywords="[comboBase, properties, editable]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+	     </setup>
+	    <body>
+		<SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>		
+		<AssertPropertyValue target="mybox.myCB" propertyName ="selectedIndex" value="2"/>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_properties_selectedIndex.png"  />
+	     </body>
+	</TestCase>
+	<TestCase testID="combobase_properties_text" keywords="[comboBase, properties, text]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+	     </setup>
+	    <body>
+		<SetProperty target="mybox.myCB" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="mybox.myCB"/>		
+		<AssertPropertyValue target="mybox.myCB" propertyName ="text" value="Tom"/>
+	     </body>
+	</TestCase>
+	<TestCase testID="combobase_properties_selectedIndex" keywords="[comboBase, properties, selectedIndex]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+	     </setup>
+	    <body>
+		<SetProperty target="mybox.myCB" propertyName="editable" value="true" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		<AssertPropertyValue target="mybox.myCB" propertyName ="editable" value="true"/>
+		<SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>		
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_properties_editable.png"  />
+	     </body>
+	</TestCase>
+	<TestCase testID="combobase_properties_value" keywords="[comboBase, properties, value]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+	     </setup>
+	    <body>
+		<SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>		
+		<AssertPropertyValue target="mybox.myCB" propertyName ="value" value="null"/>
+		<RunCode code=" application.mybox.myCB.dataProvider = arr1"/>
+		<SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>		
+		<AssertPropertyValue target="mybox.myCB" propertyName ="value" value="21"/>
+		<RunCode code=" application.mybox.myCB.dataProvider = arr2"/>
+		<SetProperty target="mybox.myCB" propertyName="selectedIndex" value="4" waitEvent="updateComplete" waitTarget="mybox.myCB"/>		
+		<AssertPropertyValue target="mybox.myCB" propertyName ="value" value="Rick"/>
+	     </body>
+	</TestCase>
+	<TestCase testID="combobase_properties_selectedItem" keywords="[comboBase, properties, selectedItem]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>		       
+	     </setup>
+	    <body>
+		<SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" 
+		waitTarget="mybox.myCB"/>		
+		<AssertPropertyValue target="mybox.myCB.selectedItem" propertyName ="age" value="4"/>
+		<AssertPropertyValue target="mybox.myCB.selectedItem" propertyName ="slno" value="3"/>
+		<AssertPropertyValue target="mybox.myCB.selectedItem" propertyName ="name" value="Jerry"/>
+	     </body>
+	</TestCase>
+	</testCases>                	     
+</UnitTester>

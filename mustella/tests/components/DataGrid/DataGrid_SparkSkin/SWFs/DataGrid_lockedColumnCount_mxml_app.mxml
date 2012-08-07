@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application backgroundColor="0xFFFFFF" height="768" width="1024" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" >
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+	@font-face {
+		src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		fontFamily: EmbeddedArial;
+		embedAsCFF: false;
+	}
+	
+	@font-face {
+		src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+		fontWeight: bold;
+		fontFamily: EmbeddedArial;
+		embedAsCFF: false;
+	}
+	
+	@font-face {
+		src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+		fontStyle: italic;
+		fontFamily: EmbeddedArial;
+		embedAsCFF: false;
+	}
+	
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: EmbeddedVerdana;
+		embedAsCFF: false;
+	}
+	
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		fontWeight: bold;
+		fontFamily: EmbeddedVerdana;
+		embedAsCFF: false;
+	}
+	
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		fontStyle: italic;
+		fontFamily: EmbeddedVerdana;
+		embedAsCFF: false;
+	}
+	
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<!-- 
+    Since we can't call ResetComponent, the way to avoid tainting is to create a DataGrid for
+    each test case we want to run.  e.g. We want to run 5 tests, and there are 11 configurations,
+    so we have to create 55 DataGrids.  These all have to fit on the screen in order to do 
+    bitmap compares, so a ViewStack is used.  Each configuration is a separate VBox
+    in the ViewStack.
+    
+    Positions are absolute; hopefully the tests will be more robust if they have to
+    be edited.  TODO: Figure out how to use localX and localY for mouse events
+    so that this will not be an issue.
+-->
+
+<!-- width: DG width * num columns of DGs + width of space between DGs.  Same idea for height. -->
+<mx:ViewStack id="vs" selectedIndex="{ns.value}" x="0" y="0" width="620" height="460" >
+
+    <mx:Canvas x="0" y="0">
+        <mx:DataGrid id="lockedColumnCount_mxml_allColumnsLocked" lockedColumnCount="3">
+            <mx:dataProvider>
+                <mx:ArrayCollection>
+                    <fx:Object name="SubjectO" breed="Whippet" age="10" />
+                    <fx:Object name="Crowette" breed="Lab" age="Unknown" />
+                </mx:ArrayCollection>
+            </mx:dataProvider>
+        </mx:DataGrid>
+    </mx:Canvas>
+
+    <mx:Canvas>
+        <mx:Text text="This page intentionally left blank." />
+    </mx:Canvas>
+
+</mx:ViewStack>
+
+<mx:HBox y="{vs.y + vs.height + 10}">
+    <mx:Label text="Use this to toggle the view stack when authoring tests." />
+    <mx:NumericStepper id="ns" value="0" maximum="11" />
+</mx:HBox>
+
+</s:Application>

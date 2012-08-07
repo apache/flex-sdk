@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Slider/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SkinStates_png_embeded_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.managers.SystemManager;
+    import mx.controls.*;
+    import mx.containers.*;
+    import mx.core.*;
+    import flash.events.*;
+    use namespace mx_internal;
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+
+
+    public function doTheValidate():void{
+        UIComponentGlobals.layoutManager.validateNow();
+    }
+
+    public function disableHSlider_png_embeded():void{
+        application.myHSlider_png_embeded.enabled=false;
+
+    }
+
+    public function set_HSlider_png_embeded():void{
+        application.myHSlider_png_embeded.minimum=0;
+        application.myHSlider_png_embeded.maximum=100;
+        application.myHSlider_png_embeded.value=100;
+        application.myHSlider_png_embeded.setStyle("tickColor", 0x000000);
+        application.myHSlider_png_embeded.snapInterval=1;
+        application.myHSlider_png_embeded.tickInterval=10;
+        application.myHSlider_png_embeded.labels=["0%","100%"];
+
+    }
+    public function disableVSlider_png_embeded():void{
+        application.myVSlider_png_embeded.enabled=false;
+
+    }
+    public function set_VSlider_png_embeded():void{
+        application.myVSlider_png_embeded.minimum=0;
+        application.myVSlider_png_embeded.maximum=100;
+        application.myVSlider_png_embeded.value=100;
+        application.myVSlider_png_embeded.setStyle("tickColor", 0x000000);
+        application.myVSlider_png_embeded.snapInterval=1;
+        application.myVSlider_png_embeded.tickInterval=10;
+        application.myVSlider_png_embeded.labels=["0%","100%"];
+
+    }
+
+
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+
+        <TestCase testID="Spark_Test_HSlider_Skin_enabled_png_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, HSlider, enabled]">
+            <setup>
+                <ResetComponent target="myHSlider_png_embeded" className="mx.controls.HSlider" waitEvent="updateComplete" />
+                    <RunCode code="set_HSlider_png_embeded();" waitTarget="myHSlider_png_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+                    <WaitForEffectsToEnd />
+                    <CompareBitmap target="myHSlider_png_embeded" url="../Styles/Baselines/HSlider_Skinned_enabled_png_embeded_spark.png"   timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_Test_HSlider_Skin_disabled_png_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, HSlider, enabled]">
+            <setup>
+                <ResetComponent target="myHSlider_png_embeded" className="mx.controls.HSlider" waitEvent="updateComplete" />
+                    <RunCode code="set_HSlider_png_embeded();" waitTarget="myHSlider_png_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <RunCode code="disableHSlider_png_embeded();" waitTarget="myHSlider_png_embeded" waitEvent="updateComplete" timeout="1000" />
+            </setup>
+            <body>
+                    <WaitForEffectsToEnd />
+                    <CompareBitmap target="myHSlider_png_embeded" url="../Styles/Baselines/HSlider_Skinned_disabled_png_embeded_spark.png"   timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_Test_VSlider_Skin_enabled_png_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, VSlider, enabled]">
+            <setup>
+                <ResetComponent target="myVSlider_png_embeded" className="mx.controls.VSlider" waitEvent="updateComplete" />
+                    <RunCode code="set_VSlider_png_embeded();" waitTarget="myVSlider_png_embeded" waitEvent="updateComplete" timeout="1000" />
+
+            </setup>
+            <body>
+                    <WaitForEffectsToEnd />
+                    <CompareBitmap target="myVSlider_png_embeded" url="../Styles/Baselines/VSlider_Skinned_enabled_png_embeded_spark.png"   timeout="5000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_Test_VSlider_Skin_disabled_png_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, VSlider, enabled]">
+            <setup>
+                <ResetComponent target="myVSlider_png_embeded" className="mx.controls.VSlider" waitEvent="updateComplete" />
+                    <RunCode code="set_VSlider_png_embeded();" waitTarget="myVSlider_png_embeded" waitEvent="updateComplete" timeout="1000" />
+
+                    <RunCode code="disableVSlider_png_embeded();" waitTarget="myVSlider_png_embeded" waitEvent="updateComplete" timeout="1000"  />
+
+            </setup>
+            <body>
+                    <WaitForEffectsToEnd />
+                    <CompareBitmap target="myVSlider_png_embeded" url="../Styles/Baselines/VSlider_Skinned_disabled_png_embeded_spark.png"   timeout="5000"/>
+            </body>
+        </TestCase>
+
+
+
+
+
+    </testCases>
+</UnitTester>

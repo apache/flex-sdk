@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_HaloSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp_halo.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+		import mx.core.*;
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+<!--
+================================================================================
+resizableColumns:
+    true, and individual columns have resizable=true (resizable)
+    true, and individual columns have resizable=false (not resizable)
+    false, and individual columns have resizable=true (not resizable)
+    false, and individual columns have resizable=false (not resizable)
+================================================================================
+-->
+        <TestCase testID="datagrid_properties_resizableColumns_true_individualColumnsResizable_true_halo" keywords="[DataGrid,properties,resizableColumns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="resizableColumns" value="true" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" target="dg1" localX="94" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="85" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="75" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="65" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="55" localY="10" />
+                <DispatchMouseEvent type="mouseUp" target="dg1" localX="55" localY="10" />
+                <AssertEvent target="dg1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+                <AssertMethodValue method="value=application.dg1.columns[0].width" value="55" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_resizableColumns_true_individualColumnsResizable_false_halo" keywords="[DataGrid,properties,resizableColumns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3, false, false)" />
+                <SetProperty target="dg1" propertyName="resizableColumns" value="true" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" target="dg1" localX="94" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="85" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="75" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="65" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="55" localY="10" />
+                <DispatchMouseEvent type="mouseUp" target="dg1" localX="55" localY="10" />
+                <AssertNoEvent target="dg1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+                <AssertMethodValue method="value = (FlexGlobals.topLevelApplication.dg1.columns[0].width &gt; 92 &amp;&amp; FlexGlobals.topLevelApplication.dg1.columns[0].width &lt; 95)" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_resizableColumns_false_individualColumnsResizable_true_halo" keywords="[DataGrid,properties,resizableColumns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="resizableColumns" value="false" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" target="dg1" localX="94" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="85" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="75" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="65" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="55" localY="10" />
+                <DispatchMouseEvent type="mouseUp" target="dg1" localX="55" localY="10" />
+                <AssertNoEvent target="dg1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+                <AssertMethodValue method="value = (FlexGlobals.topLevelApplication.dg1.columns[0].width &gt; 92 &amp;&amp; FlexGlobals.topLevelApplication.dg1.columns[0].width &lt; 95)" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_resizableColumns_false_individualColumnsResizable_false_halo" keywords="[DataGrid,properties,resizableColumns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3, false, false)" />
+                <SetProperty target="dg1" propertyName="resizableColumns" value="false" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" target="dg1" localX="94" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="85" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="75" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="65" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="55" localY="10" />
+                <DispatchMouseEvent type="mouseUp" target="dg1" localX="55" localY="10" />
+                <AssertNoEvent target="dg1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+                <AssertMethodValue method="value = (FlexGlobals.topLevelApplication.dg1.columns[0].width &gt; 92 &amp;&amp; FlexGlobals.topLevelApplication.dg1.columns[0].width &lt; 95)" value="true" />
+            </body>
+        </TestCase>
+    </testCases>                
+</UnitTester>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateChooser/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateChooser_Styles_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.DateChooser;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+		<TestCase testID="color_0x_spark" description="DateChooser style color=0xff0000." keywords="[styles, color, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="color" target="dcc.dc" value="0xFF0000" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			    <SetStyle styleName="fontSize" target="dcc.dc" value="16" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+			
+		<TestCase testID="borderColor_0x_spark" description="DateChooser style borderColor=0xff0000." keywords="[styles, borderColor, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="borderColor" target="dcc.dc" value="0xFF0000" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			    <SetStyle styleName="borderThickness" target="dcc.dc" value="4" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			    <SetStyle styleName="borderStyle" target="dcc.dc" value="Solid" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+	
+		<TestCase testID="disabledColor_default_spark" description="DateChooser style disabledColor=0xff0000." keywords="[styles, disabledColor, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetProperty propertyName="enabled" target="dcc.dc" value="false" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+			    <CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="disabledColor_0x_spark" description="DateChooser style disabledColor=0xff0000." keywords="[styles, disabledColor, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="disabledColor" target="dcc.dc" value="0x00FF00" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			    <SetProperty propertyName="enabled" target="dcc.dc" value="false" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+			    <CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+						
+		<TestCase testID="fontSize_25_spark" description="DateChooser style fonSize=25." keywords="[styles, fontSize, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="fontSize" target="dcc.dc" value="25" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="dcc.dc" value="354" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontSize_9_spark" description="DateChooser style fonSize=9." keywords="[styles, fontSize, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="fontSize" target="dcc.dc" value="9" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="dcc.dc" value="186" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontSize_80_spark" description="DateChooser style fonSize=80." keywords="[styles, fontSize, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="fontSize" target="dcc.dc" value="80" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="dcc.dc" value="954" />
+			</body>
+		</TestCase>
+			
+		<TestCase testID="rollOverColor_spark" description="DateChooser style rollOverColor=0xff0000." keywords="[styles, rollOverColor, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="rollOverColor" target="dcc.dc" value="0xFF0000" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>			    
+				<AssertStyleValue target="dcc.dc" styleName="rollOverColor" value="0xFF0000" />				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="selectionColor_spark" description="DateChooser style selectionColor=0xff0000." keywords="[styles, selectionColor, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="selectionColor" target="dcc.dc" value="0xFF0000" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<Pause timeout="300" />
+				<AssertStyleValue target="dcc.dc" styleName="selectionColor" value="0xFF0000"/>
+				<CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="todayColor_spark" description="DateChooser style todayColor=0xff0000." keywords="[styles, todayColor, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="todayColor" target="dcc.dc" value="0xFF0000" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<Pause timeout="300" />
+				<AssertStyleValue target="dcc.dc" styleName="todayColor" value="0xFF0000"/>				
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="fontWeight_bold_spark" description="DateChooser style fontWeight=bold." keywords="[styles, fontWeight, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="fontWeight" target="dcc.dc" value="bold" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="fontStyle_italics_spark" description="DateChooser style fontStyle=italics." keywords="[styles, fontStyle, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="fontStyle" target="dcc.dc" value="italic" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertStyleValue target="dcc.dc" styleName="fontStyle" value="italic" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="fillColorAlpha_Number_spark" description="DateChooser style fillColors=[#660099, #99FFFF] fillAlphas=[0.6, 0.4]." keywords="[styles, fontWeight, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="fillAlphas" target="dcc.dc" value="[0.6, 0.4]"  />
+			    <SetStyle styleName="fillColors" target="dcc.dc" value="[#660099, #99FFFF]" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="cornerRadius_10_spark" description="DateChooser style cornerRadius=10" keywords="[styles, cornerRadius, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="cornerRadius" target="dcc.dc" value="10" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusRoundedCorners_tr_spark" description="DateChooser style focusRoundedCorners=tr" keywords="[styles, focusRoundedCorners, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="cornerRadius" value="6" target="dcc.dc" />
+			    <SetStyle styleName="focusRoundedCorners" target="dcc.dc" value="tr" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+				
+		<TestCase testID="fontThickness_200_spark" description="DateChooser style fontThickness = 200. flashtype font Hancock." keywords="[styles, fontThickness, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+                <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="fontThickness" value="200" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    </setup>
+			<body>
+			    <CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+	
+		<TestCase testID="chromeColor_spark" description="DateChooser style chromeColor=0x00FF00" keywords="[styles, chromeColor, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="chromeColor" target="dcc.dc" value="0x00FF00" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>		
+
+		<TestCase testID="contentBackgroundColor_spark" description="DateChooser style contentBackgroundColor=0x0000FF" keywords="[styles, contentBackgroundColor, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"  waitEvent="updateComplete"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="contentBackgroundColor" target="dcc.dc" value="0x0000FF" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>			
+		
+	</testCases>
+</UnitTester>

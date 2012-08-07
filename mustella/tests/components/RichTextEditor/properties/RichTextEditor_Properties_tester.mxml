@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/RichTextEditor/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RichTextEditor_main.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    
+    public static function init(o:DisplayObject):void
+    {
+    }                    
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>    
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.styles.StyleManager;
+
+    ]]>
+    </mx:Script>
+    <testCases>
+        
+        <TestCase testID="Checking_Default_Value_of_Property_showControlBar" keywords="[Property, showControlBar, RichTextEditor]" description="Checking Default Value of Property showControlBar" >
+            <setup>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myRichTextEditor" propertyName="showControlBar" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_AS_Set_Value_of_Property_showControlBar" keywords="[Property, showControlBar, RichTextEditor]" description="Checking AS set Value of Property showControlBar" >
+            <setup>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+                <SetProperty target="myRichTextEditor" propertyName="showControlBar" value="false" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myRichTextEditor" propertyName="showControlBar" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_Default_Value_of_Property_showToolTips" keywords="[Property, showToolTips, RichTextEditor]" description="Checking Default Value of Property showToolTips" >
+            <body>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+                <AssertPropertyValue target="myRichTextEditor" propertyName="showToolTips" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_AS_Set_Value_of_Property_showToolTips" keywords="[Property, showToolTips, RichTextEditor]" description="Checking AS set Value of Property showToolTips">
+            <setup>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+                <SetProperty target="myRichTextEditor" propertyName="showToolTips" value="false" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myRichTextEditor" propertyName="showToolTips" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_Default_Value_of_Property_defaultLinkProtocol" keywords="[Property, defaultLinkProtocol, RichTextEditor]" description="Checking Default Value of Property defaultLinkProtocol">
+            <body>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+                <AssertPropertyValue target="myRichTextEditor" propertyName="defaultLinkProtocol" value="http://" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_AS_Set_Value_of_Property_defaultLinkProtocol" keywords="[Property, defaultLinkProtocol, RichTextEditor]" description="Checking AS set Value of Property defaultLinkProtocol">
+            <setup>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+                <SetProperty target="myRichTextEditor" propertyName="defaultLinkProtocol" value="www.adobe.com" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myRichTextEditor" propertyName="defaultLinkProtocol" value="www.adobe.com" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_Default_Value_of_Property_text" keywords="[Property, text, RichTextEditor]" description="Checking Default Value of Property text">
+            <body>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+                <AssertPropertyValue target="myRichTextEditor" propertyName="text" value="" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_AS_Set_Value_of_Property_text"  keywords="[Property, text, RichTextEditor]" description="Checking AS set Value of Property text">
+            <setup>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+                <SetProperty target="myRichTextEditor" propertyName="htmlText" value="http://www.adobe.com" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myRichTextEditor" propertyName="text" value="http://www.adobe.com" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_Default_Value_of_Property_htmlText"  keywords="[Property, htmlText, RichTextEditor]" description="Checking Default Value of Property htmlText">
+            <body>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+                <AssertPropertyValue target="myRichTextEditor" propertyName="htmlText" value="" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_AS_Set_Value_of_Property_htmlText" keywords="[Property, htmlText, RichTextEditor]" description="Checking AS set Value of Property htmlText">
+            <setup>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+                <SetProperty target="myRichTextEditor" propertyName="htmlText" value="http://www.adobe.com" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myRichTextEditor" propertyName="text" value="http://www.adobe.com" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_Keyboard_Set_Value_of_Property_text" keywords="[Property, text, RichTextEditor]" description="Checking Keyboard set Value of Property text">
+            <setup>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+                <DispatchKeyEvent key="TAB"/>
+                <DispatchKeyEvent char="www.adobe.com"/>                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myRichTextEditor" propertyName="text" value="www.adobe.com" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_Keyboard_Set_Value_of_Property_htmlText" keywords="[Property, htmlText, RichTextEditor]" description="Checking Keyboard set Value of Property htmlText">
+            <setup>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+                <DispatchKeyEvent key="TAB"/>
+                <DispatchKeyEvent char="www.adobe.com"/>
+                <DispatchKeyEvent key="LEFT" shiftKey="true"/>
+                <DispatchKeyEvent key="LEFT" shiftKey="true"/>
+                <DispatchKeyEvent key="LEFT" shiftKey="true"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myRichTextEditor" propertyName="text" value="www.adobe.com" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_FontSizeComboBox_DropDown_Click" keywords="[Property, RichTextEditor, FontSizeCombo, MouseClick]" description="Checking FontSizeComboBox after mouse click on dropdown button">
+            <setup>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="myRichTextEditor.fontSizeCombo.getChildAt(1)" localX="5" localY="5" />
+                <AssertEvent target="myRichTextEditor.fontSizeCombo" eventName="open" eventClass="mx.events::DropdownEvent"/>
+                <WaitForEffectsToEnd/>
+                <DispatchMouseClickEvent target="myRichTextEditor.fontSizeCombo.getChildAt(1)" localX="5" localY="5" />
+                <AssertEvent target="myRichTextEditor.fontSizeCombo" eventName="close" eventClass="mx.events::DropdownEvent"/>
+                <WaitForEffectsToEnd/>
+                <CompareBitmap target="myRichTextEditor.fontSizeCombo" url="../properties/baselines/fontSizeCombo.png"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_FontSizeComboBox_TextField_Click" keywords="[Property, RichTextEditor, FontSizeCombo, TextField, MouseClick]" description="Checking FontSizeComboBox after mouse click on TextField">
+            <setup>
+                <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="myRichTextEditor.fontSizeCombo.getChildAt(2)" localX="5" localY="5" />
+                <WaitForEffectsToEnd/>
+                <CompareBitmap target="myRichTextEditor.fontSizeCombo" url="../properties/baselines/fontSizeComboText.png"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

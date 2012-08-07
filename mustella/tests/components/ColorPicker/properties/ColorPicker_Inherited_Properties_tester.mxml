@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ColorPicker/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ColorPicker_main.mxml">
+<!-- this set of lines form a template that must be in each unit test -->
+<mx:Script>
+<![CDATA[
+[Bindable]
+
+public var simpleDP:Array = ['0x000000', '0xFF0000', '0xFF8800', '0xFFFF00',
+'0x88FF00', '0x00FF00', '0x00FF88', '0x00FFFF', '0x0088FF', '0x0000FF',
+'0x8800FF', '0xFF00FF', '0xFFFFFF'];
+
+[Bindable]
+public var simpleDP1:Array = ['0xFF0000', '0xFF8800', '0xFFFF00',
+'0x88FF00', '0x00FF00', '0x00FF88', '0x00FFFF', '0x0088FF', '0x0000FF',
+'0x8800FF', '0xFF00FF', '0xFFFFFF'];
+
+[Bindable]
+public var ComplexDP:Array = [{label: "yellow", color:"0xCCFF00",mycolorfield:"0xCCFF00"}, {label: "black",color:"0x000000",mycolorfield:"0xCCFF00"},
+{label: "white",color:"0xFFFFFF",mycolorfield:"0xCCFF00"}, {label: "pink", color:"0XFF3366",mycolorfield:"0xCCFF00"},{label: "grey",color:"0x999999",mycolorfield:"0xCCFF00"}];
+
+[Bindable]
+public var ComplexDP1:Array = [{label: "black",color:"0x000000"},{label: "yellow", color:"0xCCFF00"},
+{label: "white",color:"0xFFFFFF"}, {label: "pink", color:"0XFF3366"},{label: "grey",color:"0x999999"}];
+[Bindable]
+
+public var ComplexDP2:Array = [{label: "yellow", color:"0xCCFF00",mylabelField:"0xCCFF00"}, {label: "black",color:"0x000000",mylabelField:"0xCCFF00"},
+{label: "white",color:"0xFFFFFF",mylabelField:"0xCCFF00"}, {label: "pink", color:"0XFF3366",mylabelField:"0xCCFF00"},{label: "grey",color:"0x999999",mylabelField:"0xCCFF00"}];
+
+public static function init(o:DisplayObject):void
+{
+}
+]]>
+</mx:Script>
+<mx:Metadata>
+<![CDATA[
+[Mixin]
+]]>
+</mx:Metadata>
+<!-- end of set of lines that must be in each unit test -->
+<mx:Script>
+<![CDATA[
+import mx.controls.ColorPicker;
+import mx.styles.StyleManager;
+import mx.managers.SystemManager;
+public function scriptFunction(a:String, b:int):String
+{
+return a + ":" + b.toString();
+}
+public var styleDecl:Object;
+public var styleObj:Object;
+
+]]>
+</mx:Script>
+
+<testCases>
+
+
+	<TestCase testID="Default_Set_Value_of_Property_editable"  keywords="[editable, ColorPicker]" description="Checking Default set Value of Inherited Property editable">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="editable" value="true" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="MXML_Set_Value_of_Property_editable"  keywords="[editable, ColorPicker]" description="Checking MXML set Value of Inherited Property editable">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			<SetProperty target="myColorPicker" propertyName="editable" value="false"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="editable" value="false"  />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="AS_Set_Value_of_Property_editable"  keywords="[editable, ColorPicker]" description="Checking AS set Value of Inherited Property editable">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			<RunCode code="application.myColorPicker.editable=false"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="editable" value="false" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_toolTip" keywords="[ColorPicker, toolTip, Inherited, Property]" description="Checking AS set Value of Inherited Property toolTip  using bitmap comparision">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			<SetProperty target="myColorPicker" propertyName="toolTip" value="My ColorPicker"/>
+		</setup>
+		<body>
+			<DispatchMouseEvent target="myColorPicker" type="mouseOver" localX="10" localY="10"/>
+			<AssertEvent target="myColorPicker" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" />
+			<AssertPropertyValue target="myColorPicker" propertyName="toolTip" value="My ColorPicker" />
+			<WaitForEffectsToEnd />
+			<CompareBitmap url="../properties/baselines/$testID.png" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Default_Value_of_Property_alpha" keywords="[ColorPicker, showTextField, Inherited, Property]" description="Checking Default Value of Property alpha">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="alpha" value="1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Set_Value_of_Property_alpha" keywords="[ColorPicker, alpha, Inherited, Property]" description="Checking MXML set Value of Inherited Property alpha  using bitmap comparision">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="alpha" value="0.5" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<WaitForEffectsToEnd />
+			<CompareBitmap url="../properties/baselines/$testID.png" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Set_Value_of_Property_alpha_selectedColor" keywords="[ColorPicker, alpha, Inherited, Property, trick]" description="Checking MXML set Value of Inherited Property alpha after setting selectedColor  using bitmap comparision">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="selectedColor" value="0xff0000"/>
+			<SetProperty target="myColorPicker" propertyName="alpha" value="0.5" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<WaitForEffectsToEnd />
+			<CompareBitmap url="../properties/baselines/$testID.png" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Default_Value_of_Property_height" keywords="[ColorPicker, showTextField, Inherited, Property]" description="Checking Default Value of Property height">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="height" value="22" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_height" keywords="[ColorPicker, height, Inherited, Property]" description="Checking AS set Value of Inherited Property height">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="height" value="40" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="height" value="40" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_height_selectedIndex" keywords="[ColorPicker, height, Inherited, Property, trick]" description="Checking AS set Value of Inherited Property height after setting selectedIndex using bitmap comparision">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="height" value="40"/>
+			<SetProperty target="myColorPicker" propertyName="selectedColor" value="0xff0000" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="height" value="40" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Default_Value_of_Property_width" keywords="[ColorPicker, showTextField, Inherited, Property]" description="Checking Default Value of Property width">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="width" value="22" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_width" keywords="[ColorPicker, width, Inherited, Property]" description="Checking AS set Value of Inherited Property width">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="width" value="40" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="width" value="40" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_width_selectedIndex" keywords="[ColorPicker, width, Inherited, Property, trick]" description="Checking AS set Value of Inherited Property width after setting selectedIndex">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="width" value="40"/>
+			<SetProperty target="myColorPicker" propertyName="selectedColor" value="0xff0000" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="width" value="40" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Set_Value_of_Property_rotation" keywords="[ColorPicker, rotation, Inherited, Property]" description="Checking MXML set Value of Inherited Property rotation  using bitmap comparision">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="rotation" value="-90" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<WaitForEffectsToEnd />
+			<CompareBitmap url="../properties/baselines/$testID.png" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Default_Value_of_Property_scaleX" keywords="[ColorPicker, showTextField, Inherited, Property]" description="Checking Default Value of Property scaleX">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="scaleX" value="1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_scaleX" keywords="[ColorPicker, scaleX, Inherited, Property]" description="Checking AS set Value of Inherited Property scaleX">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="scaleX" value="3" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="scaleX" value="3" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_scaleX_selectedIndex" keywords="[ColorPicker, scaleX, Inherited, Property, trick]" description="Checking AS set Value of Inherited Property scaleX after setting selectedIndex">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="scaleX" value="5"/>
+			<SetProperty target="myColorPicker" propertyName="selectedIndex" value="60" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="scaleX" value="5" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Default_Value_of_Property_scaleY" keywords="[ColorPicker, showTextField, Inherited, Property]" description="Checking Default Value of Property scaleY">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="scaleY" value="1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_scaleY" keywords="[ColorPicker, scaleY, Inherited, Property]" description="Checking AS set Value of Inherited Property scaleY">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="scaleY" value="2" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="scaleY" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_visible" keywords="[ColorPicker, visible, Inherited, Property]" description="Checking AS set Value of Inherited Property visible  using bitmap comparision">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="visible" value="false" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<WaitForEffectsToEnd />
+			<CompareBitmap url="../properties/baselines/$testID.png" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_enabled" keywords="[ColorPicker, enabled, Inherited, Property]" description="Checking AS set Value of Inherited Property enabled  using bitmap comparision">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<WaitForEffectsToEnd />
+			<CompareBitmap url="../properties/baselines/$testID.png" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Default_Value_of_Property_x" keywords="[ColorPicker, showTextField, Inherited, Property]" description="Checking Default Value of Property x">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="x" value="239" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_x" keywords="[ColorPicker, x, Inherited, Property]" description="Checking AS set Value of Inherited Property x">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			<SetProperty target="myColorPicker" propertyName="x" value="40" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="x" value="40" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_x_selectedIndex" keywords="[ColorPicker, x, Inherited, Property, trick]" description="Checking AS set Value of Inherited Property x after setting selectedIndex using bitmap comparision">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker" />
+			<RunCode code="application.myColorPicker.x=40" />
+			<RunCode code="application.myColorPicker.selectedIndex='60'" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="x" value="40" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Default_Value_of_Property_y" keywords="[ColorPicker, showTextField, Inherited, Property]" description="Checking Default Value of Property y">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="y" value="24" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="AS_Set_Value_of_Property_y" keywords="[ColorPicker, y, Inherited, Property]" description="Checking AS set Value of Inherited Property y">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="y" value="3" waitEvent="updateComplete" waitTarget="myColorPicker" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="y" value="3" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="MXML_Set_Value_of_Property_y_selectedColor" keywords="[ColorPicker, y, Inherited, Property, trick]" description="Checking MXML set Value of Inherited Property y after setting selectedColor">
+		<setup>
+			<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker" />
+			<SetProperty target="myColorPicker" propertyName="y" value="4"/>
+			<SetProperty target="myColorPicker" propertyName="selectedColor" value="0xff0000" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myColorPicker" propertyName="y" value="4" />
+		</body>
+	</TestCase>
+</testCases>
+</UnitTester>

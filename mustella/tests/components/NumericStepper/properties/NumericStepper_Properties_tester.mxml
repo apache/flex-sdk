@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/NumericStepper/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="NumericStepper_main.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}			
+
+		]]>
+
+	</mx:Script>
+
+	
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>	
+
+	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+			import mx.controls.NumericStepper;
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+
+		<TestCase testID="NumericStepper_maxChars_default" description="Test NumericStepper maxChars" keywords="[NumericStepper, maxChars, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="maxChars" value="0"/>
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="maximum" value="10"/>
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="minimum" value="0"/>
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="stepSize" value="1"/>
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="value" value="0"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_maxChars_2" description="Test NumericStepper maxChars" keywords="[NumericStepper, maxChars, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maxChars" value="2" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="221" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent char="2" />
+
+				<DispatchKeyEvent char="2" />
+
+				<DispatchKeyEvent char="0" />
+
+				<DispatchKeyEvent char="5" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="value" value="221"/>
+
+			</body>
+
+		</TestCase>   
+
+		<TestCase testID="NumericStepper_maximum_positive" description="Test NumericStepper for maximum" keywords="[NumericStepper, maximum, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="221" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="219" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[UP, UP, UP, UP, UP]" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="value" value="221"/>
+
+			</body>
+
+		</TestCase> 
+
+		<TestCase testID="NumericStepper_maximum_negative_1" description="Test NumericStepper for maximum" keywords="[NumericStepper, maximum, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="-1" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="minimum" value="-10" waitEvent="updateComplete" waitTarget="myNumericStepper" /> 
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="-3" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[UP, UP, UP, UP, UP]" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="value" value="-1"/>
+
+			</body>
+
+		</TestCase>	
+
+		<TestCase testID="NumericStepper_minimum_positive" description="Test NumericStepper for minimum" keywords="[NumericStepper, minimum, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="1000" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="minimum" value="221" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="225" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN, DOWN, DOWN]" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="value" value="221"/>
+
+			</body>
+
+		</TestCase> 
+
+		<TestCase testID="NumericStepper_maximum_negative_8" description="Test NumericStepper for maximum" keywords="[NumericStepper, maximum, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="-1" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="minimum" value="-10" waitEvent="updateComplete" waitTarget="myNumericStepper" /> 
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="-8" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN, DOWN, DOWN]" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="value" value="-10"/>
+
+			</body>
+
+		</TestCase>	
+
+		<TestCase testID="NumericStepper_nextValue_positive" description="Test NumericStepper for nextValue" keywords="[NumericStepper, nextValue, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="1000" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="minimum" value="221" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="225" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[UP, UP]" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="nextValue" value="240"/>
+
+			</body>
+
+		</TestCase> 
+
+		<TestCase testID="NumericStepper_nextValue_negative" description="Test NumericStepper for nextValue" keywords="[NumericStepper, nextValue, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="-1" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="minimum" value="-100" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="-25" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="stepSize" value="-3" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[DOWN, DOWN]" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="nextValue" value="-21"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_previousValue_positive" description="Test NumericStepper for previousValue" keywords="[NumericStepper, previousValue, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="1000" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="minimum" value="221" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="225" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[UP, UP]" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="previousValue" value="230"/>
+
+			</body>
+
+		</TestCase> 
+
+		<TestCase testID="NumericStepper_previousValue_negative" description="Test NumericStepper for previousValue" keywords="[NumericStepper, previousValue, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="-1" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="minimum" value="-100" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="-25" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="stepSize" value="-3" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[DOWN, DOWN]" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="previousValue" value="-15"/>
+
+			</body>
+
+		</TestCase>	
+
+		<TestCase testID="NumericStepper_previousValue_positive_230" description="Test NumericStepper for previousValue" keywords="[NumericStepper, previousValue, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="1000" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="minimum" value="221" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="225" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[UP, UP]" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="previousValue" value="230"/>
+
+			</body>
+
+		</TestCase> 
+
+		
+
+		<TestCase testID="NumericStepper_value_positive" description="Test NumericStepper for value" keywords="[NumericStepper, value, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="1000" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="minimum" value="221" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="225" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[UP, UP]" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="previousValue" value="230"/>
+
+			</body>
+
+		</TestCase> 
+
+		<TestCase testID="NumericStepper_value_negative" description="Test NumericStepper for previousValue" keywords="[NumericStepper, value, property]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="-1" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="minimum" value="-100" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="-25" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="stepSize" value="-3" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[DOWN, DOWN]" />
+
+				<AssertPropertyValue target="myNumericStepper" propertyName="previousValue" value="-15"/>
+
+			</body>
+
+		</TestCase>		
+
+	</testCases>
+
+</UnitTester>

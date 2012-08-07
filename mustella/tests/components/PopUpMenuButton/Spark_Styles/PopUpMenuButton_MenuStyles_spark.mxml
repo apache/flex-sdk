@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/PopUpMenuButton/Spark_Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="PopUpMenuButton_Custom_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    private function addSeparator(): void
+    {
+       var newChild:Object = <nodeitem type="separator" />;
+       application.popUp1.dataDescriptor.addChildAt(XML(application.popUp1.myDP).node[1], newChild, 1)
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+<!-- A Pause is used in the branchIcon test because flexqa04 fails w/o it. We haven't found a way to resolve it.-->
+<mx:Style source="menuStyles.css" />
+    <testCases>
+       <TestCase testID="AlternatingItemColors_css" keywords="[PopUpMenuButton, alternatingItemColors]" description="alternatingItemColors is set in css for PopUpMenuButton.">
+            <setup>
+                <ResetComponent target="popUp1" className="comps.MyPopUpMenuButton" waitEvent="updateComplete" waitTarget="popUp1" />
+                <SetStyle target="popUp1" styleName="popUpStyleName" value="redStripes" waitEvent="updateComplete" waitTarget="popUp1" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" />
+                <DispatchKeyEvent key="DOWN" waitTarget="popUp1" waitEvent="open"  ctrlKey="true" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="popUp1.popUp" url="../Spark_Styles/Baselines/$testID.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="branchIcon_css" keywords="[PopUpMenuButton, branchIcon]" description="branchIcon set in css for PopUpMenuButton.">
+            <setup>
+                <ResetComponent target="popUp1" className="comps.MyPopUpMenuButton" waitEvent="updateComplete" waitTarget="popUp1" />
+                <SetStyle target="popUp1" styleName="popUpStyleName" value="dinosaurBranch" waitEvent="updateComplete" waitTarget="popUp1" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" />
+                <Pause timeout="500" />
+                <DispatchKeyEvent key="DOWN" waitTarget="popUp1" waitEvent="open"  ctrlKey="true" />
+                <WaitForEffectsToEnd />
+                <Pause timeout="1000" />
+                <CompareBitmap target="popUp1.popUp" url="../Spark_Styles/Baselines/pmb_branchIcon_css.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textSelectedColor_css" description="PopUpMenuButton style textSelectedColor set in css to purple." keywords="[styles, textSelectedColor , PopUpMenuButton]">
+            <setup>
+                <ResetComponent target="popUp1" className="comps.MyPopUpMenuButton" waitEvent="updateComplete" waitTarget="popUp1" />
+                <SetStyle target="popUp1" styleName="popUpStyleName" value="purpleDown" waitEvent="updateComplete" waitTarget="popUp1" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" />
+                <DispatchKeyEvent key="DOWN" waitTarget="popUp1" waitEvent="open"  ctrlKey="true" />
+                <WaitForEffectsToEnd />
+                <DispatchKeyEvent keys="[DOWN, RIGHT]" waitEvent="menuShow" waitTarget="popUp1.popUp" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="popUp1.popUp.mx_internal:subMenus.1" waitTarget="popUp1.popUp.mx_internal:subMenus.1" waitEvent="mouseDown"   />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="popUp1.popUp.mx_internal:subMenus.1" url="../Spark_Styles/Baselines/pmb_textSelectedColor_css.png" timeout="2500" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

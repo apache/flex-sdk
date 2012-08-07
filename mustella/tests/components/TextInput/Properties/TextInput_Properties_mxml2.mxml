@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TextInput/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TextInput_props_mxml2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+		<mx:Script><![CDATA[
+			public static function init(o:DisplayObject):void{}
+		]]></mx:Script>
+
+		<mx:Metadata><![CDATA[
+			[Mixin]
+		]]></mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+		
+		
+	]]></mx:Script>
+	
+	
+	<!-- 
+		The pauses ARE needed!!  There is no event to wait for when loading an
+		image using htmlText.
+	-->
+	
+	<testCases>
+		<TestCase frequency="all" testID="property_htmlText_images_gif_mxml" keywords="[TextInput,htmlText,image,gif,properties,mxml]" description="htmlText displays a gif image correctly when set in mxml when set in mxml.">
+			<body>
+				<Pause timeout="100" />
+				<CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_images_gif_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_images_jpg_mxml" keywords="[TextInput,htmlText,image,jpg,properties,mxml]" description="htmlText displays a jpg image correctly when set in mxml when set in mxml.">
+			<body>
+				<Pause timeout="100" />
+				<CompareBitmap target="ti2" url="../Properties/Baselines/htmlText_images_jpg_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_images_png_mxml" keywords="[TextInput,htmlText,image,png,properties,mxml]" description="htmlText displays a png image correctly when set in mxml when set in mxml.">
+			<body>
+				<Pause timeout="100" />
+				<CompareBitmap target="ti3" url="../Properties/Baselines/htmlText_images_png_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_images_swf_mxml" keywords="[TextInput,htmlText,image,swf,properties,mxml]" description="htmlText displays a swf image correctly when set in mxml when set in mxml.">
+			<body>
+				<Pause timeout="100" />
+				<CompareBitmap target="ti4" url="../Properties/Baselines/htmlText_images_swf_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_img_sized_swf_mxml" keywords="[TextInput,htmlText,img,image,size,sized,properties,mxml]" description="htmlText displays sized swf correctly when set in mxml when set in mxml.">
+			<body>
+				<Pause timeout="100" />
+				<CompareBitmap target="ti5" url="../Properties/Baselines/htmlText_img_sized_swf_mxml.png" />
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="property_htmlText_img_sized_png_mxml" keywords="[TextInput,htmlText,img,image,size,sized,properties,mxml]" description="htmlText displays sized png correctly when set in mxml when set in mxml.">
+			<body>
+				<Pause timeout="100" />
+				<CompareBitmap target="ti6" url="../Properties/Baselines/htmlText_img_sized_png_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_img_alignLeft_mxml" keywords="[TextInput,htmlText,img,image,align,properties,mxml]" description="htmlText displays image align=left correctly when set in mxml when set in mxml.">
+			<body>
+				<Pause timeout="100" />
+				<CompareBitmap target="ti7" url="../Properties/Baselines/htmlText_img_alignLeft_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_img_alignRight_mxml" keywords="[TextInput,htmlText,img,image,align,properties,mxml]" description="htmlText displays image align=right correctly when set in mxml when set in mxml.">
+			<body>
+				<Pause timeout="100" />
+				<CompareBitmap target="ti8" url="../Properties/Baselines/htmlText_img_alignRight_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_img_hspace_0_mxml" keywords="[TextInput,htmlText,img,image,hspace,properties,mxml]" description="htmlText displays image hspace correctly when set in mxml when set in mxml.">
+			<body>
+				<Pause timeout="100" />
+				<CompareBitmap target="ti9" url="../Properties/Baselines/htmlText_img_hspace_0_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_img_hspace_30_mxml" keywords="[TextInput,htmlText,img,image,hspace,properties,mxml]" description="htmlText displays image hspace correctly when set in mxml when set in mxml.">
+			<body>
+				<Pause timeout="100" />
+				<CompareBitmap target="ti10" url="../Properties/Baselines/htmlText_img_hspace_30_mxml.png" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>
+

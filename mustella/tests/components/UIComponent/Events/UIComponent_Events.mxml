@@ -1,0 +1,192 @@
+<UnitTester testDir="components/UIComponent/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="../SWFs/UIComponent_Main.mxml">
+    
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import TrixUIComponent;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+        
+        <!-- DragEnter -->
+        <TestCase testID="DragEnter_Normal" keywords="[UIComponent, Events, DragEnter]" description="Raise the dragEnter event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myCanvas1" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myComponent" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <AssertEvent target="myComponent" eventName="dragEnter" eventClass="mx.events::DragEvent" numExpectedEvents="-1"/>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+            </body>
+        </TestCase>
+
+        <!-- DragOver -->
+        <TestCase testID="DragOver_Normal" keywords="[UIComponent, Events, DragOver]" description="Raise the dragOver event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myCanvas1" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myComponent" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myComponent" localX="10" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <AssertEvent target="myComponent" eventName="dragOver" eventClass="mx.events::DragEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <!-- DragExit -->
+        <TestCase testID="DragExit_Normal" keywords="[UIComponent, Events, DragExit]" description="Raise the dragExit event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myCanvas1" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myComponent" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myComponent" localX="10" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myCanvas2" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <AssertEvent target="myComponent" eventName="dragExit" eventClass="mx.events::DragEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <!-- DragDrop -->
+        <TestCase testID="DragDrop_Normal" keywords="[UIComponent, Events, DragDrop]" description="Raise the dragDrop event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myCanvas1" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myComponent" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10" waitTarget="myComponent" waitEvent="dragDrop"/>
+                <AssertEvent target="myComponent" eventName="dragDrop" eventClass="mx.events::DragEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <!-- DragComplete -->
+        <TestCase testID="DragComplete_Normal" keywords="[UIComponent, Events, DragComplete]" description="Raise the dragComplete event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myCanvas1" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="myComponent" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10" waitTarget="myComponent" waitEvent="dragDrop"/>
+                <AssertEvent target="myCanvas1" eventName="dragComplete" eventClass="mx.events::DragEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <!-- currentStateChanging -->
+        <TestCase testID="currentStateChanging_Normal" keywords="[UIComponent, Events, currentStateChanging]" description="Raise the currentStateChanging event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+                <RunCode code="application.myComponent.states.push(application.states[0]);"/>
+            </setup>
+            <body>
+                <SetProperty target="myComponent" propertyName="currentState" value="stateBlack" waitTarget="myComponent" waitEvent="currentStateChanging"/>
+                <AssertEvent target="myComponent" eventName="currentStateChanging" eventClass="mx.events::StateChangeEvent"/>
+            </body>
+        </TestCase>
+
+        <!-- currentStateChange -->
+        <TestCase testID="currentStateChange_Normal" keywords="[UIComponent, Events, currentStateChange]" description="Raise the currentStateChange event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+                <RunCode code="application.myComponent.states.push(application.states[0]);"/>
+            </setup>
+            <body>
+                <SetProperty target="myComponent" propertyName="currentState" value="stateBlack" waitTarget="myComponent" waitEvent="currentStateChange"/>
+                <AssertEvent target="myComponent" eventName="currentStateChange" eventClass="mx.events::StateChangeEvent"/>
+            </body>
+        </TestCase>
+
+        <!-- enterState -->
+        <TestCase testID="enterState_Normal" keywords="[UIComponent, Events, enterState]" description="Raise the enterState event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+                <RunCode code="application.myComponent.states.push(application.states[0]);"/>
+                <SetProperty target="myComponent" propertyName="currentState" value="stateBlack" waitTarget="myComponent" waitEvent="currentStateChange"/>
+            </setup>
+            <body>
+                <SetProperty target="myComponent" propertyName="currentState" value="" waitTarget="myComponent" waitEvent="enterState"/>
+                <AssertEvent target="myComponent" eventName="enterState" eventClass="mx.events::FlexEvent"/>
+            </body>
+        </TestCase>
+
+        <!-- exitState -->
+        <TestCase testID="exitState_Normal" keywords="[UIComponent, Events, exitState]" description="Raise the exitState event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+                <RunCode code="application.myComponent.states.push(application.states[0]);"/>
+            </setup>
+            <body>
+                <SetProperty target="myComponent" propertyName="currentState" value="stateBlack" waitTarget="myComponent" waitEvent="exitState"/>
+                <AssertEvent target="myComponent" eventName="exitState" eventClass="mx.events::FlexEvent"/>
+            </body>
+        </TestCase>
+
+        <!-- toolTipStart -->
+        <TestCase testID="toolTipStart_Normal" keywords="[UIComponent, Events, toolTipStart]" description="Raise the toolTipStart event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" target="myComponent" localX="5" localY="5" waitTarget="myComponent" waitEvent="toolTipStart"/>
+                <AssertEvent target="myComponent" eventName="toolTipStart" eventClass="mx.events::ToolTipEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <!-- toolTipCreate -->
+        <TestCase testID="toolTipCreate_Normal" keywords="[UIComponent, Events, toolTipCreate]" description="Raise the toolTipCreate event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" target="myComponent" localX="5" localY="5" waitTarget="myComponent" waitEvent="toolTipCreate" />
+                <AssertEvent target="myComponent" eventName="toolTipCreate" eventClass="mx.events::ToolTipEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <!-- toolTipShow -->
+        <TestCase testID="toolTipShow_Normal" keywords="[UIComponent, Events, toolTipShow]" description="Raise the toolTipShow event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" target="myComponent" localX="5" localY="5" waitTarget="myComponent" waitEvent="toolTipShow" />
+                <AssertEvent target="myComponent" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+        <!-- toolTipShown -->
+        <TestCase testID="toolTipShown_Normal" keywords="[UIComponent, Events, toolTipShown]" description="Raise the toolTipShown event.">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" target="myComponent" localX="10" localY="10"/>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" target="myComponent" localX="5" localY="5" waitTarget="myComponent" waitEvent="toolTipShown" />
+                <AssertEvent target="myComponent" eventName="toolTipShown" eventClass="mx.events::ToolTipEvent" numExpectedEvents="-1"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

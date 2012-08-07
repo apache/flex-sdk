@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/MenuBar/Halo/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MenuBar_Filters.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+
+	import mx.controls.MenuBar;
+
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	public function addData(mb:MenuBar):void
+    {
+	    mb.dataProvider = myDP;
+	  	mb.showRoot = false;
+	  	mb.labelField = "@label";
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.MenuBar;
+
+    [Bindable]
+    private var myDP:XML =
+    <topnode>
+		<node label="Europe" data="EUROPE">
+			<nodeitem type="check" label="Italy" enabled="false" data="ITALY" />
+			<nodeitem type="check" label="England" data="ENGLAND" toggled="true"/>
+			<nodeitem type="check" label="Slovenia" data="SLOVENIA" />
+		</node>
+		<node label="Asia" enabled="true" data="ASIA">
+		    <nodeitem type="radio" groupName="group1" label="Phillipines" enabled="false" data="PHILIPPINES"/>
+		    <nodeitem type="radio" groupName="group1" label="Japan" data="JAPAN"/>
+		    <nodeitem type="radio" groupName="group1" label="China" data="CHINA"/>
+		</node>
+		<node label="Africa" data="AFRICA">
+			<nodeitem label="Uganda" enabled="false" data="UGANDA"/>
+			<nodeitem label="South Africa" data="SOUTH AFRICA"/>
+			<nodeitem label="Nigeria" data="NIGERIA"/>
+		</node>
+	</topnode>;
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="MenuBar_DropShadowFilter"  description="MenuBar with a DropShadow filter." keywords="[DropShadowFilter, MenuBar]" >
+			<body>
+				<RunCode code="addData(application.mb)" waitTarget="mb" waitEvent="updateComplete" />
+				<AssertPixelValue x="341" y="34" target="" value="0xFF7A7A" />
+				<AssertPixelValue x="189" y="47" target="" value="0xFF8080" />
+			</body>
+		</TestCase>
+		<TestCase testID="BevelFilter"  description="MenuBar with a BevelFilter." keywords="[BevelFilter, MenuBar]" >
+			<body>
+				<RunCode code="addData(application.mb2)" waitTarget="mb2" waitEvent="updateComplete" />
+				<AssertPixelValue x="178" y="4" target="mb2" value="0" />
+				<AssertPixelValue x="5" y="21" target="mb2" value="0xC54546" />
+			</body>
+		</TestCase>
+		<TestCase testID="MenuBar_BlurFilter"  description="MenuBar with a BlurFilter." keywords="[BlurFilter, MenuBar]" >
+			<body>
+				<RunCode code="addData(application.mb3)" waitTarget="mb3" waitEvent="updateComplete" />
+				<CompareBitmap url="../Integration/baselines/mb_blurFilter.png" target="mb3.menuBarItems.1" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="MenuBar_ColorMatrixFilter"  description="MenuBar with a ColorMatrixFilter." keywords="[ColorMatrixFilter, MenuBar]" >
+			<body>
+				<RunCode code="addData(application.mb4)" waitTarget="mb4" waitEvent="updateComplete" />
+				<AssertPixelValue x="4" y="6" target="mb4" value="0x73F873" />
+				<AssertPixelValue x="170" y="9" target="mb4" value="0x7BF47B" />
+			</body>
+		</TestCase>
+		<TestCase testID="MenuBar_ConvolutionFilter"  description="MenuBar with a ConvolutionFilter." keywords="[ConvolutionFilter, MenuBar]" >
+			<body>
+				<RunCode code="addData(application.mb5)" waitTarget="mb5" waitEvent="updateComplete" />
+				<AssertPixelValue x="177" y="11" target="mb5" value="0" />
+				<AssertPixelValue x="4" y="7" target="mb5" value="0x767676" />
+			</body>
+		</TestCase>
+		<TestCase testID="MenuBar_GlowFilter"  description="MenuBar with a GlowFilter." keywords="[GlowFilter, MenuBar]" >
+			<body>
+				<RunCode code="addData(application.mb7)" waitTarget="mb7" waitEvent="updateComplete" />
+				<AssertPixelValue x="9" y="11" target="mb7" value="0x73F273" />
+				<AssertPixelValue x="171" y="8" target="mb7" value="0x7DF57D" />
+			</body>
+		</TestCase>
+		<TestCase testID="MenuBar_GradientBevelFilter"  description="MenuBar with a GradientBevelFilter." keywords="[GradientBevelFilter, MenuBar]" >
+			<body>
+				<RunCode code="addData(application.mb8)" waitTarget="mb8" waitEvent="updateComplete" />
+				<CompareBitmap url="../Integration/baselines/mb_gradientBevelFilter.png" target="mb8.menuBarItems.1" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="MenuBar_GradientGlowFilter"  description="MenuBar with a GradientGlowFilter." keywords="[GradientGlowFilter, MenuBar]" >
+			<body>
+				<RunCode code="addData(application.mb9)" waitTarget="" waitEvent="updateComplete" />
+				<Pause timeout="1000"/>
+				<CompareBitmap url="../Integration/baselines/mb_gradientGlowFilter.png" target="mb9.menuBarItems.1" timeout="2000" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

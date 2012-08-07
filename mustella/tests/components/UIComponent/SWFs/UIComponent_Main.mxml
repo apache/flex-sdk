@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application height="500" width="500"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:trix="*"
+    backgroundColor="0xFFFFFF">
+
+    <mx:Script>
+        <![CDATA[
+
+        import mx.core.DragSource;
+        import mx.managers.DragManager;
+        import mx.events.*;
+        import mx.containers.Canvas;
+        import mx.managers.ToolTipManager;
+
+        // Initializes the drag and drop operation.
+        public function mouseMoveHandler(event:MouseEvent):void {
+            
+            // Get the drag initiator component from the event object.
+            var dragInitiator:Canvas=Canvas(event.currentTarget);
+            
+            // Get the color of the drag initiator component.
+            var dragColor:int = dragInitiator.getStyle('backgroundColor');
+
+            // Create a DragSource object.
+            var ds:DragSource = new DragSource();
+
+            // Add the data to the object.
+            ds.addData(dragColor, 'color');
+
+            // Call the DragManager doDrag() method to start the drag. 
+            DragManager.doDrag(dragInitiator, ds, event);
+        }
+
+        // Called when the user moves the drag proxy onto the drop target.
+        public function dragEnterHandler(event:DragEvent):void {
+
+            // Accept the drag only if the user is dragging data 
+            // identified by the 'color' format value.
+            if (event.dragSource.hasFormat('color')) {
+
+                // Get the drop target component from the event object.
+                var dropTarget:Canvas=Canvas(event.currentTarget);
+                // Accept the drop.
+                DragManager.acceptDragDrop(dropTarget);
+            }
+        }
+                
+        // Called if the target accepts the dragged object and the user 
+        // releases the mouse button while over the Canvas container. 
+        public function dragDropHandler(event:DragEvent):void {
+
+            // Get the data identified by the color format 
+            // from the drag source.
+            var data:Object = event.dragSource.dataForFormat('color');
+            // Set the canvas color.
+            myComponent.setStyle("backgroundColor", data);
+        }
+        
+        public function dragOverHandler(event:DragEvent):void {
+            //Do nothing
+        }
+        ]]>
+    </mx:Script>
+
+    <mx:states>
+        <mx:State name="stateBlack">
+            <mx:SetStyle target="{myComponent}" name="backgroundColor" value="#000000"/>
+        </mx:State>
+        <mx:State name="stateBlue">
+            <mx:SetStyle target="{myComponent}" name="backgroundColor" value="#9999FF"/>
+        </mx:State>
+    </mx:states>
+
+
+    <!-- Main app area -->
+    <!-- A horizontal box with red and green canvases that the user can drag. -->
+    <mx:HBox>
+        <mx:Canvas id="myCanvas1"
+            width="30" height="30"
+            backgroundColor="red"
+            borderStyle="solid"
+            mouseMove="mouseMoveHandler(event);"/>
+        <mx:Canvas id ="myCanvas2"
+            width="30" height="30"
+            backgroundColor="green"
+            borderStyle="solid"
+            mouseMove="mouseMoveHandler(event);"/>
+    </mx:HBox>
+
+    <!-- Handles dragEnter and dragDrop events to allow dropping. -->
+    <trix:TrixUIComponent id="myComponent"
+        width="100" 
+        height="100" 
+        backgroundColor="#9999FF" 
+        borderStyle="solid" 
+        borderColor="#000000" 
+        dragEnter="dragEnterHandler(event);" 
+        dragDrop="dragDropHandler(event);" />
+
+</mx:Application>

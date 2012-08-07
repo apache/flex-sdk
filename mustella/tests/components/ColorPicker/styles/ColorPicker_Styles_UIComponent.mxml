@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ColorPicker/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ColorPicker_InContainer.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.ColorPicker;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import RedFocusRect;
+	import flash.display.BlendMode;
+
+	]]>
+	</mx:Script>
+	<testCases>
+        <TestCase testID="bottom_0" description="ColorPicker style bottom=0" keywords="[styles, bottom, ColorPicker]">
+			<setup>
+			    <ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="bottom" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetProperty target="cp" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="cp" value="120" />
+			</body>
+		</TestCase>
+		<TestCase testID="bottom_20" description="ColorPicker style bottom=20." keywords="[styles, bottom, ColorPicker]">
+			<setup>
+				<ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="bottom" target="cp" value="20" waitEvent="updateComplete" waitTarget="cp" />
+				<SetProperty target="cp" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="cp" value="100" />
+			</body>
+		</TestCase>
+        <TestCase testID="top_0" description="ColorPicker style top=0" keywords="[styles, top, ColorPicker]">
+			<setup>
+			    <ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="top" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetProperty target="cp" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="cp" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="top_20" description="ColorPicker style top=20." keywords="[styles, top, ColorPicker]">
+			<setup>
+				<ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="top" target="cp" value="20" waitEvent="updateComplete" waitTarget="cp" />
+				<SetProperty target="cp" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="cp" value="20" />
+			</body>
+		</TestCase>
+        <TestCase testID="right_0" description="ColorPicker style right=0" keywords="[styles, right, ColorPicker]">
+			<setup>
+			    <ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="right" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetProperty target="cp" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="cp" value="100" />
+			</body>
+		</TestCase>
+		<TestCase testID="right_20" description="ColorPicker style right=20." keywords="[styles, right, ColorPicker]">
+			<setup>
+				<ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="right" target="cp" value="20" waitEvent="updateComplete" waitTarget="cp" />
+				<SetProperty target="cp" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="cp" value="80" />
+			</body>
+		</TestCase>
+        <TestCase testID="left_0" description="ColorPicker style left=0" keywords="[styles, left, ColorPicker]">
+			<setup>
+			    <ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="left" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetProperty target="cp" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="cp" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="left_20" description="ColorPicker style left=20." keywords="[styles, left, ColorPicker]">
+			<setup>
+				<ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="left" target="cp" value="20" waitEvent="updateComplete" waitTarget="cp" />
+				<SetProperty target="cp" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="cp" value="20" />
+			</body>
+		</TestCase>
+
+        <TestCase testID="horizontalCenter_0" description="ColorPicker style horizontalCenter=0" keywords="[styles, left, ColorPicker]">
+			<setup>
+			    <ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="horizontalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetProperty target="cp" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="cp" value="50" />
+			</body>
+		</TestCase>
+		<TestCase testID="horizontalCenter_positive" description="ColorPicker style horizontalCenter=20." keywords="[styles, left, ColorPicker]">
+			<setup>
+				<ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="horizontalCenter" target="cp" value="20" waitEvent="updateComplete" waitTarget="cp" />
+				<SetProperty target="cp" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="cp" value="70" />
+			</body>
+		</TestCase>
+		<TestCase testID="horizontalCenter_negative" description="ColorPicker style horizontalCenter=-20." keywords="[styles, left, ColorPicker]">
+			<setup>
+				<ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="horizontalCenter" target="cp" value="-20" waitEvent="updateComplete" waitTarget="cp" />
+				<SetProperty target="cp" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="cp" value="30" />
+			</body>
+		</TestCase>
+        <TestCase testID="verticalCenter_0" description="ColorPicker style verticalCenter=0" keywords="[styles, left, ColorPicker]">
+			<setup>
+			    <ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="verticalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetProperty target="cp" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="cp" value="75" />
+			</body>
+		</TestCase>
+		<TestCase testID="verticalCenter_positive" description="ColorPicker style verticalCenter=20." keywords="[styles, left, ColorPicker]">
+			<setup>
+				<ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="verticalCenter" target="cp" value="20" waitEvent="updateComplete" waitTarget="cp" />
+				<SetProperty target="cp" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="cp" value="95" />
+			</body>
+		</TestCase>
+		<TestCase testID="verticalCenter_negative" description="ColorPicker style verticalCenter=-20." keywords="[styles, left, ColorPicker]">
+			<setup>
+				<ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="verticalCenter" target="cp" value="-20" waitEvent="updateComplete" waitTarget="cp" />
+				<SetProperty target="cp" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="cp" value="55" />
+			</body>
+		</TestCase>
+		<TestCase testID="focusThickness_0" description="ColorPicker style focusThickness=0." keywords="[styles, focusThickness, ColorPicker]">
+			<setup>
+			    <ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetProperty target="cp" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="cp"/>
+			    <SetProperty target="cp" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="cp"/>
+			    <SetProperty target="canvas1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="horizontalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="focusThickness" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="cp" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/focusThickness_0.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusThickness_8" description="ColorPicker style focusThickness=8." keywords="[styles, focusThickness, ColorPicker]">
+			<setup>
+			    <ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetProperty target="cp" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="cp"/>
+			    <SetProperty target="cp" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="cp"/>
+			    <SetProperty target="canvas1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="horizontalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="focusThickness" target="cp" value="8" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="cp" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/focusThickness_8.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusSkin_custom" description="ColorPicker style focusSkin=RedFocusRect." keywords="[styles, focusThickness, ColorPicker]">
+			<setup>
+			    <ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetProperty target="cp" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="cp"/>
+			    <SetProperty target="cp" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="cp"/>
+			    <SetProperty target="canvas1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="horizontalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="focusSkin" target="cp" valueExpression="value=RedFocusRect" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="cp" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/focusSkin_custom.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusBlend_screen" description="ColorPicker style focusThickness=8." keywords="[styles, focusThickness, ColorPicker]">
+			<setup>
+			    <ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetProperty target="cp" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="cp"/>
+			    <SetProperty target="cp" propertyName="width" value="95" waitEvent="updateComplete" waitTarget="cp"/>
+			    <SetProperty target="canvas1" propertyName="height" value="75" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="horizontalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="focusBlend" target="cp" valueExpression="value=BlendMode.SCREEN" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="focusThickness" target="cp" value="8" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="cp" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/focusBlend_screen.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusBlend_subtract" description="ColorPicker style focusThickness=8." keywords="[styles, focusThickness, ColorPicker]">
+			<setup>
+			    <ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetProperty target="cp" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="cp"/>
+			    <SetProperty target="cp" propertyName="width" value="99" waitEvent="updateComplete" waitTarget="cp"/>
+			    <SetProperty target="canvas1" propertyName="height" value="78" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+				<SetStyle styleName="horizontalCenter" target="cp" value="0" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="focusBlend" target="cp" valueExpression="value=BlendMode.SUBTRACT" waitEvent="updateComplete" waitTarget="cp" />
+			    <SetStyle styleName="focusThickness" target="cp" value="8" waitEvent="updateComplete" waitTarget="cp" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="cp" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/focusBlend_subtract.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+	</testCases>
+</UnitTester>

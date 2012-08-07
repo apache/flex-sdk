@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Slider/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="HSlider_main_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.HSlider;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    ]]>
+    </mx:Script>
+
+    <mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+        .myColorStyle {
+            color: #FF0000;
+        }
+    </mx:Style>
+
+    <testCases>
+
+        <TestCase testID="Spark_HSlider_styles_borderColor_Default" keywords="[styles, borderColor,Default,  HSlider]" description="Checking the default borderColor Style using the compare bit map feature" >
+            <setup>
+               <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/borderColor_Default_bm_spark.png" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_borderColor" keywords="[styles, borderColor, HSlider]" description="Checking the borderColor Style using the compare bit map feature" >
+            <setup>
+               <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+               <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+               <SetStyle target="myHSlider" styleName="borderColor" value="0xff0000" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/borderColor_bm_spark.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_dataTipOffset_Default" keywords="[styles, dataTipOffset, Default,  HSlider]" description="Checking the default dataTipOffset Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseMove"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseDown"/>
+                <DispatchMouseEvent target="myHSlider" localX="60" localY="6" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/dataTipOffset_Default_bm_spark.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_dataTipOffset" keywords="[styles, dataTipOffset, HSlider]" description="Checking the dataTipOffset Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetStyle target="myHSlider" styleName="dataTipOffset" value="-20" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseMove"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseDown"/>
+                <DispatchMouseEvent target="myHSlider" localX="60" localY="6" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/dataTipOffset_bm_spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_HSlider_styles_dataTipPrecision" keywords="[styles, dataTipPrecision, HSlider]" description="Checking the dataTipPrecision Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetStyle target="myHSlider" styleName="dataTipOffset" value="-20" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetStyle target="myHSlider" styleName="dataTipPrecision" value="0" waitEvent="updateComplete" waitTarget="myHSlider" />
+
+            </setup>
+            <body>
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseMove"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseDown"/>
+                <DispatchMouseEvent target="myHSlider" localX="60" localY="6" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/dataTipPrecision_bm_spark.png"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_dataTipStyleName" keywords="[styles, dataTipStyleName, HSlider]" description="Checking the dataTipStyleName Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetStyle target="myHSlider" styleName="dataTipOffset" value="-20" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetStyle target="myHSlider" styleName="dataTipStyleName" value="myColorStyle" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseMove"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseDown"/>
+                <DispatchMouseEvent target="myHSlider" localX="60" localY="6" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/dataTipStyleName_bm_spark.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_fillAlphas" keywords="[styles, fillAlphas , HSlider]" description="Checking the fillAlphas Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetStyle target="myHSlider" styleName="dataTipOffset" value="-20" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <SetStyle target="myHSlider" styleName="fillAlphas" value="[0,0,0,0]" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/fillAlphas_bm_spark.png" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_HSlider_styles_fillColors" keywords="[styles, fillColors , HSlider]" description="Checking the fillColors Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetStyle target="myHSlider" styleName="dataTipOffset" value="-20" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <SetStyle target="myHSlider" styleName="fillColors" value="[0xff0000,0xff0000,0xff0000,0xff0000]" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/fillColors_bm_spark.png"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_labelOffset_Default" keywords="[styles, labelOffset, Default, HSlider]" description="Checking the Default labelOffset Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <SetProperty target="myHSlider" propertyName="labels" value="['Start','Middle','End']"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseMove"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseDown"/>
+                <DispatchMouseEvent target="myHSlider" localX="60" localY="6" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/labelOffset_Default_bm_spark.png"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_labelOffset" keywords="[styles, labelOffset, MXML Set,  HSlider]" description="Checking the labelOffset Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetStyle target="myHSlider" styleName="labelOffset" value="0" waitEvent="updateComplete" waitTarget="myHSlider" />
+
+            </setup>
+            <body>
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <SetProperty target="myHSlider" propertyName="labels" value="['Start','Middle','End']"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseMove"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseDown"/>
+                <DispatchMouseEvent target="myHSlider" localX="60" localY="6" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myHSlider" url="../styles/baselines/labelOffset_bm_spark.png"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_labelStyleName_Default" keywords="[styles, labelStyleName, Default, HSlider]" description="Checking the Default labelStyleName Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <SetProperty target="myHSlider" propertyName="labels" value="['Start','Middle','End']"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseMove"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseDown"/>
+                <DispatchMouseEvent target="myHSlider" localX="60" localY="6" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/labelStyleName_Default_bm_spark.png"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_labelStyleName" keywords="[styles, labelStyleName, MXML Set,  HSlider]" description="Checking the labelStyleName Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetStyle target="myHSlider" styleName="labelStyleName" value="myColorStyle" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <SetProperty target="myHSlider" propertyName="labels" value="['Start','Middle','End']"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseMove"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseDown"/>
+                <DispatchMouseEvent target="myHSlider" localX="60" localY="6" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/labelStyleName_bm_spark.png" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Spark_HSlider_styles_showTrackHighlight_Default" keywords="[styles, showTrackHighlight, Default, HSlider]" description="Checking the Default showTrackHighlight Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseMove"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseDown"/>
+                <DispatchMouseEvent target="myHSlider" localX="60" localY="6" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/showTrackHighlight_Default_bm_spark.png"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_showTrackHighlight" keywords="[styles, showTrackHighlight, MXML Set,  HSlider]" description="Checking the showTrackHighlight Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetStyle target="myHSlider" styleName="showTrackHighlight" value="true" waitEvent="updateComplete" waitTarget="myHSlider" />
+            </setup>
+            <body>
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseMove"/>
+                <DispatchMouseEvent target="myHSlider" localX="6" localY="6" type="mouseDown"/>
+                <DispatchMouseEvent target="myHSlider" localX="60" localY="6" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/showTrackHighlight_bm_spark.png"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_tickColor" keywords="[styles, tickColor, MXML Set,  HSlider]" description="Checking the tickColor Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <SetProperty target="myHSlider" propertyName="tickInterval" value="2"/>
+                <SetStyle target="myHSlider" styleName="tickColor" value="0xff0000" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/tickColor_bm_spark.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_HSlider_styles_tickLength" keywords="[styles, tickLength, MXML Set,  HSlider]" description="Checking the tickLength Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <SetProperty target="myHSlider" propertyName="tickInterval" value="2"/>
+                <SetStyle target="myHSlider" styleName="tickLength" value="20"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/tickLength_bm_spark.png"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_tickOffset" keywords="[styles, tickOffset, MXML Set,  HSlider]" description="Checking the tickOffset Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <SetProperty target="myHSlider" propertyName="tickInterval" value="2"/>
+                <SetStyle target="myHSlider" styleName="tickOffset" value="0"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/tickOffset_bm_spark.png"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_tickThickness" keywords="[styles, tickThickness, MXML Set,  HSlider]" description="Checking the tickThickness Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <SetProperty target="myHSlider" propertyName="tickInterval" value="2"/>
+                <SetStyle target="myHSlider" styleName="tickThickness" value="5" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/tickThickness_bm_spark.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_HSlider_styles_trackColors" keywords="[styles, trackColors , HSlider]" description="Checking the trackColors Style using the compare bit map feature" >
+            <setup>
+                <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+                <ResetComponent target="myHSlider" className="mx.controls.HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+                <SetStyle target="myHSlider" styleName="fillAlphas" value="[1,1,1,1]" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <SetStyle target="myHSlider" styleName="trackColors" value="[0xff0000,0x0000ff]" waitEvent="updateComplete" waitTarget="myHSlider" />
+
+            </setup>
+            <body>
+                <CompareBitmap target="myHSlider" url="../styles/baselines/trackColors_bm_spark.png"  />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Alert/Versioning/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Alert_MP_Basic.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import mx.core.IFlexDisplayObject;
+       import mx.events.FlexEvent;
+       import flash.utils.*;
+       import mx.core.FlexSprite;
+
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+        
+       public function returnRemoteURL(url:String): String
+       {
+           var urlExtra:String="http://localhost:" + portNumber + "/";
+               if (UnitTester.isVettingRun)
+                  urlExtra+="staging/";
+               
+               urlExtra += url;
+               
+               return urlExtra;
+
+       }
+
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+         <TestCase testID="MP_Alert_clickHandlers_trusted" description="Test that click handlers on an Alert in a trusted child app work." keywords="[Alert, Marshall Plan, trusted]">
+             <setup>
+               <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="Assets/child_swfs/MP_Alert_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.showAlert_button"
+                    waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="13" localY="8" target="swf1.content.document.jPop.mx_internal:alertForm.buttons.0"
+                    waitEvent="updateComplete" waitTarget="swf1.content.document.box2" />
+                <AssertStyleValue styleName="backgroundColor" value="0x0000FF" target="swf1.content.document.box2" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_Alert_trusted_checkMask" description="Test that mask on an Alert in a trusted child app works." keywords="[Alert, Marshall Plan, trusted]">
+             <setup>
+               <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="Assets/child_swfs/MP_Alert_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.showAlert_button"
+                    waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="box_container" url="../Versioning/baselines/mp_alert_mask_trusted.png" timeout="2500" />
+            </body>
+         </TestCase>
+         <TestCase testID="MP_Alert_clickHandlers_compatible" description="Test that click handlers on an Alert in a compatible child app work." keywords="[Alert, Marshall Plan, compatible]">
+             <setup>
+               <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="Assets/child_swfs/MP_Alert_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.showAlert_button"
+                    waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
+                <Pause timeout="100" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="13" localY="8" target="swf1.content.document.jPop.mx_internal:alertForm.buttons.0"
+                    waitEvent="updateComplete" waitTarget="swf1.content.document.box2" />
+                <AssertStyleValue styleName="backgroundColor" value="0x0000FF" target="swf1.content.document.box2" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_Alert_compatible_checkMask" description="Test that mask on an Alert in a compatibile child app works." keywords="[Alert, Marshall Plan, trusted]">
+             <setup>
+               <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="Assets/child_swfs/MP_Alert_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.showAlert_button"
+                    waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
+                <WaitForEffectsToEnd />
+                <Pause timeout="150" />
+                <CompareBitmap target="box_container" url="../Versioning/baselines/mp_alert_mask_compatible.png" timeout="2500" />
+            </body>
+         </TestCase>
+         <!--TestCase testID="MP_Alert_clickHandlers_untrusted" description="Test that click handlers on an Alert in a untrusted child app work." keywords="[Alert, Marshall Plan, untrusted]">
+             <setup>
+               <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" valueExpression="value=returnRemoteURL('components/Alert/SWFs/Assets/child_swfs/MP_Alert_Child.swf')" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <WaitForSandboxApp target="swf1" />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.showAlert_button"
+                    waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent localX="13" localY="8" target="swf1.content.document.jPop.mx_internal:alertForm.buttons.0"
+                    waitEvent="updateComplete" waitTarget="swf1.content.document.box2" />
+                <AssertStyleValue styleName="backgroundColor" value="0x0000FF" target="swf1.content.document.box2" />
+           </body>
+         </TestCase -->
+         <!--TestCase testID="MP_Alert_untrusted_checkMask" description="Test that mask on an Alert in a untrusted child app works." keywords="[Alert, Marshall Plan, trusted]">
+             <setup>
+               <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" valueExpression="value=returnRemoteURL('components/Alert/SWFs/Assets/child_swfs/MP_Alert_Child.swf')" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <WaitForSandboxApp target="swf1" />
+                <DispatchMouseClickEvent localX="14" localY="8" target="swf1.content.document.showAlert_button"
+                    waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="box_container" url="../Versioning/baselines/mp_alert_mask_untrusted.png" timeout="2500" />
+            </body>
+         </TestCase-->
+         <TestCase testID="MP_AlertParentIsChildApp_trusted" description="Test that Alerts are positioned correctly when the parent is the child app." keywords="[Alert, Marshall Plan, trusted]">
+             <setup>
+               <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="Assets/child_swfs/MP_Alert_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.swf1.content.document.showPopupWithParent(application.swf1.content)" waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue propertyName="x" value="278" target="swf1.content.document.jPop" />
+                <AssertPropertyValue propertyName="y" value="170" target="swf1.content.document.jPop" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_AlertParentIsParentApp_trusted" description="Test that Alerts are positioned correctly when the parent is the parent app." keywords="[Alert, Marshall Plan, trusted]">
+             <setup>
+               <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="Assets/child_swfs/MP_Alert_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.swf1.content.document.showPopupWithParent(application)" waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue propertyName="x" value="278" target="swf1.content.document.jPop" />
+                <AssertPropertyValue propertyName="y" value="246" target="swf1.content.document.jPop" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_AlertParentIsChildApp_compatible" description="Test that Alerts are positioned correctly when the parent is the child app." keywords="[Alert, Marshall Plan, compatible]">
+             <setup>
+               <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="Assets/child_swfs/MP_Alert_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <RunCode code="application.swf1.content.document.showPopupWithParent(application.swf1.content)" waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
+                <WaitForEffectsToEnd />
+                <Pause timeout="200" />
+                <AssertPropertyValue propertyName="x" value="429" target="swf1.content.document.jPop" />
+                <AssertPropertyValue propertyName="y" value="232" target="swf1.content.document.jPop" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_AlertParentIsParentApp_compatible" description="Test that Alerts are positioned correctly when the parent is the parent app." keywords="[Alert, Marshall Plan, compatible]">
+             <setup>
+               <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/redrect.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+               <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+               <SetProperty target="swf1" propertyName="source" value="Assets/child_swfs/MP_Alert_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <Pause timeout="2000" />
+                <RunCode code="application.swf1.content.document.popUpFromCompatible()" waitTarget="swf1.content.document.jPop" waitEvent="creationComplete"/>
+                <WaitForEffectsToEnd />
+                <Pause timeout="200" />
+                <AssertPropertyValue propertyName="x" value="278" target="swf1.content.document.jPop" />
+                <AssertPropertyValue propertyName="y" value="170" target="swf1.content.document.jPop" />
+           </body>
+         </TestCase>
+         <TestCase testID="MP_Alert_cleanupAlert" description="Placeholder, cleanup test case." keywords="[Alert, Marshall Plan, trusted]">
+            <body>
+               <ResetComponent target="ti" className="mx.controls.TextInput" waitTarget="ti"
+                   waitEvent="updateComplete" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+               <SetProperty target="swf1" propertyName="source" value="../../../../Assets/Images/blank.GIF" waitTarget="swf1" waitEvent="updateComplete"/>
+            </body>
+         </TestCase>
+
+    </testCases>
+</UnitTester>

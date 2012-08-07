@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TextArea/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TextArea_Component.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            public static function init(o:DisplayObject):void{}
+        ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script><![CDATA[
+
+        [Embed(source='../../../../Assets/Images/greenrect.jpg')]
+        public var myPNG:String;
+
+        [Embed(source='../../../../Assets/Images/bluerect.jpg')]
+        public var myJPG:String;
+
+        [Embed(source='../../../../Assets/Images/orangerect.jpg')]
+        public var myGIF:String;
+
+        [Embed(source='../../../../Assets/Images/greenrect.jpg')]
+        public var mySWF:Class;
+
+    ]]></mx:Script>
+
+    <mx:Style>
+        @font-face{
+            src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+            fontFamily: "myArial";
+            fontAntiAliasType: "normal";
+			embedAsCFF: false;
+        }
+
+        @font-face{
+            src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+            fontFamily: "myComicSansMS";
+            fontAntiAliasType: "normal";
+			embedAsCFF: false;
+        }
+
+        @font-face{
+            src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+            fontFamily: "myVerdana";
+            fontAntiAliasType: "normal";
+			embedAsCFF: false;
+        }
+
+        @font-face{
+            src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+            fontFamily: "myCourier";
+            fontAntiAliasType: "normal";
+			embedAsCFF: false;
+        }
+
+        @font-face{
+            src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+            fontFamily: "mySymbol";
+            fontAntiAliasType: "normal";
+			embedAsCFF: false;
+        }
+
+        @font-face {
+            src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+            fontFamily: "Hancock";
+            fontAntiAliasType: "normal";
+        }
+
+        @font-face {
+            src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+            fontFamily: "Vivaldi";
+            fontAntiAliasType: "normal";
+        }
+    </mx:Style>
+
+    <testCases>
+
+        <TestCase frequency="all" testID="style_backgroundDisabledColor_text" keywords="[TextArea,styles,backgroundDisabledColor]" description="Test setting backgroundDisabledColor with a text value.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="enabled" value="false" />
+                <SetStyle target="ta1" styleName="backgroundDisabledColor" value="red" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <AssertPixelValue target="ta1" x="10" y="10" value="0xFF0000" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_backgroundDisabledColor_0x" keywords="[TextArea,styles,backgroundDisabledColor]" description="Test setting backgroundDisabledColor with a hex value.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="enabled" value="false" />
+                <SetStyle target="ta1" styleName="backgroundDisabledColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <AssertPixelValue target="ta1" x="10" y="10" value="0xFF0000" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_backgroundDisabledColor_pound" keywords="[TextArea,styles,backgroundDisabledColor]" description="Test setting backgroundDisabledColor with a pound value.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="enabled" value="false" />
+                <SetStyle target="ta1" styleName="backgroundDisabledColor" value="#FF0000" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <AssertPixelValue target="ta1" x="10" y="10" value="0xFF0000" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_backgroundDisabledColor_enabled" keywords="[TextArea,styles,backgroundDisabledColor]" description="Test setting backgroundDisabledColor when field is enabled.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="enabled" value="true" />
+                <SetStyle target="ta1" styleName="backgroundDisabledColor" value="0x888888" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <AssertPixelValue target="ta1" x="10" y="10" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_backgroundImage_embed_PNG" keywords="[TextArea,styles,backgroundImage]" description="Test setting backgroundImage as an embedded PNG.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="backgroundImage" valueExpression="value=myPNG" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/BackgroundImage_Embedded_PNG.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_backgroundImage_embed_JPG" keywords="[TextArea,styles,backgroundImage]" description="Test setting backgroundImage as an embedded JPG.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="backgroundImage" valueExpression="value=myJPG" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/BackgroundImage_Embedded_JPG.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_backgroundImage_embed_GIF" keywords="[TextArea,styles,backgroundImage]" description="Test setting backgroundImage as an embedded GIF.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="backgroundImage" valueExpression="value=myGIF" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/BackgroundImage_Embedded_GIF.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_backgroundImage_embed_SWF" keywords="[TextArea,styles,backgroundImage]" description="Test setting backgroundImage as an embedded SWF.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="backgroundImage" valueExpression="value=mySWF" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/BackgroundImage_Embedded_SWF.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_backgroundImage_linked_PNG" keywords="[TextArea,styles,backgroundImage]" description="Test setting backgroundImage as a file system PNG.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="backgroundImage" value="../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="ta1.getChildAt(0)" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/BackgroundImage_Linked_PNG.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_backgroundImage_linked_JPG" keywords="[TextArea,styles,backgroundImage]" description="Test setting backgroundImage as a file system JPG.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="backgroundImage" value="../../../../Assets/Images/bluerect.jpg" waitEvent="complete" waitTarget="ta1.getChildAt(0)" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/BackgroundImage_Linked_JPG.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_backgroundImage_linked_GIF" keywords="[TextArea,styles,backgroundImage]" description="Test setting backgroundImage as a file system GIF.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="backgroundImage" value="../../../../Assets/Images/orangerect.jpg" waitEvent="complete" waitTarget="ta1.getChildAt(0)" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/BackgroundImage_Linked_GIF.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_backgroundImage_linked_SWF" keywords="[TextArea,styles,backgroundImage]" description="Test setting backgroundImage as a file system SWF.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="backgroundImage" value="../../../../Assets/Images/greenrect.jpg" waitEvent="complete" waitTarget="ta1.getChildAt(0)" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/BackgroundImage_Linked_SWF.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontFamily_Arial" keywords="[TextArea,styles,fontFamily]" description="Test setting fontFamily to Arial.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontFamily" value="myArial" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Arial.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontFamily_ComicSansMS" keywords="[TextArea,styles,fontFamily]" description="Test setting fontFamily to Comic Sans MS.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontFamily" value="myComicSansMS" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_ComicSansMS.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontFamily_default" keywords="[TextArea,styles,fontFamily]" description="Test the default fontFamily (Verdana).">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Default.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontFamily_myCourier" keywords="[TextArea,styles,fontFamily]" description="Test setting fontFamily to Courier.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontFamily" value="myCourier" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Courier.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontFamily_mySymbol" keywords="[TextArea,styles,fontFamily]" description="Test setting fontFamily to Symbol.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontFamily" value="mySymbol" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Symbol.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontFamily_changeFonts" keywords="[TextArea,styles,fontFamily]" description="Test setting fontFamily twice.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontFamily" value="mySymbol" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Symbol.png" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontFamily" value="myArial" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Arial.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontFamily_flash_vivaldi" keywords="[TextArea,styles,fontFamily]" description="Test setting fontFamily to Vivaldi (Flash type font).">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontFamily" value="Vivaldi" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Vivaldi.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontFamily_flash_hancock" keywords="[TextArea,styles,fontFamily]" description="Test setting fontFamily to Hancock (Flash type font).">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontFamily" value="Hancock" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Hancock.png" />
+            </body>
+
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontFamily_changeRegularToFlash" keywords="[TextArea,styles,fontFamily]" description="Test setting fontFamily to a non-Flash type font, then a Flash type font.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontFamily" value="myArial" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Arial.png" />
+                <SetStyle target="ta1" styleName="fontFamily" value="Vivaldi" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Vivaldi.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontFamily_changeFlashToRegular" keywords="[TextArea,styles,fontFamily]" description="Test setting fontFamily to a Flash type font, then a non-Flash type font.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontFamily" value="Hancock" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Hancock.png" />
+                <SetStyle target="ta1" styleName="fontFamily" value="myArial" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontFamily_Arial.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontSize_default" keywords="[TextArea,styles,fontSize]" description="Test the default fontSize.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontSize_10.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontSize_0" keywords="[TextArea,styles,fontSize]" description="Test setting fontSize to 0.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontSize" value="0" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontSize_0.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontSize_1" keywords="[TextArea,styles,fontSize]" description="Test setting fontSize to 1.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontSize" value="1" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontSize_1.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontSize_2" keywords="[TextArea,styles,fontSize]" description="Test setting fontSize to 2.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontSize" value="2" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontSize_2.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontSize_10" keywords="[TextArea,styles,fontSize]" description="Test setting fontSize to 10.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontSize" value="10" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontSize_10.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontSize_12" keywords="[TextArea,styles,fontSize]" description="Test setting fontSize to 12.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontSize" value="12"  />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontSize_12.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontSize_127" keywords="[TextArea,styles,fontSize]" description="Test setting fontSize to 127.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="width" value="150" />
+                <SetProperty target="ta1" propertyName="height" value="150" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontSize" value="127" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontSize_127.png" />
+            </body>
+            <cleanup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+            </cleanup>
+        </TestCase>
+
+        <TestCase frequency="all" testID="style_fontSize_128" keywords="[TextArea,styles,fontSize]" description="Test setting fontSize to 128.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="width" value="150" />
+                <SetProperty target="ta1" propertyName="height" value="150" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." />
+                <SetStyle target="ta1" styleName="fontAntiAliasType" value="normal" />
+                <SetStyle target="ta1" styleName="fontSize" value="128" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Styles/Baselines/FontSize_128.png" />
+            </body>
+            <cleanup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+            </cleanup>
+        </TestCase>
+    </testCases>
+</UnitTester>

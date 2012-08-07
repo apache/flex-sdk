@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_SparkSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+		import mx.collections.*;
+		import mx.controls.dataGridClasses.DataGridColumn;
+        import mx.utils.ObjectUtil;
+    ]]>
+    </mx:Script>
+
+<!--
+    Notes:
+    - This is where we put all test cases related to dataProvider.
+-->
+
+    <testCases>
+
+        <!-- The main thing here is that an RTE does not occur. See bug SDK-11500. -->
+        <TestCase testID="dataProvider_noDataField_stopEdting" keywords="[DataGrid,properties,dataProvider]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="columns" valueExpression="value=[new DataGridColumn()]" />
+                <SetProperty target="dg1.columns.0" propertyName="headerText" value="A Column" />
+                <SetProperty target="dg1" propertyName="dataProvider" valueExpression="value=[1,2,3]" />
+                <SetProperty target="dg1" propertyName="labelFunction" valueExpression="value=application.basicLabelFunction" />
+                <SetProperty target="dg1" propertyName="editable" value="true" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="dg1" waitEvent="itemEditBegin" />
+                <DispatchMouseClickEvent stageX="2" stageY="2" waitTarget="dg1" waitEvent="itemEditEnd" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="column: A Column, data: 1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="dataProvider_binding_change" keywords="[DataGrid,properties,dataProvider]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.aBindableObject = ObjectUtil.copy(application.dataArray6)" />
+                <SetProperty target="dg1" propertyName="dataProvider" valueExpression="value=application.aBindableObject" />
+                <SetProperty target="dg1" propertyName="columns" valueExpression="value=[new DataGridColumn()]" />
+                <SetProperty target="dg1.columns.0" propertyName="dataField" value="key1" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.changeData(ICollectionView(application.aBindableObject), [new SortField('key1',false)], {key1: '0'}, 'key1', 'hello')" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="hello" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="dataProvider_binding_add" keywords="[DataGrid,properties,dataProvider]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.aBindableObject = ObjectUtil.copy(application.dataArray6)" />
+                <SetProperty target="dg1" propertyName="dataProvider" valueExpression="value=application.aBindableObject" />
+                <SetProperty target="dg1" propertyName="columns" valueExpression="value=[new DataGridColumn()]" />
+                <SetProperty target="dg1.columns.0" propertyName="dataField" value="key1" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="ArrayCollection(application.aBindableObject).addItemAt({key1:'a', key2:'b', key3:'c'}, 0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="a" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="dataProvider_binding_remove" keywords="[DataGrid,properties,dataProvider]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.aBindableObject = ObjectUtil.copy(application.dataArray6)" />
+                <SetProperty target="dg1" propertyName="dataProvider" valueExpression="value=application.aBindableObject" />
+                <SetProperty target="dg1" propertyName="columns" valueExpression="value=[new DataGridColumn()]" />
+                <SetProperty target="dg1.columns.0" propertyName="dataField" value="key1" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="ArrayCollection(application.aBindableObject).removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="1" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TileList/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileList_Basic.mxml">
+	<mx:Script>
+	<![CDATA[
+
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TileList;
+	import mx.collections.*;
+
+	private function addData():void
+	{
+
+		var col:ArrayCollection =
+        	new ArrayCollection(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']);
+		application.tl.dataProvider = col;
+	        application.tl.height = 250;
+	        application.tl.width  = 250;
+	        application.tl.rowHeight=50;
+        	application.tl.columnWidth=50;
+	}
+
+
+	]]>
+	</mx:Script>
+
+    <testCases>
+                <TestCase testID="TileList_method_indicesToIndex" description="TileList_method_indicesToIndex" keywords="[TileList,method,indicesToIndex]">
+                    <setup>
+                    <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                        <RunCode code="addData();" />
+
+                    </setup>
+                    <body>
+                        <RunCode code="application.tl.selectedIndex = application.tl.indicesToIndex(1,4) ;" />
+                        <AssertPropertyValue target="tl" propertyName="selectedItem" value="I" />
+                        <WaitForEffectsToEnd/>
+                 	<RunCode code="application.tl.selectedIndex = application.tl.indicesToIndex(0,0) ;" />
+                        <AssertPropertyValue target="tl" propertyName="selectedItem" value="A" />
+                        <WaitForEffectsToEnd/>
+               		<RunCode code="application.tl.selectedIndex = application.tl.indicesToIndex(6,2) ;" />
+                        <AssertPropertyValue target="tl" propertyName="selectedItem" value="Z" />
+                    </body>
+        	</TestCase>
+
+                <TestCase testID="TileList_method_findString" description="TileList_method_findString" keywords="[TileList,method,findString]">
+                    <setup>
+                    	<ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                        <RunCode code="addData();" />
+                     </setup>
+                    <body>
+			<RunCode code="application.tl.findString('a');" />
+                        <AssertPropertyValue target="tl" propertyName="selectedIndex" value="0" />
+                        <WaitForEffectsToEnd/>
+                 	<RunCode code="application.tl.findString('z');" />
+                        <AssertPropertyValue target="tl" propertyName="selectedIndex" value="25" />
+                        <WaitForEffectsToEnd/>
+               		<RunCode code="application.tl.findString('A1');" />
+                        <AssertPropertyValue target="tl" propertyName="selectedIndex" value="25" />
+                        <RunCode code="application.tl.findString('U');" />
+                        <AssertPropertyValue target="tl" propertyName="selectedIndex" value="20" />
+                    </body>
+        	</TestCase>
+
+                <TestCase testID="TileList_method_isItemVisible" description="TileList_method_isItemVisible" keywords="[TileList,method,isItemVisible]">
+                    <setup>
+                    	<ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                        <RunCode code="addData();" />
+                        <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitTarget="tl" waitEvent="focusIn" />
+               		<WaitForEffectsToEnd/>
+                    </setup>
+                    <body>
+                        <AssertMethodValue method="value=application.tl.isItemVisible('Z')" value="false" />
+                        <AssertMethodValue method="value=application.tl.isItemVisible('A')" value="true" />
+                        <DispatchKeyEvent keys="[PAGE_DOWN]" waitTarget="tl" waitEvent="scroll" />
+                        <AssertMethodValue method="value=application.tl.isItemVisible('B')" value="false" />
+                        <AssertMethodValue method="value=application.tl.isItemVisible('W')" value="true" />
+                    </body>
+        	</TestCase>
+
+            	<TestCase testID="TileList_method_scrollToIndex" description="TileList_method_scrollToIndex" keywords="[TileList,method,scrollToIndex]">
+                    <setup>
+                    	<ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                        <RunCode code="addData();" />
+                        <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitTarget="tl" waitEvent="focusIn" />
+               		<WaitForEffectsToEnd/>
+                    </setup>
+                    <body>
+                    	<RunCode code="application.tl.scrollToIndex(20);" />
+                        <AssertMethodValue method="value=application.tl.isItemVisible('U')" value="true" />
+                        <AssertMethodValue method="value=application.tl.isItemVisible('A')" value="false" />
+                        <RunCode code="application.tl.scrollToIndex(2);" />
+                        <AssertMethodValue method="value=application.tl.isItemVisible('B')" value="true" />
+                        <AssertMethodValue method="value=application.tl.isItemVisible('W')" value="false" />
+                    </body>
+        	</TestCase>
+
+
+
+    </testCases>
+</UnitTester>

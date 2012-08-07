@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_SparkSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridMain.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+        import mx.utils.ObjectUtil;
+        import mx.controls.Button;
+        import mx.controls.dataGridClasses.DataGridColumn;
+/*    
+    public function addItems():void{
+        for(var i:int=0;i<15;i++)
+        {
+            var obj:Object={col1:'one' + i, col2: i, col3:'three' + i}
+            application.mydatagrid.dataProvider.addItem(obj);
+        }    
+    }
+*/  
+    public function addBigItems():void{
+        
+        application.mydatagrid.height=250;
+        application.mydatagrid.dataProvider.removeAll()
+
+        var str1:String=" "
+        var str2:String="two two "
+        var str3:String=" "
+        var dummytext:String ="The Quick Brown Fox Jumped over the lazy dog"
+
+        for(var i:int=0;i<25;i++){
+            
+            for(var j:int=0;j<5;j++){
+                str1+=dummytext;
+                str3+=dummytext;
+            }
+            
+            var obj:Object = {col1:str1,col2:str2+i,col3:str3}
+            application.mydatagrid.dataProvider.addItem(obj);
+        }
+    }
+
+/*
+    public function startApp():void{
+        application.startIt();
+    }
+*/
+/*
+    public function findSelected():void{
+        
+        if(application.mydatagrid.selectedItems.length==3){
+            
+            if(application.mydatagrid.selectedItems[2].col1=="one2"){
+                application.ti.text="pass"
+            }  
+        }
+    }
+*/
+    public function selectedItemChk():void{
+    
+        if(application.mydatagrid.selectedItem.col1!=undefined){    
+            application.ti.text="pass"
+        }
+    }
+
+    public function setItemRenderer():void{
+        application.mydatagrid.columns[0].itemRenderer = new ClassFactory(Button);
+    }
+
+    public function setLabelFunction():void{
+        application.mydatagrid.columns[0].labelFunction = myFunc
+    }
+    
+    private function myFunc(data:Object, col:DataGridColumn):String{
+        return "column A";
+    }
+    
+    private function setDTFunction():void{
+        application.mydatagrid.dataTipFunction= myFunc2
+        application.ti.text="pass" 
+        //This needs to change , please revisit.
+    }
+    
+    private function myFunc2(data:Object):String{
+        return "tip";
+    }
+    
+    ]]>
+    </mx:Script>
+    
+    <testCases>
+
+        <TestCase testID="property_selectedIndex" keywords="[DataGrid,properties,selectedIndex]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>                       
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="selectedIndex" value="1" target="mydatagrid" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="mydatagrid" propertyName="selectedIndex" value="1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="property_selectedIndices1" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>                       
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="selectedIndices" value="[1,2,3]" target="mydatagrid" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="mydatagrid" propertyName="selectedIndices" value="[1,2,3]"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="property_rowcount" keywords="[DataGrid,properties,rowCount]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>                      
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="rowCount" value="3" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_rowcount.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="property_rowheight" keywords="[DataGrid,properties,rowHeight]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>                       
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="rowHeight" value="40" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_rowheight.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="property_lockedrowcount" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>                       
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="lockedRowCount" value="2" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_lockedrowcount.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="property_lockedcolumncount" keywords="[DataGrid,properties,lockedColumnCount]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>                      
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="lockedColumnCount" value="2" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_lockedcolumncount.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_selectable" keywords="[DataGrid,properties,selectable]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty propertyName="selectable" value="false" target="mydatagrid" />
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="selectedIndex" value="2" target="mydatagrid" waitTarget="mydatagrid" waitEvent="valueCommit"/>
+                <DispatchMouseClickEvent target="mydatagrid" localX="250" localY="90" waitTarget="mydatagrid" waitEvent="itemClick"/>
+                <AssertPropertyValue target="mydatagrid" propertyName="selectedIndex" value="-1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_selectable_true" keywords="[DataGrid,properties,selectable]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>                    
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+                <SetProperty propertyName="selectable" value="true" target="mydatagrid" />
+                <SetProperty propertyName="selectedIndex" value="2" target="mydatagrid" waitTarget="mydatagrid" waitEvent="valueCommit"/>                    
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="mydatagrid" localX="250" localY="105" waitTarget="mydatagrid" waitEvent="itemClick"/>
+                <AssertPropertyValue target="mydatagrid" propertyName="selectedIndex" value="2"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_allowdragselection" keywords="[DataGrid,properties,allowDragSelection]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+                <SetProperty propertyName="allowDragSelection" value="false" target="mydatagrid" />
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mydatagrid" propertyName="allowDragSelection" value="false"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_selectedItem" keywords="[DataGrid,properties,selectedItem]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="selectedIndex" value="2" target="mydatagrid" waitTarget="mydatagrid" waitEvent="valueCommit"/>
+                <DispatchMouseClickEvent target="mydatagrid" localX="250" localY="90" waitTarget="mydatagrid" waitEvent="itemClick"/>
+                <RunCode code="selectedItemChk()"/>
+                <AssertPropertyValue target="ti" propertyName="text" value="pass"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_menuselectionmode" keywords="[DataGrid,properties,menuSelectionMode]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+                <SetProperty propertyName="menuSelectionMode" value="false" target="mydatagrid" />
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            </setup>
+            <body>        
+                <AssertPropertyValue target="mydatagrid" propertyName="menuSelectionMode" value="false"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_itemrenderer" keywords="[DataGrid,properties,itemRenderer]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+                <RunCode code="setItemRenderer()"/>          
+            </setup>
+            <body>
+                <Pause timeout="100"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_itemrenderer.png" numColorVariances="8" ignoreMaxColorVariance="true"/>        
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_labelfunction" keywords="[DataGrid,properties,labelFunction]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+                <RunCode code="setLabelFunction()"/>          
+            </setup>
+            <body>
+                <Pause timeout="100"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_labelfunc.png" numColorVariances="8" ignoreMaxColorVariance="true"/>        
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_dataTipField" keywords="[DataGrid,properties,dataTipField]">
+            <setup>
+                    <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+                    <SetProperty propertyName="showDataTips" value="true" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                    <SetProperty propertyName="dataTipField" value="col1" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+            </setup>
+            <body>
+                    <DispatchMouseEvent type="mouseOver" target="mydatagrid" localX="250" localY="90" waitTarget="mydatagrid" waitEvent="mouseOver"/>
+                    <AssertPropertyValue target="mydatagrid" propertyName="dataTipField" value="col1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_dataTipfunction" keywords="[DataGrid,properties,dataTipFunction]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+                <SetProperty propertyName="showDataTips" value="true" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="setDTFunction()"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" target="mydatagrid" localX="250" localY="90" waitTarget="mydatagrid" waitEvent="mouseOver"/>
+                <AssertPropertyValue target="ti" propertyName="text" value="pass"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_columnwidth" keywords="[DataGrid,properties,columnWidth]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+                <SetProperty propertyName="columnWidth" value="30" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_columnwidth.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="property_dragEnabled" keywords="[DataGrid,properties,dragEnabled]">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty propertyName="dragEnabled" value="true" target="mydatagrid" />
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" target="mydatagrid" localX="250" localY="90"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="mydatagrid" localX="250" localY="95" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="mydatagrid" localX="250" localY="98" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/" numColorVariances="8" ignoreMaxColorVariance="true">
+                	<ConditionalValue os="mac"/>
+                </CompareBitmap>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="property_dragEnabled_dropEnabled_InProgress" keywords="[DataGrid,properties,dropEnabled]">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+                <SetProperty propertyName="dragEnabled" value="true" target="mydatagrid" />
+                <SetProperty propertyName="dropEnabled" value="true" target="mydatagrid" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" stageX="150" stageY="55"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="120" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="75" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="85" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="95" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="105" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="115" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+     		    <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/" numColorVariances="8" ignoreMaxColorVariance="true">
+                	<ConditionalValue os="mac"/>
+                </CompareBitmap>
+            </body>
+            <cleanup>
+                <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
+            </cleanup>
+        </TestCase>
+
+        <TestCase testID="property_dragEnabled_dropEnabled_DropComplete" keywords="[DataGrid,properties,dropEnabled]">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+                <SetProperty propertyName="dragEnabled" value="true" target="mydatagrid" />
+                <SetProperty propertyName="dropEnabled" value="true" target="mydatagrid" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" stageX="150" stageY="35"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="75"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="85"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="95"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="105"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="115"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_dragenabled_dropenabled_dropcomplete.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+    <TestCase testID="property_dragMoveEnabled_DragInProgress" keywords="[DataGrid,properties,dragMoveEnabled]">
+        <setup>
+                <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
+        <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+        <SetProperty propertyName="dragEnabled" value="true" target="mydatagrid" />
+        <SetProperty propertyName="dragMoveEnabled" value="true" target="mydatagrid"/>
+        <SetProperty propertyName="dropEnabled" value="true" target="mydatagrid"/>
+        </setup>
+        <body>
+        <DispatchMouseEvent type="mouseDown" stageX="150" stageY="55"/>
+        <WaitForEffectsToEnd />
+        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="60" />
+        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="65" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="75" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="85" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="95" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="105" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="115" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+        <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+        <WaitForEffectsToEnd />
+        <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_dragmoveenabled_draginprogress.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+        </body>
+            <cleanup>
+                <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
+            </cleanup>
+    </TestCase>
+
+
+        <TestCase testID="property_dragMoveEnabled_DragComplete" keywords="[DataGrid,properties,dragMoveEnabled]">
+            <setup>
+                <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>        
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+                <SetProperty propertyName="dragEnabled" value="true" target="mydatagrid" />
+                <SetProperty propertyName="dragMoveEnabled" value="true" target="mydatagrid"/>
+                <SetProperty propertyName="dropEnabled" value="true" target="mydatagrid"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" stageX="150" stageY="55"/>
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="75"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="85"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="95"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="105"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="115"/>
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" stageX="150" stageY="125"/>
+        <WaitForEffectsToEnd />
+        <DispatchMouseEvent type="mouseUp" stageX="150" stageY="125"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_dragmoveenabled_dragcomplete.png" numColorVariances="8" ignoreMaxColorVariance="true"/>    
+            </body>
+        </TestCase>
+
+    </testCases>                
+         
+</UnitTester>

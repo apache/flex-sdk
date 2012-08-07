@@ -1,0 +1,26 @@
+<mx:Tree
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    width="150" height="120" showRoot="false"
+    direction="rtl" layoutDirection="rtl" labelField="@label" selectedIndex="0" openDuration="100"
+>
+<fx:XMLList>
+	<node label="rootnode">
+		<node label="one">
+		    <node label=".">
+				<node label=":" data="BoxDivider.as" />
+		    </node>
+		    <node label="l">
+				<node label="." data="GridRow.as" />
+				<node label=":" data="GridItem.as" />
+		    </node>
+		</node>
+		<node label="-">
+			<node label="=" data="PrintJob.as" />
+			<node label="+" data="PrintJob1.as" />
+			<node label="." data="PrintTree.as" />
+		</node>
+	</node>
+</fx:XMLList>
+</mx:Tree>

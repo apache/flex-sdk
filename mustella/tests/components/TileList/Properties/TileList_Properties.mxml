@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TileList/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileList_Basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    public function addData(bool:int):void
+    {
+        application.tl.dataProvider = myDP;
+        
+        if(bool ==0)
+        {
+            //application.tl.labelField="@label";
+        }
+        else
+        {
+            //application.tl.labelField="@data";
+        }
+    }
+
+    public function addObjData():void
+    {
+        application.tl.dataProvider = iconDP;
+        application.tl.iconField = "icon";
+    }
+    
+    public function addPhoneObjData():void
+    {
+        application.tl.dataProvider = phoneDP;
+        application.tl.iconField = "icon";
+        application.tl.maxColumns=3;
+        application.tl.height=250;
+        application.tl.width=400; 
+        application.tl.rowHeight=225;
+        application.tl.columnWidth=125;
+        application.tl.allowMultipleSelection="true";
+    }
+    
+    public function changeDP(node:int, bool:String):void
+    {
+        application.tl.enabled=Boolean(bool);
+    }
+    public function setMaxCols(i:int = 3):void
+    {
+        application.tl.maxColumns=i;
+        application.tl.height=250;
+        application.tl.width=450; 
+        application.tl.rowHeight=225;
+        application.tl.columnWidth=125;
+    }
+
+        [Bindable]
+    private var rootDP:Array= [{label: "top"},{label: "File"},{label: "Open"},{label: "New File"},{label: "Edit"},{label: "Copy"},{label: "Paste"},{label: "Send"},{label: "Window"}];
+
+    [Bindable]
+    public var iconDP:Array= [{label:"Toys", icon:"dinosaur", icon2: "bear"}, {label:"dinosaur", icon: "dinosaur"}, {label:"racecar01"}, {label:"racecar02"},{label:"Games", icon:"t1120"}, { label:"Age 6 and up"}, {label:"Board Games"}, {label:"UpWords"}, {label:"Life"},{label:"Video Games"}, {label:"Last Action Hero"},{label:"Mortal Cotlat"}];
+
+    [Bindable]
+    public var phoneDP:Array= [{label:"0", icon:"phone1"},{label:"1", icon:"phone2"},{label:"2", icon:"phone3"},{label:"3", icon:"phone4"},{label:"4", icon:"phone5"},{label:"5", icon:"phone1"},{label:"6", icon:"phone2"},{label:"7", icon:"phone3"},{label:"8", icon:"phone4"},{label:"9", icon:"phone4"},{label:"10", icon:"phone5"}];
+    
+    [Bindable] 
+     private var collection0:ArrayCollection = 
+     new ArrayCollection(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']); 
+
+     [Bindable] 
+     private var collection1:ArrayCollection = 
+     new ArrayCollection([{label: "item0", data: 0},{label: "item1", data: 1}, 
+         		  {label: "item2", data: 2},{label: "item3", data: 3} ]);
+                        
+     public function labelFunc(item:Object):String
+     {
+         var newLabel:String = item[application.tl.labelField].toUpperCase();
+         return newLabel;
+     }
+
+     public function testAddChildAt():void
+     {
+        var newChild:Object = <node label='France' data='FRANCE' />;
+     }
+
+     public function testGetChildren(): void
+     {
+         //application.lengthValue = application.tl.dataDescriptor.getChildren(myDP.node[1]).length;
+     }
+
+     public function testRemoveChildAt():void
+     {
+        var newChild:Object = <node label='France' data='FRANCE' />;
+     }
+
+     public function testSetEnabled(bool:int): void
+     {
+        if(bool==0)
+        {
+            
+        }
+        else
+        {
+            
+        }
+     }
+
+     public function testSetToggled(bool:int): void
+     {
+        if(bool==0)
+        {
+            
+        }
+        else
+        {
+            
+        }
+     }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.TileList;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.MenuEvent;
+    import mx.collections.ArrayCollection;
+    [Bindable]
+    private var myDP:Array=[{label:"Europe", data:"EUROPE"},{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"},{label:"Asia", enabled:"true", data:"ASIA"},{label:"Phillipines", enabled:"false", data:"PHILIPPINES"},{label:"Japan", data:"JAPAN"},{label:"China", data:"CHINA"},{label:"Africa", data:"AFRICA"},{label:"Uganda", enabled:"false", data:"UGANDA"},{label:"South Africa", data:"SOUTH AFRICA"}] ;
+    //,{label:"Nigeria", data:"NIGERIA"}
+    
+    ]]>
+    </mx:Script>
+
+    <testCases>
+    
+        <TestCase testID="Key_selection" description="TileList dataProvider item is set to false test." keywords="[enabled, TileList]">
+            <setup>
+            <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                <RunCode code="addData(0);" />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="tl" waitEvent="focusIn" />
+                <DispatchKeyEvent key="DOWN" waitTarget="tl" />
+                
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT, DOWN, DOWN]" waitTarget="tl" waitEvent="change" />
+                <AssertPropertyValue target="tl" propertyName="selectedIndex" value="10" />
+            </body>
+        </TestCase>
+        <TestCase testID="Key_selection1" description="TileList dataProvider item is set to false and changed to true test." keywords="[enabled, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                <RunCode code="addData(0);" />
+                <RunCode code="changeDP(0,'true');" />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="tl" waitEvent="focusIn" />
+                <DispatchKeyEvent key="DOWN" waitTarget="tl" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[RIGHT, RIGHT, RIGHT, RIGHT, RIGHT,RIGHT, RIGHT, RIGHT, RIGHT, RIGHT]" waitTarget="tl" waitEvent="change" />
+                <AssertPropertyValue target="tl" propertyName="selectedIndex" value="10" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Key_selection2"  description="TileList end key." keywords="[enabled, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addData(0);" />
+                <RunCode code="changeDP(1, 'false');" /> 
+                
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="tl" waitEvent="focusIn" />
+                <DispatchKeyEvent key="DOWN" waitTarget="tl"  />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="END" waitTarget="tl" waitEvent="change" />
+                    <AssertPropertyValue target="tl" propertyName="selectedIndex" value="10" />
+            </body>
+        </TestCase>
+        <TestCase testID="Key_selection3"  description="TileList end key." keywords="[enabled, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addData(0);" />
+                <RunCode code="setMaxCols()" waitEvent="updateComplete" waitTarget="tl" /> 
+                
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="tl" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[RIGHT]" waitTarget="tl"  />
+                <DispatchKeyEvent keys="[RIGHT]" waitTarget="tl"  />
+                <DispatchKeyEvent keys="[RIGHT]" waitTarget="tl"  />
+                <DispatchKeyEvent keys="[PAGE_DOWN]" waitTarget="tl"  />
+                <DispatchKeyEvent keys="[PAGE_DOWN]" waitTarget="tl"  />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="END" waitTarget="tl" waitEvent="change" />
+                    <AssertPropertyValue target="tl" propertyName="selectedIndex" value="10" />
+            </body>
+        </TestCase>
+        <TestCase testID="Mouse_selection1"  description="TileList end key." keywords="[mouse, select, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tl"  />
+                    <RunCode code="setMaxCols()" waitEvent="updateComplete" waitTarget="tl"  /> 
+            </setup>
+            <body>
+                
+                <DispatchMouseClickEvent target="tl" stageX="344" stageY="205" waitEvent="itemClick" waitTarget="tl" />
+                <AssertPropertyValue target="tl" propertyName="selectedIndex" value="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="Mouse_selection_scrolling"  description="TileList end key." keywords="[mouse, scroll, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tl" />
+                    
+                <RunCode code="setMaxCols()" waitEvent="updateComplete" waitTarget="tl" /> 
+                
+            </setup>
+            <body>
+                <DispatchMouseClickEvent stageX="468" stageY="311" />
+                <DispatchMouseClickEvent stageX="468" stageY="311" />
+                <DispatchMouseClickEvent stageX="468" stageY="311" />
+                <DispatchMouseClickEvent stageX="219" stageY="200" waitEvent="itemClick" waitTarget="tl" />
+                    <AssertPropertyValue target="tl" propertyName="selectedIndex" value="10" />
+            </body>
+        </TestCase>
+        <TestCase testID="Mouse_selection_multiple"  description="TileList end key." keywords="[mouse, multipleSelect, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl"  />
+                    <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tl" />
+                    
+                <RunCode code="setMaxCols()" waitEvent="updateComplete" waitTarget="tl"  /> 
+                <SetProperty target="tl" propertyName="allowMultipleSelection" value="true"  />
+                
+            </setup>
+            <body>
+                <DispatchMouseClickEvent stageX="468" stageY="311" />
+                <DispatchMouseClickEvent stageX="468" stageY="311" />
+                <DispatchMouseClickEvent stageX="468" stageY="311" />
+                <DispatchMouseClickEvent stageX="150" stageY="200"/>
+                <DispatchMouseClickEvent stageX="219" stageY="200" ctrlKey="true" waitEvent="itemClick" waitTarget="tl" />
+                    <AssertPropertyValue target="tl" propertyName="selectedIndices" value="10,9" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Mouse_selection_max_columns"  description="TileList end key." keywords="[mouse, maxColumns, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tl"/>
+                    <RunCode code="setMaxCols(1)" waitEvent="updateComplete" waitTarget="tl" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent stageX="468" stageY="311" waitEvent="scroll" waitTarget="tl"/>
+                <DispatchMouseClickEvent stageX="468" stageY="311" waitEvent="scroll" waitTarget="tl"/>
+                <DispatchMouseClickEvent stageX="468" stageY="311" waitEvent="scroll" waitTarget="tl"/>
+                <DispatchMouseClickEvent stageX="150" stageY="200" />
+                <DispatchMouseClickEvent stageX="219" stageY="200" />
+                                <WaitForEffectsToEnd/>
+                    <AssertPropertyValue target="tl" propertyName="selectedIndex" value="3" />
+            </body>
+        </TestCase>     
+        <TestCase testID="Mouse_selection_direction_vertical"  description="TileList end key." keywords="[mouse, direction, horizontalScrollPolicy, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tl" />
+                    
+                <RunCode code="setMaxCols(2)" waitEvent="updateComplete" waitTarget="tl" /> 
+                <SetProperty target="tl" propertyName="direction" value="vertical" />
+                <SetProperty target="tl" propertyName="horizontalScrollPolicy" value="on" waitEvent="updateComplete" waitTarget="tl"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent stageX="438" stageY="327" waitEvent="scroll" waitTarget="tl"/>
+                <DispatchMouseClickEvent stageX="438" stageY="327" waitEvent="scroll" waitTarget="tl"/>
+                <DispatchMouseClickEvent stageX="438" stageY="327" waitEvent="scroll" waitTarget="tl"/>
+                <DispatchMouseClickEvent stageX="438" stageY="327" waitEvent="scroll" waitTarget="tl"/>
+                <DispatchMouseClickEvent stageX="438" stageY="327" waitEvent="scroll" waitTarget="tl"/>
+                <DispatchMouseClickEvent stageX="438" stageY="327" waitEvent="scroll" waitTarget="tl"/>
+                <DispatchMouseClickEvent stageX="150" stageY="200" waitEvent="itemClick" waitTarget="tl"/>
+                <DispatchMouseClickEvent stageX="219" stageY="200" waitEvent="itemClick" waitTarget="tl"/>
+                
+                <AssertPropertyValue target="tl" propertyName="selectedIndex" value="9" />
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="Mouse_selection_direction_enabled"  description="TileList end key." keywords="[mouse, enabled, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tl" />
+                    
+                <RunCode code="setMaxCols()" waitEvent="updateComplete" waitTarget="tl" /> 
+                <SetProperty target="tl" propertyName="maxColumns" value="2" />
+                <SetProperty target="tl" propertyName="direction" value="vertical" />
+                <SetProperty target="tl" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="tl" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tl" />
+                
+            </setup>
+            <body>
+                <DispatchMouseClickEvent stageX="438" stageY="327" />
+                <DispatchMouseClickEvent stageX="438" stageY="327" />
+                <DispatchMouseClickEvent stageX="438" stageY="327" />
+                <DispatchMouseClickEvent stageX="438" stageY="327" />
+                <DispatchMouseClickEvent stageX="438" stageY="327" />
+                <DispatchMouseClickEvent stageX="438" stageY="327" />
+                <DispatchMouseClickEvent stageX="150" stageY="200"/>
+                <DispatchMouseClickEvent stageX="219" stageY="200"/>
+
+                    <AssertPropertyValue target="tl" propertyName="selectedIndex" value="-1" />
+            </body>
+        </TestCase>
+        
+        <!--       integrate bug 193858        -->
+        
+        <TestCase testID="Shift_multiple_selection" description="TileList Shift and Ctrl mutiple selection." keywords="[mouse, allowMultipleSelection, Shift, Control, KeyBoard, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addPhoneObjData();" waitEvent="updateComplete" waitTarget="tl" />
+                    <DispatchMouseClickEvent target="tl" localX="40" localY="40" shiftKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="350" localY="40" shiftKey="true" waitTarget="tl" waitEvent="itemClick" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tl" propertyName="selectedIndices" value="2,1,0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Shift_multiple_selection_scroll" description="TileList Shift and Ctrl mutiple selection." keywords="[mouse, allowMultipleSelection, Shift, Control, scroll, KeyBoard, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addPhoneObjData();" waitEvent="updateComplete" waitTarget="tl" />
+                <DispatchMouseClickEvent target="tl" localX="40" localY="40" shiftKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="200" shiftKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="300" localY="40" shiftKey="true" waitTarget="tl" waitEvent="itemClick" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tl" propertyName="selectedIndices" value="5,4,3,2,1,0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Shift_multiple_selection_scroll_end" description="TileList Shift and Ctrl mutiple selection." keywords="[mouse, allowMultipleSelection, Shift, Control, scroll, end, KeyBoard, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addPhoneObjData();" waitEvent="updateComplete" waitTarget="tl" />
+                    <DispatchMouseClickEvent target="tl" localX="40" localY="40" shiftKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="200" shiftKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="300" localY="40" shiftKey="true" waitTarget="tl" waitEvent="itemClick" />
+            
+                <DispatchMouseClickEvent target="tl" localX="40" localY="40" shiftKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="200" shiftKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="300" localY="40" shiftKey="true" waitTarget="tl" waitEvent="itemClick" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tl" propertyName="selectedIndices" value="8,7,6,5,4,3" />
+            </body>
+        </TestCase>
+        <TestCase testID="Shift_multiple_selection_scroll_bottom" description="TileList Shift and Ctrl mutiple selection." keywords="[mouse, allowMultipleSelection, Shift, Control, scroll, bottom, KeyBoard, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addPhoneObjData();" waitEvent="updateComplete" waitTarget="tl" />
+                <DispatchMouseClickEvent target="tl" localX="40"  localY="40" shiftKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="200" shiftKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="300" localY="40" shiftKey="true" waitTarget="tl" waitEvent="itemClick" />
+
+                <DispatchMouseClickEvent target="tl" localX="40"  localY="40" shiftKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="200" shiftKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="300" localY="40" shiftKey="true" waitTarget="tl" waitEvent="itemClick" />
+
+                <DispatchMouseClickEvent target="tl" localX="200" localY="40" shiftKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="225" shiftKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="40"  localY="40" shiftKey="true" waitTarget="tl" waitEvent="itemClick" />
+            </setup>            
+            <body>
+                <AssertPropertyValue target="tl" propertyName="selectedIndices" value="9,8,7" />
+            </body>
+        </TestCase>
+        <TestCase testID="Control_multiple_selection_scroll_bottom" description="TileList Shift and Ctrl mutiple selection." keywords="[mouse, allowMultipleSelection, Control, scroll, bottom, KeyBoard, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addPhoneObjData();" waitEvent="updateComplete" waitTarget="tl" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="22" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="22" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="22" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="200" localY="40" ctrlKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="225" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="200" localY="40" ctrlKey="true" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="225" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="200" localY="40" ctrlKey="true" waitTarget="tl" waitEvent="itemClick" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tl" propertyName="selectedIndices" value="7,4,1" />
+            </body>
+        </TestCase>
+        <TestCase testID="Control_multiple_selection_scroll_up" description="TileList Shift and Ctrl mutiple selection." keywords="[mouse, allowMultipleSelection, Control, scroll, bottom, KeyBoard, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addPhoneObjData();" waitEvent="updateComplete" waitTarget="tl" />
+                    <DispatchMouseClickEvent target="tl" localX="395" localY="22" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="22" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="22" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="200" localY="40" ctrlKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="225" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="200" localY="40" ctrlKey="true" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="225" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />                            <DispatchMouseClickEvent target="tl" localX="200" localY="40" ctrlKey="true" waitTarget="tl" waitEvent="itemClick" />
+            
+                <DispatchMouseClickEvent target="tl" localX="395" localY="225" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="40" localY="40" ctrlKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="25" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="40" localY="40" ctrlKey="true" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="25" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="40" localY="40" ctrlKey="true" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchMouseClickEvent target="tl" localX="395" localY="25" ctrlKey="false" waitTarget="tl" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="tl" localX="40" localY="40" ctrlKey="true" waitTarget="tl" waitEvent="itemClick" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tl" propertyName="selectedIndices" value="0,3,6,9" />
+            </body>
+        </TestCase>
+        <TestCase testID="Shift_multiple_selection_KeyStroke" description="TileList Shift and Ctrl mutiple selection." keywords="[mouse, allowMultipleSelection, Shift, keyStroke, scroll, bottom, KeyBoard, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addPhoneObjData();" waitEvent="updateComplete" waitTarget="tl" />
+                <DispatchMouseClickEvent target="tl" localX="40" localY="40" ctrlKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchKeyEvent keys="[RIGHT,RIGHT,RIGHT,RIGHT,RIGHT,RIGHT,RIGHT,RIGHT,RIGHT,RIGHT]" shiftKey="true" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tl" propertyName="selectedIndices" value="10,9,8,7,6,5,4,3,2,1,0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Shift_multiple_selection_KeyStroke_Backwards" description="TileList Shift and Ctrl mutiple selection." keywords="[mouse, allowMultipleSelection, Shift, keyStroke, scroll, bottom, KeyBoard, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                    <RunCode code="addPhoneObjData();" waitEvent="updateComplete" waitTarget="tl" />
+                    <DispatchMouseClickEvent target="tl" localX="40" localY="40" ctrlKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchKeyEvent keys="[RIGHT,RIGHT,RIGHT,RIGHT,RIGHT,RIGHT,RIGHT,RIGHT,RIGHT,RIGHT]" shiftKey="true" />
+                <DispatchMouseClickEvent target="tl" localX="40" localY="40" ctrlKey="false" waitTarget="tl" waitEvent="itemClick" />
+                <DispatchKeyEvent keys="[LEFT,LEFT,LEFT]" shiftKey="true" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tl" propertyName="selectedIndices" value="6,7,8,9" />
+            </body>
+        </TestCase>
+<TestCase testID="TileList_property_offScreenExtraRowsOrColumns_vertical"  keywords="[scroll, offScreenExtraRowsOrColumns, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                        <SetProperty propertyName="height"       value="100" target="tl"/>
+                <SetProperty propertyName="width"        value="100" target="tl"/>
+                <SetProperty propertyName="direction"    value="vertical" target="tl"/>
+                        <SetProperty propertyName="rowCount"     value="4" target="tl"/>
+                <SetProperty propertyName="offscreenExtraRowsOrColumns" value="2"    target="tl"/>
+                <SetProperty propertyName="horizontalScrollPolicy"      value="auto" target="tl"/>
+                <SetProperty propertyName="dataProvider" value="{collection0}" target="tl" waitEvent="updateComplete" waitTarget="tl"/>
+                <WaitForEffectsToEnd/>
+                                
+            </setup>
+            <body>
+                        <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(3)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(3)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(3)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(3)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                    <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(3)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                    <WaitForEffectsToEnd />
+                    
+                                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(1)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(1)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(1)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(1)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(1)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tl" url="../Properties/Baselines/TileList_property_offScreenExtraRowsOrColumns_vertical.png"/>    
+                </body>
+        </TestCase>         
+        <TestCase testID="TileList_property_offScreenExtraRowsOrColumns_horizontal"  keywords="[scroll, offScreenExtraRowsOrColumns, TileList]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                        <SetProperty propertyName="direction" value="horizontal" target="tl"/>
+                <SetProperty propertyName="height"    value="100" target="tl"/>
+                <SetProperty propertyName="width"     value="100" target="tl"/>
+                <SetProperty propertyName="columnCount" value="4" target="tl"/>
+                <SetProperty propertyName="offscreenExtraRowsOrColumns" value="2" target="tl"/>
+                <SetProperty propertyName="dataProvider" value="{collection0}" target="tl" waitEvent="updateComplete" waitTarget="tl"/>
+                <WaitForEffectsToEnd/>
+                                      
+            </setup>
+            <body>
+                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(3)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(3)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(3)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(3)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(3)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                                <WaitForEffectsToEnd />
+                                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(1)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(1)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(1)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(1)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                <DispatchMouseClickEvent  target="tl.getChildAt(3).getChildAt(1)" localY="2" localX="2" waitEvent="mouseUp" waitTarget="tl" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tl" url="../Properties/Baselines/TileList_property_offScreenExtraRowsOrColumns_horizontal.png"/>    
+                </body>
+        </TestCase>     
+        <TestCase testID="TL_ResetDataProvider" description="TileList dataProvider item is set twice SDK-12472" keywords="[dataProvider, TileList, select]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                <RunCode code="addData(0);" />
+                <RunCode code="changeDP(0,'true');" />
+                <RunCode code="addData(0);" />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="tl" waitEvent="focusIn" />
+                <DispatchKeyEvent key="DOWN" waitTarget="tl" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[RIGHT, RIGHT, RIGHT]" waitTarget="tl" waitEvent="change" />
+                <AssertPropertyValue target="tl" propertyName="selectedIndex" value="3" />
+            </body>
+        </TestCase>  
+
+	<TestCase testID="TileList_property_columnWidth_bug_13424"  keywords="[columnWidth, Property, TileList, bug_13424]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                <SetProperty propertyName="direction" value="horizontal" target="tl"/>
+                <SetProperty propertyName="height"    value="100" target="tl"/>
+                <SetProperty propertyName="width"     value="100" target="tl"/>
+                <SetProperty propertyName="columnWidth" value="45" target="tl"/>
+                <SetProperty propertyName="dataProvider" value="{collection0}" target="tl" waitEvent="updateComplete" waitTarget="tl"/>
+                <WaitForEffectsToEnd/>
+                                      
+            </setup>
+            <body>
+                <RunCode code="{application.tl.scrollToIndex(20)}" />    
+                <WaitForEffectsToEnd />
+                <SetProperty propertyName="columnWidth" value="20" target="tl" waitEvent="updateComplete" waitTarget="tl" />
+                <WaitForEffectsToEnd />
+                <RunCode code="{application.tl.scrollToIndex(0); application.tl.validateNow(); }" />
+                <WaitForEffectsToEnd />
+                <SetProperty propertyName="selectedIndex" value="5" target="tl"  />
+                <AssertPropertyValue target="tl" propertyName="selectedItem" value="F" />
+ 	     </body>
+        </TestCase>
+        
+
+	<TestCase testID="TileList_property_vertical_navigation_bug_13665"  keywords="[Property, TileList, bug_13665]">
+            <setup>
+                <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                <SetProperty propertyName="direction" value="vertical" target="tl"/>
+                <SetProperty propertyName="height"    value="150" target="tl"/>
+                <SetProperty propertyName="width"     value="150" target="tl"/>
+                <SetProperty propertyName="columnWidth" value="45" target="tl"/>
+                <SetProperty propertyName="horizontalScrollPolicy" value="on" target="tl"/>
+                <SetProperty propertyName="dataProvider" value="{collection0}" target="tl" waitEvent="updateComplete" waitTarget="tl"/>
+                <WaitForEffectsToEnd/>
+                                      
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB]" waitTarget="tl" waitEvent="focusIn" />
+                <DispatchKeyEvent key="PAGE_DOWN" waitTarget="tl" waitEvent="change" />
+		<DispatchKeyEvent key="PAGE_DOWN" waitTarget="tl" waitEvent="change" />
+		<DispatchKeyEvent key="PAGE_DOWN" waitTarget="tl" waitEvent="change" />
+		<WaitForEffectsToEnd/>
+                <CompareBitmap target="tl" url="../Properties/Baselines/TileList_property_vertical_navigation_bug_13665.png"/>    
+                
+ 	     </body>
+        </TestCase>
+        
+ 	<TestCase testID="TileList_property_offscreenExtraRowsTop_bug_13544"  keywords="[ Property, TileList, bug_13544]">
+              <setup>
+                  <ResetComponent target="tl" className="mx.controls.TileList" waitEvent="updateComplete" waitTarget="tl" />
+                  <SetProperty propertyName="height"       value="100" target="tl"/>
+                  <SetProperty propertyName="width"        value="440" target="tl"/>
+                  <SetProperty propertyName="columnWidth"  value="200" target="tl"/>
+                  <SetProperty propertyName="dataProvider" value="{collection1}" target="tl" waitEvent="updateComplete" waitTarget="tl"/>
+                  <SetProperty propertyName="selectedIndex" value="0" target="tl" />
+                  <WaitForEffectsToEnd/>
+               </setup>
+              <body>
+                  <SetProperty propertyName="columnWidth" value="100" target="tl" waitEvent="updateComplete" waitTarget="tl" />
+                  <SetProperty propertyName="selectedIndex" value="2" target="tl"  />
+                  <WaitForEffectsToEnd />
+                  <AssertPropertyValue target="tl" propertyName="selectedIndex" value="2" />
+   	     </body>
+        </TestCase>        
+    </testCases>
+</UnitTester>

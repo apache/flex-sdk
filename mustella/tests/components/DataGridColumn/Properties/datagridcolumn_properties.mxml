@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGridColumn/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridColumnApp.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+        import mx.controls.dataGridClasses.*;
+        import mx.utils.ObjectUtil;
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+<!--
+================================================================================
+DataGridColumn: Visible
+================================================================================
+-->
+        <TestCase testID="datagridcolumn_visibleFalse" keywords="[DataGridColumn,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="false" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" propertyName="text" value="family" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagridcolumn_visibleTrue" keywords="[DataGridColumn,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])"  />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="false" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="true" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" propertyName="text" value="age" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagridcolumn_visibleToggled" keywords="[DataGridColumn,properties,columns]">
+         <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="dg1.columns.0" propertyName="width" value="60" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="false" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="true" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="false" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="true" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="false" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="true" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="false" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="true" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="false" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="true" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" propertyName="text" value="age" />
+                <AssertPropertyValue target="dg1.columns.0" propertyName="width" value="60" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagridcolumn_visibleFalseWithBackgroundColors" keywords="[DataGridColumn,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1.columns.1" styleName="backgroundColor" value="0x0000ff" />
+                <SetStyle target="dg1.columns.2" styleName="backgroundColor" value="0x00ff00" />
+                <SetStyle target="dg1.columns.3" styleName="backgroundColor" value="0xff0000" />
+                <SetStyle target="dg1.columns.4" styleName="backgroundColor" value="0xff00ff" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.1" propertyName="visible" value="false" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.2" propertyName="visible" value="false" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.3" propertyName="visible" value="false" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetProperty target="dg1.columns.4" propertyName="visible" value="false" waitTarget="dg1" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Properties/baselines/datagridcolumn_visibleFalseWithBackgroundColors.png" />
+            </body>
+        </TestCase>
+
+<!--
+================================================================================
+DataGridColumn: Width
+- There are some baseline images to be sure that setting width sets it, and that
+  the retrieved width really is the width.  Then, future test cases will rely
+  on getting the DataGridColumn's width property.
+- There are test cases to be sure that the last column in the DataGrid is 
+  sized and resized appropriately with horizontalScrollPolicy set to auto,
+  scrolling back and forth, and resizeing the column.  The last column is a
+  special case for various reasons.
+================================================================================
+-->
+        <TestCase testID="datagridcolumn_widthBitmapCalibration1" keywords="[DataGridColumn,properties,columns]" description="Be sure that the widths given in script really appear that way." >
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="columns" valueExpression="value = application.columnSet2" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="550" />
+                <SetProperty target="dgc2_1" propertyName="width" value="30" />
+                <SetProperty target="dgc2_1" propertyName="headerText" value="30" />
+                <SetProperty target="dgc2_2" propertyName="width" value="40" />
+                <SetProperty target="dgc2_2" propertyName="headerText" value="40" />
+                <SetProperty target="dgc2_3" propertyName="width" value="50" />
+                <SetProperty target="dgc2_3" propertyName="headerText" value="50" />
+                <SetProperty target="dgc2_4" propertyName="width" value="60" />
+                <SetProperty target="dgc2_4" propertyName="headerText" value="60" />
+                <SetProperty target="dgc2_5" propertyName="width" value="100" />
+                <SetProperty target="dgc2_5" propertyName="headerText" value="100" />
+                <SetProperty target="dgc2_6" propertyName="width" value="200" />
+                <SetProperty target="dgc2_6" propertyName="headerText" value="200" />
+                <SetProperty target="dgc2_7" propertyName="width" value="300" />
+                <SetProperty target="dgc2_7" propertyName="headerText" value="300" />
+                <SetProperty target="dgc2_8" propertyName="width" value="400" />
+                <SetProperty target="dgc2_8" propertyName="headerText" value="400" />
+                <SetProperty target="dgc2_9" propertyName="width" value="500" />
+                <SetProperty target="dgc2_9" propertyName="headerText" value="500" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dgc2_1" propertyName="width" value="30" />
+                <AssertPropertyValue target="dgc2_2" propertyName="width" value="40" />
+                <AssertPropertyValue target="dgc2_3" propertyName="width" value="50" />
+                <AssertPropertyValue target="dgc2_4" propertyName="width" value="60" />
+                <AssertPropertyValue target="dgc2_5" propertyName="width" value="100" />
+                <AssertPropertyValue target="dgc2_6" propertyName="width" value="200" />
+                <CompareBitmap target="dg1" url="../Properties/baselines/datagridcolumn_widthBitmapCalibration1.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagridcolumn_widthBitmapCalibration2" keywords="[DataGridColumn,properties,columns]" description="Be sure that the widths given in script really appear that way." >
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="columns" valueExpression="value = application.columnSet2" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="550" />
+                <SetProperty target="dgc2_1" propertyName="width" value="30" />
+                <SetProperty target="dgc2_1" propertyName="headerText" value="30" />
+                <SetProperty target="dgc2_2" propertyName="width" value="40" />
+                <SetProperty target="dgc2_2" propertyName="headerText" value="40" />
+                <SetProperty target="dgc2_3" propertyName="width" value="50" />
+                <SetProperty target="dgc2_3" propertyName="headerText" value="50" />
+                <SetProperty target="dgc2_4" propertyName="width" value="60" />
+                <SetProperty target="dgc2_4" propertyName="headerText" value="60" />
+                <SetProperty target="dgc2_5" propertyName="width" value="100" />
+                <SetProperty target="dgc2_5" propertyName="headerText" value="100" />
+                <SetProperty target="dgc2_6" propertyName="width" value="200" />
+                <SetProperty target="dgc2_6" propertyName="headerText" value="200" />
+                <SetProperty target="dgc2_7" propertyName="width" value="300" />
+                <SetProperty target="dgc2_7" propertyName="headerText" value="300" />
+                <SetProperty target="dgc2_8" propertyName="width" value="400" />
+                <SetProperty target="dgc2_8" propertyName="headerText" value="400" />
+                <SetProperty target="dgc2_9" propertyName="width" value="500" />
+                <SetProperty target="dgc2_9" propertyName="headerText" value="500" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPropertyValue target="dgc2_7" propertyName="width" value="300" />
+                <CompareBitmap target="dg1" url="../Properties/baselines/datagridcolumn_widthBitmapCalibration2.png" />
+            </body>
+        </TestCase>
+               
+        <TestCase testID="datagridcolumn_widthBitmapCalibration3" keywords="[DataGridColumn,properties,columns]" description="Be sure that the widths given in script really appear that way." >
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="columns" valueExpression="value = application.columnSet2" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="550" />
+                <SetProperty target="dgc2_1" propertyName="width" value="30" />
+                <SetProperty target="dgc2_1" propertyName="headerText" value="30" />
+                <SetProperty target="dgc2_2" propertyName="width" value="40" />
+                <SetProperty target="dgc2_2" propertyName="headerText" value="40" />
+                <SetProperty target="dgc2_3" propertyName="width" value="50" />
+                <SetProperty target="dgc2_3" propertyName="headerText" value="50" />
+                <SetProperty target="dgc2_4" propertyName="width" value="60" />
+                <SetProperty target="dgc2_4" propertyName="headerText" value="60" />
+                <SetProperty target="dgc2_5" propertyName="width" value="100" />
+                <SetProperty target="dgc2_5" propertyName="headerText" value="100" />
+                <SetProperty target="dgc2_6" propertyName="width" value="200" />
+                <SetProperty target="dgc2_6" propertyName="headerText" value="200" />
+                <SetProperty target="dgc2_7" propertyName="width" value="300" />
+                <SetProperty target="dgc2_7" propertyName="headerText" value="300" />
+                <SetProperty target="dgc2_8" propertyName="width" value="400" />
+                <SetProperty target="dgc2_8" propertyName="headerText" value="400" />
+                <SetProperty target="dgc2_9" propertyName="width" value="500" />
+                <SetProperty target="dgc2_9" propertyName="headerText" value="500" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPropertyValue target="dgc2_8" propertyName="width" value="400" />
+                <CompareBitmap target="dg1" url="../Properties/baselines/datagridcolumn_widthBitmapCalibration3.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagridcolumn_widthBitmapCalibration4" keywords="[DataGridColumn,properties,columns]" description="Be sure that the widths given in script really appear that way." >
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="columns" valueExpression="value = application.columnSet2" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="550" />
+                <SetProperty target="dgc2_1" propertyName="width" value="30" />
+                <SetProperty target="dgc2_1" propertyName="headerText" value="30" />
+                <SetProperty target="dgc2_2" propertyName="width" value="40" />
+                <SetProperty target="dgc2_2" propertyName="headerText" value="40" />
+                <SetProperty target="dgc2_3" propertyName="width" value="50" />
+                <SetProperty target="dgc2_3" propertyName="headerText" value="50" />
+                <SetProperty target="dgc2_4" propertyName="width" value="60" />
+                <SetProperty target="dgc2_4" propertyName="headerText" value="60" />
+                <SetProperty target="dgc2_5" propertyName="width" value="100" />
+                <SetProperty target="dgc2_5" propertyName="headerText" value="100" />
+                <SetProperty target="dgc2_6" propertyName="width" value="200" />
+                <SetProperty target="dgc2_6" propertyName="headerText" value="200" />
+                <SetProperty target="dgc2_7" propertyName="width" value="300" />
+                <SetProperty target="dgc2_7" propertyName="headerText" value="300" />
+                <SetProperty target="dgc2_8" propertyName="width" value="400" />
+                <SetProperty target="dgc2_8" propertyName="headerText" value="400" />
+                <SetProperty target="dgc2_9" propertyName="width" value="500" />
+                <SetProperty target="dgc2_9" propertyName="headerText" value="500" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPropertyValue target="dgc2_9" propertyName="width" value="500" />
+                <CompareBitmap target="dg1" url="../Properties/baselines/datagridcolumn_widthBitmapCalibration4.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagridcolumn_lastColumnWidth1" keywords="[DataGridColumn,properties,columns]" description="The DataGrid's width is the same as the width of the first 4 columns + the border.  The 5th column is the same width as the first one.  After scrolling to the right, be sure the 5th one is the right width." >
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="columns" valueExpression="value = application.columnSet1" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="182" />
+                <SetProperty target="dgc1_1" propertyName="width" value="30" />
+                <SetProperty target="dgc1_2" propertyName="width" value="40" />
+                <SetProperty target="dgc1_3" propertyName="width" value="50" />
+                <SetProperty target="dgc1_4" propertyName="width" value="60" />
+                <SetProperty target="dgc1_5" propertyName="width" value="30" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPropertyValue target="dgc1_5" propertyName="width" value="30" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagridcolumn_lastColumnWidth2" keywords="[DataGridColumn,properties,columns]" description="The DataGrid's width is the same as the width of the first 4 columns + the border.  The 5th column is one more than the first one.  After scrolling to the right, be sure the 5th one is 30 + 40, since we can't leave a partial column on the left side.  (This is confusing, so run the code in SDK-13742 to see what's going on.)" >
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="columns" valueExpression="value = application.columnSet1" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="182" />
+                <SetProperty target="dgc1_1" propertyName="width" value="30" />
+                <SetProperty target="dgc1_2" propertyName="width" value="40" />
+                <SetProperty target="dgc1_3" propertyName="width" value="50" />
+                <SetProperty target="dgc1_4" propertyName="width" value="60" />
+                <SetProperty target="dgc1_5" propertyName="width" value="31" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPropertyValue target="dgc1_5" propertyName="width" value="70" />
+            </body>
+        </TestCase>
+
+    </testCases>                         
+</UnitTester>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateField/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateField_InContainer.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.DateField;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+	
+		<TestCase testID="borderColor_mxml_styleName" description="DateField style borderColor is set in styleName in mxml." keywords="[styles, styleName, borderColor, cornerRadius, DateField]">
+			<setup>
+				<ResetComponent target="df_styleName" className="customDF2" waitTarget="df_styleName" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap target="df_styleName" url="../Styles/baselines/borderColor_mxml_styleName.png" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderColor_mxml_styleName_dropDown" description="DateField style borderColor set in mxml_styleName." keywords="[styles, styleName, borderColor, cornerRadius, DateField]">
+		    <setup>
+		    	<ResetComponent target="df_styleName" className="customDF2" waitTarget="df_styleName" waitEvent="updateComplete"/>
+		        <SetProperty propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" target="df_styleName" value="" waitEvent="updateComplete" waitTarget="df_styleName" />
+		    </setup>
+			<body>
+			    <DispatchMouseClickEvent target="df_styleName.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df_styleName.dropdown"  />
+				<CompareBitmap target="df_styleName.dropdown" url="../Styles/baselines/borderColor_mxml_styleName_dropDown.png" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderColor_mxml" description="DateField style borderColor set in mxml." keywords="[styles, borderColor, DateField]">
+			<setup>
+				<ResetComponent target="df_mxml" className="customDF1" waitTarget="df_mxml" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap target="df_mxml" url="../Styles/baselines/borderColor_mxml.png" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="borderColor_mxml_dropDown" description="DateField style borderColor set in mxml." keywords="[styles, borderColor, DateField]">
+		    <setup>
+		    	<ResetComponent target="df_mxml" className="customDF1" waitTarget="df_mxml" waitEvent="updateComplete"/>
+		        <SetProperty propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" target="df_mxml" value="" waitEvent="updateComplete" waitTarget="df_mxml" />
+		    </setup>
+			<body>
+			    <DispatchMouseClickEvent target="df_mxml.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df_mxml.dropdown"  />
+				<CompareBitmap target="df_mxml.dropdown" url="../Styles/baselines/borderColor_mxml_dropDown.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

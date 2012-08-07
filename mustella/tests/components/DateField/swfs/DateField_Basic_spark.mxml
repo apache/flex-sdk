@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" height="375" width="500" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" >
+
+	<mx:Script>
+	<![CDATA[
+	]]>
+	</mx:Script>
+
+	<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+		@font-face {
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;			
+			fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;			
+			fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");			
+			fontFamily: EmbeddedGeorgia;
+			embedAsCFF: false;
+		}		
+		
+	   .customSelectionColor1 {
+           selectionColor: #FF0000;
+           backgroundColor: #FFFFFF;
+	       borderThickness: 0;
+	       dropShadowEnabled: true;
+	   }
+
+	   .customSelectionColor2 {
+           selectionColor: #0000FF;
+           backgroundColor: #FFFFFF;
+	       borderThickness: 0;
+	       dropShadowEnabled: true;
+	   }
+
+	   .customBorderColor{
+           borderColor: #FF0000;
+           borderThickness: 10;
+           borderStyle: "solid";
+           backgroundColor: #FFFFFF;
+	       borderThickness: 0;
+	       dropShadowEnabled: true;
+	   }
+
+	   .customFontSize{
+           fontSize: 25;
+           backgroundColor: #FFFFFF;
+	       borderThickness: 0;
+	       dropShadowEnabled: true;
+	   }
+
+	   .customRollOverColor{
+           rollOverColor: #FF0000;
+           backgroundColor: #FFFFFF;
+	       borderThickness: 0;
+	       dropShadowEnabled: true;
+	   }
+
+	   .customFillColor {
+           fillAlphas:0.6, 0.4;
+           fillColors: #660099, #99FFFF;
+           backgroundColor: #FFFFFF;
+	       borderThickness: 0;
+	       dropShadowEnabled: true;
+	   }
+
+	   .customFontWeight {
+           fontWeight: "bold";
+           backgroundColor: #FFFFFF;
+	       borderThickness: 0;
+	       dropShadowEnabled: true;
+	   }
+
+	   .customFontStyle {
+           fontStyle: "italic" ;
+           backgroundColor: #FFFFFF;
+	       borderThickness: 0;
+	       dropShadowEnabled: true;
+	   }
+
+	   .customTextDecoration {
+           textDecoration: "underline";
+           backgroundColor: #FFFFFF;
+	       borderThickness: 0;
+	       dropShadowEnabled: true;
+	   }
+
+	   .customFontFamily {
+           fontFamily: "EmbeddedArial";
+           backgroundColor: #FFFFFF;
+	       borderThickness: 0;
+	       dropShadowEnabled: true;
+	   }
+
+	   .customCornerRadius {
+          cornerRadius: 10;
+          backgroundColor: #FFFFFF;
+	      borderThickness: 0;
+	      dropShadowEnabled: true;
+	   }
+
+	   .customColor {
+          color: #CCDD00;
+          backgroundColor: #FFFFFF;
+	      borderThickness: 0;
+	      dropShadowEnabled: true;
+	   }
+	
+	DateField{
+		fontFamily: EmbeddedVerdana;
+		fontAntiAliasType: normal;    
+	}
+	DateChooser{
+		fontFamily: EmbeddedVerdana;
+		fontAntiAliasType: normal;    
+	}
+
+	TextInput{
+		fontFamily: EmbeddedVerdana;
+		fontAntiAliasType: normal;    
+	}	
+
+	ToolTip{
+		fontFamily: EmbeddedVerdana;
+		fontAntiAliasType: normal;    
+	}	
+        
+	</mx:Style>
+	<mx:Fade id="myFade" />
+
+	<mx:TextInput id="ti2"/>
+        <mx:DateField id="df" creationComplete="{ti.text='Creation Complete event triggered'}" mouseDownEffect="myFade" initialize="{ti2.text='Initialize event triggered'}"/>
+        <mx:TextInput id="ti"/>
+
+</mx:Application>

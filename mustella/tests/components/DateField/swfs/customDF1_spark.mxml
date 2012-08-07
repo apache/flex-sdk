@@ -1,0 +1,4 @@
+<mx:DateField     
+    dateChooserStyleName="customBorder"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"/>

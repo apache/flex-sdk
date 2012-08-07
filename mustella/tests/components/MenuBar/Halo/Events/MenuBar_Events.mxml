@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/MenuBar/Halo/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MenuBar_Custom.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <TestCase testID="change_onMenuItemsKeyBoard" description="MenuBar - ensure change event is triggered on menuBarItems" keywords="[events, change, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, RIGHT]" waitEvent="change" waitTarget="mb2" />
+                <AssertEvent target="mb2" eventName="change" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="Asia" target="mb2" />
+                <AssertEventPropertyValue propertyName="index" value="1" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="change_onSubmenusKeyboard" description="MenuBar - ensure change event is triggered on submenu items" keywords="[events, change, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, RIGHT, DOWN, DOWN, SPACE]" waitEvent="change" waitTarget="mb2" />
+                <AssertEvent target="mb2" eventName="change" eventClass="mx.events::MenuEvent" numExpectedEvents="2"/>
+                <AssertEventPropertyValue propertyName="label" value="China" target="mb2" />
+                <AssertEventPropertyValue propertyName="index" value="2" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="change_onMenuItemsMouse" description="MenuBar - ensure change event is triggered on menuBarItems" keywords="[events, change, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" target="mb2.menuBarItems.1" localX="4" localY="5" waitEvent="change" waitTarget="mb2" />
+                <AssertEvent target="mb2" eventName="change" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="Asia" target="mb2" />
+                <AssertEventPropertyValue propertyName="index" value="1" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="change_onSubmenusMouse" description="MenuBar - ensure change event is triggered on submenu items" keywords="[events, change, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]" waitEvent="change" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb2.menus.2"  waitTarget="mb2.menus.2" waitEvent="mouseDown" />
+                <DispatchMouseEvent type="mouseUp" localX="55" localY="30" target="mb2.menus.2"  waitTarget="mb2.menus.2" waitEvent="mouseUp" />
+                <AssertEvent target="mb2" eventName="change" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="South Africa" target="mb2" />
+                <AssertEventPropertyValue propertyName="index" value="1" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="itemRollOver_onMenuItemsKeyBoard" description="MenuBar - ensure itemRollOver event is triggered on menuBarItems" keywords="[events, itemRollOver, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, RIGHT]" waitEvent="itemRollOver" waitTarget="mb2" />
+                <AssertEvent target="mb2" eventName="itemRollOver" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="Asia" target="mb2" />
+                <AssertEventPropertyValue propertyName="index" value="1" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="itemRollOver_onSubmenusKeyboard" description="MenuBar - ensure itemRollOver event is triggered on submenu items" keywords="[events, itemRollOver, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, RIGHT, DOWN]" />
+                <AssertEvent target="mb2" eventName="itemRollOver" eventClass="mx.events::MenuEvent" numExpectedEvents="2"/>
+                <AssertEventPropertyValue propertyName="label" value="Japan" target="mb2" />
+                <AssertEventPropertyValue propertyName="index" value="1" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="itemRollOver_onMenuItemsMouse" description="MenuBar - ensure itemRollOver event is triggered on menuBarItems" keywords="[events, itemRollOver, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" target="mb2.menuBarItems.1" localX="4" localY="5" waitEvent="itemRollOver" waitTarget="mb2" />
+                <AssertEvent target="mb2" eventName="itemRollOver" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="Asia" target="mb2" />
+                <AssertEventPropertyValue propertyName="index" value="1" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="itemRollOver_onSubmenusMouse" description="MenuBar - ensure itemRollOver event is triggered on submenu items" keywords="[events, itemRollOver, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]" waitEvent="itemRollOver" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="mb2.menus.2"  waitTarget="mb2.menus.2" waitEvent="mouseOver" />
+                <AssertEvent target="mb2" eventName="itemRollOver" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="South Africa" target="mb2" />
+                <AssertEventPropertyValue propertyName="index" value="1" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="itemClick_KeyBoard" description="MenuBar - ensure itemClick event is triggered with keyboard events" keywords="[events, itemClick, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT, DOWN, SPACE]" waitEvent="itemClick" waitTarget="mb2" />
+                <AssertEvent target="mb2" eventName="itemClick" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="South Africa" target="mb2" />
+                <AssertEventPropertyValue propertyName="index" value="1" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="itemClick_subMenuKeyboard" description="MenuBar - ensure itemClick event is triggered on submenu items" keywords="[events, itemClick, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT, DOWN, DOWN, RIGHT, SPACE]" waitEvent="itemClick" waitTarget="mb2" />
+                <AssertEvent target="mb2" eventName="itemClick" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="Waterfalls" target="mb2" />
+                <AssertEventPropertyValue propertyName="index" value="0" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="itemClick_Mouse" description="MenuBar - ensure itemClick event is triggered on mouse events" keywords="[events, itemClick, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb2.menus.2"  waitTarget="mb2.menus.2" waitEvent="mouseDown" />
+                <DispatchMouseEvent type="mouseUp" localX="55" localY="30" target="mb2.menus.2"  waitTarget="mb2.menus.2" waitEvent="mouseUp" />
+                <AssertEvent target="mb2" eventName="itemClick" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="South Africa" target="mb2" />
+                <AssertEventPropertyValue propertyName="index" value="1" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="menuShow_keyboard" description="MenuBar - ensure menushow event is triggered on keyboard events"  keywords="[events, menuShow, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+                <AssertEvent target="mb2" eventName="menuShow" eventClass="mx.events::MenuEvent" numExpectedEvents="2" />
+                <AssertEventPropertyValue propertyName="label" value="null" target="mb2" />
+                <AssertPropertyValue propertyName="selectedIndex" value="2" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="menuShow_mouse" description="MenuBar - ensure menuShow event is triggered on mouse events" keywords="[events, menuShow, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" localX="5" localY="10" target="mb2.menuBarItems.2"  waitTarget="mb2" waitEvent="mouseDown" />
+                <AssertEvent target="mb2" eventName="menuShow" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="null" target="mb2" />
+                <AssertPropertyValue propertyName="selectedIndex" value="2" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="menuHide_keyboard" description="MenuBar - ensure menuHide event is triggered on keyboard events"  keywords="[events, menuHide, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT, TAB]" waitEvent="menuHide" waitTarget="mb2" />
+                <AssertEvent target="mb2" eventName="menuHide" eventClass="mx.events::MenuEvent" numExpectedEvents="3" />
+                <AssertEventPropertyValue propertyName="label" value="null" target="mb2" />
+            </body>
+        </TestCase>
+        <TestCase testID="menuHide_mouse" description="MenuBar - ensure menuHide event is triggered on mouse events" keywords="[events, menuHide, MenuBar]">
+            <setup>
+                <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" localX="5" localY="10" target="mb2.menuBarItems.2"  waitTarget="mb2" waitEvent="mouseDown" />
+                <DispatchMouseEvent type="mouseUp" localX="5" localY="10" target="mb2.menuBarItems.2"  waitTarget="mb2" waitEvent="mouseUp" />
+                <AssertEvent target="mb2.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <DispatchMouseEvent type="mouseDown" localX="5" localY="10" target="mb2.menuBarItems.0"  waitTarget="mb2" waitEvent="mouseDown" />
+                <AssertEvent target="mb2" eventName="menuHide" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="null" target="mb2" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

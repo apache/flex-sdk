@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_HaloSkin/Bugs/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGrid_Bugs2_halo.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.DataGrid;
+    
+    
+    
+    
+    ]]>
+    </mx:Script>
+    
+    <testCases>
+        <TestCase testID="datagrid_bug_189793_halo" keywords="[DataGrid, headerHeight, scrollDown, scrollUp,189793]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+            </setup>
+            <body>
+                <SetProperty target="dg" propertyName="headerHeight" value="0" waitEvent="updateComplete" waitTarget="dg" />
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <CompareBitmap target="dg" url="../Bugs/baselines/scrollDown.png" timeout="5000" numColorVariances="2" ignoreMaxColorVariance="true"/>
+
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <CompareBitmap target="dg" url="../Bugs/baselines/scrollUp.png" timeout="5000" numColorVariances="2" ignoreMaxColorVariance="true"/>                       
+
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="147" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="390" localY="8" waitTarget="dg" waitEvent="scroll"/>                       
+                <CompareBitmap target="dg" url="../Bugs/baselines/bug189793.png" timeout="5000" numColorVariances="2" ignoreMaxColorVariance="true"/>                     
+            </body>
+        </TestCase>                
+    </testCases>                
+         
+</UnitTester>

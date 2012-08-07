@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Menu/Spark/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Menu_Basic_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+
+    import mx.controls.Menu;
+    import mx.managers.PopUpManager;
+    import data.MenuDataXML;
+
+    private var iconDP:Object;
+    private var myDP2:MenuDataXML;
+
+    private var mydp:Object= {label: "top", children: [
+                {label: "File", children: [
+                    {label: "Open"},
+                    {label: "New File"}
+                ]},
+                {label: "Edit", children: [
+                    {label: "Copy"},
+                    {label: "Paste"},
+                    {label: "Send"}
+                ]},
+                {label: "Window"}
+    ]};
+
+    public static function init(o:DisplayObject):void
+    {
+    }
+
+    public function createAMenu2(): void
+    {
+        myDP2 = new MenuDataXML();
+        application.menu1 = Menu.createMenu(null, myDP2.myData, false);
+        application.menu1.labelField = "@label";
+    }
+
+    public function removePopUp(): void
+    {
+        PopUpManager.removePopUp(application.menu1);
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.MenuEvent;
+    import data.MenuDataAS;
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="fontFamily_Arial" description="Menu style fontFamily=Arial." keywords="[styles, fontFamily, Menu]">
+            <setup>
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="fontFamily" target="menu1" value="Arial" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/menu_fontFamily_Arial.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontFamily_flashType" description="Menu style fontFamily = flashtype font Hancock." keywords="[styles, fontFamily, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontFamily" value="Hancock" target="menu1" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/fontFamily_flashtype.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontFamily_emenu1edded" description="Menu style fontFamily=emenu1edded font Comic Sans." keywords="[styles, fontFamily, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontFamily" value="ComicSansMS" target="menu1" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/fontFamily_embedded.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontSize_25" description="Menu style fontSize=25." keywords="[styles, fontSize, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontSize" target="menu1" value="25" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue propertyName="height" target="menu1" value="128" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontSize_9" description="Menu style fontSize=9." keywords="[styles, fontSize, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontSize" target="menu1" value="9" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue propertyName="height" target="menu1" value="62" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontSize_80" description="Menu style fontSize=80." keywords="[styles, fontSize, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontSize" target="menu1" value="80" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue propertyName="height" target="menu1" value="350" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontStyle_normal" description="Menu style fontStyle=normal." keywords="[styles, fontStyle, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="fontStyle" target="menu1" value="italic" />
+                <SetStyle styleName="fontStyle" target="menu1" value="normal"/>
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.1.0" url="../Styles/baselines/fontStyle_normal_MenuItem.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontStyle_normal_submenu" description="Menu style fontStyle=normal." keywords="[styles, fontStyle, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="fontStyle" target="menu1" value="italic" />
+                <SetStyle styleName="fontStyle" target="menu1" value="normal" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/fontStyle__normal_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontStyle_italics" description="Menu style fontStyle=italics." keywords="[styles, fontStyle, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="fontStyle" target="menu1" value="italic" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.1.0" url="../Styles/baselines/fontStyle_italic_MenuItem.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontWeight_normal" description="Menu style fontWeight=bold." keywords="[styles, fontWeight, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="fontWeight" target="menu1" value="bold" />
+                <SetStyle styleName="fontWeight" target="menu1" value="normal" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.1.0" url="../Styles/baselines/fontWeight_normal_MenuItem.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontWeight_normal_submenu" description="Menu style fontWeight=bold." keywords="[styles, fontWeight, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="fontWeight" target="menu1" value="bold" />
+                <SetStyle styleName="fontWeight" target="menu1" value="normal" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/fontWeight_normal_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontWeight_bold" description="Menu style fontWeight=bold." keywords="[styles, fontWeight, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="fontWeight" target="menu1" value="bold" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.1.0" url="../Styles/baselines/fontWeight_bold_MenuItem.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="fontWeight_bold_submenu" description="Menu style fontWeight=bold." keywords="[styles, fontWeight, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="fontWeight" target="menu1" value="bold" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/fontWeight_bold_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textAlign_center" description="Menu style textAlign=bold." keywords="[styles, textAlign, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="textAlign" target="menu1" value="center" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.1.0" url="../Styles/baselines/textAlign_center.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textAlign_right" description="Menu style textAlign=bold." keywords="[styles, textAlign, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="textAlign" target="menu1" value="right" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.1.0" url="../Styles/baselines/textAlign_right.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textAlign_left" description="Menu style textAlign=bold." keywords="[styles, textAlign, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="textAlign" target="menu1" value="left" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.1.0" url="../Styles/baselines/textAlign_left.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textDecoration_none_submenu" description="Menu style textDecoration=bold." keywords="[styles, textDecoration, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="textDecoration" target="menu1" value="underline" />
+                <SetStyle styleName="textDecoration" target="menu1" value="none" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/textDecoration_none_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textDecoration_underline" description="Menu style textDecoration=underline." keywords="[styles, textDecoration, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="textDecoration" target="menu1" value="underline" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.1.0" url="../Styles/baselines/textDecoration_underline.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textDecoration_underline_submenu" description="Menu style textDecoration=underline." keywords="[styles, textDecoration, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="textDecoration" target="menu1" value="underline" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.1.0" url="../Styles/baselines/textDecoration_underline_submenu.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="leading_default1" description="Menu style leading=default." keywords="[styles, leading, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <AssertStyleValue styleName="leading" value="2" target="menu1" />
+            </body>
+        </TestCase>
+        <TestCase testID="leading_15" description="Menu style leading=15." keywords="[styles, leading, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="leading" target="menu1" value="15" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.1.0" url="../Styles/baselines/leading_15.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="paddingLeft_0" description="Menu style paddingLeft=0." keywords="[styles, paddingLeft, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="paddingLeft" target="menu1" value="0" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/paddingLeft_0.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="paddingLeft_20" description="Menu style paddingLeft=0." keywords="[styles, paddingLeft, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="paddingLeft" target="menu1" value="20" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/paddingLeft_20.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="paddingRight_0" description="Menu style paddingRight=0." keywords="[styles, paddingRight, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="paddingRight" target="menu1" value="0" />
+                <SetStyle styleName="textAlign" target="menu1" value="right" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/paddingRight_0.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="paddingRight_20" description="Menu style paddingRight=0." keywords="[styles, paddingRight, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="paddingRight" target="menu1" value="20" />
+                <SetStyle styleName="textAlign" target="menu1" value="right" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/paddingRight_20.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="paddingTop_0" description="Menu style paddingTop=0." keywords="[styles, paddingTop, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="paddingTop" target="menu1" value="0" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/paddingTop_0.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="paddingTop_20" description="Menu style paddingTop=0." keywords="[styles, paddingTop, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="paddingTop" target="menu1" value="20" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/paddingTop_20.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textIndent_0" description="Menu style textIndent=0." keywords="[styles, textIndent, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="textIndent" target="menu1" value="0" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.1.0" url="../Styles/baselines/textIndent_0.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textIndent_20" description="Menu style textIndent=0." keywords="[styles, textIndent, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="textIndent" target="menu1" value="20" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.1.0" url="../Styles/baselines/textIndent_20.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="paddingBottom_0" description="Menu style paddingBottom=0." keywords="[styles, paddingBottom, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="paddingBottom" target="menu1" value="0" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/paddingBottom_0.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="paddingBottom_20" description="Menu style paddingBottom=0." keywords="[styles, paddingBottom, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="paddingBottom" target="menu1" value="20" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/paddingBottom_20.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="useRollOver_true" keywords="[Menu, useRollOver]" description="useRollOver is set to true for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="useRollOver" target="menu1" value="true" />
+                <SetStyle target="menu1" styleName="rollOverColor" value="0x00FF00" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent target="menu1" type="mouseOver" localX="20" localY="8" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="menu1" x="10" y="8" value="0x00FF00" />
+            </body>
+        </TestCase>
+        <TestCase testID="useRollOver_false" keywords="[Menu, useRollOver]" description="useRollOver is set to false for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="useRollOver" target="menu1" value="false" />
+                <SetStyle target="menu1" styleName="rollOverColor" value="0x00FF00" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent target="menu1" type="mouseOver" localX="20" localY="8" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="menu1" x="10" y="8" value="0xFFFFFF" />
+                <RunCode code="application.menu1.hide()" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

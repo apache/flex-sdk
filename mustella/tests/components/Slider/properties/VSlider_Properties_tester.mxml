@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Slider/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="VSlider_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	
+	[Bindable]
+	public var labelsArray:Array = ['Left', 'Center', 'Right'];
+
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+		import mx.controls.VSlider;
+		import mx.styles.StyleManager;
+		import mx.managers.SystemManager;
+		public function scriptFunction(a:String, b:int):String
+		{
+			return a + ":" + b.toString();
+		}
+		public var styleDecl:Object;
+		public var styleObj:Object;
+
+		[Bindable]
+		private var valuesArray:Array = [1, 5, 8];
+
+		private var numChanges:int;
+
+		private function initNumChanges():void{
+			numChanges = 0;
+		}
+
+		private function countChangeEvents(e:Event):void{
+			numChanges++;
+		}
+
+		private function addCount():void{
+			application.myVSlider.addEventListener("change", countChangeEvents);
+		}
+
+		private function enoughChanges():Boolean{
+			return numChanges >= 2;
+		}
+	]]>
+	</mx:Script>
+	<testCases>
+		
+		<TestCase testID="VSlider_Default_Value_of_Property_allowThumbOverlap" keywords="[VSlider, allowThumbOverlap, Property]" description="Checking Default Value of Property allowThumbOverlap">
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="allowThumbOverlap" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="VSlider_Property_allowThumbOverlap_false" keywords="[VSlider, allowThumbOverlap, Property]" description="Checking MXML Value of Property allowThumbOverlap">
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="thumbCount" value="2"/>
+				<SetProperty target="myVSlider" propertyName="allowThumbOverlap" value="false" />
+				<RunCode code="application.myVSlider.setThumbValueAt(1,6)" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<RunCode code="application.myVSlider.setThumbValueAt(0,6)" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="allowThumbOverlap" value="false" />
+				<CompareBitmap url="../properties/baselines/VSlider_allowThumbOverlap_false.png" target="myVSlider"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VSlider_Property_allowThumbOverlap_true" keywords="[VSlider, allowThumbOverlap, Property]" description="Checking MXML Value of Property allowThumbOverlap">
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="allowThumbOverlap" value="true"/>
+				<SetProperty target="myVSlider" propertyName="thumbCount" value="2"/>
+				<RunCode code="application.myVSlider.setThumbValueAt(1,6)" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<RunCode code="application.myVSlider.setThumbValueAt(0,6)" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="allowThumbOverlap" value="true" />
+				<CompareBitmap url="../properties/baselines/VSlider_allowThumbOverlap_true.png" target="myVSlider"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_allowThumbOverlap" keywords="[VSlider, allowThumbOverlap, Property]" description="Checking AS Value of Property allowThumbOverlap">
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<RunCode code="application.myVSlider.allowThumbOverlap=true" />
+				<SetProperty target="myVSlider" propertyName="thumbCount" value="2"/>
+				<RunCode code="application.myVSlider.setThumbValueAt(1,6)" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<RunCode code="application.myVSlider.setThumbValueAt(0,6)" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="allowThumbOverlap" value="true" />
+				<CompareBitmap url="../properties/baselines/VSlider_allowThumbOverlap_AS_true.png" target="myVSlider"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_default_Property_allowTrackClick" keywords="[VSlider, allowTrackClick, Property]" description="Checking Default Value of Property allowTrackClick">
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="allowTrackClick" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="VSlider_Property_allowTrackClick_false" keywords="[VSlider, allowTrackClick, Property]" description="Checking MXML Value of Property allowTrackClick">
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="allowTrackClick" value="false" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent localX="5" localY="91" target="myVSlider"/>
+				<AssertPropertyValue target="myVSlider" propertyName="allowTrackClick" value="false" />
+				<CompareBitmap url="../properties/baselines/VSlider_allowTrackClick_false.png" target="myVSlider"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_Property_allowTrackClick_true" keywords="[VSlider, allowTrackClick, Property]" description="Checking MXML Value of Property allowTrackClick">
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="allowTrackClick" value="true" />
+				
+			</setup>
+			<body>
+				<DispatchMouseClickEvent localX="5" localY="91" target="myVSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<AssertPropertyValue target="myVSlider" propertyName="allowTrackClick" value="true" />
+				<CompareBitmap url="../properties/baselines/VSlider_allowTrackClick_true.png" target="myVSlider"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_AS_Property_allowTrackClick" keywords="[VSlider, allowTrackClick, Property]" description="Checking AS Value of Property allowTrackClick">
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<RunCode code="application.myVSlider.allowTrackClick=false" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent localX="5" localY="91" target="myVSlider"/>
+				<AssertPropertyValue target="myVSlider" propertyName="allowTrackClick" value="false" />
+				<CompareBitmap url="../properties/baselines/VSlider_AS_allowTrackClick_false.png" target="myVSlider"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_Default_Value_of_Property_liveDragging" keywords="[VSlider, liveDragging, Property]" description="Checking Default Value of Property liveDragging">
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>				
+				<AssertPropertyValue target="myVSlider" propertyName="liveDragging" value="false" />
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_liveDragging_true" keywords="[VSlider, liveDragging, Property]" description="liveDragging false causes only one change event to fire after dragging has stopped">
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="liveDragging" value="true"/>
+				<RunCode code="script:initNumChanges(); script:addCount();"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="5" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="5" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="10" type="mouseDown"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="15" type="mouseMove" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="16" type="mouseDown"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="16" type="mouseMove" waitEvent="change" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseMove" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=enoughChanges()" value="true"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<AssertPropertyValue target="myVSlider" propertyName="liveDragging" value="true" />
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_liveDragging_false" keywords="[VSlider, liveDragging, Property]" description="liveDragging false causes only one change event to fire after dragging has stopped">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="0" localY="0" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="liveDragging" value="false"/>
+				<RunCode code="script:initNumChanges(); script:addCount();"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="1" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="5" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="5" type="mouseDown"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="9" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="9" type="mouseDown"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="15" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseMove" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=numChanges" value="0"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<AssertPropertyValue target="myVSlider" propertyName="liveDragging" value="false" />
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_Default_Value_of_Property_maximum" keywords="[VSlider, maximum, Property]" description="Checking Default Value of Property maximum">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="maximum" value="10" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="VSlider_Property_maximum" keywords="[VSlider, maximum, Property]" description="Checking MXML Value of Property maximum">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<SetProperty target="myVSlider" propertyName="value" value="150" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<CompareBitmap url="../properties/baselines/VSlider_maximumproperty.png" target="myVSlider"/>
+				<AssertPropertyValue target="myVSlider" propertyName="maximum" value="100" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="100"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_Default_Value_of_Property_minimum" keywords="[VSlider, minimum, Property]" description="Checking Default Value of Property minimum">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="minimum" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="VSlider_Property_minimum" keywords="[VSlider, minimum, Property]" description="Checking MXML Value of Property minimum">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="minimum" value="5" waitEvent="change" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<SetProperty target="myVSlider" propertyName="value" value="3" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<AssertPropertyValue target="myVSlider" propertyName="minimum" value="5" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Checking_Default_Value_of_Property_showDataTip" keywords="[VSlider, showDataTip, Property]" description="Checking Default Value of Property showDataTip">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="showDataTip" value="true" />
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_Property_showDataTip_true" keywords="[VSlider, showDataTip, Property]" description="Checking MXML Value of Property showDataTip">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="140" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="138" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="138" type="mouseDown" waitEvent="thumbPress" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="134" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="134" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="131" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="131" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="126" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="126" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="125" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="125" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<Pause timeout="1000"/>
+				<AssertPropertyValue target="myVSlider" propertyName="showDataTip" value="true"/>
+				<CompareBitmap url="../properties/baselines/VSlider_showDataTip_true.png" target=""/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VSlider_Property_showDataTip_false" keywords="[VSlider, showDataTip, Property]" description="Checking AS Value of Property showDataTip">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="showDataTip" value="false" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="140" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="138" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="138" type="mouseDown" waitEvent="thumbPress" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="134" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="134" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="131" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="131" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="126" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="126" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="125" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="125" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<Pause timeout="1000"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/VSlider_showDataTip_false.png" target=""/>
+				<AssertPropertyValue target="myVSlider" propertyName="showDataTip" value="false" />
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_Default_Value_of_Property_snapInterval" keywords="[VSlider, snapInterval, Property]" description="Checking Default Value of Property snapInterval">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="snapInterval" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_Property_snapInterval" keywords="[VSlider, snapInterval, Property]" description="Checking MXML Value of Property snapInterval">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<DispatchMouseEvent target="myVSlider" localX="10" localY="100" type="mouseMove" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseClickEvent target="myVSlider" localX="10" localY="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="4"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VSlider_Property_labels" keywords="[VSlider, labels, Property]" description="Checking MXML Value of Property labels">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="labels" valueExpression="value=labelsArray" waitEvent="updateComplete" waitTarget="myVSlider" />		
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/VSlider_labels.png" target=""/>
+				<AssertPropertyValue target="myVSlider" propertyName="labels" value="Left,Center,Right" />
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_Property_thumbCount_default" keywords="[VSlider, labels, Property]" description="Checking Default Value of Property thumbCount">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="thumbCount" value="1" />
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_Property_thumbCount" keywords="[VSlider, thumbCount, Property]" description="Checking MXML Value of Property thumbCount">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="thumbCount" value="3" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="values" valueExpression="value=valuesArray" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="thumbCount" value="3" />
+				<CompareBitmap url="../properties/baselines/VSlider_thumbCount.png" target="myVSlider"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_Property_tickInterval_default" keywords="[VSlider, thumbCount, Property]" description="Checking Default Value of Property tickInterval">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="tickInterval" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="VSlider_Property_tickInterval" keywords="[VSlider, tickInterval, Property]" description="Checking MXML Value of Property tickInterval">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="tickInterval" value="2" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/VSlider_tickInterval.png" target="myVSlider"/>
+				<AssertPropertyValue target="myVSlider" propertyName="tickInterval" value="2" />
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_Interactively_allowTrackClick" keywords="[VSlider, allowTrackClick, Property]" description="Checking Interactively the allowTrackClick Property using mouse events">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="allowTrackClick" value="false"/>
+				<DispatchMouseEvent target="myVSlider" localX="10" localY="100" type="mouseMove"/>
+				<DispatchMouseClickEvent target="myVSlider" localX="10" localY="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VSlider_MXML_Interactively_maximum" keywords="[VSlider, maximum, Property]" description="Checking Interactively the maximum Property using mouse events">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="maximum" value="20"/>
+				<DispatchMouseEvent target="myVSlider" localX="10" localY="100" type="mouseMove" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseClickEvent target="myVSlider" localX="10" localY="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="8"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VSlider_MXML_Interactively_minimum" keywords="[VSlider, minimum, Property]" description="Checking Interactively the minimum Property using mouse events">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="minimum" value="10"/>
+				<SetProperty target="myVSlider" propertyName="maximum" value="20"/>
+				<DispatchMouseEvent target="myVSlider" localX="10" localY="100" type="mouseMove" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseClickEvent target="myVSlider" localX="10" localY="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="14"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VSlider_MXML_Interactively_thumbCount" keywords="[VSlider, thumbCount, Property]" description="Checking Interactively the thumbCount Property using mouse events">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="5" localY="20" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="thumbCount" value="2"/>
+				<DispatchMouseEvent target="myVSlider" localX="10" localY="100" type="mouseMove" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseClickEvent target="myVSlider" localX="10" localY="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myVSlider" propertyName="values" value="0,4"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

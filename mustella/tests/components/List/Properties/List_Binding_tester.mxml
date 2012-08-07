@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/List/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="List_Binding.mxml">
+
+    <mx:Script>
+	<![CDATA[
+	   
+	   // taking a clue from components/DataGrid/Properties/datagrid_properties.mxml
+	   import mx.controls.List;
+       public var theList:List;
+		 
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	
+
+<testCases>
+	 <TestCase testID="List_Binding_editedItemPosition" description="Test List binding of editedItemPosition property" keywords="[List, Binding, editedItemPosition]">
+		<setup>
+			<ResetComponent target="theList" className="mx.controls.List" 
+                waitEvent="updateComplete" waitTarget="theList"/>
+            <SetProperty target="theList" propertyName="editable" value="true" />
+            <SetProperty target="theList" propertyName="dataProvider" valueExpression="value=application.mystates.state" 
+                waitEvent="updateComplete" waitTarget="theList"/>
+		</setup>
+		<body>	
+			<!--
+				<SetProperty target="theList" propertyName="editedItemPosition" valueExpression="value={rowIndex:0,columnIndex:0}" waitEvent="updateComplete" />
+				<AssertMethodValue method="value=(application.theList.editedItemRenderer != null)" valueExpression="value=true"/>
+	    	-->
+	    	
+	    	<!-- 
+	    	 	The two lines above produce this result:
+	    	    [java] List_Binding_tester List_Binding_editedItemPosition Failed method returned false, expected true 
+	    	-->
+	    	   
+	    	   <!-- List columnIndex is always 0 -->
+	    	   <DispatchMouseClickEvent target="theList.mx_internal:rendererArray.0.0" localX="2" localY="2" waitTarget="theList" waitEvent="itemEditBegin" />                
+        	   <AssertPropertyValue target="theList.editedItemPosition" propertyName="rowIndex" value="0"/>
+            
+            <!--  
+                The two lines above produce this result:
+                [java] List_Binding_tester List_Binding_editedItemPosition Failed Target theList.mx_internal:rendererArray.0.0 not found
+             -->
+	    </body>
+	  </TestCase>
+</testCases>
+
+
+
+</UnitTester>

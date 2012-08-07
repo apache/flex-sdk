@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="0xFFFFFF" width="1200" height="800"
+    backgroundImage="">
+    <mx:Script>
+        <![CDATA[
+
+            [Bindable]
+            public var scaleTypedp:Array = ["showAll", "fillPage", "none", "matchWidth", "matchHeight"];
+
+        ]]>
+    </mx:Script>
+    <mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+
+        .MenuBar1
+        {
+            itemSkin: ClassReference("comps.button_gif_embedded");
+            itemUpSkin: ClassReference(null);
+            itemDownSkin: ClassReference(null);
+            itemOverSkin: ClassReference(null);
+        }
+        
+        .MenuBar2
+        {
+            itemSkin: ClassReference("comps.button_jpg_embedded");
+            itemUpSkin: ClassReference(null);
+            itemDownSkin: ClassReference(null);
+            itemOverSkin: ClassReference(null);
+        }
+        
+        .MenuBar3
+        {
+            itemSkin: ClassReference("comps.button_png_embedded");
+            itemUpSkin: ClassReference(null);
+            itemDownSkin: ClassReference(null);
+            itemOverSkin: ClassReference(null);
+        }
+        
+        .MenuBar4
+        {
+            itemSkin: ClassReference("comps.button_swfsymbol_embedded");
+            itemUpSkin: ClassReference(null);
+            itemDownSkin: ClassReference(null);
+            itemOverSkin: ClassReference(null);
+        }
+    </mx:Style>
+
+    <mx:MenuBar id="myMenuBar_gif_embedded" dataProvider="{scaleTypedp}" styleName="MenuBar1" />
+
+    <mx:MenuBar id="myMenuBar_jpg_embedded" dataProvider="{scaleTypedp}" styleName="MenuBar2" />
+
+    <mx:MenuBar id="myMenuBar_png_embedded" dataProvider="{scaleTypedp}" styleName="MenuBar3" />
+
+    <mx:MenuBar id="myMenuBar_swfsymbol_embedded" dataProvider="{scaleTypedp}" styleName="MenuBar4" />
+
+</mx:Application>

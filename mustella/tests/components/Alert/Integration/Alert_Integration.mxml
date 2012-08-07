@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Alert/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Alert_Basic.mxml">
+
+	<!-- this set of lines Alert a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.Alert;
+	import mx.core.IFlexDisplayObject;
+	import mx.containers.Box;
+	public var origValue: Number;
+	import mx.events.CloseEvent;
+
+	public var box1:Box = new Box();;
+
+        private function alertClickHandler(event:CloseEvent):void {
+
+	box1.width=300;
+	box1.height=400;
+
+        if (event.detail==Alert.YES)
+             box1.setStyle("backgroundColor", 0xFF0000)
+        else if(event.detail==Alert.NO)
+             box1.setStyle("backgroundColor", 0x0000FF)
+        application.addChild(box1)
+        }
+
+	private	function btnClickHandler(event:Event):void {
+		  application.ti.text = "Pass: click triggered.";
+	}
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="Alert_Integration_Keyboard" description="Verify Alert Keyboard Navigation" keywords="[Alert,KeyboardNavigation]" >
+		    <setup>
+			    <RunCode code="application.curAlert= new Alert()" />
+		    	<RunCode code="application.curAlert = Alert.show('Verify Alert default button.', 'Alert Test',3, null, alertClickHandler)" />
+		        <WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.0" waitEvent="focusIn" />
+				<DispatchKeyEvent key="SPACE" waitTarget="curAlert" waitEvent="removed" />
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Integration/baselines/Alert_No.png" timeout="5000" />
+		    </body>
+		 </TestCase>
+
+		<TestCase testID="Alert_Integration_alertClickHandler" description="Verify Alert alertClickHandler" keywords="[Alert,alertClickHandler]" >
+		    <setup>
+			    <RunCode code="if(application.numChildren > 1) application.removeChild(box1)"/>
+			    <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+		        <RunCode code="application.curAlert= new Alert()" />
+		    	<RunCode code="application.curAlert = Alert.show('Verify Alert default button.', 'Alert Test',3, null, alertClickHandler)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn" />
+				<DispatchKeyEvent key="SPACE"  waitTarget="curAlert" waitEvent="removed" />
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="" url="../Integration/baselines/Alert_Yes.png" timeout="5000" />
+		    </body>
+		</TestCase>
+
+		<TestCase testID="Alert_Stress" description="Verify Alert default Flag" keywords="[Alert, Stress]" >
+		    <setup>
+			    <RunCode code="if(application.numChildren > 1) application.removeChild(box1)" />
+		    	<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+			    <RunCode code="application.curAlert= new Alert()" />
+		    	<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+		    	<RunCode code="application.curAlert = Alert.show('The United States started Afghans on the  for re. A tribal council adopted a constitution early in 2004, followed by Afghanistans first presidential election last fall and then Sundays parliament ballot.The United States started Afghans on the road toward democracy when it led a military campaign in late 2001 to topple the Taliban for refusing to hand over Osama bin Laden and close al-Qaida camps. A tribal council adopted a constitution early in 2004, followed by Afghanistans first presidential election last fall and then Sundays parliament ballot.The United States started Afghans on the road toward democracy when it led a military campaign in late 2001 to topple the Taliban for refusing to hand over Osama bin Laden and close al-Qaida camps. A tribal council adopted a constitution early in 2004, followed by Afghanistans first presidential election last fall and then Sundays parliament ballot.The United States started Afghans on the road toward democracy when it led a military campaign in late 2001 to topple the Taliban for refusing to hand over Osama bin Laden and close al-Qaida camps. A tribal council adopted a constitution early in 2004, followed by Afghanistans first presidential election last fall and then Sundays parliament ballot.The United States started Afghans on the road toward democracy when it led a military campaign in late 2001 to topple the Taliban for refusing to hand over Osama bin Laden and close al-Qaida camps. A tribal council adopted a constitution early in 2004, followed by Afghanistans first presidential election last fall and then Sundays parliament ballot.The United States started Afghans on the road toward democracy when it led a military campaign in late 2001 to topple the Taliban for refusing to hand over Osama bin Laden and close al-Qaida camps. A tribal council adopted a constitution early in 2004, followed by Afghanistans first presidential election last fall and then Sundays parliament ballot.The United States started Afghans on the road toward democracy when it led a military campaign in late 2001 to topple the Taliban for refusing to hand over Osama bin Laden and close al-Qaida camps. A tribal council adopted a constitution early in 2004, followed by Afghanistans first presidential election last fall and then Sundays parliament ballot.The United States started Afghans on the road toward democracy when it led a military campaign in late 2001 to topple the Taliban for refusing to hand over Osama bin Laden and close al-Qaida camps. A tribal council adopted a constitution early in 2004, followed by Afghanistans first presidential election last fall and then Sundays parliament ballot.', 'Stress Test - Long text',Alert.OK | Alert.CANCEL | Alert.NO | Alert.YES, null, btnClickHandler)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+		    	<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn" />
+				<DispatchKeyEvent key="ENTER" waitTarget="curAlert" waitEvent="removed" />
+				<WaitForEffectsToEnd />
+				<AssertPropertyValue target="ti" propertyName="text" value="Pass: click triggered." />
+		    </body>
+		    <cleanup>
+		    	<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+		    </cleanup>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

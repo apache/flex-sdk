@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_SparkSkin/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp.mxml" >
+
+<!-- this set of lines form a template that must be in each unit test -->
+<mx:Script>
+<![CDATA[
+public static function init(o:DisplayObject):void
+{
+}                   
+]]>
+</mx:Script>
+<mx:Metadata>
+<![CDATA[
+    [Mixin]
+]]>
+</mx:Metadata>  
+<!-- end of set of lines that must be in each unit test -->
+
+<!--
+This file contains tests for the following non-inherited DataGrid methods:
+
+createItemEditor(colIndex:int, rowIndex:int):void
+    0,0
+    1,1
+    Call the method when a cell is already being edited, for the same cell.
+    Call the method when a cell is already being edited, for a different cell - change column
+    Call the method when a cell is already being edited, for a different cell - change row
+    A cell which contains a non-standard renderer.
+    -1, 1 - No need...garbage in, garbage out
+    1, -1 - No need...garbage in, garbage out
+    A cell which is horizontally out of sight - No need...garbage in, garbage out
+    A cell which is vertically out of sight - No need...garbage in, garbage out
+    A cell which is horizontally and vertically out of sight. - No need...garbage in, garbage out
+
+    To verify these, use a bitmap compare.  The itemEditorInstance property implements IListItemRenderer, which
+    doesn't give us x/y coordinates or any other easy way to tell that the editor is the correct one in the
+    correct place.
+    
+destroyItemEditor():void
+    Call when an editor is present.
+    Call when nothing is being edited.
+    Call it from itemEditEnd, like it would be used in the real world.
+
+isItemEditable(data:Object):Boolean
+    Override it and return false, be sure the editing session does not continue.
+    Override it and return true, be sure the editing session continues.
+    
+Note that the use of column config 3, turning off scrollbars, and hiding headers,
+are done in hopes of making the baselines simpler and more robust.
+-->
+
+<mx:Script>
+<![CDATA[
+    import mx.controls.*;
+    import mx.events.DataGridEvent;
+]]>
+</mx:Script>
+
+<testCases>
+
+<!--
+================================================================================
+isItemEditable
+The isItemEditable() method is overridden to return true or false, and as 
+a result the cell clicked in will or will not be editable.
+================================================================================
+-->
+
+<TestCase testID="isItemEditable_false" keywords="[DataGrid,properties,isItemEditable]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="isItemEditableRetVal" value="false" />
+        <RunCode code="application.setColumnConfig3(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="50" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="showHeaders" value="false" />
+        <SetProperty target="dg2" propertyName="editable" value="true" />
+        <RunCode code="application.setDataProvider(application.dg2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="dg2.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+        <WaitForEffectsToEnd />
+        <AssertNoEvent target="dg2" eventName="itemFocusIn" eventClass="mx.events::FlexEvent" />
+        <AssertPropertyValue target="dg2" propertyName="itemEditorInstance" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="isItemEditable_true" keywords="[DataGrid,properties,isItemEditable]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="isItemEditableRetVal" value="true" />
+        <RunCode code="application.setColumnConfig3(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="50" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="showHeaders" value="false" />
+        <SetProperty target="dg2" propertyName="editable" value="true" />
+        <RunCode code="application.setDataProvider(application.dg2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="dg2.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+        <WaitForEffectsToEnd />
+        <AssertMethodValue method="value=(application.dg2.itemEditorInstance!=null)" value="true" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+createItemEditor
+================================================================================
+-->
+
+<TestCase testID="createItemEditor_0_0" keywords="[DataGrid,properties,createItemEditor]">
+    <setup>
+        <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+        <RunCode code="application.setUpItemEditBegin(application.dg1, false, true, 0, 0)" />
+        <RunCode code="application.setColumnConfig3(application.dg1)" />
+        <SetProperty target="dg1" propertyName="width" value="200" />
+        <SetProperty target="dg1" propertyName="height" value="100" />
+        <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="showHeaders" value="false" />
+        <SetProperty target="dg1" propertyName="editable" value="true" />
+        <RunCode code="application.setDataProvider(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="dg1" waitEvent="updateComplete" />
+        <WaitForEffectsToEnd />
+        <CompareBitmap target="dg1" url="../Methods/Baselines/createItemEditor_0_0.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="createItemEditor_1_1" keywords="[DataGrid,properties,createItemEditor]">
+    <setup>
+        <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+        <RunCode code="application.setUpItemEditBegin(application.dg1, false, true, 1, 1)" />
+        <RunCode code="application.setColumnConfig3(application.dg1)" />
+        <SetProperty target="dg1" propertyName="width" value="200" />
+        <SetProperty target="dg1" propertyName="height" value="100" />
+        <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="showHeaders" value="false" />
+        <SetProperty target="dg1" propertyName="editable" value="true" />
+        <RunCode code="application.setDataProvider(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="dg1" waitEvent="updateComplete" />
+        <WaitForEffectsToEnd />
+        <CompareBitmap target="dg1" url="../Methods/Baselines/createItemEditor_1_1.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="createItemEditor_sameCell" keywords="[DataGrid,properties,createItemEditor]">
+    <setup>
+        <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+        <RunCode code="application.setUpItemEditBegin(application.dg1, false, true, 0, 0)" />
+        <RunCode code="application.setColumnConfig3(application.dg1)" />
+        <SetProperty target="dg1" propertyName="width" value="200" />
+        <SetProperty target="dg1" propertyName="height" value="60" />
+        <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="showHeaders" value="false" />
+        <SetProperty target="dg1" propertyName="editable" value="true" />
+        <RunCode code="application.setDataProvider(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="dg1" waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" waitTarget="dg1" waitEvent="updateComplete" />
+        <WaitForEffectsToEnd />
+        <CompareBitmap target="dg1" url="../Methods/Baselines/createItemEditor_sameCell.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="createItemEditor_changeColumn" keywords="[DataGrid,properties,createItemEditor]">
+    <setup>
+        <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+        <RunCode code="application.setUpItemEditBegin(application.dg1, false, true, 0, 0)" />
+        <RunCode code="application.setColumnConfig3(application.dg1)" />
+        <SetProperty target="dg1" propertyName="width" value="200" />
+        <SetProperty target="dg1" propertyName="height" value="60" />
+        <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="showHeaders" value="false" />
+        <SetProperty target="dg1" propertyName="editable" value="true" />
+        <RunCode code="application.setDataProvider(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="dg1" waitEvent="updateComplete" />
+        <RunCode code="application.setUpItemEditBegin(application.dg1, false, true, 1, 0)" />
+        <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" waitTarget="dg1" waitEvent="updateComplete" />
+        <WaitForEffectsToEnd />
+        <CompareBitmap target="dg1" url="../Methods/Baselines/createItemEditor_changeColumn.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="createItemEditor_changeRow" keywords="[DataGrid,properties,createItemEditor]">
+    <setup>
+        <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+        <RunCode code="application.setUpItemEditBegin(application.dg1, false, true, 0, 0)" />
+        <RunCode code="application.setColumnConfig3(application.dg1)" />
+        <SetProperty target="dg1" propertyName="width" value="200" />
+        <SetProperty target="dg1" propertyName="height" value="60" />
+        <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="showHeaders" value="false" />
+        <SetProperty target="dg1" propertyName="editable" value="true" />
+        <RunCode code="application.setDataProvider(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="dg1" waitEvent="updateComplete" />
+        <RunCode code="application.setUpItemEditBegin(application.dg1, false, true, 0, 1)" />
+        <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" waitTarget="dg1" waitEvent="updateComplete" />
+        <WaitForEffectsToEnd />
+        <CompareBitmap target="dg1" url="../Methods/Baselines/createItemEditor_changeRow.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="createItemEditor_customEditor" keywords="[DataGrid,properties,createItemEditor]">
+    <setup>
+        <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+        <RunCode code="application.setUpItemEditBegin(application.dg1, true)" />
+        <RunCode code="application.setColumnConfig3(application.dg1)" />
+        <SetProperty target="dg1" propertyName="width" value="200" />
+        <SetProperty target="dg1" propertyName="height" value="60" />
+        <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="showHeaders" value="false" />
+        <SetProperty target="dg1" propertyName="editable" value="true" />
+        <RunCode code="application.setDataProvider(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="dg1" waitEvent="updateComplete" />
+        <WaitForEffectsToEnd />
+        <CompareBitmap target="dg1" url="../Methods/Baselines/createItemEditor_customEditor.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+destroyItemEditor
+destroyItemEditor_noEditorPresent: I'm not sure what exactly to look for here,
+but at least I'm calling it with no editor present in hopes that something truly
+terrible might be caught.
+================================================================================
+-->
+
+<TestCase testID="destroyItemEditor_callDirectly" keywords="[DataGrid,properties,destroyItemEditor]">
+    <setup>
+        <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+        <RunCode code="application.setColumnConfig3(application.dg1)" />
+        <SetProperty target="dg1" propertyName="width" value="200" />
+        <SetProperty target="dg1" propertyName="height" value="50" />
+        <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="showHeaders" value="false" />
+        <SetProperty target="dg1" propertyName="editable" value="true" />
+        <RunCode code="application.setDataProvider(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="dg1" waitEvent="updateComplete" />
+        <RunCode code="application.dg1.destroyItemEditor()" waitTarget="dg1" waitEvent="itemFocusOut" />
+        <AssertPropertyValue target="dg1" propertyName="itemEditorInstance" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="destroyItemEditor_noEditorPresent" keywords="[DataGrid,properties,destroyItemEditor]">
+    <setup>
+        <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+        <RunCode code="application.setColumnConfig3(application.dg1)" />
+        <SetProperty target="dg1" propertyName="width" value="200" />
+        <SetProperty target="dg1" propertyName="height" value="50" />
+        <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="showHeaders" value="false" />
+        <SetProperty target="dg1" propertyName="editable" value="true" />
+        <RunCode code="application.setDataProvider(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.dg1.destroyItemEditor()" />
+        <AssertNoEvent target="dg1" eventName="itemFocusOut" eventClass="mx.events::FlexEvent" />
+    </body>
+</TestCase>
+
+<TestCase testID="destroyItemEditor_itemEditEnd" keywords="[DataGrid,properties,destroyItemEditor]">
+    <setup>
+        <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+        <RunCode code="application.setUpItemEditEnd(application.dg1)" />
+        <RunCode code="application.setColumnConfig3(application.dg1)" />
+        <SetProperty target="dg1" propertyName="width" value="200" />
+        <SetProperty target="dg1" propertyName="height" value="50" />
+        <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+        <SetProperty target="dg1" propertyName="showHeaders" value="false" />
+        <SetProperty target="dg1" propertyName="editable" value="true" />
+        <RunCode code="application.setDataProvider(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="dg1" waitEvent="updateComplete" />
+        <DispatchKeyEvent key="TAB" waitTarget="dg1" waitEvent="itemFocusOut" />
+        <AssertPropertyValue target="dg1" propertyName="itemEditorInstance" value="null" />
+    </body>
+</TestCase>
+
+</testCases>         
+</UnitTester>

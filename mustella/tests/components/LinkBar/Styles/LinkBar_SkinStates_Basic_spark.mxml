@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/LinkBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LinkBar_Basic_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    public function addData(bool:int):void
+    {
+        application.lb.dataProvider = myDP;
+    }
+
+    [Bindable]
+    public var iconDP:Array= [{label:"Toys", icon:"dinosaur"},{label:"Dinosaur", icon: "dinosaur"}];
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.LinkBar;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.ListEvent;
+
+    [Bindable]
+    private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+
+    ]]>
+    </mx:Script>
+
+<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+        .myLinkBarJPG
+        {
+            skin: ClassReference("comps.button_jpg_embeded");
+        }
+        .myLinkBarGIF
+        {
+            skin: ClassReference("comps.button_gif_embeded");
+        }
+        .myLinkBarPNG
+        {
+            skin: ClassReference("comps.button_png_embeded");
+        }
+        .myLinkBarSWF
+        {
+            skin: ClassReference("comps.button_swf_embeded");
+        }
+
+        .myLinkBarJPGRunTime
+        {
+            skin: ClassReference("comps.button_jpg_runtime");
+        }
+        .myLinkBarGIFRunTime
+        {
+            skin: ClassReference("comps.button_gif_runtime");
+        }
+        .myLinkBarPNGRunTime
+        {
+            skin: ClassReference("comps.button_png_runtime");
+        }
+        .myLinkBarSWFRunTime
+        {
+            skin: ClassReference("comps.button_swf_runtime");
+        }
+
+        .myLinkBarJPGIcon
+        {
+            skin: ClassReference("comps.icon_jpg_embeded");
+        }
+        .myLinkBarGIFIcon
+        {
+            skin: ClassReference("comps.icon_gif_embeded");
+        }
+        .myLinkBarPNGIcon
+        {
+            skin: ClassReference("comps.icon_png_embeded");
+        }
+        .myLinkBarSWFIcon
+        {
+            skin: ClassReference("comps.icon_swf_embeded");
+        }
+
+        .myLinkBarJPGIconRunTime
+        {
+            skin: ClassReference("comps.icon_jpg_runtime");
+        }
+        .myLinkBarGIFIconRunTime
+        {
+            skin: ClassReference("comps.icon_gif_runtime");
+        }
+        .myLinkBarPNGIconRunTime
+        {
+            skin: ClassReference("comps.icon_png_runtime");
+        }
+        .myLinkBarSWFIconRunTime
+        {
+            skin: ClassReference("comps.icon_swf_runtime");
+        }
+</mx:Style>
+
+    <testCases>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPG" keywords="[enabled, SkinStates,EmbedJPG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPG" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPG_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPG" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPG" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPG" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPG" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPG" waitEvent="updateComplete" waitTarget="lb" />
+                <SetProperty target="lb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_Disabled_JPG_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNG" keywords="[enabled, SkinStates,EmbedPNG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNG" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_PNG_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedPNG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNG" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_PNG_mouseOver_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNG" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_PNG_mouseOver_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedPNG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNG" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_PNG_mouseDown_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNG" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_PNG_mouseDown_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNG_Disabled" keywords="[disabled, SkinStates,EmbedPNG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNG" waitEvent="updateComplete" waitTarget="lb" />
+                <SetProperty target="lb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_Disabled_PNG_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIF" keywords="[enabled, SkinStates,EmbedGIF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_GIF_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIF_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedGIF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_GIF_mouseOver_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_GIF_mouseOver_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIF_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedGIF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_GIF_mouseDown_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_GIF_mouseDown_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIF_Disabled" keywords="[disabled, SkinStates,EmbedGIF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIF" waitEvent="updateComplete" waitTarget="lb" />
+                <SetProperty target="lb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_Disabled_GIF_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF" keywords="[enabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWF_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF_Disabled" keywords="[disabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+                <SetProperty target="lb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_Disabled_SWF_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_JPG" keywords="[enabled, SkinStates,runtimeJPG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPGRunTime" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_JPG_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_PNG" keywords="[enabled, SkinStates,runtimePNG, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNGRunTime" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_PNG_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_GIF" keywords="[enabled, SkinStates,runtimeGIF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIFRunTime" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_GIF_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_SWF" keywords="[enabled, SkinStates,runtimeSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFRunTime" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_SWF_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFRunTime" waitEvent="updateComplete" waitTarget="lb" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+				<Pause timeout="200" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFRunTime" waitEvent="updateComplete" waitTarget="lb" />
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+				<Pause timeout="200" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFRunTime" waitEvent="updateComplete" waitTarget="lb" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+				<Pause timeout="200" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFRunTime" waitEvent="updateComplete" waitTarget="lb" />
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+				<Pause timeout="200" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPGIcon" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPGIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPGIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPGIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPGIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPGIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPGIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_JPGIcon_Disabled" keywords="[disabled, SkinStates,EmbedJPGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPGIcon" waitEvent="updateComplete" waitTarget="lb" />
+                <SetProperty target="lb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_Disabled_JPGIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNGIcon" keywords="[enabled, SkinStates,EmbedPNGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNGIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_PNGIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNGIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_PNGIcon_mouseOver_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNGIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_PNGIcon_mouseOver_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNGIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_PNGIcon_mouseDown_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNGIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_PNGIcon_mouseDown_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_PNGIcon_Disabled" keywords="[disabled, SkinStates,EmbedPNGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNGIcon" waitEvent="updateComplete" waitTarget="lb" />
+                <SetProperty target="lb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_Disabled_PNGIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIFIcon" keywords="[enabled, SkinStates,EmbedGIFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIFIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_GIFIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIFIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIFIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_GIFIcon_mouseOver_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIFIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIFIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_GIFIcon_mouseOver_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIFIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIFIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_GIFIcon_mouseDown_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIFIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIFIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_GIFIcon_mouseDown_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_GIFIcon_Disabled" keywords="[disabled, SkinStates,EmbedGIFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIFIcon" waitEvent="updateComplete" waitTarget="lb" />
+                <SetProperty target="lb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_Disabled_GIFIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWFIcon" keywords="[enabled, SkinStates,EmbedSWFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWFIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWFIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWFIcon_mouseOver_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWFIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWFIcon_mouseOver_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWFIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWFIcon_mouseDown_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWFIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFIcon" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWFIcon_mouseDown_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWFIcon_Disabled" keywords="[disabled, SkinStates,EmbedSWFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFIcon" waitEvent="updateComplete" waitTarget="lb" />
+                <SetProperty target="lb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_Disabled_SWFIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_JPGIcon" keywords="[enabled, SkinStates,runtimeJPGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarJPGIconRunTime" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_JPGIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_PNGIcon" keywords="[enabled, SkinStates,runtimePNGIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarPNGIconRunTime" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_PNGIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_GIFIcon" keywords="[enabled, SkinStates,runtimeGIFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarGIFIconRunTime" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_GIFIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_SWFIcon" keywords="[enabled, SkinStates,runtimeSWFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFIconRunTime" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+				<Pause timeout="200" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_SWFIcon_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_SWFIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,runtimeSWFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFIconRunTime" waitEvent="updateComplete" waitTarget="lb" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+				<Pause timeout="200" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_SWFIcon_mouseOver_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_SWFIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFIconRunTime" waitEvent="updateComplete" waitTarget="lb" />
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+				<Pause timeout="200" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_SWFIcon_mouseOver_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_SWFIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,runtimeSWFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFIconRunTime" waitEvent="updateComplete" waitTarget="lb" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+				<Pause timeout="200" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_SWFIcon_mouseDown_selectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_runtime_SWFIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWFIcon, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWFIconRunTime" waitEvent="updateComplete" waitTarget="lb" />
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+				<Pause timeout="200" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_runtime_SWFIcon_mouseDown_NonselectedTab_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+ <!-- AIR specific tests -->
+<TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF_airOnly" keywords="[enabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                 <WaitForEffectsToEnd />
+                 <Pause timeout="200" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWF_air_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab_air_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab_air_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab_air_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="lb" waitEvent="rollOver" waitTarget="lb" />
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="lb" waitEvent="mouseDown" waitTarget="lb" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab_air_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Styles_SkinStates_Embeding_SWF_Disabled_airOnly" keywords="[disabled, SkinStates,EmbedSWF, LinkBar]" >
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar"  waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="linkButtonStyleName" value="myLinkBarSWF" waitEvent="updateComplete" waitTarget="lb" />
+                <SetProperty target="lb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/LinkBar_Styles_SkinStates_Embeding_Disabled_SWF_air_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

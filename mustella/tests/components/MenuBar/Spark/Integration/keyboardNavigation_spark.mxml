@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/MenuBar/Spark/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MenuBar_Basic_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    public function addData():void
+    {
+        application.mb.dataProvider = myDP;
+        application.mb.showRoot = false;
+        application.mb.labelField="@label";
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.MenuBar;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.MenuEvent;
+
+    ]]>
+    </mx:Script>
+
+<mx:XML id="myDP">
+        <topnode>
+            <node label="Europe">
+               <nodeitem type="check" label="Italy" enabled="false"/>
+                 <nodeitem type="check" label="England"/>
+                 <nodeitem type="check" label="Slovenia"/>
+            </node>
+            <node label="Asia">
+                <nodeitem type="radio" groupName="group1" label="Phillipines" enabled="false"/>
+                <nodeitem type="radio" groupName="group1" label="Japan"/>
+                <nodeitem type="radio" groupName="group1" label="China"/>
+            </node>
+            <node label="Africa">
+                <nodeitem label="Uganda" enabled="false"/>
+                <nodeitem label="South Africa"/>
+                <nodeitem label="Nigeria"/>
+            </node>
+        </topnode>
+</mx:XML>
+
+    <testCases>
+        <!-- description and keywords needed for this test -->
+        <TestCase testID="TabAndArrowTest" description="Use TAB and Arrow keys to navigate a MenuBar" keywords="[Keyboard, TAB, MenuBar]" >
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitTarget="mb" waitEvent="updateComplete"/>
+                <RunCode code="addData();" />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="mb" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="RIGHT" waitTarget="mb" waitEvent="menuShow" />
+                <AssertPropertyValue propertyName="selectedIndex" value="0" target="mb" />
+                <DispatchKeyEvent key="DOWN" />
+                <DispatchKeyEvent key="SPACE" waitTarget="mb" waitEvent="itemClick" />
+                <AssertEvent target="mb" eventName="itemClick" eventClass="mx.events::MenuEvent" timeout="5000" />
+                <AssertEventPropertyValue target="mb" propertyName="label" value="England" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

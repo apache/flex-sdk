@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_HaloSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridMain_halo.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.DateChooser;
+	import mx.controls.DataGrid;
+	import mx.containers.Canvas;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	public var mydatagrid:DataGrid
+	public var mybox:Canvas;
+
+    public function genericCleanUp():void
+    {
+        mydatagrid= stringToObject ("mydatagrid") as DataGrid;
+        mybox = stringToObject ("box") as Canvas;
+        mybox = new Canvas();
+        mydatagrid = new DataGrid();
+        
+        application.startIt();    
+    }
+
+	public function addItems():void
+    {
+        for(var i:int=0;i<15;i++)
+        {
+            var obj:Object={col1:'one'+i,col2:i,col3:'three'+i}
+            application.mydatagrid.dataProvider.addItem(obj);
+        }
+    
+    }
+
+    public function addBigItems():void
+    {
+        application.mydatagrid.height=250;
+        application.mydatagrid.dataProvider.removeAll()
+        var str1:String=" "
+        var str2:String="two two "
+        var str3:String=" "
+        var dummytext:String ="The Quick Brown Fox Jumped over the lazy dog"
+        
+        for(var i:int=0;i<25;i++)
+        {
+            for(var j:int=0;j<5;j++)
+            {
+                str1+=dummytext;
+                str3+=dummytext;
+            }
+        
+            var obj:Object = {col1:str1,col2:str2+i,col3:str3}
+            application.mydatagrid.dataProvider.addItem(obj);
+        }        
+    }
+
+    public function startApp():void
+    {
+        application.startIt();
+    }
+     	   
+    public function vscroll():void
+    {
+        application.mydatagrid.verticalScrollPosition++;
+    }
+     	   
+    //Notes to self
+    //showScrollTip is just getter setter, revisit.
+    //LiveScrolling test now is only getter setter - Requires attn
+
+	]]>
+	</mx:Script>
+    
+    <testCases>
+        <TestCase testID="property_verticalscrollposition_halo" keywords="[DataGrid,properties,verticalScrollPosition]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>	
+            </setup>
+            <body>
+                <SetProperty propertyName="verticalScrollPosition" value="2" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="vscroll()"/>
+                <AssertPropertyValue target="mydatagrid" propertyName="verticalScrollPosition" value="1"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollposition.png"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_verticalscrollpolicy_off_halo" keywords="[DataGrid,properties,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>	
+            </setup>
+            <body>
+                <SetProperty propertyName="verticalScrollPolicy" value="off" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollpolicy.png"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_verticalscrollpolicy_on_halo" keywords="[DataGrid,properties,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>	
+            </setup>
+            <body>
+                <SetProperty propertyName="verticalScrollPolicy" value="on" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollpolicy_on.png"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_verticalscrollpolicy_auto_halo" keywords="[DataGrid,properties,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>	
+            </setup>
+            <body>
+                <SetProperty propertyName="verticalScrollPolicy" value="auto" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_verticalscrollpolicy_auto.png"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_showscrolltips_true_halo" keywords="[DataGrid,properties,showScrollTips]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>	
+            </setup>
+            <body>
+                <SetProperty propertyName="showScrollTips" value="true" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="mydatagrid" propertyName="showScrollTips" value="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_showscrolltips_false_halo" keywords="[DataGrid,properties,showScrollTips]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>	
+            </setup>
+            <body>
+                <SetProperty propertyName="showScrollTips" value="false" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="mydatagrid" propertyName="showScrollTips" value="false"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_livescrolling_true_halo" keywords="[DataGrid,properties,liveScrolling]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>	
+            </setup>
+            <body>
+                <SetProperty propertyName="liveScrolling" value="true" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="mydatagrid" propertyName="liveScrolling" value="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_livescrolling_false_halo" keywords="[DataGrid,properties,liveScrolling]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>	
+            </setup>
+            <body>
+                <SetProperty propertyName="liveScrolling" value="false" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="mydatagrid" propertyName="liveScrolling" value="false"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_horizontalscrollpolicy_auto_halo" keywords="[DataGrid,properties,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>	
+            </setup>
+            <body>
+                <SetProperty propertyName="horizontalScrollPolicy" value="auto" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_horizontalscrollpolicy_auto.png"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_horizontalscrollpolicy_on_halo" keywords="[DataGrid,properties,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>	
+            </setup>
+            <body>
+                <SetProperty propertyName="horizontalScrollPolicy" value="on" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_horizontalscrollpolicy_on.png"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="property_horizontalscrollpolicy_off_halo" keywords="[DataGrid,properties,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>				        <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>	
+            </setup>
+            <body>
+                <SetProperty propertyName="horizontalScrollPolicy" value="off" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_horizontalscrollpolicy_off.png"/>
+            </body>
+        </TestCase>
+    </testCases>     
+</UnitTester>

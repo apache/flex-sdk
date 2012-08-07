@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Text/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Text_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+		<mx:Script><![CDATA[
+			public static function init(o:DisplayObject):void{}
+		]]></mx:Script>
+
+		<mx:Metadata><![CDATA[
+			[Mixin]
+		]]></mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+	
+	[Bindable]
+		public var htmlData:String = "This is       14 point blue italic text.<br><b><font color='#ff0000' size='10'>This text is 10 point black, italic, and bold.</font></b>";
+		[Bindable]
+		public var htmlDamyText:String = "<b><font color='#ff0000' size='10'>This text is 10 point black, italic, and bold.</font></b>";
+		[Bindable]
+		public var resulthtmlData:String = "<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Verdana\" SIZE=\"10\" COLOR=\"#0B333C\" LETTERSPACING=\"0\" KERNING=\"0\">This is 14 point blue italic text.</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Verdana\" SIZE=\"10\" COLOR=\"#FF0000\" LETTERSPACING=\"0\" KERNING=\"0\"><B>This text is 10 point black, italic, and bold.</B></FONT></P></TEXTFORMAT>";
+		[Bindable]
+		public var plainText:String ="This is a plain text";
+					
+	
+	
+		import flash.text.TextLineMetrics;
+		
+		private var courier10Data:TextLineMetrics;
+		private var vivaldi20Data:TextLineMetrics;
+		
+		private var stdWidth:int = 200;
+		private var stdHeight:int = 100;
+
+		// Protect bitmaps from changes in the default size by always
+		// specifying a standard size.
+		private function setToStandardSize(obj:Object):void{
+			obj.width = stdWidth;
+			obj.height = stdHeight;
+		}
+		
+		// Use for comparing TextLineMetrics data.
+		private function setUpTextLineMetrics():void{
+			
+			// Courier (TTF)        10: ascent=8.3   descent=3   height=13.3  leading=2 width=131.9              x=2
+			// Vivaldi (Flash type) 20: ascent=18.05 descent=5.7 height=25.75 leading=2 width=123.35000000000001 x=2
+
+			courier10Data = new TextLineMetrics(2, 131.9, 13.3, 8.3, 3, 2);
+			vivaldi20Data = new TextLineMetrics(2, 123.35000000000001, 25.75, 18.05, 5.7, 2);
+		}
+		
+		
+		
+	]]></mx:Script>
+	
+	<mx:Style>		
+	@namespace "library://ns.adobe.com/flex/mx";
+		@font-face{
+			src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+			fontFamily: "myCourier";
+		}
+		
+		@font-face {
+			src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+			fontFamily: "Vivaldi";
+		}						
+	</mx:Style>
+
+	<testCases>
+	
+	<TestCase testID="Checking_method_getLineMetrics_courier_10_plaintext"  keywords="[Text,method ,linemetrics, getLineMetrics ]" description="Checking getLineMetrics method for Text Component">
+		<setup>
+			<ResetComponent target="myText" className="mx.controls::Text" waitEvent="updateComplete" waitTarget="myText" />
+			<RunCode code="setUpTextLineMetrics()" />
+			<SetStyle target="myText" styleName="fontFamily" value="myCourier" />
+			<SetStyle target="myText" styleName="fontSize" value="10" />
+			<SetProperty target="myText" propertyName="text" valueExpression="value=plainText" waitEvent="updateComplete" waitTarget="myText" />				
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.myText.getLineMetrics(0)" valueExpression="value=courier10Data" />				
+		</body>
+	</TestCase>
+		
+	<TestCase testID="Checking_method_getLineMetrics_vivaldi_20_plaintext" keywords="[Text,method ,linemetrics, getLineMetrics ]" description="Checking getLineMetrics method for Text Component">
+		<setup>
+			<ResetComponent target="myText" className="mx.controls::Text" waitEvent="updateComplete" waitTarget="myText" />
+			<RunCode code="setUpTextLineMetrics()" />
+			<SetStyle target="myText" styleName="fontFamily" value="Vivaldi" />
+			<SetStyle target="myText" styleName="fontSize" value="20" />
+			<SetProperty target="myText" propertyName="text" valueExpression="value=plainText" waitEvent="updateComplete" waitTarget="myText" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.myText.getLineMetrics(0)" valueExpression="value=vivaldi20Data" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="Checking_method_clearStyle_plaintext" keywords="[Text,method ,linemetrics, clearStyle ]" description="Checking clearStyle method for Text Component">
+		<setup>
+			<ResetComponent target="myText" className="mx.controls::Text" waitEvent="updateComplete" waitTarget="myText" />
+			<SetStyle target="myText" styleName="fontFamily" value="Vivaldi" />
+			<SetProperty target="myText" propertyName="text" valueExpression="value=plainText" waitEvent="updateComplete" waitTarget="myText" />
+		</setup>
+		<body>
+			<RunCode code="application.myText.clearStyle('fontFamily')" waitEvent="updateComplete" waitTarget="myText"  />
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="myText" url="../Methods/Baselines/Checking_method_clearStyle_plaintext.png"  timeout="5000"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Checking_method_getLineMetrics_courier_10_htmlText"  keywords="[Text,method ,linemetrics, getLineMetrics ]" description="Checking getLineMetrics method for Text Component">
+		<setup>
+			<ResetComponent target="myText" className="mx.controls::Text" waitEvent="updateComplete" waitTarget="myText" />
+			<RunCode code="setUpTextLineMetrics()" />
+			<SetStyle target="myText" styleName="fontFamily" value="myCourier" />
+			<SetStyle target="myText" styleName="fontSize" value="10" />
+			<SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlDamyText" waitEvent="updateComplete" waitTarget="myText" />				
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.myText.getLineMetrics(0)" valueExpression="value=courier10Data" />				
+		</body>
+	</TestCase>
+		
+	<TestCase testID="Checking_method_getLineMetrics_vivaldi_20_htmlText" keywords="[Text,method ,linemetrics, getLineMetrics ]" description="Checking getLineMetrics method for Text Component">
+		<setup>
+			<ResetComponent target="myText" className="mx.controls::Text" waitEvent="updateComplete" waitTarget="myText" />
+			<RunCode code="setUpTextLineMetrics()" />
+			<SetStyle target="myText" styleName="fontFamily" value="Vivaldi" />
+			<SetStyle target="myText" styleName="fontSize" value="20" />
+			<SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlDamyText" waitEvent="updateComplete" waitTarget="myText" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.myText.getLineMetrics(0)" valueExpression="value=vivaldi20Data" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="Checking_method_clearStyle_htmlText" keywords="[Text,method ,linemetrics, clearStyle ]" description="Checking clearStyle method for Text Component">
+		<setup>
+			<ResetComponent target="myText" className="mx.controls::Text" waitEvent="updateComplete" waitTarget="myText" />
+			<SetStyle target="myText" styleName="fontFamily" value="Vivaldi" />
+			<SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlDamyText" waitEvent="updateComplete" waitTarget="myText" />
+		</setup>
+		<body>
+			<RunCode code="application.myText.clearStyle('fontFamily')" waitEvent="updateComplete" waitTarget="myText"  />
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="myText" url="../Methods/Baselines/Checking_method_clearStyle_htmlText.png"  timeout="5000"/>
+		</body>
+	</TestCase>
+		
+				
+	</testCases>
+</UnitTester>

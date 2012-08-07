@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" width="800" height="800">
+    <fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;			
+			fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;			
+			fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+		
+        mx|PrintDataGrid{
+            fontFamily: EmbeddedVerdana;
+            fontAntiAliasType: normal;
+        }
+    </fx:Style>
+    <fx:Script>
+    <![CDATA[
+    	import mx.collections.*;
+
+		[Bindable]
+		public var ac:ArrayCollection = new ArrayCollection([
+		   { Artist:'Artist A', Album:'Album A', Price:11.99, Rating:'Excellent' },
+		   { Artist:'Artist A', Album:'Album B', Price:10.99, Rating:'Excellent' },
+		   { Artist:'Artist A', Album:'Album C', Price:12.99, Rating:'Excellent' },
+		   { Artist:'Artist A', Album:'Album D', Price:11.99, Rating:'Good' },
+		   { Artist:'Artist A', Album:'Album E', Price:11.99, Rating:'Good' },
+		   { Artist:'Other', Album:'Other', Price:5.99, Rating:'Bad' },
+		   { Artist:'Other1', Album:'Other1', Price:5.99, Rating:'Good' },
+		   { Artist:'Other2', Album:'Other2', Price:5.99, Rating:'Excellent' },
+		   { Artist:'Other3', Album:'Other3', Price:5.99, Rating:'Good' },
+		   { Artist:'Other4', Album:'Other4', Price:5.99, Rating:'Bad' }]);
+
+    ]]>
+    </fx:Script>
+
+    <mx:PrintDataGrid id="myPrintDataGrid" width="700" height="600" />
+    <mx:Button id="But" label="Show Next Page" />
+    <mx:TextInput id="ti" />
+    <mx:PrintDataGrid id="myPDG" height="400" sizeToPage="false">
+        <mx:columns>
+            <fx:Array>
+                <mx:DataGridColumn dataField="Artist" />
+                <mx:DataGridColumn dataField="Album" />
+                <mx:DataGridColumn dataField="Price" />
+                <mx:DataGridColumn dataField="Rating" />
+            </fx:Array>
+        </mx:columns>
+    </mx:PrintDataGrid>    	
+</mx:Application>

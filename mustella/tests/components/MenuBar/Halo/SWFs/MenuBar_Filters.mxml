@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" height="375" width="500" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" >
+
+	<mx:Script>
+	<![CDATA[
+
+       [Bindable]
+       public var myMatrix:Array = [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0];
+       [Bindable]
+       public var brightmatrix:Array = [-30, 30, 0, -30, 30, 0, -30, 30, 0];
+
+	]]>
+	</mx:Script>
+
+<mx:Style source="../Styles/menuStyles.css" />
+
+<mx:MenuBar id="mb" >
+	<mx:filters>
+	    <mx:DropShadowFilter color="0xFF0000" distance="5" />
+	</mx:filters>
+</mx:MenuBar>
+
+<mx:MenuBar id="mb2" >
+	<mx:filters>
+	    <mx:BevelFilter shadowColor="0xFF0000" distance="5"/>
+	</mx:filters>
+</mx:MenuBar>
+
+<mx:MenuBar id="mb3" >
+	<mx:filters>
+	    <mx:BlurFilter blurX="10" blurY="10" />
+	</mx:filters>
+</mx:MenuBar>
+
+<mx:MenuBar id="mb4" >
+	<mx:filters>
+	    <mx:ColorMatrixFilter matrix="{myMatrix}" />
+	</mx:filters>
+</mx:MenuBar>
+
+<mx:MenuBar id="mb5" >
+	<mx:filters>
+	    <mx:ConvolutionFilter matrixX="3" matrixY="3" matrix="{brightmatrix}"/>
+	</mx:filters>
+</mx:MenuBar>
+
+<mx:MenuBar id="mb7" >
+	<mx:filters>
+	    <mx:GlowFilter color="0x00FF00" />
+	</mx:filters>
+</mx:MenuBar>
+
+<mx:MenuBar id="mb8" >
+	<mx:filters>
+	    <mx:GradientBevelFilter colors="[0xFFFFFF, 0x00FF00, 0xFF0000]" alphas="[1, 0, 1]"
+	    ratios="[0, 128, 255]" blurX="8" blurY="8" distance="5"/>
+	</mx:filters>
+</mx:MenuBar>
+
+<mx:MenuBar id="mb9" >
+	<mx:filters>
+	    <mx:GradientGlowFilter colors="[0xFFCCFF, 0x0000FF, 0x9900FF, 0xFF0000, 0xFFFF00]"
+	    alphas="[1,1,1,1,1]" ratios="[0, 32, 64, 128, 225]" type="full" />
+	</mx:filters>
+</mx:MenuBar>
+</mx:Application>

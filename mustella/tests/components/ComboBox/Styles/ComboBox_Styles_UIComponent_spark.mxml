@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ComboBox/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ComboBoxMain_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import ComboBoxComp;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import RedFocusRect;
+    import flash.display.BlendMode;
+
+    ]]>
+    </mx:Script>
+    <testCases>
+        <TestCase testID="Spark_bottom_0" description="ColorPicker style bottom=0" keywords="[styles, bottom, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="bottom" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="mybox.myCB" value="120" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_bottom_20" description="ColorPicker style bottom=20." keywords="[styles, bottom, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="bottom" target="mybox.myCB" value="20" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="mybox.myCB" value="100" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_top_0" description="ColorPicker style top=0" keywords="[styles, top, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="top" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="mybox.myCB" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_top_20" description="ColorPicker style top=20." keywords="[styles, top, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="top" target="mybox.myCB" value="20" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="mybox.myCB" value="20" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_right_0" description="ColorPicker style right=0" keywords="[styles, right, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="right" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="mybox.myCB" value="100" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_right_20" description="ColorPicker style right=20." keywords="[styles, right, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="right" target="mybox.myCB" value="20" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="mybox.myCB" value="80" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_left_0" description="ColorPicker style left=0" keywords="[styles, left, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="left" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="mybox.myCB" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_left_20" description="ColorPicker style left=20." keywords="[styles, left, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="left" target="mybox.myCB" value="20" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="mybox.myCB" value="20" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_horizontalCenter_0" description="ColorPicker style horizontalCenter=0" keywords="[styles, left, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="horizontalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="mybox.myCB" value="50" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_horizontalCenter_positive" description="ColorPicker style horizontalCenter=20." keywords="[styles, left, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="horizontalCenter" target="mybox.myCB" value="20" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="mybox.myCB" value="70" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_horizontalCenter_negative" description="ColorPicker style horizontalCenter=-20." keywords="[styles, left, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="horizontalCenter" target="mybox.myCB" value="-20" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="mybox.myCB" value="30" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_verticalCenter_0" description="ColorPicker style verticalCenter=0" keywords="[styles, left, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="verticalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="mybox.myCB" value="75" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_verticalCenter_positive" description="ColorPicker style verticalCenter=20." keywords="[styles, left, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="verticalCenter" target="mybox.myCB" value="20" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="mybox.myCB" value="95" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_verticalCenter_negative" description="ColorPicker style verticalCenter=-20." keywords="[styles, left, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetStyle styleName="verticalCenter" target="mybox.myCB" value="-20" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="mybox.myCB" value="55" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_focusThickness_0" description="ColorPicker style focusThickness=0." keywords="[styles, focusThickness, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+                <SetProperty target="mybox.myCB" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+                <SetProperty target="mybox" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="mybox"/>
+                <SetStyle styleName="verticalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="horizontalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="focusThickness" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitTarget="mybox.myCB" waitEvent="focusIn" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mybox" url="../Styles/baselines/focusThickness_0_spark.png" timeout="5000" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Spark_focusThickness_8" description="ColorPicker style focusThickness=8." keywords="[styles, focusThickness, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+                <SetProperty target="mybox.myCB" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+                <SetProperty target="mybox" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="mybox"/>
+                <SetStyle styleName="verticalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="horizontalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="focusThickness" target="mybox.myCB" value="8" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitTarget="mybox.myCB" waitEvent="focusIn" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mybox" url="../Styles/baselines/focusThickness_8_spark.png" timeout="5000" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Spark_focusSkin_custom" description="ColorPicker style focusSkin=RedFocusRect." keywords="[styles, focusThickness, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+                <SetProperty target="mybox.myCB" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+                <SetProperty target="mybox" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="mybox"/>
+                <SetStyle styleName="verticalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="horizontalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="focusSkin" target="mybox.myCB" valueExpression="value=RedFocusRect" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitTarget="mybox.myCB" waitEvent="focusIn" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mybox" url="../Styles/baselines/focusSkin_custom_spark.png" timeout="5000" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Spark_focusBlend_screen" description="ColorPicker style focusThickness=8." keywords="[styles, focusThickness, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+                <SetProperty target="mybox.myCB" propertyName="width" value="95" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+                <SetProperty target="mybox" propertyName="height" value="75" waitEvent="updateComplete" waitTarget="mybox"/>
+                <SetStyle styleName="verticalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="horizontalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="focusBlend" target="mybox.myCB" valueExpression="value=BlendMode.SCREEN" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="focusThickness" target="mybox.myCB" value="8" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitTarget="mybox.myCB" waitEvent="focusIn" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mybox" url="../Styles/baselines/focusBlend_screen_spark.png" timeout="5000" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Spark_focusBlend_subtract" description="ColorPicker style focusThickness=8." keywords="[styles, focusThickness, ColorPicker]">
+            <setup>
+                <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox" />
+                <SetProperty target="mybox.myCB" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+                <SetProperty target="mybox.myCB" propertyName="width" value="99" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+                <SetProperty target="mybox" propertyName="height" value="78" waitEvent="updateComplete" waitTarget="mybox"/>
+                <SetStyle styleName="verticalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="horizontalCenter" target="mybox.myCB" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="focusBlend" target="mybox.myCB" valueExpression="value=BlendMode.SUBTRACT" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+                <SetStyle styleName="focusThickness" target="mybox.myCB" value="8" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitTarget="mybox.myCB" waitEvent="focusIn" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="mybox" url="../Styles/baselines/focusBlend_subtract_spark.png" timeout="5000" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+            </cleanup>
+        </TestCase>
+    </testCases>
+</UnitTester>

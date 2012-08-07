@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/NumericStepper/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="NumericStepper_InContainer_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.NumericStepper;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import RedFocusRect;
+	import flash.display.BlendMode;
+
+	]]>
+	</mx:Script>
+	<testCases>
+        <TestCase testID="bottom_0_spark" description="NumericStepper style bottom=0" keywords="[styles, bottom, NumericStepper]">
+			<setup>
+			    <ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="bottom" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetProperty target="numstepper_1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="numstepper_1" value="120" />
+			</body>
+		</TestCase>
+		<TestCase testID="bottom_20_spark" description="NumericStepper style bottom=20." keywords="[styles, bottom, NumericStepper]">
+			<setup>
+				<ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="bottom" target="numstepper_1" value="20" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetProperty target="numstepper_1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="numstepper_1" value="100" />
+			</body>
+		</TestCase>
+        <TestCase testID="top_0_spark" description="NumericStepper style top=0" keywords="[styles, top, NumericStepper]">
+			<setup>
+			    <ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="top" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetProperty target="numstepper_1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="numstepper_1" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="top_20_spark" description="NumericStepper style top=20." keywords="[styles, top, NumericStepper]">
+			<setup>
+				<ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="top" target="numstepper_1" value="20" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetProperty target="numstepper_1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="numstepper_1" value="20" />
+			</body>
+		</TestCase>
+        <TestCase testID="right_0_spark" description="NumericStepper style right=0" keywords="[styles, right, NumericStepper]">
+			<setup>
+			    <ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="right" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetProperty target="numstepper_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="numstepper_1" value="100" />
+			</body>
+		</TestCase>
+		<TestCase testID="right_20_spark" description="NumericStepper style right=20." keywords="[styles, right, NumericStepper]">
+			<setup>
+				<ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="right" target="numstepper_1" value="20" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetProperty target="numstepper_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="numstepper_1" value="80" />
+			</body>
+		</TestCase>
+        <TestCase testID="left_0_spark" description="NumericStepper style left=0" keywords="[styles, left, NumericStepper]">
+			<setup>
+			    <ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="left" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetProperty target="numstepper_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="numstepper_1" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="left_20_spark" description="NumericStepper style left=20." keywords="[styles, left, NumericStepper]">
+			<setup>
+				<ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="left" target="numstepper_1" value="20" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetProperty target="numstepper_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="numstepper_1" value="20" />
+			</body>
+		</TestCase>
+
+        <TestCase testID="horizontalCenter_0_spark" description="NumericStepper style horizontalCenter=0" keywords="[styles, left, NumericStepper]">
+			<setup>
+			    <ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="horizontalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetProperty target="numstepper_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="numstepper_1" value="50" />
+			</body>
+		</TestCase>
+		<TestCase testID="horizontalCenter_positive_spark" description="NumericStepper style horizontalCenter=20." keywords="[styles, left, NumericStepper]">
+			<setup>
+				<ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="horizontalCenter" target="numstepper_1" value="20" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetProperty target="numstepper_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="numstepper_1" value="70" />
+			</body>
+		</TestCase>
+		<TestCase testID="horizontalCenter_negative_spark" description="NumericStepper style horizontalCenter=-20." keywords="[styles, left, NumericStepper]">
+			<setup>
+				<ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="horizontalCenter" target="numstepper_1" value="-20" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetProperty target="numstepper_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="numstepper_1" value="30" />
+			</body>
+		</TestCase>
+        <TestCase testID="verticalCenter_0_spark" description="NumericStepper style verticalCenter=0" keywords="[styles, left, NumericStepper]">
+			<setup>
+			    <ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="verticalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetProperty target="numstepper_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="numstepper_1" value="75" />
+			</body>
+		</TestCase>
+		<TestCase testID="verticalCenter_positive_spark" description="NumericStepper style verticalCenter=20." keywords="[styles, left, NumericStepper]">
+			<setup>
+				<ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="verticalCenter" target="numstepper_1" value="20" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetProperty target="numstepper_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="numstepper_1" value="95" />
+			</body>
+		</TestCase>
+		<TestCase testID="verticalCenter_negative_spark" description="NumericStepper style verticalCenter=-20." keywords="[styles, left, NumericStepper]">
+			<setup>
+				<ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="verticalCenter" target="numstepper_1" value="-20" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetProperty target="numstepper_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="numstepper_1" value="55" />
+			</body>
+		</TestCase>
+		<TestCase testID="focusThickness_0_spark" description="NumericStepper style focusThickness=0." keywords="[styles, focusThickness, NumericStepper]">
+			<setup>
+			    <ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetProperty target="numstepper_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="numstepper_1"/>
+			    <SetProperty target="numstepper_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="numstepper_1"/>
+			    <SetProperty target="canvas1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="horizontalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="focusThickness" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="numstepper_1" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/focusThickness_0_spark.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusThickness_8_spark" description="NumericStepper style focusThickness=8." keywords="[styles, focusThickness, NumericStepper]">
+			<setup>
+			    <ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetProperty target="numstepper_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="numstepper_1"/>
+			    <SetProperty target="numstepper_1" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="numstepper_1"/>
+			    <SetProperty target="canvas1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="horizontalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="focusThickness" target="numstepper_1" value="8" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="numstepper_1" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/focusThickness_8_spark.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusSkin_custom_spark" description="NumericStepper style focusSkin=RedFocusRect." keywords="[styles, focusThickness, NumericStepper]">
+			<setup>
+			    <ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetProperty target="numstepper_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="numstepper_1"/>
+			    <SetProperty target="numstepper_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="numstepper_1"/>
+			    <SetProperty target="canvas1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="horizontalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="focusSkin" target="numstepper_1" valueExpression="value=RedFocusRect" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="numstepper_1" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/focusSkin_custom_spark.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusBlend_screen_spark" description="NumericStepper style focusThickness=8." keywords="[styles, focusThickness, NumericStepper]">
+			<setup>
+			    <ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetProperty target="numstepper_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="numstepper_1"/>
+			    <SetProperty target="numstepper_1" propertyName="width" value="95" waitEvent="updateComplete" waitTarget="numstepper_1"/>
+			    <SetProperty target="canvas1" propertyName="height" value="75" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="horizontalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="focusBlend" target="numstepper_1" valueExpression="value=BlendMode.SCREEN" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="focusThickness" target="numstepper_1" value="8" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="numstepper_1" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/focusBlend_screen_spark.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusBlend_subtract_spark" description="NumericStepper style focusThickness=8." keywords="[styles, focusThickness, NumericStepper]">
+			<setup>
+			    <ResetComponent target="numstepper_1" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetProperty target="numstepper_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="numstepper_1"/>
+			    <SetProperty target="numstepper_1" propertyName="width" value="99" waitEvent="updateComplete" waitTarget="numstepper_1"/>
+			    <SetProperty target="canvas1" propertyName="height" value="78" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+				<SetStyle styleName="horizontalCenter" target="numstepper_1" value="0" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="focusBlend" target="numstepper_1" valueExpression="value=BlendMode.SUBTRACT" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			    <SetStyle styleName="focusThickness" target="numstepper_1" value="8" waitEvent="updateComplete" waitTarget="numstepper_1" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="numstepper_1" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/focusBlend_subtract_spark.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+	</testCases>
+</UnitTester>

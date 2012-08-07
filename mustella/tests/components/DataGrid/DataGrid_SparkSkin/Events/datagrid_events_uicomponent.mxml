@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_SparkSkin/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGrid_Events_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+        import mx.utils.ObjectUtil;
+        import mx.effects.Fade;
+ 	import mx.controls.ToolTip;
+        import mx.managers.ToolTipManager;
+        import mx.core.IToolTip;
+
+           private function startEffect():void
+           {
+              var fade:Fade = new Fade(application.mydatagrid)
+              fade.play();
+           }
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <TestCase testID="event_toolTipCreate" keywords="['event,toolTipCreate']">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+                <RunCode code ="ToolTipManager.showDelay=1" />
+                <SetProperty target="mydatagrid" propertyName="toolTip" value="tip"/>
+            </setup>
+            <body>
+            	<Pause timeout="100"/>
+            	<DispatchMouseEvent type="mouseMove" target="mydatagrid" localX="100" localY="100" waitEvent="mouseMove" />
+            	<DispatchMouseEvent type="mouseMove" target="mydatagrid" localX="122.65" localY="120" waitEvent="mouseMove" />
+                <DispatchMouseEvent type="mouseOver" target="mydatagrid" localX="122.65" localY="120" waitEvent="toolTipCreate" />
+
+                <AssertEvent target="mydatagrid" eventName="toolTipCreate" eventClass="mx.events::ToolTipEvent" />
+            </body>
+        </TestCase>
+
+    <TestCase testID="event_toolTipStart" keywords="['event,toolTipStart']">
+        <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            <RunCode code ="ToolTipManager.showDelay=1" />
+            <SetProperty target="mydatagrid" propertyName="toolTip" value="tip"/>
+        </setup>
+        <body>
+            	<Pause timeout="100"/>
+            	<DispatchMouseEvent type="mouseMove" target="mydatagrid" localX="100" localY="100" waitEvent="mouseMove" />
+            	<DispatchMouseEvent type="mouseMove" target="mydatagrid" localX="122.65" localY="120" waitEvent="mouseMove" />
+            <DispatchMouseEvent type="mouseOver" target="mydatagrid" localX="122.65" localY="120" waitEvent="toolTipStart"/>
+
+            <AssertEvent target="mydatagrid" eventName="toolTipStart" eventClass="mx.events::ToolTipEvent" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="event_toolTipShow" keywords="['event,toolTipShow']">
+        <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            <SetProperty target="mydatagrid" propertyName="toolTip" value="tip"/>
+            <RunCode code ="ToolTipManager.showDelay=1" />
+        </setup>
+        <body>
+            <DispatchMouseEvent type="mouseOver" target="mydatagrid" localX="122.65" localY="120" waitEvent="toolTipShow"/>
+
+            <AssertEvent target="mydatagrid" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="event_toolTipShown" keywords="['event,toolTipShown']">
+        <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            <RunCode code ="ToolTipManager.showDelay=1" />
+            <SetProperty target="mydatagrid" propertyName="toolTip" value="tip"/>
+        </setup>
+        <body>
+            <Pause timeout="100"/>
+            <DispatchMouseEvent type="mouseMove" target="mydatagrid" localX="100" localY="100" waitEvent="mouseMove" />
+            <DispatchMouseEvent type="mouseMove" target="mydatagrid" localX="122.65" localY="120" waitEvent="mouseMove" />
+            <DispatchMouseEvent type="mouseOver" target="mydatagrid" localX="122.65" localY="120" waitEvent="toolTipShow"/>
+
+            <AssertEvent target="mydatagrid" eventName="toolTipShown" eventClass="mx.events::ToolTipEvent" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="event_resize" keywords="['event,resize']">
+        <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            <SetProperty target="mydatagrid" propertyName="width" value="80"/>
+        </setup>
+        <body>
+            <AssertEvent target="mydatagrid" eventName="resize" eventClass="mx.events::ResizeEvent" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="event_move" keywords="['event,move']">
+        <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+            <SetProperty target="mydatagrid" propertyName="x" value="40"/>
+        </setup>
+        <body>
+            <AssertEvent target="mydatagrid" eventName="move" eventClass="mx.events::MoveEvent" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="event_scroll" keywords="['event,scroll']">
+        <setup>
+            <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <DispatchMouseClickEvent target="mydatagrid.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" />
+            <AssertEvent target="mydatagrid" eventName="scroll" eventClass="mx.events::ScrollEvent" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="event_dragenter" keywords="['event,dragenter']">
+    <setup>
+        <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+        <SetProperty target="mydatagrid" propertyName="dataProvider" valueExpression="value=ObjectUtil.copy(application.dataArray1)" waitEvent="updateComplete" />
+        <SetProperty target="mydatagrid" propertyName="dragEnabled" value="true"/>
+    </setup>
+    <body>
+        <DispatchMouseEvent type="mouseDown" target="mydatagrid" localX="122.65" localY="120"/>
+        <DispatchMouseEvent type="mouseMove" buttonDown="true" target="mydatagrid" localX="122.65" localY="100"/>
+        <DispatchMouseEvent type="mouseMove" buttonDown="true" target="mydatagrid" localX="122.65" localY="80"/>
+        <AssertEvent target="mydatagrid" eventName="dragEnter" eventClass="mx.events::DragEvent" />
+    </body>
+    </TestCase>
+
+    </testCases>
+
+</UnitTester>

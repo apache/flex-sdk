@@ -1,0 +1,2 @@
+-theme+=${sdk.dir}/frameworks/projects/spark/MXFTEText.css
+-theme+=${sdk.dir}/frameworks/themes/Wireframe/wireframe.swc

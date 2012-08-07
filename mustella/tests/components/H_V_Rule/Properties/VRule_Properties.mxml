@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/H_V_Rule/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Rule_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Style>
+
+	    .myStyle{
+		color: #FF0000
+	    }
+	    .myStyle2{
+		color: #0000FF
+	    }
+
+	</mx:Style>
+	
+	<mx:Script>
+	<![CDATA[
+	[Embed(source="../../../../Assets/Images/smallredrect.jpg")]
+	public var MyIcon:Class;
+	import mx.core.IFlexDisplayObject;
+	public function allChildrenlist():int
+	{
+		return (application.myCustomVRule.myVRule.rawChildren.numChildren);
+	}
+	public function autoLayoutAS():void{
+	  	application.myCustomVRule.myVRule.autoLayout = false;
+	}
+	public function clipContentAS():void{
+		application.myCustomVRule.myVRule.clipContent=false;
+	}
+	public function creationPolicyAS():void{
+		application.myCustomVRule.myVRule.creationPolicy="all";
+	}
+	public function getDefaultButton():Boolean{
+		if(application.myCustomVRule.myVRule.defaultButton==application.myCustomVRule.myButton1)
+		return true;
+		return false;
+	}
+	public function setDefaultButtonAS():void{
+		application.myCustomVRule.myVRule.defaultButton=application.myCustomVRule.myButton1;
+	}
+	public function setHeightAS():void{
+		application.myCustomVRule.myVRule.height=120;
+	}
+	public function setHorizontalLineScrollSizeAS():void{
+		application.myCustomVRule.myVRule.horizontalLineScrollSize=10;
+	}
+	public function setHorizontalPageScrollSizeAS():void{
+		application.myCustomVRule.myVRule.horizontalPageScrollSize=10;
+	}
+	public function setHorizontalScrollPositionAS():void{
+		application.myCustomVRule.myVRule.horizontalScrollPosition=10;
+	}
+	public function setHorizontalScrollPolicyAS():void{
+		application.myCustomVRule.myVRule.horizontalScrollPolicy="on";
+	}
+	public function setIncludeInLayoutAS():void{
+		application.myCustomVRule.myVRule.includeInLayout="true";
+	}
+	public function setLabelAS():void{
+		application.myCustomVRule.myVRule.label="Other VRule Label";
+	}
+	public function setMaxHeightAS():void{
+		application.myCustomVRule.myVRule.maxHeight=150;
+	}
+	public function setMaxWidthAS():void{
+		application.myCustomVRule.myVRule.maxWidth=150;
+	}
+	public function setMinHeightAS():void{
+		application.myCustomVRule.myVRule.minHeight=150;
+	}
+	public function setMinWidthAS():void{
+		application.myCustomVRule.myVRule.minWidth=150;
+	}
+	public function setPercentHeightAS():void{
+		application.myCustomVRule.myVRule.percentHeight=70;
+	}
+	public function setPercentWidthAS():void{
+		application.myCustomVRule.myVRule.percentWidth=70;
+	}
+	public function setScaleXAS():void{
+		application.myCustomVRule.myVRule.scaleX=5;
+	}
+	public function setScaleYAS():void{
+		application.myCustomVRule.myVRule.scaleY=5;
+	}
+	public function setStyleNameAS():void{
+		application.myCustomVRule.myVRule.styleName='myStyle2';
+	}
+	public function setToolTipAS():void{
+		application.myCustomVRule.myVRule.toolTip="My VRule";
+	}
+	public function setVisibleAS():void{
+		application.myCustomVRule.myVRule.visible=false;
+	}
+	public function setVerticalLineScrollSizeAS():void{
+		application.myCustomVRule.myVRule.verticalLineScrollSize=10;
+	}
+	public function setVerticalScrollPositionAS():void{
+		application.myCustomVRule.myVRule.verticalScrollPosition=10;
+	}
+	public function setVerticalScrollPolicyAS():void{
+		application.myCustomVRule.myVRule.verticalScrollPolicy='on';
+	}
+	public function setWidthAS():void{
+		application.myCustomVRule.myVRule.width=120;
+	}
+	public function setXAS():void{
+		application.myCustomVRule.myVRule.x=50;
+	}	
+	public function setYAS():void{
+		application.myCustomVRule.myVRule.y=50;
+	}	
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="VRule_Property_height1" keywords="[height, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="height" value="100"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_height2" keywords="[height, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="height" value="100" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="height" value="100"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_height3" keywords="[height, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="height" value="100.5" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="height" value="100.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_height4" keywords="[height, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setHeightAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="height" value="120"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_includeInLayout1" keywords="[includeInLayout, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="includeInLayout" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_includeInLayout2" keywords="[includeInLayout, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="includeInLayout" value="true" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="includeInLayout" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_includeInLayout3" keywords="[includeInLayout, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="includeInLayout" value="false" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="includeInLayout" value="false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_includeInLayout4" keywords="[includeInLayout, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setIncludeInLayoutAS()" />				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="includeInLayout" value="true"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="VRule_Property_maxHeight1" keywords="[maxHeight, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="maxHeight" value="10000"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_maxHeight2" keywords="[maxHeight, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="maxHeight" value="100" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="maxHeight" value="100"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_maxHeight3" keywords="[maxHeight, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="maxHeight" value="126.5" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="maxHeight" value="126.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_maxHeight4" keywords="[maxHeight, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setMaxHeightAS()" />				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="maxHeight" value="150"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_maxWidth1" keywords="[maxWidth, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="maxWidth" value="10000"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_maxWidth2" keywords="[maxWidth, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="maxWidth" value="100" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="maxWidth" value="100"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_maxWidth3"  keywords="[maxWidth, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="maxWidth" value="126.5" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="maxWidth" value="126.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_maxWidth4"  keywords="[maxWidth, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setMaxWidthAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="maxWidth" value="150"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VRule_Property_minHeight1" keywords="[maxHeight, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="minHeight" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_minHeight2" keywords="[maxHeight, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetProperty target="myCustomVRule.myVRule" propertyName="minHeight" value="100" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="minHeight" value="100"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_minHeight3" keywords="[minHeight, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetProperty target="myCustomVRule.myVRule" propertyName="minHeight" value="126.5" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="minHeight" value="126.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_minHeight4" keywords="[minHeight, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<RunCode code="setMinHeightAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="minHeight" value="150"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VRule_Property_minWidth1" keywords="[minWidth, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="minWidth" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_minWidth2" keywords="[minWidth, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetProperty target="myCustomVRule.myVRule" propertyName="minWidth" value="100" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="minWidth" value="100"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_minWidth3" keywords="[minWidth, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="minWidth" value="126.5" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="minWidth" value="126.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_minWidth4" keywords="[minWidth, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setMinWidthAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="minWidth" value="150"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_percentHeight1" keywords="[percentHeight, unset, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="percentHeight" value="NaN"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_percentHeight2" keywords="[percentHeight, whole, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="percentHeight" value="80" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="percentHeight" value="80"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_percentHeight3" keywords="[percentHeight, decimal,  VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="percentHeight" value="50.5" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="percentHeight" value="50.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_percentHeight4" keywords="[percentHeight, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setPercentHeightAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="percentHeight" value="70"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VRule_Property_percentWidth1" keywords="[percentWidth, unset, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="percentWidth" value="NaN"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_percentWidth2" keywords="[percentWidth, whole, VRule]" >
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="percentWidth" value="80" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="percentWidth" value="80"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_percentWidth3" keywords="[percentWidth, decimal, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="percentWidth" value="50.5" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="percentWidth" value="50.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_percentWidth4" keywords="[percentWidth, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setPercentWidthAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="percentWidth" value="70"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VRule_Property_scaleX1" keywords="[scaleX, unset, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="scaleX" value="1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_scaleX2" keywords="[scaleX, zero, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="scaleX" value="0" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="scaleX" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_scaleX3" keywords="[scaleX, 2, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="scaleX" value="2" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="scaleX" value="2"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_scaleX4" keywords="[scaleX, large, value, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setScaleXAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="scaleX" value="5"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VRule_Property_scaleY1" keywords="[scaleY, unset, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="scaleY" value="1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_scaleY2" keywords="[scaleY, zero, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="scaleY" value="0" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="scaleY" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_scaleY3" keywords="[scaleY, 2, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="scaleY" value="2" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="scaleY" value="2"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_scaleY4" keywords="[scaleY, large, value, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setScaleYAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="scaleY" value="5"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VRule_Property_styleName1" keywords="[styleName, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="styleName" valueExpression="value=null"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_styleName2" keywords="[styleName, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="styleName" value="myStyle" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="styleName" value="myStyle"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_styleName3" keywords="[styleName, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setStyleNameAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="styleName" value="myStyle2"/>
+			</body>
+		</TestCase>
+		
+		 <TestCase testID="VRule_Property_toolTip1" keywords="[toolTip, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myCustomVRule.myVRule" type="mouseOver" localX="10" localY="10"/>
+				<AssertNoEvent target="myCustomVRule.myVRule" eventName="toolTipShow"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_visible1" keywords="[visible, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="visible" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_visible2" keywords="[visible, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="visible" value="true" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="visible" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_visible3" keywords="[visible, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="visible" value="false" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="visible" value="false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_visible4" keywords="[visible, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setVisibleAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="visible" value="false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_width1" keywords="[width, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="width" value="2"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_width2" keywords="[width, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="width" value="100" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="width" value="100"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_width3" keywords="[width, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="width" value="126.5" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="width" value="126.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_width4" keywords="[width, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setWidthAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="width" value="120"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VRule_Property_x1" keywords="[x, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="x" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_x2" keywords="[x, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="x" value="100" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="x" value="100"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_x3" keywords="[x, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="x" value="-5.6" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="x" value="-5.6000000000000005"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_x4" keywords="[x, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setXAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="x" value="50"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VRule_Property_y1" keywords="[y, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="y" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_y2" keywords="[y, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="y" value="100" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="y" value="100"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_y3" keywords="[y, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetProperty target="myCustomVRule.myVRule" propertyName="y" value="-5.6" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="y" value="-5.6000000000000005"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Property_y4" keywords="[y, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				<SetStyle target="myCustomVRule.myVRule" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<SetStyle target="myCustomVRule.myVRule" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomVRule.myVRule" />
+				<RunCode code="setYAS()" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomVRule.myVRule" propertyName="y" value="50"/>
+			</body>
+		</TestCase>		
+	</testCases>
+</UnitTester>

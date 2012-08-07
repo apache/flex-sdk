@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" height="375" width="500" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" >
+
+    <mx:Script>
+    <![CDATA[
+        import mx.controls.Menu;
+        import mx.events.MenuEvent;
+
+        [Embed(source="../../../../../Assets/Images/greenrect.jpg")]
+        public var t1120:Class;
+
+        [Embed(source="../../../../../Assets/Images/purplerect.jpg")]
+        public var purplerect:Class;
+
+        [Embed(source="../../../../../Assets/Images/orangerect.jpg")]
+        public var orangerect:Class;
+
+        [Embed(source="../../../../../Assets/Images/bluerect.jpg")]
+        public var blueback:Class;
+
+        public var lengthValue:int;
+
+        public var menu1:Menu;
+        public var myDP:XML =
+            <topnode>
+                <node label="Europe" enabled="false" data="EUROPE">
+                    <nodeitem type="check" label="Italy" enabled="false" data="ITALY" />
+                    <nodeitem type="check" label="England" data="ENGLAND" toggled="true"/>
+                    <nodeitem type="check" label="Slovenia" data="SLOVENIA" />
+                </node>
+                <node label="Asia" enabled="true" data="ASIA">
+                    <nodeitem type="radio" groupName="group1" label="Phillipines" enabled="false" data="PHILIPPINES"/>
+                    <nodeitem type="radio" groupName="group1" label="Japan" data="JAPAN"/>
+                    <nodeitem type="radio" groupName="group1" label="China" data="CHINA"/>
+                </node>
+                <node label="Africa" data="AFRICA">
+                    <nodeitem label="Uganda" enabled="false" data="UGANDA">
+                         <child label="Trees" />
+                         <child label="Zebra" />
+                    </nodeitem>
+                    <nodeitem label="South Africa" data="SOUTH AFRICA"/>
+                    <nodeitem label="Nigeria" data="NIGERIA">
+                        <child label="Waterfalls" />
+                        <child label="Safari" />
+                    </nodeitem>
+                </node>
+    </topnode>;
+
+    private function addStuff(): void
+    {
+        menu1.addEventListener('itemRollOut', traceMe);
+        menu1.addEventListener('itemRollOver', traceMe);
+        menu1.addEventListener('change', traceMe);
+    }
+
+    private function traceMe(event:MenuEvent): void
+    {
+        ta.text += "\n event type: " + event.type + ", label: " + event.label;
+    }
+    ]]>
+    </mx:Script>
+
+    <mx:Style>
+        @font-face {
+            src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-regular.ttf");
+            fontFamily: ComicSansMS;
+			embedAsCFF: false;
+        }
+        @font-face {
+            src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-regular.ttf");
+            fontFamily: Hancock;
+        }
+
+    </mx:Style>
+
+    <mx:Style source="Assets/myStyles.css" />
+
+<mx:Button label="show menu" click="menu1.show()" />
+<mx:TextArea id="ta" width="400" height="300" />
+<mx:Button label="add listeners" click="addStuff()" />
+</mx:Application>

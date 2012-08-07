@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ButtonBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBar_Basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    public function addData(bool:int):void
+    {
+        application.bb.dataProvider = myDP;
+    }
+
+    public function addObjData():void
+    {
+        application.bb.dataProvider = iconDP;
+    }
+
+    public function changeDP(node:int, bool:String):void
+    {
+        myDP.node[node].@enabled = bool;
+    }
+
+    [Bindable]
+    public var iconDP:Array= [{label:"Toys", icon:"redrect"},{label:"Bear", icon: "redrect"}];
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.ButtonBar;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.ListEvent;
+    
+    [Bindable]
+    private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+    
+    ]]>
+    </mx:Script>
+    
+<mx:Style>
+    .myButtonStyle
+    {
+       color:red;
+       fontFamily:EmbeddedVerdana;
+       fontSize:20;
+       fontWeight:bold;
+       paddingLeft:10;
+       paddingRight:10;
+       textAlign:left;
+       textIndent:5;
+    }
+
+    .verdanaStyle
+    {
+       color:red;
+       fontFamily:EmbeddedVerdana;
+       fontSize:20;
+       fontStyle:normal;
+       fontWeight:normal;
+    }
+    .verdanaBoldStyle
+    {
+       color:red;
+       fontFamily:EmbeddedVerdana;
+       fontSize:20;
+       fontStyle:normal;
+       fontWeight:bold;
+    }
+    .verdanaItalicStyle
+    {
+       color:red;
+       fontFamily:EmbeddedVerdana;
+       fontSize:20;
+       fontStyle:italic;
+       fontWeight:normal;
+    }
+</mx:Style>
+    
+    <testCases>
+        <TestCase testID="ButtonBar_Style_Basic_horizontalGap" description="ButtonBar Basic styles." keywords="[style, ButtonBar, horizontalGap]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" waitEvent="updateComplete" waitTarget="bb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="horizontalGap"  value="20" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <AssertStyleValue target="bb" styleName="horizontalGap" value="20"/>
+                <CompareBitmap target="bb" url="../Styles/baselines/horizontalGap.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ButtonBar_Style_Basic_buttonWidth" description="ButtonBar Basic styles." keywords="[style, ButtonBar, horizontalGap]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" waitEvent="updateComplete" waitTarget="bb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="buttonWidth"  value="37" waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="horizontalGap"  value="40" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <AssertStyleValue target="bb" styleName="buttonWidth" value="37"/>      
+                <CompareBitmap target="bb" url="../Styles/baselines/buttonWidth.png" timeout="5000" />
+            </body>
+        </TestCase>  
+        <TestCase testID="ButtonBar_Style_Basic_buttonHeight" description="ButtonBar Basic styles." keywords="[style, ButtonBar, horizontalGap]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" waitEvent="updateComplete" waitTarget="bb" />
+                <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="horizontalGap"  value="40" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <AssertStyleValue target="bb" styleName="buttonHeight" value="37"/>     
+                <CompareBitmap target="bb" url="../Styles/baselines/buttonHeight.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ButtonBar_Style_Basic_focusAlpha" description="ButtonBar Basic styles." keywords="[style, ButtonBar, focusAlpha]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" waitEvent="updateComplete" waitTarget="bb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="focusAlpha"  value="0.7" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <AssertStyleValue target="bb" styleName="focusAlpha" value="0.7"/>      
+                <CompareBitmap target="bb" url="../Styles/baselines/focusAlpha.png" timeout="5000" />
+            </body>
+        </TestCase>  
+        <TestCase testID="ButtonBar_Style_Basic_focusRoundedCorners" description="ButtonBar Basic styles." keywords="[style, ButtonBar, focusRoundedCorners]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" waitEvent="updateComplete" waitTarget="bb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="buttonHeight"  value="37"/>
+                <SetStyle target="bb" styleName="cornerRadius"  value="10" waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="focusRoundedCorners"  value="tl" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <AssertStyleValue target="bb" styleName="focusRoundedCorners" value="tl"/>      
+                <CompareBitmap target="bb" url="../Styles/baselines/focusRoundedCorners.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ButtonBar_Style_Basic_horizontalAlign" description="ButtonBar Basic styles." keywords="[style, ButtonBar, horizontalAlign]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" waitEvent="updateComplete" waitTarget="bb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="horizontalAlign"  value="right" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <AssertStyleValue target="bb" styleName="horizontalAlign" value="right"/>       
+                <CompareBitmap target="bb" url="../Styles/baselines/horizontalAlign.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ButtonBar_Style_Basic_verticalAlign" description="ButtonBar Basic styles." keywords="[style, ButtonBar, verticalAlign]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" waitEvent="updateComplete" waitTarget="bb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="verticalAlign"  value="bottom" waitEvent="updateComplete" waitTarget="bb"/>
+                <SetProperty target="bb" propertyName="direction" value="VERTICAL" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <AssertStyleValue target="bb" styleName="verticalAlign" value="bottom"/>        
+                <CompareBitmap target="bb" url="../Styles/baselines/verticalAlign.png" timeout="5000" />
+            </body>
+        </TestCase>  
+        <TestCase testID="ButtonBar_Style_Basic_verticalGap" description="ButtonBar Basic styles." keywords="[style, ButtonBar, verticalGap]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" waitEvent="updateComplete" waitTarget="bb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="bb" />
+                <SetStyle target="bb" styleName="verticalGap"  value="10" waitEvent="updateComplete" waitTarget="bb"/>
+                <SetProperty target="bb" propertyName="direction" value="VERTICAL" waitEvent="updateComplete" waitTarget="bb"/>
+                <SetProperty target="bb" propertyName="height" value="150" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <AssertStyleValue target="bb" styleName="verticalGap" value="10"/>      
+                <CompareBitmap target="bb" url="../Styles/baselines/verticalGap.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="ButtonBar_Style_Basic_color" description="ButtonBar Basic styles." keywords="[style, ButtonBar, color]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="color"  value="#0000FF" waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="fontSize"  value="50" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="bb" styleName="color" value="#0000FF"/>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <CompareBitmap target="bb" url="../Styles/baselines/color.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ButtonBar_Style_Basic_disabledColor" description="ButtonBar Basic styles." keywords="[style, ButtonBar, disabledColor]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="disabledColor"  value="#00FF00" waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="fontWeight"  value="bold" />
+                <SetStyle target="bb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="bb"/>
+                <SetProperty target="bb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="bb"/>
+
+            </setup>
+            <body>
+                <AssertStyleValue target="bb" styleName="disabledColor" value="#00FF00"/>
+            </body>
+        </TestCase> 
+        <TestCase testID="TB_Style_Basic_firstButtonStyleName" description="ButtonBar Basic styles." keywords="[style, ButtonBar, firstButtonStyleName]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="firstButtonStyleName"  value="myButtonStyle" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <AssertStyleValue target="bb" styleName="firstButtonStyleName" value="myButtonStyle"/>
+                <CompareBitmap target="bb" url="../Styles/baselines/firstButtonStyleName.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="TB_Style_Basic_lastButtonStyleName" description="ButtonBar Basic styles." keywords="[style, ButtonBar, lastButtonStyleName]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="lastButtonStyleName"  value="myButtonStyle" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <AssertStyleValue target="bb" styleName="lastButtonStyleName" value="myButtonStyle"/>
+                <CompareBitmap target="bb" url="../Styles/baselines/lastButtonStyleName.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="TB_Style_Basic_textIndent" description="ButtonBar Basic styles." keywords="[style, ButtonBar, textIndent]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="textIndent"  value="20" waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="bb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <AssertStyleValue target="bb" styleName="textIndent" value="20"/>
+                <CompareBitmap target="bb" url="../Styles/baselines/textIndent.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+                <TestCase testID="ButtonBar_Style_Basic_Embed_Font" description="ButtonBar Embed Font." keywords="[style, ButtonBar, EmbedFont]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" />
+                                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="firstButtonStyleName"  value="verdanaStyle" waitEvent="updateComplete" waitTarget="bb"/>
+                                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <CompareBitmap target="bb" url="../Styles/baselines/verdanaFont.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ButtonBar_Style_Basic_Embed_Font_Bold" description="ButtonBar Embed Bold Font." keywords="[style, ButtonBar, EmbedFont, Bold]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="firstButtonStyleName"  value="verdanaBoldStyle" waitEvent="updateComplete" waitTarget="bb"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <CompareBitmap target="bb" url="../Styles/baselines/verdanaFontBold.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ButtonBar_Style_Basic_Embed_Font_Bold_airOnly" description="ButtonBar Embed Bold Font." keywords="[style, ButtonBar, EmbedFont, Bold]">
+            <setup>
+                 <ResetComponent target="bb" className="mx.controls.ButtonBar" />
+                 <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
+                 <SetStyle target="bb" styleName="firstButtonStyleName"  value="verdanaBoldStyle" waitEvent="updateComplete" waitTarget="bb"/>
+                 <WaitForEffectsToEnd />
+             </setup>
+             <body>
+                 <DispatchKeyEvent key="TAB"  />
+                 <DispatchKeyEvent key="TAB"  />
+                 <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                 <CompareBitmap target="bb" url="../Styles/baselines/verdanaFontBold_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ButtonBar_Style_Basic_Embed_Font_Italic" description="ButtonBar Embed Italic Font." keywords="[style, ButtonBar, EmbedFont, Italic]">
+            <setup>
+                <ResetComponent target="bb" className="mx.controls.ButtonBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="bb"/>
+                <SetStyle target="bb" styleName="firstButtonStyleName"  value="verdanaItalicStyle" waitEvent="updateComplete" waitTarget="bb"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="bb" waitEvent="focusIn" />
+                <CompareBitmap target="bb" url="../Styles/baselines/verdanaFontItalic.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

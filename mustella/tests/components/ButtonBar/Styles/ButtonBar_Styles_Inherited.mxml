@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ButtonBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBar_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	public function addData(bool:int):void
+	{
+	application.bb.dataProvider = myDP;
+	}
+
+	public function addObjData():void
+	{
+	application.bb.dataProvider = iconDP;
+	}
+
+	public function changeDP(node:int, bool:String):void
+	{
+	myDP.node[node].@enabled = bool;
+	}
+
+	[Bindable]
+	public var iconDP:Array= [{label:"Toys", icon:"redrect"},{label:"Bear", icon: "redrect"}];
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.ButtonBar;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.events.ListEvent;
+[Bindable]
+private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+	]]>
+	</mx:Script>
+	
+<mx:Style>
+.myButtonStyle
+{
+ color:red;
+ fontFamily:EmbeddedVerdana;
+ fontSize:20;
+ fontWeight:bold;
+ paddingLeft:10;
+ paddingRight:10;
+ textAlign:left;
+ textIndent:5;
+}
+</mx:Style>
+	
+	<testCases>
+		<TestCase testID="ButtonBar_Style_Inherited_horizontalGap" description="ButtonBar Inherited styles." keywords="[style, ButtonBar, horizontalGap]">
+			<setup>
+				<ResetComponent target="bb" className="mx.controls.ButtonBar" waitEvent="updateComplete" waitTarget="bb" />
+				<RunCode code="addData(0);" />
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+			</setup>
+			<body>
+				<SetStyle target="bb" styleName="horizontalGap" value="20" waitEvent="updateComplete" waitTarget="bb"/>
+				<SetStyle styleName="buttonWidth" value="30"/>
+				<CompareBitmap target="bb" url="../Styles/baselines/horizontalGap_Inherited.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="ButtonBar_Style_Inherited_buttonWidth" description="ButtonBar Inherited styles." keywords="[style, ButtonBar, horizontalGap]">
+			<setup>
+				<ResetComponent target="bb" className="mx.controls.ButtonBar" waitEvent="updateComplete" waitTarget="bb" />
+				<RunCode code="addData(0);" />
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+			</setup>
+			<body>
+				<SetStyle target="bb" styleName="buttonWidth" value="37" waitEvent="updateComplete" waitTarget="bb"/>
+				<SetStyle target="bb" styleName="horizontalGap" value="40" waitEvent="updateComplete" waitTarget="bb"/>
+				<SetStyle styleName="buttonWidth" value="50" />
+				<CompareBitmap target="bb" url="../Styles/baselines/buttonWidth_Inherited.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="BB_Style_Inherited_firstButtonStyleName" description="ButtonBar Inherited styles." keywords="[style, ButtonBar, firstButtonStyleName]">
+			<setup>
+				<ResetComponent target="bb" className="mx.controls.ButtonBar" />
+				<RunCode code="addData(0);" />
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+			</setup>
+			<body>
+				<SetStyle target="bb" styleName="firstButtonStyleName" value="myButtonStyle" waitEvent="updateComplete" waitTarget="bb"/>
+				<CompareBitmap target="bb" url="../Styles/baselines/firstButtonStyleName_Inherited.png" timeout="5000" />
+			</body>
+		</TestCase> 
+		<TestCase testID="BB_Style_Inherited_lastButtonStyleName" description="ButtonBar Inherited styles." keywords="[style, ButtonBar, lastButtonStyleName]">
+			<setup>
+				<ResetComponent target="bb" className="mx.controls.ButtonBar" />
+				<RunCode code="addData(0);" />
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+			</setup>
+			<body>
+				<SetStyle target="bb" styleName="lastButtonStyleName" value="myButtonStyle" waitEvent="updateComplete" waitTarget="bb"/>
+				<CompareBitmap target="bb" url="../Styles/baselines/lastButtonStyleName_Inherited.png" timeout="5000" />
+			</body>
+		</TestCase> 
+		<TestCase testID="BB_Style_Inherited_textIndent" description="ButtonBar Inherited styles." keywords="[style, ButtonBar, textIndent]">
+			<setup>
+				<ResetComponent target="bb" className="mx.controls.ButtonBar" />
+				<RunCode code="addData(0);" />
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+			</setup>
+			<body>
+				<SetStyle target="bb" styleName="textIndent" value="20" waitEvent="updateComplete" waitTarget="bb"/>
+				<SetStyle target="bb" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="bb"/>
+				<SetStyle target="bb" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="bb"/>
+				<SetStyle target="bb" styleName="tabWidth" value="100" waitEvent="updateComplete" waitTarget="bb"/>
+				
+				<CompareBitmap target="bb" url="../Styles/baselines/textIndent_Inherited.png" timeout="5000" />
+			</body>
+		</TestCase> 
+	</testCases>
+</UnitTester>

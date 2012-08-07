@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/RadioButton/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RadioButton_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+		import mx.core.FlexGlobals;
+	
+		public function setValueSelectedFalse():void{
+			FlexGlobals.topLevelApplication.rb.selected=false;
+		}
+		public function setValueSelectedTrue():void{
+			FlexGlobals.topLevelApplication.rb.selected=true;
+		}		
+		public function setValueLabelPlacementBottom():void{
+			FlexGlobals.topLevelApplication.rb.labelPlacement='bottom';	
+		}
+		public function setValueLabelPlacementTop():void{
+			FlexGlobals.topLevelApplication.rb.labelPlacement='top';
+		}
+		public function setValueLabelPlacementLeft():void{
+			FlexGlobals.topLevelApplication.rb.labelPlacement='left';
+		}
+		public function setValueEnabledTrue():void{
+			FlexGlobals.topLevelApplication.rb.enabled=true;
+		}		
+	]]>
+	</mx:Script>
+
+  <testCases>
+   
+	<TestCase testID="RadioButton_Property_Selected_Default"  keywords="[groupName, selected, RadioButton]">
+		<setup>
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="selected" value="false" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_Selected_True"  keywords="[backgroundAlpha, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>		
+			<SetProperty target="rb" propertyName="selected" value="true"   waitEvent="updateComplete" waitTarget="rb"/>		
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="selected" value="true" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_Selected_False"  keywords="[selected, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>		
+			<SetProperty target="rb" propertyName="selected" value="false"  />		
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="selected" value="false" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_Selected2_True"  keywords="[selected, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>
+			<RunCode code="setValueSelectedTrue()" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="selected" value="true" />
+			
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_Selected3_False"  keywords="[selected, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>		
+			<RunCode code="setValueSelectedFalse()" />	
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="selected" value="false" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="RadioButton_Property_LabelPlacement_Default"  keywords="[labelPlacement, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="label" value="Hello World!!!"  waitEvent="updateComplete" waitTarget="rb" />
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="labelPlacement" value="right" />
+			
+			<CompareBitmap target="rb" url="../properties/baselines/labelPlacement_default.png" timeout="5000" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_LabelPlacement_left"  keywords="[labelPlacement, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>		
+			<SetProperty target="rb" propertyName="label" value="Hello World!!!"  waitEvent="updateComplete" waitTarget="rb" />
+			<SetProperty target="rb" propertyName="labelPlacement" value="left"   waitEvent="updateComplete" waitTarget="rb"/>		
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="labelPlacement" value="left" />
+			
+			<CompareBitmap target="rb" url="../properties/baselines/labelPlacement_left.png" timeout="5000" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_LabelPlacement_top"  keywords="[labelPlacement, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="label" value="Hello World!!!"  waitEvent="updateComplete" waitTarget="rb" />
+			<SetProperty target="rb" propertyName="labelPlacement" value="top"  waitEvent="updateComplete" waitTarget="rb" />		
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="labelPlacement" value="top" />
+			
+			<CompareBitmap target="rb" url="../properties/baselines/labelPlacement_top.png" timeout="5000" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_LabelPlacement_bottom"  keywords="[labelPlacement, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="label" value="Hello World!!!"  waitEvent="updateComplete" waitTarget="rb" />
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>		
+			<SetProperty target="rb" propertyName="labelPlacement" value="bottom"  waitEvent="updateComplete" waitTarget="rb" />		
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="labelPlacement" value="bottom" />
+			
+			<CompareBitmap target="rb" url="../properties/baselines/labelPlacement_bottom.png" timeout="5000" />
+		</body>
+	</TestCase>	
+	<TestCase testID="RadioButton_Property_LabelPlacement2_left"  keywords="[labelPlacement, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="label" value="Hello World!!!"  waitEvent="updateComplete" waitTarget="rb" />
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>
+			<RunCode code="setValueLabelPlacementLeft()"  waitEvent="updateComplete" waitTarget="rb"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="labelPlacement" value="left" />
+			
+			<CompareBitmap target="rb" url="../properties/baselines/labelPlacement_left.png" timeout="5000" />
+			
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_LabelPlacement2_Top"  keywords="[labelPlacement, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="label" value="Hello World!!!"  waitEvent="updateComplete" waitTarget="rb" />
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>		
+			<RunCode code="setValueLabelPlacementTop()"  waitEvent="updateComplete" waitTarget="rb"/>	
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="labelPlacement" value="top" />
+			
+			<CompareBitmap target="rb" url="../properties/baselines/labelPlacement2_top.png" timeout="5000" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_LabelPlacement2_bottom"  keywords="[labelPlacement, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>		
+			<SetProperty target="rb" propertyName="label" value="Hello World!!!"  waitEvent="updateComplete" waitTarget="rb" />
+			<RunCode code="setValueLabelPlacementBottom()"  waitEvent="updateComplete" waitTarget="rb"/>	
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="labelPlacement" value="bottom" />
+			
+			<CompareBitmap target="rb" url="../properties/baselines/labelPlacement2_bottom.png" timeout="5000" />
+		</body>
+	</TestCase>
+<!-- enabled -->
+	<TestCase testID="RadioButton_Property_Enabled_Default"  keywords="[enabled, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="enabled" value="true" />
+		</body>
+	</TestCase>	
+	<TestCase testID="RadioButton_Property_Enabled_False"  keywords="[enabled, RadioButton]">
+		<setup>
+			<SetProperty target="rb" propertyName="groupName" value="g1"   waitEvent="updateComplete" waitTarget="rb"/>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="enabled" value="false" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="enabled" value="false" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_Enabled_True"  keywords="[enabled, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="enabled" value="false"   waitEvent="updateComplete" waitTarget="rb"/>
+			<RunCode code="setValueEnabledTrue()"  waitEvent="updateComplete" waitTarget="rb"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="enabled" value="true" />
+		</body>
+	</TestCase>	
+<!-- label -->	
+	<TestCase testID="RadioButton_Property_Label1"  keywords="[label, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="label" value="" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_Label2"  keywords="[label, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="label" value=""/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="label" value="" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_Label3"  keywords="[label, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="label" value="RBLabel"   waitEvent="updateComplete" waitTarget="rb"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="label" value="RBLabel" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_Label4"  keywords="[label, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="label" value="@##$@^#"   waitEvent="updateComplete" waitTarget="rb"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="label" value="@##$@^#" />
+		</body>
+	</TestCase>
+	<TestCase testID="RadioButton_Property_GroupName"  keywords="[label, RadioButton]">
+		<setup>
+			<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			<SetProperty target="rb" propertyName="groupName" value="rgdefault"   waitEvent="updateComplete" waitTarget="rb"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="rb" propertyName="groupName" value="rgdefault" />
+		</body>
+	</TestCase>	
+    </testCases>
+</UnitTester>
+

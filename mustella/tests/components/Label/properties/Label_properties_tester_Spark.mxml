@@ -1,0 +1,1922 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/Label/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label_main_Spark.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+
+
+    <mx:Script>
+
+        <![CDATA[
+
+        public static function init(o:DisplayObject):void
+
+        {
+
+        }           
+
+        ]]>
+
+    </mx:Script>
+
+    
+
+    <mx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </mx:Metadata>  
+
+    
+
+    <!-- end of set of lines that must be in each unit test -->
+
+
+
+    <mx:Script>
+
+        <![CDATA[
+
+            import mx.controls.Label;
+
+            import data.MyLabel;
+
+            import data.ListDataAS;
+
+            import mx.controls.List;
+
+            import mx.managers.ToolTipManager;
+
+            
+
+            [Bindable]
+
+            private var dpLabel:ListDataAS = new ListDataAS();
+
+
+
+            [Bindable]
+
+            private var dpData:Object = dpLabel.myData;
+
+
+
+            private function createData(dgTarget:List): void
+
+            {
+
+                var newDP:ListDataAS = new ListDataAS();
+
+                dgTarget.dataProvider = newDP.myData;
+
+            }               
+
+
+
+            private var irLabel:ClassFactory = new ClassFactory(MyLabel);       
+
+
+
+            public var myToolTip:Object;
+
+            
+
+            private function getToolTip():void
+
+            {
+
+                myToolTip = ToolTipManager.currentToolTip;
+
+            }
+
+                
+
+            [Bindable]
+
+            private var condensePhrase:String="condenseWhite text          Next paragraph";
+
+            
+
+            [Bindable]
+
+            private var htmlPhrase:String="This is <b>bold</b>.  This is <i>italic</i>";
+
+
+
+            [Bindable]
+
+            private var buttonLabel:String="Button label";
+
+
+
+            [Bindable]
+
+            private var longPhrase:String="This is an extremely long string that does not fit in the space of the panel.";
+
+        ]]>
+
+    </mx:Script>
+
+        
+
+    <testCases>
+
+        <TestCase testID="Spark_condenseWhite_true__property_Label" description="Test the condenseWhite true property of Label" keywords="[Label, condenseWhite, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="htmlText" value="{condensePhrase}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="condenseWhite" value="true" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/condenseWhite_true_Label_Spark.png" target="myLabel"/>          
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_condenseWhite_false_property_Label" description="Test the condenseWhite false property of Label" keywords="[Label, condenseWhite, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="htmlText" value="{condensePhrase}"/>
+
+                <SetProperty target="myLabel" propertyName="condenseWhite" value="false" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/condenseWhite_false_Label_Spark.png" target="myLabel"/> 
+
+            </body>
+
+        </TestCase>
+
+
+
+
+        <TestCase testID="Spark_data_property_Label" description="Test that setting the Label data property renders data" keywords="[Label, data, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label"/>
+
+                <SetProperty target="myLabel" propertyName="data" value="{dpData[0].label}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" propertyName="data" value="{dpData[0].label}"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap url="../properties/baselines/data_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_data_property_change_data_Label" description="Test that setting the Label data property renders data correctly after changing data" keywords="[Label, data, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label"/>
+
+                <SetProperty target="myLabel" propertyName="data" value="{dpData[0].label}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="data" value="{dpData[1].label}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" propertyName="data" value="{dpData[1].label}"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap url="../properties/baselines/data_property_change_data_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!--Testcase for manual tests of height for Label-->
+
+
+
+        <TestCase testID="Spark_height_default_property_Label" description="Tests the height property defaults to 21 (Flex 3.0) for Label" keywords="[Label,height,property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue propertyName="height" value="23" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_height_50_property_Label" description="Tests the height property set to 50 of Label" keywords="[Label,height,property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="50 Height Label"/>
+
+                <SetProperty target="myLabel" propertyName="height" value="50"/>
+
+                <SetStyle target="myLabel" styleName="fontSize" value="25" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/height_50_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_height_26_property_Label" description="Tests the height property set to 26 of Label" keywords="[Label,height,property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="26 Height Label"/>
+
+                <SetProperty target="myLabel" propertyName="height" value="26"/>
+
+                <SetStyle target="myLabel" styleName="fontSize" value="25" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/height_26_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_height_30_property_Label" description="Tests the height property set to 30 of Label" keywords="[Label,height,property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="30 Height Label"/>
+
+                <SetProperty target="myLabel" propertyName="height" value="30"/>
+
+                <SetStyle target="myLabel" styleName="fontSize" value="25" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/height_30_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_height_18_property_Label" description="Tests the height property set to 18 of Label" keywords="[Label,height,property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="18 Height Label"/>
+
+                <SetProperty target="myLabel" propertyName="height" value="18"/>
+
+                <SetStyle target="myLabel" styleName="fontSize" value="25" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/height_18_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_htmlText_property_Label" description="Tests that html text appears property in a Label" keywords="[Label, htmlText, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="htmlText" value="{htmlPhrase}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/htmlText_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="Spark_no_text_stripHTML_property_Label" description="Tests that the HTML tags are stripped when using the text property of Label"  keywords="[Label, text, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="htmlText" value="{htmlPhrase}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue propertyName="text" value="This is bold.  This is italic" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_text_stripHTML_property_Label" description="First set the text of the label, then set htmlText, and verify that the HTML tags are stripped in the text property of Label"  keywords="[Label, text, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="hello" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="htmlText" value="{htmlPhrase}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue propertyName="text" value="This is bold.  This is italic" target="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="hello" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!--Testcase for manual test of maxHeight of Label-->
+
+        <TestCase testID="Spark_maxHeight_default_property_Label" description="Tests the maxHeight property defaults to 10000 for Label" keywords="[Label, maxHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" value="10000" propertyName="maxHeight"/>
+
+            </body>
+
+        </TestCase>
+
+    
+
+        <TestCase testID="Spark_maxHeight_10_property_Label" description="Tests the maxHeight property set to 10 for Label" keywords="[Label, maxHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="maxHeight" value="10"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/maxHeight_10_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_maxHeight_26point5_property_Label" description="Tests the maxHeight property set to 26.5 for Label" keywords="[Label, maxHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="maxHeight" value="26.5" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/maxHeight_26point5_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_maxHeight_50_property_Label" description="Tests the maxHeight property set to 50 for Label" keywords="[Label, maxHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="maxHeight" value="50"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/maxHeight_50_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!--Testcase for manual test of maxWidth of Label-->
+
+        <TestCase testID="Spark_maxWidth_default_property_Label" description="Tests the maxWidth property defaults to 10000 for Label" keywords="[Label, maxWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" value="10000" propertyName="maxWidth"/>
+
+            </body>
+
+        </TestCase>
+
+    
+
+        <TestCase testID="Spark_maxWidth_24_property_Label" description="Tests the maxWidth property set to 24 for Label" keywords="[Label, maxWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="maxWidth" value="24" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="maxWidth Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/maxWidth_24_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_maxWidth_26point5_property_Label" description="Tests the maxWidth property set to 26.5 for Label" keywords="[Label, maxWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="maxWidth" value="26.5"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="maxWidth Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/maxWidth_26point5_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_maxWidth_15_property_Label" description="Tests the maxWidth property set to 15 for Label" keywords="[Label, maxWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="maxWidth" value="15"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="maxWidth Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/maxWidth_15_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!--Testcase for manual test of minHeight of Label-->
+
+        <TestCase testID="Spark_minHeight_default_property_Label" description="Tests the minHeight property defaults to 21 (Flex 3.0) for Label" keywords="[Label, minHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" value="23" propertyName="minHeight"/>
+
+            </body>
+
+        </TestCase>
+
+    
+
+        <TestCase testID="Spark_minHeight_25_property_Label" description="Tests the minHeight property set to 25 for Label" keywords="[Label, minHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="minHeight" value="25"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/minHeight_25_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_minHeight_26point5_property_Label" description="Tests the minHeight property set to 26.5 for Label" keywords="[Label, minHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="minHeight" value="26.5"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/minHeight_26point5_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_minHeight_50_property_Label" description="Tests the minHeight property set to 50 for Label" keywords="[Label, minHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="minHeight" value="50"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/minHeight_50_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+        <!--Testcase for manual test of minWidth of Label-->
+
+        <TestCase testID="Spark_minWidth_default_property_Label" description="Tests the minWidth property defaults to 21 (Flex 3.0) for Label" keywords="[Label, minWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" value="20" propertyName="minWidth"/>
+
+            </body>
+
+        </TestCase>
+
+    
+
+        <TestCase testID="Spark_minWidth_25_property_Label" description="Tests the minWidth property set to 50 for Label" keywords="[Label, minWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="minWidth" value="50"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/minWidth_50_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_minWidth_26point5_property_Label" description="Tests the minWidth property set to 26.5 for Label" keywords="[Label, minWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="minWidth" value="26.5"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/minWidth_26point5_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_minWidth_50_property_Label" description="Tests the minWidth property set to 100 for Label" keywords="[Label, minWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="minWidth" value="100"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/minWidth_100_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!--Testcase for manual test of percentHeight for Label-->
+
+        <TestCase testID="Spark_percentHeight_60_property_Label" description="Tests the percentHeight property set to 60 for Label" keywords="[Label, percentHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="percentHeight" value="60"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/percentHeight_60_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_percentHeight_26point5_property_Label" description="Tests the percentHeight property set to 26.5 for Label" keywords="[Label, percentHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="percentHeight" value="26.5"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/percentHeight_26point5_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_percentHeight_100_property_Label" description="Tests the percentHeight property set to 100 for Label" keywords="[Label, percentHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="percentHeight" value="100"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/percentHeight_100_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!--Testcase for manual test of percentWidth for Label-->
+
+        <TestCase testID="Spark_percentWidth_50_property_Label" description="Tests the percentWidth property set to 50 for Label" keywords="[Label, percentWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="percentWidth" value="50"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/percentWidth_50_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_percentWidth_26point5_property_Label" description="Tests the percentWidth property set to 26.5 for Label" keywords="[Label, percentWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="percentWidth" value="26.5"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/percentWidth_26point5_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_percentWidth_100_property_Label" description="Tests the percentWidth property set to 100 for Label" keywords="[Label, percentWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="percentWidth" value="100"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/percentWidth_100_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!--Testcase for manual test of scaleX for Label-->
+
+        <TestCase testID="Spark_scaleX_default_property_Label" description="Tests the scaleX property defaults to 1.0 for Label" keywords="[Label, scaleX, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue propertyName="scaleX" value="1.0" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_scaleX_2_property_Label" description="Tests the scaleX property set to 2 for Label" keywords="[Label, scaleX, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="scaleX" value="2"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/scaleX_2_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_scaleX_3_property_Label" description="Tests the scaleX property set to 3 for Label" keywords="[Label, scaleX, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="scaleX" value="3"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/scaleX_3_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_scaleX_point565_property_Label" description="Tests the scaleX property set to .565 for Label" keywords="[Label, scaleX, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="scaleX" value=".565"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/scaleX_point565_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!--Testcase for manual test of scaleY for Label-->
+
+        <TestCase testID="Spark_scaleY_default_property_Label" description="Tests the scaleY property defaults to 1.0 for Label" keywords="[Label, scaleY, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue propertyName="scaleY" value="1.0" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_scaleY_2_property_Label" description="Tests the scaleY property set to 2 for Label" keywords="[Label, scaleY, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="scaleY" value="2"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/scaleY_2_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_scaleY_3_property_Label" description="Tests the scaleY property set to 3 for Label" keywords="[Label, scaleY, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="scaleY" value="3"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/scaleY_3_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_scaleY_point565_property_Label" description="Tests the scaleY property set to .565 for Label" keywords="[Label, scaleY, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="scaleY" value=".565"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/scaleY_point565_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_selectable_true_property_Label" description="Tests that label text can be selected when selectable is true" keywords="[Label, selectable, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="selectable" value="true" waitEvent="updateComplete" waitTarget="myLabel"/>  
+
+                <SetProperty target="myLabel" propertyName="text" value="{buttonLabel}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" propertyName="selectable" value="true"/>
+
+                <AssertPropertyValue target="myLabel.getTextField()" propertyName="selectable" value="true"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_text_property_Label" description="Tests that label text is set" keywords="[Label, text, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="My Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" propertyName="text" value="My Label"/>    
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap url="../properties/baselines/text_property_Label_Spark.png" target="myLabel"/>   
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_text_long_property_Label" description="Tests that a long label text is set" keywords="[Label, text, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="{longPhrase}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" propertyName="text" value="{longPhrase}"/>    
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap url="../properties/baselines/text_long_property_Label_Spark.png" target="myLabel" numColorVariances="4" ignoreMaxColorVariance="true"/>  
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="Spark_text_long_ellipsis_property_Label" description="Tests that a long label text is truncated with an ellipsis" keywords="[Label, text, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="width" value="250" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="{longPhrase}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/text_ellipsis_long_property_Label_Spark.png" target="myPanel"/> 
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Spark_textHeight_zero_property_Label" description="Tests that an empty string for label text returns a 0 height." keywords="[Label, textHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value=""/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" propertyName="textHeight" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_textWidth_zero_property_Label" description="Tests that an empty string for label text returns a 0 height." keywords="[Label, textWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value=""/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" propertyName="textWidth" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="Spark_textHeight_nonzero_property_Label" description="Tests that an empty string for label text returns a 0 height." keywords="[Label, textHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Hi"/>
+
+                <RunCode code="application.myLabel.validateNow()"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" propertyName="textHeight" value="18.3"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_textWidth_nonzero_property_Label" description="Tests that an empty string for label text returns a 0 height." keywords="[Label, textWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Hi"/>
+
+                <RunCode code="application.myLabel.validateNow()"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" propertyName="textWidth" value="11.85"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        
+
+        <TestCase testID="Spark_truncateToFit_true_property_Label" description="Tests that truncateToFit true causes label text that does not fit to show an ellipsis" keywords="[Label, truncateToFit, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="width" value="250" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="truncateToFit" value="true"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="{longPhrase}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/truncateToFit_true_property_Label_Spark.png" target="myPanel"/>
+
+            </body>
+
+        </TestCase>
+
+    
+
+        <TestCase testID="Spark_truncateToFit_false_property_Label" description="Test that truncateToFit false causes label text that is too long get clipped." keywords="[Label, truncateToFit, property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="width" value="250" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="truncateToFit" value="false"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="{longPhrase}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/truncateToFit_false_property_Label_Spark.png" target="myPanel"/>
+
+            </body>
+
+        </TestCase>
+
+    
+
+        <!--Testcases for manual test of toolTip for Label-->
+
+        <TestCase testID="Spark_toolTip_default_property_of_Label" keywords="[Label, toolTip, property]" description="Ensure the Label defaults to no toolTip.">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue propertyName="toolTip" value="null" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_toolTip_property_of_Label" keywords="[Label, toolTip, property]" description="Ensure the toolTip displays properly.">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="toolTip" value="Label tool tip"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Tool tip Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <DispatchMouseEvent target="myLabel" localX="15" localY="1" type="mouseOver" waitEvent="toolTipShow" waitTarget="myLabel"/>
+
+                <RunCode code="getToolTip()"/>
+
+                <WaitForEffectsToEnd />
+
+                <AssertPropertyValue propertyName="text" target="script:myToolTip" value="Label tool tip"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_toolTip_hi_ascii_property_of_Label" keywords="[Label, toolTip, property]" description="Ensure the toolTip displays hi ascii properly.">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="toolTip" value="súsàñchâng"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Tool tip Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <DispatchMouseEvent target="myLabel" localX="15" localY="1" type="mouseOver" waitEvent="toolTipShow" waitTarget="myLabel"/>
+
+                <RunCode code="getToolTip()"/>
+
+                <AssertPropertyValue propertyName="text" target="script:myToolTip" value="súsàñchâng"/> 
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_toolTip_double_byte_property_of_Label" keywords="[Label, toolTip, property]" description="Ensure the toolTip double byte displays properly.">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="toolTip" value="??/????????"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Tool tip Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <DispatchMouseEvent target="myLabel" localX="15" localY="1" type="mouseOver" waitEvent="toolTipShow" waitTarget="myLabel"/>
+
+                <RunCode code="getToolTip()"/>
+
+                <AssertPropertyValue propertyName="text" target="script:myToolTip" value="??/????????"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+        <TestCase testID="Spark_toolTip_truncate_property_of_Label" keywords="[Label, toolTip, property]"  description="Ensure the toolTip truncated displays properly.">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" value="50" propertyName="width"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="The Label has an extremely long  toolTip set which should truncate and show a toolTip." waitEvent="updateComplete" waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <DispatchMouseEvent target="myLabel" localX="15" localY="1" type="mouseOver"  waitEvent="toolTipShow" waitTarget="myLabel"/>
+
+                <RunCode code="getToolTip()"/>
+
+                <AssertPropertyValue propertyName="text" target="script:myToolTip" value="The Label has an extremely long  toolTip set which should truncate and show a toolTip."/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!--Testcase for manual test of visible for Label-->
+
+        <TestCase testID="Spark_visible_default_property_of_Label" keywords="[Label, visible, property]"  description="Ensure visible defaults to true shows the label">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label text"  waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/visible_default_property_of_Label_Spark.png"  target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_visible_true_property_of_Label" keywords="[Label, visible, property]" description="Ensure  visible true shows the label">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="visible" value="true"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label text"  waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/visible_true_property_of_Label_Spark.png"  target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_visible_false_property_of_Label" keywords="[Label, visible, property]" description="Ensure  visible false does not show the label">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="visible" value="false"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label text"  waitEvent="updateComplete" waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/visible_false_property_of_Label_Spark.png"  target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <!--Testcase for manual tests of width for Label-->
+
+
+
+        <TestCase testID="Spark_width_default_property_Label" description="Tests the width property defaults to 21 (Flex  3.0) for Label" keywords="[Label,width,property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue propertyName="width" value="20" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_width_50_property_Label" description="Tests the width property set to 50 of Label"  keywords="[Label,width,property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="50 width Label"/>
+
+                <SetProperty target="myLabel" propertyName="width" value="50"/>
+
+                <SetStyle target="myLabel" styleName="fontSize" value="25" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/width_50_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_width_26_property_Label" description="Tests the width property set to 26 of Label"  keywords="[Label,width,property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="26 width Label"/>
+
+                <SetProperty target="myLabel" propertyName="width" value="26"/>
+
+                <SetStyle target="myLabel" styleName="fontSize" value="25" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/width_26_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_width_100_property_Label" description="Tests the width property set to 100 of Label"  keywords="[Label,width,property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="100 width Label"/>
+
+                <SetProperty target="myLabel" propertyName="width" value="100"/>
+
+                <SetStyle target="myLabel" styleName="fontSize" value="25" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/width_100_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_width_35_property_Label" description="Tests the width property set to 35 of Label"  keywords="[Label,width,property]">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="35 width Label"/>
+
+                <SetProperty target="myLabel" propertyName="width" value="35"/>
+
+                <SetStyle target="myLabel" styleName="fontSize" value="25" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/width_35_property_Label_Spark.png" target="myLabel"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!--Testcases for manual test of x for Label-->
+
+        <TestCase testID="Spark_x_default_property_Label" keywords="[x, property, Label]" description="Tests that the  default x is 0 for a Label inside of Canvas">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" propertyName="x" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="Spark_x_100_property_Label" keywords="[x, property, Label]" description="Tests setting x to 100  for a Label inside of Canvas">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="x" value="100"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/x_100_property_Label_Spark.png" target="myPanel"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="Spark_x_neg5point6_property_Label" keywords="[x, property, Label]" description="Tests setting x  to -5.6 for a Label inside of Canvas">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="x" value="-5.6"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/x_neg5point6_property_Label_Spark.png"  target="myPanel"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="Spark_x_50_property_Label" keywords="[x, property, Label]" description="Tests setting x to 50  for a Label inside of Canvas">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="x" value="50"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/x_50_property_Label_Spark.png" target="myPanel"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <!--Testcases for manual test of y for Label-->
+
+        <TestCase testID="Spark_y_default_property_Label" keywords="[y, property, Label]" description="Tests that the  default y is 0 for a Label inside of Canvas">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myLabel" propertyName="y" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="Spark_y_56_property_Label" keywords="[y, property, Label]" description="Tests setting y to 56  for a Label inside of Canvas">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="y" value="56"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/y_56_property_Label_Spark.png" target="myPanel"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="Spark_y_neg5point6_property_Label" keywords="[y, property, Label]" description="Tests setting y  to -5.6 for a Label inside of Canvas">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="y" value="-5.6"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/y_neg5point6_property_Label_Spark.png"  target="myPanel"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="Spark_y_50_property_Label" keywords="[y, property, Label]" description="Tests setting y to 50  for a Label inside of Canvas">
+
+            <setup>
+
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <SetProperty target="myLabel" propertyName="y" value="50"/>
+
+                <SetProperty target="myLabel" propertyName="text" value="Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+                <WaitForEffectsToEnd />
+
+            </setup>
+
+            <body>
+
+                <CompareBitmap url="../properties/baselines/y_50_property_Label_Spark.png" target="myPanel"/>
+
+            </body>
+
+        </TestCase>
+        <TestCase testID="Label_properties_layoutDirection_RTL" keywords="[layoutDirection, Mirroring, Label]" description="Set layoutDirection to RTL on the component">
+            <setup>
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+                <SetProperty target="myLabel" propertyName="layoutDirection" value="rtl"/>
+                <SetProperty target="myLabel" propertyName="text" value="Mirrored Text that is truncated" waitEvent="updateComplete"  waitTarget="myLabel"/><SetStyle styleName="textFieldClass" valueExpression="value=mx.core.UIFTETextField" target="myLabel" />
+                <SetProperty target="myLabel" propertyName="width" value="80" waitEvent="updateComplete"  waitTarget="myLabel"/>
+                <SetStyle styleName="direction" value="rtl" target="myLabel" waitTarget="myLabel"
+                    waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myLabel"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Label_properties_layoutDirection_RTL_onParent" keywords="[layoutDirection, Mirroring, Label]" description="Set layoutDirection to RTL on the component">
+            <setup>
+                <ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+                <SetProperty target="myPanel" propertyName="layoutDirection" value="rtl"/>
+                <SetProperty target="myLabel" propertyName="text" value="!@#$%*()-++" waitEvent="updateComplete"  waitTarget="myLabel"/><SetStyle styleName="textFieldClass" valueExpression="value=mx.core.UIFTETextField" target="myLabel" />
+                <SetStyle styleName="direction" value="rtl" target="myLabel" waitTarget="myLabel"
+                    waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myLabel"/>
+                <SetProperty target="myPanel" propertyName="layoutDirection" value="ltr"/>
+                
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>

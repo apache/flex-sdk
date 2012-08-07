@@ -1,0 +1,7 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" height="160" width="420"> 
+    <mx:RadioButtonGroup id="myRBG"/>
+        <mx:RadioButton groupName="myRBG" id="rb1" value="AE" label="CreditCardOne" />
+        <mx:RadioButton groupName="myRBG" id="rb2" value="MC" label="CreditCardTwo" />
+        <mx:RadioButton groupName="myRBG" id="rb3" value="Visa" label="CreditCardThree" />
+     <mx:TextInput id="ti" height="23"/>
+</mx:VBox>

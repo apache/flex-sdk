@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/RadioButton/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RadioButton_Basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+    import mx.containers.* ;
+    import mx.controls.*;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    ]]>
+    
+    </mx:Script>
+    <mx:Style>
+        .myRadioButtonJPG
+        {
+            skin: ClassReference("comps.button_jpg_embeded");       
+        }
+        .myRadioButtonGIF
+        {
+            skin: ClassReference("comps.button_gif_embeded");       
+        }
+        .myRadioButtonPNG
+        {
+            skin: ClassReference("comps.button_png_embeded");       
+        }
+        .myRadioButtonSWF
+        {
+            skin: ClassReference("comps.button_swf_embeded");       
+        }
+        
+        .myRadioButtonJPGRunTime
+        {
+            skin: ClassReference("comps.button_jpg_runtime");       
+        }
+        .myRadioButtonGIFRunTime
+        {
+            skin: ClassReference("comps.button_gif_runtime");       
+        }
+        .myRadioButtonPNGRunTime
+        {
+            skin: ClassReference("comps.button_png_runtime");       
+        }
+        .myRadioButtonSWFRunTime
+        {
+            skin: ClassReference("comps.button_swf_runtime");       
+        }       
+    </mx:Style>
+    <testCases>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_JPG" keywords="[enabled, SkinStates,EmbedJPG, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonJPG" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_JPG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonJPG" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonJPG" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="rb" waitEvent="mouseDown" waitTarget="rb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonJPG" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_Disabled_JPG.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_PNG" keywords="[enabled, SkinStates,EmbedPNG, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonPNG" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_PNG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_PNG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedPNG, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonPNG" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_PNG_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_PNG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedPNG, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonPNG" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="rb" waitEvent="mouseDown" waitTarget="rb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_PNG_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_PNG_Disabled" keywords="[disabled, SkinStates,EmbedPNG, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonPNG" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_Disabled_PNG.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_GIF" keywords="[enabled, SkinStates,EmbedGIF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonGIF" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_GIF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_GIF_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedGIF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonGIF" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_GIF_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_GIF_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedGIF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonGIF" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="rb" waitEvent="mouseDown" waitTarget="rb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_GIF_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_GIF_Disabled" keywords="[disabled, SkinStates,EmbedGIF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonGIF" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_Disabled_GIF.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_SWF" keywords="[enabled, SkinStates,EmbedSWF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonSWF" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_SWF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedSWF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonSWF" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedSWF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonSWF" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="rb" waitEvent="mouseDown" waitTarget="rb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_SWF_Disabled" keywords="[disabled, SkinStates,EmbedSWF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonSWF" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_Disabled_SWF.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_runtime_JPG" keywords="[enabled, SkinStates,runtimeJPG, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonJPGRunTime" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_runtime_JPG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="RadioButton_Styles_SkinStates_runtime_PNG" keywords="[enabled, SkinStates,runtimePNG, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonPNGRunTime" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_runtime_PNG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="RadioButton_Styles_SkinStates_runtime_GIF" keywords="[enabled, SkinStates,runtimeGIF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonGIFRunTime" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_runtime_GIF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+
+        <TestCase testID="RadioButton_Styles_SkinStates_runtime_SWF" keywords="[enabled, SkinStates,runtimeSWF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonSWFRunTime" waitEvent="updateComplete" waitTarget="rb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_runtime_SWF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+<!-- AIR specific testcases -->
+
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_SWF_airOnly" keywords="[enabled, SkinStates,EmbedSWF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonSWF" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_SWF_air.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonSWF" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonSWF" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="rb" waitEvent="rollOver" waitTarget="rb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="rb" waitEvent="mouseDown" waitTarget="rb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RadioButton_Styles_SkinStates_Embeding_SWF_Disabled_airOnly" keywords="[disabled, SkinStates,EmbedSWF, RadioButton]" >
+            <setup>
+                <ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+                <SetStyle target="rb" styleName="styleName" value="myRadioButtonSWF" waitEvent="updateComplete" waitTarget="rb" /> 
+                <SetProperty target="rb" propertyName="label" value="Hello World!!!" waitEvent="updateComplete" waitTarget="rb"/>
+                <SetProperty target="rb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="rb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="rb" url="../Styles/baselines/RadioButton_Styles_SkinStates_Embeding_Disabled_SWF_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>

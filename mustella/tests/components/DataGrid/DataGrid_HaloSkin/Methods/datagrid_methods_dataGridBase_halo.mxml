@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_HaloSkin/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp_halo.mxml" >
+
+<!-- this set of lines form a template that must be in each unit test -->
+<mx:Script>
+<![CDATA[
+public static function init(o:DisplayObject):void
+{
+}                   
+]]>
+</mx:Script>
+<mx:Metadata>
+<![CDATA[
+    [Mixin]
+]]>
+</mx:Metadata>  
+<!-- end of set of lines that must be in each unit test -->
+
+<!--
+This file contains tests for the following methods inherited from DataGridBase:
+
+createColumnItemRenderer(c:DataGridColumn, forHeader:Boolean, data:Object):IListItemRenderer
+    Call it for a variety of controls:
+        NumericStepper
+        Image
+        Button
+        TextArea
+        ComboBox
+        TextInput
+        Label
+
+-->
+
+<mx:Script>
+<![CDATA[
+
+]]>
+</mx:Script>
+
+<testCases>
+
+<!--
+================================================================================
+createColumnItemRenderer
+Create the test DataGrid, then get each renderer's className to verify.  Try
+to avoid a screen shot.
+================================================================================
+-->
+
+<TestCase testID="createColumnItemRenderer_Button_checkClass_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.1.1" propertyName="className" value="Button" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_Button_checkData_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.1.1" propertyName="label" value="A Button!" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_Image_checkClass_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.2.1" propertyName="className" value="Image" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_Image_checkData_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.2.1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_TextArea_checkClass_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.3.1" propertyName="className" value="TextArea" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_TextArea_checkData_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.3.1" propertyName="text" value="A TextArea!" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_NumericStepper_checkClass_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.4.1" propertyName="className" value="NumericStepper" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_NumericStepper_checkData_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.4.1" propertyName="value" value="4" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_ComboBox_checkClass_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.5.1" propertyName="className" value="ComboBox" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_ComboBox_checkData_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="dg2.mx_internal:rendererArray.5.1" localX="10" localY="2" />
+        <WaitForEffectsToEnd />
+        <DispatchKeyEvent key="DOWN" />
+        <WaitForEffectsToEnd />
+        <DispatchKeyEvent key="DOWN" />
+        <WaitForEffectsToEnd />
+        <DispatchKeyEvent key="ENTER" />
+        <WaitForEffectsToEnd />
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.5.1" propertyName="text" value="Item2" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_TextInput_checkClass_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.6.1" propertyName="className" value="TextInput" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_TextInput_checkData_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.6.1" propertyName="text" value="A TextInput!" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_Label_checkClass_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.7.1" propertyName="className" value="Label" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_Label_checkData_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.7.1" propertyName="text" value="A Label!" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_DateField_checkClass_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="200" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.8.1" propertyName="className" value="DateField" />
+    </body>
+</TestCase>
+
+<TestCase testID="createColumnItemRenderer_DateField_checkData_halo" keywords="[DataGrid,properties,createColumnItemRenderer]">
+    <setup>
+        <ResetComponent target="dg2" className="comps.SubclassedDataGrid" waitEvent="updateComplete" />
+        <SetProperty target="dg2" propertyName="useCreateColumnItemRendererOverride" value="true" />
+        <RunCode code="application.setColumnConfig4(application.dg2)" />
+        <SetProperty target="dg2" propertyName="width" value="200" />
+        <SetProperty target="dg2" propertyName="height" value="300" />
+        <SetProperty target="dg2" propertyName="horizontalScrollPolicy" value="off" />
+        <SetProperty target="dg2" propertyName="verticalScrollPolicy" value="off" />
+        <RunCode code="application.setDataProvider(application.dg2, 2)" waitTarget="dg2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.8.1.selectedDate" propertyName="date" value="25" />
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.8.1.selectedDate" propertyName="month" value="11" />
+        <AssertPropertyValue target="dg2.mx_internal:rendererArray.8.1.selectedDate" propertyName="fullYear" value="2001" />
+    </body>
+</TestCase>
+
+</testCases>         
+</UnitTester>

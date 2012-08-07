@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/SWFLoader/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SWFLoaderMain.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+		<mx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+		</mx:Script>
+		<mx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+		</mx:Metadata>
+		<!-- end of set of lines that must be in each unit test -->
+
+		<mx:Script>
+		<![CDATA[
+		import mx.controls.ComboBox;
+		import mx.controls.DateField;
+		import mx.styles.StyleManager;
+		import mx.managers.SystemManager;
+
+		public function scriptFunction(a:String, b:int):String
+		{
+			return a + ":" + b.toString();
+		}
+		public var styleDecl:Object;
+		public var styleObj:Object;
+
+		]]>
+		</mx:Script>
+
+	<testCases>
+		<TestCase testID="myTest_property_bytesLoaded"  keywords="[SWFLoader, property, bytesLoaded]">
+			<setup>
+				<ResetComponent target="SWFLoad" className="mx.controls::SWFLoader"/>
+			</setup>
+			<body>
+				<SetProperty target="SWFLoad" propertyName="source" value="assets/FlexSWF.swf" />
+				<AssertPropertyValue waitEvent="complete" waitTarget="SWFLoad" target="SWFLoad"  propertyName="bytesLoaded" valueExpression ="value=application.SWFLoad.bytesTotal" />
+			</body>
+		</TestCase>
+		<TestCase testID="myTest_property_percentLoaded"  keywords="[SWFLoader, property, percentLoaded]">
+			<setup>
+				<ResetComponent target="SWFLoad" className="mx.controls::SWFLoader"/>
+				<SetProperty target="SWFLoad" propertyName="autoLoad" value="false" />
+			</setup>
+			<body>
+				<SetProperty target="SWFLoad" propertyName="source" value="assets/FlexSWF.swf" />
+				<AssertPropertyValue target="SWFLoad"  propertyName="percentLoaded" value="0" />
+				<RunCode code="application.SWFLoad.load()"  waitEvent="complete" waitTarget="SWFLoad"/>
+				<AssertPropertyValue waitEvent="complete" waitTarget="SWFLoad" target="SWFLoad"  propertyName="percentLoaded" value="100" />
+			</body>
+		</TestCase>
+		<TestCase testID="myTest_property_autoLoad_True"  keywords="[SWFLoader, property, autoLoad, true]">
+			<setup>
+				<ResetComponent target="SWFLoad" className="mx.controls::SWFLoader"/>
+				<SetProperty target="SWFLoad" propertyName="autoLoad" value="true" />
+			</setup>
+			<body>
+				<SetProperty target="SWFLoad" propertyName="source" value="assets/FlexSWF.swf" />
+				<AssertPropertyValue waitEvent="complete" waitTarget="SWFLoad" target="SWFLoad"  propertyName="bytesLoaded" valueExpression ="value=application.SWFLoad.bytesTotal" />
+			</body>
+		</TestCase>
+		<TestCase testID="myTest_property_autoLoad_False"  keywords="[SWFLoader, property, autoLoad, false]">
+			<setup>
+				<ResetComponent target="SWFLoad" className="mx.controls::SWFLoader"/>
+				<SetProperty target="SWFLoad" propertyName="autoLoad" value="false" />
+			</setup>
+			<body>
+				<SetProperty target="SWFLoad" propertyName="source" value="assets/FlexSWF.swf" />
+				<AssertPropertyValue target="SWFLoad"  propertyName="bytesLoaded" value="NaN" />
+				<RunCode code="application.SWFLoad.load()" waitEvent="complete" waitTarget="SWFLoad"/>
+				<AssertPropertyValue waitEvent="complete" waitTarget="SWFLoad" target="SWFLoad"  propertyName="bytesLoaded" valueExpression ="value=application.SWFLoad.bytesTotal" />
+			</body>
+		</TestCase>
+			<TestCase testID="myTest_property_content_Height_Width"   keywords="[SWFLoader, property, contentHeight, contentWidth]">
+			<setup>
+				<ResetComponent target="SWFLoad" className="mx.controls::SWFLoader" waitEvent="creationComplete" waitTarget="SWFLoad"/>
+				<SetProperty target="SWFLoad" propertyName="source" value="assets/FlexSWF.swf" />
+			</setup>
+			<body>
+			    <RunCode code="application.SWFLoad.load()" waitEvent="complete" waitTarget="SWFLoad"/>
+				<AssertEvent target="SWFLoad" eventName="complete" eventClass="flash.events::Event"/>
+				<SetProperty target="SWFLoad" propertyName="width" value="500"  waitEvent="explicitWidthChanged"/>				
+				<SetProperty target="SWFLoad" propertyName="height" value="500" waitEvent="validateSizeComplete" waitTarget=""/>
+				<AssertEvent target="SWFLoad" eventName="resize" eventClass="mx.events::ResizeEvent" />
+				<Pause timeout="1000"/>
+				<AssertPropertyValue target="SWFLoad" propertyName="contentHeight" value="500" />
+				<AssertPropertyValue target="SWFLoad" propertyName="contentWidth" value="500" />
+			</body>
+		</TestCase>
+		<TestCase testID="myTest_property_maintainAspectRatio_true"  keywords="[SWFLoader, property, maintainAspectRatio, true]">
+			<setup>
+				<ResetComponent target="SWFLoad" className="mx.controls::SWFLoader"/>
+				<SetProperty target="SWFLoad" propertyName="maintainAspectRatio" value="true" />
+				<SetProperty target="SWFLoad" propertyName="width" value="600" />
+				<SetProperty target="SWFLoad" propertyName="height" value="600" />
+				<SetProperty target="SWFLoad" propertyName="autoLoad" value="false" />
+				<SetProperty target="SWFLoad" propertyName="source" value="assets/FlexSWF.swf" />
+			</setup>
+			<body>
+				<RunCode code="application.SWFLoad.load()" waitEvent="complete" waitTarget="SWFLoad"/>
+				<AssertEvent target="SWFLoad" eventName="complete" eventClass="flash.events::Event"/>
+				<Pause timeout="1000"/>
+				<CompareBitmap waitEvent="complete" waitTarget="SWFLoad" target="SWFLoad" url="../Properties/Baselines/SWFLoad_maintainaspectratio_true.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="myTest_property_maintainAspectRatio_false" keywords="[SWFLoader, property, maintainAspectRatio, false]">
+			<setup>
+				<ResetComponent target="SWFLoad" className="mx.controls::SWFLoader"/>
+				<SetProperty target="SWFLoad" propertyName="maintainAspectRatio" value="false" />
+				<SetProperty target="SWFLoad" propertyName="width" value="500" />
+				<SetProperty target="SWFLoad" propertyName="height" value="300" />
+				<SetProperty target="SWFLoad" propertyName="autoLoad" value="false" />
+				<SetProperty target="SWFLoad" propertyName="source" value="assets/FlexSWF.swf" />
+			</setup>
+			<body>
+				<RunCode code="application.SWFLoad.load()" waitEvent="complete" waitTarget="SWFLoad"/>
+				<AssertEvent target="SWFLoad" eventName="complete" eventClass="flash.events::Event"/>
+				<Pause timeout="1000"/>
+				<CompareBitmap target="SWFLoad" url="../Properties/Baselines/SWFLoad_maintainaspectratio_false.png"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>
+

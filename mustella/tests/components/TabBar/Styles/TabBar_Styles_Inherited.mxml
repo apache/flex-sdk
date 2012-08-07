@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TabBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBar_Basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <mx:Script>
+
+    <![CDATA[
+
+    public static function init(o:DisplayObject):void
+
+    {
+
+
+    }
+
+
+    public function addData(bool:int):void
+
+    {
+
+        application.tb.dataProvider = myDP;
+
+    }
+
+
+    public function addObjData():void
+
+    {
+
+        application.tb.dataProvider = iconDP;
+
+    }
+
+
+    public function changeDP(node:int, bool:String):void
+
+    {
+
+        myDP.node[node].@enabled = bool;
+
+    }
+
+
+    [Bindable]
+
+    public var iconDP:Array= [{label:"Toys", icon:"dino"},{label:"Dinosaur", icon: "dino"}];
+
+
+    ]]>
+
+    </mx:Script>
+
+    <mx:Metadata>
+
+    <![CDATA[
+
+        [Mixin]
+
+    ]]>
+
+    </mx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+
+    <![CDATA[
+
+    import mx.controls.TabBar;
+
+    import mx.styles.StyleManager;
+
+    import mx.managers.SystemManager;
+
+    import mx.events.ListEvent;
+
+    [Bindable]
+    private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+    ]]>
+
+    </mx:Script>
+
+
+
+<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+    .myTabStyle
+    {
+       color:red;
+       fontSize:18;
+       fontStyle:italic;
+       fontWeight:bold;
+       paddingLeft:5;
+       paddingRight:5;
+       textAlign:left;
+       textIndent:3;
+    }
+
+</mx:Style>
+
+    <testCases>
+
+        <TestCase testID="TabBar_Style_Inherited_horizontalGap" description="TabBar Inherited styles." keywords="[style, TabBar, horizontalGap]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb" />
+
+                <RunCode code="addData(0);" />
+
+
+
+            </setup>
+
+            <body>
+
+                <SetStyle target="tb" styleName="horizontalGap"  value="20" />
+
+                <SetStyle styleName="buttonWidth"  value="30" />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB" waitTarget="tb" waitEvent="focusIn" />
+
+                <AssertPixelValue  x="193" y="93" value="0xFFFFFF"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="TabBar_Style_Inherited_buttonWidth" description="TabBar Inherited styles." keywords="[style, TabBar, horizontalGap]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb" />
+
+                <RunCode code="addData(0);" />
+
+
+
+            </setup>
+
+            <body>
+
+                <SetStyle target="tb" styleName="buttonWidth"  value="37" />
+
+                <SetStyle target="tb" styleName="horizontalGap"  value="40" />
+
+                <SetStyle styleName="buttonWidth"  value="50" />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB" waitTarget="tb" waitEvent="focusIn" />
+
+                <AssertPixelValue  x="193" y="93" value="0xFFFFFF"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="TabBar_Style_Inherited_tabWidth" description="TabBar Inherited styles." keywords="[style, TabBar, tabWidth]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb" />
+
+                <RunCode code="addData(0);" />
+
+
+
+            </setup>
+
+            <body>
+
+                <SetStyle target="tb" styleName="tabWidth"  value="75" />
+
+                <SetStyle target="tb" styleName="horizontalGap"  value="40" />
+
+                <SetStyle styleName="buttonWidth"  value="50" />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB" waitTarget="tb" waitEvent="focusIn" />
+
+                <AssertPixelValue  x="174" y="96" value="0xFFFFFF"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="TabBar_Style_Inherited_tabStyleName" description="TabBar Inherited styles." keywords="[style, TabBar, tabStyleName]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb" />
+
+                <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tb"/>
+
+
+
+            </setup>
+
+            <body>
+
+
+
+                <SetStyle target="tb" styleName="tabStyleName"  value="myTabStyle" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap target="tb" url="../styles/baselines/tabStyleName_img.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="TabBar_Style_Inherited_color" description="TabBar Inherited styles." keywords="[style, TabBar, color]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tb"/>
+
+
+
+            </setup>
+
+            <body>
+
+
+
+                <SetStyle target="tb" styleName="color"  value="#0000FF" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap target="tb" url="../styles/baselines/color_img.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="TabBar_Style_Inherited_disabledColor" description="TabBar Inherited styles." keywords="[style, TabBar, disabledColor]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" />
+
+                <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tb" />
+
+
+
+            </setup>
+
+            <body>
+
+
+
+                <SetStyle target="tb" styleName="disabledColor"  value="#0000FF" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap target="tb" url="../styles/baselines/disabledColor_img.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="TB_Style_Inherited_firstButtonStyleName" description="TabBar Inherited styles." keywords="[style, TabBar, firstButtonStyleName]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb" />
+
+                <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tb"  />
+
+
+
+            </setup>
+
+            <body>
+
+
+
+                <SetStyle target="tb" styleName="firstTabStyleName"  value="myTabStyle" waitEvent="updateComplete" waitTarget="tb" />
+
+                <SetStyle target="tb" styleName="tabWidth"  value="150" waitEvent="updateComplete" waitTarget="tb"  />
+
+                <SetStyle target="tb" styleName="tabHeight"  value="40" waitEvent="updateComplete" waitTarget="tb" />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB" waitTarget="tb" waitEvent="focusIn" />
+
+                <AssertPixelValue target="tb"  x="14" y="17" value="0xF0B1B1"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="TB_Style_Inherited_lastButtonStyleName" description="TabBar Inherited styles." keywords="[style, TabBar, lastButtonStyleName]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb" />
+
+                <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tb" />
+
+
+
+            </setup>
+
+            <body>
+
+                <SetStyle target="tb" styleName="lastTabStyleName"  value="myTabStyle" waitEvent="updateComplete" waitTarget="tb" />
+
+                <SetStyle target="tb" styleName="tabWidth"  value="150" waitEvent="updateComplete" waitTarget="tb" />
+
+                <SetStyle target="tb" styleName="tabHeight"  value="40" waitEvent="updateComplete" waitTarget="tb" />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB" waitTarget="tb" waitEvent="focusIn" />
+
+                <AssertPixelValue target="tb"  x="316" y="19" value="0xEDDDDD"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="TB_Style_Inherited_selectedTabTextStyleName" description="TabBar Inherited styles." keywords="[style, TabBar, selectedTabTextStyleName]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb" />
+
+                <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tb" />
+
+
+
+            </setup>
+
+            <body>
+
+
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB" waitTarget="tb" waitEvent="focusIn" />
+
+                <DispatchKeyEvent key="RIGHT"  />
+
+                <DispatchKeyEvent key="ENTER"  />
+
+                <SetStyle target="tb" styleName="selectedTabTextStyleName"  value="myTabStyle" waitEvent="updateComplete" waitTarget="tb" />
+
+                <SetStyle target="tb" styleName="tabWidth"  value="150" waitEvent="updateComplete" waitTarget="tb" />
+
+                <SetStyle target="tb" styleName="tabHeight"  value="40" waitEvent="updateComplete" waitTarget="tb" />
+
+                <AssertPixelValue target="tb"  x="190" y="18" value="0xFFFFFF"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="TB_Style_Inherited_textIndent" description="TabBar Inherited styles." keywords="[style, TabBar, textIndent]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tb" />
+
+
+
+            </setup>
+
+            <body>
+
+                <SetStyle target="tb" styleName="textIndent"  value="20" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <SetStyle target="tb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <SetStyle target="tb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <SetStyle target="tb" styleName="tabWidth"  value="150" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <SetStyle target="tb" styleName="tabHeight"  value="40" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB"  />
+
+                <DispatchKeyEvent key="TAB" waitTarget="tb" waitEvent="focusIn" />
+
+                <AssertPixelValue target="tb"  x="73" y="18" value="0xB333C"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+    </testCases>
+
+</UnitTester>

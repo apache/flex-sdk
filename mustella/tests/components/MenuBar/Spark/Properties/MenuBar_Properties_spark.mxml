@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/MenuBar/Spark/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MenuBar_Basic_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    public function addData(bool:int):void
+    {
+        application.mb.dataProvider = myDP;
+        application.mb.showRoot = false;
+        if(bool ==0)
+        {
+            application.mb.labelField="@label";
+        }
+        else
+        {
+            application.mb.labelField="@data";
+        }
+    }
+
+    public function addObjData():void
+    {
+        application.mb.dataProvider = iconDP;
+        application.mb.showRoot = false;
+        application.mb.iconField = "icon";
+    }
+
+    public function changeDP(node:int, bool:String):void
+    {
+        myDP.node[node].@enabled = bool;
+    }
+
+    [Bindable]
+    private var rootDP:Object= {label: "top", children: [
+        {label: "File", children: [
+            {label: "Open"},
+            {label: "New File"}
+        ]},
+        {label: "Edit", children: [
+            {label: "Copy"},
+            {label: "Paste"},
+            {label: "Send"}
+        ]},
+        {label: "Window"}
+    ]};
+
+    [Bindable]
+    public var iconDP:Object = [
+        {label:"Toys", icon:"dinosaur", icon2: "justbear", children: [
+            { label:"Stuffed Animals", children: [
+                {label:"Brown Bears"},
+                {label:"Dinosaur", icon: "dinosaur"}
+            ]},
+            {label:"Cars", children: [
+                {label:"RacecarA"},
+                {label:"RacecarB"}
+            ]}
+        ]},
+        {label:"Games", icon:"racecar", children: [
+            { label:"Age 6 and up", children: [
+                {label:"Board Games"},
+                {label:"Chance Games"},
+                {label:"Pool Games" }
+            ]},
+            {label:"Video Games", children: [
+                {label:"Video Game A"},
+                {label:"Video Game B"}
+            ]}
+        ]}
+     ];
+
+     public function labelFunc(item:Object):String
+     {
+         var newLabel:String = item[application.mb.labelField].toUpperCase();
+         return newLabel;
+     }
+
+     public function testAddChildAt():void
+     {
+        var newChild:Object = <nodeitem label='France' data='FRANCE' />;
+        application.mb.dataDescriptor.addChildAt(myDP.node[0], newChild, 2);
+     }
+
+     public function testGetChildren(): void
+     {
+         application.lengthValue = application.mb.dataDescriptor.getChildren(myDP.node[1]).length;
+     }
+
+     public function testRemoveChildAt():void
+     {
+        var newChild:Object = <nodeitem label='France' data='FRANCE' />;
+        application.mb.dataDescriptor.removeChildAt(myDP.node[0], newChild, 2);
+     }
+
+     public function testSetEnabled(bool:int): void
+     {
+        if(bool==0)
+        {
+            application.mb.dataDescriptor.setEnabled(myDP.node[2], false);
+        }
+        else
+        {
+            application.mb.dataDescriptor.setEnabled(myDP.node[1], true);
+            application.mb.dataDescriptor.setEnabled(myDP.node[2], true);
+        }
+     }
+
+     public function testSetToggled(bool:int): void
+     {
+        if(bool==0)
+        {
+            application.mb.dataDescriptor.setToggled(myDP.node[0].nodeitem[1], false);
+        }
+        else
+        {
+            application.mb.dataDescriptor.setToggled(myDP.node[1].nodeitem[1], true);
+        }
+     }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.MenuBar;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.MenuEvent;
+
+    [Bindable]
+    private var myDP:XML =
+    <topnode>
+        <node label="Europe" enabled="false" data="EUROPE">
+            <nodeitem type="check" label="Italy" enabled="false" data="ITALY" />
+            <nodeitem type="check" label="England" data="ENGLAND" toggled="true"/>
+            <nodeitem type="check" label="Slovenia" data="SLOVENIA" />
+        </node>
+        <node label="Asia" enabled="true" data="ASIA">
+            <nodeitem type="radio" groupName="group1" label="Phillipines" enabled="false" data="PHILIPPINES"/>
+            <nodeitem type="radio" groupName="group1" label="Japan" data="JAPAN"/>
+            <nodeitem type="radio" groupName="group1" label="China" data="CHINA"/>
+        </node>
+        <node label="Africa" data="AFRICA">
+            <nodeitem label="Uganda" enabled="false" data="UGANDA"/>
+            <nodeitem label="South Africa" data="SOUTH AFRICA"/>
+            <nodeitem label="Nigeria" data="NIGERIA"/>
+        </node>
+    </topnode>;
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <!-- description and keywords needed for this test -->
+        <TestCase testID="Enabled_false" description="MenuBar dataProvider item is set to false test." keywords="[enabled, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" />
+                <RunCode code="addData(0);" />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="mb" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="RIGHT" waitTarget="mb" waitEvent="menuShow" />
+                <AssertPropertyValue target="mb" propertyName="selectedIndex" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="Enabled_falseToTrue" description="MenuBar dataProvider item is set to false and changed to true test." keywords="[enabled, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" />
+                <RunCode code="addData(0);" />
+                <RunCode code="changeDP(0,'true');" />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="mb" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="RIGHT" waitTarget="mb" waitEvent="menuShow" />
+                <AssertPropertyValue target="mb" propertyName="selectedIndex" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Enabled_trueToFalse"  description="MenuBar dataProvider item is set to true and changed to false test." keywords="[enabled, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" />
+                <RunCode code="addData(0);" />
+                <RunCode code="changeDP(1, 'false');" />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="mb" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="RIGHT" />
+                <DispatchKeyEvent key="RIGHT" waitTarget="mb" waitEvent="menuShow" />
+                <AssertPropertyValue target="mb" propertyName="selectedIndex" value="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="Disabled_PixelCheck"  description="MenuBar visual test of disabled item." keywords="[enabled, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" />
+                <RunCode code="addData(0);" waitTarget="mb" waitEvent="updateComplete" />
+                <RunCode code="changeDP(1, 'false');" waitEvent="updateComplete" waitTarget="mb"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="mb" timeout="2400" />
+            </body>
+        </TestCase>
+        <TestCase testID="MenuBar_layoutDirection_RTL"  description="MenuBar sets layoutDirection to rtl." keywords="[Mirroring, layoutDirection, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitTarget="mb" waitEvent="updateComplete"/>
+                <RunCode code="addData(0);" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle target="mb" styleName="textFieldClass" valueExpression="value=mx.core.UIFTETextField" />
+                <SetStyle target="mb" styleName="direction" value="rtl" />
+                <SetStyle target="mb" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" waitTarget="mb"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="mb" timeout="2400" />
+            </body>
+        </TestCase>
+        <TestCase testID="MenuBar_layoutDirection_RTL_keyboard"  description="MenuBar sets layoutDirection to rtl." keywords="[Mirroring, layoutDirection, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitTarget="mb" waitEvent="updateComplete"/>
+                <RunCode code="addData(0);" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle target="mb" styleName="textFieldClass" valueExpression="value=mx.core.UIFTETextField" />
+                <SetStyle target="mb" styleName="direction" value="rtl" />
+                <SetStyle target="mb" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" waitTarget="mb"/>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="mb" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="LEFT" />
+                <DispatchKeyEvent key="LEFT" waitTarget="mb" waitEvent="menuShow" />
+                <AssertPropertyValue target="mb" propertyName="selectedIndex" value="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="MenuBar_layoutDirection_RTL_onParent_keyboard"  description="MenuBar sets layoutDirection to rtl." keywords="[Mirroring, layoutDirection, MenuBar]">
+            <setup>
+                <ResetComponent target="mb" className="mx.controls.MenuBar" waitTarget="mb" waitEvent="updateComplete"/>
+                <RunCode code="addData(0);" waitTarget="mb" waitEvent="updateComplete" />
+                <SetStyle target="mb" styleName="textFieldClass" valueExpression="value=mx.core.UIFTETextField" />
+                <SetStyle target="mb" styleName="direction" value="rtl" />
+                <SetStyle target="mb" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" waitTarget="mb"/>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="mb" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="LEFT" />
+                <DispatchKeyEvent key="LEFT" waitTarget="mb" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, SPACE]" />
+                <AssertEvent target="mb" eventName="itemClick" eventClass="mx.events::MenuEvent"/>
+                <AssertEventPropertyValue target="mb" propertyName="label" value="South Africa" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

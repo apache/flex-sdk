@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/HorizontalList/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="HorizontalList_ForStyles.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	    import mx.controls.HorizontalList;
+		import mx.managers.SystemManager;
+	    import mx.events.ListEvent;
+	    import mx.collections.*;
+
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+    [Bindable]
+	public var myDP:Array=[{label: "top"},{label: "file"},{label:"I am a Menu"},{label:"here goes Nothing"},{label:"aw, don't sell yourself short"},{label:"can you check me?"}];
+
+
+	 [Bindable]
+	 public var myCol:ArrayCollection;
+	 public var myDPArray:Array = [{label: "menu 2"},{label: "mail"},{label:"inbox"},{label:"outbox"},{label:"you are a draft"},{label:"check me"},{label: "menu 1"},{label: "file"},{label:"I am a Menu"},{label:"here goes Nothing"},{label:"aw, don't sell yourself short"},{label:"can you check me?"}];
+
+	public function setArrayCollectionDP() : void
+	{
+		myCol = new ArrayCollection(myDPArray);
+		application.hl.dataProvider = myCol;
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<testCases>
+		<TestCase testID="borderColor_poundset" description="Set an AS object as a dataProvider for HorizontalList in AS" keywords="[HorizontalList, borderColor]">
+			<setup>
+			<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="application.hl.dataProvider = myDP;" waitEvent="updateComplete" waitTarget="hl" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<SetStyle target="hl" styleName="borderColor" value="#FF0000" />
+				<SetStyle target="hl" styleName="borderStyle" value="solid" />
+				<SetStyle target="hl" styleName="borderThickness" value="5" />
+			</setup>
+			<body>
+				<AssertEvent target="hl" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+			    <AssertPixelValue target="hl" x="3" y="21" value="0xFF0000" />
+			</body>
+		</TestCase>
+		<TestCase testID="borderColor_0xSet" description="Set an AS object as a dataProvider for HorizontalList in AS" keywords="[HorizontalList, borderColor]">
+			<setup>
+			<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="application.hl.dataProvider = myDP;" waitEvent="updateComplete" waitTarget="hl" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<SetStyle target="hl" styleName="borderColor" value="0x00FF00" />
+				<SetStyle target="hl" styleName="borderStyle" value="solid" />
+				<SetStyle target="hl" styleName="borderThickness" value="5" />
+			</setup>
+			<body>
+				<AssertEvent target="hl" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+			    <AssertPixelValue target="hl" x="3" y="21" value="0x00FF00" />
+			</body>
+		</TestCase>
+		<TestCase testID="borderColor_color_text_Set" description="Set an AS object as a dataProvider for HorizontalList in AS" keywords="[HorizontalList, borderColor]">
+			<setup>
+			<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="application.hl.dataProvider = myDP;" waitEvent="updateComplete" waitTarget="hl" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<SetStyle target="hl" styleName="borderColor" value="blue" />
+				<SetStyle target="hl" styleName="borderStyle" value="solid" />
+				<SetStyle target="hl" styleName="borderThickness" value="5" />
+			</setup>
+			<body>
+				<AssertEvent target="hl" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+			    <AssertPixelValue target="hl" x="3" y="21" value="0x0000FF" />
+			</body>
+		</TestCase>
+		<TestCase testID="borderThickness_set" description="Set an AS object as a dataProvider for HorizontalList in AS" keywords="[HorizontalList, borderThickness]">
+			<setup>
+			<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="application.hl.dataProvider = myDP;" waitEvent="updateComplete" waitTarget="hl" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<SetStyle target="hl" styleName="borderColor" value="#00FF00" />
+				<SetStyle target="hl" styleName="borderStyle" value="solid" />
+				<SetStyle target="hl" styleName="borderThickness" value="10" />
+			</setup>
+			<body>
+				<AssertEvent target="hl" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+			    <AssertPixelValue target="hl" x="8" y="21" value="0x00FF00" />
+			    <AssertPixelValue target="hl" x="3" y="21" value="0x00FF00" />
+			</body>
+		</TestCase>
+		<TestCase testID="cornerRadius_set" description="Set an AS object as a dataProvider for HorizontalList in AS" keywords="[HorizontalList, cornerRadius]">
+			<setup>
+			<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="application.hl.dataProvider = myDP;" waitEvent="updateComplete" waitTarget="hl" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<SetStyle target="hl" styleName="borderColor" value="#00FFFF" />
+				<SetStyle target="hl" styleName="borderStyle" value="solid" />
+				<SetStyle target="hl" styleName="borderThickness" value="10" />
+				<SetStyle target="hl" styleName="cornerRadius" value="15" />
+			</setup>
+			<body>
+				<AssertEvent target="hl" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+			    <AssertPixelValue target="hl" x="10" y="10" value="0x00FFFF" />
+			    <AssertPixelValue target="hl" x="108" y="10" value="0x00FFFF" />
+			</body>
+		</TestCase>
+		<TestCase testID="alternatingItemColors_set" description="Set an AS object as a dataProvider for HorizontalList in AS" keywords="[HorizontalList, alternatingItemColors]">
+			<setup>
+			<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="application.hl.dataProvider = myDP;" waitEvent="updateComplete" waitTarget="hl" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<SetStyle target="hl" styleName="alternatingItemColors" value="[#00FFFF, #FFFF00]" />
+			</setup>
+			<body>
+				<AssertEvent target="hl" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+			    <AssertPixelValue target="hl" x="17" y="6" value="#00FFFF" />
+			    <AssertPixelValue target="hl" x="44" y="4" value="#FFFF00" />
+			</body>
+		</TestCase>
+		<TestCase testID="backgroundColor_set" description="Set an AS object as a dataProvider for HorizontalList in AS" keywords="[HorizontalList, backgroundColor]">
+			<setup>
+			<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="application.hl.dataProvider = myDP;" waitEvent="updateComplete" waitTarget="hl" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<SetStyle target="hl" styleName="backgroundColor" value="#AAAAAA" />
+			</setup>
+			<body>
+				<AssertEvent target="hl" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+			    <AssertPixelValue target="hl" x="29" y="5" value="#AAAAAA" />
+			</body>
+		</TestCase>
+		<TestCase testID="backgroundDisabledColor_set" description="Set an AS object as a dataProvider for HorizontalList in AS" keywords="[HorizontalList, backgroundDisabledColor]">
+			<setup>
+			<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="application.hl.dataProvider = myDP;" waitEvent="updateComplete" waitTarget="hl" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<SetStyle target="hl" styleName="backgroundDisabledColor" value="#FF0000" />
+				<SetProperty target="hl" propertyName="enabled" value="false" />
+			</setup>
+			<body>
+				<AssertEvent target="hl" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+			    <AssertPixelValue target="hl" x="29" y="5" value="#FF0000" />
+			</body>
+		</TestCase>
+		<TestCase testID="borderStyle_poundset" description="Set an AS object as a dataProvider for HorizontalList in AS" keywords="[HorizontalList, borderStyle]">
+			<setup>
+			<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="application.hl.dataProvider = myDP;" waitEvent="updateComplete" waitTarget="hl" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<SetStyle target="hl" styleName="borderColor" value="#FF0000" />
+				<SetStyle target="hl" styleName="borderStyle" value="inset" />
+				<SetStyle target="hl" styleName="borderThickness" value="5" />
+			</setup>
+			<body>
+				<AssertEvent target="hl" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+			   	<CompareBitmap target="hl" url="../Styles/baselines/borderStyle_poundset.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="backgroundAlpha_set" description="Set an AS object as a dataProvider for HorizontalList in AS" keywords="[HorizontalList, backgroundAlpha]">
+			<setup>
+			<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="application.hl.dataProvider = myDP;" waitEvent="updateComplete" waitTarget="hl" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<SetStyle target="hl" styleName="backgroundColor" value="#33FF66" />
+				<SetStyle target="hl" styleName="backgroundAlpha" value=".3" />
+			</setup>
+			<body>
+				<AssertEvent target="hl" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+			    <AssertPixelValue target="hl" x="21" y="6" value="#C2FFD1" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Slider/versioning/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MP_Slider_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.VSlider;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+	public var styleDecl:Object;
+	public var styleObj:Object;
+
+	]]>
+	</mx:Script>
+	<testCases>
+		<TestCase testID="Checking_Change_Event_of_VSlider_trusted" keywords="[VSlider, change, Event]" description="Ensure that change event gets triggered when a VSlider's track is clicked.">
+			<setup>
+			   <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/dummy.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <SetProperty target="swf1.content.document.myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="swf1.content.document.myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="10" localY="100" type="mouseMove" waitEvent="updateComplete" waitTarget="swf1.content.document.myVSlider"/>
+				<DispatchMouseClickEvent target="swf1.content.document.myVSlider" localX="10" localY="100" waitEvent="change" waitTarget="swf1.content.document.myVSlider"/>
+				<AssertEvent target="swf1.content.document.myVSlider" eventName="change" eventClass="mx.events::SliderEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="Checking_thumbPress_Event_of_VSlider_trusted" keywords="[VSlider, change, Event]" description="Ensure that thumbPress event gets triggered when a VSlider's thumb is pressed.">
+			<setup>
+			   <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/dummy.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <SetProperty target="swf1.content.document.myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="swf1.content.document.myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseMove" waitEvent="updateComplete" waitTarget="swf1.content.document.myVSlider"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseDown" waitEvent="thumbPress" waitTarget="swf1.content.document.myVSlider"/>
+				<AssertEvent target="swf1.content.document.myVSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseUp" waitEvent="thumbRelease" waitTarget="swf1.content.document.myVSlider"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Checking_thumbDrag_Event_of_VSlider_trusted" keywords="[VSlider, change, Event]" description="Ensure that thumbDrag event gets triggered when a VSlider's thumb is dragged.">
+			<setup>
+			   <DispatchMouseEvent target="" localX="100" localY="10" type="mouseUp" />
+			   <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/dummy.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <SetProperty target="swf1.content.document.myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseMove" />
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseDown" waitEvent="thumbPress" waitTarget="swf1.content.document.myVSlider"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="124" type="mouseMove" waitEvent="thumbDrag" waitTarget="swf1.content.document.myVSlider"/>
+				<AssertEvent target="swf1.content.document.myVSlider" eventName="thumbDrag" eventClass="mx.events::SliderEvent" />
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="10" localY="20" type="mouseUp" />
+			</body>
+		</TestCase>
+		<TestCase testID="Checking_Change_Event_of_VSlider_compatible" keywords="[VSlider, change, Event]" description="Ensure that change event gets triggered when a VSlider's track is clicked.">
+			<setup>
+			   <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/dummy.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <SetProperty target="swf1.content.document.myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="swf1.content.document.myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="10" localY="100" type="mouseMove" waitEvent="updateComplete" waitTarget="swf1.content.document.myVSlider"/>
+				<DispatchMouseClickEvent target="swf1.content.document.myVSlider" localX="10" localY="100" waitEvent="change" waitTarget="swf1.content.document.myVSlider"/>
+				<AssertEvent target="swf1.content.document.myVSlider" eventName="change" eventClass="mx.events::SliderEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="Checking_thumbPress_Event_of_VSlider_compatible" keywords="[VSlider, change, Event]" description="Ensure that thumbPress event gets triggered when a VSlider's thumb is pressed.">
+			<setup>
+			   <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/dummy.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <SetProperty target="swf1.content.document.myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="swf1.content.document.myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseMove" waitEvent="updateComplete" waitTarget="swf1.content.document.myVSlider"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseDown" waitEvent="thumbPress" waitTarget="swf1.content.document.myVSlider"/>
+				<AssertEvent target="swf1.content.document.myVSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseUp" waitEvent="thumbRelease" waitTarget="swf1.content.document.myVSlider"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Checking_thumbDrag_Event_of_VSlider_compatible" keywords="[VSlider, change, Event]" description="Ensure that thumbDrag event gets triggered when a VSlider's thumb is dragged.">
+			<setup>
+			   <DispatchMouseEvent target="" localX="100" localY="10" type="mouseUp" />
+			   <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/dummy.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="swf1" propertyName="source" value="assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="swf1.content" waitEvent="applicationComplete"/>
+                <SetProperty target="swf1.content.document.myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseMove" />
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseDown" waitEvent="thumbPress" waitTarget="swf1.content.document.myVSlider"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="124" type="mouseMove" waitEvent="thumbDrag" waitTarget="swf1.content.document.myVSlider"/>
+				<AssertEvent target="swf1.content.document.myVSlider" eventName="thumbDrag" eventClass="mx.events::SliderEvent" />
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="10" localY="20" type="mouseUp" />
+			</body>
+		</TestCase>
+	    <TestCase testID="Checking_Change_Event_of_VSlider_untrusted" keywords="[VSlider, change, Event]" description="Ensure that change event gets triggered when a VSlider's track is clicked.">
+			<setup>
+			   <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/dummy.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/components/Slider/SWFs/assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<SetProperty target="swf1.content.document.myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="swf1.content.document.myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="10" localY="100" type="mouseMove" waitEvent="updateComplete" waitTarget="swf1.content.document.myVSlider"/>
+				<DispatchMouseClickEvent target="swf1.content.document.myVSlider" localX="10" localY="100" waitEvent="change" waitTarget="swf1.content.document.myVSlider"/>
+				<AssertEvent target="swf1.content.document.myVSlider" eventName="change" eventClass="mx.events::SliderEvent" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_thumbPress_Event_of_VSlider_untrusted" keywords="[VSlider, change, Event]" description="Ensure that thumbPress event gets triggered when a VSlider's thumb is pressed.">
+			<setup>
+			   <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/dummy.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/components/Slider/SWFs/assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<SetProperty target="swf1.content.document.myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="swf1.content.document.myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseMove" waitEvent="updateComplete" waitTarget="swf1.content.document.myVSlider"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseDown" waitEvent="thumbPress" waitTarget="swf1.content.document.myVSlider"/>
+				<AssertEvent target="swf1.content.document.myVSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseUp" waitEvent="thumbRelease" waitTarget="swf1.content.document.myVSlider"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Checking_thumbDrag_Event_of_VSlider_untrusted" keywords="[VSlider, change, Event]" description="Ensure that thumbDrag event gets triggered when a VSlider's thumb is dragged.">
+			<setup>
+			   <DispatchMouseEvent target="" localX="100" localY="10" type="mouseUp" />
+			   <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" />
+			   <SetProperty target="swf1" propertyName="source" value="assets/dummy.jpg" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+               <SetProperty target="swf1" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="swf1" propertyName="source" value="http://localhost:{portNumber}/components/Slider/SWFs/assets/child_swfs/MP_Slider_Child.swf" waitTarget="swf1" waitEvent="updateComplete"/>
+			   <SetProperty target="swf1" propertyName="autoLoad" value="true" waitTarget="swf1" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<WaitForSandboxApp target="swf1" />
+			  	<SetProperty target="swf1.content.document.myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseMove" />
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="154" type="mouseDown" waitEvent="thumbPress" waitTarget="swf1.content.document.myVSlider"/>
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="9" localY="124" type="mouseMove" waitEvent="thumbDrag" waitTarget="swf1.content.document.myVSlider"/>
+				<AssertEvent target="swf1.content.document.myVSlider" eventName="thumbDrag" eventClass="mx.events::SliderEvent" />
+				<DispatchMouseEvent target="swf1.content.document.myVSlider" localX="10" localY="20" type="mouseUp" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

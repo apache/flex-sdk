@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/PopUpButton/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="PopUpButton_SkinStates_swfsymbol_embeded.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.managers.SystemManager;
+    import mx.controls.*;
+    import mx.containers.*;
+    import mx.core.*;
+    import flash.events.*;
+    use namespace mx_internal;
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    public function disablePopUpButton_swfsymbol_embeded():void{
+        application.myPopUpButton_swfsymbol_embeded.enabled=false;
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="Test_pumb_Skin_over_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpMenuButtons, over]">
+            <setup>
+                <ResetComponent target="myPopUpButton_swfsymbol_embeded" className="mx.controls.PopUpButton" waitEvent="updateComplete" waitTarget="myPopUpButton_swfsymbol_embeded" />
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="width" value="250" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="height" value="23" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" />
+                    <DispatchMouseClickEvent localX="10" localY="10" target="myPopUpButton_swfsymbol_embeded" timeout="2000" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="mouseUp"/>
+                    <DispatchMouseEvent localX="10" localY="10" buttonDown="false" type="mouseOver" target="myPopUpButton_swfsymbol_embeded" timeout="1000" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="mouseOver" />
+            </setup>
+            <body>
+                    <AssertPixelValue target="myPopUpButton_swfsymbol_embeded" x="10" y="10" value="0xB4E0D9" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_pumb_Skin_up_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpMenuButtons, up]">
+            <setup>
+                <ResetComponent target="myPopUpButton_swfsymbol_embeded" className="mx.controls.PopUpButton" waitEvent="updateComplete" />
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="width" value="250" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="height" value="23" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                <DispatchMouseClickEvent localX="10" localY="10" target="myPopUpButton_swfsymbol_embeded" timeout="1000" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="mouseUp"/>
+            </setup>
+            <body>
+                    <AssertPixelValue target="myPopUpButton_swfsymbol_embeded" x="10" y="10" value="0xB4E0D9" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_pumb_Skin_down_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpMenuButtons, down]">
+            <setup>
+                <ResetComponent target="myPopUpButton_swfsymbol_embeded" className="mx.controls.PopUpButton" waitEvent="updateComplete" />
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="width" value="250" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="height" value="23" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                    <DispatchMouseEvent localX="10" localY="10" target="myPopUpButton_swfsymbol_embeded" type="mouseDown"  timeout="1000" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                    <AssertPixelValue target="myPopUpButton_swfsymbol_embeded" x="10" y="10" value="0x54BDB4" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Test_PopUpButton_Skin_disabled_swfsymbol_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpButton, disabled]">
+            <setup>
+                <ResetComponent target="myPopUpButton_swfsymbol_embeded" className="mx.controls.PopUpButton" waitEvent="updateComplete" />
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="width" value="250" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpButton_swfsymbol_embeded" propertyName="height" value="23" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" />
+
+                    <RunCode code="disablePopUpButton_swfsymbol_embeded();" waitTarget="myPopUpButton_swfsymbol_embeded" waitEvent="updateComplete" timeout="1000"/>
+            </setup>
+            <body>
+                    <CompareBitmap target="myPopUpButton_swfsymbol_embeded" url="../Styles/Baselines/PopUpButton_Skinned_disabled_swfsymbol_embeded.png" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

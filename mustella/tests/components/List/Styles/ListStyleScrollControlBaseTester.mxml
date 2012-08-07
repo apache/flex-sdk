@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/List/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ListMain.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+	public function addItems():void
+	{
+	   for(var i:int=0;i<15;i++)
+	   {
+	      var obj:Object={slno:i,name:"Rooney"+i,age:20+i}
+	      application.mybox.mylist.dataProvider.addItem(obj);
+	   }
+        }
+        public function setAIcolors():void
+        {
+            application.mybox.mylist.setStyle("alternatingItemColors",[0xFFCC00,0x00FF00]);
+        }
+        public function setBg():void
+        {
+            application.mybox.mylist.setStyle("backgroundColor",0xFF0000);
+        }
+        public function setFF():void
+        {
+           application.mybox.mylist.setStyle("fontFamily","EmbeddedArial");
+        }
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="style_backgroundColor_string" keywords="[List, scrollcontrolbase, styles, backgroundColor, string]">
+		     <setup>
+		       <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		     </setup>
+		     <body>
+			  <SetStyle target="mybox.mylist" styleName="backgroundColor" value="red" waitEvent="updateComplete"
+			  waitTarget="mybox.mylist"/>
+			   <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_backgroundColor.png" />
+		     </body>
+		</TestCase>
+	       <TestCase testID="style_borderThickness" keywords="[List, scrollcontrolbase, styles, borderthickness]">
+		     <setup>
+			  <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		     </setup>
+		     <body>
+			  <SetStyle target="mybox.mylist" styleName="borderThickness" value="5"/>
+			   <SetStyle target="mybox.mylist" styleName="borderColor" value="0xFF0000" waitTarget="mybox.mylist"
+			   waitEvent="updateComplete"/>
+			     <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_borderThickness.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_borderColor_string" keywords="[List, scrollcontrolbase, styles, borderColor, string]">
+		     <setup>
+			 <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		     </setup>
+		     <body>
+			  <SetStyle target="mybox.mylist" styleName="borderThickness" value="5"/>
+			   <SetStyle target="mybox.mylist" styleName="borderColor" value="green" waitTarget="mybox.mylist"
+			   waitEvent="updateComplete"/>
+			  <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_borderColor_string.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_borderColor_0x" keywords="[List, scrollcontrolbase, styles, borderColor, 0x]">
+		     <setup>
+			 <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		     </setup>
+		     <body>
+			   <SetStyle target="mybox.mylist" styleName="borderColor" value="0x0FFCC00" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			   <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_borderColor_0x.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_borderColor_hash" keywords="[List, scrollcontrolbase, styles, borderColor, hash]">
+		     <setup>
+		       <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		     </setup>
+		     <body>
+			  <SetStyle target="mybox.mylist" styleName="borderThickness" value="5"/>
+			   <SetStyle target="mybox.mylist" styleName="borderColor" value="#008000" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			  <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_borderColor_hash.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_borderSides_all" keywords="[List, scrollcontrolbase, styles, borderSides, all]">
+		     <setup>
+			   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		     </setup>
+		     <body>
+			 <SetStyle target="mybox.mylist" styleName="borderThickness" value="5"/>
+			   <SetStyle target="mybox.mylist" styleName="borderColor" value="#008000" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			 <SetStyle target="mybox.mylist" styleName="borderSides" value="top bottom left right" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			   <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_bordersides_all.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_borderSides_lr" keywords="[List, scrollcontrolbase, styles, borderSides, lr]">
+		     <setup>
+			  <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+
+		     </setup>
+		     <body>
+			  <SetStyle target="mybox.mylist" styleName="borderThickness" value="5"/>
+			   <SetStyle target="mybox.mylist" styleName="borderColor" value="#008000" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			   <SetStyle target="mybox.mylist" styleName="borderSides" value="left right" waitTarget="mybox.mylist"
+			   waitEvent="updateComplete"/>
+			  <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_bordersides_lr.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_borderStyle_inset" keywords="[List, scrollcontrolbase, styles, borderSides, inset]">
+		     <setup>
+			 <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		     </setup>
+		     <body>
+		     	<SetStyle target="mybox.mylist" styleName="borderThickness" value="5"/>
+			   <SetStyle target="mybox.mylist" styleName="borderColor" value="#008000" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			  <SetStyle target="mybox.mylist" styleName="borderStyle" value="inset" waitTarget="mybox.mylist" waitEvent="updateComplete"/> <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_borderstyle_inset.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_borderStyle_outset" keywords="[List, scrollcontrolbase, styles, borderSides, outset]">
+		     <setup>
+			   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+
+		     </setup>
+		     <body>
+			   <SetStyle target="mybox.mylist" styleName="borderThickness" value="5"/>
+			   <SetStyle target="mybox.mylist" styleName="borderColor" value="#008000" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			   <SetStyle target="mybox.mylist" styleName="borderStyle" value="outset" waitTarget="mybox.mylist"
+			   waitEvent="updateComplete"/>
+			   <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_borderstyle_outset.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_color_string" keywords="[List, scrollcontrolbase, styles, color, string]">
+		     <setup>
+			<ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<!--<SetStyle target="mybox.mylist" styleName="borderStyle" value="solid" waitTarget="mybox.mylist" waitEvent="updateComplete"/>-->
+			 <RunCode code="addItems()" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+		     </setup>
+		     <body>
+			   <SetStyle target="mybox.mylist" styleName="color" value="#008000" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			    <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_color_string.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_color_0x" keywords="[List, scrollcontrolbase, styles, color, 0x]">
+		     <setup>
+			   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			   <SetStyle target="mybox.mylist" styleName="color" value="0xCCCCCC" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+		     </setup>
+		     <body>
+			   <SetStyle target="mybox.mylist" styleName="color" value="0xFFCC00" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			    <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_color_0x.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_color_hash" keywords="[List, scrollcontrolbase, styles, color, hash]">
+		      <setup>
+			  <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			  <SetStyle target="mybox.mylist" styleName="color" value="0xCCCCCC" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+		     </setup>
+		     <body>
+			   <SetStyle target="mybox.mylist" styleName="color" value="#FF0000" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			   <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_color_hash.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_fontFamily_mxml" keywords="[List, scrollcontrolbase, styles, fontFamily, mxml]">
+		      <setup>
+				<ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		     </setup>
+		     <body>
+			   <SetStyle target="mybox.mylist" styleName="fontFamily" value="EmbeddedArial" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			   <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_fontfamily_arial.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_fontFamily_AS" keywords="[List, scrollcontrolbase, styles, fontFamily, AS]">
+		     <setup>
+			  <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			  <RunCode code="setFF()"/>
+
+		     </setup>
+		     <body>
+		     	   <SetProperty target="mybox.mylist" propertyName="selectedIndex" value= "2" waitEvent="updateComplete" />
+
+			   <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_fontfamily_arial_as.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_fontWeight" keywords="[List, scrollcontrolbase, styles, fontWeight]">
+		     <setup>
+			   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			   <SetStyle target="mybox.mylist" styleName="fontWeight" value="bold" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+		     </setup>
+		     <body>
+			   <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_fontweight_bold.png" />
+		     </body>
+		</TestCase>
+		 <TestCase testID="style_fontStyle" keywords="[List, scrollcontrolbase, styles, fontStyle]">
+		     <setup>
+			   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			   <SetStyle target="mybox.mylist" styleName="fontStyle" value="italic" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+		     </setup>
+		     <body>
+			   <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_fontstyle_italic.png" />
+		     </body>
+		</TestCase>
+		 <TestCase testID="style_fontSize" keywords="[List, scrollcontrolbase, styles, fontSize]">
+		     <setup>
+			    <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			    <SetStyle target="mybox.mylist" styleName="fontSize" value="16" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+		     </setup>
+		     <body>
+			   <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_fontsize_16.png" />
+		     </body>
+		</TestCase>
+		<TestCase testID="style_dropShadowEnabled" keywords="[List, scrollcontrolbase, styles, dropShadowEnabled]">
+		     <setup>
+			   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			   <SetStyle target="mybox.mylist" styleName="dropShadowEnabled" value="true" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+		     </setup>
+		     <body>
+			   <SetStyle target="mybox.mylist" styleName="shadowDirection" value="left" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			   <SetStyle target="mybox.mylist" styleName="shadowDistance" value="6" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+			   <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_dropShadowEnabled_true.png" />
+		     </body>
+	       </TestCase>
+	       <TestCase testID="style_shadowDirection" keywords="[List, scrollcontrolbase, styles, shadowDirection]">
+		       <setup>
+				 <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		     </setup>
+		    <body>
+				   <SetStyle target="mybox.mylist" styleName="dropShadowEnabled" value="true" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+				  <SetStyle target="mybox.mylist" styleName="shadowDirection" value="right" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+				  <SetStyle target="mybox.mylist" styleName="shadowDistance" value="6" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+				  <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_shadowdirection_right.png" />
+		     </body>
+	       </TestCase>
+	    <TestCase testID="style_shadowDistance" keywords="[List, scrollcontrolbase, styles, shadowDistance]">
+		      <setup>
+				 <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		     </setup>
+		     <body>
+				  <SetStyle target="mybox.mylist" styleName="dropShadowEnabled" value="true" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+				 <SetStyle target="mybox.mylist" styleName="shadowDirection" value="left" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+				  <SetStyle target="mybox.mylist" styleName="shadowDistance" value="18" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+				  <CompareBitmap target="mybox" url="../Styles/Baselines/list_scrollcontrolbase_shadowdistance.png" />
+		     </body>
+	       </TestCase>
+	<TestCase testID="style_textDecoration" keywords="[List, scrollcontrolbase, styles, testDecoration]" >
+				<setup>
+					 <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			     </setup>
+			     <body>
+			     		<SetStyle target="mybox.mylist" styleName="textDecoration" value="underline" waitTarget="mybox.mylist" waitEvent="updateComplete"/>
+					  <CompareBitmap target="mybox" numColorVariances="10" maxColorVariance="20" url="../Styles/Baselines/list_scrollcontrolbase_textdecoration_underline.png" />
+			     </body>
+	       </TestCase>
+	</testCases>
+</UnitTester>

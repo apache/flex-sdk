@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/RadioButton/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RadioButton_Basic_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.managers.ToolTipManager;
+	
+	public function decreaseHide():void
+	{
+		ToolTipManager.hideDelay = 2000;
+	}
+	]]>
+	</mx:Script>
+
+  <testCases>
+  		<TestCase testID="RadioButton_Event_show_spark" description="RadioButton show event." keywords="[event, show, RadioButton]">
+  			<setup>
+  			    	<ResetComponent target="rb" className="mx.controls.RadioButton" waitEvent="updateComplete" waitTarget="rb" />
+  			    	<SetProperty target="rb" propertyName="visible" value="false" waitEvent="hide" waitTarget="rb"/>
+  			    	
+  			</setup>
+  			<body>
+  			    	
+  			    	<SetProperty target="rb" propertyName="visible" value="true" />
+  			    	<AssertEvent target="rb" eventName="show" eventClass="mx.events::FlexEvent" timeout="15000"/>
+  			</body>
+		</TestCase>
+		<TestCase testID="RadioButton_Event_mouseMove_spark" description="RadioButton Move event." keywords="[event, mouseMove, RadioButton]">
+			<setup>
+ 				<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+							    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="rb" type="mouseOver" localX="5" localY="5" />
+				<DispatchMouseEvent target="rb" type="mouseMove" localX="7" localY="5" />
+				<AssertEvent target="rb" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="RadioButton_Event_mouseUp_spark" description="RadioButton mouseUp event." keywords="[event, mouseUp, RadioButton]">
+			<setup>
+ 				<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+							    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="rb" type="mouseOver" localX="7" localY="5" />
+				<DispatchMouseEvent target="rb" type="mouseDown" localX="7" localY="5" />
+				<DispatchMouseEvent target="rb" type="mouseUp" localX="7" localY="5" />
+				<AssertEvent target="rb" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="RadioButton_Event_showToolTip_spark" description="RadioButton mouseDown event." keywords="[event, showToolTip, RadioButton]">
+			<setup>
+ 				<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+				<SetProperty target="rb" propertyName="toolTip" value="I am a RadioButton" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				
+				<DispatchMouseEvent target="rb" type="mouseOver" localX="7" localY="5" />
+				<DispatchMouseEvent target="rb" type="mouseMove" localX="7" localY="5" />
+				<AssertEvent target="rb" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" timeout="15000" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase> 
+		
+		<TestCase testID="RadioButton_Event_mouseOver_spark" description="RadioButton mouseUp event." keywords="[event, mouseOver, RadioButton]">
+			<setup>
+ 				<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+							    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="rb" type="mouseOver" localX="7" localY="5" />
+				<DispatchMouseEvent target="rb" type="mouseDown" localX="7" localY="5" />
+				<DispatchMouseEvent target="rb" type="mouseUp" localX="7" localY="5" />
+				<AssertEvent target="rb" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>		
+		<TestCase testID="RadioButton_Event_focusOut_spark" description="RadioButton foucsOut event." keywords="[event, focusOut, RadioButton]">
+			<setup>
+ 				<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+				<SetProperty target="rb" propertyName="toolTip" value="I am a RadioButton" />
+			    	<WaitForEffectsToEnd />
+			    	
+			</setup>
+			<body>
+			    	<DispatchMouseClickEvent target="rb" localX="5" localY="5"/>
+			    	<DispatchKeyEvent keys="[TAB,TAB]"/>
+			    	<AssertEvent target="rb"  eventName="focusOut" eventClass="flash.events::FocusEvent" timeout="5000"/>
+			</body>
+		</TestCase>
+		<TestCase testID="RadioButton_Event_mouseDown_spark" description="RadioButton mouseDown event." keywords="[event, mouseUp, RadioButton]">
+			<setup>
+ 				<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+							    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="rb" type="mouseDown" localX="7" localY="5" />
+				<AssertEvent target="rb" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="RadioButton_Event_hideToolTip_spark" description="RadioButton mouseDown event." keywords="[event, hideToolTip, RadioButton]">
+			<setup>
+ 				<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+				<RunCode code="decreaseHide()"/>
+				<SetProperty target="rb" propertyName="toolTip" value="I am a RadioButton" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				
+				<DispatchMouseEvent target="rb" type="mouseOver" localX="7" localY="5" />
+				<DispatchMouseEvent target="rb" type="mouseMove" localX="7" localY="5"/>
+				<AssertEvent target="rb" eventName="toolTipHide" eventClass="mx.events::ToolTipEvent" timeout="15000" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase> 
+
+		<TestCase testID="RadioButton_Event_focusIn_spark" description="RadioButton foucsIn event." keywords="[event, focusIn, RadioButton]">
+			<setup>
+ 				<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+				<SetProperty target="rb" propertyName="toolTip" value="I am a RadioButton" />
+			    	<WaitForEffectsToEnd />
+			    	
+			</setup>
+			<body>
+			    	<DispatchMouseClickEvent target="rb" localX="5" localY="5"/>
+			    	<DispatchKeyEvent key="TAB" shiftKey="true" />
+			    	<DispatchKeyEvent key="TAB"/>
+			    	<AssertEvent target="rb" eventName="focusIn" eventClass="flash.events::FocusEvent" timeout="5000"/>
+			</body>
+		</TestCase>
+		<TestCase testID="RadioButton_Event_keyDown_spark" description="RadioButton keyDown event." keywords="[event, keyDown, RadioButton]">
+			<setup>
+ 				<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="rb" localX="5" localY="5"/>
+				<DispatchKeyEvent keys="[SPACE]"  />
+				<AssertEvent target="rb" eventName="keyDown" eventClass="flash.events::KeyboardEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		
+
+		<TestCase testID="RadioButton_Event_hide_spark" description="RadioButton hide event." keywords="[event, hide, RadioButton]">
+			<setup>
+			    	<ResetComponent target="rb" className="mx.controls.RadioButton" waitEvent="updateComplete" waitTarget="rb" />
+			    	
+			    	
+			</setup>
+			<body>
+			    	<SetProperty target="rb" propertyName="visible" value="false"/>
+			    	<AssertEvent target="rb" eventName="hide" eventClass="mx.events::FlexEvent" timeout="15000"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="RadioButton_Event_keyUp_spark" description="RadioButton click event." keywords="[event, keyUp, RadioButton]">
+			<setup>
+ 				<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+				<SetProperty target="rb" propertyName="toolTip" value="I am a RadioButton" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="rb" localX="5" localY="5" waitEvent="mouseUp" waitTarget="rb"/>
+				<DispatchKeyEvent keys="[TAB]"  />
+				<AssertEvent target="rb" eventName="keyUp" eventClass="flash.events::KeyboardEvent" timeout="15000" />
+			</body>
+		</TestCase>
+
+		 <TestCase testID="RadioButton_Event_click_spark" description="RadioButton move event." keywords="[event, click, RadioButton]">
+			<setup>
+ 				<ResetComponent target="rb" className="mx.controls::RadioButton"  waitEvent="updateComplete" waitTarget="rb"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="rb" localX="5" localY="5"/>
+				<AssertEvent target="rb" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="15000"/>
+			</body>
+		</TestCase> 
+
+    </testCases>
+</UnitTester>
+

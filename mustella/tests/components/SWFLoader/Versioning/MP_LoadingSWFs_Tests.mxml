@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/SWFLoader/Versioning/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SWFLoaderMain.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import mx.core.IFlexDisplayObject;
+       import mx.events.FlexEvent;
+       import flash.utils.*;
+       import mx.core.FlexSprite;
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+         <TestCase testID="MP_LoadNonFlexSWF_trusted" description="Test that you can load a non Flex swf as a trusted child." keywords="[SWFLoader, Marshall Plan]">
+             <setup>
+               <ResetComponent target="SWFLoad" className="mx.controls.SWFLoader" waitTarget="SWFLoad"
+                   waitEvent="updateComplete" />
+               <ResetComponent target="but" className="mx.controls.Button" waitTarget="but"
+                   waitEvent="updateComplete" />
+               <SetProperty target="SWFLoad" propertyName="autoLoad" value="true" />
+			   <SetProperty target="SWFLoad" propertyName="source" value="../../../../Assets/Images/greenrect.jpg" waitTarget="SWFLoad" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="SWFLoad" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="SWFLoad" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="SWFLoad" propertyName="source" value="assets/ColorTransformExample.swf" waitTarget="SWFLoad" waitEvent="updateComplete"/>
+			   <SetProperty target="SWFLoad" propertyName="autoLoad" value="true" waitTarget="SWFLoad" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<AssertPixelValue target="SWFLoad" x="10" y="10" value="0x8B5ACD" />
+            </body>
+         </TestCase>
+         <TestCase testID="MP_LoadNonFlexSWF_untrusted" description="Test that you can load a non Flex swf as a trusted child." keywords="[SWFLoader, Marshall Plan]">
+             <setup>
+               <ResetComponent target="but" className="mx.controls.Button" waitTarget="but"
+                   waitEvent="updateComplete" />
+               <SetProperty target="SWFLoad" propertyName="autoLoad" value="true" />
+			   <SetProperty target="SWFLoad" propertyName="source" value="../../../../Assets/Images/greenrect.jpg" waitTarget="SWFLoad" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="SWFLoad" propertyName="loadForCompatibility" value="false" />
+		   	   <SetProperty target="SWFLoad" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="SWFLoad" propertyName="source" value="http://localhost:{portNumber}/components/SWFLoader/SWFs/assets/ColorTransformExample.swf" waitTarget="SWFLoad" waitEvent="updateComplete"/>
+			   <SetProperty target="SWFLoad" propertyName="autoLoad" value="true" waitTarget="SWFLoad" waitEvent="complete"/>
+			</setup>
+			<body>
+			    <Pause timeout="500" />
+			  	<AssertPixelValue target="SWFLoad" x="10" y="10" value="0x8B5ACD" />
+            </body>
+         </TestCase>
+         <TestCase testID="MP_LoadNonFlexSWF_compatible" description="Test that you can load a non Flex swf as a trusted child." keywords="[SWFLoader, Marshall Plan]">
+             <setup>
+               <ResetComponent target="but" className="mx.controls.Button" waitTarget="but"
+                   waitEvent="updateComplete" />
+               <SetProperty target="SWFLoad" propertyName="autoLoad" value="true" />
+			   <SetProperty target="SWFLoad" propertyName="source" value="../../../../Assets/Images/greenrect.jpg" waitTarget="SWFLoad" waitEvent="updateComplete"/>
+			   <Pause timeout="100" />
+			   <SetProperty target="SWFLoad" propertyName="loadForCompatibility" value="true" />
+		   	   <SetProperty target="SWFLoad" propertyName="autoLoad" value="false" />
+		   	   <SetProperty target="SWFLoad" propertyName="source" value="assets/ColorTransformExample.swf" waitTarget="SWFLoad" waitEvent="updateComplete"/>
+			   <SetProperty target="SWFLoad" propertyName="autoLoad" value="true" waitTarget="SWFLoad" waitEvent="complete"/>
+			</setup>
+			<body>
+			  	<AssertPixelValue target="SWFLoad" x="10" y="10" value="0x8B5ACD" />
+            </body>
+         </TestCase>
+    </testCases>
+</UnitTester>

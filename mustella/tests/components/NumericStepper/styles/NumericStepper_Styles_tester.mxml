@@ -1,0 +1,2306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/NumericStepper/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="NumericStepper_main.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>
+
+
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.jpg")]
+
+			public var di_down_jpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.gif")]
+
+			public var di_down_gif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.png")]
+
+			public var di_down_png:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.swf")]
+
+			public var di_down_swf:Class;
+
+
+
+
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.png")]
+
+			public var di_up_png:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.gif")]
+
+			public var di_up_gif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.jpg")]
+
+			public var di_up_jpg:Class;
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.swf")]
+
+			public var di_up_swf:Class;
+
+
+
+
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/downSkin.jpg")]
+
+			public var downSkinjpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/downSkin.gif")]
+
+			public var downSkingif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/downSkin.png")]
+
+			public var downSkinpng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/downSkin.swf")]
+
+			public var downSkinswf:Class;
+
+
+
+
+
+
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.jpg")]
+
+			public var upSkinjpg:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.gif")]
+
+			public var upSkingif:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.png")]
+
+			public var upSkinpng:Class;
+
+
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.swf")]
+
+			public var upSkinswf:Class;
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+
+
+
+ 		<TestCase testID="NumericStepper_Styles_backgroundAlpha" keywords="[NumericStepper,  backgroundAlpha, NumericStepper]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="backgroundAlpha" value="0.4" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/backgroundAlpha.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="backgroundAlpha" value="0.4" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_backgroundColor_text" keywords="[NumericStepper,  backgroundColor, NumericStepper]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="backgroundColor" value="red" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/backgroundColor_text.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="backgroundColor" value="16711680" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_backgroundColor_hexaDecimal" keywords="[NumericStepper,  backgroundColor, NumericStepper]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="backgroundColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/backgroundColor_hexaDecimal.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="backgroundColor" value="0x0000FF" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_backgroundColor_DecimalValue" keywords="[NumericStepper,  backgroundColor, NumericStepper]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="backgroundColor" value="7686483" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/backgroundColor_decimal.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="backgroundColor" value="7686483" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_backgroundSize_auto" keywords="[NumericStepper,  backgroundSize, NumericStepper]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="backgroundImage" value="../styles/Assets/blue_gif.gif" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<Pause timeout="1000"/>
+
+ 				<SetProperty target="myNumericStepper" propertyName="maximum" value="200" waitEvent="updateComplete" waitTarget="" />
+
+			</setup>
+
+			<body>
+
+ 				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/backgroundSize_auto.png" timeout="5000" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+	 	<TestCase testID="NumericStepper_Styles_borderColor_text" keywords="[NumericStepper,  borderColor, borderColor]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="borderColor" value="red"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="borderStyle" value="inset" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="" url="../Styles/baselines/borderColor_text.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="borderColor" value="0xFF0000" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_borderColor_DecimalValue" keywords="[NumericStepper,  backgroundColor, NumericStepper]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="borderColor" value="7686483" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+ 				
+
+ 				<SetStyle target="myNumericStepper" styleName="borderThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="" url="../Styles/baselines/borderColor_hexaDecimal.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="borderColor" value="7686483" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_borderSides" keywords="[NumericStepper,  borderSides, borderStyle, borderColor]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="borderSides" value="right top" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="" url="../Styles/baselines/borderSides_hexaDecimal.png" timeout="5000" />
+ 				
+
+ 			</body>
+
+		</TestCase> 
+
+
+
+ 		<TestCase testID="NumericStepper_Styles_borderStyle_inset" keywords="[NumericStepper,  borderStyle, borderColor]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="borderColor" value="red" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderStyle" value="inset" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/borderStyle_inset.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="borderStyle" value="inset" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_borderStyle_outset" keywords="[NumericStepper,  borderColor, borderStyle]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="borderColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderStyle" value="outset" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/borderStyle_outset.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="borderStyle" value="outset" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_borderStyle_solid" keywords="[NumericStepper,  backgroundColor, borderStyle]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="borderColor" value="7686483" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/borderStyle_solid.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="borderColor" value="7686483" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_borderStyle_none" description="Incorrectly functioning due to cosmetic bug # 200698" keywords="[NumericStepper,  backgroundColor, borderStyle]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="borderColor" value="red" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderStyle" value="none" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/borderStyle_none.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="borderColor" value="16711680" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+
+
+ 		<TestCase testID="NumericStepper_Styles_borderThickness_large_inset" keywords="[NumericStepper,  borderStyle, borderThickness]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="borderColor" value="red"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="borderStyle" value="inset" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/borderThickness_large.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="borderStyle" value="inset" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_borderStyle_large_solid" keywords="[NumericStepper,  borderColor, borderStyle]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="borderColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="borderThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/borderThickness_solid.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="borderStyle" value="solid" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+
+
+ 		<TestCase testID="NumericStepper_Styles_color_text" keywords="[NumericStepper, color]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="color" value="red" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/color_red.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="color" value="0xFF0000" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_color_hexaDecimal" keywords="[NumericStepper, color]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="color" value="0x0000FF" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/color_hexaDecimal.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="color" value="0x0000FF" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_color_decimal" keywords="[NumericStepper, color]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="color" value="16832483" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/color_decimal.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="color" value="16832483" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+ 		<TestCase testID="NumericStepper_Styles_cornerRadius" keywords="[NumericStepper, cornerRadius]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="cornerRadius" value="5" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/cornerRadius.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="cornerRadius" value="5" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_cornerRadius_negative" keywords="[NumericStepper, cornerRadius]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="cornerRadius" value="-5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/cornerRadius_negative.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="cornerRadius" value="-5" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+ 		<TestCase testID="NumericStepper_Styles_disabledColor_text" keywords="[NumericStepper, disabledColor]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetProperty target="myNumericStepper" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="disabledColor" value="red" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/disabledColor_red.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="disabledColor" value="0xFF0000" />
+
+ 			</body>
+
+		</TestCase>
+
+ 		<TestCase testID="NumericStepper_Styles_disabledColor_hexaDecimal" keywords="[NumericStepper, disabledColor]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetProperty target="myNumericStepper" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="disabledColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/disabledColor_hexaDecimal.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="disabledColor" value="0x0000FF" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_downArrowDisabledSkin_jpg" description="Test the downArrowDisabledSkin jpg style of NumericStepper" keywords="[NumericStepper, downArrowDisabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetProperty target="myNumericStepper" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowDisabledSkin" value="{di_down_jpg}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowDisabledSkin_jpg.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_downArrowDisabledSkin_gif" description="Test the downArrowDisabledSkin gif style of NumericStepper" keywords="[NumericStepper, downArrowDisabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetProperty target="myNumericStepper" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowDisabledSkin" value="{di_down_gif}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowDisabledSkin_gif.png" target="myNumericStepper" timeout="5000"  />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_downArrowDisabledSkin_png" description="Test the downArrowDisabledSkin png style of NumericStepper" keywords="[NumericStepper, downArrowDisabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetProperty target="myNumericStepper" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowDisabledSkin" value="{di_down_png}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowDisabledSkin_png.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_downArrowDownSkin_jpg" description="Test the downArrowDownSkin jpg style of NumericStepper" keywords="[NumericStepper, downArrowDownSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowDownSkin" value="{downSkinjpg}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseOver" localX="48" localY="16" waitEvent="mouseOver" waitTarget="myNumericStepper"/>
+
+                                <DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="16" waitEvent="mouseDown" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowDownSkin_jpg.png" target="myNumericStepper"  timeout="5000" />
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="16" waitEvent="mouseUp" waitTarget="myNumericStepper"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_downArrowDownSkin_gif" description="Test the downArrowDownSkin gif style of NumericStepper" keywords="[NumericStepper, downArrowDownSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowDownSkin" value="{downSkingif}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseOver" localX="48" localY="16" waitEvent="mouseOver" waitTarget="myNumericStepper"/>
+
+                                <DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="16" waitEvent="mouseDown" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowDownSkin_gif.png" target="myNumericStepper"  timeout="5000" />
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="16" waitEvent="mouseUp" waitTarget="myNumericStepper"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_downArrowDownSkin_png" description="Test the downArrowDownSkin png style of NumericStepper" keywords="[NumericStepper, downArrowDownSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowDownSkin" value="{downSkinpng}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseOver" localX="48" localY="16" waitEvent="mouseOver" waitTarget="myNumericStepper"/>
+
+                                <DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="16" waitEvent="mouseDown" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowDownSkin_png.png" target="myNumericStepper"  timeout="5000" />
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="16" waitEvent="mouseUp" waitTarget="myNumericStepper"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_downArrowOverSkin_jpg" description="Test the downArrowOverSkin jpg style of NumericStepper" keywords="[NumericStepper, downArrowOverSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowOverSkin" value="{downSkinjpg}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="16" waitEvent="mouseDown" waitTarget="myNumericStepper" />
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="16" waitEvent="mouseUp" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowOverSkin_jpg.png" target="myNumericStepper"  timeout="5000" />
+
+
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_downArrowOverSkin_gif" description="Test the downArrowOverSkin gif style of NumericStepper" keywords="[NumericStepper, downArrowOverSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowOverSkin" value="{downSkingif}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="16" waitEvent="mouseDown" waitTarget="myNumericStepper" />
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="16" waitEvent="mouseUp" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowOverSkin_gif.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_downArrowOverSkin_png" description="Test the downArrowOverSkin png style of NumericStepper" keywords="[NumericStepper, downArrowOverSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowOverSkin" value="{downSkinpng}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="16" waitEvent="mouseDown" waitTarget="myNumericStepper" />
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="16" waitEvent="mouseUp" waitTarget="myNumericStepper" />			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowOverSkin_png.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_downArrowUpSkin_jpg" description="Test the downArrowUpSkin jpg style of NumericStepper" keywords="[NumericStepper, downArrowUpSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowUpSkin" value="{downSkinjpg}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowUpSkin_jpg.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_downArrowUpSkin_gif" description="Test the downArrowUpSkin gif style of NumericStepper" keywords="[NumericStepper, downArrowUpSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowUpSkin" value="{downSkingif}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowUpSkin_gif.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_downArrowUpSkin_png" description="Test the downArrowUpSkin png style of NumericStepper" keywords="[NumericStepper, downArrowUpSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="downArrowUpSkin" value="{downSkinpng}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/downArrowUpSkin_png.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_upArrowDisabledSkin_jpg" description="Test the upArrowDisabledSkin jpg style of NumericStepper" keywords="[NumericStepper, upArrowDisabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetProperty target="myNumericStepper" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowDisabledSkin" value="{di_up_jpg}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowDisabledSkin_jpg.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_upArrowDisabledSkin_gif" description="Test the upArrowDisabledSkin gif style of NumericStepper" keywords="[NumericStepper, upArrowDisabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetProperty target="myNumericStepper" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowDisabledSkin" value="{di_up_gif}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowDisabledSkin_gif.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_upArrowDisabledSkin_png" description="Test the upArrowDisabledSkin png style of NumericStepper" keywords="[NumericStepper, upArrowDisabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetProperty target="myNumericStepper" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowDisabledSkin" value="{di_up_png}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowDisabledSkin_png.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_upArrowDownSkin_jpg" description="Test the upArrowDownSkin jpg style of NumericStepper" keywords="[NumericStepper, upArrowDownSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowDownSkin" value="{upSkinjpg}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseOver" localX="48" localY="6" waitEvent="mouseOver" waitTarget="myNumericStepper" />
+
+                                <DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="6" waitEvent="mouseDown" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowDownSkin_jpg.png" target="myNumericStepper"  timeout="5000" />
+
+                                <DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="6" waitEvent="mouseUp" waitTarget="myNumericStepper"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_upArrowDownSkin_gif" description="Test the upArrowDownSkin gif style of NumericStepper" keywords="[NumericStepper, upArrowDownSkin, style]">
+
+			<setup>
+
+				<!-- ** IF THIS TEST FAILS AGAIN, LOG A BUG AGAINST MUSTELLA AS A TEST FAILURE INVESTIGATION-->
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowDownSkin" value="{upSkingif}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseOver" localX="48" localY="6" waitEvent="mouseOver" waitTarget="myNumericStepper"/>
+
+                                <DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="6" waitEvent="updateComplete" waitTarget="myNumericStepper.getChildAt(1)"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowDownSkin_gif.png" target="myNumericStepper.getChildAt(1)" />
+
+				<!--<DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="6" waitEvent="mouseUp" waitTarget="myNumericStepper"/>-->
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_upArrowDownSkin_png" description="Test the upArrowDownSkin png style of NumericStepper" keywords="[NumericStepper, upArrowDownSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowDownSkin" value="{upSkinpng}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseOver" localX="48" localY="6" waitEvent="mouseOver" waitTarget="myNumericStepper"/>
+
+                                <DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="6" waitEvent="mouseDown" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowDownSkin_png.png" target="myNumericStepper"  timeout="5000" />
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="6" waitEvent="mouseUp" waitTarget="myNumericStepper"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_upArrowOverSkin_jpg" description="Test the upArrowOverSkin jpg style of NumericStepper" keywords="[NumericStepper, upArrowOverSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowOverSkin" value="{upSkinjpg}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="6" waitEvent="mouseDown" waitTarget="myNumericStepper"/>
+
+                                <DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="6" waitEvent="mouseUp" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowOverSkin_jpg.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_upArrowOverSkin_gif" description="Test the upArrowOverSkin gif style of NumericStepper" keywords="[NumericStepper, upArrowOverSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowOverSkin" value="{upSkingif}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="6"  waitEvent="mouseDown" waitTarget="myNumericStepper"/>
+
+                                <DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="6" waitEvent="mouseUp" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowOverSkin_gif.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_upArrowOverSkin_png" description="Test the upArrowOverSkin png style of NumericStepper" keywords="[NumericStepper, upArrowOverSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowOverSkin" value="{upSkinpng}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchMouseEvent target="myNumericStepper" type="mouseDown" localX="48" localY="6"  waitEvent="mouseDown" waitTarget="myNumericStepper"/>
+
+                                <DispatchMouseEvent target="myNumericStepper" type="mouseUp" localX="48" localY="6" waitEvent="mouseUp" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowOverSkin_png.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_upArrowUpSkin_jpg" description="Test the upArrowUpSkin jpg style of NumericStepper" keywords="[NumericStepper, upArrowUpSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowUpSkin" value="{upSkinjpg}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowUpSkin_jpg.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_upArrowUpSkin_gif" description="Test the upArrowUpSkin gif style of NumericStepper" keywords="[NumericStepper, upArrowUpSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowUpSkin" value="{upSkingif}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowUpSkin_gif.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_upArrowUpSkin_png" description="Test the upArrowUpSkin png style of NumericStepper" keywords="[NumericStepper, upArrowUpSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="upArrowUpSkin" value="{upSkinpng}" waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upArrowUpSkin_png.png" target="myNumericStepper"  timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+	   	<TestCase testID="NumericStepper_Styles_dropShadowEnabled_default" keywords="[NumericStepper,  dropShadowEnabled, Style]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="dropShadowEnabled" value="true" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/dropShadowEnabled_default.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="dropShadowEnabled" value="true" />
+
+			</body>
+
+		</TestCase>
+
+	   	<TestCase testID="NumericStepper_Styles_dropShadowEnabled" keywords="[NumericStepper, dropShadowEnabled, Style]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="dropShadowEnabled" value="true" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetStyle target="myNumericStepper" styleName="dropShadowColor" value="red" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetStyle target="myNumericStepper" styleName="shadowDistance" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="" url="../Styles/baselines/borderColor_dropShadowEnabled.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="dropShadowEnabled" value="true" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="dropShadowColor" value="0xFF0000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="shadowDistance" value="5" />
+
+
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_dropShadowColor_text" keywords="[NumericStepper,  dropShadowColor, dropShadowEnabled]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowEnabled" value="true" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDirection" value="center" />
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowColor" value="red"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDistance" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/dropShadowColor_text.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowColor" value="0xFF0000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowEnabled" value="true" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDistance" value="10" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDirection" value="center" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_dropShadowColor_HexaDecimal" keywords="[NumericStepper,  dropShadowColor, dropShadowEnabled]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowEnabled" value="true" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDirection" value="left"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowColor" value="0x0000FF"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDistance" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="" url="../Styles/baselines/dropShadowColor_HexaDecimal.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowColor" value="0x0000FF" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowEnabled" value="true" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDistance" value="5" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDirection" value="left" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_dropShadowColor_Decimal" keywords="[NumericStepper,  dropShadowColor, dropShadowEnabled]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowEnabled" value="true" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDirection" value="right"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowColor" value="7686483"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDistance" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/dropShadowColor_Decimal.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowColor" value="7686483" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowEnabled" value="true" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDistance" value="10" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDirection" value="right" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+
+
+
+
+		<TestCase testID="NumericStepper_Styles_shadowDirection_text" keywords="[NumericStepper,  dropShadowColor, dropShadowEnabled]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowEnabled" value="true" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDirection" value="center" />
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowColor" value="red"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDistance" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/shadowDirection_center.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowColor" value="0xFF0000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowEnabled" value="true" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDistance" value="10" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDirection" value="center" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_shadowDirection_HexaDecimal" keywords="[NumericStepper,  dropShadowColor, dropShadowEnabled]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowEnabled" value="true" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDirection" value="left"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowColor" value="0x0000FF"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDistance" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/shadowDirection_left.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowColor" value="0x0000FF" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowEnabled" value="true" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDistance" value="5" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDirection" value="left" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_shadowDirection_Decimal" keywords="[NumericStepper,  dropShadowColor, dropShadowEnabled]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowEnabled" value="true" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDirection" value="right"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowColor" value="7686483"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDistance" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/shadowDirection_right.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowColor" value="7686483" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowEnabled" value="true" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDistance" value="10" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDirection" value="right" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+
+
+		<TestCase testID="NumericStepper_Styles_shadowDistance_10" keywords="[NumericStepper,  dropShadowColor, dropShadowEnabled]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowEnabled" value="true" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDirection" value="center" />
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowColor" value="red"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDistance" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/shadowDistance_10.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowColor" value="0xFF0000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowEnabled" value="true" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDistance" value="10" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDirection" value="center" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_shadowDistance_5" keywords="[NumericStepper,  dropShadowColor, dropShadowEnabled]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowEnabled" value="true" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDirection" value="left"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowColor" value="0x0000FF"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDistance" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/shadowDistance_5.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowColor" value="0x0000FF" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowEnabled" value="true" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDistance" value="5" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDirection" value="left" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_shadowDistance_20" keywords="[NumericStepper,  dropShadowColor, dropShadowEnabled]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowEnabled" value="true" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDirection" value="right"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="dropShadowColor" value="7686483"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="shadowDistance" value="20" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/shadowDistance_20.png" timeout="5000" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowColor" value="7686483" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="dropShadowEnabled" value="true" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDistance" value="20" />
+
+ 				<AssertStyleValue target="myNumericStepper" styleName="shadowDirection" value="right" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_focusAlpha_default" keywords="[NumericStepper, focusAlpha]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="focusThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/focusAlpha_default.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="focusAlpha" value="0.4" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_focusAlpha_high" keywords="[NumericStepper, focusAlpha]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="focusAlpha" value="0.9" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="focusThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="" url="../Styles/baselines/focusAlpha_high.png" timeout="5000" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_focusAlpha_low" keywords="[NumericStepper, focusAlpha]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="focusAlpha" value="0.1" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="focusThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="" url="../Styles/baselines/focusAlpha_low.png" timeout="5000" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+
+
+		<TestCase testID="NumericStepper_Styles_focusRoundedCorners_tl_bl" keywords="[NumericStepper, focusRoundedCorners]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="focusThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="focusRoundedCorners" value="tl bl" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="" url="../Styles/baselines/focusRoundedCorners_tl_bl.png" timeout="5000" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_focusRoundedCorners_tr_br" keywords="[NumericStepper, focusRoundedCorners]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="focusThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="focusRoundedCorners" value="tr br"/>
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="" url="../Styles/baselines/focusRoundedCorners_tr_br.png" timeout="5000" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_focusRoundedCorners_br" keywords="[NumericStepper, focusRoundedCorners]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="focusThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetStyle target="myNumericStepper" styleName="focusRoundedCorners" value="br" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/focusRoundedCorners_br.png" timeout="5000" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_fontFamily_Arial" keywords="[NumericStepper, fontFamily]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="fontFamily" value="EmbeddedArial" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<!--SetStyle target="myNumericStepper" styleName="fontAntiAliasType" value="normal" waitEvent="updateComplete" waitTarget="myNumericStepper" /-->
+
+				<DispatchKeyEvent keys="[TAB, UP, UP, UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/fontFamily_Arial.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontFamily" value="EmbeddedArial" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_fontFamily_Georgia" keywords="[NumericStepper, fontFamily]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="fontFamily" value="EmbeddedGeorgia" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<!--SetStyle target="myNumericStepper" styleName="fontAntiAliasType" value="normal" waitEvent="updateComplete" waitTarget="myNumericStepper" /-->
+
+				<DispatchKeyEvent keys="[TAB, UP, UP, UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/fontFamily_Georgia.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontFamily" value="EmbeddedGeorgia" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_fontFamily_Default" keywords="[NumericStepper, fontFamily]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<!--SetStyle target="myNumericStepper" styleName="fontAntiAliasType" value="normal" waitEvent="updateComplete" waitTarget="myNumericStepper" /-->
+
+				<DispatchKeyEvent keys="[TAB, UP, UP, UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontFamily" value="MyVerdana" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_fontGridFitType_Default" keywords="[NumericStepper, fontGridFitType ]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<!--SetStyle target="myNumericStepper" styleName="fontAntiAliasType" value="normal" waitEvent="updateComplete" waitTarget="myNumericStepper" /-->
+
+				<DispatchKeyEvent keys="[TAB, UP, UP, UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontGridFitType" value="pixel" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_fontSharpness_Default" keywords="[NumericStepper, fontSharpness]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<!--SetStyle target="myNumericStepper" styleName="fontAntiAliasType" value="normal" waitEvent="updateComplete" waitTarget="myNumericStepper" /-->
+
+				<DispatchKeyEvent keys="[TAB, UP, UP, UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontSharpness" value="0" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_fontSize_Default" keywords="[NumericStepper, fontSize ]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<!--SetStyle target="myNumericStepper" styleName="fontAntiAliasType" value="normal" waitEvent="updateComplete" waitTarget="myNumericStepper" /-->
+
+				<DispatchKeyEvent keys="[TAB, UP, UP, UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontSize" value="10" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontThickness" value="0" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontWeight" value="normal" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_fontSize_big" keywords="[NumericStepper, fontSize]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="fontSize" value="85" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<!--SetStyle target="myNumericStepper" styleName="fontAntiAliasType" value="normal" waitEvent="updateComplete" waitTarget="myNumericStepper" /-->
+
+				<SetStyle target="myNumericStepper" styleName="focusRoundedCorners" value="br" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent keys="[TAB,UP,UP,UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/fontSize_big.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontSize" value="85" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_fontSize_small" keywords="[NumericStepper, fontSize]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="fontSize" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<!--SetStyle target="myNumericStepper" styleName="fontAntiAliasType" value="normal" waitEvent="updateComplete" waitTarget="myNumericStepper" /-->
+
+				<SetStyle target="myNumericStepper" styleName="focusRoundedCorners" value="br" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent keys="[TAB,UP,UP,UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/fontSize_small.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontSize" value="5" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_fontStyle_italic" keywords="[NumericStepper, fontStyle]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<!--SetStyle target="myNumericStepper" styleName="fontAntiAliasType" value="normal" waitEvent="updateComplete" waitTarget="myNumericStepper" /-->
+
+				<SetStyle target="myNumericStepper" styleName="focusRoundedCorners" value="br" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent keys="[TAB,UP,UP,UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/fontStyle_italic.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontStyle" value="italic" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_fontThickness_big" keywords="[NumericStepper, fontThickness]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="fontThickness" value="200" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="fontSize" value="85" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="focusRoundedCorners" value="br" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent keys="[TAB,UP,UP,UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="" url="../Styles/baselines/fontThickness_big.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontThickness" value="200" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_fontThickness_small" keywords="[NumericStepper, fontThickness]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="fontThickness" value="-200" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="fontSize" value="85" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+ 				<SetStyle target="myNumericStepper" styleName="focusRoundedCorners" value="br" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent keys="[TAB,UP,UP,UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/fontThickness_small.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="fontThickness" value="-200" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+
+
+		<TestCase testID="NumericStepper_Styles_letterSpacing_large" keywords="[NumericStepper, letterSpacing ]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+ 				<SetStyle target="myNumericStepper" styleName="letterSpacing" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="200" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="99" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent keys="[TAB,UP,UP,UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/letterSpacing_large.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="letterSpacing" value="10" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="highlightAlphas" value="[0.3,0.0]" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="kerning" value="false" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="leading" value="2" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+
+
+
+
+		<TestCase testID="NumericStepper_Styles_padding_default" keywords="[NumericStepper, paddingLeft, paddingRight]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="200" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="199" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myNumericStepper" styleName="paddingLeft" value="0" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="paddingRight" value="0" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_paddingLeft" keywords="[NumericStepper, paddingLeft]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="paddingLeft" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="200" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="199" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/paddingLeft.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="paddingLeft" value="10" />
+
+ 			</body>
+
+		</TestCase>
+
+		<TestCase testID="NumericStepper_Styles_paddingRight" keywords="[NumericStepper, paddingRight]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="paddingRight" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="maximum" value="200" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetProperty target="myNumericStepper" propertyName="value" value="199" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/paddingRight.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="paddingRight" value="10" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_textAlign_default" keywords="[NumericStepper, textAlign]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<DispatchKeyEvent keys="[TAB,UP,UP,UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/textAlign_default.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="textAlign" value="left" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="textIndent" value="0" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_textAlign_right" keywords="[NumericStepper, textAlign]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="textAlign" value="right" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetStyle target="myNumericStepper" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetStyle target="myNumericStepper" styleName="textIndent" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent keys="[TAB,UP,UP,UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/textAlign_right.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="textAlign" value="right" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="textDecoration" value="underline" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="textIndent" value="10" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="NumericStepper_Styles_textAlign_center" keywords="[NumericStepper, textAlign]" >
+
+			<setup>
+
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+
+				<SetStyle target="myNumericStepper" styleName="textAlign" value="center" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetStyle target="myNumericStepper" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<SetStyle target="myNumericStepper" styleName="textIndent" value="5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+
+				<DispatchKeyEvent keys="[TAB,UP,UP,UP]" waitEvent="focusIn" waitTarget="myNumericStepper" />
+
+			</setup>
+
+			<body>
+
+
+
+
+
+				<CompareBitmap target="myNumericStepper" url="../Styles/baselines/textAlign_center.png" timeout="5000" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="textAlign" value="center" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="textDecoration" value="underline" />
+
+				<AssertStyleValue target="myNumericStepper" styleName="textIndent" value="5" />
+
+ 			</body>
+
+		</TestCase>
+
+
+
+	</testCases>
+
+
+
+</UnitTester>
+

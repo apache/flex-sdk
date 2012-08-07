@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/List/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ListMain_spark.mxml">
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <mx:Script>
+    <![CDATA[
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+
+    public function addItems():void
+    {
+       for(var i:int=0;i<15;i++)
+       {
+          var obj:Object={slno:i,name:"Rooney"+i,age:20+i}
+          application.mybox.mylist.dataProvider.addItem(obj);
+       }
+        }
+
+    ]]>
+    </mx:Script>
+    <testCases>
+        <TestCase testID="Spark_list_listbase_styles_alternatingItemColors_0x" keywords="[listbase, styles, alternatingColors,0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.mylist" styleName="alternatingItemColors" value="[0xfff000,0x000fff]"
+            waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_alternatingColors_0x_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_alternatingItemColors_string" keywords="[listbase, styles, alternatingColors,string]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.mylist" styleName="alternatingItemColors" value="['yellow','green']"
+            waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_alternatingColors_string_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_alternatingItemColors_hash" keywords="[listbase, styles, alternatingColors,hash]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.mylist" styleName="alternatingItemColors" value="[#abcdef,#fedcba]"
+            waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+          <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_alternatingColors_hash_spark.png"  />
+         </body>
+      </TestCase>
+     <TestCase testID="Spark_list_listbase_styles_paddingTop" keywords="[listbase, styles, paddingTop]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.mylist" styleName="paddingTop" value="50"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_paddingTop_spark.png" numColorVariances="3" ignoreMaxColorVariance="true" />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_paddingBottom" keywords="[listbase, styles, paddingBottom]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.mylist" styleName="paddingBottom" value="100"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_paddingBottom_spark.png" numColorVariances="3" ignoreMaxColorVariance="true" />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_paddingLeft" keywords="[listbase, styles, paddingLeft]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.mylist" styleName="paddingLeft" value="50"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_paddingLeft_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_paddingRight" keywords="[listbase, styles, paddingRight]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.mylist" styleName="textAlign" value="right"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+            <SetStyle target="mybox.mylist" styleName="paddingRight" value="50"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_paddingRight_spark.png"  />
+         </body>
+      </TestCase>
+    <!--    Bug logged - http://frpbugapp.macromedia.com/bugapp/detail.asp?ID=196289
+         <TestCase testID="Spark_list_listbase_styles_focusAlpha_default" keywords="[listbase, styles, focusAlpha, default]">
+              <setup>
+               <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+             </setup>
+            <body>
+             <WaitForEffectsToEnd/>
+             <DispatchMouseClickEvent target="mybox.mylist" localX="100" localY="100" />
+              <WaitForEffectsToEnd/>
+            <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_focusAlpha_default_spark.png"  />
+             </body>
+             </TestCase>
+        <TestCase testID="Spark_list_listbase_styles_focusAlpha_set" keywords="[listbase, styles, alternatingColors,hash]">
+              <setup>
+               <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+             </setup>
+            <body>
+                <WaitForEffectsToEnd/>
+               <DispatchMouseClickEvent target="mybox.mylist" localX="100" localY="100" />
+                <SetStyle target="mybox.mylist" styleName="focusAlpha" value="1"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+                 <WaitForEffectsToEnd/>
+              <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_focusAlpha_set_spark.png"  />
+             </body>
+      </TestCase>-->
+        <TestCase testID="Spark_list_listbase_styles_rollOverColor_0x" keywords="[listbase, styles, rollOverColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.mylist" styleName="rollOverColor" value="0x11770e"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <DispatchMouseEvent  target="mybox.mylist" type ="mouseOver" localX="100" localY="125" />
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_rollOverColor_0x_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_rollOverColor_string" keywords="[listbase, styles, rollOverColor, string]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.mylist" styleName="rollOverColor" value="magenta"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <DispatchMouseEvent  target="mybox.mylist" type ="mouseOver" localX="100" localY="125" />
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_rollOverColor_string_spark.png"  />
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_list_listbase_styles_rollOverColor_hash" keywords="[listbase, styles, rollOverColor, hash]">
+              <setup>
+               <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+             </setup>
+            <body>
+               <SetStyle target="mybox.mylist" styleName="rollOverColor" value="#00cc00"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+               <DispatchMouseEvent  target="mybox.mylist" type ="mouseOver" localX="100" localY="125" />
+               <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_rollOverColor_hash_spark.png"  />
+             </body>
+      </TestCase>
+       <TestCase testID="Spark_list_listbase_styles_selectionColor _0x" keywords="[listbase, styles, selectionColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.mylist" styleName="selectionColor" value="0xcc2211" />
+           <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionColor_0x_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_selectionColor_string" keywords="[listbase, styles, selectionColor, string]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.mylist" styleName="selectionColor" value="cyan" />
+           <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionColor_string_spark.png"  />
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_list_listbase_styles_selectionColor_hash" keywords="[listbase, styles, selectionColor, hash]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+          <SetStyle target="mybox.mylist" styleName="selectionColor" value="#225533" />
+          <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+          <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionColor_hash_spark.png"  />
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_list_listbase_styles_selectionDisabledColor _0x" keywords="[listbase, styles, selectionDisabledColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.mylist" styleName="selectionDisabledColor" value="0x002e20"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <SetProperty target="mybox.mylist" propertyName="enabled" value="false" />
+          <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionDisabledColor_0x_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_selectionDisabledColor_string" keywords="[listbase, styles, selectionDisabledColor, string]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.mylist" styleName="selectionDisabledColor" value="yellow" />
+            <SetProperty target="mybox.mylist" propertyName="enabled" value="false" />
+           <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionDisabledColor_string_spark.png"  />
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_list_listbase_styles_selectionDisabledColor_hash" keywords="[listbase, styles, selectionDisabledColor, hash]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+          <SetStyle target="mybox.mylist" styleName="selectionDisabledColor" value="#125503" />
+           <SetProperty target="mybox.mylist" propertyName="enabled" value="false"/>
+          <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+          <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_selectionDisabledColor_hash_spark.png"  />
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_list_listbase_styles_textRollOverColor_0x" keywords="[listbase, styles, textRollOverColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.mylist" styleName="textRollOverColor" value="0xff0000"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <DispatchMouseEvent  target="mybox.mylist" type ="mouseOver" localX="100" localY="125" />
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_textRollOverColor_0x_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_textRollOverColor_string" keywords="[listbase, styles, textRollOverColor, string]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.mylist" styleName="textRollOverColor" value="magenta"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <DispatchMouseEvent  target="mybox.mylist" type ="mouseOver" localX="100" localY="125" />
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_textRollOverColor_string_spark.png"  />
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_list_listbase_styles_textRollOverColor_hash" keywords="[listbase, styles, textRollOverColor, hash]">
+              <setup>
+               <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+             </setup>
+            <body>
+               <SetStyle target="mybox.mylist" styleName="textRollOverColor" value="#ffff00"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+               <DispatchMouseEvent  target="mybox.mylist" type ="mouseOver" localX="100" localY="125" />
+               <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_textRollOverColor_hash_spark.png"  />
+             </body>
+      </TestCase>
+       <TestCase testID="Spark_list_listbase_styles_textSelectedColor _0x" keywords="[listbase, styles, textSelectedColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.mylist" styleName="textSelectedColor" value="0x00ff00" />
+           <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_textSelectedColor_0x_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_textSelectedColor_string" keywords="[listbase, styles, textSelectedColor, string]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.mylist" styleName="textSelectedColor" value="cyan" />
+           <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_textSelectedColor_string_spark.png"  />
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_list_listbase_styles_textSelectedColor_hash" keywords="[listbase, styles, textSelectedColor, hash]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+          <SetStyle target="mybox.mylist" styleName="textSelectedColor" value="#ff00ff" />
+          <SetProperty target="mybox.mylist" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+          <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_textSelectedColor_hash_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_useRollOver_true" keywords="[listbase, styles, useRollOver, true]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+          <!--<SetStyle target="mybox.mylist" styleName="useRollOver" value="true" waitEvent="updateComplete" waitTarget="mybox.mylist"/>-->
+          <DispatchMouseEvent  target="mybox.mylist" type ="mouseOver" localX="100" localY="125" />
+          <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_useRollOver_true_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_useRollOver_false" keywords="[listbase, styles, useRollOver,false]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+          <SetStyle target="mybox.mylist" styleName="useRollOver" value="false" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+          <DispatchMouseEvent  target="mybox.mylist" type ="mouseOver" localX="100" localY="125" />
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_useRollOver_false_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_list_listbase_styles_verticalAlign " keywords="[listbase, styles, verticalAlign]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+          <SetProperty target="mybox.mylist" propertyName="variableRowHeight" value="true" />
+          <SetProperty target="mybox.mylist" propertyName="rowHeight" value="50" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+          <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_verticalAlign_default_spark.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+          <SetStyle target="mybox.mylist" styleName="verticalAlign" value="bottom" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+          <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_verticalAlign_bottom_spark.png"  numColorVariances="8" ignoreMaxColorVariance="true"/>
+          <SetStyle target="mybox.mylist" styleName="verticalAlign" value="middle" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+          <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_verticalAlign_middle_spark.png"  numColorVariances="8" ignoreMaxColorVariance="true"/>
+          <SetStyle target="mybox.mylist" styleName="verticalAlign" value="top" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+          <CompareBitmap target="mybox" url="../Styles/Baselines/list_listbase_styles_verticalAlign_top_spark.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+         </body>
+      </TestCase>
+    </testCases>
+</UnitTester>

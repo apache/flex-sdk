@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/UIComponent/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="UIComponent_Main2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.ILayoutElement;
+	]]>
+	</mx:Script>
+
+<!-- Note: These are arranged alphabetically. -->
+
+<testCases>
+
+<!--
+================================================================================
+oldX
+================================================================================
+-->
+<TestCase testID="oldX_functionality_1" keywords="[UIComponent,oldX]" description="Make sure oldX is correct when increasing X.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="x" value="10" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="x" value="15" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="move" eventClass="mx.events::MoveEvent" />
+        <AssertEventPropertyValue propertyName="oldX" value="10" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldX_functionality_2" keywords="[UIComponent,oldX]" description="Make sure oldX is correct when decreasing X.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="x" value="50" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="x" value="40" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="move" eventClass="mx.events::MoveEvent" />
+        <AssertEventPropertyValue propertyName="oldX" value="50" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldX_functionality_3" keywords="[UIComponent,oldX]" description="Make sure oldX is correct when it is 0.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="x" value="0" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="x" value="10" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="move" eventClass="mx.events::MoveEvent" />
+        <AssertEventPropertyValue propertyName="oldX" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldX_functionality_4" keywords="[UIComponent,oldX]" description="Make sure oldX is correct when it is -1.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="x" value="-1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="x" value="10" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="move" eventClass="mx.events::MoveEvent" />
+        <AssertEventPropertyValue propertyName="oldX" value="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldX_functionality_5" keywords="[UIComponent,oldX]" description="Make sure changing just Y does not change oldX.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="x" value="10" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="y" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="y" value="30" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="move" eventClass="mx.events::MoveEvent" />
+        <AssertEventPropertyValue propertyName="oldX" value="10" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+oldY
+================================================================================
+-->
+<TestCase testID="oldY_functionality_1" keywords="[UIComponent,oldY]" description="Make sure oldY is correct when increasing Y.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="y" value="10" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="y" value="15" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="move" eventClass="mx.events::MoveEvent" />
+        <AssertEventPropertyValue propertyName="oldY" value="10" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldY_functionality_2" keywords="[UIComponent,oldY]" description="Make sure oldY is correct when decreasing Y.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="y" value="50" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="y" value="40" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="move" eventClass="mx.events::MoveEvent" />
+        <AssertEventPropertyValue propertyName="oldY" value="50" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldY_functionality_3" keywords="[UIComponent,oldY]" description="Make sure oldY is correct when it is 0.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="y" value="0" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="y" value="10" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="move" eventClass="mx.events::MoveEvent" />
+        <AssertEventPropertyValue propertyName="oldY" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldY_functionality_4" keywords="[UIComponent,oldY]" description="Make sure oldY is correct when it is -1.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="y" value="-1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="y" value="10" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="move" eventClass="mx.events::MoveEvent" />
+        <AssertEventPropertyValue propertyName="oldY" value="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldY_functionality_5" keywords="[UIComponent,oldY]" description="Make sure changing just X does not change oldY.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="y" value="10" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="x" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="x" value="30" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="move" eventClass="mx.events::MoveEvent" />
+        <AssertEventPropertyValue propertyName="oldY" value="10" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+scaleX
+================================================================================
+-->
+<TestCase testID="scaleX_setterGetter" keywords="[UIComponent,scaleX]" description="Test scaleX setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="scaleX" value="0.5" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="scaleX" value="0.5" />
+        <SetProperty target="uic1" propertyName="scaleX" value="0.8" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="scaleX" value="0.8" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleX_binding" keywords="[UIComponent,scaleX]" description="Test scaleX and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="scaleXBindingVar" value="0.2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic2" propertyName="scaleX" value="0.2" />
+        <SetProperty target="uic2" propertyName="scaleXBindingVar" value="0.3" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic2" propertyName="scaleX" value="0.3" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleX_functionality_1" keywords="[UIComponent,scaleX]" description="Increase scaleX.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="50" />
+        <SetProperty target="uic1" propertyName="scaleX" value="0.2" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="scaleX" value="0.5" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="width" value="50" />
+        <AssertMethodValue method="value=application.uic1.getLayoutBoundsWidth()" value="25" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleX_functionality_2" keywords="[UIComponent,scaleX]" description="Decrease scaleX.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="50" />
+        <SetProperty target="uic1" propertyName="scaleX" value="0.5" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="scaleX" value="0.2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="width" value="50" />
+        <AssertMethodValue method="value=Math.round(application.uic1.getLayoutBoundsWidth())" value="10" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleX_functionality_3" keywords="[UIComponent,scaleX]" description="Set scaleX to -1.  This is garbage in/garbage out...be sure we just do something not unreasonable.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="50" />
+        <SetProperty target="uic1" propertyName="scaleX" value="-1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="width" value="50" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleX_functionality_4" keywords="[UIComponent,scaleX]" description="Set scaleX to 0.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="50" />
+        <SetProperty target="uic1" propertyName="scaleX" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="width" value="50" />
+        <AssertMethodValue method="value=application.uic1.getLayoutBoundsWidth()" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleX_functionality_5" keywords="[UIComponent,scaleX]" description="Set scaleX to 0.7.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="50" />
+        <SetProperty target="uic1" propertyName="scaleX" value="0.7" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="width" value="50" />
+        <AssertMethodValue method="value=Math.round(application.uic1.getLayoutBoundsWidth())" value="35" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleX_functionality_6" keywords="[UIComponent,scaleX]" description="Set scaleX to 1.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="50" />
+        <SetProperty target="uic1" propertyName="scaleX" value="0.5" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="scaleX" value="1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="width" value="50" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleX_functionality_7" keywords="[UIComponent,scaleX]" description="Set scaleX to 2.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="50" />
+        <SetProperty target="uic1" propertyName="scaleX" value="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="width" value="50" />
+        <AssertMethodValue method="value=application.uic1.getLayoutBoundsWidth()" value="100" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+scaleY
+================================================================================
+-->
+<TestCase testID="scaleY_setterGetter" keywords="[UIComponent,scaleY]" description="Test scaleY setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="scaleY" value="0.5" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="scaleY" value="0.5" />
+        <SetProperty target="uic1" propertyName="scaleY" value="0.8" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="scaleY" value="0.8" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleY_binding" keywords="[UIComponent,scaleY]" description="Test scaleY and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="scaleYBindingVar" value="0.2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic2" propertyName="scaleY" value="0.2" />
+        <SetProperty target="uic2" propertyName="scaleYBindingVar" value="0.3" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic2" propertyName="scaleY" value="0.3" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleY_functionality_1" keywords="[UIComponent,scaleY]" description="Increase scaleY.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="50" />
+        <SetProperty target="uic1" propertyName="scaleY" value="0.2" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="scaleY" value="0.5" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="height" value="50" />
+        <AssertMethodValue method="value=application.uic1.getLayoutBoundsHeight()" value="25" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleY_functionality_2" keywords="[UIComponent,scaleY]" description="Decrease scaleY.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="50" />
+        <SetProperty target="uic1" propertyName="scaleY" value="0.5" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="scaleY" value="0.2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="height" value="50" />
+        <AssertMethodValue method="value=Math.round(application.uic1.getLayoutBoundsHeight())" value="10" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleY_functionality_3" keywords="[UIComponent,scaleY]" description="Set scaleY to -1.  This is garbage in/garbage out...be sure we just do something not unreasonable.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="50" />
+        <SetProperty target="uic1" propertyName="scaleY" value="-1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="height" value="50" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleY_functionality_4" keywords="[UIComponent,scaleY]" description="Set scaleY to 0.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="50" />
+        <SetProperty target="uic1" propertyName="scaleY" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="height" value="50" />
+        <AssertMethodValue method="value=application.uic1.getLayoutBoundsHeight()" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleY_functionality_5" keywords="[UIComponent,scaleY]" description="Set scaleY to 0.7.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="50" />
+        <SetProperty target="uic1" propertyName="scaleY" value="0.7" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="height" value="50" />
+        <AssertMethodValue method="value=Math.round(application.uic1.getLayoutBoundsHeight())" value="35" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleY_functionality_6" keywords="[UIComponent,scaleY]" description="Set scaleY to 1.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="50" />
+        <SetProperty target="uic1" propertyName="scaleY" value="0.5" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="scaleY" value="1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="height" value="50" />
+    </body>
+</TestCase>
+
+<TestCase testID="scaleY_functionality_7" keywords="[UIComponent,scaleY]" description="Set scaleY to 2.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="50" />
+        <SetProperty target="uic1" propertyName="scaleY" value="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="height" value="50" />
+        <AssertMethodValue method="value=application.uic1.getLayoutBoundsHeight()" value="100" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+x
+================================================================================
+-->
+<TestCase testID="x_setterGetter" keywords="[UIComponent,x]" description="Test x setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="x" value="10" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="x" value="10" />
+        <SetProperty target="uic1" propertyName="x" value="20" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="x" value="20" />
+    </body>
+</TestCase>
+
+<TestCase testID="x_binding" keywords="[UIComponent,x]" description="Test x and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="xBindingVar" value="15" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic2" propertyName="x" value="15" />
+        <SetProperty target="uic2" propertyName="xBindingVar" value="25" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic2" propertyName="x" value="25" />
+    </body>
+</TestCase>
+
+<TestCase testID="x_functionality_1" keywords="[UIComponent,x]" description="Increase x.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="10"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="10" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="x" value="10" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="x" value="50" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="x_functionality_2" keywords="[UIComponent,x]" description="Decrease x.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="10"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="10" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="x" value="50" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="x" value="10" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="x_functionality_3" keywords="[UIComponent,x]" description="Set x to -1.  This is garbage in/garbage out...be sure we just do something not unreasonable.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="20"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="x" value="-1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="x_functionality_4" keywords="[UIComponent,x]" description="Set x to 0.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="20" waitEvent="updateComplete"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="20" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="x" value="50" waitEvent="updateComplete"/>
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="x" value="0" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="x_functionality_5" keywords="[UIComponent,x]" description="Set x so that the edge of the control will be outside the container.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="20"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="x" value="90" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="x_functionality_6" keywords="[UIComponent,x]" description="Set x so it is greater than the container's width.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="20"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="x" value="110" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+y
+================================================================================
+-->
+<TestCase testID="y_setterGetter" keywords="[UIComponent,y]" description="Test y setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="y" value="10" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="y" value="10" />
+        <SetProperty target="uic1" propertyName="y" value="20" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic1" propertyName="y" value="20" />
+    </body>
+</TestCase>
+
+<TestCase testID="y_binding" keywords="[UIComponent,y]" description="Test y and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="yBindingVar" value="15" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic2" propertyName="y" value="15" />
+        <SetProperty target="uic2" propertyName="yBindingVar" value="25" waitEvent="updateComplete" />
+        <AssertPropertyValue target="uic2" propertyName="y" value="25" />
+    </body>
+</TestCase>
+
+<TestCase testID="y_functionality_1" keywords="[UIComponent,y]" description="Increase y.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="10"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="10" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="y" value="10" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="y" value="50" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="y_functionality_2" keywords="[UIComponent,y]" description="Decrease y.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="10"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="10" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="y" value="50" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="y" value="10" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="y_functionality_3" keywords="[UIComponent,y]" description="Set y to -1.  This is garbage in/garbage out...be sure we just do something not unreasonable.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="20"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="y" value="-1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="y_functionality_4" keywords="[UIComponent,y]" description="Set y to 0.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="20" waitEvent="updateComplete"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="20" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="y" value="50" waitEvent="updateComplete"/>
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="y" value="0" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="y_functionality_5" keywords="[UIComponent,y]" description="Set y so that the edge of the control will be outside the container.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="20"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="y" value="90" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="y_functionality_6" keywords="[UIComponent,y]" description="Set y so it is greater than the container's width.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="20"/>
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="y" value="110" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+</testCases>
+</UnitTester>

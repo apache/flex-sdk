@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" height="375" width="500" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" >
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<mx:Style>
+    @font-face {
+        src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+        fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+        fontWeight: bold;           
+        fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+        fontStyle: italic;          
+        fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedTimes;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;           
+        fontFamily: EmbeddedTimes;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;          
+        fontFamily: EmbeddedTimes;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+    
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</mx:Style>
+
+
+<mx:Tile horizontalGap="0" verticalGap="0" tileHeight="22" tileWidth="141" width="423">
+
+    <!-- condenseWhite -->
+    <mx:TextInput width="141"         id="ti1" condenseWhite="true" htmlText="1     1" />
+
+    <!-- displayAsPassword -->
+    <MyTextInput width="{ti1.width}"  id="ti4" displayAsPassword="true" text="hello"/>
+
+    <!-- editable -->
+    <mx:TextInput width="{ti1.width}" id="ti5" editable="true" />
+    <mx:TextInput width="{ti1.width}" id="ti6" editable="false" />
+
+    <!-- horizontalScrollPosition-->
+    <!-- Exclude these two. See bug 172770. -->
+    <mx:TextInput width="{ti1.width}" id="ti7" horizontalScrollPosition="10" text="Lorem ipsum dolor sit amet" />
+
+    <!-- htmlText -->
+    <mx:TextInput width="{ti1.width}" id="ti9"  htmlText="Default &lt;font color='#ff0000'&gt; Red &lt;/font&gt;&lt;font color='#00ff00'&gt; Green &lt;/font&gt;&lt;font color='#0000ff'&gt; Blue &lt;/font&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti10" htmlText="&lt;font face='EmbeddedTimes'&gt; Times New Roman &lt;/font&gt;&lt;font face='EmbeddedArial'&gt; Arial &lt;/font&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti11" htmlText="&lt;font size='10'&gt; 10 &lt;/font&gt;&lt;font size='12'&gt; 12 &lt;/font&gt;&lt;font size='+1'&gt; +1 &lt;/font&gt;&lt;font size='-1'&gt; -1 &lt;/font&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti12" htmlText="&lt;b&gt;Bold&lt;/b&gt; &lt;i>Italics&lt;/i&gt; &lt;u&gt;Underline&lt;/u&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti13" htmlText="&lt;p&gt;Lorem ipsum&lt;/p&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti14" htmlText="&lt;p align='left'&gt;Lorem ipsum&lt;/p&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti15" htmlText="&lt;p align='right'&gt;Lorem ipsum&lt;/p&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti16" htmlText="&lt;p align='center'&gt;Lorem ipsum&lt;/p&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti17" htmlText="&lt;textformat blockindent='-5'&gt;Lorem ipsum&lt;/textformat&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti18" htmlText="&lt;textformat blockindent='0'&gt;Lorem ipsum&lt;/textformat&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti19" htmlText="&lt;textformat blockindent='20'&gt;Lorem ipsum&lt;/textformat&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti20" htmlText="&lt;textformat indent='-5'&gt;Lorem ipsum&lt;/textformat&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti21" htmlText="&lt;textformat indent='0'&gt;Lorem ipsum&lt;/textformat&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti22" htmlText="&lt;textformat indent='10'&gt;Lorem ipsum&lt;/textformat&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti23" htmlText="&lt;p align='left'&gt;&lt;textformat leftmargin='-5'&gt;Lorem ipsum&lt;/p&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti24" htmlText="&lt;p align='left'&gt;&lt;textformat leftmargin='0'&gt;Lorem ipsum&lt;/p&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti25" htmlText="&lt;p align='left'&gt;&lt;textformat leftmargin='10'&gt;Lorem ipsum&lt;/p&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti26" htmlText="&lt;p align='right'&gt;&lt;textformat rightmargin='-5'&gt;Lorem ipsum&lt;/p&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti27" htmlText="&lt;p align='right'&gt;&lt;textformat rightmargin='0'&gt;Lorem ipsum&lt;/p&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti28" htmlText="&lt;p align='right'&gt;&lt;textformat rightmargin='20'&gt;Lorem ipsum&lt;/p&gt;" />
+    <mx:TextInput width="{ti1.width}" id="ti29" htmlText="&amp;lt; &amp;gt; &amp; &quot; &apos; &#38; &#x20AC;" />
+    
+    <!-- length -->
+    <mx:TextInput width="{ti1.width}" id="ti30" />
+    <mx:TextInput width="{ti1.width}" id="ti31" text="0123456789" />
+    
+    <!-- maxchars -->
+    <MyTextInput width="{ti1.width}" id="ti32" maxChars="10" />
+    
+    <!-- restrict -->
+    <MyTextInput width="{ti1.width}" id="ti33" restrict="a7" />
+    
+    <!-- selectionBegin/EndIndex -->
+    <MyTextInput width="{ti1.width}" id="ti34" text="0123456789" selectionBeginIndex="5" selectionEndIndex="7" />
+    
+</mx:Tile>
+</mx:Application>

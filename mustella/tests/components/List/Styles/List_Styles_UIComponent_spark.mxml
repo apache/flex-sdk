@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/List/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="List_InContainer_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.List;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import RedFocusRect;
+    import flash.display.BlendMode;
+
+    ]]>
+    </mx:Script>
+    <testCases>
+        <TestCase testID="Spark_bottom_0" description="List style bottom=0" keywords="[styles, bottom, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="bottom" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="list_1" value="120" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_bottom_20" description="List style bottom=20." keywords="[styles, bottom, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="bottom" target="list_1" value="20" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="list_1" value="100" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_top_0" description="List style top=0" keywords="[styles, top, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="top" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="list_1" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_top_20" description="List style top=20." keywords="[styles, top, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="top" target="list_1" value="20" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="list_1" value="20" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_right_0" description="List style right=0" keywords="[styles, right, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="right" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="list_1" value="100" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_right_20" description="List style right=20." keywords="[styles, right, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="right" target="list_1" value="20" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="list_1" value="80" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_left_0" description="List style left=0" keywords="[styles, left, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="left" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="list_1" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_left_20" description="List style left=20." keywords="[styles, left, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="left" target="list_1" value="20" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="list_1" value="20" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_horizontalCenter_0" description="List style horizontalCenter=0" keywords="[styles, left, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="horizontalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="list_1" value="50" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_horizontalCenter_positive" description="List style horizontalCenter=20." keywords="[styles, left, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="horizontalCenter" target="list_1" value="20" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="list_1" value="70" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_horizontalCenter_negative" description="List style horizontalCenter=-20." keywords="[styles, left, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="horizontalCenter" target="list_1" value="-20" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="x" target="list_1" value="30" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_verticalCenter_0" description="List style verticalCenter=0" keywords="[styles, left, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="verticalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="list_1" value="75" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_verticalCenter_positive" description="List style verticalCenter=20." keywords="[styles, left, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="verticalCenter" target="list_1" value="20" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="list_1" value="95" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_verticalCenter_negative" description="List style verticalCenter=-20." keywords="[styles, left, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="verticalCenter" target="list_1" value="-20" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="y" target="list_1" value="55" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_focusThickness_0" description="List style focusThickness=0." keywords="[styles, focusThickness, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="list_1"/>
+                <SetProperty target="list_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list_1"/>
+                <SetProperty target="canvas1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="canvas1"/>
+                <SetStyle styleName="verticalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="horizontalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="focusThickness" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitTarget="list_1" waitEvent="focusIn" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="canvas1" url="../Styles/baselines/focusThickness_0_spark.png" timeout="5000" />
+            </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Spark_focusThickness_8" description="List style focusThickness=8." keywords="[styles, focusThickness, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="list_1"/>
+                <SetProperty target="list_1" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="list_1"/>
+                <SetProperty target="canvas1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="canvas1"/>
+                <SetStyle styleName="verticalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="horizontalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="focusThickness" target="list_1" value="8" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitTarget="list_1" waitEvent="focusIn" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="canvas1" url="../Styles/baselines/focusThickness_8_spark.png" timeout="5000" />
+            </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Spark_focusSkin_custom" description="List style focusSkin=RedFocusRect." keywords="[styles, focusThickness, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="list_1"/>
+                <SetProperty target="list_1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list_1"/>
+                <SetProperty target="canvas1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="canvas1"/>
+                <SetStyle styleName="verticalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="horizontalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="focusSkin" target="list_1" valueExpression="value=RedFocusRect" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitTarget="list_1" waitEvent="focusIn" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="canvas1" url="../Styles/baselines/focusSkin_custom_spark.png" timeout="5000" />
+            </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Spark_focusBlend_screen" description="List style focusThickness=8." keywords="[styles, focusThickness, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="list_1"/>
+                <SetProperty target="list_1" propertyName="width" value="95" waitEvent="updateComplete" waitTarget="list_1"/>
+                <SetProperty target="canvas1" propertyName="height" value="75" waitEvent="updateComplete" waitTarget="canvas1"/>
+                <SetStyle styleName="verticalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="horizontalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="focusBlend" target="list_1" valueExpression="value=BlendMode.SCREEN" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="focusThickness" target="list_1" value="8" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitTarget="list_1" waitEvent="focusIn" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="canvas1" url="../Styles/baselines/focusBlend_screen_spark.png" timeout="5000" />
+            </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Spark_focusBlend_subtract" description="List style focusThickness=8." keywords="[styles, focusThickness, List]">
+            <setup>
+                <ResetComponent target="list_1" className="mx.controls.List" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetProperty target="list_1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="list_1"/>
+                <SetProperty target="list_1" propertyName="width" value="99" waitEvent="updateComplete" waitTarget="list_1"/>
+                <SetProperty target="canvas1" propertyName="height" value="78" waitEvent="updateComplete" waitTarget="canvas1"/>
+                <SetStyle styleName="verticalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="horizontalCenter" target="list_1" value="0" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="focusBlend" target="list_1" valueExpression="value=BlendMode.SUBTRACT" waitEvent="updateComplete" waitTarget="list_1" />
+                <SetStyle styleName="focusThickness" target="list_1" value="8" waitEvent="updateComplete" waitTarget="list_1" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitTarget="list_1" waitEvent="focusIn" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="canvas1" url="../Styles/baselines/focusBlend_subtract_spark.png" timeout="5000" />
+            </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+            </cleanup>
+        </TestCase>
+    </testCases>
+</UnitTester>

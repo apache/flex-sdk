@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TextInput/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TextInput_Component.mxml">
+
+<!--
+Properties not tested via Mustella:
+    imeMode (requires user to change things on the OS)
+    The <a> tag in htmlText (no way to verify that a link opens in new window)
+    data
+    listData
+-->
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            public static function init(o:DisplayObject):void{}
+        ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>   
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <mx:Script><![CDATA[
+
+        private var plainBigString:String = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.  Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+    
+        private var fontDefaultString:String = "Default";
+        private var fontColorString:String = "<font color='#ff0000'> Red </font><font color='#00ff00'> Green </font><font color='#0000ff'> Blue </font>";
+        private var fontFaceString:String = "<font face='EmbeddedTimes'> Times New Roman </font><font face='EmbeddedArial'> Arial </font>";
+        private var fontSizeString:String = "<font size='10'> 10 </font><font size='16'> 16 </font><font size='+1'> +1 </font><font size='-1'> -1 </font>";
+        private var boldString:String = "<b>Bold</b>";
+        private var italicsString:String = "<i>Italics</i>";
+        private var underlineString:String = "<u>Underline</u>";
+
+        private var plainJPGString:String = "<img src='../../../../Assets/Images/smallbluerect.jpg' />";
+        private var plainPNGString:String = "<img src='../../../../Assets/Images/redrect.png' />";
+        private var plainGIFString:String = "<img src='../../../../Assets/Images/smallorangerect.gif' />";
+        private var plainSWFString:String = "<img src='../../../../Assets/Images/small.swf' />";
+        private var sizedSWFString:String = "<img src='../../../../Assets/Images/small.swf' width='50' height='200' />";
+        private var sizedPNGString:String = "<img src='../../../../Assets/Images/redrect.png' width='50' height='200' />";   
+        private var leftAlignedGIFString:String = "<img src='../../../../Assets/Images/smallorangerect.gif' align='left' />";
+        private var rightAlignedSWFString:String = "<img src='../../../../Assets/Images/small.swf' align='right' />";
+
+        // The tests which use these four strings use them because single line controls do not display an image
+            // if it is the first character of a single line control.  See bug 186529.
+        private var modifiedJPGString:String = "JPG: <img src='../../../../Assets/Images/smallbluerect.jpg' />";
+        private var modifiedPNGString:String = "PNG: <img src='../../../../Assets/Images/redrect.png' />";
+        private var modifiedGIFString:String = "GIF: <img src='../../../../Assets/Images/smallorangerect.gif' />";
+        private var modifiedSWFString:String = "SWF: <img src='../../../../Assets/Images/small.swf' />";
+        private var modifiedSizedSWFString:String = "SWF: <img src='../../../../Assets/Images/small.swf' width='50' height='200' />";
+        private var modifiedSizedPNGString:String = "PNG: <img src='../../../../Assets/Images/redrect.png' width='50' height='200' />";  
+        private var modifiedLeftAlignedGIFString:String = "GIF: <img src='../../../../Assets/Images/smallorangerect.gif' align='left' />";
+        private var modifiedRightAlignedSWFString:String = "SWF: <img src='../../../../Assets/Images/small.swf' align='right' />";
+
+        private var hSpaceString1:String = "GIF: <img src='../../../../Assets/Images/smallorangerect.gif' hspace='0' />";
+        private var hSpaceString2:String = "GIF: <img src='../../../../Assets/Images/smallorangerect.gif' hspace='30' />";
+        
+        private var paraPlainString:String = "<p>Lorem ipsum</p>";
+        private var paraLeftString:String = "<p align='left'>Lorem ipsum</p>";
+        private var paraRightString:String = "<p align='right'>Lorem ipsum</p>";
+        private var paraCenterString:String = "<p align='center'>Lorem ipsum</p>";
+                
+        private var textFormatBlockIndentNegString:String = "<textformat blockindent='-5'>Lorem ipsum";
+        private var textFormatBlockIndentZeroString:String = "<textformat blockindent='0'>Lorem ipsum";
+        private var textFormatBlockIndentPosString:String = "<textformat blockindent='20'>Lorem ipsum";
+
+        private var textFormatIndentNegString:String = "<textformat indent='-5'>Lorem ipsum";
+        private var textFormatIndentZeroString:String = "<textformat indent='0'>Lorem ipsum";
+        private var textFormatIndentPosString:String = "<textformat indent='10'>Lorem ipsum";
+
+        private var textFormatLeftMarginNegString:String = "<p align='left'><textformat leftmargin='-5'>Lorem ipsum</p>";
+        private var textFormatLeftMarginZeroString:String = "<p align='left'><textformat leftmargin='0'>Lorem ipsum</p>";
+        private var textFormatLeftMarginPosString:String = "<p align='left'><textformat leftmargin='10'>Lorem ipsum</p>";
+
+        private var textFormatRightMarginNegString:String = "<p align='right'><textformat rightmargin='-5'>Lorem ipsum</p>";
+        private var textFormatRightMarginZeroString:String = "<p align='right'><textformat rightmargin='0'>Lorem ipsum</p>";
+        private var textFormatRightMarginPosString:String = "<p align='right'><textformat rightmargin='20'>Lorem ipsum</p>";
+        
+        private var specialCharsString:String = "&lt; &gt; &amp; &quot; &apos; &#38; &#x20AC;";
+                
+        
+        
+    ]]></mx:Script>
+    
+    <testCases>
+        <TestCase frequency="all" testID="property_condenseWhite_spaces" description="Test that condenseWhite condenses spaces." keywords="[TextInput,condenseWhite,properties]">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti1" />
+                <SetProperty target="ti1" propertyName="condenseWhite" value="true" />
+                <SetProperty target="ti1" propertyName="htmlText" value="1     1" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="text" waitEvent="valueCommit" waitTarget="ti1" value="1 1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_condenseWhite_tabs" description="Test that condenseWhite condenses tabs." keywords="[TextInput,condenseWhite,properties]">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti1" />
+                <SetProperty target="ti1" propertyName="condenseWhite" value="true" />
+                <RunCode code="application.ti1.htmlText='1\t\t\t1'" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="text" waitEvent="valueCommit" waitTarget="ti1" value="1 1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_condenseWhite_newlines" description="Test that condenseWhite condenses newline characters." keywords="[TextInput,condenseWhite,properties]">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti1" />
+                <SetProperty target="ti1" propertyName="condenseWhite" value="true" />
+                <RunCode code="application.ti1.htmlText='1\n\n\n1'" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="text" waitEvent="valueCommit" waitTarget="ti1" value="1 1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_displayAsPassword_bitmap" description="Test that displayAsPassword shows asterisks." keywords="[TextInput,displayAsPassword,properties]" >
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti1" />
+                <SetProperty target="ti1" propertyName="displayAsPassword" value="true" />
+                <SetProperty target="ti1" propertyName="text" value="hello" waitEvent="updateComplete" waitTarget="ti1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/DisplayAsPassword_Standard.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_displayAsPassword_UITextField_false" description="Test that TextInput's underlying textField has displayAsPassword=false by default." keywords="[TextInput,displayAsPassword,properties]">
+            <setup>
+                <ResetComponent target="ti2" className="MyTextInput" waitEvent="updateComplete" waitTarget="ti2" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ti2" method="value=application.ti2.getTextFieldDisplayAsPassword()" value="false" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_displayAsPassword_UITextField_true" description="Test that TextInput's displayAsPassword sets the underlying textField's displayAsPassword." keywords="[TextInput,displayAsPassword,properties]" >
+            <setup>
+                <ResetComponent target="ti2" className="MyTextInput" waitEvent="updateComplete" waitTarget="ti2" />
+                <SetProperty target="ti2" propertyName="displayAsPassword" value="true" waitEvent="updateComplete" waitTarget="ti2" />
+                <SetProperty target="ti2" propertyName="text" value="hello" waitEvent="updateComplete" waitTarget="ti2" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ti2" method="value=application.ti2.getTextFieldDisplayAsPassword()" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_editable_true" description="Test that an editable TextInput can be edited." keywords="[TextInput,editable,properties]">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti1" />   
+                <DispatchMouseEvent target="ti1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ti1" type="mouseUp" localX="10" localY="10" />
+                <SetProperty target="ti1" propertyName="editable" value="true" />
+                <AssertPropertyValue target="ti1" propertyName="editable" value="true" />
+            </setup>
+            <body>
+                <DispatchKeyEvent char="hello" />
+                <AssertEvent target="ti1" eventName="change" eventClass="flash.events" numExpectedEvents="5" />
+                <AssertPropertyValue target="ti1" propertyName="text" value="hello" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_editable_false" description="Test that an uneditable TextInput cannot be edited." keywords="[TextInput,editable,properties]">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti1" />
+                <DispatchMouseEvent target="ti1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ti1" type="mouseUp" localX="10" localY="10" />
+                <SetProperty target="ti1" propertyName="editable" value="false" waitEvent="editableChanged" waitTarget="ti1" />
+                <AssertPropertyValue target="ti1" propertyName="editable" value="false" />
+            </setup>
+            <body>
+                <DispatchKeyEvent char="hello" />
+                <AssertNoEvent target="ti1" eventName="change" eventClass="flash.events" numExpectedEvents="5" />
+                <AssertPropertyValue target="ti1" propertyName="text" value="" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_horizontalScrollPosition_write_pos" keywords="[TextInput,horizontalScrollPosition,properties]" description="The horizontalScrollPosition property scrolls the control.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="100" />
+                <SetProperty target="ti1" propertyName="text" valueExpression="value=plainBigString" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="horizontalScrollPosition" value="10" waitEvent="horizontalScrollPositionChanged" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/HorizontalScrollPosition_write_pos.png" />
+            </body>         
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_horizontalScrollPosition_write_zero" keywords="[TextInput,horizontalScrollPosition,properties]" description="The horizontalScrollPosition property scrolls the control back to 0 position after it has been scrolled forward.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="100" />
+                <SetProperty target="ti1" propertyName="text" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit" waitEvent="updateComplete" />
+                
+                <DispatchMouseEvent target="ti1" type="mouseDown" localX="90" localY="10" />
+                <DispatchMouseEvent target="ti1" type="mouseMove" localX="99" localY="10" />
+                <DispatchMouseEvent target="ti1" type="mouseUp" localX="99" localY="10" />
+            </setup>
+            <body>
+                <SetProperty target="ti1" propertyName="horizontalScrollPosition" value="0" waitEvent="horizontalScrollPositionChanged" />
+                <DispatchKeyEvent keys="['TAB']" />
+                <AssertEvent target="ti1" eventName="focusOut" eventClass="flash.events::FocusEvent" />
+                <CompareBitmap target="ti1" url="../Properties/Baselines/HorizontalScrollPosition_write_zero.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_horizontalScrollPosition_read" keywords="[TextInput,horizontalScrollPosition,properties]" description="The horizontalScrollPosition property reports the position correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="100" />
+                <SetProperty target="ti1" propertyName="text" value="Lorem ipsum dolor s" waitEvent="updateComplete" />
+                <AssertEvent target="ti1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+                <DispatchMouseEvent target="ti1" type="mouseDown" localX="90" localY="10" />
+                <DispatchMouseEvent target="ti1" type="mouseMove" localX="99" localY="10" />
+                <DispatchMouseEvent target="ti1" type="mouseUp" localX="99" localY="10" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="horizontalScrollPosition" value="23" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_general_part1" keywords="[TextInput,htmlText,font,color,face,properties]" description="htmlText displays default font, color, and face correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="300" />
+                <SetProperty target="ti1" propertyName="height" value="60" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=(fontDefaultString + fontColorString + fontFaceString)" waitEvent="updateComplete" waitTarget="ti1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_general_part1.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_general_part2" keywords="[TextInput,htmlText,font,size,bold,italics,underline]" description="htmlText displays fontSize, bold, italics, and underline correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="300" />
+                <SetProperty target="ti1" propertyName="height" value="60" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=(fontSizeString + boldString + italicsString + underlineString)" waitEvent="updateComplete" waitTarget="ti1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_general_part2.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_images_gif" keywords="[TextInput,htmlText,image,gif,properties]" description="htmlText displays a gif image correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="100" />
+                <SetProperty target="ti1" propertyName="height" value="100" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( modifiedGIFString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+                <Pause timeout="100" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_images_gif.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_images_jpg" keywords="[TextInput,htmlText,image,jpg,properties]" description="htmlText displays a jpg image correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="100" />
+                <SetProperty target="ti1" propertyName="height" value="100" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( modifiedJPGString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+                <Pause timeout="100" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_images_jpg.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_images_png" keywords="[TextInput,htmlText,image,png,properties]" description="htmlText displays a png image correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="100" />
+                <SetProperty target="ti1" propertyName="height" value="100" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( modifiedPNGString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+                <Pause timeout="100" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_images_png.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_images_swf" keywords="[TextInput,htmlText,image,swf,properties]" description="htmlText displays a swf image correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="100" />
+                <SetProperty target="ti1" propertyName="height" value="100" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( modifiedSWFString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+                <Pause timeout="100" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_images_swf.png" />
+            </body>
+        </TestCase>
+
+
+        <TestCase frequency="all" testID="property_htmlText_img_sized_swf" keywords="[TextInput,htmlText,img,image,size,sized,properties]" description="htmlText displays sized swf correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="200" />
+                <SetProperty target="ti1" propertyName="height" value="200" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( modifiedSizedSWFString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+                <Pause timeout="100" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_img_sized_swf.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_htmlText_img_sized_png" keywords="[TextInput,htmlText,img,image,size,sized,properties]" description="htmlText displays sized png correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="200" />
+                <SetProperty target="ti1" propertyName="height" value="200" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( modifiedSizedPNGString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+                <Pause timeout="500" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_img_sized_png.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_img_alignLeft" keywords="[TextInput,htmlText,img,image,align,properties]" description="htmlText displays image align=left correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="100" />
+                <SetProperty target="ti1" propertyName="height" value="100" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( modifiedLeftAlignedGIFString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+                <Pause timeout="100" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_img_alignLeft.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_img_alignRight" keywords="[TextInput,htmlText,img,image,align,properties]" description="htmlText displays image align=right correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="100" />
+                <SetProperty target="ti1" propertyName="height" value="100" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( modifiedRightAlignedSWFString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+                <Pause timeout="100" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_img_alignRight.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_img_hspace" keywords="[TextInput,htmlText,img,image,hspace,properties]" description="htmlText displays image hspace correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="100" />
+                <SetProperty target="ti1" propertyName="height" value="100" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( hSpaceString1 )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+                <Pause timeout="100" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_img_hspaces1.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_img_hspace_2" keywords="[TextInput,htmlText,img,image,hspace,properties]" description="htmlText displays image hspace correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="100" />
+                <SetProperty target="ti1" propertyName="height" value="100" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( hSpaceString2 )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+                <Pause timeout="100" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_img_hspace2.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_p_plain" keywords="[TextInput,htmlText,p,paragraph,properties]" description="htmlText displays paragraph's default setting correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( paraPlainString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_para_plain.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_p_left" keywords="[TextInput,htmlText,p,paragraph,properties]" description="htmlText displays left justified paragraphs correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( paraLeftString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_para_left.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_p_right" keywords="[TextInput,htmlText,p,paragraph,properties]" description="htmlText displays right justified paragraphs correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( paraRightString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_para_right.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_p_center" keywords="[TextInput,htmlText,p,paragraph,properties]" description="htmlText displays centered paragraphs correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( paraCenterString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_para_center.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_blockindent_neg" keywords="[TextInput,htmlText,textformat,blockindent,properties]" description="htmlText displays textformat's negative blockindent value correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatBlockIndentNegString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_blockindent_neg.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_blockindent_zero" keywords="[TextInput,htmlText,textformat,blockindent,properties]" description="htmlText displays textformat's zero blockindent value correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatBlockIndentZeroString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_blockindent_zero.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_blockindent_pos" keywords="[TextInput,htmlText,textformat,blockindent,properties]" description="htmlText displays textformat's positive blockindent value correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatBlockIndentPosString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_blockindent_pos.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_indent_zero" keywords="[TextInput,htmlText,textformat,indent,properties]" description="htmlText displays textformat indent=0 correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatIndentZeroString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_indent_zero.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_indent_positive" keywords="[TextInput,htmlText,textformat,indent,properties]" description="htmlText displays textformat indent=positive number correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatIndentPosString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_indent_pos.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_indent_negative" keywords="[TextInput,htmlText,textformat,indent,properties]" description="htmlText displays textformat indent=negative number correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatIndentNegString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_indent_neg.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_leftmargin_zero" keywords="[TextInput,htmlText,textformat,leftmargin,properties]" description="htmlText displays textformat leftmargin=0 correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatLeftMarginZeroString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_leftmargin_zero.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_leftmargin_pos" keywords="[TextInput,htmlText,textformat,leftmargin,properties]" description="htmlText displays textformat leftmargin=positive number correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatLeftMarginPosString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_leftmargin_pos.png" />
+            </body>
+        </TestCase>     
+
+<!-- Commenting out due to 192789; not sure what the expected result is. -->
+        <!--TestCase frequency="all" testID="property_htmlText_textFormat_leftmargin_neg" keywords="[TextInput,htmlText,textformat,leftmargin,properties]" description="htmlText displays textformat leftmargin=negative number correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatLeftMarginNegString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_leftmargin_neg.png" />
+            </body>
+        </TestCase-->
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_rightmargin_zero" keywords="[TextInput,htmlText,textformat,rightmargin,properties]" description="htmlText displays textformat rightmargin=0 correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatRightMarginZeroString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_rightmargin_zero.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_rightmargin_pos" keywords="[TextInput,htmlText,textformat,rightmargin,properties]" description="htmlText displays textformat rightmargin=positive number correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatRightMarginPosString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_rightmargin_pos.png" />
+            </body>
+        </TestCase>
+
+<!-- Commenting out due to 192789; not sure what the expected result is. -->
+        <!--TestCase frequency="all" testID="property_htmlText_textFormat_rightmargin_neg" keywords="[TextInput,htmlText,textformat,rightmargin,properties]" description="htmlText displays textformat rightmargin=negative number correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( textFormatRightMarginNegString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_textFormat_rightmargin_neg.png" />
+            </body>
+        </TestCase-->
+
+        <TestCase frequency="all" testID="property_htmlText_specialChars" keywords="[TextInput,htmlText,less than,properties]" description="htmlText displays less than, greater than, ampersand, double quote, single quote, explicit char codes, and unicode chars correctly.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( specialCharsString )" />
+                <AssertEvent target="ti1" eventName="htmlTextChanged" numExpectedEvents="2" eventClass="flash.events::Event" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_specialChars.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_length_zero" keywords="[TextInput,length,properties]" description="The length property is zero when there are zero characters.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_length_ten" keywords="[TextInput,length,properties]" description="The length property is ten when there are ten characters.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="text" value="0123456789" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="length" value="10" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_maxchars" keywords="[TextInput,maxchars,properties]" description="The maxchars property is passed to the underlying TextField.">
+            <setup>
+                <ResetComponent target="ti2" className="MyTextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti2" propertyName="maxChars" value="10" />
+                <DispatchMouseEvent target="ti2" type="mouseDown" localX="10" localY="10" waitEvent="focusIn" />
+                <DispatchMouseEvent target="ti2" type="mouseUp" localX="10" localY="10" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ti2" method="value=application.ti2.getMaxChars()" value="10" />
+                <DispatchKeyEvent char="0" />
+                <AssertPropertyValue target="ti2" propertyName="text" value="0" />
+                <AssertMethodValue target="ti2" method="value=application.ti2.getMaxChars()" value="10" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_restrict" keywords="[TextInput,restrict,properties]" description="The restrict property is passed to the underlying TextField.">
+            <setup>
+                <ResetComponent target="ti2" className="MyTextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti2" propertyName="restrict" value="a7" />
+                <DispatchMouseEvent target="ti2" type="mouseDown" localX="10" localY="10" waitEvent="focusIn" />
+                <DispatchMouseEvent target="ti2" type="mouseUp" localX="10" localY="10" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ti2" method="value=application.ti2.getRestrict()" value="a7" />
+                <DispatchKeyEvent char="0" />
+                <AssertPropertyValue target="ti2" propertyName="text" value="0" />
+                <AssertMethodValue target="ti2" method="value=application.ti2.getRestrict()" value="a7" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_selectionBeginIndex_write" keywords="[TextInput,selectionBeginIndex,properties]" description="The selectionBeginIndex property is passed to the underlying TextField.">
+            <setup>
+                <ResetComponent target="ti2" className="MyTextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti2" propertyName="text" value="0123456789" />
+                <SetProperty target="ti2" propertyName="selectionBeginIndex" value="5" />
+                <SetProperty target="ti2" propertyName="selectionEndIndex" value="7" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ti2" method="value=application.ti2.getSelectionBeginIndex()" value="5" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_selectionEndIndex_write" keywords="[TextInput,selectionEndIndex,properties]" description="The selectionEndIndex property is passed to the underlying TextField.">
+            <setup>
+                <ResetComponent target="ti2" className="MyTextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti2" propertyName="text" value="0123456789" />
+                <SetProperty target="ti2" propertyName="selectionBeginIndex" value="5" />
+                <SetProperty target="ti2" propertyName="selectionEndIndex" value="7" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ti2" method="value=application.ti2.getSelectionEndIndex()" value="7" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_text_write" keywords="[TextInput,text,properties]" description="Setting the text property passes the text to the underlying TextField.">
+            <setup>
+                <ResetComponent target="ti2" className="MyTextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti2" propertyName="text" value="0123456789" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ti2" method="value=application.ti2.getText()" value="0123456789" />
+            </body>
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_text_read" keywords="[TextInput,text,properties]" description="The text property gets the characters typed into the TextInput.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <DispatchKeyEvent keys="['TAB']" />
+                <DispatchKeyEvent char="0123456789" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="text" value="0123456789" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_textHeight_defaultFont" keywords="[TextInput,textHeight,properties]" description="The textHeight property is correct with the default font.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="text" value="0123456789" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="textHeight" value="14.100000" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_textHeight_biggerFont" keywords="[TextInput,textHeight,properties]" description="The textHeight property is correct with a bigger font.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="text" value="0123456789" />
+                <SetStyle target="ti1" styleName="fontSize" value="20" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="textHeight" value="26.250000" />
+            </body>         
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_textHeight_smallerFont" keywords="[TextInput,textHeight,properties]" description="The textHeight property is correct with a smaller font.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="text" value="0123456789" />
+                <SetStyle target="ti1" styleName="fontSize" value="8" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="textHeight" value="11.650000" />
+            </body>         
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_textWidth_defaultFont" keywords="[TextInput,textWidth,properties]" description="The textWidth property is correct with the default font.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="text" value="hello" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="textWidth" value="23.700000" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_textWidth_biggerFont" keywords="[TextInput,textWidth,properties]" description="The textWidth property is correct with a bigger font.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="text" value="hello" />
+                <SetStyle target="ti1" styleName="fontSize" value="20" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="textWidth" value="47.550000" />
+            </body>         
+        </TestCase>     
+        
+        <TestCase frequency="all" testID="property_textWidth_smallerFont" keywords="[TextInput,textWidth,properties]" description="The textWidth property is correct with a smaller font.">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="text" value="hello" />
+                <SetStyle target="ti1" styleName="fontSize" value="8" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ti1" propertyName="textWidth" value="18.950000" />
+            </body>         
+        </TestCase>     
+
+        <!-- Here's a use case we did not consider.  How do I verify that a link opens when clicked on? -->
+        <!--TestCase testID="property_htmlText_anchor">
+            <setup>
+                <ResetComponent target="ti1" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="ti1" propertyName="width" value="200" />
+                <SetProperty target="ti1" propertyName="height" value="200" />
+                <SetProperty target="ti1" propertyName="htmlText" valueExpression="value=( anchorString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ti1" url="../Properties/Baselines/htmlText_anchor.png" />
+            </body>
+        </TestCase-->
+    </testCases>
+</UnitTester>
+

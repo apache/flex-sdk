@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Menu/Halo/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Menu_Basic.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+        import mx.controls.Menu;
+        import mx.styles.StyleManager;
+        import mx.managers.SystemManager;
+        import mx.events.MenuEvent;
+        import data.MenuDataXMLp;
+        import data.MenuDataASp;
+        import data.MenuDataASRootp;
+        import comps.MyMenuItemRendererType;
+        import data.MenuDataXMLSimple;
+
+        private var rootDP:Object;
+        private var myDP:XML;
+        private var iconDP:Object;
+
+        public static function init(o:DisplayObject):void
+        {
+
+        }
+
+        private function createAMenu(bool:int): void
+        {
+            var myDP2:MenuDataXMLp = new MenuDataXMLp();
+            myDP = myDP2.myData;
+            application.menu1 = Menu.createMenu(null, myDP, false);
+            if(bool ==0)
+            {
+                application.menu1.labelField = "@label";
+            }
+            else
+            {
+                application.menu1.labelField = "@data";
+            }
+            application.menu1.show();
+        }
+
+        private function addObjData():void
+        {
+            var iconDP2:MenuDataASp = new MenuDataASp();
+            iconDP = iconDP2.myData;
+            application.menu1 = Menu.createMenu(null, iconDP, false);
+            application.menu1.iconField = "icon";
+            application.menu1.show();
+        }
+
+        private function addRootData():void
+        {
+            var rootDP2:MenuDataASRootp = new MenuDataASRootp();
+            rootDP = rootDP2.myData;
+        }
+
+        private function changeDP(node:int, bool:String):void
+        {
+            myDP.node[node].@enabled = bool;
+        }
+
+        private function labelFunc(item:Object):String
+        {
+            var newLabel:String = item[application.menu1.labelField].toUpperCase();
+            return newLabel;
+        }
+
+        private function testAddChildAt():void
+        {
+            var newChild:Object = <nodeitem label='France' data='FRANCE' />;
+            application.menu1.dataDescriptor.addChildAt(myDP.node[0], newChild, 2);
+        }
+
+        private function testGetChildren(): void
+        {
+            application.lengthValue = application.menu1.dataDescriptor.getChildren(myDP.node[1]).length;
+        }
+
+        public function testRemoveChildAt():void
+        {
+            var newChild:Object = <nodeitem type="check" label="Italy" data="ITALY" />;
+            application.menu1.dataDescriptor.removeChildAt(myDP.node[0], newChild, 0);
+        }
+
+        private function testSetEnabled(bool:int): void
+        {
+            if(bool==0)
+            {
+                application.menu1.dataDescriptor.setEnabled(myDP.node[2], false);
+            }
+            else
+            {
+                application.menu1.dataDescriptor.setEnabled(myDP.node[1], true);
+                application.menu1.dataDescriptor.setEnabled(myDP.node[2], true);
+            }
+        }
+
+        private function testSetToggled(bool:int): void
+        {
+            if(bool==0)
+            {
+                application.menu1.dataDescriptor.setToggled(myDP.node[0].nodeitem[1], false);
+            }
+            else
+            {
+                application.menu1.dataDescriptor.setToggled(myDP.node[1].nodeitem[1], true);
+            }
+        }
+
+        public function createASimpleMenu(): void
+        {
+            var simpleDP:MenuDataXMLSimple = new MenuDataXMLSimple();
+            application.menu1 = Menu.createMenu(null, simpleDP.myData, false);
+        }
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+<!-- enabled -->
+        <!-- This test is failing because of bug #190107 -->
+<TestCase testID="Enabled_false" description="Menu dataProvider item is set to false test." keywords="[enabled, Menu]">
+            <setup>
+                <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                <RunCode code="changeDP(0,'false');" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="DOWN" />
+                <AssertPropertyValue target="menu1" propertyName="selectedIndex" value="1" />
+            </body>
+            <cleanup>
+                <RunCode code="application.menu1.hide()" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Enabled_falseToTrue" description="Menu dataProvider item is set to false and changed to true test." keywords="[enabled, Menu]">
+            <setup>
+               <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+               <RunCode code="changeDP(0,'true');" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN]"  />
+                <AssertPropertyValue target="menu1" propertyName="selectedIndex" value="0" />
+            </body>
+            <cleanup>
+                <RunCode code="application.menu1.hide()" />
+            </cleanup>
+        </TestCase>
+        <!-- This test is failing because of bug #190107 -->
+        <TestCase testID="Enabled_trueToFalse"  description="Menu dataProvider item is set to true and changed to false test." keywords="[enabled, Menu]">
+            <setup>
+                <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                <RunCode code="changeDP(1, 'false');" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, DOWN]" />
+                <AssertPropertyValue target="menu1" propertyName="selectedIndex" value="2" />
+            </body>
+            <cleanup>
+                <RunCode code="application.menu1.hide()" />
+            </cleanup>
+        </TestCase>
+<!-- property: labelField -->
+        <TestCase testID="LabelField_Menu"  description="Menu labelField is set to 'data'." keywords="[labelField, Menu]">
+            <setup>
+                <RunCode code="changeDP(1, 'true');" />
+                <RunCode code="createAMenu(1)" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd"/>
+                <SetProperty propertyName="labelField" target="menu1" value="@data" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT,DOWN,SPACE]" />
+                <AssertEvent target="menu1" eventName="itemClick" eventClass="mx.events::MenuEvent"/>
+                <AssertEventPropertyValue target="menu1" propertyName="label" value="JAPAN" />
+            </body>
+        </TestCase>
+<!-- property: icon -->
+        <TestCase testID="Icon_Basic"  description="Menu item icon is set at top level. bitmap test." keywords="[icon, Menu]">
+            <setup>
+                <RunCode code="addObjData();" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <CompareBitmap target="menu1" url="../Properties/baselines/Icon_Basic.png" timeout="2500" />
+            </body>
+            <cleanup>
+                <RunCode code="application.menu1.hide()" />
+            </cleanup>
+        </TestCase>
+<!-- property: iconField -->
+        <TestCase testID="IconField_Basic"  description="Menu iconField is set. bitmap test." keywords="[iconField, Menu]">
+            <setup>
+                <RunCode code="addObjData();" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                <RunCode code="application.menu1.hide()" />
+            </setup>
+            <body>
+                <SetProperty propertyName="iconField" value="icon2" target="menu1" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                <CompareBitmap target="menu1" url="../Properties/baselines/IconField_Basic.png" timeout="2500" />
+            </body>
+            <cleanup>
+                <RunCode code="application.menu1.hide()" />
+            </cleanup>
+        </TestCase>
+<!-- property: selectedIndex -->
+        <TestCase testID="selectedIndex_Zero_Keys"  description="Menu selectedIndex=0 test with keyboard interaction." keywords="[selectedIndex, Menu]">
+            <setup>
+                <DispatchMouseEvent type="mouseDown" localX="50" localY="50" target="" />
+                <RunCode code="addObjData();" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                <DispatchKeyEvent keys="[DOWN]" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="menu1" propertyName="selectedIndex" value="0" />
+            </body>
+            <cleanup>
+                <RunCode code="application.menu1.hide()" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="selectedIndex_Num_Keys" description="Menu selectedIndex=1 test with keyboard interaction." keywords="[selectedIndex, Menu]">
+            <setup>
+                <DispatchMouseEvent type="mouseDown" localX="50" localY="50" target="" />
+                <RunCode code="addObjData();" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                <DispatchKeyEvent keys="[DOWN, DOWN]" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="menu1" propertyName="selectedIndex" value="1" />
+            </body>
+            <cleanup>
+                <RunCode code="application.menu1.hide()" />
+            </cleanup>
+        </TestCase>
+<!-- property: hasRoot -->
+        <TestCase testID="hasRoot_True" description="Menu hasRoot set to true for Object dataProvider." keywords="[hasRoot, Menu]">
+            <setup>
+                <RunCode code="addRootData()" />
+                <RunCode code="application.menu1= Menu.createMenu(null,rootDP, true);" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="menu1" propertyName="hasRoot" value="true" />
+            </body>
+            <cleanup>
+                <RunCode code="application.menu1.hide()" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="hasRoot_False" description="Menu hasRoot set to false for Object dataProvider." keywords="[hasRoot, Menu]">
+            <setup>
+                <RunCode code="addObjData()" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="menu1" propertyName="hasRoot" value="false" />
+            </body>
+            <cleanup>
+                <RunCode code="application.menu1.hide()" />
+            </cleanup>
+        </TestCase>
+<!-- property: showRoot -->
+        <TestCase testID="showRoot_TrueAS" description="Menu showRoot set to true for Object dataProvider." keywords="[showRoot, Menu]">
+            <setup>
+                <RunCode code="addRootData()" />
+                <RunCode code="application.menu1= Menu.createMenu(null,rootDP, true);" />
+                <RunCode code="application.menu1.show();" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, RIGHT, DOWN, SPACE]" waitTarget="menu1" waitEvent="itemClick"/>
+                <AssertEvent target="menu1" eventName="itemClick" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue target="menu1" propertyName="label" value="New File" />
+            </body>
+        </TestCase>
+        <TestCase testID="showRoot_FalseAS" description="Menu showRoot set to false for Object dataProvider" keywords="[showRoot, Menu]">
+            <setup>
+                <RunCode code="addRootData()" />
+                <RunCode code="application.menu1=Menu.createMenu(null, rootDP, false);" />
+                <RunCode code="application.menu1.show();" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, SPACE]" waitTarget="menu1" waitEvent="itemClick"/>
+                <AssertEvent target="menu1" eventName="itemClick" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue target="menu1" propertyName="label" value="Open" />
+            </body>
+        </TestCase>
+        <TestCase testID="showRoot_FalseXML" description="Menu showRoot set to false for XML dataProvider" keywords="[showRoot, Menu]">
+            <setup>
+                <RunCode code="createAMenu(0);"  waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, DOWN, DOWN, DOWN, SPACE]" waitTarget="menu1" waitEvent="itemClick"/>
+                <AssertEvent target="menu1" eventName="itemClick" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue target="menu1" propertyName="label" value="Italy" />
+            </body>
+        </TestCase>
+        <!-- property: dataDescriptor methods -->
+        <TestCase testID="dataDescriptor_addChildAt" description="Menu dataDescriptor method test: addChildAt" keywords="[addChildAt, dataDescriptor, Menu]">
+            <setup>
+                <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                <RunCode code="testAddChildAt()" waitTarget="menu1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, DOWN, DOWN, SPACE]" waitEvent="itemClick" waitTarget="menu1" />
+                <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="menu1" />
+                <AssertEventPropertyValue target="menu1" propertyName="label" value="France" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_getChildren" description="Menu dataDescriptor method test: getChildren" keywords="[getChildren, dataDescriptor, Menu]">
+            <setup>
+                <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                <RunCode code="testGetChildren()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="" propertyName="lengthValue" value="3" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_getType" description="Menu dataDescriptor method test: getType" keywords="[getType, dataDescriptor, Menu]">
+            <setup>
+                <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.getType(myDP.node[1].nodeitem[1])" value="radio" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_hasChildren_false" description="Menu dataDescriptor method test: hasChildren (return false)" keywords="[hasChildren, dataDescriptor, Menu]">
+            <setup>
+                <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.hasChildren(myDP.node[2].nodeitem[0])" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_hasChildren_true" description="Menu dataDescriptor method test: hasChildren (return true)" keywords="[hasChildren, dataDescriptor, Menu]">
+            <setup>
+                <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.hasChildren(myDP.node[0])" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_isBranch_false" description="Menu dataDescriptor method test: isBranch (return false)" keywords="[isBranch, dataDescriptor, Menu]">
+            <setup>
+                <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.isBranch(myDP.node[2].nodeitem[0])" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_isBranch_true" description="Menu dataDescriptor method test: isBranch (return true)" keywords="[isBranch, dataDescriptor, Menu]">
+            <setup>
+                 <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.isBranch(myDP.node[0])" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_isEnabled_false" description="Menu dataDescriptor method test: isEnabled (return false)" keywords="[isEnabled, dataDescriptor, Menu]">
+            <setup>
+                <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                <RunCode code="changeDP(2,'false');" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.isEnabled(myDP.node[2])" value="false" />
+            </body>
+            <cleanup>
+                <RunCode code="changeDP(2, 'true');" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="dataDescriptor_isEnabled_true" description="Menu dataDescriptor method test: isEnabled (return true)" keywords="[isEnabled, dataDescriptor, Menu]">
+            <setup>
+                <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.isEnabled(myDP.node[0].nodeitem[2])" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_isToggled_false"  description="Menu dataDescriptor method test: isToggled (return false)" keywords="[isToggled, dataDescriptor, Menu]">
+            <setup>
+                 <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                 <RunCode code="myDP.node[0].nodeitem[2].@toggled=false" waitTarget="menu1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.isToggled(myDP.node[0].nodeitem[2])" value="false" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="dataDescriptor_isToggled_true"  description="Menu dataDescriptor method test: isToggled (return true)" keywords="[isToggled, dataDescriptor, Menu]">
+            <setup>
+                 <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.isToggled(myDP.node[0].nodeitem[1])" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_isToggled_afterSelection"  description="Menu dataDescriptor method test: isToggled (after a selection)" keywords="[isToggled, dataDescriptor, Menu]">
+            <setup>
+                 <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, DOWN, SPACE]" waitEvent="itemClick" waitTarget="menu1"/>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.isToggled(myDP.node[0].nodeitem[1])" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_removeChildAt"  description="Menu dataDescriptor method test: removeChildAt" keywords="[removeChildAt, dataDescriptor, Menu]">
+            <setup>
+                 <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                 <RunCode code="testRemoveChildAt()" waitTarget="menu1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, DOWN, SPACE]" waitEvent="itemClick" waitTarget="menu1"/>
+                <AssertEvent eventName="itemClick" target="menu1" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="Slovenia" target="menu1" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_setEnabled_false" description="Menu dataDescriptor method test: setEnabled to false" keywords="[setEnabled, dataDescriptor, Menu]">
+            <setup>
+                 <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                 <RunCode code="testSetEnabled(0)" waitTarget="menu1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, RIGHT, DOWN, SPACE]" waitEvent="itemClick" waitTarget="menu1"/>
+                <AssertEvent eventName="itemClick" target="menu1" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="England" target="menu1" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_setEnabled_true" description="Menu dataDescriptor method test: setEnabled to true" keywords="[setEnabled, dataDescriptor, Menu]">
+            <setup>
+                 <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                 <RunCode code="testSetEnabled(0)"  />
+                 <RunCode code="testSetEnabled(1)" waitTarget="menu1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT, DOWN, SPACE]" waitEvent="itemClick" waitTarget="menu1"/>
+                <AssertEvent eventName="itemClick" target="menu1" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="Japan" target="menu1" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_setToggled_false" description="Menu dataDescriptor method test: setToggled to false" keywords="[setToggled, dataDescriptor, Menu]">
+            <setup>
+                 <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                 <RunCode code="testSetToggled(0)" waitTarget="menu1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.isToggled(myDP.node[0].nodeitem[1])" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="dataDescriptor_setToggled_true" description="Menu dataDescriptor method test: setToggled to true" keywords="[setToggled, dataDescriptor, Menu]">
+            <setup>
+                 <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                 <RunCode code="testSetToggled(1)" waitTarget="menu1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.menu1.dataDescriptor.isToggled(myDP.node[1].nodeitem[1])" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="reference_typeIcon_fromItemRenderer"  description="Ensure that in bc mode, you can access icon from a subclass of MenuItemRenderer."
+           keywords="[typeIcon, itemRenderer, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="createASimpleMenu();" />
+                <SetProperty propertyName="labelField" target="menu1" value="@label" />
+                <SetProperty propertyName="iconField" target="menu1" value="@icon" />
+                <SetProperty propertyName="itemRenderer" target="menu1" valueExpression="value=new ClassFactory(comps.MyMenuItemRendererType);" />
+                <RunCode code="application.menu1.show();" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, DOWN, SPACE]" waitEvent="itemClick" waitTarget="menu1" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="menu1" url="../Properties/baselines/typeIconReference_itemRenderer.png" timeout="2500" />
+            </body>
+            <cleanup>
+                <RunCode code="application.menu1.hide()" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Menu_dataProvider_null" description="Show a menu with a null dataprovider." keywords="[dataProvider, Menu]">
+            <setup>
+               <RunCode code="createAMenu(0);" waitTarget="menu1.mx_internal:popupTween" waitEvent="tweenEnd" />
+               <RunCode code="application.menu1.dataProvider.removeAll()"/>
+            </setup>
+            <body>
+               <RunCode code="application.menu1.show()" />
+               <AssertPropertyValue target="menu1.dataProvider" propertyName="length" value="0" />
+            </body>
+            <cleanup>
+                <RunCode code="application.menu1.hide()" />
+            </cleanup>
+        </TestCase>
+    </testCases>
+</UnitTester>

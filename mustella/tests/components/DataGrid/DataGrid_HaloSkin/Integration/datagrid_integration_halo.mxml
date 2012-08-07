@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_HaloSkin/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp_halo.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+         import comps.dataGridInCanvasComp;
+         import data.NameDataAS;
+         import mx.collections.*;
+
+         public var dgData:NameDataAS;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+        <TestCase testID="dataGrid_integration_header_afterScrollUpdate_halo" keywords="[DataGrid, scroll]" description="This testcase comes from bug SDK-11099.
+            The test ensures that the headers and columns are lined up and that the header doesn't draw outside its borders.">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1)" waitEvent="updateComplete" />
+                <SetProperty propertyName="rowHeight" target="dg1" value="60" />
+                <SetProperty target="dg1" propertyName="width" value="601" />
+                <SetProperty target="dg1" propertyName="height" value="273" />
+            </setup>
+            <body>
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" />
+                <RunCode code="IList(application.dg1.dataProvider).removeItemAt(1)" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Integration/baselines/datagrid_header_afterScrollUpdate.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="dataGrid_integration_filterFunction_halo" keywords="[DataGrid,integration,filterFunction]" description="This test applies a filter for rows where the name begins with the letter m.  It verifies the text of the 3 renderers, then verifies that the next renderer array has no renderers.">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitTarget="dg1" waitEvent="updateComplete" />
+                <RunCode code="application.applyFilterFunctionM(application.dg1.dataProvider)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.4" propertyName="text" value="SubjectM" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.4" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+    
+        <TestCase testID="dataGrid_integration_filterFunctionRemoved_halo" keywords="[DataGrid,integration,filterFunction]" description="This test applies a filter for rows where the name begins with the letter m.  It verifies the text of the 3 renderers, then verifies that the next renderer array has no renderers.">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitTarget="dg1" waitEvent="updateComplete" />
+                <RunCode code="application.applyFilterFunctionM(application.dg1.dataProvider)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.removeFilterFunctionM(application.dg1.dataProvider)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.4" propertyName="text" value="SubjectO" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.2.4" propertyName="text" value="SubjectD" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.3.4" propertyName="text" value="SubjectE" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.4.4" propertyName="text" value="SubjectF" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.5.4" propertyName="text" value="SubjectG" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.6.4" propertyName="text" value="SubjectH" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="dataGrid_integration_imageRendererReload_halo" keywords="[DataGrid,renderer]" description="This test verifies that a renderer which cannot load image data for a row will try again when given a new row's data.">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.dg1.dataProvider = new ArrayCollection()" />
+                <RunCode code="application.setColumnConfig7(application.dg1)" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'../../../../../Assets/Images/redrect.jpg'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({image:'x'})" />
+                <SetProperty target="dg1" propertyName="height" value="150" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <Pause timeout="100" /> <!-- This pause is needed because we already had to wait for the scroll, and there is no 'wait for event' step. -->
+                <AssertPixelValue target="dg1" x="15" y="35" value="0xEC1C24" />
+            </body>
+        </TestCase>
+        
+	</testCases>
+</UnitTester>

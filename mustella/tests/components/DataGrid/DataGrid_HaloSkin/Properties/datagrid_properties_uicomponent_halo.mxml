@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_HaloSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridMain2_halo.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+   <mx:Script>
+   	<![CDATA[
+   	public static function init(o:DisplayObject):void
+   	{
+   	}
+   	]]>
+   	</mx:Script>
+   	<mx:Metadata>
+   	<![CDATA[
+   		[Mixin]
+   	]]>
+   	</mx:Metadata>
+   	<!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+        import mx.controls.DateChooser;
+        import mx.controls.DataGrid;
+        import mx.containers.Canvas;
+        import comps.dataGridInCanvasComp;
+        import mx.styles.StyleManager;
+        import mx.managers.SystemManager;
+        import mx.managers.IFocusManager;
+
+        public function addItems():void
+        {
+            for(var i:int=0;i<15;i++)
+            {
+                var obj:Object={col1:'one'+i,col2:i,col3:'three'+i}
+                application.gridInCanvas.mydatagrid.dataProvider.addItem(obj);
+            }
+        }
+
+        public function addBigItems():void
+        {
+            application.gridInCanvas.mydatagrid.height=250;
+            application.gridInCanvas.mydatagrid.dataProvider.removeAll()
+            var str1:String=" "
+            var str2:String="two two "
+            var str3:String=" "
+            var dummytext:String ="The Quick Brown Fox Jumped over the lazy dog"
+            for(var i:int=0;i<25;i++)
+            {
+                for(var j:int=0;j<5;j++)
+                {
+                   str1+=dummytext;
+                   str3+=dummytext;
+                }
+                var obj:Object = {col1:str1,col2:str2+i,col3:str3}
+                application.gridInCanvas.mydatagrid.dataProvider.addItem(obj);
+            }
+
+        }
+
+        public function startApp():void
+        {
+            application.gridInCanvas.mydatagrid.dataProvider=[{col1:"one",col2:"two",col3:"three"}];
+        }
+
+        private function getFocusPane():void
+        {
+            application.ti.text=application.gridInCanvas.mydatagrid.focusPane.toString();
+        }
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <TestCase testID="propert_enabled_halo" keywords="['enabled']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="enabled" value="false" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_enabled.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_enabled_withdisabledcolor_halo" keywords="['enabled']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetStyle styleName="disabledColor" value="#FFCC00" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty propertyName="enabled" value="false" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_enabled2.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_explicitheight_400_halo" keywords="['explicitheight']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="explicitHeight" value="400" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="height" value="400"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_explicitheight_200_halo" keywords="['explicitheight_200']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="explicitHeight" value="200" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="height" value="200"/>
+            </body>
+        </TestCase>
+        <TestCase testID="property_explicitwidth_500_halo" keywords="['explicitheight_500']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="explicitWidth" value="500" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="width" value="500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="property_explicitwidth_200_halo" keywords="['explicitwidth_200']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="explicitWidth" value="200" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="width" value="200"/>
+            </body>
+        </TestCase>
+         <TestCase testID="propert_explicitmaxwidth_300_halo" keywords="['explicitmaxwidth_300']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="explicitMaxWidth" value="300" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="width" value="300"/>
+            </body>
+        </TestCase>
+         <TestCase testID="propert_maxwidth_300_halo" keywords="['maxwidth_300']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="maxWidth" value="300" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="width" value="300"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_maxheight_halo" keywords="['maxheight_500']">
+            <setup>
+                 <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                 <RunCode code="startApp()"/>
+                 <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                 <SetProperty propertyName="maxHeight" value="500" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                 <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="maxHeight" value="500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_width_halo" keywords="['width_700']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="width" value="700" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="width" value="700"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_width_700.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_width_200_halo" keywords="['width_200']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="width" value="200" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="width" value="200"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_width_200.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_width_30_halo" keywords="['width_30']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="width" value="30" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="width" value="30"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_width_30.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_height_halo" keywords="['height_120']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="height" value="120" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="height" value="120"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_height_120.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_height_200_halo" keywords="['height_200']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="height" value="200" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="height" value="200"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_height_200.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_height_30_halo" keywords="['height_30']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="height" value="30" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="height" value="30"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_height_30.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_scalex_3_halo" keywords="['scalex_3']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="scaleX" value="3" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="scaleX" value="3"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_scalex_3.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_scalex_7_halo" keywords="['scalex_7']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="scaleX" value="7" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="scaleX" value="7"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_scalex_7.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_scalex_05_halo" keywords="['scalex_0_5']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="scaleX" value="0.5" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="scaleX" value="0.5"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_scalex_0_5.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_scaley_05_halo" keywords="['scaley_0_5']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="scaleY" value="0.5" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="scaleY" value="0.5"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_scaley_0_5.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_scaley_1_halo" keywords="['scaley_1']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="scaleY" value="1" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="scaleY" value="1"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_scaley_1.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_visible_true_halo" keywords="['visible_true']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="visible" value="true" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="visible" value="true"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_visible_true.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_visible_false_halo" keywords="['visible_false']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="visible" value="false" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="visible" value="false"/>
+                <CompareBitmap target="gridInCanvas.mydatagrid" url="../Properties/Baselines/datagrid_visible_false.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_x_50_halo" keywords="['x_50']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="x" value="50" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="x" value="50"/>
+                <CompareBitmap target="gridInCanvas" url="../Properties/Baselines/datagrid_x_50.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_x_minus10_halo" keywords="['x_minus_10']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="x" value="-10" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="gridInCanvas" url="../Properties/Baselines/datagrid_x_minus10.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_y_50_halo" keywords="['y_50']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="y" value="50" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="y" value="50"/>
+                <CompareBitmap target="gridInCanvas" url="../Properties/Baselines/datagrid_y_50.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_y_minus10_halo" keywords="['y_minus_10']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="y" value="-10" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="gridInCanvas" url="../Properties/Baselines/datagrid_y_minus10.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_focusEnabled_true_halo" keywords="['focusEnabled_true']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		        <RunCode code="startApp()"/>
+			    <RunCode code="addItems()"/>
+			    <SetProperty propertyName="height" target="gridInCanvas" value="185" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+			    <SetProperty propertyName="width" target="gridInCanvas" value="365" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+			    <SetProperty propertyName="x" target="gridInCanvas.mydatagrid" value="10" waitTarget="gridInCanvas.mydatagrid" waitEvent="move"/>
+			    <SetProperty propertyName="y" target="gridInCanvas.mydatagrid" value="10" waitTarget="gridInCanvas.mydatagrid" waitEvent="move"/>
+            </setup>
+            <body>
+		        <SetProperty propertyName="focusEnabled" value="true" target="gridInCanvas.mydatagrid" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="gridInCanvas.mydatagrid" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="gridInCanvas" url="../Properties/Baselines/datagrid_focusenabledtrue.png"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_focusEnabled_false_halo" keywords="['focusEnabled_false']">
+            <setup>
+		       <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+			   <SetProperty propertyName="height" target="gridInCanvas" value="185" />
+			   <SetProperty propertyName="width" target="gridInCanvas" value="365" />
+			   <SetProperty propertyName="x" target="gridInCanvas.mydatagrid" value="10" waitTarget="gridInCanvas.mydatagrid" waitEvent="move"/>
+			   <SetProperty propertyName="y" target="gridInCanvas.mydatagrid" value="10" waitTarget="gridInCanvas.mydatagrid" waitEvent="move"/>
+            </setup>
+            <body>
+		       <SetProperty propertyName="focusEnabled" value="false" target="gridInCanvas.mydatagrid" />
+		       <DispatchKeyEvent key="TAB"/>
+		       <CompareBitmap target="gridInCanvas" url="../Properties/Baselines/datagrid_focusenabledfalse.png"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="propert_focusManager_halo" keywords="['focusManager']">
+            <setup>
+		        <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		        <RunCode code="startApp()"/>
+		        <RunCode code="addItems()"/>
+		    </setup>
+		    <body>
+                <AssertMethodValue method="value=application.gridInCanvas.mydatagrid.focusManager is IFocusManager" value="true" />
+                <AssertMethodValue method="value=application.gridInCanvas.mydatagrid.focusManager.toString().indexOf('DataGridMain2') != -1" value="true" />
+		    </body>
+        </TestCase>
+        
+        <TestCase testID="propert_includeInLayout_default1_halo" keywords="['includeInLayout_default']">
+            <setup>
+	       		<ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+	       		<RunCode code="startApp()"/>
+	       	    <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="includeInLayout" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_includeInLayout_default2_halo" keywords="['includeInLayout_true']">
+		     <setup>
+		       <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+		       <SetProperty propertyName="includeInLayout" value="true" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+		     </setup>
+		     <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="includeInLayout" value="true"/>
+		     </body>
+        </TestCase>
+        <TestCase testID="propert_includeInLayout_default3_halo" keywords="['includeInLayout_true']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+	       		<RunCode code="startApp()"/>
+	       		<RunCode code="addItems()"/>
+                <SetProperty propertyName="includeInLayout" value="false" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="includeInLayout" value="false"/>
+	       	</body>
+        </TestCase>
+        <TestCase testID="propert_measuredHeight_halo" keywords="['measuredHeight']">
+		    <setup>
+		       <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+		    </setup>
+		    <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="measuredHeight" value="142"/>
+		    </body>
+        </TestCase>
+        <TestCase testID="propert_measuredWidth_halo" keywords="['measuredWidth']">
+            <setup>
+		        <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		        <RunCode code="startApp()"/>
+		        <RunCode code="addItems()"/>
+            </setup>
+		    <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="measuredWidth" value="160"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_measuredMinWidth_halo" keywords="['measuredMinWidth']">
+            <setup>
+		        <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		        <RunCode code="startApp()"/>
+		        <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="measuredMinWidth" value="40"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_measuredMinHeight_halo" keywords="['measuredMinHeight']">
+            <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+			     <RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="measuredMinHeight" value="42"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_minWidth_default_halo" keywords="['minWidth']">
+		    <setup>
+		       <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+		    </setup>
+		    <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="minWidth" value="40"/>
+		    </body>
+        </TestCase>
+        <TestCase testID="propert_minHeight_default_halo" keywords="['minHeight']">
+		    <setup>
+		       <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+		    </setup>
+		    <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="minHeight" value="42"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_minWidth_halo" keywords="['minWidth']">
+		    <setup>
+		       <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+			   <SetProperty propertyName="minWidth" value="100" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="minWidth" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_minHeight_halo" keywords="['minHeight']">
+            <setup>
+		       <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+               <SetProperty propertyName="minHeight" value="100" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+		    <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="minHeight" value="100"/>
+		    </body>
+        </TestCase>
+        <TestCase testID="propert_owner_halo" keywords="['owner']">
+		     <setup>
+		       <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		       <RunCode code="startApp()"/>
+		       <RunCode code="addItems()"/>
+		     </setup>
+		     <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid.owner" propertyName="id" value="gridInCanvas"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_parent_halo" keywords="['parent']">
+		     <setup>
+                <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		        <RunCode code="startApp()"/>
+		        <RunCode code="addItems()"/>
+			    <SetProperty propertyName="minHeight" value="100" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+		     </setup>
+		     <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid.parent" propertyName="id" value="gridInCanvas"/>
+		     </body>
+        </TestCase>
+        <TestCase testID="propert_parentApplication_halo" keywords="['parentApplication']">
+		     <setup>
+		        <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		        <RunCode code="startApp()"/>
+		        <RunCode code="addItems()"/>
+			    <SetProperty propertyName="minHeight" value="100" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+		    </setup>
+            <body>
+                <AssertMethodValue method="value = application.gridInCanvas.mydatagrid.parentApplication.toString().indexOf('DataGridMain2') != -1" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="propert_parentDocument_halo" keywords="['parentDocument']">
+            <setup>
+		        <ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+		        <RunCode code="startApp()"/>
+		        <RunCode code="addItems()"/>
+			    <SetProperty propertyName="minHeight" value="100" target="gridInCanvas.mydatagrid" waitTarget="gridInCanvas.mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+			    <AssertPropertyValue target="gridInCanvas.mydatagrid.parentDocument" propertyName="id" value="gridInCanvas"/>
+            </body>
+        </TestCase>
+        <TestCase testID="propert_styleDeclaration_halo" keywords="['styleDeclaration']">
+            <setup>
+	      		<ResetComponent target="gridInCanvas" className="comps.dataGridInCanvasComp" waitTarget="gridInCanvas" waitEvent="updateComplete"/>
+	      		<RunCode code="startApp()"/>
+	      		<RunCode code="addItems()"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="gridInCanvas.mydatagrid" propertyName="styleDeclaration" value="null"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

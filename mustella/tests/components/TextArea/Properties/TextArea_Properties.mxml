@@ -1,0 +1,1153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TextArea/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TextArea_Component.mxml">
+
+<!--
+Properties not tested via Mustella:
+    imeMode (requires user to change things on the OS)
+    The <a> tag in htmlText (no way to verify that a link opens in new window)
+    listData
+-->
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            public static function init(o:DisplayObject):void{}
+        ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>   
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <mx:Script><![CDATA[
+        import flash.text.StyleSheet;
+    
+        private var breakString:String = "<br><br><br><br>";
+        private var fontColorString:String = "Default <font color='#ff0000'> Red </font><font color='#00ff00'> Green </font><font color='#0000ff'> Blue </font> Default\n";
+        private var fontFaceString:String = "Default <font face='Times New Roman'> Times New Roman </font><font face='Arial'> Arial </font> Default\n";
+        private var fontSizeString:String = "Default <font size='10'> 10 </font><font size='16'> 16 </font><font size='+1'> +1 </font><font size='-1'> -1 </font> Default\n";
+        private var boldString:String = "Default <b>Bold</b> Default\n";
+        private var italicsString:String = "Default <i>Italics</i> Default\n";
+        private var listItemString:String = "<li>1</li><li>2</li><li>3</li>\n";
+        private var underlineString:String = "Default <u>Underline</u> Default\n";
+
+        private var plainJPGString:String = "<img src='../../../../Assets/Images/smallbluerect.jpg' />\n";
+        private var plainPNGString:String = "<img src='../../../../Assets/Images/smallyellowrect.jpg' />\n";
+        private var plainGIFString:String = "<img src='../../../../Assets/Images/smallorangerect.jpg' />\n";
+        private var plainSWFString:String = "<img src='../../../../Assets/Images/smallgreenrect.jpg' />\n";
+        
+        private var sizedSWFString:String = "<img src='../../../../Assets/Images/smallgreenrect.jpg' width='50' height='200' />\n";
+        private var sizedPNGString:String = "<img src='../../../../Assets/Images/redrect.jpg' width='50' height='200' />\n"; 
+        
+        private var leftAlignedGIFString:String = "<img src='../../../../Assets/Images/smallorangerect.jpg' align='left' />";
+        private var rightAlignedSWFString:String = "<img src='../../../../Assets/Images/smallgreenrect.jpg' align='right' />";
+        
+        private var hSpaceVSpaceTestString1:String = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit,<img src='../../../../Assets/Images/smallorangerect.jpg' hspace='10' vspace='30' /> sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        private var hSpaceVSpaceTestString2:String = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit,<img src='../../../../Assets/Images/smallorangerect.jpg' hspace='30' vspace='10' /> sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        
+        private var paraPlainString:String = "<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p> <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.</p>";
+        private var paraLeftString:String = "<p align='left'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p> <p align='left'>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.</p>";
+        private var paraRightString:String = "<p align='right'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p> <p align='right'>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.</p>";
+        private var paraCenterString:String = "<p align='center'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p> <p align='center'>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.</p>";
+        
+        private var paraStyleSheet:String = "<p class='testPClass'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p> <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.</p>";
+        private var spanStyleSheet:String = "<span class='testSpanClass'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</span> <span>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.</span>";
+        private var generalStyleSheet:String = "<p class='testClass'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p> <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.</p>";
+        
+        private var textFormatBlockIndentNegString:String = "<textformat blockindent='-5'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        private var textFormatBlockIndentZeroString:String = "<textformat blockindent='0'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        private var textFormatBlockIndentPosString:String = "<textformat blockindent='20'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+
+        private var textFormatIndentNegString:String = "<textformat indent='-5'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        private var textFormatIndentZeroString:String = "<textformat indent='0'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        private var textFormatIndentPosString:String = "<textformat indent='10'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+
+        private var textFormatLeadingNegString:String = "<textformat leading='-3'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        private var textFormatLeadingZeroString:String = "<textformat leading='0'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        private var textFormatLeadingPosString:String = "<textformat leading='10'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+
+        private var textFormatLeftMarginNegString:String = "<textformat leftmargin='-5'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        private var textFormatLeftMarginZeroString:String = "<textformat leftmargin='0'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        private var textFormatLeftMarginPosString:String = "<textformat leftmargin='10'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+
+        private var textFormatRightMarginNegString:String = "<textformat rightmargin='-5'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        private var textFormatRightMarginZeroString:String = "<textformat rightmargin='0'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        private var textFormatRightMarginPosString:String = "<textformat rightmargin='50'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";
+        
+        private var textFormatTabStopsString:String = "<textformat tabstops='[2,30,90]'>Lorem<br>\tipsum<br>\t\tdolor<br>\t\t\tsit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</textformat>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip.";     
+
+        private var specialCharsString:String = "&lt; &gt; &amp; &quot; &apos; &#38; &#x20AC;";
+                
+        private var ss:StyleSheet;
+        
+        private function setUpParaStyleSheet():void{
+            ss = new StyleSheet();
+
+            var testPClass:Object = new Object();
+            testPClass.fontWeight = "bold";
+            testPClass.color = "#FF0000";
+
+            ss.setStyle(".testPClass", testPClass);         
+        }
+
+        private function setUpSpanStyleSheet():void{
+            ss = new StyleSheet();
+
+            var testSpanClass:Object = new Object();
+            testSpanClass.fontWeight = "bold";
+            testSpanClass.color = "#0000FF";
+
+            ss.setStyle(".testSpanClass", testSpanClass);           
+        }
+        
+        private function setUpGeneralStyleSheet():void{
+            ss = new StyleSheet();
+
+            var testClass:Object = new Object();
+            testClass.fontWeight = "bold";
+            testClass.color = "#0000FF";
+            testClass.fontStyle = "italic";
+            testClass.letterSpacing = "0";
+            testClass.textAlign = "center";
+            /*testClass.textDecoration = "underline";*/
+
+            ss.setStyle(".testClass", testClass);           
+        }
+        
+    ]]></mx:Script>
+    
+    <testCases>
+
+        <TestCase frequency="all" testID="property_condenseWhite_spaces" description="Test that condenseWhite condenses spaces." keywords="[TextArea,condenseWhite,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="condenseWhite" value="true" />
+                <SetProperty target="ta1" propertyName="htmlText" value="1     1" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="text" waitEvent="valueCommit" waitTarget="ta1" value="1 1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_condenseWhite_tabs" description="Test that condenseWhite condenses tabs." keywords="[TextArea,condenseWhite,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="condenseWhite" value="true" />
+                <RunCode code="application.ta1.htmlText='1\t\t\t1'" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="text" waitEvent="valueCommit" waitTarget="ta1" value="1 1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_condenseWhite_newlines" description="Test that condenseWhite condenses newline characters." keywords="[TextArea,condenseWhite,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="condenseWhite" value="true" />
+                <RunCode code="application.ta1.htmlText='1\n\n\n1'" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="text" waitEvent="valueCommit" waitTarget="ta1" value="1 1" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_displayAsPassword_bitmap" description="Test that displayAsPassword shows asterisks." keywords="[TextArea,displayAsPassword,properties]" >
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="displayAsPassword" value="true" />
+                <SetProperty target="ta1" propertyName="text" value="hello" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/DisplayAsPassword_Standard.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_displayAsPassword_UITextField_false" description="Test that TextArea's underlying textField has displayAsPassword=false by default." keywords="[TextArea,displayAsPassword,properties]">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta2" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ta2" method="value=application.ta2.getTextFieldDisplayAsPassword()" value="false" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_displayAsPassword_UITextField_true" description="Test that TextArea's displayAsPassword sets the underlying textField's displayAsPassword." keywords="[TextArea,displayAsPassword,properties]" >
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta2" />
+                <SetProperty target="ta2" propertyName="displayAsPassword" value="true" waitEvent="updateComplete" waitTarget="ta2" />
+                <SetProperty target="ta2" propertyName="text" value="hello" waitEvent="updateComplete" waitTarget="ta2" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ta2" method="value=application.ta2.getTextFieldDisplayAsPassword()" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_editable_true" description="Test that an editable TextArea can be edited." keywords="[TextArea,editable,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />    
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />
+                <SetProperty target="ta1" propertyName="editable" value="true" />
+                <AssertPropertyValue target="ta1" propertyName="editable" value="true" />
+            </setup>
+            <body>
+                <DispatchKeyEvent char="hello" />
+                <AssertEvent target="ta1" eventName="change" eventClass="flash.events" numExpectedEvents="5" />
+                <AssertPropertyValue target="ta1" propertyName="text" value="hello" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_editable_false" description="Test that an uneditable TextArea cannot be edited." keywords="[TextArea,editable,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />
+                <SetProperty target="ta1" propertyName="editable" value="false" waitEvent="editableChanged" waitTarget="ta1" />
+                <AssertPropertyValue target="ta1" propertyName="editable" value="false" />
+            </setup>
+            <body>
+                <DispatchKeyEvent char="hello" />
+                <AssertNoEvent target="ta1" eventName="change" eventClass="flash.events" numExpectedEvents="5" />
+                <AssertPropertyValue target="ta1" propertyName="text" value="" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_horizontalScrollPolicy_default_auto" description="horizontalScrollPolicy is set to auto by default." keywords="[TextArea,horizontalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="horizontalScrollPolicy" value="auto" />
+            </body>         
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_horizontalScrollPolicy_on_notNeeded" description="Horizontal scrollbar is shown when horizontalScrollPolicy is on and no scrollbar is needed." keywords="[TextArea,horizontalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="ta1" propertyName="text" value="hello there" waitTarget="ta1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/HorizontalScrollPolicy_On_NotNeeded.png" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_horizontalScrollPolicy_on_needed" description="Horizontal scrollbar is shown when horizontalScrollPolicy is on and a scrollbar is needed." keywords="[TextArea,horizontalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="wordWrap" value="false" />
+                <SetProperty target="ta1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="ta1" propertyName="text" value="012345678 012345678 012345678 012345678 012345678 0123456789" waitTarget="ta1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/HorizontalScrollPolicy_On_Needed.png" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_horizontalScrollPolicy_off_notNeeded" description="Horizontal scrollbar is not shown when horizontalScrollPolicy is off and no scrollbar is needed." keywords="[TextArea,horizontalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="horizontalScrollPolicy" value="off" />
+                <SetProperty target="ta1" propertyName="text" value="hello there" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/HorizontalScrollPolicy_Off_NotNeeded.png" />
+            </body>         
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_horizontalScrollPolicy_off_needed" description="Horizontal scrollbar is not shown when horizontalScrollPolicy is off and a scrollbar is needed." keywords="[TextArea,horizontalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="wordWrap" value="false" />
+                <SetProperty target="ta1" propertyName="horizontalScrollPolicy" value="off" />
+                <SetProperty target="ta1" propertyName="text" value="012345678 012345678 012345678 012345678 012345678 0123456789" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/HorizontalScrollPolicy_Off_Needed.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_horizontalScrollPolicy_auto_notNeeded" description="Horizontal scrollbar is not shown when horizontalScrollPolicy is auto and no scrollbar is needed." keywords="[TextArea,horizontalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="ta1" propertyName="text" value="hello there" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/HorizontalScrollPolicy_Auto_NotNeeded.png" />
+            </body>         
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_horizontalScrollPolicy_auto_needed" description="Horizontal scrollbar is shown when horizontalScrollPolicy is auto and a scrollbar is needed." keywords="[TextArea,horizontalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="wordWrap" value="false" />
+                <SetProperty target="ta1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="ta1" propertyName="text" value="012345678 012345678 012345678 012345678 012345678 0123456789" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="2" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/HorizontalScrollPolicy_Auto_Needed.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_verticalScrollPolicy_default_auto" description="verticalScrollPolicy is set to auto by default." keywords="[TextArea,verticalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="verticalScrollPolicy" value="auto" />
+            </body>         
+        </TestCase>
+    
+        <TestCase frequency="all" testID="property_verticalScrollPolicy_on_notNeeded" description="Vertical scrollbar is shown when verticalScrollPolicy is on and no scrollbar is needed." keywords="[TextArea,verticalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="verticalScrollPolicy" value="on" />
+                <SetProperty target="ta1" propertyName="text" value="hello there" waitTarget="ta1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/VerticalScrollPolicy_On_NotNeeded.png" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_verticalScrollPolicy_on_needed" description="Vertical scrollbar is shown when verticalScrollPolicy is on and a scrollbar is needed." keywords="[TextArea,verticalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="wordWrap" value="true" />
+                <SetProperty target="ta1" propertyName="verticalScrollPolicy" value="on" />
+                <SetProperty target="ta1" propertyName="text" value="012345678 012345678 012345678 012345678 012345678 0123456789" waitTarget="ta1" waitEvent="updateComplete" />
+                <!--AssertEvent target="ta1.mx_internal:scroll_verticalScrollBar" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="1" /-->
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/VerticalScrollPolicy_On_Needed.png" />
+            </body> 
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_verticalScrollPolicy_off_notNeeded" description="Vertical scrollbar is not shown when verticalScrollPolicy is off and no scrollbar is needed." keywords="[TextArea,verticalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="verticalScrollPolicy" value="off" />
+                <SetProperty target="ta1" propertyName="text" value="hello there" waitEvent="updateComplete" waitTarget="ta1" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/VerticalScrollPolicy_Off_NotNeeded.png" />
+            </body>         
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_verticalScrollPolicy_off_needed" description="Vertical scrollbar is not shown when verticalScrollPolicy is off and a scrollbar is needed." keywords="[TextArea,verticalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="wordWrap" value="true" />
+                <SetProperty target="ta1" propertyName="verticalScrollPolicy" value="off" />
+                <SetProperty target="ta1" propertyName="text" value="012345678 012345678 012345678 012345678 012345678 0123456789" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/VerticalScrollPolicy_Off_Needed.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_verticalScrollPolicy_auto_notNeeded" description="Vertical scrollbar is not shown when verticalScrollPolicy is auto and no scrollbar is needed." keywords="[TextArea,verticalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="verticalScrollPolicy" value="auto" />
+                <SetProperty target="ta1" propertyName="text" value="hello there" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/VerticalScrollPolicy_Auto_NotNeeded.png" />
+            </body>         
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_verticalScrollPolicy_auto_needed" description="Vertical scrollbar is shown when verticalScrollPolicy is auto and a scrollbar is needed." keywords="[TextArea,verticalScrollPolicy,properties]">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="wordWrap" value="true" />
+                <SetProperty target="ta1" propertyName="verticalScrollPolicy" value="auto" />
+                <SetProperty target="ta1" propertyName="text" value="012345678 012345678 012345678 012345678 012345678 0123456789" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="2" /> 
+            </setup>
+            <body>                          
+                <CompareBitmap target="ta1" url="../Properties/Baselines/VerticalScrollPolicy_Auto_Needed.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_br" keywords="[TextArea,htmlText,br,break,properties]">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta2" />
+                <SetProperty target="ta2" propertyName="htmlText" valueExpression="value='1' + breakString + '1'" waitTarget="ta2" waitEvent="updateComplete" />
+            </setup>
+            <body>                          
+                <AssertMethodValue target="ta2" method="value=application.ta2.getTextFieldNumLines()" value="5" />
+            </body>     
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_general" keywords="[TextArea,htmlText,font,color,face,size,bold,italics,underline,list item,properties]" description="htmlText displays font color, face, size, bold, italics, list item, underline correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="250" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=(fontColorString + fontFaceString + fontSizeString + boldString + italicsString + listItemString + underlineString)" waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_general.png" />
+            </body>
+            <cleanup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+            </cleanup>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_img" keywords="[TextArea,htmlText,image,properties]" description="htmlText displays images correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="75" />
+                <SetProperty target="ta1" propertyName="height" value="300" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( plainGIFString + plainSWFString + plainJPGString + plainPNGString )" />
+                <Pause timeout="200" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_images.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_img_sized_swf" keywords="[TextArea,htmlText,img,image,size,sized,properties]" description="htmlText displays sized swf correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( sizedSWFString )" />
+                <Pause timeout="200" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_img_sized_swf.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_htmlText_img_sized_png" keywords="[TextArea,htmlText,img,image,size,sized,properties]" description="htmlText displays sized png correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( sizedPNGString )" />
+                <Pause timeout="200" />             
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_img_sized_png.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_img_alignLeft" keywords="[TextArea,htmlText,img,image,align,properties]" description="htmlText displays image align=left correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( leftAlignedGIFString )" />
+                <Pause timeout="200" />             
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_img_alignLeft.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_img_alignRight" keywords="[TextArea,htmlText,img,image,align,properties]" description="htmlText displays image align=right correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( rightAlignedSWFString )" />
+                <Pause timeout="200" />                 
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_img_alignRight.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_img_hspacevspace" keywords="[TextArea,htmlText,img,image,hspace,properties]" description="htmlText displays image hspace less than 8 correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( hSpaceVSpaceTestString1 )" />
+                <Pause timeout="200" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_img_hspacevspace1.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_img_hspacevspace_12" keywords="[TextArea,htmlText,img,image,hspace,properties]" description="htmlText displays image hspace greater than 8 correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( hSpaceVSpaceTestString2 )" />
+                <Pause timeout="200" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_img_hspacevspace2.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_p_plain" keywords="[TextArea,htmlText,p,paragraph,properties]" description="htmlText displays paragraph's default setting correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( paraPlainString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_para_plain.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_p_left" keywords="[TextArea,htmlText,p,paragraph,properties]" description="htmlText displays left justified paragraphs correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( paraLeftString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_para_left.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_p_right" keywords="[TextArea,htmlText,p,paragraph,properties]" description="htmlText displays right justified paragraphs correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( paraRightString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_para_right.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_p_justify" keywords="[TextArea,htmlText,p,paragraph,properties]" description="htmlText displays justified paragraphs correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( paraCenterString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_para_center.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_p_center" keywords="[TextArea,htmlText,p,paragraph,properties]" description="htmlText displays centered paragraphs correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( paraPlainString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_para_plain.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_p_cssClass" keywords="[TextArea,htmlText,p,paragraph,properties]" description="htmlText displays css-defined paragraphs correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <RunCode code="setUpParaStyleSheet()" />
+                <SetProperty target="ta1" propertyName="styleSheet" valueExpression="value=ss" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( paraStyleSheet )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_para_styleSheet.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_span" keywords="[TextArea,htmlText,span,properties]" description="htmlText displays the css-defined spans correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <RunCode code="setUpSpanStyleSheet()" />
+                <SetProperty target="ta1" propertyName="styleSheet" valueExpression="value=ss" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( spanStyleSheet )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_span_styleSheet.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_blockindent_neg" keywords="[TextArea,htmlText,textformat,blockindent,properties]" description="htmlText displays textformat's negative blockindent value correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatBlockIndentNegString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_blockindent_neg.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_blockindent_zero" keywords="[TextArea,htmlText,textformat,blockindent,properties]" description="htmlText displays textformat's zero blockindent value correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatBlockIndentZeroString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_blockindent_zero.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_blockindent_pos" keywords="[TextArea,htmlText,textformat,blockindent,properties]" description="htmlText displays textformat's positive blockindent value correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatBlockIndentPosString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_blockindent_pos.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_indent_zero" keywords="[TextArea,htmlText,textformat,indent,properties]" description="htmlText displays textformat indent=0 correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatIndentZeroString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_indent_zero.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_indent_positive" keywords="[TextArea,htmlText,textformat,indent,properties]" description="htmlText displays textformat indent=positive number correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatIndentPosString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_indent_pos.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_indent_negative" keywords="[TextArea,htmlText,textformat,indent,properties]" description="htmlText displays textformat indent=negative number correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatIndentNegString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_indent_neg.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_leading_zero" keywords="[TextArea,htmlText,textformat,leading,properties]"  description="htmlText displays textformat leading=0 correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatLeadingZeroString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_leading_zero.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_leading_positive" keywords="[TextArea,htmlText,textformat,leading,properties]" description="htmlText displays textformat leading=positive number correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatLeadingPosString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_leading_pos.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_leading_negative" keywords="[TextArea,htmlText,textformat,leading,properties]" description="htmlText displays textformat leading=negative number correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatLeadingNegString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_leading_neg.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_leftmargin_zero" keywords="[TextArea,htmlText,textformat,leftmargin,properties]" description="htmlText displays textformat leftmargin=0 correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatLeftMarginZeroString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_leftmargin_zero.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_leftmargin_pos" keywords="[TextArea,htmlText,textformat,leftmargin,properties]" description="htmlText displays textformat leftmargin=positive number correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatLeftMarginPosString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_leftmargin_pos.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_leftmargin_neg" keywords="[TextArea,htmlText,textformat,leftmargin,properties]" description="htmlText displays textformat leftmargin=negative number correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatLeftMarginNegString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_leftmargin_neg.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_rightmargin_zero" keywords="[TextArea,htmlText,textformat,rightmargin,properties]" description="htmlText displays textformat rightmargin=0 correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatRightMarginZeroString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_rightmargin_zero.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_rightmargin_pos" keywords="[TextArea,htmlText,textformat,rightmargin,properties]" description="htmlText displays textformat rightmargin=positive number correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatRightMarginPosString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_rightmargin_pos.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_rightmargin_neg" keywords="[TextArea,htmlText,textformat,rightmargin,properties]" description="htmlText displays textformat rightmargin=negative number correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatRightMarginNegString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_rightmargin_neg.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_textFormat_tabstops" keywords="[TextArea,htmlText,textformat,tabstops,properties]" description="htmlText displays textformat tabstops correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( textFormatTabStopsString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_textFormat_tabstops.png" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_htmlText_specialChars" keywords="[TextArea,htmlText,less than,properties]" description="htmlText displays less than, greater than, ampersand, double quote, single quote, explicit char codes, and unicode chars correctly.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( specialCharsString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_specialChars.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_length_zero" keywords="[TextArea,length,properties]" description="The length property is zero when there are zero characters.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="length" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_length_ten" keywords="[TextArea,length,properties]" description="The length property is ten when there are ten characters.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="text" value="0123456789" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="length" value="10" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_maxchars" keywords="[TextArea,maxchars,properties]" description="The maxchars property is passed to the underlying TextField.">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta2" propertyName="maxChars" value="10" />
+                <DispatchMouseEvent target="ta2" type="mouseDown" localX="10" localY="10" waitEvent="focusIn" />
+                <DispatchMouseEvent target="ta2" type="mouseUp" localX="10" localY="10" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ta2" method="value=application.ta2.getMaxChars()" value="10" />
+                <DispatchKeyEvent char="0" />
+                <AssertPropertyValue target="ta2" propertyName="text" value="0" />
+                <AssertMethodValue target="ta2" method="value=application.ta2.getMaxChars()" value="10" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_restrict" keywords="[TextArea,restrict,properties]" description="The restrict property is passed to the underlying TextField.">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta2" propertyName="restrict" value="a7" />
+                <DispatchMouseEvent target="ta2" type="mouseDown" localX="10" localY="10" waitEvent="focusIn" />
+                <DispatchMouseEvent target="ta2" type="mouseUp" localX="10" localY="10" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ta2" method="value=application.ta2.getRestrict()" value="a7" />
+                <DispatchKeyEvent char="0" />
+                <AssertPropertyValue target="ta2" propertyName="text" value="0" />
+                <AssertMethodValue target="ta2" method="value=application.ta2.getRestrict()" value="a7" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_selectionBeginIndex_write" keywords="[TextArea,selectionBeginIndex,properties]" description="The selectionBeginIndex property is passed to the underlying TextField.">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta2" propertyName="text" value="0123456789" />
+                <SetProperty target="ta2" propertyName="selectionBeginIndex" value="5" />
+                <SetProperty target="ta2" propertyName="selectionEndIndex" value="7" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ta2" method="value=application.ta2.getSelectionBeginIndex()" value="5" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_selectionEndIndex_write" keywords="[TextArea,selectionEndIndex,properties]" description="The selectionEndIndex property is passed to the underlying TextField.">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta2" propertyName="text" value="0123456789" />
+                <SetProperty target="ta2" propertyName="selectionBeginIndex" value="5" />
+                <SetProperty target="ta2" propertyName="selectionEndIndex" value="7" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ta2" method="value=application.ta2.getSelectionEndIndex()" value="7" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_text_write" keywords="[TextArea,text,properties]" description="Setting the text property passes the text to the underlying TextField.">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta2" propertyName="text" value="0123456789" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ta2" method="value=application.ta2.getText()" value="0123456789" />
+            </body>
+        </TestCase>
+        
+        <TestCase frequency="all" testID="property_text_read" keywords="[TextArea,text,properties]" description="The text property gets the characters typed into the TextArea.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <DispatchKeyEvent keys="['TAB']" />
+                <DispatchKeyEvent char="0123456789" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="text" value="0123456789" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_textHeight_defaultFont" keywords="[TextArea,textHeight,properties]" description="The textHeight property is correct with the default font.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="text" value="0123456789" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="textHeight" value="15.550000" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_textHeight_biggerFont" keywords="[TextArea,textHeight,properties]" description="The textHeight property is correct with a bigger font.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+                <SetStyle target="ta1" styleName="fontSize" value="20" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="textHeight" value="29.200000" />
+            </body>         
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_textHeight_smallerFont" keywords="[TextArea,textHeight,properties]" description="The textHeight property is correct with a smaller font.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+                <SetStyle target="ta1" styleName="fontSize" value="8" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="textHeight" value="12.850000" />
+            </body>         
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_textWidth_defaultFont" keywords="[TextArea,textWidth,properties]" description="The textWidth property is correct with the default font.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="text" value="hello" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="textWidth" value="22.700000" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_textWidth_biggerFont" keywords="[TextArea,textWidth,properties]" description="The textWidth property is correct with a bigger font.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="text" value="hello" />
+                <SetStyle target="ta1" styleName="fontSize" value="20" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="textWidth" value="45.600000" />
+            </body>         
+        </TestCase>     
+        
+        <TestCase frequency="all" testID="property_textWidth_smallerFont" keywords="[TextArea,textWidth,properties]" description="The textWidth property is correct with a smaller font.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="text" value="hello" />
+                <SetStyle target="ta1" styleName="fontSize" value="8" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="ta1" propertyName="textWidth" value="18.150000" />
+            </body>         
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_horizontalScrollPosition_write_pos" keywords="[TextArea,horizontalScrollPosition,properties]" description="The horizontalScrollPosition property scrolls the control.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="ta1" propertyName="wordWrap" value="false" />
+                <SetProperty target="ta1" propertyName="text" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="horizontalScrollPosition" value="10" waitEvent="viewChanged" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/HorizontalScrollPosition_write_pos.png" />
+            </body>         
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_horizontalScrollPosition_write_zero" keywords="[TextArea,horizontalScrollPosition,properties]" description="The horizontalScrollPosition property scrolls the control back to 0 position after it has been scrolled forward.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="wordWrap" value="false" />
+                <SetProperty target="ta1" propertyName="text" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit" waitEvent="updateComplete" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="2" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" />
+                <AssertEvent target="ta1.getChildAt(3).getChildAt(3)" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="['TAB']" />
+                <AssertEvent target="ta1" eventName="focusOut" eventClass="flash.events::FocusEvent" />
+                <SetProperty target="ta1" propertyName="horizontalScrollPosition" value="0" waitEvent="viewChanged" />
+                <CompareBitmap target="ta1" url="../Properties/Baselines/HorizontalScrollPosition_write_zero.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_horizontalScrollPosition_read" keywords="[TextArea,horizontalScrollPosition,properties]" description="The horizontalScrollPosition property scrolls the control.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="wordWrap" value="false" />
+                <SetProperty target="ta1" propertyName="text" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit" waitEvent="updateComplete" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="2" />             
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="['TAB']" />
+                <AssertEvent target="ta1" eventName="focusOut" eventClass="flash.events::FocusEvent" />
+                <AssertPropertyValue target="ta1" propertyName="horizontalScrollPosition" value="5" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_verticalScrollPosition_write_pos" keywords="[TextArea,verticalScrollPosition,properties]" description="The verticalScrollPosition property scrolls the control.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="text" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat." waitEvent="updateComplete" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="2" />
+                <SetProperty target="ta1" propertyName="verticalScrollPosition" value="10" waitEvent="viewChanged" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/VerticalScrollPosition_write_pos.png" />
+            </body>         
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_verticalScrollPosition_write_zero" keywords="[TextArea,verticalScrollPosition,properties]" description="The verticalScrollPosition property scrolls the control back to 0 position after it has been scrolled forward.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="text" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat." waitEvent="updateComplete" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="2" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ta1" propertyName="verticalScrollPosition" value="0" waitEvent="viewChanged" />
+                <DispatchKeyEvent keys="['TAB']" />
+                <AssertEvent target="ta1" eventName="focusOut" eventClass="flash.events::FocusEvent" />
+                <CompareBitmap target="ta1" url="../Properties/Baselines/VerticalScrollPosition_write_zero.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_verticalScrollPosition_write_neg" keywords="[TextArea,verticalScrollPosition,properties]" description="The verticalScrollPosition property scrolls the control back to 0 position after it has been scrolled forward.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="text" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat." waitEvent="updateComplete" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="2" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="ta1.getChildAt(3).getChildAt(3)" localX="4" localY="4" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ta1" propertyName="verticalScrollPosition" value="-5" waitEvent="viewChanged" />
+                <DispatchKeyEvent keys="['TAB']" />
+                <AssertEvent target="ta1" eventName="focusOut" eventClass="flash.events::FocusEvent" />
+                <CompareBitmap target="ta1" url="../Properties/Baselines/VerticalScrollPosition_write_neg.png" />
+            </body>
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_verticalScrollPosition_read" keywords="[TextArea,verticalScrollPosition,properties]" description="The verticalScrollPosition property scrolls the control.">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="text" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat." waitEvent="updateComplete" />
+                <AssertEvent target="ta1" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="2" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="ta1.mx_internal:scroll_verticalScrollBar.mx_internal:downArrow" localX="4" localY="4" waitTarget="ta1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="ta1.mx_internal:scroll_verticalScrollBar.mx_internal:downArrow" localX="4" localY="4" waitTarget="ta1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="ta1.mx_internal:scroll_verticalScrollBar.mx_internal:downArrow" localX="4" localY="4" waitTarget="ta1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="ta1.mx_internal:scroll_verticalScrollBar.mx_internal:downArrow" localX="4" localY="4" waitTarget="ta1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="ta1.mx_internal:scroll_verticalScrollBar.mx_internal:downArrow" localX="4" localY="4" waitTarget="ta1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="ta1.mx_internal:scroll_verticalScrollBar.mx_internal:downArrow" localX="4" localY="4" waitTarget="ta1" waitEvent="scroll" />
+                <AssertPropertyValue target="ta1" propertyName="verticalScrollPosition" value="5" />
+            </body>         
+        </TestCase>
+
+        <TestCase frequency="all" testID="property_wordWrap_default" keywords="[TextArea,verticalScrollPosition,properties]" description="The wordWrap property causes wrapping by default.">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta2" propertyName="text" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat." waitEvent="updateComplete" />
+                <AssertEvent target="ta2" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="2" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ta2" method="value=application.ta2.getNumLines()" value="6" />
+            </body>         
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_wordWrap_true" keywords="[TextArea,verticalScrollPosition,properties]" description="The wordWrap property causes wrapping when true.">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta2" propertyName="wordWrap" value="true" />
+                <SetProperty target="ta2" propertyName="text" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat." waitEvent="updateComplete" />
+                <AssertEvent target="ta2" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="2" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ta2" method="value=application.ta2.getNumLines()" value="6" />
+            </body>         
+        </TestCase>     
+
+        <TestCase frequency="all" testID="property_wordWrap_false" keywords="[TextArea,verticalScrollPosition,properties]" description="The wordWrap property prevents wrapping when false.">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta2" propertyName="wordWrap" value="false" />
+                <SetProperty target="ta2" propertyName="text" value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat." waitEvent="updateComplete" />
+                <AssertEvent target="ta2" eventName="updateComplete" eventClass="mx.events::FlexEvent" numExpectedEvents="2" />
+            </setup>
+            <body>
+                <AssertMethodValue target="ta2" method="value=application.ta2.getNumLines()" value="1" />
+            </body>         
+        </TestCase>     
+
+        <!-- TODO: Test everything that can be in a stylesheet.  Later, if ever -->
+        <TestCase frequency="all" testID="property_stylesheet" keywords="[TextArea,styleSheet,properties]" description="Able to set a stylesheet for the TextArea.">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" />
+                <RunCode code="setUpGeneralStyleSheet()" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />              
+                <SetProperty target="ta1" propertyName="styleSheet" valueExpression="value=ss" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( generalStyleSheet )" waitEvent="updateComplete" />       
+                
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/property_stylesheet.png" />
+            </body>
+        </TestCase>
+
+        <!-- Here's a use case we did not consider.  How do I verify that a link opens when clicked on? -->
+        <!--TestCase testID="property_htmlText_anchor">
+            <setup>
+                <ResetComponent target="ta1" className="mx.controls.TextArea" waitEvent="updateComplete" />
+                <SetProperty target="ta1" propertyName="width" value="200" />
+                <SetProperty target="ta1" propertyName="height" value="200" />
+                <SetProperty target="ta1" propertyName="htmlText" valueExpression="value=( anchorString )" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="ta1" url="../Properties/Baselines/htmlText_anchor.png" />
+            </body>
+        </TestCase-->
+    </testCases>
+</UnitTester>
+
+<!--
+Regarding htmlText testing:
+
+"...you can use the subset of HTML tags that is supported by the Flash TextField control."
+
+"ActionScript provides several ways to format your text at runtime. The TextFormat class lets you set character and paragraph formatting for TextField objects. You can apply Cascading Style Sheets (CSS) styles to text fields by using the TextField.styleSheet property and the StyleSheet class. You can use CSS to style built-in HTML tags, define new formatting tags, or apply styles. You can assign HTML formatted text, which might optionally use CSS styles, directly to a text field. HTML text that you assign to a text field can contain embedded media (movie clips, SWF files, GIF files, PNG files, and JPEG files). The text wraps around the embedded media in the same way that a web browser wraps text around media embedded in an HTML document."
+
+See http://livedocs.macromedia.com/flex/2/langref/flash/text/TextField.html#htmlText
+-->

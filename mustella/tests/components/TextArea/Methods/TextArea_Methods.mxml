@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TextArea/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TextArea_Component.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            public static function init(o:DisplayObject):void{}
+        ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>   
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <mx:Script><![CDATA[
+        import flash.text.TextLineMetrics;
+        
+        private var courier10Data:TextLineMetrics;
+        private var vivaldi20Data:TextLineMetrics;
+        
+        private var stdWidth:int = 200;
+        private var stdHeight:int = 100;
+
+        // Protect bitmaps from changes in the default size by always
+        // specifying a standard size.
+        private function setToStandardSize(obj:Object):void{
+            obj.width = stdWidth;
+            obj.height = stdHeight;
+        }
+        
+        // Use for comparing TextLineMetrics data.
+        private function setUpTextLineMetrics():void{
+            
+            // Courier (TTF)        10: ascent=8.3   descent=3   height=13.3  leading=2 width=131.9              x=2
+            // Vivaldi (Flash type) 20: ascent=18.05 descent=5.7 height=25.75 leading=2 width=123.35000000000001 x=2
+
+            courier10Data = new TextLineMetrics(2, 131.9, 13.3, 8.3, 3, 2);
+            vivaldi20Data = new TextLineMetrics(2, 123.35000000000001, 25.75, 18.05, 5.7, 2);
+        }
+        
+    ]]></mx:Script>
+    
+    <mx:Style>      
+        @font-face{
+            src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+            fontFamily: "myCourier";
+        }
+        
+        @font-face {
+            src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+            fontFamily: "Vivaldi";
+        }                       
+    </mx:Style>
+
+    <testCases> 
+        <TestCase testID="method_getLineMetrics_courier_10" keywords="TextArea,methods,line metrics,getLineMetrics">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <RunCode code="setUpTextLineMetrics()" />
+                <SetStyle target="ta1" styleName="fontFamily" value="myCourier" />
+                <SetStyle target="ta1" styleName="fontSize" value="10" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />             
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ta1.getLineMetrics(0)" valueExpression="value=courier10Data" />                
+            </body>
+        </TestCase>
+
+        <TestCase testID="method_getLineMetrics_vivaldi_20" keywords="TextArea,methods,line metrics,getLineMetrics">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <RunCode code="setUpTextLineMetrics()" />
+                <SetStyle target="ta1" styleName="fontFamily" value="Vivaldi" />
+                <SetStyle target="ta1" styleName="fontSize" value="20" />
+                <SetProperty target="ta1" propertyName="text" value="The quick, brown, fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="ta1" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.ta1.getLineMetrics(0)" valueExpression="value=vivaldi20Data" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="method_setSelection_nofocus" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(0, 5)" />
+                <Pause timeout="0" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_NoFocus.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="method_setSelection_ins_pt_before_beginning" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta2" />
+                <DispatchMouseEvent target="ta2" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta2" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta2" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta2.setSelection(-1, -1)" waitEvent="updateComplete" waitTarget="ta2" />
+                <AssertMethodValue target="ta2" method="value=application.ta2.getTextFieldCaretIndex()" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="method_setSelection_ins_pt_beginning" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta2" />
+                <DispatchMouseEvent target="ta2" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta2" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta2" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta2.setSelection(0, 0)" waitEvent="updateComplete" waitTarget="ta2" />
+                <AssertMethodValue target="ta2" method="value=application.ta2.getTextFieldCaretIndex()" value="0" />
+            </body>     
+        </TestCase>
+
+        <TestCase testID="method_setSelection_ins_pt_mid" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta2" />
+                <DispatchMouseEvent target="ta2" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta2" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta2" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta2.setSelection(4, 4)" waitEvent="updateComplete" waitTarget="ta2" />
+                <AssertMethodValue target="ta2" method="value=application.ta2.getTextFieldCaretIndex()" value="4" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="method_setSelection_ins_pt_end" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta2" />
+                <DispatchMouseEvent target="ta2" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta2" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta2" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta2.setSelection(10, 10)" waitEvent="updateComplete" waitTarget="ta2" />
+                <AssertMethodValue target="ta2" method="value=application.ta2.getTextFieldCaretIndex()" value="10" />
+            </body> 
+        </TestCase>
+
+        <TestCase testID="method_setSelection_ins_pt_afterend" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta2" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta2" />
+                <DispatchMouseEvent target="ta2" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta2" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta2" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta2.setSelection(11, 11)" waitEvent="updateComplete" waitTarget="ta2" />
+                <AssertMethodValue target="ta2" method="value=application.ta2.getTextFieldCaretIndex()" value="10" />
+            </body> 
+        </TestCase>
+
+        <TestCase testID="method_setSelection_before0_first" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(-1, 0)" waitEvent="updateComplete" waitTarget="ta1" />
+                
+                <!-- This does not work because of the flashing mouse cursor.
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_Before0_First.png" />
+                -->
+                
+                <!-- This is a horizontal line of the TextArea which would be black if there were any highlighting. -->
+                <AssertPixelValue target="ta1" x="5" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="6" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="7" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="8" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="9" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="10" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="11" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="12" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="13" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="14" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="15" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="16" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="17" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="18" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="19" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="20" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="21" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="22" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="23" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="24" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="25" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="26" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="27" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="28" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="29" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="30" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="31" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="32" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="33" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="34" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="35" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="36" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="37" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="38" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="39" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="40" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="41" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="42" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="43" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="44" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="45" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="46" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="47" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="48" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="49" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="50" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="51" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="52" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="53" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="54" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="55" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="56" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="57" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="58" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="59" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="60" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="61" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="62" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="63" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="64" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="65" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="66" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="67" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="68" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="69" y="4" value="0xffffff" />
+                <AssertPixelValue target="ta1" x="70" y="4" value="0xffffff" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="method_setSelection_spaces" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                
+                <!-- Mustella bug: This does not add the spaces to the TextArea. -->
+                <!--SetProperty target="ta1" propertyName="text" value="          " /-->
+                <RunCode code="application.ta1.text='          '" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(1, 5)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_Spaces.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="method_setSelection_tabs" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <RunCode code="application.ta1.text='\t\t\t\t\t'" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(1, 3)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_Tabs.png" />
+            </body>     
+        </TestCase>     
+
+        <TestCase testID="method_setSelection_first" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(0, 1)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_First.png" />
+            </body>     
+        </TestCase>
+                
+        <TestCase testID="method_setSelection_first_mid" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(0, 5)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_First_Mid.png" />
+            </body>         
+        </TestCase>
+
+        <TestCase testID="method_setSelection_first_secondline" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta1" propertyName="text" value="012345678 012345678 0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(0, 25)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_First_SecondLine.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="method_setSelection_first_end" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(0, 10)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_First_End.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="method_setSelection_first_afterend" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(0, 11)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_First_AfterEnd.png" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="method_setSelection_mid_end" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(5, 10)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_Mid_End.png" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="method_setSelection_mid_mid" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(5, 8)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_Mid_Mid.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="method_setSelection_mid_backwards" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(8, 5)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_Mid_Backwards.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="method_setSelection_end" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(9, 10)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_End.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="method_setSelection_end_backwards" keywords="TextArea,methods,setSelection">
+            <setup>
+                <ResetComponent target="ta1" className="MyTextArea" waitEvent="updateComplete" waitTarget="ta1" />
+                <DispatchMouseEvent target="ta1" type="mouseDown" localX="10" localY="10" />
+                <DispatchMouseEvent target="ta1" type="mouseUp" localX="10" localY="10" />              
+                <SetProperty target="ta1" propertyName="text" value="0123456789" />
+            </setup>
+            <body>
+                <RunCode code="application.ta1.setSelection(10, 5)" waitEvent="updateComplete" waitTarget="ta1" />
+                <CompareBitmap target="ta1" url="../Methods/Baselines/SetSelection_End_Backwards.png" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

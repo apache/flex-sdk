@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/List/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ListMain.mxml">
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <mx:Script>
+    <![CDATA[
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.managers.ToolTipManager;
+    import mx.controls.Alert;
+    import mx.collections.ArrayCollection;
+    
+   private var dg_11427:ArrayCollection = new ArrayCollection ([ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18" ]);
+   
+    private var dg_11061:ArrayCollection = new ArrayCollection ([ "Zerooooooooooooo", "Onnnnnnnnnnnne", "Twtttttttttto", "Thrrrrrrrrrrrrrrrree", "Fuuuuuuuuuuuuuuuuuuuour", "Fiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiive", "Zewwwwwwwwwwwwro", "Onrrrrrrrrrrrrrrrre", "Twottttttttttttttttt", "Thddddddddddddddddddree", "Fogggggggggggggggggggur", "Fisssssssssssssssssssssssssve" ]);
+      
+   public function addItems(n:int):void{
+       for(var i:int=0;i<n;i++)  {
+          var obj:Object={slno:i,name:"Added Item"+String(i),age:100+i}
+          application.mybox.mylist.dataProvider.addItem(obj);
+       }           
+    }
+    
+    public function addSpecialDP1():void{
+          application.mybox.mylist.dataProvider.removeAll();
+        application.mybox.mylist.dataProvider=[{ label:'Album A' },{ label:'Album B' },{ label:'Album C' },{ label:'Album D' },{ label:'Album E' },{ label:'Other' },{ label:'Album A1' },{ label:'Album B1' },{ label:'Album C1' },{ label:'Album D1' },{ label:'Album E1' },{ label:'Other1' },{ label:'Album A2' },{ label:'Album B2' },{ label:'Album C2' },{ label:'Album D2' },{ label:'Album E2' },{ label:'Other2' },{ label:'Album A3' },{ label:'Album B3' },{ label:'Album C3' },{ label:'Album D3' },{ label:'Album E3' },{ label:'Other3' },{ label:'Album A4' },{ label:'Album B4' },{ label:'Album C4' },{ label:'Album D4' },{ label:'Album E4' },{ label:'Other4' },{ label:'Album A5' },{ label:'Album B5' },{ label:'Album C5' },{ label:'Album D5' },{ label:'Album E5' },{ label:'Other5' }];
+    }
+    
+    public function addLongItem():void{
+          var obj:Object={slno:0,name:"Added Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Item",age:100}
+          application.mybox.mylist.dataProvider.addItemAt(obj,3);
+    }
+    
+    public function remove_and_repopulate():void{
+        application.mybox.mylist.dataProvider.removeAll();
+        application.mybox.mylist.dataProvider=['one', 'two', 'gggg', 'yyyy', 'jjjj', 'pppp', 'qqqq'];
+    }
+    
+    public function removeAll():void{
+        application.mybox.mylist.dataProvider.removeAll();
+    }
+    
+    private function attachListener():void{
+        application.mybox.mylist.addEventListener('scroll',scrollListener);
+    }
+
+    private function scrollListener(evt:Event):void{
+        Alert.show('Scrolled');
+    }
+    ]]>
+    </mx:Script>
+    
+      <testCases>      
+      
+	<TestCase testID="list_properties_bugs_SDK12013" keywords="[list, bugs, SDK12172]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>	
+		   <RunCode code="addSpecialDP1()"/>
+		   <SetProperty target="mybox.mylist" propertyName="labelField"  value= "label" waitEvent="updateComplete" waitTarget="mybox.mylist"/>	
+	     </setup>
+	    <body>	    	
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"/>
+		  <DispatchMouseClickEvent target="mybox.mylist" stageX="264" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist"/>
+        	  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_bugs_injection_SDK_12013.png"  />
+	     </body>
+	</TestCase>
+	
+	<TestCase testID="list_properties_bugs_SDK12233" keywords="[list, bugs, SDK12233]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>	
+		   <SetProperty target="mybox.mylist" propertyName="dataProvider"  value= "{[ '', 'dog', 'cat', 'weirdo', 'chicken', 'monkey', 'cow', 'dolphin' ]}" />
+	     </setup>
+	    <body>	    	
+		  <DispatchMouseClickEvent target="mybox.mylist" localX="5" localY="5" waitEvent="change" waitTarget="mybox.mylist"/> 
+		  <WaitForEffectsToEnd/>
+		    <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="0" />
+		    <!--CompareBitmap target="mybox" url="../Properties/Baselines/list_bugs_injection_SDK_12233.png"  /-->
+		    <DispatchKeyEvent key="DOWN"  waitEvent="change" waitTarget="mybox.mylist"/>
+		      <WaitForEffectsToEnd/>
+		    <DispatchKeyEvent key="UP"  waitEvent="change" waitTarget="mybox.mylist"/>
+		      <WaitForEffectsToEnd/>
+		    <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="0" />  
+    		    <!--CompareBitmap target="mybox" url="../Properties/Baselines/list_bugs_injection_SDK_12233.png"  /-->		    
+	     </body>
+	</TestCase>
+
+    	<TestCase testID="list_properties_bugs_SDK12172" keywords="[list, bugs, SDK12172]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>	
+		  <SetProperty target="mybox.mylist" propertyName="dataProvider" 
+		  value= "{ [ '', 'dog', 'cat', 'weirdo', 'chicken', 'monkey', 'cow', 'dolphin' ] }" />	
+		  <SetProperty target="mybox.mylist" propertyName="width"  value= "54"  waitEvent="updateComplete" waitTarget="mybox"/>
+		  <SetProperty target="mybox.mylist" propertyName="height"  value= "156"  waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>	    	
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"/>
+		   <DispatchKeyEvent key="PAGE_DOWN"  waitEvent="change" waitTarget="mybox.mylist"/>
+		     <DispatchKeyEvent key="PAGE_DOWN"  waitEvent="change" waitTarget="mybox.mylist"/>
+		     <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="7" />
+		     <DispatchKeyEvent key="PAGE_UP"  waitEvent="change" waitTarget="mybox.mylist"/>
+		     <DispatchKeyEvent key="PAGE_UP"  waitEvent="change" waitTarget="mybox.mylist"/>		     
+		     <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="0" />		     
+	     </body>
+	</TestCase> 
+
+   <TestCase testID="list_properties_bugs_155615" keywords="[list, bugs, 155615]">
+    	      <setup>
+    		   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>	
+      		   <RunCode code="addItems(12)" />	
+    	     </setup>
+    	    <body>	    	
+    	    	 <SetProperty target="mybox.mylist" propertyName="width" value= "60" waitEvent="updateComplete" waitTarget="mybox.mylist"/>	
+    	    	 <Pause timeout="250"/>
+    	    	 <DispatchMouseClickEvent target="mybox.mylist" stageX="125" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist"/>
+    	     </body>
+	</TestCase>
+	<TestCase testID="list_properties_bugs_158216" keywords="[list, bugs, 158216]">
+		      <setup>
+			   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>	
+			   <SetProperty target="mybox.mylist" propertyName="allowMultipleSelection" value= "true"/>	
+		     </setup>
+		    <body>	    	
+			   <DispatchMouseClickEvent target="mybox.mylist" stageX="125" stageY="100" waitEvent="change" waitTarget="mybox.mylist"/>
+			   <Pause timeout="250"/>
+			   <AssertPixelValue target="mybox.mylist" x="100" y="35" value="0x7FCEFF"/>
+			  <DispatchMouseClickEvent target="mybox.mylist"  ctrlKey="true" stageX="125" stageY="100" waitEvent="change" waitTarget="mybox.mylist"/>		   
+			   <AssertPixelValue target="mybox.mylist" x="100" y="35" value="0xFFFFFF"/>		  
+		     </body>
+	</TestCase> 
+    <TestCase testID="list_properties_bugs_SDK_11061" keywords="[list, bugs, SDK_11061]">
+                <setup>
+                    <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>
+                    <SetProperty target="mybox.mylist" propertyName="width" value= "100"/>
+                    <SetProperty target="mybox.mylist" propertyName="height" value= "200"/>
+                    <SetProperty target="mybox.mylist" propertyName="variableRowHeight" value= "true"/>
+                    <SetProperty target="mybox.mylist" propertyName="wordWrap" value= "true"/>
+                    <RunCode code=" application.mybox.mylist.dataProvider = dg_11061" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+                </setup>
+                <body>          
+                    <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"/>
+                    <DispatchKeyEvent key="DOWN"   repeatCount="14" waitEvent="change" waitTarget="mybox.mylist"/> 
+                    <WaitForEffectsToEnd />
+                    <!--CompareBitmap target="mybox" url="../Properties/Baselines/list_bugs_injection_SDK_11061_initial.png" timeout="5000"/-->
+                    <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="11" />
+                    <DispatchKeyEvent key="HOME" ctrlKey="false" waitEvent="change" waitTarget="mybox.mylist"/>
+                    <WaitForEffectsToEnd />
+                    <!--CompareBitmap target="mybox" url="../Properties/Baselines/list_bugs_injection_SDK_11061_HOME.png" timeout="5000"/-->
+                    <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="0" />
+                 </body>
+    </TestCase>
+
+<TestCase testID="list_properties_bugs_SDK_11427" keywords="[list, bugs, SDK_11427]">
+            <setup>
+                <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>  
+                    <SetProperty target="mybox.mylist" propertyName="width" value= "200"/>
+                    <SetProperty target="mybox.mylist" propertyName="height" value= "200"/>
+                <RunCode code=" application.mybox.mylist.dataProvider = dg_11427" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+            </setup>
+            <body>          
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"/>
+                <DispatchKeyEvent key="DOWN" waitEvent="change" waitTarget="mybox.mylist"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="0" />
+                <DispatchKeyEvent key="END" ctrlKey="false" waitEvent="change" waitTarget="mybox.mylist"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="18" />
+                <DispatchKeyEvent key="HOME" ctrlKey="false" waitEvent="change" waitTarget="mybox.mylist"/>
+                
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="0" />
+                <DispatchKeyEvent key="PAGE_DOWN" ctrlKey="false" waitEvent="change" waitTarget="mybox.mylist"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="7" />
+                <DispatchKeyEvent key="PAGE_UP" ctrlKey="false" waitEvent="change" waitTarget="mybox.mylist"/>
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="0" />
+                </body>
+    </TestCase>
+    
+    <TestCase testID="list_bugs_159462" keywords="[list, bugs, 159462]">
+        <setup>
+            <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>  
+            <RunCode code="attachListener()"/>
+            <RunCode code="addItems(10)" waitEvent="updateComplete" waitTarget="mybox.mylist"/>    
+        </setup>
+        <body>          
+            <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"/>
+            <DispatchKeyEvent key="DOWN" ctrlKey="false" repeatCount="12"/>
+            <WaitForEffectsToEnd />
+            <AssertPropertyValue target="systemManager.topLevelSystemManager.getChildAt(2).getChildAt(0).getChildAt(0)" propertyName="text" value="Scrolled" />
+            <DispatchKeyEvent key="ENTER" />
+         </body>
+    </TestCase>
+
+    <TestCase testID="list_bugs_160536" keywords="[list, bugs, 160536]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>  
+            <RunCode code="addLongItem()"/>
+            <SetProperty target="mybox.mylist" propertyName="variableRowHeight" value= "true"/>
+            <SetProperty target="mybox.mylist" propertyName="wordWrap" value= "true"/>      
+            <SetProperty target="mybox.mylist" propertyName="editable" value= "true"/>          
+             <RunCode code="addItems(10)" waitEvent="updateComplete" waitTarget="mybox.mylist"/>    
+         </setup>
+        <body>          
+        <DispatchMouseClickEvent target="mybox.mylist" stageX="220" stageY="150" waitEvent="change" waitTarget="mybox.mylist"/>
+        <DispatchMouseClickEvent target="mybox.mylist" stageX="264" stageY="315" waitEvent="scroll" waitTarget="mybox.mylist"/>     
+        <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_bugs_injection_160536.png"  />   
+         </body>
+    </TestCase>
+
+    <TestCase testID="list_bugs_163871" keywords="[list, bugs, 163871]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>          
+            <RunCode code="addSpecialDP1()"/>
+            <SetProperty target="mybox.mylist" propertyName="labelField" value= "label" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+         </setup>
+        <body>          
+            <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.mylist"/>
+           <DispatchKeyEvent char="s" ctrlKey="false" repeatCount="4"/>
+           <DispatchKeyEvent char="c" ctrlKey="false" repeatCount="4"/>        
+           <DispatchKeyEvent char="w" ctrlKey="false" repeatCount="4"/>
+            <DispatchMouseEvent target="mybox.mylist" type="mouseMove" stageX="190" stageY="150" waitEvent="itemRollOver" waitTarget="mybox.mylist"/>
+         </body>
+    </TestCase>
+    <TestCase testID="list_bugs_160908" keywords="[list, bugs, 160908]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>          
+         </setup>
+        <body>          
+           <SetStyle target="mybox.mylist" styleName="paddingTop" value="30" waitEvent="updateComplete" waitTarget="mybox.mylist" />
+           <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_bugs_injection_160908.png"  />   
+         </body>
+    </TestCase>
+    
+    <TestCase testID="list_bugs_159498" keywords="[list, bugs, 159498]">
+        <setup>
+            <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>          
+            <RunCode code=" application.mybox.mylist.selectedItem =  application.mybox.mylist.dataProvider.getItemAt(1);"/>
+        </setup>
+        <body>         
+            <AssertPropertyValue target="mybox.mylist" propertyName="selectedIndex" value="1"/>
+            <RunCode code="mx.controls.Alert.show('Selected item: ' + application.mybox.mylist.selectedItem );"/>
+            <WaitForEffectsToEnd />
+            <AssertPropertyValue target="systemManager.topLevelSystemManager.getChildAt(2).getChildAt(0).getChildAt(0)" propertyName="text" value="Selected item: [object Object]" />
+            <DispatchKeyEvent key="ENTER" />
+        </body>
+    </TestCase>  
+  </testCases>                         
+</UnitTester>

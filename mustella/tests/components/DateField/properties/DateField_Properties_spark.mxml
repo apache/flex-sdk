@@ -1,0 +1,1048 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateField/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateField_Basic_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.controls.DateField;
+	import mx.managers.ToolTipManager;
+ 	import mx.core.IToolTip;
+
+	public var rStart:Date = new Date();
+	public var rStart2:Date = new Date();
+	public var curTip:IToolTip;
+	public var rEnd:Date = new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()+30);
+
+	public function decreaseHide():void
+	{
+		ToolTipManager.hideDelay = 2000;
+	}
+
+	public function getTip():void
+	{
+		curTip = ToolTipManager.currentToolTip;
+	}
+
+        public function setformattingFunctionAS():void
+      	{
+               application.df.selectedDate= new Date(8,2,2006);
+	       application.df.labelFunction=myFormatFunc;
+    	}
+
+      	public function myFormatFunc(date:Date):String
+      	{
+              return "Selected Month is " + String(date.getMonth()+1);
+
+      	}
+	public function seteditable():void{
+		application.df.editable=true;
+	}
+	public function setDayNames():void
+	{
+		application.df.dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+	}
+	public function setDisabledDays():void
+	{
+		application.df.disabledDays = [0,4];
+	}
+	public function setYearNavigationEnabled():void{
+		application.df.yearNavigationEnabled=true;
+	}
+	public function setShowToday():void{
+		application.df.showToday=false;
+	}
+	public function setFirstDayOfWeek():void{
+		application.df.firstDayOfWeek=4;
+	}
+	public function setDisplayedYear():void{
+		application.df.displayedYear=2005;
+	}
+	public function setDisplayedMonth():void{
+		application.df.displayedMonth=5;
+	}
+	public function setMonthNames():void
+	{
+		application.df.monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+	}
+	public function setSelectableRange():void{
+		// application.df.selectableRange=[{rangeStart: new Date(), rangeEnd: new Date(new Date().getFullYear(),new Date().getMonth(),(new Date().getDate()+30))}];
+		application.df.selectableRange=[{rangeStart: rStart, rangeEnd: rEnd}];
+	}
+	public function setDisabledRanges():void{
+		application.df.disabledRanges=[{rangeStart: new Date(2005, 2, 7), rangeEnd: new Date(2005, 2, 11)}];
+	}
+	public function setScaleY():void{
+		application.df.scaleY=1.2;
+	}
+	public function setScaleX():void{
+		application.df.scaleX=1.2;
+	}
+	public function setSelectedDate():void{
+		application.df.selectedDate=new Date(2005, 2, 5);
+	}
+	public function setX():void{
+		application.df.x=200;
+	}
+	public function setY():void{
+		application.df.y=200;
+	}
+      	public function setWidth():void{
+		application.df.width=200;
+      	}
+      	public function setHeight():void{
+		application.df.height=200;
+      	}
+      	public function setPercentWidth():void{
+		application.df.percentWidth=200;
+      	}
+      	public function setPercentHeight():void{
+		application.df.percentHeight=200;
+      	}
+      	public function setMaxHeight():void{
+      		application.df.maxHeight=50;
+      	}
+      	public function setMaxWidth():void{
+      		application.df.maxWidth=50;
+      	}
+      	public function setMinYear():void{
+      		application.df.minYear=2004;
+      	}
+      	public function setMaxYear():void{
+      		application.df.maxYear=2007;
+      	}
+	public function setToolTip():void
+	{
+		application.df.toolTip="My DateField";
+	}
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="DateField_Property_DayNames_Default_spark"  keywords="[dayNames, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="dayNames" value="['S','M','T','W','T','F','S']" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_DayNames1_spark"  keywords="[dayNames, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="dayNames" value="['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<CompareBitmap url="../properties/baselines/DateField_DayNames1_spark.png" target=""/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_DayNames2_spark"  keywords="[dayNames, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setDayNames()"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<CompareBitmap url="../properties/baselines/DateField_DayNames2_spark.png" target=""/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_disabledDays_Default_spark"  keywords="[disabledDays, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="disabledDays" value="[]" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_disabledDays1_spark"  keywords="[disabledDays, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="disabledDays" value="[1,3,5]" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+ 				<CompareBitmap url="../properties/baselines/DateField_disabledDays1_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_disabledDays2_spark"  keywords="[disabledDays, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setDisabledDays()"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+ 				<AssertPropertyValue target="df" propertyName="disabledDays" value="[0,4]" />
+				<CompareBitmap url="../properties/baselines/DateField_disabledDays2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_yearNavigationEnabled_Default_spark"  keywords="[yearNavigationEnabled, selectedDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="yearNavigationEnabled" value="false" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_yearNavigationEnabled1_spark"  keywords="[yearNavigationEnabled, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="yearNavigationEnabled" value="true" />
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser via keystrokes b/c the mouse click event does not open the DateChooser properly for this test -->
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="DOWN" ctrlKey="true" waitEvent="open" waitTarget="df"/>
+				<CompareBitmap url="../properties/baselines/DateField_yearNavigationEnabled1_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_yearNavigationEnabled2_spark"  keywords="[yearNavigationEnabled, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setYearNavigationEnabled()"/>
+			</setup>
+			<body>
+ 				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="DOWN" ctrlKey="true" waitEvent="open" waitTarget="df"/>
+				<CompareBitmap url="../properties/baselines/DateField_yearNavigationEnabled2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_showToday_Default_spark"  keywords="[showToday, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="showToday" value="true" />
+			</body>
+		</TestCase>
+
+		<!--These tests may need to be changed, I don't think they really test the showToday property-->
+		<TestCase testID="DateField_Property_showToday1_spark"  keywords="[showToday, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="showToday" value="false" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="showToday" value="false"/>
+				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_showToday1_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_showToday2_spark"  keywords="[showToday, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setShowToday()"/>
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="showToday" value="false"/>
+				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_showToday2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_firstDayOfWeek_Default_spark"  keywords="[firstDayOfWeek, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="firstDayOfWeek" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_firstDayOfWeek1_spark"  keywords="[firstDayOfWeek, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="firstDayOfWeek" value="2" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="firstDayOfWeek" value="2"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_firstDayOfWeek1_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_firstDayOfWeek2_spark"  keywords="[firstDayOfWeek, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setFirstDayOfWeek()"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="firstDayOfWeek" value="4" />
+				<CompareBitmap url="../properties/baselines/DateField_Property_firstDayOfWeek2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_displayedYear_Default_spark"  keywords="[displayedYear, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="displayedYear" valueExpression="value=new Date().getFullYear()"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_displayedYear1_spark"  keywords="[displayedYear, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="displayedYear" value="2005" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="displayedMonth" value="5" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="displayedYear" value="2005"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_displayedYear1_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_displayedYear2_spark"  keywords="[displayedYear, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df" />
+				<RunCode code="setDisplayedYear()" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="displayedMonth" value="5" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="df" propertyName="displayedYear" value="2005" />
+				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_displayedYear2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_displayedMonth_Default_spark"  keywords="[displayedMonth, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="displayedMonth" valueExpression="value=new Date().getMonth()"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_displayedMonth1_spark"  keywords="[displayedMonth, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="displayedMonth" value="9" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="displayedYear" value="2005" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="df" propertyName="displayedMonth" value="9"/>
+				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_displayedMonth1_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_displayedMonth2_spark"  keywords="[displayedMonth, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setDisplayedYear()" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setDisplayedMonth()" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="displayedMonth" value="5" />
+				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_displayedMonth2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_MonthNames_Default_spark"  keywords="[monthNames, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="monthNames" value="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_MonthNames1_spark"  keywords="[monthNames, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="monthNames" value="['Ja','Fe','Ma','Ap','Ma','Ju','Ju','Au','Se','Oc','No','De']" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="monthNames" value="['Ja','Fe','Ma','Ap','Ma','Ju','Ju','Au','Se','Oc','No','De']"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_MonthNames1_spark.png" target=""/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_MonthNames2_spark"  keywords="[monthNames, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setMonthNames()"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="monthNames" value="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']" />
+				<CompareBitmap url="../properties/baselines/DateField_Property_MonthNames2_spark.png" target=""/>
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="DateField_Property_scaleY_Default_spark"  keywords="[scaleY, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="scaleY" value="1" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_scaleY1_spark"  keywords="[scaleY, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="scaleY" value="1.5" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="scaleY" value="1.5"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_scaleY1_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_scaleY2_spark"  keywords="[scaleY, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setScaleY()" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="scaleY" value="1.2"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_scaleY2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_scaleX_Default_spark"  keywords="[scaleX, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="scaleX" value="1" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_scaleX1_spark"  keywords="[scaleX, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="scaleX" value="1.5" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="scaleX" value="1.5"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_scaleX1_spark.png" target=""/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_scaleX2_spark"  keywords="[scaleX, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setScaleX()" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="scaleX" value="1.2"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_scaleX2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_selectedDate1_spark"  keywords="[selectedDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_selectedDate1_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_selectedDate2_spark"  keywords="[selectedDate, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setSelectedDate()"/>
+				<Pause timeout="50"/>
+			</setup>
+			<body>
+ 			<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_selectedDate2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_x_Default_spark"  keywords="[x, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="x" value="201" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_x1_spark"  keywords="[x, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="x" value="300" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="x" value="300"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_x1_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_x2_spark"  keywords="[x, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setX()" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="x" value="200"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_x2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_y_Default_spark"  keywords="[y, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="y" value="55" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_y1_spark"  keywords="[y, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="y" value="300" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="y" value="300"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_y1_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_y2_spark"  keywords="[y, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setY()" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="y" value="200"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_y2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_disabledRanges1_spark"  keywords="[disabledRanges, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="disabledRanges" valueExpression="value=[{rangeStart: new Date(2005, 2, 7), rangeEnd: new Date(2005, 2, 11)}]" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="disabledRanges" valueExpression="value=[{rangeStart: new Date(2005, 2, 7), rangeEnd: new Date(2005, 2, 11)}]"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_disabledRanges1_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_disabledRanges2_spark"  keywords="[disabledRanges, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setDisabledRanges()" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<AssertPropertyValue target="df" propertyName="disabledRanges" valueExpression="value=[{rangeStart: new Date(2005, 2, 7), rangeEnd: new Date(2005, 2, 11)}]"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_disabledRanges2_spark.png" target="" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_width_Default_spark"  keywords="[width, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="width" value="97"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_width_MXML_spark"  keywords="[width, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="width" value="300"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_width_MXML_spark.png" target="df"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_width_Small_spark"  keywords="[width, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="width" value="50"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_width_Small_spark.png" target="df"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_width2_spark"  keywords="[width, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<RunCode code="setWidth()" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="width" value="200"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_width2_spark.png" target="df"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_height_Default_spark"  keywords="[height, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="height" value="25"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_height_MXML_spark"  keywords="[dayNheightmes, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="height" value="200"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_height_MXML_spark.png" target="df"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_height_Small_spark"  keywords="[height, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="height" value="50"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_height_Small_spark.png" target="df"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_height2_spark"  keywords="[height, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<RunCode code="setHeight()" waitEvent="updateComplete" waitTarget=""/>
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="height" value="200"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_height2_spark.png" target="df"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_percentWidth_Default_spark"  keywords="[percentWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="percentWidth" value="NaN"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_percentWidth_MXML_spark"  keywords="[percentWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="percentWidth" value="200" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="percentWidth" value="200"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_percentWidth_MXML_spark.png" target="df"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_percentWidth_Small_spark"  keywords="[percentWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="percentWidth" value="50"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_percentWidth_Small_spark.png" target="df"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_percentWidth2_spark"  keywords="[percentWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<RunCode code="setPercentWidth()" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="percentWidth" value="200"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_percentWidth2_spark.png" target="df"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_percentHeight_Default_spark"  keywords="[percentHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="df" propertyName="percentHeight" value="NaN"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_percentHeight_MXML_spark"  keywords="[percentHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="percentHeight" value="200" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="percentHeight" value="200"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_percentHeight_MXML_spark.png" target="df"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_percentHeight_Small_spark"  keywords="[percentHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="percentHeight" value="50"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_percentHeight_Small_spark.png" target="df"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_percentHeight2_spark"  keywords="[percentHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<RunCode code="setPercentHeight()" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="percentHeight" value="200"/>
+				<CompareBitmap url="../properties/baselines/DateField_Property_percentHeight2_spark.png" target="df"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_maxHeight_Default_spark"  keywords="[maxHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="maxHeight" value="10000"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_maxWidth_Default_spark"  keywords="[maxWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="maxWidth" value="10000"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_minHeight_Default_spark"  keywords="[minHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="minHeight" value="25"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_minWidth_Default_spark"  keywords="[minWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="minWidth" value="97"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_minYear_Default_spark"  keywords="[minYear, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="yearNavigationEnabled" value="true" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="df" propertyName="minYear" value="1900" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_minYear2_spark"  keywords="[minYear, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="yearNavigationEnabled" value="true" />
+				<RunCode code="setMinYear()"/>
+			</setup>
+			<body>
+				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<Pause timeout="200" />
+				<!-- This clicks on the year navigation button twice, because minYear is 2004 the displayed yr should be 2004-->
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(7)" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" />
+				<AssertPropertyValue target="df" propertyName="displayedYear" value="2004"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_minYear_MXML_spark"  keywords="[minYear, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="minYear" value="2004"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="yearNavigationEnabled" value="true" />
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<Pause timeout="200" />
+				<!-- This clicks on the year navigation button twice, because minYear is 2004 the displayed yr should be 2004-->
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(7)" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(7)" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="df" propertyName="displayedYear" value="2004"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_minYear_Decimal_spark"  keywords="[minYear, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="yearNavigationEnabled" value="true" />
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="minYear" value="2004.34"/>
+			</setup>
+			<body>
+				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<Pause timeout="200" />
+				<!-- This clicks on the year navigation button twice, because minYear is 2004 the displayed yr should be 2004-->
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(7)" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(7)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(7)" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="df" propertyName="displayedYear" value="2004"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_maxYear_Default_spark"  keywords="[maxYear, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="yearNavigationEnabled" value="true" />
+			</setup>
+			<body>
+ 				<AssertPropertyValue target="df" propertyName="maxYear" value="2100" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_maxYear2_spark"  keywords="[maxYear, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="yearNavigationEnabled" value="true" />
+				<RunCode code="setMaxYear()"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<Pause timeout="200" />
+				<!-- This clicks on the year navigation button twice, because maxYear is 2007 the displayed yr should be 2007-->
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="df" propertyName="displayedYear" value="2007"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_maxYear_MXML_spark"  keywords="[maxYear, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="yearNavigationEnabled" value="true" />
+				<SetProperty target="df" propertyName="maxYear" value="2007" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<Pause timeout="200" />
+				<!-- This clicks on the year navigation button twice, because maxYear is 2007 the displayed yr should be 2007-->
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="df" propertyName="displayedYear" value="2007"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_maxYear_Decimal_spark"  keywords="[maxYear, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="yearNavigationEnabled" value="true" />
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df" />
+				<SetProperty target="df" propertyName="maxYear" value="2007.34"/>
+			</setup>
+			<body>
+ 				<!-- Open DateChooser -->
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df"/>
+				<Pause timeout="200" />
+				<!-- This clicks on the year navigation button twice, because maxYear is 2007 the displayed yr should be 2007-->
+				<WaitForEffectsToEnd />
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="df.dropdown.getChildAt(6)" localX="3" localY="3" waitTarget="df.dropdown.getChildAt(6)" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="df" propertyName="displayedYear" value="2007"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateField_Property_ToolTip_2_spark"  keywords="[toolTipShow, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="toolTip" value="My DateField" />
+			</setup>
+			<body>
+ 				<DispatchMouseEvent target="df" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShow" waitTarget="df"/>
+ 				<RunCode code="getTip()"/>
+ 				<CompareBitmap target="script:curTip" url="../properties/baselines/DateField_Property_ToolTip_2_spark.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_ToolTip_3_spark"  keywords="[toolTip, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="toolTip" value="#$@$%%$%" />
+			</setup>
+			<body>
+ 				<DispatchMouseEvent target="df" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShow" waitTarget="df"/>
+ 				<RunCode code="getTip()"/>
+ 				<CompareBitmap target="script:curTip" url="../properties/baselines/DateField_Property_ToolTip_3_spark.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_ToolTip_4_spark"  keywords="[toolTip, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<SetProperty target="df" propertyName="toolTip" value="???????????????" />
+			</setup>
+			<body>
+ 				<DispatchMouseEvent target="df" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShow" waitTarget="df"/>
+				<RunCode code="getTip()"/>
+ 				<CompareBitmap target="script:curTip" url="../properties/baselines/DateField_Property_ToolTip_4_spark.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_ToolTip_5_spark"  keywords="[toolTip, DateChooser]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" waitEvent="updateComplete" waitTarget="df"/>
+				<RunCode code="setToolTip()" />
+			</setup>
+			<body>
+ 				<DispatchMouseEvent target="df" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShow" waitTarget="df"/>
+				<RunCode code="getTip()"/>
+ 				<CompareBitmap target="script:curTip" url="../properties/baselines/DateField_Property_ToolTip_5_spark.png" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateField_Property_editable_Default_spark"  keywords="[editable, DateChooser]">
+			<setup>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)"/>
+				<Pause timeout="50"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="df" propertyName="editable" value="false" />
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="DateField_Property_formattingFunction_spark"  keywords="[formattingFunction, DateChooser]">
+				<setup>
+				<RunCode code="setformattingFunctionAS()" />
+				<SetProperty target="df" propertyName="width" value="100%" waitEvent="updateComplete" waitTarget="df"/>
+				</setup>
+				<body>
+					<AssertPropertyValue target="df" propertyName="text" value="Selected Month is 8" />
+				</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

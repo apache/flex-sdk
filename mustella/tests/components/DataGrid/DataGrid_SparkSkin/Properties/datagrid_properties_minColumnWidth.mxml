@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_SparkSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+		import mx.core.*;
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+<!--
+================================================================================
+minColumnWidth (for all test cases, the DG is narrower than (minColumnWidth * number of columns):
+        horizontalScrollPolicy off: minColumnWidth gets ignored, columns are about (DG width/num columns) wide.
+        horizontalScrollPolicy on: minColumnWidth is used, causing a scrollbar to appear.
+        Change horizontalScrollPolicy at run time from off to on: minColumnWidth should now take effect.
+        Change horizontalScrollPolicy at run time from on to off: minColumnWidth should no longer take effect.
+        Try to resize a column to be smaller than the minColumnWidth (click/drag).
+        Try to resize a column to be smaller than the minColumnWidth (ActionScript).
+        Add a new column (start invisible, then toggle visible to true) and be sure it is at least minColumnWidth.
+        Add a new column (start invisible, then toggle visible to true) and try to resize it to be smaller than minColumnWidth.
+        
+The test value of 110 for minColumnWidth is used because the default DataGridColumn width is 100.
+================================================================================
+-->
+        <TestCase testID="datagrid_properties_minColunmnWidth_horizontalScrollPolicyOff" keywords="[DataGrid,properties,minColumnWidth]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+                <SetProperty target="dg1" propertyName="minColumnWidth" value="50" />
+                <SetProperty target="dg1" propertyName="width" value="120" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value = (FlexGlobals.topLevelApplication.dg1.columns[0].width &gt; 32 &amp;&amp; FlexGlobals.topLevelApplication.dg1.columns[0].width &lt; 36)" value="true" />
+                <AssertMethodValue method="value = (FlexGlobals.topLevelApplication.dg1.columns[1].width &gt; 32 &amp;&amp; FlexGlobals.topLevelApplication.dg1.columns[1].width &lt; 36)" value="true" />
+                <AssertMethodValue method="value = (FlexGlobals.topLevelApplication.dg1.columns[2].width &gt; 32 &amp;&amp; FlexGlobals.topLevelApplication.dg1.columns[2].width &lt; 36)" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_minColunmnWidth_horizontalScrollPolicyOn" keywords="[DataGrid,properties,minColumnWidth]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="minColumnWidth" value="110" />
+                <SetProperty target="dg1" propertyName="width" value="120" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1.columns.0" propertyName="width" value="110" />
+                <AssertPropertyValue target="dg1.columns.1" propertyName="width" value="110" />
+                <AssertPropertyValue target="dg1.columns.2" propertyName="width" value="110" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_minColunmnWidth_horizontalScrollPolicyOffToOn_visibleColumn" keywords="[DataGrid,properties,minColumnWidth]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+                <SetProperty target="dg1" propertyName="minColumnWidth" value="110" />
+                <SetProperty target="dg1" propertyName="width" value="120" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.columns.0" propertyName="width" value="110" />
+                <!--
+                    The other two columns are still 34 because they are out of sight.  Don't
+                    assert for them!
+                    <AssertMethodValue method="value=application.dg1.columns[1].width" value="110" />
+                    <AssertMethodValue method="value=application.dg1.columns[2].width" value="110" />
+                -->
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_minColunmnWidth_horizontalScrollPolicyOffToOn_notVisibleColumn" keywords="[DataGrid,properties,minColumnWidth]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+                <SetProperty target="dg1" propertyName="minColumnWidth" value="110" />
+                <SetProperty target="dg1" propertyName="width" value="120" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPosition" value="1" waitEvent="updateComplete" />                
+                <AssertPropertyValue target="dg1.columns.1" propertyName="width" value="110" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_minColunmnWidth_horizontalScrollPolicyOnToOff" keywords="[DataGrid,properties,minColumnWidth]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="minColumnWidth" value="110" />
+                <SetProperty target="dg1" propertyName="width" value="120" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" waitEvent="updateComplete" />
+                <AssertMethodValue method="value = (FlexGlobals.topLevelApplication.dg1.columns[0].width &gt; 32 &amp;&amp; FlexGlobals.topLevelApplication.dg1.columns[0].width &lt; 36)" value="true" />
+                <AssertMethodValue method="value = (FlexGlobals.topLevelApplication.dg1.columns[1].width &gt; 32 &amp;&amp; FlexGlobals.topLevelApplication.dg1.columns[1].width &lt; 36)" value="true" />
+                <AssertMethodValue method="value = (FlexGlobals.topLevelApplication.dg1.columns[2].width &gt; 32 &amp;&amp; FlexGlobals.topLevelApplication.dg1.columns[2].width &lt; 36)" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_minColunmnWidth_enforcedWithDrag" keywords="[DataGrid,properties,minColumnWidth]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="minColumnWidth" value="110" />
+                <SetProperty target="dg1" propertyName="width" value="120" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" target="dg1" localX="110" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="100" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="90" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="80" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="70" localY="10" />
+                <DispatchMouseEvent type="mouseUp" target="dg1" localX="70" localY="10" />
+                <AssertNoEvent target="dg1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+                <AssertPropertyValue target="dg1.columns.0" propertyName="width" value="110" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_minColunmnWidth_enforcedWithAS" keywords="[DataGrid,properties,minColumnWidth]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="minColumnWidth" value="110" />
+                <SetProperty target="dg1" propertyName="width" value="120" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="dg1.columns.0" propertyName="width" value="40" />
+                <AssertNoEvent target="dg1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+                <AssertPropertyValue target="dg1.columns.0" propertyName="width" value="110" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_minColunmnWidth_newVisibleColumn" keywords="[DataGrid,properties,minColumnWidth]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="false" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="minColumnWidth" value="110" />
+                <SetProperty target="dg1" propertyName="width" value="120" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="true" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.columns.0" propertyName="width" value="110" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_minColunmnWidth_newVisibleColumn_resize" keywords="[DataGrid,properties,minColumnWidth]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="false" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="minColumnWidth" value="110" />
+                <SetProperty target="dg1" propertyName="width" value="120" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="dg1.columns.0" propertyName="visible" value="true" waitTarget="dg1" waitEvent="updateComplete" />
+                <DispatchMouseEvent type="mouseDown" target="dg1" localX="110" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="100" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="90" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="80" localY="10" />
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg1" localX="70" localY="10" />
+                <DispatchMouseEvent type="mouseUp" target="dg1" localX="70" localY="10" />
+                <AssertNoEvent target="dg1" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+                <AssertPropertyValue target="dg1.columns.0" propertyName="width" value="110" />
+            </body>
+        </TestCase>
+
+    </testCases>                
+</UnitTester>

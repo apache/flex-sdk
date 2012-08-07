@@ -1,0 +1,1432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/Label/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label_main.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>
+
+
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+			import mx.controls.Label;
+
+
+
+		]]>
+
+	</mx:Script>
+	<mx:Style>
+		.myStyle{
+			kerning: "true";
+		}
+	</mx:Style>
+
+	<testCases>
+
+		<TestCase testID="color_0x_Style_Label" description="Tests setting the color of Label by 0x" keywords="[color, Style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="My Color Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="color" target="myLabel" value="0x00FF00" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="text" value="My Color Label" target="myLabel"/>
+
+				<AssertStyleValue styleName="color" value="0x00FF00" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/color_0x_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="color_pound_Style_Label" description="Tests setting the color of Label by #" keywords="[color, style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="My Color Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="color" target="myLabel" value="#0000FF" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="text" value="My Color Label" target="myLabel"/>
+
+				<AssertStyleValue styleName="color" value="#0000FF" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/color_pound_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="color_text_Style_Label" description="Tests setting the color of Label by text" keywords="[color, style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="My Color Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="color" target="myLabel" value="red" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="text" value="My Color Label" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/color_text_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="disabledColor_0x_Style_Label" description="Tests setting the disabled color of Label by 0x" keywords="[color, Style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="enabled" target="myLabel" value="false" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="My Disabled Color Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="disabledColor" target="myLabel" value="0x00FF00" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="enabled" value="false" target="myLabel"/>
+
+				<AssertPropertyValue propertyName="text" value="My Disabled Color Label" target="myLabel"/>
+
+				<AssertStyleValue styleName="disabledColor" value="0x00FF00" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/disabledColor_0x_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="disabledColor_pound_Style_Label" description="Tests setting the disabled color of Label by #" keywords="[color, style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+
+
+				<SetProperty propertyName="enabled" target="myLabel" value="false" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="My Disabled Color Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="disabledColor" target="myLabel" value="#0000FF" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="enabled" value="false" target="myLabel"/>
+
+				<AssertPropertyValue propertyName="text" value="My Disabled Color Label" target="myLabel"/>
+
+				<AssertStyleValue styleName="disabledColor" value="#0000FF" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/disabledColor_pound_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="disabledColor_text_Style_Label" description="Tests setting the disabled color of Label by text" keywords="[color, style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+
+
+				<SetProperty propertyName="enabled" target="myLabel" value="false" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="My Disabled Color Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="disabledColor" target="myLabel" value="red" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="enabled" value="false" target="myLabel"/>
+
+				<AssertPropertyValue propertyName="text" value="My Disabled Color Label" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/disabledColor_text_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontAntiAliasType_normal_Style_Label" description="Tests setting the fontAntiAliasType style of the internal TextField of label to normal." keywords="[fontAntiAliasType, Style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="fontAntiAliasType normal"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="normal" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="text" target="myLabel" value="fontAntiAliasType normal"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="normal"/>
+
+				<CompareBitmap url="../styles/baselines/fontAntiAliasType_normal_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontAntiAliasType_advanced_Style_Label" description="Tests setting the fontAntiAliasType style of the internal TextField of label to advanced." keywords="[fontAntiAliasType, Style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="fontAntiAliasType advanced"/>
+
+				<SetStyle styleName="fontSize" target="myLabel" value="6"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="text" target="myLabel" value="fontAntiAliasType advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontAntiAliasType_normal_small_font_Style_Label" description="Tests setting the fontAntiAliasType style of the internal TextField of label to normal with a small font." keywords="[fontAntiAliasType, Style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="fontAntiAliasType normal"/>
+
+				<SetStyle styleName="fontSize" target="myLabel" value="6"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="normal" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="text" target="myLabel" value="fontAntiAliasType normal"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="normal"/>
+
+				<CompareBitmap url="../styles/baselines/fontAntiAliasType_normal_small_font_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontFamily_Style_Label" description="Tests setting the fontFamily style of Label" keywords="[fontFamily, Label, Style]">
+			<setup>
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+				<SetProperty propertyName="text" target="myLabel" value="EmbeddedPT_Serif"/>
+				<SetStyle styleName="fontFamily" target="myLabel" value="myPT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="myPT_Serif"/>
+				<CompareBitmap url="../styles/baselines/fontFamily_Style_Label.png" target="myLabel"/>
+			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="fontGridFitType_none_Style_Label" description="Tests setting the fontGridFitType of Label to none" keywords="[fontGridFitType, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="PT_Serif font"/>
+
+				<SetStyle styleName="fontFamily" target="myLabel" value="PT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<SetStyle styleName="fontGridFitType" value="none" target="myLabel" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="PT_Serif"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+				<AssertStyleValue styleName="fontGridFitType" target="myLabel" value="none"/>
+
+				<AssertStyleValue styleName="fontGridFitType" target="myLabel.getTextField()" value="none"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontGridFitType_pixel_Style_Label" description="Tests setting the fontGridFitType of Label to pixel" keywords="[fontGridFitType, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="PT_Serif font"/>
+
+				<SetStyle styleName="fontFamily" target="myLabel" value="PT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<SetStyle styleName="fontGridFitType" value="pixel" target="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="PT_Serif"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+				<AssertStyleValue styleName="fontGridFitType" target="myLabel" value="pixel"/>
+
+				<AssertStyleValue styleName="fontGridFitType" target="myLabel.getTextField()" value="pixel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontGridFitType_subpixel_Style_Label" description="Tests setting the fontGridFitType of Label to subpixel" keywords="[fontGridFitType, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="PT_Serif font"/>
+
+				<SetStyle styleName="fontFamily" target="myLabel" value="PT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<SetStyle styleName="fontGridFitType" value="subpixel" target="myLabel" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="PT_Serif"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+				<AssertStyleValue styleName="fontGridFitType" target="myLabel" value="subpixel"/>
+
+				<AssertStyleValue styleName="fontGridFitType" target="myLabel.getTextField()" value="subpixel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+		<TestCase testID="fontSharpness_negative400_Style_Label" description="Tests setting the fontSharpness of Label to -400" keywords="[fontSharpness, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="PT_Serif fontSharpness"/>
+
+				<SetStyle styleName="fontFamily" target="myLabel" value="PT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<SetStyle styleName="fontSharpness" value="-400" target="myLabel" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="PT_Serif"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+				<AssertStyleValue styleName="fontSharpness" target="myLabel" value="-400"/>
+
+				<AssertStyleValue styleName="fontSharpness" target="myLabel.getTextField()" value="-400"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontSharpness_400_Style_Label" description="Tests setting the fontSharpness of Label to 400" keywords="[fontSharpness, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="PT_Serif fontSharpness"/>
+
+				<SetStyle styleName="fontFamily" target="myLabel" value="PT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<SetStyle styleName="fontSharpness" value="400" target="myLabel" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="PT_Serif"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+				<AssertStyleValue styleName="fontSharpness" target="myLabel" value="400"/>
+
+				<AssertStyleValue styleName="fontSharpness" target="myLabel.getTextField()" value="400"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontSharpness_0_Style_Label" description="Tests setting the fontSharpness of Label to 0" keywords="[fontSharpness, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="PT_Serif fontSharpness"/>
+
+				<SetStyle styleName="fontFamily" target="myLabel" value="PT_Serif" />
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<SetStyle styleName="fontSharpness" value="0" target="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="PT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+				<AssertStyleValue styleName="fontSharpness" target="myLabel" value="0"/>
+
+				<AssertStyleValue styleName="fontSharpness" target="myLabel.getTextField()" value="0"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontSharpness_100_Style_Label" description="Tests setting the fontSharpness of Label to 100" keywords="[fontSharpness, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="PT_Serif fontSharpness"/>
+
+				<SetStyle styleName="fontFamily" target="myLabel" value="PT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<SetStyle styleName="fontSharpness" value="100" target="myLabel" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="PT_Serif"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+				<AssertStyleValue styleName="fontSharpness" target="myLabel" value="100"/>
+
+				<AssertStyleValue styleName="fontSharpness" target="myLabel.getTextField()" value="100"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+		<TestCase testID="fontSize_15_Style_Label" description="Tests setting the fontSize of Label to 15" keywords="[fontSize, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="15 Point Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontSize" target="myLabel" value="15" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontSize" target="myLabel" value="15"/>
+
+				<CompareBitmap url="../styles/baselines/fontSize_15_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontSize_0_Style_Label" description="Tests setting the fontSize of Label to 0" keywords="[fontSize, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="0 Point Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontSize" target="myLabel" value="0" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontSize" target="myLabel" value="0"/>
+
+				<CompareBitmap url="../styles/baselines/fontSize_0_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontSize_negative_Style_Label" description="Tests setting the fontSize of Label to negative" keywords="[fontSize, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="Negative Point Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontSize" target="myLabel" value="-10" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontSize" target="myLabel" value="-10"/>
+
+				<CompareBitmap url="../styles/baselines/fontSize_negative_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontSize_100_Style_Label" description="Tests setting the fontSize of Label to 100" keywords="[fontSize, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="100 Point Label" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontSize" target="myLabel" value="100" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontSize" target="myLabel" value="100"/>
+
+				<CompareBitmap url="../styles/baselines/fontSize_100_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontThickness_negative200_Style_Label" description="Tests setting the fontThickness of Label to -200" keywords="[fontThickness, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="PT_Serif fontThickness"/>
+
+				<SetStyle styleName="fontFamily" target="myLabel" value="PT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<SetStyle styleName="fontThickness" value="-200" target="myLabel" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="PT_Serif"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+				<AssertStyleValue styleName="fontThickness" target="myLabel" value="-200"/>
+
+				<AssertStyleValue styleName="fontThickness" target="myLabel.getTextField()" value="-200"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontThickness_200_Style_Label" description="Tests setting the fontThickness of Label to 200" keywords="[fontThickness, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="PT_Serif fontThickness" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="fontFamily" target="myLabel" value="PT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<SetStyle styleName="fontThickness" value="200" target="myLabel" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="PT_Serif"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+				<AssertStyleValue styleName="fontThickness" target="myLabel" value="200"/>
+
+				<AssertStyleValue styleName="fontThickness" target="myLabel.getTextField()" value="200"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontThickness_0_Style_Label" description="Tests setting the fontThickness of Label to 0" keywords="[fontThickness, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="PT_Serif fontThickness"/>
+
+				<SetStyle styleName="fontFamily" target="myLabel" value="PT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<SetStyle styleName="fontThickness" value="0" target="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="PT_Serif"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+				<AssertStyleValue styleName="fontThickness" target="myLabel" value="0"/>
+
+				<AssertStyleValue styleName="fontThickness" target="myLabel.getTextField()" value="0"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontThickness_100_Style_Label" description="Tests setting the fontThickness of Label to 100" keywords="[fontThickness, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="PT_Serif fontThickness"/>
+
+				<SetStyle styleName="fontFamily" target="myLabel" value="PT_Serif" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+				<SetStyle styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<SetStyle styleName="fontThickness" value="100" target="myLabel" waitTarget="myLabel" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontFamily" target="myLabel" value="PT_Serif"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel" value="advanced"/>
+
+				<AssertStyleValue styleName="fontAntiAliasType" target="myLabel.getTextField()" value="advanced"/>
+
+				<AssertStyleValue styleName="fontThickness" target="myLabel" value="100"/>
+
+				<AssertStyleValue styleName="fontThickness" target="myLabel.getTextField()" value="100"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontWeight_normal_Style_Label" description="Tests setting the fontWeight of Label to normal" keywords="[fontWeight, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="fontWeight normal label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="fontWeight" value="normal" target="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontWeight" value="normal" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/fontWeight_normal_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="fontWeight_bold_Style_Label" description="Tests setting the fontWeight of Label to bold" keywords="[fontWeight, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="fontWeight bold label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="fontWeight" value="bold" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="fontWeight" value="bold" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/fontWeight_bold_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of kerning for Label-->
+
+		<TestCase testID="Checking_kerning_true_of_Label" description="Test that the kerning value of true is  passed on to the text field of Label." keywords="[Label, kerning, style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+				<SetStyle target="myLabel" styleName="kerning" value="true"/>
+
+				<SetProperty target="myLabel" propertyName="text" value="Kerning true Label"  waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myLabel.getTextField()" styleName="kerning" value="true"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_kerning_false_of_Label" description="Test that the kerning value of false is  passed on to the text field of Label." keywords="[Label, kerning, style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+				<SetStyle target="myLabel" styleName="kerning" value="false"/>
+
+				<SetProperty target="myLabel" propertyName="text" value="Kerning true Label"  waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myLabel.getTextField()" styleName="kerning" value="false"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test checking letterSpacing of Label-->
+
+		<TestCase testID="Checking_letterSpacing_5_of_Label" description="Test that the letterSpacing value of 5 is  passed on to the text field of Label." keywords="[Label, letterSpacing, style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+				<SetStyle target="myLabel" styleName="letterSpacing" value="5"/>
+
+				<SetProperty target="myLabel" propertyName="text" value="letterSpacing Label"  waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myLabel.getTextField()" styleName="letterSpacing" value="5"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_letterSpacing_neg5_of_Label" description="Test that the letterSpacing value of  -5 is passed on to the text field of Label." keywords="[Label, letterSpacing, style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete"  waitTarget="myLabel"/>
+
+				<SetStyle target="myLabel" styleName="letterSpacing" value="-5"/>
+
+				<SetProperty target="myLabel" propertyName="text" value="letterSpacing Label"  waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myLabel.getTextField()" styleName="letterSpacing" value="-5"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="paddingLeft_left_align_Style_Label" description="Tests setting the paddingLeft of Label" keywords="[paddingLeft, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="paddingLeft left align Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" />
+
+				<SetStyle styleName="paddingLeft" value="30" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="paddingLeft" value="30" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/paddingLeft_left_align_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="paddingLeft_neg5_Style_Label" description="Tests setting paddingLeft to -5 of Label" keywords="[paddingLeft, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="paddingLeft -5 Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" />
+
+				<SetStyle styleName="paddingLeft" value="-5" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="paddingLeft" value="-5" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/paddingLeft_neg5_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="paddingLeft_20_Style_Label" description="Tests setting paddingLeft to 20 of Label" keywords="[paddingLeft, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="paddingLeft 20 Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" />
+
+				<SetStyle styleName="paddingLeft" value="20" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="paddingLeft" value="20" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/paddingLeft_20_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="paddingRight_neg5_Style_Label" description="Tests setting paddingRight to -5 of Label" keywords="[paddingRight, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="paddingRight -5 Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" />
+
+				<SetStyle styleName="paddingRight" value="-5" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="paddingRight" value="-5" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/paddingRight_neg5_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="paddingRight_20_Style_Label" description="Tests setting paddingRight to 20 of Label" keywords="[paddingRight, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="paddingRight 20 Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" />
+
+				<SetStyle styleName="paddingRight" value="20" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="paddingRight" value="20" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/paddingRight_20_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="paddingLeft_right_align_Style_Label" description="Tests setting the paddingLeft of right align Label" keywords="[paddingLeft, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="paddingLeft right align Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textAlign" value="right" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" />
+
+				<SetStyle styleName="paddingLeft" value="30" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textAlign" value="right" target="myLabel"/>
+
+				<AssertStyleValue styleName="paddingLeft" value="30" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/paddingLeft_right_align_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="paddingLeft_center_align_Style_Label" description="Tests setting the paddingLeft of center align Label" keywords="[paddingLeft, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="paddingLeft center align Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textAlign" value="center" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="paddingLeft" value="30" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="paddingLeft" value="30" target="myLabel"/>
+
+				<AssertStyleValue styleName="textAlign" value="center" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/paddingLeft_center_align_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="paddingRight_left_align_Style_Label" description="Tests setting the paddingRight of Label" keywords="[paddingRight, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="paddingRight left align Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="paddingRight" value="30" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="paddingRight" value="30" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/paddingRight_left_align_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="paddingRight_right_align_Style_Label" description="Tests setting the paddingRight of right align Label" keywords="[paddingRight, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="paddingRight right align Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textAlign" value="right" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" />
+
+				<SetStyle styleName="paddingRight" value="30" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textAlign" value="right" target="myLabel"/>
+
+				<AssertStyleValue styleName="paddingRight" value="30" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/paddingRight_right_align_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="paddingRight_center_align_Style_Label" description="Tests setting the paddingRight of center align Label" keywords="[paddingRight, Label, Style]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="paddingRight center align Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textAlign" value="center" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="paddingRight" value="30" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="paddingRight" value="30" target="myLabel"/>
+
+				<AssertStyleValue styleName="textAlign" value="center" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/paddingRight_center_align_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="textAlign_left_Style_Label" description="Tests setting the textAlign to left of Label" keywords="[textAlign, Style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="Left aligned label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textAlign" value="left" target="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textAlign" value="left" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/textAlign_left_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="textAlign_right_Style_Label" description="Tests setting the textAlign to right of Label" keywords="[textAlign, Style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="Right aligned label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textAlign" value="right" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textAlign" value="right" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/textAlign_right_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="textAlign_center_Style_Label" description="Tests setting the textAlign to center of Label" keywords="[textAlign, Style, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="Center aligned label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="width" target="myLabel" value="200" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textAlign" value="center" target="myLabel" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textAlign" value="center" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/textAlign_center_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="textDecoration_none_Style_Label" description="Tests setting the textDecoration of Label to none" keywords="[Label, Style, textDecoration]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="No textDecoration Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textDecoration" target="myLabel" value="underline" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			    <SetStyle styleName="textDecoration" target="myLabel" value="none" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textDecoration" value="none" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/textDecoration_none_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="textDecoration_underline_Style_Label" description="Tests setting the textDecoration of Label to underline" keywords="[Label, Style, textDecoration]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="Underlined Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textDecoration" target="myLabel" value="underline" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textDecoration" value="underline" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/textDecoration_underline_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="textIndent_0_Style_Label" description="Tests setting the textIndent to 0 of Label" keywords="[Label, Style, textIndent]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="textIndent 0 Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textIndent" target="myLabel" value="0"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textIndent" value="0" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/textIndent_0_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="textIndent_20_Style_Label" description="Tests setting the textIndent to 20 of Label" keywords="[Label, Style, textIndent]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="textIndent 20 Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textIndent" target="myLabel" value="20" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textIndent" value="20" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/textIndent_20_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="textIndent_negative_Style_Label" description="Tests setting the textIndent to negative of Label" keywords="[Label, Style, textIndent]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty propertyName="text" target="myLabel" value="textIndent negative Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetStyle styleName="textIndent" target="myLabel" value="-20" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textIndent" value="-20" target="myLabel"/>
+
+				<CompareBitmap url="../styles/baselines/textIndent_negative_Style_Label.png" target="myLabel"/>
+
+			</body>
+
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>

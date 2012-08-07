@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/LinkButton/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LinkButton_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.LinkButton;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	]]>
+	</mx:Script>
+	
+	<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+	    .myColorStyle {
+	        color: #FF0000;
+	    } 
+	</mx:Style>
+
+	<testCases>
+	
+		
+				<TestCase testID="rollOverColor" keywords="[styles, rollOverColor, LinkButton]" description="Checking the rollOverColor Style using the compare bit map feature" >
+					<setup>
+						<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+						<SetProperty target="myLinkButton" propertyName="label" value="My LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+					</setup>
+					<body>
+						<SetStyle styleName="rollOverColor" target="myLinkButton" value="0xff0000" waitEvent="updateComplete" waitTarget="myLinkButton" />    
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseMove" waitEvent="mouseMove" waitTarget="myLinkButton" />
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseDown" waitEvent="mouseDown" waitTarget="myLinkButton" />
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseUp" waitEvent="mouseUp" waitTarget="myLinkButton"  />
+						<AssertPixelValue x="15" y="15" target="myLinkButton" value="0xff0000"/>
+						
+					</body>
+				</TestCase>
+		
+				<TestCase testID="selectionColor" keywords="[styles, selectionColor, LinkButton]" description="Checking the selectionColor Style using the compare bit map feature" >
+					<setup>
+						<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+						<SetProperty target="myLinkButton" propertyName="label" value="My LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+					</setup>
+					<body>
+						<SetStyle styleName="selectionColor" target="myLinkButton" value="0x0000ff" waitEvent="updateComplete" waitTarget="myLinkButton" />     
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseMove" waitEvent="mouseMove" waitTarget="myLinkButton"/>
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseDown" waitEvent="mouseDown" waitTarget="myLinkButton" />
+						
+						
+						<AssertPixelValue x="15" y="15" target="myLinkButton" value="0x0000ff"/>
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseUp"/>
+						
+					</body>
+				</TestCase> 	
+
+		
+			<TestCase testID="color_Style" keywords="[styles, color, LinkButton]" description="Checking the color Style using the compare bit map feature" >
+					<setup>
+					   <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"/>
+					   <SetProperty target="myLinkButton" propertyName="label" value="My LinkButton" />
+					   <SetStyle target="myLinkButton" styleName="color" value="0x0000ff" waitEvent="updateComplete" waitTarget="myLinkButton" />
+					</setup>
+					<body>
+					    <WaitForEffectsToEnd />
+					    <CompareBitmap target="myLinkButton" url="../styles/baselines/color_LinkButton_bm.png" timeout="5000" />
+					 
+					</body>
+		</TestCase>
+		
+	
+		
+		<TestCase testID="disabledColor_Style" keywords="[styles, disabledColor, LinkButton]" description="Checking the disabledColor Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			   <SetProperty target="myLinkButton" propertyName="enabled" value="false" />			  
+ 			   <SetProperty target="myLinkButton" propertyName="label" value="My LinkButton" />
+			   <SetStyle target="myLinkButton" styleName="disabledColor" value="0xff00ff" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			   
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />
+			    <CompareBitmap target="myLinkButton" url="../styles/baselines/disabledColor_LinkButton_bm.png" timeout="5000" />
+			    
+			</body>
+		</TestCase>
+		
+	
+		
+		<TestCase testID="fontFamily_Style" keywords="[styles, fontFamily, LinkButton]" description="Checking the fontFamily Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			 <SetProperty target="myLinkButton" propertyName="label" value="My LinkButton" />
+			   <SetStyle target="myLinkButton" styleName="fontFamily" value="Georgia" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			 
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />
+			    <CompareBitmap target="myLinkButton" url="../styles/baselines/fontFamily_LinkButton_bm.png" timeout="5000" />
+			    
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontSize_Style" keywords="[styles, fontSize, LinkButton]" description="Checking the fontSize Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			<SetProperty target="myLinkButton" propertyName="label" value="My LinkButton" />
+			   <SetStyle target="myLinkButton" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			  
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />
+			    <CompareBitmap target="myLinkButton" url="../styles/baselines/fontSize_LinkButton_bm.png" timeout="5000" />
+			   
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontStyle_Style" keywords="[styles, fontStyle, LinkButton]" description="Checking the fontStyle Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			  <SetProperty target="myLinkButton" propertyName="label" value="My LinkButton" />
+			   <SetStyle target="myLinkButton" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			  
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />
+			    <CompareBitmap target="myLinkButton" url="../styles/baselines/fontStyle_LinkButton_bm.png" timeout="5000" />
+			  
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontWeight_Style" keywords="[styles, fontWeight, LinkButton]" description="Checking the fontWeight Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			<SetProperty target="myLinkButton" propertyName="label" value="My LinkButton" />
+			   <SetStyle target="myLinkButton" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			 
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />
+			    <CompareBitmap target="myLinkButton" url="../styles/baselines/fontWeight_LinkButton_bm.png" timeout="5000" />
+			   
+			</body>
+		</TestCase>
+		
+		
+
+		<TestCase testID="LinkButtonIndent_Style" keywords="[styles, LinkButtonIndent, LinkButton]" description="Checking the LinkButtonIndent Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			<SetProperty target="myLinkButton" propertyName="label" value="My LinkButton" />
+			   <SetStyle target="myLinkButton" styleName="LinkButtonIndent" value="20" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			  
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />
+			    <CompareBitmap target="myLinkButton" url="../styles/baselines/textIndent_LinkButton_bm.png" timeout="5000" />
+			   
+			</body>
+		</TestCase>
+
+	
+				<TestCase testID="textRollOverColor" keywords="[styles, textRollOverColor, LinkButton]" description="Checking the textRollOverColor Style using the compare bit map feature" >
+					<setup>
+						<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+						<SetProperty target="myLinkButton" propertyName="label" value="My LinkButton" />
+					</setup>
+					<body>
+						<SetStyle styleName="textRollOverColor" target="myLinkButton" value="0xff0000" waitEvent="updateComplete" waitTarget="myLinkButton" />    
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseMove" waitTarget="myLinkButton" waitEvent="mouseMove"/>
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseDown" waitTarget="myLinkButton" waitEvent="mouseDown"/>
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseUp" waitTarget="myLinkButton" waitEvent="mouseUp"/>
+					    	<WaitForEffectsToEnd />
+					    	<CompareBitmap target="myLinkButton" url="../styles/baselines/textRollOverColor_LinkButton_bm.png" timeout="5000" />
+					</body>
+				</TestCase>
+				
+				<TestCase testID="textSelectedColor" keywords="[styles, textSelectedColor, LinkButton]" description="Checking the textSelectedColor Style using the compare bit map feature" >
+					<setup>
+						<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+						<SetProperty target="myLinkButton" propertyName="label" value="My LinkButton" />
+					</setup>
+					<body>
+						<SetStyle styleName="textSelectedColor" target="myLinkButton" value="0x0000ff" waitEvent="updateComplete" waitTarget="myLinkButton" />    
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseMove" waitEvent="mouseMove" waitTarget="myLinkButton"/>
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseDown" waitEvent="mouseDown" waitTarget="myLinkButton"/>
+					    	<WaitForEffectsToEnd />
+					    	<CompareBitmap target="myLinkButton" url="../styles/baselines/textSelectedColor_LinkButton_bm.png" timeout="5000" />
+						<DispatchMouseEvent target="myLinkButton" localX="35" localY="15" type="mouseUp" waitEvent="mouseUp" waitTarget="myLinkButton"/>
+		
+					</body>
+		</TestCase>
+
+		
+		
+
+			
+		
+		
+			
+			
+		
+	</testCases>
+</UnitTester>

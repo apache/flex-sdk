@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<comps:UICTester
+xmlns:mx="http://www.adobe.com/2006/mxml"
+xmlns:comps="comps.*"
+alpha="{alphaBindingVar}"
+currentState="{currentStateBindingVar}"
+doubleClickEnabled="{doubleClickEnabledBindingVar}"
+enabled="{enabledBindingVar}"
+explicitHeight="{explicitHeightBindingVar}"
+explicitMaxHeight="{explicitMaxHeightBindingVar}"
+explicitMaxWidth="{explicitMaxWidthBindingVar}"
+explicitMinHeight="{explicitMinHeightBindingVar}"
+explicitMinWidth="{explicitMinWidthBindingVar}"
+explicitWidth="{explicitWidthBindingVar}"
+height="{heightBindingVar}"
+includeInLayout="{includeInLayoutBindingVar}"
+maxHeight="{maxHeightBindingVar}"
+maxWidth="{maxWidthBindingVar}"
+measuredHeight="{measuredHeightBindingVar}"
+measuredMinHeight="{measuredMinHeightBindingVar}"
+measuredMinWidth="{measuredMinWidthBindingVar}"
+measuredWidth="{measuredWidthBindingVar}"
+minHeight="{minHeightBindingVar}"
+minWidth="{minWidthBindingVar}"
+percentHeight="{percentHeightBindingVar}"
+percentWidth="{percentWidthBindingVar}"
+scaleX="{scaleXBindingVar}"
+scaleY="{scaleYBindingVar}"
+toolTip="{toolTipBindingVar}"
+visible="{visibleBindingVar}"
+width="{widthBindingVar}"
+x="{xBindingVar}"
+y="{yBindingVar}"
+>
+
+<comps:states>
+    <mx:State name="state1" />
+    <mx:State name="state2" />
+</comps:states>
+
+<mx:Script>
+<![CDATA[
+    [Bindable] public var alphaBindingVar:Number = 1;
+    [Bindable] public var currentStateBindingVar:String = "state1";
+    [Bindable] public var doubleClickEnabledBindingVar:Boolean = false;
+    [Bindable] public var enabledBindingVar:Boolean = true;
+    [Bindable] public var explicitHeightBindingVar:int = 20;
+    [Bindable] public var explicitMaxHeightBindingVar:int = 20;
+    [Bindable] public var explicitMaxWidthBindingVar:int = 20;
+    [Bindable] public var explicitMinHeightBindingVar:int = 20;
+    [Bindable] public var explicitMinWidthBindingVar:int = 20;
+    [Bindable] public var explicitWidthBindingVar:int = 20;
+    [Bindable] public var heightBindingVar:int = 20;
+    [Bindable] public var includeInLayoutBindingVar:Boolean = true;
+    [Bindable] public var maxHeightBindingVar:int = 20;
+    [Bindable] public var maxWidthBindingVar:int = 20;
+    [Bindable] public var measuredHeightBindingVar:int = 20;
+    [Bindable] public var measuredMinHeightBindingVar:int = 20;
+    [Bindable] public var measuredMinWidthBindingVar:int = 20;
+    [Bindable] public var measuredWidthBindingVar:int = 20;
+    [Bindable] public var scaleXBindingVar:Number = 1;
+    [Bindable] public var scaleYBindingVar:Number = 1;
+    [Bindable] public var toolTipBindingVar:String = "";
+    [Bindable] public var minHeightBindingVar:int = 20;
+    [Bindable] public var minWidthBindingVar:int = 20;
+    [Bindable] public var percentHeightBindingVar:int = 100;
+    [Bindable] public var percentWidthBindingVar:int = 100;
+    [Bindable] public var visibleBindingVar:Boolean = true;
+    [Bindable] public var widthBindingVar:int = 50;
+    [Bindable] public var xBindingVar:int = 20;
+    [Bindable] public var yBindingVar:int = 20;
+
+]]>
+</mx:Script>
+
+</comps:UICTester>

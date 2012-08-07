@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ComboBox/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ComboBoxMain.mxml">
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.core.mx_internal;
+
+	use namespace mx_internal;
+
+	public function addItems():void
+	{
+	   for(var i:int=0;i<15;i++)
+	   {
+	      var obj:Object={slno:i,name:"Added Item",age:100+i}
+	      application.mybox.myCB.dataProvider.addItem(obj);
+	   }
+	}
+
+	public function addLongItem():void
+	{
+	      var obj:Object={slno:0,name:"Added Looooooooooooooooooooooooooooooooooooooooooooooooooooooooong Item",age:100}
+	      application.mybox.myCB.dataProvider.addItemAt(obj,0);
+	}
+
+	public function myCBLabelFunction(obj:Object):String
+	{
+	      return(obj.name + "[check]");
+	}
+
+	public function remove_and_repopulate():void
+	{
+	    application.mybox.myCB.dataProvider.removeAll();
+	    application.mybox.myCB.dataProvider=[{slno:"1",label:"Joseph",age:"23"},{slno:"2",label:"Jeena",age:"21"},{slno:"3",label:"Jerry",age:"4"}
+	   	 ,{slno:"4",label:"Tom",age:"1"},{slno:"5",label:"Rick",age:"12"},{slno:"6",label:"John",age:"52"}];
+	}
+	]]>
+	</mx:Script>
+
+      <testCases>
+	<TestCase testID="combobox_properties_bugs_SDK12104" keywords="[list, bugs, SDK12104]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		  <SetProperty target="mybox.myCB" propertyName="dataProvider"
+		  	value= "{ [ '', 'dog', 'cat', 'weirdo', 'chicken', 'monkey', 'cow', 'dolphin' ] }" />
+	     </setup>
+	    <body>
+		  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.myCB"/>
+		   <DispatchKeyEvent key="DOWN" ctrlKey="true"  waitEvent="open" waitTarget="mybox.myCB"/>
+		   <DispatchKeyEvent key="DOWN"  />
+		     <DispatchKeyEvent key="DOWN"  />
+		      <DispatchKeyEvent key="ENTER"  waitEvent="change" waitTarget="mybox.myCB"/>
+		     <AssertPropertyValue target="mybox.myCB" propertyName="selectedIndex" value="2" />
+		       <DispatchKeyEvent key="DOWN" ctrlKey="true"  waitEvent="open" waitTarget="mybox.myCB"/>
+		   <DispatchKeyEvent key="UP"  />
+		     <DispatchKeyEvent key="UP"  />
+		     <DispatchKeyEvent key="ENTER"  waitEvent="close" waitTarget="mybox.myCB"/>
+		     <AssertPropertyValue target="mybox.myCB" propertyName="selectedIndex" value="0" />
+		      <DispatchKeyEvent key="UP"  />
+	     </body>
+	</TestCase>
+	<TestCase testID="combobox_properties_bugs_SDK12172" keywords="[list, bugs, SDK12172]">
+		      <setup>
+			   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			  <SetProperty target="mybox.myCB" propertyName="dataProvider"
+			  	value= "{ [ '', 'dog', 'cat', 'weirdo', 'chicken', 'monkey', 'cow', 'dolphin' ] }" />
+		     </setup>
+		    <body>
+			  <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.myCB"/>
+			   <DispatchKeyEvent key="DOWN" ctrlKey="true"  waitEvent="open" waitTarget="mybox.myCB"/>
+			   <DispatchKeyEvent key="PAGE_DOWN"  />
+			     <DispatchKeyEvent key="PAGE_DOWN"  />
+			      <DispatchKeyEvent key="ENTER"  waitEvent="change" waitTarget="mybox.myCB"/>
+			     <AssertPropertyValue target="mybox.myCB" propertyName="selectedIndex" value="7" />
+			       <DispatchKeyEvent key="DOWN" ctrlKey="true"  waitEvent="open" waitTarget="mybox.myCB"/>
+			   <DispatchKeyEvent key="PAGE_UP"  />
+			     <DispatchKeyEvent key="PAGE_UP"  />
+			     <DispatchKeyEvent key="ENTER"  waitEvent="close" waitTarget="mybox.myCB"/>
+			     <AssertPropertyValue target="mybox.myCB" propertyName="selectedIndex" value="0" />
+		     </body>
+	</TestCase>
+	<TestCase testID="combobox_properties_selectedIndex_keyboard" keywords="[comboBox, properties, selectedIndex, keyboard]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		<DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="focusIn" waitTarget="mybox.myCB"/>
+		<DispatchKeyEvent key="DOWN" ctrlKey="true" waitEvent="open" waitTarget="mybox.myCB"/>
+		<DispatchKeyEvent key="DOWN" ctrlKey="false" repeatCount="4"/>
+		<DispatchKeyEvent key="ENTER" ctrlKey="true" waitEvent="close" waitTarget="mybox.myCB"/>
+		<AssertPropertyValue target="mybox.myCB" propertyName ="selectedIndex" value="4"/>
+	     </body>
+	</TestCase>
+	<TestCase testID="combobox_properties_selectedLabel_keyboard" keywords="[comboBox, properties, selectedLabel, keyboard]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		<DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="focusIn" waitTarget="mybox.myCB"/>
+		<DispatchKeyEvent key="DOWN" ctrlKey="true" waitEvent="open" waitTarget="mybox.myCB"/>
+		<DispatchKeyEvent key="DOWN" ctrlKey="false" repeatCount="4" />
+		<DispatchKeyEvent key="ENTER" ctrlKey="true" waitEvent="close" waitTarget="mybox.myCB"/>
+		<AssertPropertyValue target="mybox.myCB" propertyName ="selectedLabel" value="Rick"/>
+	     </body>
+	</TestCase>
+	<TestCase testID="combobox_properties_selectedIndex_mouse" keywords="[comboBox, properties, selectedIndex, mouse]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		<DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="open" waitTarget="mybox.myCB"/>
+		<WaitForEffectsToEnd />
+		<DispatchMouseClickEvent target="mybox.myCB.dropdown.mx_internal:rendererArray.2.0" localX="40" localY="6" waitEvent="close" waitTarget="mybox.myCB"/>
+		<AssertPropertyValue target="mybox.myCB" propertyName ="selectedIndex" value="2" />
+	     </body>
+	</TestCase>
+	<TestCase testID="combobox_properties_selectedLabel_mouse" keywords="[comboBox, properties, selectedLabel, mouse]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		<DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="open" waitTarget="mybox.myCB"/>
+		<WaitForEffectsToEnd />
+		<DispatchMouseClickEvent target="mybox.myCB.dropdown.mx_internal:rendererArray.2.0" localX="45" localY="5" waitEvent="close" waitTarget="mybox.myCB"/>
+		<AssertPropertyValue target="mybox.myCB" propertyName ="selectedLabel" value="Jerry" />
+	     </body>
+	</TestCase>
+	<TestCase testID="combobox_properties_labelFunction" keywords="[comboBox, properties, labelFunction]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		  <SetProperty target="mybox" propertyName="width" value= "350" waitEvent="updateComplete" waitTarget="mybox"/>
+		  <SetProperty target="mybox.myCB" propertyName="width" value= "300" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		  <SetProperty target="mybox.myCB" propertyName="labelFunction" valueExpression ="value = myCBLabelFunction" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		  <RunCode code="application.mybox.myCB.open()" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_labelfunction.png" />
+		  <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		  <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	<TestCase testID="combobox_properties_prompt" keywords="[comboBox, properties, prompt]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_default.png" />
+		   <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="-1" waitEvent="updateComplete"
+		   waitTarget="mybox.myCB"/>
+		   <CompareBitmap target="mybox" url="../Properties/Baselines/cb_without_prompt.png" />
+		   <SetProperty target="mybox" propertyName="width" value= "250" waitEvent="updateComplete" waitTarget="mybox"/>
+		   <SetProperty target="mybox.myCB" propertyName="width" value= "200" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		   <SetProperty target="mybox.myCB" propertyName="prompt" value="Select One" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		   <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="-1" waitEvent="updateComplete"
+		   waitTarget="mybox.myCB"/>
+		   <CompareBitmap target="mybox" url="../Properties/Baselines/cb_with_prompt.png" />
+	     </body>
+	  </TestCase>
+	<TestCase testID="combobox_properties_labelfield_default" keywords="[comboBox, properties, labelfield,default]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		  <RunCode code="remove_and_repopulate()" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		  <RunCode code="application.mybox.myCB.open()" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_labelfield_default.png" numColorVariances="3" ignoreMaxColorVariance="true"/>
+
+		  <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		  <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+
+	  <TestCase testID="combobox_properties_labelfield_set" keywords="[comboBox, properties, labelfield,set]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		  <RunCode code="remove_and_repopulate()" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		  <SetProperty target="mybox.myCB" propertyName="labelField" value="slno" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		   <RunCode code="application.mybox.myCB.open()" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_labelfield_set.png" />
+
+		  <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		  <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	  <TestCase testID="combobox_properties_rowCount_default" keywords="[comboBox, properties, rowCount,default]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		  <RunCode code="application.mybox.myCB.open()" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_rowcount_default.png" />
+		   <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		  <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	 <TestCase testID="combobox_properties_rowCount_zero" keywords="[comboBox, properties, rowCount,zero]">
+	      <setup>
+		       <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		   <SetProperty target="mybox.myCB" propertyName="rowCount" value="0"/>
+		  <RunCode code="application.mybox.myCB.open()" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_rowcount_zero.png" />
+		  <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		  <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	 <TestCase testID="combobox_properties_rowCount_small" keywords="[comboBox, properties, rowCount,small]">
+	      <setup>
+		       <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		   <SetProperty target="mybox.myCB" propertyName="rowCount" value="2"/>
+		  <RunCode code="application.mybox.myCB.open()" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_rowcount_small.png" />
+		  <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		  <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	  <TestCase testID="combobox_properties_rowCount_large" keywords="[comboBox, properties, rowCount,large]">
+	      <setup>
+		       <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		   <SetProperty target="mybox.myCB" propertyName="rowCount" value="20"/>
+		  <RunCode code="application.mybox.myCB.open()" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_rowcount_large.png" />
+		  <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		  <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	<TestCase testID="combobox_properties_dropdownwidth_default" keywords="[comboBox, properties, dropdownwidth,default]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		  <RunCode code="application.mybox.myCB.open()" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_drpdownwidth_default.png" />
+
+		  <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		  <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	  <TestCase testID="combobox_properties_dropdownwidth_small" keywords="[comboBox, properties, dropdownwidth,small]">
+	      <setup>
+		       <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		   <SetProperty target="mybox.myCB" propertyName="dropdownWidth" value="15"/>
+		  <RunCode code="application.mybox.myCB.open()" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_drpdownwidth_small.png" />
+
+		  <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		  <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	  <TestCase testID="combobox_properties_dropdownwidth_large" keywords="[comboBox, properties, dropdownwidth,large]">
+	      <setup>
+		       <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+	      <SetProperty target="mybox" propertyName="width" value="600" waitEvent="updateComplete" waitTarget="mybox" />
+		   <SetProperty target="mybox.myCB" propertyName="dropdownWidth" value="575"/>
+		  <RunCode code="application.mybox.myCB.open()" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <CompareBitmap target="mybox" url="../Properties/Baselines/cb_drpdownwidth_large.png" />
+
+		  <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		  <WaitForEffectsToEnd/>
+	    </body>
+	  </TestCase>
+	  <TestCase testID="combobox_properties_dropdownwidth_long_item_default" keywords="[comboBox, properties, dropdownwidth,longitem, default]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		  <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+		  <RunCode code="application.mybox.myCB.close()"  waitEvent="close" waitTarget="mybox.myCB" />
+		  <RunCode code="addLongItem()"  waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		  <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="0"  waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		  <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB"/>
+		 <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+		  <AssertPropertyValue target="mybox.myCB" propertyName="dropdownWidth" value= "473"/>
+	     </body>
+	  </TestCase>
+
+	<TestCase testID="combobox_properties_prompt_default" keywords="[comboBox, properties, prompt]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		   <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="-1" waitEvent="updateComplete"
+		   waitTarget="mybox.myCB"/>
+		   <SetProperty target="mybox.myCB" propertyName="prompt" value="Select..."  waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+
+	     </setup>
+	    <body>
+		  <CompareBitmap target="mybox.myCB" url="../Properties/Baselines/cb_prompt_default.png" />
+	     </body>
+	  </TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ToggleButtonBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ToggleButtonBar_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	public function addData(bool:int):void
+	{
+	    application.tbb.dataProvider = myDP;
+	}
+
+	public function addObjData():void
+	{
+	    application.tbb.dataProvider = iconDP;
+	}
+
+	public function changeDP(node:int, bool:String):void
+	{
+	    myDP.node[node].@enabled = bool;
+	}
+
+	[Bindable]
+	public var iconDP:Array= [{label:"Toys", icon:"dinosaur"},{label:"dinosaur", icon: "dinosaur"}];
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.ToggleButtonBar;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.events.ListEvent;
+	
+    [Bindable]
+    private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+    
+	]]>
+	</mx:Script>
+	
+<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+    .myButtonStyle
+    {
+       color:red;
+       fontFamily: EmbeddedVerdana;
+       fontSize:20;
+       fontStyle:italic;
+       fontWeight:bold;
+       paddingLeft:10;
+       paddingRight:10;
+       textAlign:left;
+       textIndent:5;
+    }
+</mx:Style>
+	
+	<testCases>
+		<TestCase testID="ToggleButtonBar_Style_Basic_horizontalGap" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, horizontalGap]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="horizontalGap"  value="20" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="horizontalGap" value="20"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/horizontalGap.png" timeout="5000" />
+			</body>
+		</TestCase> 
+		<TestCase testID="ToggleButtonBar_Style_Basic_buttonWidth" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, horizontalGap]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="buttonWidth"  value="37" waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="horizontalGap"  value="40" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="buttonWidth" value="37"/>		
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/buttonWidth.png" timeout="5000" />
+			</body>
+		</TestCase>  
+		<TestCase testID="ToggleButtonBar_Style_Basic_buttonHeight" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, horizontalGap]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+				<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="horizontalGap"  value="40" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="buttonHeight" value="37"/>		
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/buttonHeight.png" timeout="5000" />
+			</body>
+		</TestCase> 
+		<TestCase testID="ToggleButtonBar_Style_Basic_focusAlpha" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, focusAlpha]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="focusAlpha"  value="0.7" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="focusAlpha" value="0.7"/>		
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/focusAlpha.png" timeout="5000" />
+			</body>
+		</TestCase>  
+		<TestCase testID="ToggleButtonBar_Style_Basic_focusRoundedCorners" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, focusRoundedCorners]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="buttonHeight"  value="37"/>
+				<SetStyle target="tbb" styleName="cornerRadius"  value="10" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="focusRoundedCorners"  value="tl" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="focusRoundedCorners" value="tl"/>		
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/focusRoundedCorners.png" timeout="5000" />
+			</body>
+		</TestCase> 
+		<TestCase testID="ToggleButtonBar_Style_Basic_horizontalAlign" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, horizontalAlign]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="horizontalAlign"  value="right" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="horizontalAlign" value="right"/>		
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/horizontalAlign.png" timeout="5000" />
+			</body>
+		</TestCase> 
+		<TestCase testID="ToggleButtonBar_Style_Basic_verticalAlign" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, verticalAlign]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="verticalAlign"  value="bottom" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetProperty target="tbb" propertyName="direction" value="VERTICAL" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="verticalAlign" value="bottom"/>		
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/verticalAlign.png" timeout="5000" />
+			</body>
+		</TestCase>  
+		<TestCase testID="ToggleButtonBar_Style_Basic_verticalGap" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, verticalGap]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="tbb" />
+				<SetStyle target="tbb" styleName="verticalGap"  value="10" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="verticalAlign"  value="bottom" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetProperty target="tbb" propertyName="direction" value="VERTICAL" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="verticalGap" value="10"/>		
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/verticalGap.png" timeout="5000" />
+			</body>
+		</TestCase>		
+	    	<TestCase testID="ToggleButtonBar_Style_Basic_color" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, color]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="color"  value="#0000FF" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="fontSize"  value="50" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="tbb" styleName="color" value="#0000FF"/>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/color.png" timeout="5000" />
+			</body>
+		</TestCase> 
+		<TestCase testID="ToggleButtonBar_Style_Basic_disabledColor" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, disabledColor]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="disabledColor"  value="#00FF00" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="fontWeight"  value="bold" />
+				<SetStyle target="tbb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
+
+			</setup>
+			<body>
+				<AssertStyleValue target="tbb" styleName="disabledColor" value="#00FF00"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="TB_Style_Basic_firstButtonStyleName" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, firstButtonStyleName]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="firstButtonStyleName"  value="myButtonStyle" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="firstButtonStyleName" value="myButtonStyle"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/firstButtonStyleName.png" timeout="5000" numColorVariances="6" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="TB_Style_Basic_lastButtonStyleName" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, lastButtonStyleName]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="lastButtonStyleName"  value="myButtonStyle" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="lastButtonStyleName" value="myButtonStyle"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/lastButtonStyleName.png" timeout="5000" />
+			</body>
+		</TestCase> 
+		<TestCase testID="TB_Style_Basic_textIndent" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, textIndent]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="textIndent"  value="20" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="textIndent" value="20"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/textIndent.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="TB_Style_Basic_selectedButtonTextStyleName" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, selectedButtonTextStyleName]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="selectedButtonTextStyleName"  value="myButtonStyle" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="tbb" localX="171" localY="9" waitEvent="mouseUp" waitTarget="tbb"/>
+				<AssertStyleValue target="tbb" styleName="selectedButtonTextStyleName" value="myButtonStyle"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/selectedButtonTextStyleName.png" timeout="5000" />
+			</body>
+		</TestCase>	
+	</testCases>
+</UnitTester>

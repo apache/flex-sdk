@@ -1,0 +1,14 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" >
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TextInput;
+	import mx.controls.DateChooser;
+	import mx.managers.SystemManager;
+	
+	]]>
+	</mx:Script>
+	
+	<mx:TextInput id="ti2"/>
+      <mx:DateChooser id="dc" creationComplete="{ti.text='Creation Complete event triggered'}" mouseDownEffect="myFade" initialize="{ti2.text='Initialize event triggered'}"/>
+      <mx:TextInput id="ti"/>
+</mx:VBox>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" width="800" height="600" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:comps="comps.*" >
+
+<mx:Script>
+<![CDATA[
+
+    import mx.utils.ObjectUtil;
+
+    /************************************************************
+    * General functions
+    *************************************************************/
+
+    /**
+    * This will hide all of the DataGrids except the ones
+    * that are passed in via the array.  This is so that we
+    * can make tests that use other or multiple DataGrids without
+    * leaving them visible for all the rest of the tests.
+    * It might not be essential, but having those others hanging
+    * around is annoying.
+    **/
+    public function showOnlyTheseDataGrids(keepUs:Array):void{
+        var children:Array = application.getChildren();
+        var obj:DisplayObject;
+
+        for(var i:int = 0; i < children.length; ++i){
+            obj = children[i];
+            if(obj is mx.controls.DataGrid ){
+                if(keepUs.indexOf(obj) == -1){
+                    DataGrid(obj).height = 0;
+                    DataGrid(obj).visible = false;
+                }
+            }
+        }
+    }
+
+    /************************************************************
+    * Functions regarding the data provider
+    *************************************************************/
+
+    /**
+    * Use this function to reset the dataProvider.  Do
+    * not just re-use the dataProvider that is in the
+    * main app. file because edits made to the DataGrid
+    * will continue to appear in subsequent tests. Instead,
+    * use that one as a template to populate this one
+    * which we reset all the time.
+    **/
+    public function setDataProvider(dg:DataGrid, dpNum:int):void{
+        switch(dpNum){
+            case 1:
+                dg.dataProvider = ObjectUtil.copy(dataArray1);
+                break;
+        }
+    }
+
+    /************************************************************
+    * Functions regarding the columns
+    *************************************************************/
+
+]]>
+</mx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<mx:Style>
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+        fontStyle: italic;
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+		src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+        fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+		src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+		src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+		src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-BoldItalic.ttf");
+        fontStyle: italic;
+        fontWeight: bold;
+        fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+		src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+        fontFamily: Vivaldi;
+    }
+
+    @font-face {
+		src: url("../../../../Assets/Fonts/Cousine/Cousine-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: Vivaldi;
+    }
+
+    .testHeaderStyle{
+        font-weight: bold;
+        font-size: 24;
+        color: #008800;
+    }
+
+    .testHeaderStyle2{
+        textAlign: right;
+    }
+
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+
+    .testHeaderStyleLarge {
+        fontSize: 30;
+    }
+
+</mx:Style>
+
+<!-- This is a plain DataGrid -->
+<mx:DataGrid id="dg1" />
+
+<!-- This is a plain set of columns. -->
+<mx:Array id="columnSet1" >
+    <mx:DataGridColumn id="dgc1_1" />
+    <mx:DataGridColumn id="dgc1_2" />
+    <mx:DataGridColumn id="dgc1_3" />
+    <mx:DataGridColumn id="dgc1_4" />
+    <mx:DataGridColumn id="dgc1_5" />
+</mx:Array>
+
+<!-- This is a large set of columns. -->
+<mx:Array id="columnSet2" >
+    <mx:DataGridColumn id="dgc2_1" />
+    <mx:DataGridColumn id="dgc2_2" />
+    <mx:DataGridColumn id="dgc2_3" />
+    <mx:DataGridColumn id="dgc2_4" />
+    <mx:DataGridColumn id="dgc2_5" />
+    <mx:DataGridColumn id="dgc2_6" />
+    <mx:DataGridColumn id="dgc2_7" />
+    <mx:DataGridColumn id="dgc2_8" />
+    <mx:DataGridColumn id="dgc2_9" />
+    <mx:DataGridColumn id="dgc2_10" />
+    <mx:DataGridColumn id="dgc2_11" />
+    <mx:DataGridColumn id="dgc2_12" />
+    <mx:DataGridColumn id="dgc2_13" />
+    <mx:DataGridColumn id="dgc2_14" />
+    <mx:DataGridColumn id="dgc2_15" />
+    <mx:DataGridColumn id="dgc2_16" />
+    <mx:DataGridColumn id="dgc2_17" />
+    <mx:DataGridColumn id="dgc2_18" />
+    <mx:DataGridColumn id="dgc2_19" />
+    <mx:DataGridColumn id="dgc2_20" />
+</mx:Array>
+
+<mx:ArrayCollection id="dataArray1">
+    <mx:Object name="Uncle Ted" family="Smith" age="39" hobby="Building model ships" thoughts="What a cute litle ship!" />
+    <mx:Object name="Aunt Imari" family="Smith" age="37" hobby="Building model airplanes" thoughts="What a cute litle airplane!" />
+    <mx:Object name="Uncle Umbra" family="Smith" age="28" hobby="Building model cars" thoughts="What a cute litle car!" />
+    <mx:Object name="Aunt Izzy" family="Smith" age="91" hobby="Building model trains" thoughts="What a cute litle train!" />
+    <mx:Object name="Uncle TJ" family="Smith" age="51" hobby="Building model trucks" thoughts="What a cute litle truck!" />
+    <mx:Object name="Uncle Bo" family="Hampton" age="38" hobby="Photographing real ships" thoughts="What a big ship!" />
+    <mx:Object name="Uncle Danny" family="Hampton" age="27" hobby="Photographing real airplanes" thoughts="What a big airplane!" />
+    <mx:Object name="Aunt Molly" family="Hampton" age="42" hobby="Photographing real cars" thoughts="What a beautiful car!" />
+    <mx:Object name="Uncle Matisse" family="Hampton" age="47" hobby="Photographing real trains" thoughts="What a fast train!" />
+    <mx:Object name="Aunt Carmen" family="Hampton" age="87" hobby="Photographing real trucks" thoughts="What a big truck!" />
+    <mx:Object name="Uncle Chumley" family="Brown" age="79" hobby="Piloting ships" thoughts="Look out for the bridge!" />
+    <mx:Object name="Uncle Moe" family="Brown" age="61" hobby="Flying airplanes" thoughts="Look out for the radio tower!" />
+    <mx:Object name="Uncle Cadbury" family="Brown" age="74" hobby="Driving cars" thoughts="Don't forget to stop for the stop sign!" />
+    <mx:Object name="Aunt Bunny" family="Brown" age="32" hobby="Riding trains" thoughts="Final stop, San Francisco!" />
+    <mx:Object name="Aunt Daisy" family="Brown" age="36" hobby="Driving trucks" thoughts="Breaker-breaker! " />
+</mx:ArrayCollection>
+
+</mx:Application>

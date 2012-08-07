@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" >
+
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.*;
+			import mx.controls.dataGridClasses.*;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+			import mx.utils.*;
+			
+			/**
+			 * Given a DataGrid, creates an ArrayCollection
+			 * and assigns data to it.  It will set up
+			 * columns too, by default.
+			 * verbose means to make really long entries.
+			 **/
+			public function setAC1(dg:DataGrid, records:int, fields:int, setUpColumns:Boolean = true, verbose:Boolean = false):void{
+				var ac:ArrayCollection = new ArrayCollection();
+				var obj:Object;
+				var fieldName:String;
+				var cols:Array = new Array();
+				var s:String;
+				var i:int;
+				var j:int;
+				var k:int;
+				
+				for(i = 0; i < records; ++i){
+					obj = new Object();
+					
+					for(j = 0; j < fields; ++j){
+						fieldName = "field" + j.toString();
+						
+						if(verbose){
+							s = "start";
+							for(k = 0; k < 10; ++k){
+								s += " " + dg.id + ", record " + i.toString() + ", field " + j.toString();
+							}
+							s += " end";
+							obj[fieldName] = s;
+						}else{
+							obj[fieldName] = dg.id + ", record " + i.toString() + ", field " + j.toString();
+						}
+						
+						if(setUpColumns)
+							cols.push(new DataGridColumn(fieldName));
+					}
+					
+					setUpColumns = false;
+					ac.addItem(obj);
+				}
+				
+				if(setUpColumns)
+					dg.columns = cols;
+				
+				dg.dataProvider = ac;
+			}
+
+			/**
+			* When you start dragging over something...
+			**/
+			private function doDragEnter(event:DragEvent):void {
+				var dragInitiator:DataGrid = DataGrid(event.currentTarget);
+				DragManager.acceptDragDrop(dragInitiator);
+			}
+			
+			/**
+			* When you drop onto something...
+			**/
+			private function doDragDrop(event:DragEvent):void {
+				
+				var dropTarget:DataGrid=DataGrid(event.currentTarget);
+				var items:Array = event.dragSource.dataForFormat("items") as Array;
+				var dropLoc:int = dropTarget.calculateDropIndex(event);
+				
+				for(var i:uint=0; i < items.length; i++)
+				{
+					var newObj:Object = ObjectUtil.copy(items[i]);
+					IList(dropTarget.dataProvider).addItemAt(newObj, dropLoc);
+				}
+				
+			}
+
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+	</fx:Declarations>
+
+	<s:states>
+		<s:State name="state0" />
+		<s:State name="state1" />
+	</s:states>
+
+	<!--s:Button label="manually populate" click="setAC1(dg1, 5, 5); setAC1(dg2, 5, 5)" /-->
+	
+	<mx:DataGrid id="dg1" visible="true"
+					dragDrop="doDragDrop(event);"
+					dragEnter="doDragEnter(event);"
+					dragEnabled="true"
+					width="400"
+					height="100" />
+	<mx:DataGrid id="dg2" visible="true"
+					dragDrop="doDragDrop(event);"
+					dragEnter="doDragEnter(event);"
+					dragEnabled="true"
+					width="400"
+					height="100"
+					layoutDirection.state0="rtl"
+					layoutDirection.state1="ltr" />
+
+</s:VGroup>

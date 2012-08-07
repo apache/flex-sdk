@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Script>
+		<![CDATA[
+			[Bindable]
+			[Embed(source="../../../../../Assets/Images/ButtonImages/buttonUp.gif")]
+			private var buttonUp:Class;
+			[Bindable]
+			[Embed(source="../../../../../Assets/Images/ButtonImages/buttonOver.gif")]
+			private var buttonOver:Class;
+			[Bindable]
+			[Embed(source="../../../../../Assets/Images/ButtonImages/buttonDown.gif")]
+			private var buttonDown:Class;
+			[Bindable]
+			[Embed(source="../../../../../Assets/Images/ButtonImages/buttonSelectedUp.gif")]
+			private var buttonSelectedUp:Class;
+			[Bindable]
+			[Embed(source="../../../../../Assets/Images/ButtonImages/buttonSelectedOver.gif")]
+			private var buttonSelectedOver:Class;
+			[Bindable]
+			[Embed(source="../../../../../Assets/Images/ButtonImages/buttonSelectedDown.gif")]
+			private var buttonSelectedDown:Class;
+			[Bindable]
+			[Embed(source="../../../../../Assets/Images/ButtonImages/buttonDisabled.gif")]
+			private var buttonDisabled:Class;
+		]]>
+	</mx:Script>	
+	<mx:states>
+		<mx:State name="notBase">
+			<mx:RemoveChild target="{baseButton}"/>
+		</mx:State>
+		<mx:State name="up" />
+		<mx:State name="over" basedOn="notBase">
+			<mx:AddChild creationPolicy="all">
+				<mx:Image source="{buttonOver}" maintainAspectRatio="false" width="100%" height="100%"/> 
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="down" basedOn="notBase">
+			<mx:AddChild creationPolicy="all">
+				<mx:Image source="{buttonDown}" maintainAspectRatio="false" width="100%" height="100%"/> 
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="disabled" basedOn="notBase">
+			<mx:AddChild creationPolicy="all">
+				<mx:Image source="{buttonDisabled}" maintainAspectRatio="false" width="100%" height="100%"/> 
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="selectedUp" basedOn="notBase">
+			<mx:AddChild creationPolicy="all">
+				<mx:Image source="{buttonSelectedUp}" maintainAspectRatio="false" width="100%" height="100%"/> 
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="selectedOver" basedOn="notBase">
+			<mx:AddChild creationPolicy="all">
+				<mx:Image source="{buttonSelectedOver}" maintainAspectRatio="false" width="100%" height="100%"/> 
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="selectedDown" basedOn="notBase">
+			<mx:AddChild creationPolicy="all">
+				<mx:Image source="{buttonSelectedDown}" maintainAspectRatio="false" width="100%" height="100%"/> 
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="selectedDisabled" basedOn="notBase">
+			<mx:AddChild creationPolicy="all">
+				<mx:Image source="{buttonSelectedDown}" maintainAspectRatio="false" width="100%" height="100%"/> 
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+		
+	<mx:Image id="baseButton" source="{buttonUp}" maintainAspectRatio="false"  width="100%" height="100%"/>
+</mx:Canvas>

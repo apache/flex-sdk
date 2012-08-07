@@ -1,0 +1,5 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml">
+    
+	<mx:DateField id="theDf"/>
+	
+</mx:Panel>	

@@ -1,0 +1,71 @@
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  width="100%" height="100%">
+
+    <fx:Script>
+        <![CDATA[
+
+	[Embed(source="assets/flex_skins.swf#ProgressIndeterminateSkin")]
+	private var myProgressIndeterminateSkin:Class;
+	[Embed(source="assets/flex_skins.swf#MaskSkin")]
+	private var myMaskSkin:Class;
+
+          private var j:uint=10;
+
+          // Event handler function to set the value of the
+          // ProgressBar control.
+          private function runit():void
+          {
+              if(j<=100)
+              {
+                 bar.setProgress(j,100);
+                 bar.label= "CurrentProgress" + " " + j + "%";
+                 bar1.setProgress(j,100);
+                 bar1.label= "CurrentProgress" + " " + j + "%";
+                 bar2.setProgress(j,100);
+                 bar2.label= "CurrentProgress" + " " + j + "%";
+                 bar3.setProgress(j,100);
+                 bar3.label= "CurrentProgress" + " " + j + "%";
+                 j+=10;
+              }
+              if(j>100)
+              {
+                 j=0;
+              }
+          }
+        ]]>
+    </fx:Script>
+<fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+	.myPBSkin{
+		indeterminateSkin: ClassReference("component_ProgressBar_skinning_spark_myProgressIndeterminateSkin");
+		chromeColor: #00FFFF;
+	}
+	.myPBSkin1{
+		maskSkin: ClassReference("component_ProgressBar_skinning_spark_myMaskSkin");
+		chromeColor: #FFFF00;
+	}
+</fx:Style>
+
+        <mx:Label width="100%" color="blue"
+            text="Click the button to increment the progress bar." />
+        <mx:Button id="PBSpeed" label="Run" click="runit();"/>
+        <mx:Box id="box1">
+        <mx:ProgressBar id="bar" labelPlacement="bottom"
+            minimum="0" visible="true" maximum="100" label="CurrentProgress 0%"
+            direction="right" mode="manual" width="100%"/>
+
+
+        <mx:ProgressBar id="bar1" labelPlacement="bottom" creationComplete="bar1.setStyle('chromeColor', 0xF20D7A)"
+            minimum="0" visible="true" maximum="100" label="CurrentProgress 0%"
+            direction="left" mode="manual" width="100%"/>
+
+
+        <mx:ProgressBar id="bar2" labelPlacement="bottom" minimum="0" visible="true" maximum="100"
+            label="CurrentProgress 0%" direction="right" mode="manual" width="100%" indeterminateMoveInterval="0" indeterminate="true" styleName="myPBSkin"/>
+
+        <mx:ProgressBar id="bar3" labelPlacement="bottom"
+	                minimum="0" visible="true" maximum="100" label="CurrentProgress 0%"
+            direction="right" mode="manual" width="100%"  styleName="myPBSkin1"/>
+        </mx:Box>
+
+</mx:VBox>

@@ -1,0 +1,14 @@
+<mx:Application backgroundColor="0xFFFFFF"  xmlns:mx="http://www.adobe.com/2006/mxml">
+
+<mx:Script>
+    <![CDATA[
+
+        public var dp:Array = ["Button1","Button2"];
+
+        import mx.controls.Alert;
+    ]]>
+</mx:Script>
+
+<mx:LinkBar id="bb" creationComplete="bb.dataProvider = dp;" itemClick="Alert.show(ItemClickEvent(event).item + ' clicked')" />
+
+</mx:Application>

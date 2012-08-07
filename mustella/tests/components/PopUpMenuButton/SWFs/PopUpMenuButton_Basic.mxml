@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" height="375" width="500" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" >
+
+    <mx:Script>
+    <![CDATA[
+
+        [Embed(source="../../../../Assets/Images/redrect.jpg")]
+        public var t1120:Class;
+
+        [Embed(source="../../../../Assets/Images/purplerect.jpg")]
+        public var dinosaur:Class;
+
+        [Embed(source="../../../../Assets/Images/greenrect.jpg")]
+        public var bear:Class;
+
+        [Embed(source="../../../../Assets/Images/bluerect.jpg")]
+        public var blueback:Class;
+
+        public var lengthValue:int;
+
+    ]]>
+    </mx:Script>
+    <mx:Style source="../../../../Assets/Fonts/myStyles.css" /> 
+
+    <mx:Style>
+        @font-face {
+            src: url("../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+            fontFamily: ComicSansMS;
+            embedAsCFF: false;
+        }
+        @font-face {
+            src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+            fontFamily: Hancock;
+        }
+
+        global {
+            fontFamily: MyVeraSpark;
+        }
+    </mx:Style>
+
+
+
+    <mx:TextInput id="ti" />
+    <mx:Button id="btn" label="click" />
+    <mx:Box id="menuBarParent" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
+       <mx:PopUpMenuButton id="pumb" />
+    </mx:Box>
+    <MyPopUpMenuButton id="pumb2" />
+</mx:Application>

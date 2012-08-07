@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/List/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ListMain_bc.mxml">
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+	public function addItems():void
+	{
+	   for(var i:int=0;i<15;i++)
+	   {
+	      var obj:Object={slno:i,name:"Rooney"+i,age:20+i}
+	      application.mybox.mylist.dataProvider.addItem(obj);
+	   }
+        }
+
+	]]>
+	</mx:Script>
+	<testCases>
+	    <TestCase testID="list_themeColor_rollOverColor_mxml_bc" keywords="[listbase, styles, rollOverColor, 0x]"
+	        description="Be sure that rollOverColor is affected when you set themeColor and compile with compatibility-version less than or equal to 3">
+	      <setup>
+		   <ResetComponent target="list1" className="ListCompRed" waitEvent="updateComplete" waitTarget="list1"/>
+	     </setup>
+	    <body>
+	   	   <DispatchMouseEvent  target="list1.mylist" type ="mouseOver" localX="100" localY="125" waitTarget="list1.mylist" waitEvent="itemRollOver"/>
+	   	   <WaitForEffectsToEnd />
+		   <CompareBitmap target="list1.mylist.mx_internal:rendererArray.5.0" url="../Styles/Baselines/$testID.png"  numColorVariances="2" maxColorVariance="7"/>
+	     </body>
+	  </TestCase>
+
+	   <TestCase testID="list_themecolor_selectionColor_mxml_bc" keywords="[listbase, styles, selectionColor, 0x]"
+	        description="Be sure that selectionColor is affected when you set themeColor and compile with compatibility-version less than or equal to 3">
+	      <setup>
+		   <ResetComponent target="list2" className="ListCompGreen" waitEvent="updateComplete" waitTarget="list2"/>
+	     </setup>
+	    <body>
+		   <DispatchMouseClickEvent target="list2.mylist.rendererArray.2.0" localX="10" localY="8" waitEvent="change" waitTarget="list2.mylist"/>
+		   <WaitForEffectsToEnd />
+		   <CompareBitmap target="list2.mylist.mx_internal:rendererArray.2.0" url="../Styles/Baselines/$testID.png"  />
+	     </body>
+	  </TestCase>
+
+	</testCases>
+</UnitTester>

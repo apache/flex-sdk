@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Alert/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Alert_Basic.mxml">
+
+	<!-- this set of lines Alert a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.Alert;
+	import mx.core.IFlexDisplayObject;
+
+	public var curAlert:Alert;
+	public var origValue:Number;
+	public var origLabel:String;
+	import mx.events.CloseEvent;
+	import mx.managers.PopUpManager;
+
+        private function alertClickHandler(event:CloseEvent):void {
+
+          if (event.detail==Alert.OK)
+                    application.ti.text="You answered OK";
+          else if(event.detail==Alert.CANCEL)
+                    application.ti.text="You answered Cancel";
+          else if (event.detail==Alert.YES)
+                    application.ti.text="You answered Yes";
+          else if(event.detail==Alert.NO)
+                    application.ti.text="You answered No";
+            }
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/redrect.jpg")]
+	public var dijpg:Class;
+	
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/darkgreeniconwithlabel.jpg")]
+	public var myIcon:Class;
+	
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="Alert_Basic" description="A test." keywords="[Alert,Basic]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="application.curAlert = Alert.show('Check the Cancel button.', 'Alert Test', mx.controls.Alert.CANCEL)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="Cancel" />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		</TestCase>
+		<TestCase testID="Alert_buttonFlags_Yes" description="Check Yes Flag." keywords="[Alert,Yes]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="application.curAlert = Alert.show('Check Yes Flag.', 'Alert Test',1)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="Yes" />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		</TestCase>
+		<TestCase testID="Alert_buttonFlags_No" description="Check No Flag." keywords="[Alert,No]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="application.curAlert = Alert.show('Check No Flag.', 'Alert Test',2)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="No" />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		</TestCase>
+		<TestCase testID="Alert_buttonFlags_Yes_No" description="Check Yes and No Flag." keywords="[Alert,Yes, No]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="application.curAlert = Alert.show('Check Yes and No Flag.', 'Alert Test',3)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="Yes" />
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.1" propertyName="label" value="No" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		</TestCase>
+		<TestCase testID="Alert_buttonFlags_OK" description="Check OK flag." keywords="[Alert,OK]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="application.curAlert = Alert.show('Check OK flag.', 'Alert Test',4)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="OK" />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		</TestCase>
+		<TestCase testID="Alert_buttonFlags_Cancel" description="Check the Cancel Flag." keywords="[Alert,Cancel]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="application.curAlert = Alert.show('Check the Cancel Flag.', 'Alert Test',8)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="Cancel" />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		</TestCase>
+		<TestCase testID="Alert_buttonFlags_OK_Cancel" description="Check the Cancel button." keywords="[Alert,OK, Cancel]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="application.curAlert = Alert.show('Check the Cancel button.', 'Alert Test',12)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="OK" />
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.1" propertyName="label" value="Cancel" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		</TestCase>
+		<TestCase testID="Alert_buttonHeight_default" description="Verify Alert button height for a default value" keywords="[Alert,buttonHeight]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="application.curAlert = Alert.show('Verify Default Button Height.', 'Alert Test',12)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.1" propertyName="height" value="22" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		</TestCase>
+		<TestCase testID="Alert_buttonHeight_large" description="Verify Alert button height for a large value" keywords="[Alert,buttonHeight]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="origValue = Alert.buttonHeight" />
+				<RunCode code="Alert.buttonHeight=50;application.curAlert = Alert.show('Verify Alert button height for  a large value', 'Alert Test',12)"/>
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.1" propertyName="height" value="50" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"/>
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		    <cleanup>
+		    	<RunCode code="Alert.buttonHeight=origValue" />
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Alert_buttonHeight_small" description="Verify Alert button height for a small value" keywords="[Alert,buttonHeight]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="origValue = Alert.buttonHeight" />
+				<RunCode code="Alert.buttonHeight=5;application.curAlert = Alert.show('Verify Alert button height for small value.', 'Alert Test',12)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.1" propertyName="height" value="5" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		    <cleanup>
+		    	<RunCode code="Alert.buttonHeight=origValue" />
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Alert_buttonWidth_default" description="Verify Alert button width for a default value" keywords="[Alert,buttonWidth]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="application.curAlert = Alert.show('Verify Alert button width for default value', 'Alert Test',12)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.1" propertyName="width" value="65" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		</TestCase>
+		<TestCase testID="Alert_buttonWidth_large" description="Verify Alert button width for a large value" keywords="[Alert,buttonWidth]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="origValue = Alert.buttonWidth" />
+				<RunCode code="Alert.buttonWidth=50;application.curAlert = Alert.show('Verify Alert button width for large value.', 'Alert Test',12)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.1" propertyName="width" value="50" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		    <cleanup>
+		    	<RunCode code="Alert.buttonWidth=origValue" />
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Alert_buttonWidth_small" description="Verify Alert button width for a small value" keywords="[Alert,buttonWidth]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="origValue = Alert.buttonWidth" />
+				<RunCode code="Alert.buttonWidth=5;application.curAlert = Alert.show('Verify Alert button width for small value.', 'Alert Test',12)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.1" propertyName="width" value="5" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		    <cleanup>
+		    	<RunCode code="Alert.buttonWidth=origValue" />
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Alert_cancelLabel" description="Verify Alert button cancel Label" keywords="[Alert,cancelLabel]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="origLabel = Alert.cancelLabel;Alert.cancelLabel='Testing Cancel Label';application.curAlert = Alert.show('Check the Cancel button.', 'Alert Test',12)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.1" propertyName="label" value="Testing Cancel Label" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		    <cleanup>
+		    	<RunCode code="Alert.cancelLabel = origLabel;" />
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Alert_defaultButtonFlag_default" description="Verify Alert default Flag" keywords="[Alert,defaultButtonFlag]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+			    <RunCode code="application.curAlert= new Alert()" />
+		    	<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+		    	<RunCode code="application.curAlert = Alert.show('Verify Alert default button.', 'Alert Test',12, null, alertClickHandler)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<DispatchKeyEvent key="ENTER" waitEvent="close" waitTarget="curAlert" />
+				<Pause timeout="200"/>
+				<AssertPropertyValue target="ti" propertyName="text" value="You answered OK" />
+				<WaitForEffectsToEnd />
+		    </body>
+		    <cleanup>
+		    	<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Alert_defaultButtonFlag_yes" description="Verify Alert Yes Flag" keywords="[Alert,defaultButtonFlag]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+		    	<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+		    	<RunCode code="application.curAlert = Alert.show('Verify Alert default button.', 'Alert Test',3, null, alertClickHandler,null,1)" />
+				<WaitForEffectsToEnd />
+				<DispatchKeyEvent key="ENTER" waitTarget="curAlert" waitEvent="removed" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="ti" propertyName="text" value="You answered Yes" />
+		    </body>
+		    <cleanup>
+		    	<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Alert_defaultButtonFlag_Cancel" description="Verify Alert Cancel Flag" keywords="[Alert,defaultButtonFlag]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+				<RunCode code="application.curAlert = Alert.show('Verify Alert default button.', 'Alert Test',12, null, alertClickHandler,null,8)" />
+				<WaitForEffectsToEnd />
+				<DispatchKeyEvent key="ENTER" waitTarget="curAlert" waitEvent="removed" />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="ti" propertyName="text" value="You answered Cancel" />
+		    </body>
+		    <cleanup>
+		    	<ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" waitTarget="ti"/>
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Alert_iconClass" description="Verify Alert iconClass" keywords="[Alert,cancelLabel]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="application.curAlert = Alert.show('Test Alert','Are you sure?',3,null,null,dijpg,2)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<CompareBitmap target="curAlert.mx_internal:alertForm" url="../Properties/baselines/iconClass.png" timeout="5000" />
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		</TestCase>
+		<TestCase testID="Alert_noLabel" description="Verify Alert noLabel" keywords="[Alert,buttonWidth]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="origLabel = Alert.noLabel; Alert.noLabel='Na Re';application.curAlert = Alert.show('Check the Cancel button.', 'Alert Test',3)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.1" propertyName="label" value="Na Re" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		    <cleanup>
+		    	<RunCode code="Alert.noLabel = origLabel" />
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Alert_okayLabel" description="Verify Alert button width for a small value" keywords="[Alert,buttonWidth]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="origLabel = Alert.okLabel; Alert.okLabel='Okay Re';application.curAlert = Alert.show('Check the Cancel button.', 'Alert Test',12)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="Okay Re" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		    <cleanup>
+				<RunCode code="Alert.okLabel = origLabel;" />
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Alert_text" description="Verify Alert button width for a small value" keywords="[Alert,text]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="application.curAlert = Alert.show('Check the text of the Alert.', 'Alert Test',12)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<CompareBitmap target="curAlert.mx_internal:alertForm" url="../Properties/baselines/alertText.png" timeout="5000" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		</TestCase>
+		<TestCase testID="Alert_yesLabel" description="Verify Alert button width for a small value" keywords="[Alert,yesLabel]" >
+		    <setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= new Alert()" />
+				<RunCode code="origLabel = Alert.yesLabel; Alert.yesLabel='Yes Re';application.curAlert = Alert.show('Check the Cancel button.', 'Alert Test',3)" />
+				<WaitForEffectsToEnd />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="Yes Re" />
+				<DispatchKeyEvent key="TAB" waitTarget="curAlert.mx_internal:alertForm.mx_internal:buttons.1" waitEvent="focusIn"  />
+				<DispatchKeyEvent key="ESCAPE" waitTarget="curAlert" waitEvent="removed" />
+				<AssertEvent target="curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+				<WaitForEffectsToEnd />
+		    </body>
+		    <cleanup>
+		    	<RunCode code="Alert.yesLabel = origLabel" />
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Alert_layoutDirection_direction_rtl" description="Verify Alert mirrors correctly" keywords="[Alert,Mirroring]" >
+			<setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= Alert.show('Alert String', 'Alert title', 3);" />
+				<RunCode code="application.curAlert.status='Alert status'"/>
+				<SetProperty propertyName="layoutDirection" target="curAlert" value="rtl"/>
+				<SetStyle styleName="direction" target="curAlert" value="rtl"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="curAlert"/>
+				<DispatchKeyEvent key="SPACE" />
+			</body>
+		</TestCase>
+		<TestCase testID="Alert_layoutDirection_direction_rtl_with_alertIcon" description="Verify Alert mirrors correctly" keywords="[Alert,Mirroring]" >
+			<setup>
+				<DispatchKeyEvent key="SPACE" />
+				<RunCode code="application.curAlert= Alert.show('Alert String', 'Alert title', 3, null, null, myIcon);" />
+				<RunCode code="application.curAlert.status='Alert status'"/>
+				<SetProperty propertyName="layoutDirection" target="curAlert" value="rtl"/>
+				<SetStyle styleName="direction" target="curAlert" value="rtl"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="curAlert"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+	
+</UnitTester>

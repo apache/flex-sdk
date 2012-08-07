@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_SparkSkin/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp_mirroring.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+		import mx.core.FlexGlobals;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+	<TestCase testID="datagrid_mirroring_test1" keywords="[DataGrid,Mirroring]" description="Check column order, basic alignment.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="600" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 1, 2)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test2" keywords="[DataGrid,Mirroring]" description="Change layoutDirection and direction of app. at run time.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="600" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 1, 2)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="" styleName="direction" value="ltr" />
+			<SetStyle target="" styleName="layoutDirection" value="ltr" waitTarget="container1.dg1" waitEvent="updateComplete"  />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test3" keywords="[DataGrid,Mirroring]" description="Change layoutDirection of DG at run time.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 1, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="container1.dg1" styleName="layoutDirection" value="ltr" waitTarget="container1.dg1" waitEvent="updateComplete"  />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test4" keywords="[DataGrid,Mirroring]" description="Change layoutDirection of DG with a state change.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl"  />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg2, 1, 3)" waitTarget="container1.dg2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="container1" propertyName="currentState" value="state1" waitTarget="container1.dg2" waitEvent="updateComplete"  />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg2" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test5" keywords="[DataGrid,Mirroring]" description="Text in headers and cells is aligned right (wrap).">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="wordWrap" value="true" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 1, 3, true, true)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<!-- SDK-25721 -->
+	<TestCase testID="datagrid_mirroring_test6" keywords="[DataGrid,Mirroring]" description="Able to set different direction in DataGridColumns.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="400" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 1, 2)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="container1.dg1.columns.0" styleName="direction" value="ltr" waitTarget="container1.dg1" waitEvent="updateComplete"  />
+			<SetStyle target="container1.dg1.columns.1" styleName="direction" value="ltr" waitTarget="container1.dg1" waitEvent="updateComplete"  />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test7" keywords="[DataGrid,Mirroring]" description="Sort on a column.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseClickEvent target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="5" localY="2" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test8" keywords="[DataGrid,Mirroring]" description="Sort on a column twice.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseClickEvent target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="5" localY="2" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<DispatchMouseClickEvent target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="5" localY="2" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+<!-- SDK-25669 -->
+	<TestCase testID="datagrid_mirroring_test9" keywords="[DataGrid,Mirroring]" description="Sort on 2 columns.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseClickEvent target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="5" localY="2" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<DispatchMouseClickEvent target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="5" localY="2" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test10" keywords="[DataGrid,Mirroring]" description="Use editor in the first column.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="editable" value="true" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseClickEvent target="container1.dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchKeyEvent char="hello" waitTarget="container1.dg1.itemEditorInstance" waitEvent="change" />
+			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditEnd" />
+			<Pause timeout="1" />
+			<AssertPropertyValue target="container1.dg1.mx_internal:rendererArray.1.0" propertyName="text" value="hello"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test11" keywords="[DataGrid,Mirroring]" description="Use editor in the last column.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="editable" value="true" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseClickEvent target="container1.dg1.mx_internal:rendererArray.1.2" localX="2" localY="2" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
+			<DispatchKeyEvent char="hello" waitTarget="container1.dg1.itemEditorInstance" waitEvent="change" />
+			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditEnd" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<AssertPropertyValue target="container1.dg1.mx_internal:rendererArray.1.2" propertyName="text" value="hello"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test12" keywords="[DataGrid,Mirroring]" description="Tab to control.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="editable" value="true" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test13" keywords="[DataGrid,Mirroring]" description="Tab through control.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="editable" value="true" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
+			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
+			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="itemEditBegin" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<Pause timeout="1" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="datagrid_mirroring_test14" keywords="[DataGrid,Mirroring]" description="Use the down arrow to move through rows.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="focusIn" />
+			<DispatchKeyEvent keys="[DOWN]" waitTarget="container1.dg1" waitEvent="change" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchKeyEvent keys="[DOWN]" waitTarget="container1.dg1" waitEvent="change" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test15" keywords="[DataGrid,Mirroring]" description="Use the up and down arrows to move through rows.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchKeyEvent keys="[TAB]" waitTarget="container1.dg1" waitEvent="focusIn" />
+			<DispatchKeyEvent keys="[DOWN]" waitTarget="container1.dg1" waitEvent="change" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchKeyEvent keys="[DOWN]" waitTarget="container1.dg1" waitEvent="change" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchKeyEvent keys="[DOWN]" waitTarget="container1.dg1" waitEvent="change" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchKeyEvent keys="[UP]" waitTarget="container1.dg1" waitEvent="change" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchKeyEvent keys="[UP]" waitTarget="container1.dg1" waitEvent="change" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test16" keywords="[DataGrid,Mirroring]" description="Increase lockedColumnCount and scroll.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="horizontalScrollPolicy" value="on" />
+			<SetProperty target="container1.dg1" propertyName="lockedColumnCount" value="2" />
+			<SetProperty target="container1.dg1" propertyName="width" value="400" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 5)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<SetProperty target="container1.dg1.columns.0" propertyName="width" value="120" />
+			<SetProperty target="container1.dg1.columns.1" propertyName="width" value="120" />
+			<SetProperty target="container1.dg1.columns.2" propertyName="width" value="120" />
+			<SetProperty target="container1.dg1.columns.3" propertyName="width" value="120" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseClickEvent target="container1.dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="container1.dg1" waitEvent="scroll"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test17" keywords="[DataGrid,Mirroring]" description="Decrease lockedColumnCount and scroll.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="horizontalScrollPolicy" value="on" />
+			<SetProperty target="container1.dg1" propertyName="lockedColumnCount" value="2" />
+			<SetProperty target="container1.dg1" propertyName="width" value="400" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 5)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<SetProperty target="container1.dg1.columns.0" propertyName="width" value="120" />
+			<SetProperty target="container1.dg1.columns.1" propertyName="width" value="120" />
+			<SetProperty target="container1.dg1.columns.2" propertyName="width" value="120" />
+			<SetProperty target="container1.dg1.columns.3" propertyName="width" value="120" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<SetProperty target="container1.dg1" propertyName="lockedColumnCount" value="0" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseClickEvent target="container1.dg1.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="container1.dg1" waitEvent="scroll"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test18" keywords="[DataGrid,Mirroring]" description="Increase lockedRowCount and scroll down.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="lockedRowCount" value="3" />
+			<SetProperty target="container1.dg1" propertyName="width" value="400" />
+			<SetProperty target="container1.dg1" propertyName="height" value="200" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 10, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="container1.dg1.columns.0" propertyName="width" value="120" />
+			<SetProperty target="container1.dg1.columns.1" propertyName="width" value="120" />
+			<SetProperty target="container1.dg1.columns.2" propertyName="width" value="120" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<DispatchMouseClickEvent target="container1.dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="container1.dg1" waitEvent="scroll"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test19" keywords="[DataGrid,Mirroring]" description="Decrease lockedRowCount and scroll down.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="lockedRowCount" value="3" />
+			<SetProperty target="container1.dg1" propertyName="width" value="400" />
+			<SetProperty target="container1.dg1" propertyName="height" value="200" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 10, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="container1.dg1.columns.0" propertyName="width" value="120" />
+			<SetProperty target="container1.dg1.columns.1" propertyName="width" value="120" />
+			<SetProperty target="container1.dg1.columns.2" propertyName="width" value="120" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<DispatchMouseClickEvent target="container1.dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="container1.dg1" waitEvent="scroll"/>
+			<SetProperty target="container1.dg1" propertyName="lockedRowCount" value="0" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<!-- SDK-25689 -->
+	<TestCase testID="datagrid_mirroring_test20" keywords="[DataGrid,Mirroring]" description="Be sure truncation works when column widths are reduced by setting the width.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 5)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test21" keywords="[DataGrid,Mirroring]" description="Drag columns; swap col 0 and col 1.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="5" localY="2" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="60" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="50" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="40" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="30" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="20" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="0" localY="2" />
+
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="60" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="50" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="40" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="30" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="20" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="10" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="0" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseUp" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="90" localY="2" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<Pause timeout="1" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test22" keywords="[DataGrid,Mirroring]" description="Drag separator between col 0 and 1 (make col 0 larger)">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="0" localY="2" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="60" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="50" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="40" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseUp" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="40" localY="2" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<Pause timeout="1" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test23" keywords="[DataGrid,Mirroring]" description="Drag column from locked column area.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<SetProperty target="container1.dg1" propertyName="lockedColumnCount" value="1" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="5" localY="2" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="60" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="50" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="40" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="30" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="20" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="10" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="0" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="60" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="50" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="40" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseUp" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="40" localY="2" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<Pause timeout="1" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test24" keywords="[DataGrid,Mirroring]" description="Drag column to locked column area.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<SetProperty target="container1.dg1" propertyName="lockedColumnCount" value="1" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="55" localY="2" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="0" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="10" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="20" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="30" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="40" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="50" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="60" localY="2" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseUp" target="container1.dg1.mx_internal:dataGridLockedColumnHeader.mx_internal:rendererArray.0" localX="60" localY="2" />
+			<Pause timeout="1" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test25" keywords="[DataGrid,Mirroring]" description="Hide column 0">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="container1.dg1.columns.0" propertyName="visible" value="false" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test26" keywords="[DataGrid,Mirroring]" description="Hide column 2">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="container1.dg1.columns.2" propertyName="visible" value="false" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test27" keywords="[DataGrid,Mirroring]" description="Hide, then show, column 0">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="container1.dg1.columns.0" propertyName="visible" value="false" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<SetProperty target="container1.dg1.columns.0" propertyName="visible" value="true" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test28" keywords="[DataGrid,Mirroring]" description="Hide, then show, column 2">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="container1.dg1.columns.2" propertyName="visible" value="false" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<SetProperty target="container1.dg1.columns.2" propertyName="visible" value="true" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1.dg1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test29" keywords="[DataGrid,Mirroring]" description="Drag between DataGrids, check drag proxy.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<SetProperty target="container1.dg1" propertyName="height" value="100" />
+			<SetProperty target="container1.dg2" propertyName="width" value="200" />
+			<SetProperty target="container1.dg2" propertyName="height" value="100" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg2, 1, 3)" waitTarget="container1.dg2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="10" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="20" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="30" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="40" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="50" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="60" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="70" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="80" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="90" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="0" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="10" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="20" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="30" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="40" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="50" />
+			<Pause timeout="10" />
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1" url="../Styles/Baselines/$testID.png"  />
+			<DispatchMouseEvent type="mouseUp" target="container1.dg2" localX="5" localY="50" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test30" keywords="[DataGrid,Mirroring]" description="Drag between DataGrids, complete.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<SetProperty target="container1.dg1" propertyName="height" value="100" />
+			<SetProperty target="container1.dg2" propertyName="width" value="200" />
+			<SetProperty target="container1.dg2" propertyName="height" value="100" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg2, 1, 3)" waitTarget="container1.dg2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="10" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="20" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="30" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="40" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="50" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="60" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="70" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="80" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="90" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="0" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="10" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="20" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="30" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="40" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="50" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseUp" target="container1.dg2" localX="5" localY="50" />
+			<Pause timeout="100" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test31" keywords="[DataGrid,Mirroring]" description="Drag from ltr DG to rtl DG.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<SetProperty target="container1.dg1" propertyName="height" value="100" />
+			<SetProperty target="container1.dg1" propertyName="layoutDirection" value="ltr" />
+			<SetProperty target="container1.dg2" propertyName="width" value="200" />
+			<SetProperty target="container1.dg2" propertyName="height" value="100" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg2, 1, 3)" waitTarget="container1.dg2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="10" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="20" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="30" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="40" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="50" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="60" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="70" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="80" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="90" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="0" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="10" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="20" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="30" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="40" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="50" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseUp" target="container1.dg2" localX="5" localY="50" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="datagrid_mirroring_test32" keywords="[DataGrid,Mirroring]" description="Drag from rtl DG to ltr DG.">
+		<setup>
+			<ResetComponent target="container1" className="comps.DataGridTestingContainer1" waitEvent="updateComplete" />
+			<SetStyle target="" styleName="direction" value="rtl" />
+			<SetStyle target="" styleName="layoutDirection" value="rtl" />
+			<SetProperty target="container1.dg1" propertyName="width" value="200" />
+			<SetProperty target="container1.dg1" propertyName="height" value="100" />
+			<SetProperty target="container1.dg2" propertyName="layoutDirection" value="ltr" />
+			<SetProperty target="container1.dg2" propertyName="width" value="200" />
+			<SetProperty target="container1.dg2" propertyName="height" value="100" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg1, 3, 3)" waitTarget="container1.dg1" waitEvent="updateComplete" />
+			<RunCode code="FlexGlobals.topLevelApplication.container1.setAC1(FlexGlobals.topLevelApplication.container1.dg2, 1, 3)" waitTarget="container1.dg2" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseEvent type="mouseDown" target="container1.dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="10" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="20" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="30" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="40" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="50" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="60" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="70" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="80" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg1" localX="5" localY="90" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="0" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="10" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="20" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="30" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="40" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" target="container1.dg2" localX="5" localY="50" />
+			<Pause timeout="1" />
+			<DispatchMouseEvent type="mouseUp" target="container1.dg2" localX="5" localY="50" />
+			<WaitForEffectsToEnd /><Pause timeout="100"/>
+			<CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true"   target="container1" url="../Styles/Baselines/$testID.png"  />
+		</body>
+	</TestCase>
+
+	</testCases>
+</UnitTester>

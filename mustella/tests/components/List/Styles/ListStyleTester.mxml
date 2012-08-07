@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="components/List/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ListMain.mxml">
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <mx:Script>
+    <![CDATA[
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.managers.ToolTipManager;
+    import mx.controls.Alert;
+    import mx.collections.ArrayCollection;
+    
+   private var dg_11427:ArrayCollection = new ArrayCollection ([ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18" ]);
+   
+    private var dg_11061:ArrayCollection = new ArrayCollection ([ "Zerooooooooooooo", "Onnnnnnnnnnnne", "Twtttttttttto", "Thrrrrrrrrrrrrrrrree", "Fuuuuuuuuuuuuuuuuuuuour", "Fiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiive", "Zewwwwwwwwwwwwro", "Onrrrrrrrrrrrrrrrre", "Twottttttttttttttttt", "Thddddddddddddddddddree", "Fogggggggggggggggggggur", "Fisssssssssssssssssssssssssve" ]);
+      
+   public function addItems(n:int):void{
+       for(var i:int=0;i<n;i++)  {
+          var obj:Object={slno:i,name:"Added Item"+String(i),age:100+i}
+          application.mybox.mylist.dataProvider.addItem(obj);
+       }           
+    }
+    
+    public function addSpecialDP1():void{
+          application.mybox.mylist.dataProvider.removeAll();
+        application.mybox.mylist.dataProvider=[{ label:'Album A' },{ label:'Album B' },{ label:'Album C' },{ label:'Album D' },{ label:'Album E' },{ label:'Other' },{ label:'Album A1' },{ label:'Album B1' },{ label:'Album C1' },{ label:'Album D1' },{ label:'Album E1' },{ label:'Other1' },{ label:'Album A2' },{ label:'Album B2' },{ label:'Album C2' },{ label:'Album D2' },{ label:'Album E2' },{ label:'Other2' },{ label:'Album A3' },{ label:'Album B3' },{ label:'Album C3' },{ label:'Album D3' },{ label:'Album E3' },{ label:'Other3' },{ label:'Album A4' },{ label:'Album B4' },{ label:'Album C4' },{ label:'Album D4' },{ label:'Album E4' },{ label:'Other4' },{ label:'Album A5' },{ label:'Album B5' },{ label:'Album C5' },{ label:'Album D5' },{ label:'Album E5' },{ label:'Other5' }];
+    }
+    
+    public function addLongItem():void{
+          var obj:Object={slno:0,name:"Added Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Item",age:100}
+          application.mybox.mylist.dataProvider.addItemAt(obj,3);
+    }
+    
+    public function remove_and_repopulate():void{
+        application.mybox.mylist.dataProvider.removeAll();
+        application.mybox.mylist.dataProvider=['one', 'two', 'gggg', 'yyyy', 'jjjj', 'pppp', 'qqqq'];
+    }
+    
+    public function removeAll():void{
+        application.mybox.mylist.dataProvider.removeAll();
+    }
+    
+    private function attachListener():void{
+        application.mybox.mylist.addEventListener('scroll',scrollListener);
+    }
+
+    private function scrollListener(evt:Event):void{
+        Alert.show('Scrolled');
+    }
+    ]]>
+    </mx:Script>
+    
+      <testCases>          
+
+     <TestCase testID="list_styles_bugs_158616" keywords="[list, bugs, 158616]">
+             <setup>
+              <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>  
+              <RunCode code="remove_and_repopulate()" />   
+               <SetStyle target="mybox.mylist" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="mybox.mylist" />
+            </setup>
+           <body>          
+                <CompareBitmap target="mybox" url="../Styles/Baselines/list_bugs_injection_158616.png"  />       
+            </body>
+    </TestCase>
+
+   <TestCase testID="list_styles_bugs_160908" keywords="[list, bugs, 160908]">
+          <setup>
+           <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>          
+         </setup>
+        <body>          
+           <SetStyle target="mybox.mylist" styleName="paddingTop" value="30" waitEvent="updateComplete" waitTarget="mybox.mylist" />
+           <CompareBitmap target="mybox" url="../Styles/Baselines/list_bugs_injection_160908.png"  />   
+         </body>
+    </TestCase>
+
+    
+  </testCases>                         
+</UnitTester>

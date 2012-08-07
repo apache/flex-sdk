@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" height="375" width="500" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" >
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<mx:Style>
+    @font-face {
+        src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+        fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+        fontWeight: bold;           
+        fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+        fontStyle: italic;          
+        fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+    
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</mx:Style>
+
+<mx:Tile horizontalGap="0" verticalGap="0" tileHeight="100" tileWidth="100" width="423">
+
+    <!-- htmlText images -->
+    <mx:TextInput id="ti1"  width="100"         height="100"          htmlText="GIF: &lt;img src='../../../../Assets/Images/smallorangerect.gif' /&gt;" />
+    <mx:TextInput id="ti2"  width="{ti1.width}" height="{ti1.height}" htmlText="JPG: &lt;img src='../../../../Assets/Images/smallbluerect.jpg' /&gt;" />
+    <mx:TextInput id="ti3"  width="{ti1.width}" height="{ti1.height}" htmlText="PNG: &lt;img src='../../../../Assets/Images/redrect.png' /&gt;" />
+    <mx:TextInput id="ti4"  width="{ti1.width}" height="{ti1.height}" htmlText="SWF: &lt;img src='../../../../Assets/Images/small.swf' /&gt;" />
+    
+    <!-- htmlText sized images -->
+    <mx:TextInput id="ti5"  width="{ti1.width}" height="{ti1.height}" htmlText="SWF: &lt;img src='../../../../Assets/Images/small.swf' width='20' height='70' /&gt;" />
+    <mx:TextInput id="ti6"  width="{ti1.width}" height="{ti1.height}" htmlText="PNG: &lt;img src='../../../../Assets/Images/redrect.png' width='20' height='70' /&gt;" />
+    
+    <!-- htmlText alignment of images -->
+    <mx:TextInput id="ti7"  width="{ti1.width}" height="{ti1.height}" htmlText="GIF: &lt;img src='../../../../Assets/Images/smallorangerect.gif' align='left' /&gt;" />
+    <mx:TextInput id="ti8"  width="{ti1.width}" height="{ti1.height}" htmlText="SWF: &lt;img src='../../../../Assets/Images/small.swf' align='right' /&gt;" />
+
+    <!-- htmlText hspace of images -->
+    <mx:TextInput id="ti9"  width="{ti1.width}" height="{ti1.height}" htmlText="GIF: &lt;img src='../../../../Assets/Images/smallorangerect.gif' hspace='0' /&gt;" />
+    <mx:TextInput id="ti10" width="{ti1.width}" height="{ti1.height}" htmlText="GIF: &lt;img src='../../../../Assets/Images/smallorangerect.gif' hspace='30' /&gt;" />
+        
+</mx:Tile>
+</mx:Application>

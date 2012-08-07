@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TreeDMV/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Tree_Basic.mxml">
+
+
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.Tree;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.TreeEvent;
+    import mx.collections.ArrayCollection;
+    import data.TreeData;
+    import data.LTDescriptor;
+    import data.LTNode;
+    import mx.collections.*;
+    import mx.effects.easing.Bounce;
+    import mx.effects.easing.Back;
+
+
+
+
+    private function addXMLData():void
+    {
+
+        var treeData:TreeData = new TreeData();
+        application.tree.dataProvider = treeData.x1;
+        application.tree.showRoot = false;
+        application.tree.labelField = '@label';
+
+    }
+
+    private function addXMLDataGlobal():void
+    {
+
+        application.tree.dataProvider = application.treeXML;
+        application.tree.showRoot = false;
+        application.tree.labelField = '@label';
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Style source="treeStyles.css" />
+
+    <testCases>
+
+        <!--******************************alternatingItemColors*******************************-->
+
+        <TestCase testID="Tree_alternatingItemColors_0x" description="alternatingItemColors with red and blue, top level nodes showing, hex" keywords="[alternatingItemColors, hex, toplevel, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="alternatingItemColors" valueExpression="value=[0xFF0000, 0x0000FF]" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertPixelValue target="tree" x="200" y="53" value="0xFF0000" />
+                <AssertPixelValue target="tree" x="200" y="80" value="0x0000FF" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_alternatingItemColors_Depth2" description="alternatingItemColors with red and blue, depth 2 nodes showing, hex" keywords="[alternatingItemColors, hex, nlevel, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="alternatingItemColors" valueExpression="value=[0xFF0000, 0x0000FF, 0x00FF000]" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/alternatingItemColors.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_alternatingItemColors_css" description="alternatingItemColors with red and blue css" keywords="[alternatingItemColors, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tAlternatingItemColors" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertPixelValue target="tree" x="200" y="53" value="0xFF0000" />
+                <AssertPixelValue target="tree" x="200" y="80" value="0x0000FF" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_alternatingItemColors_pound" description="alternatingItemColors with red and blue pound" keywords="[alternatingItemColors, pound, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="alternatingItemColors" valueExpression="value=['#FF0000','#0000FF']" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertPixelValue target="tree" x="200" y="53" value="#FF0000" />
+                <AssertPixelValue target="tree" x="200" y="80" value="#0000FF" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_alternatingItemColors_string" description="alternatingItemColors with red and blue string" keywords="[alternatingItemColors, string, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="alternatingItemColors" valueExpression="value=['red','blue']" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertPixelValue target="tree" x="200" y="53" value="#FF0000" />
+                <AssertPixelValue target="tree" x="200" y="80" value="#0000FF" />
+            </body>
+        </TestCase>
+
+        <!--******************************defaultLeafIcon*******************************-->
+
+        <TestCase testID="Tree_defaultLeafIcon_setstyle" description="defaultLeafIcon set from setstyle in main app" keywords="[defaultLeafIcon, setstyle, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[0], true)" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="defaultLeafIcon" valueExpression="value=application.redU" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/defaultLeaf_setstyle.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_defaultLeafIcon_css" description="defaultLeafIcon set from stylesheet" keywords="[defaultLeafIcon, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[0], true)" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tDefaultLeaf" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/defaultLeaf_css.png" timeout="4500" />
+            </body>
+        </TestCase>
+
+        <!--******************************depthColors*******************************-->
+
+        <TestCase testID="Tree_depthColors_0x" description="depthColors with red and blue, top level nodes showing, hex" keywords="[depthColors, hex, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="depthColors" valueExpression="value=[0xFF0000, 0x0000FF]" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/depthColorsDepth2_hex.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_depthColors_Depth2" description="depthColors with red and blue, depth 2 nodes showing, hex" keywords="[depthColors, hex, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="depthColors" valueExpression="value=[0xFF0000, 0x0000FF, 0x00FF000]" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[0], true)" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/depthColorsDepth3_hex.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_depthColors_css" description="depthColors with red and blue css" keywords="[alternatingItemColors, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tDepthColors" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/depthColorsDepth2_css.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_depthColors_pound" description="depthColors with red and blue pound" keywords="[depthColors, pound, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="depthColors" valueExpression="value=['#FF0000','#0000FF']" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/depthColorsDepth2_setstyle.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_depthColorsString" description="depthColors with red and blue string" keywords="[alternatingItemColors, pound, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="depthColors" valueExpression="value=['red','blue']" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/depthColorsDepth2_css.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_depthColorsString_bug9503" description="depthColors with too few to cover depths" keywords="[depthColors, Bugs, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="depthColors" valueExpression="value=[0xFF0000,0x0000FF]" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0].children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertPixelValue target="tree.mx_internal:rendererArray.2.0" x="10" y="5" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+<!--******************************discloureClosedIcon*******************************-->
+
+        <TestCase testID="Tree_disclosureClosedIcon_setstyle" description="disclosureClosedIcon set from setstyle in main app" keywords="[disclosureClosedIcon, setstyle, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="disclosureClosedIcon" valueExpression="value=application.redU" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/disclosureClosed_setstyle.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_disclosureClosedIcon_css" description="disclosureClosedIcon set from stylesheet" keywords="[disclosureClosedIcon, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tDisclosureClosed" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/disclosureClosed_css.png" timeout="4500" />
+            </body>
+        </TestCase>
+
+        <!--******************************discloureOpenIcon*******************************-->
+
+        <TestCase testID="Tree_disclosureOpenIcon_setstyle" description="disclosureOpenIcon set from setstyle in main app" keywords="[disclosureOpenIcon, setstyle, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <SetStyle target="tree" styleName="disclosureOpenIcon" valueExpression="value=application.blackO" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/disclosureOpen_setstyle.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_disclosureOpenIcon_css" description="disclosureOpenIcon set from stylesheet" keywords="[disclosureOpenIcon, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="styleName" value="tDisclosureOpen" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/disclosureOpen_css.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <!--******************************folderClosedIcon*******************************-->
+
+        <TestCase testID="Tree_folderClosedIcon_setstyle" description="folderClosedIcon set from setstyle in main app" keywords="[folderClosedIcon, setstyle, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="folderClosedIcon" valueExpression="value=application.redU" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/folderClosed_setstyle.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_folderClosedIcon_css" description="folderClosedIcon set from stylesheet" keywords="[folderClosedIcon, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tFolderClosed" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/folderClosed_css.png" timeout="4500" />
+            </body>
+        </TestCase>
+
+        <!--******************************folderOpenIcon*******************************-->
+
+        <TestCase testID="Tree_folderOpenIcon_setstyle" description="folderOpenIcon set from setstyle in main app" keywords="[folderOpenIcon, setstyle, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <SetStyle target="tree" styleName="folderOpenIcon" valueExpression="value=application.blackO" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/folderOpen_setstyle.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_foldereOpenIcon_css" description="folderOpenIcon set from stylesheet" keywords="[folderOpenIcon, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="styleName" value="tFolderOpen" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/folderOpen_css.png" timeout="4500" />
+            </body>
+        </TestCase>
+
+        <!--******************************indentation*******************************-->
+
+        <TestCase testID="Tree_indentation_pos" description="indentation set to positive integer = 20" keywords="[indentation, positive, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <SetStyle target="tree" styleName="indentation" value="20" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/indentation_pos.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_indentation_neg" description="indentation set to negative integer" keywords="[indentation, negative, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <SetStyle target="tree" styleName="indentation" value="-10" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/indentation_neg.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_indentation_css" description="indentation set to positive integer = 20" keywords="[indentation, positive, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="styleName" value="tIndendation" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/indentation_css.png" timeout="4500" />
+            </body>
+        </TestCase>
+
+        <!--******************************openDuration*******************************-->
+
+        <TestCase testID="Tree_openDuration_setstyle" description="openDuration set using setStyle" keywords="[openDuration, setstyle, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="openDuration" value="2000" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/openDuration_setstyle.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_openDuration_css" description="openDuration set using stylesheet" keywords="[openduration, stylesheet, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tOpenDuration" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/openDuration_css.png" timeout="4500" />
+            </body>
+        </TestCase>
+
+        <!--******************************openEasingFunction*******************************-->
+
+        <!--TestCase testID="Tree_openEasingFunction_setstyle" description="openDuration set using setStyle" keywords="[openDuration, setstyle, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="openEasingFunction" valueExpression="value=Bounce.easeIn" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+            </body>
+        </TestCase-->
+
+        <!--******************************paddingLeft*******************************-->
+
+        <TestCase testID="Tree_paddingLeft_setstyle" description="paddingLeft set using setStyle" keywords="[paddingLeft, setstyle, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="paddingLeft" value="10" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/paddingLeft_setstyle.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_paddingLeft_css" description="paddingLeft set using stylesheet" keywords="[paddingLeft, stylesheet, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tPaddingLeft" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/paddingLeft_css.png" timeout="4500" />
+            </body>
+        </TestCase>
+
+        <!--******************************paddingRight*******************************-->
+
+        <TestCase testID="Tree_paddingRight_setstyle" description="paddingRight set using setStyle" keywords="[paddingRight, setstyle, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetStyle target="tree" styleName="fontFamily" value="verdana" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLHScroll" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="paddingRight" value="10" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/paddingRight_setstyle.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_paddingRight_css" description="paddingRight set using stylesheet" keywords="[paddingRight, stylesheet, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetStyle target="tree" styleName="fontFamily" value="verdana" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLHScroll" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tPaddingRight" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree" url="../Styles/baselines/paddingRight_css.png" timeout="4500" />
+            </body>
+        </TestCase>
+    <!--******************************rollOverColor*******************************-->
+
+        <TestCase testID="Tree_rollOverColor0x" description="rollOverColor set to red using hex" keywords="[rollOverColor, hex, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="rollOverColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchMouseEvent target="tree" type="mouseOver" localX="10" localY="5" />
+
+                <AssertPixelValue target="tree" x="20" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_rollOverColor_css" description="rollOverColor set to red using stylesheet" keywords="[rollOverColor, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tRollOverColor" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchMouseEvent target="tree" type="mouseOver" localX="10" localY="5" />
+                <AssertPixelValue target="tree" x="20" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_rollOverColorPound" description="rollOverColor set to red using pound" keywords="[rollOverColor, pound, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="rollOverColor" value="#FF0000" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchMouseEvent target="tree" type="mouseOver" localX="10" localY="5" />
+                <AssertPixelValue target="tree" x="20" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_rollOverColorString" description="rollOverColor set to blue string" keywords="[rollOverColor, string, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="rollOverColor" value="red" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchMouseEvent target="tree" type="mouseOver" localX="10" localY="5" />
+                <AssertPixelValue target="tree" x="20" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+
+    <!--******************************selectionColor*******************************-->
+
+        <TestCase testID="Tree_selectionColor0x" description="selectionColor set to red using hex" keywords="[selectionColor, hex, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="selectionColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="tree"/>
+                <WaitForEffectsToEnd/>
+                <AssertPixelValue target="tree" x="200" y="10" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_selectionColor_css" description="selectionColor set to red using stylesheet" keywords="[selectionColor, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tSelectionColor" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="tree"/>
+                <WaitForEffectsToEnd/>
+                <AssertPixelValue target="tree" x="200" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_selectionColorPound" description="selectionColor set to red using pound" keywords="[selectionColor, pound, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="selectionColor" value="#FF0000" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="tree"/>
+                <WaitForEffectsToEnd/>
+                <AssertPixelValue target="tree" x="200" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_selectionColorString" description="selectionColor set to blue string" keywords="[selectionColor, string, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="selectionColor" value="red" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="tree"/>
+                <WaitForEffectsToEnd/>
+                <AssertPixelValue target="tree" x="200" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+
+    <!--******************************selectionDisabledColor*******************************-->
+
+        <TestCase testID="Tree_selectionDisabledColor0x" description="selectionDisabledColor set to red using hex" keywords="[selectionDisabledColor, hex, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="selectionDisabledColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="selectedIndex" value="0" waitEvent="valueCommit" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertPixelValue target="tree" x="200" y="10" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_selectionDisabledColor_css" description="selectionDisabledColor set to red using stylesheet" keywords="[selectionDisabledColor, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tSelectionDisabledColor" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="selectedIndex" value="0" waitEvent="valueCommit" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertPixelValue target="tree" x="200" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_selectionDisabledColorPound" description="selectionDisabledColor set to red using pound" keywords="[selectionDisabledColor, pound, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="selectionDisabledColor" value="#FF0000" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="selectedIndex" value="0" waitEvent="valueCommit" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertPixelValue target="tree" x="200" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_selectionDisabledColorString" description="selectionDisabledColor set to blue string" keywords="[selectionDisabledColor, string, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="selectionDisabledColor" value="red" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="selectedIndex" value="0" waitEvent="valueCommit" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertPixelValue target="tree" x="200" y="5" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <!--******************************selectionEasingFunction*******************************-->
+
+        <!--TestCase testID="Tree_openEasingFunction_setstyle" description="openDuration set using setStyle" keywords="[openDuration, setstyle, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <DispatchMouseEvent target="tree" type="mouseDown" localX="100" localY="10" />
+                <SetStyle target="tree" styleName="selectionEasingFunction" valueExpression="value=Back.easeIn" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+            </body>
+        </TestCase-->
+    <!--******************************textRollOverColor*******************************-->
+
+        <TestCase testID="Tree_textRollOverColor0x" description="textRollOverColorColor set to red using hex" keywords="[textRollOverColor, hex, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="textRollOverColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchMouseEvent target="tree" type="mouseOver" localX="10" localY="5" />
+
+                <CompareBitmap target="tree" url="../Styles/baselines/textRollOverColor.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_textRollOverColor_css" description="textRollOverColor set to red using stylesheet" keywords="[textRollOverColor, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tTextRollOverColor" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchMouseEvent target="tree" type="mouseOver" localX="10" localY="5" />
+                <CompareBitmap target="tree" url="../Styles/baselines/textRollOverColor.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_textRollOverColorPound" description="textRollOverColor set to red using pound" keywords="[textRollOverColor, pound, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="textRollOverColor" value="#FF0000" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchMouseEvent target="tree" type="mouseOver" localX="10" localY="5" />
+                <CompareBitmap target="tree" url="../Styles/baselines/textRollOverColor.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_textRollOverColorString" description="textRollOverColor set to blue string" keywords="[textRollOverColor, string, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="textRollOverColor" value="red" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchMouseEvent target="tree" type="mouseOver" localX="10" localY="5" />
+                <CompareBitmap target="tree" url="../Styles/baselines/textRollOverColor.png" timeout="4500" />
+            </body>
+        </TestCase>
+    <!--******************************textSelectedColor*******************************-->
+
+        <TestCase testID="Tree_textSelectedColor0x" description="textSelectedColor set to red using hex" keywords="[textSelectedColor, hex, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="textSelectedColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="tree"/>
+                <WaitForEffectsToEnd/>
+                <CompareBitmap target="tree" url="../Styles/baselines/textSelectedColor.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_textSelectedColor_css" description="textSelectedColor set to red using stylesheet" keywords="[textSelectedColor, css, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="styleName" value="tTextSelectedColor" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="tree"/>
+                <WaitForEffectsToEnd/>
+                <CompareBitmap target="tree" url="../Styles/baselines/textSelectedColor.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_textSelectedColorPound" description="selectionColor set to red using pound" keywords="[textSelectedColor, pound, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="textSelectedColor" value="#FF0000" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="tree"/>
+                <WaitForEffectsToEnd/>
+                <CompareBitmap target="tree" url="../Styles/baselines/textSelectedColor.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_textSelectedColorString" description="textSelectedColor set to blue string" keywords="[textSelectedColor, string, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetStyle target="tree" styleName="textSelectedColor" value="red" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="tree"/>
+                <WaitForEffectsToEnd/>
+                <CompareBitmap target="tree" url="../Styles/baselines/textSelectedColor.png" timeout="4500" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

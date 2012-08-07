@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/H_V_Rule/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Rule_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Style>
+
+	    .myStyle{
+		color: #FF0000
+	    }
+	    .myStyle2{
+		color: #0000FF
+	    }
+
+	</mx:Style>
+	
+	<mx:Script>
+	<![CDATA[
+		public function moveVRule():void
+		{
+			application.myCustomVRule.myVRule.move(6,60);
+		}
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="VRule_Event_hide" keywords="[hide, Event, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+			</setup>
+			<body>
+				<SetProperty target="myCustomVRule.myVRule" propertyName="visible" value="false" />
+				<AssertEvent target="myCustomVRule.myVRule" eventName="hide" eventClass="mx.events::FlexEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Event_Move" keywords="[Move, Event, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				
+			</setup>
+			<body>
+				<RunCode code="moveVRule()"/>
+				<AssertEvent target="myCustomVRule.myVRule" eventName="move" eventClass="mx.events::MoveEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Event_Resize" keywords="[Resize, Event, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				
+			</setup>
+			<body>
+				<RunCode code="application.myCustomVRule.myVRule.setActualSize(200,200)"/>
+				<AssertEvent target="myCustomVRule.myVRule" eventName="resize" eventClass="mx.events::ResizeEvent" />
+			</body>
+		</TestCase>  
+		<TestCase testID="VRule_Event_mouseOver" keywords="[mouseOver, Event, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				
+			</setup>  
+			<body>
+				<RunCode code="application.mainHRule.setActualSize(200,200)"/>  
+				<DispatchMouseEvent target="myCustomVRule.myVRule" type="mouseOver" stageX="171" stageY="178" />
+				<AssertEvent target="myCustomVRule.myVRule" eventName="mouseOver" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Event_mouseDown" keywords="[mouseDown, Event, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				
+			</setup>  
+			<body>
+				<RunCode code="application.mainHRule.setActualSize(200,200)"/>  
+				<DispatchMouseEvent target="myCustomVRule.myVRule" type="mouseOver" stageX="171" stageY="178" />
+				<DispatchMouseEvent target="myCustomVRule.myVRule" type="mouseDown" stageX="171" stageY="178" />
+				<AssertEvent target="myCustomVRule.myVRule" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+				<DispatchMouseEvent target="myCustomVRule.myVRule" type="mouseUp" stageX="171" stageY="178" />
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Event_mouseUp" keywords="[mouseUp, Event, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				
+			</setup>  
+			<body>
+				<RunCode code="application.mainHRule.setActualSize(200,200)"/>  
+				<DispatchMouseEvent target="myCustomVRule.myVRule" type="mouseOver" stageX="171" stageY="178" />
+				<DispatchMouseEvent target="myCustomVRule.myVRule" type="mouseDown" stageX="171" stageY="178" />
+				<DispatchMouseEvent target="myCustomVRule.myVRule" type="mouseUp" stageX="171" stageY="178" />
+				<AssertEvent target="myCustomVRule.myVRule" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Event_mouseMove" keywords="[mouseMove, Event, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				
+			</setup>  
+			<body>
+				<RunCode code="application.mainHRule.setActualSize(200,200)"/>  
+				<DispatchMouseEvent target="myCustomVRule.myVRule" type="mouseOver" stageX="171" stageY="168" />
+				<DispatchMouseEvent target="myCustomVRule.myVRule" type="mouseMove" stageX="171" stageY="178" />
+				<AssertEvent target="myCustomVRule.myVRule" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="VRule_Event_click" keywords="[mouseMove, Event, VRule]">
+			<setup>
+				<ResetComponent target="myCustomVRule" className="CustomVRule" waitEvent="updateComplete" waitTarget="myCustomVRule"/>
+				
+			</setup>  
+			<body>
+				<RunCode code="application.mainHRule.setActualSize(200,200)"/>  
+				<DispatchMouseEvent target="myCustomVRule.myVRule" type="mouseOver" stageX="171" stageY="168" />
+				<DispatchMouseClickEvent target="myCustomVRule.myVRule"  stageX="171" stageY="178" />
+				<AssertEvent target="myCustomVRule.myVRule" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>		
+	</testCases>
+</UnitTester>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"   xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:comps="comps.*" layout="horizontal">
+
+<mx:Script>
+<![CDATA[
+import comps.treeDragDropComp;
+]]>
+</mx:Script>
+<mx:Style source="Assets/myStyles.css" />
+	<mx:XML id="treeXMLEmptyBranches">
+		<node label="rootnode">
+			<node label="Containers">
+			    <node label="DividedBoxClasses">
+					<node label="BoxDivider" />
+			    </node>
+			    <node label="GridClasses">
+				     <node label="empty branch2" isBranch="true"/>
+					<node label="GridRow"  />
+					<node label="GridItem"  />
+			    </node>
+			</node>
+			<node label="Printing">
+				<node label="PrintJob"  />
+				<node label="PrintJob1"  />
+				<node label="PrintTree"  />
+			</node>
+			<node label="empty branch1" isBranch="true"/>
+		</node>
+	</mx:XML>
+
+	<mx:XML id="treeXML">
+		<node label="rootnode">
+			<node label="Containers">
+			    <node label="DividedBoxClasses">
+					<node label="BoxDivider" />
+			    </node>
+			    <node label="GridClasses">
+				     	<node label="GridRow"  />
+					<node label="GridItem" />
+			    </node>
+			</node>
+			<node label="Printing">
+				<node label="PrintJob"  />
+				<node label="PrintJob1" />
+				<node label="PrintTree" />
+				<node label="PrintJob"  />
+				<node label="PrintJob1" />
+				<node label="PrintTree" />
+			</node>
+
+		</node>
+	</mx:XML>
+
+<mx:HBox id="hb" >
+<comps:treeDragDropComp id="tree"  />
+<comps:treeDragDropComp id="tree2" />
+</mx:HBox>
+</mx:Application>

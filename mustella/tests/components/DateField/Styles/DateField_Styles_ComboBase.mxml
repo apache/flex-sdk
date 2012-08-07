@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateField/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateField_Basic.mxml">
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.controls.Button;
+	import mx.managers.SystemManager;
+	private var btn:Button;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.jpg")]
+	public var dsjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.gif")]
+	public var dsgif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.png")]
+	public var dspng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.swf")]
+	public var dsswf:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/overSkin.jpg")]
+	public var ovrsjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/overSkin.gif")]
+	public var ovrsgif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/overSkin.png")]
+	public var ovrspng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/overSkin.swf")]
+	public var ovrsswf:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.jpg")]
+	public var upsjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.gif")]
+	public var upsgif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.png")]
+	public var upspng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.swf")]
+	public var upsswf:Class;
+
+
+	private function addButton():void{
+		btn = new Button();
+		btn.label = "Button to Focus Out";
+		application.addChild(btn);
+	}
+	private function removeButton():void{
+		application.removeChild(btn);
+	}
+	]]>
+	</mx:Script>
+
+<testCases>
+	<TestCase testID="comboBase_styles_disabledSkin_jpg"  keywords="[combobase, styles, disabledSkin, jpg]">
+		<setup>
+			<ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df"/>
+			<SetProperty target="df" propertyName="enabled" value="false"/>
+			<SetStyle target="df" styleName="disabledSkin" value="{dsjpg}" waitEvent="updateComplete" waitTarget="df"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="df" propertyName="enabled" value="false"/>
+			<CompareBitmap url="../Styles/baselines/df_inherited_styles_disabledSkin_jpg.png" target="df.getChildAt(1)"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_disabledSkin_gif"  keywords="[combobase, styles, disabledSkin, gif]">
+		<setup>
+			<ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df"/>
+			<SetProperty target="df" propertyName="enabled" value="false"/>
+			<SetStyle target="df" styleName="disabledSkin" value="{dsgif}" waitEvent="updateComplete" waitTarget="df"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="df" propertyName="enabled" value="false"/>
+			<CompareBitmap url="../Styles/baselines/df_inherited_styles_disabledSkin_gif.png" target="df.getChildAt(1)"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_disabledSkin_png"  keywords="[combobase, styles, disabledSkin, png]">
+		<setup>
+			<ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df"/>
+			<SetProperty target="df" propertyName="enabled" value="false"/>
+			<SetStyle target="df" styleName="disabledSkin" value="{dspng}" waitEvent="updateComplete" waitTarget="df"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="df" propertyName="enabled" value="false"/>
+			<CompareBitmap url="../Styles/baselines/df_inherited_styles_disabledSkin_png.png" target="df.getChildAt(1)"/>
+		</body>
+	</TestCase>
+	 <TestCase testID="comboBase_styles_overSkin_jpg"  keywords="[combobase, styles, overSkin, jpg]">
+		<setup>
+			<ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df"/>
+		</setup>
+		<body>
+ 			<SetStyle target="df" styleName="overSkin" value="{ovrsjpg}" waitEvent="updateComplete" waitTarget="df"/>
+			<DispatchMouseClickEvent target="df" localX="10" localY="10" waitEvent="open" waitTarget="df"/>
+			<DispatchMouseClickEvent target="df" localX="10" localY="10" waitEvent="close" waitTarget="df" />
+			<DispatchMouseEvent target="df.getChildAt(1)" type="mouseOver" localX="5" localY="4" waitEvent="mouseOver" waitTarget="df" />
+			<WaitForEffectsToEnd />
+			<CompareBitmap url="../Styles/baselines/df_inherited_styles_overSkin_jpg.png" target="df.getChildAt(1)" />
+			<DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="200"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_overSkin_gif"  keywords="[combobase, styles, overSkin, gif]">
+		<setup>
+			<ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df"/>
+			<SetStyle target="df" styleName="overSkin" value="{ovrsgif}" waitEvent="updateComplete" waitTarget="df"/>
+		</setup>
+		<body>
+			<DispatchMouseClickEvent target="df" localX="10" localY="10" waitEvent="open" waitTarget="df"/>
+			<DispatchMouseClickEvent target="df" localX="10" localY="10" waitEvent="close" waitTarget="df" />
+			<DispatchMouseEvent target="df.getChildAt(1)" type="mouseOver" localX="5" localY="9" waitEvent="mouseOver" waitTarget="df" />
+			<CompareBitmap url="../Styles/baselines/df_inherited_styles_overSkin_gif.png" target="df.getChildAt(1)"/>
+			<DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="200"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_overSkin_png"  keywords="[combobase, styles, overSkin, png]">
+		<setup>
+			<ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df"/>
+			<SetStyle target="df" styleName="overSkin" value="{ovrspng}" waitEvent="updateComplete" waitTarget="df"/>
+		</setup>
+		<body>
+			<DispatchMouseClickEvent target="df" localX="10" localY="10" waitEvent="open" waitTarget="df"/>
+			<DispatchMouseClickEvent target="df" localX="10" localY="10" waitEvent="close" waitTarget="df" />
+			<DispatchMouseEvent target="df.getChildAt(1)" type="mouseOver" localX="5" localY="5" waitEvent="mouseOver" waitTarget="df" />
+			<CompareBitmap url="../Styles/baselines/df_inherited_styles_overSkin_png.png" target="df.getChildAt(1)"/>
+			<DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="200"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_upSkin_jpg"  keywords="[combobase, styles, upSkin, jpg]">
+		<setup>
+			<ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df"/>
+			<SetStyle target="df" styleName="upSkin" value="{upsjpg}" waitEvent="updateComplete" waitTarget="df"/>
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/baselines/df_inherited_styles_upSkin_jpg.png" target="df.getChildAt(1)"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_upSkin_gif"  keywords="[combobase, styles, upSkin, gif]">
+		<setup>
+			<ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df"/>
+			<SetStyle target="df" styleName="upSkin" value="{upsgif}" waitEvent="updateComplete" waitTarget="df.getChildAt(1)"/>
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/baselines/df_inherited_styles_upSkin_gif.png" target="df.getChildAt(1)"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_upSkin_png"  keywords="[combobase, styles, upSkin, png]">
+		<setup>
+			<ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df"/>
+			<SetStyle target="df" styleName="upSkin" value="{upspng}" waitEvent="updateComplete" waitTarget="df"/>
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/baselines/df_inherited_styles_upSkin_png.png" target="df.getChildAt(1)"/>
+		</body>
+	</TestCase>
+</testCases>
+</UnitTester>

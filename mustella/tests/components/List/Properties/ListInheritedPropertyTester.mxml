@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/List/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ListMain.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.controls.List;
+	
+	public function addItems(n:int):void
+	{
+	   for(var i:int=0;i<n;i++)
+	   {
+	      var obj:Object={slno:i,name:"Added Item"+String(i),age:100+i}
+	      application.mybox.mylist.dataProvider.addItem(obj);
+	   }
+	   
+	}
+	
+	public function addLongItems(n:int):void
+	{
+	   for(var i:int=0;i<n;i++)
+	   {
+	      var obj:Object={slno:i,name:"Added Looooooooooooooooooooooooooooooong Item"+String(i),age:100+i}
+	      application.mybox.mylist.dataProvider.addItem(obj);
+	   }
+
+	}
+	
+	public function removeAllItems():void
+	{
+	   application.mybox.mylist.dataProvider.removeAll();
+	}
+	
+	public function addDropList():void
+	{
+	   var drpLst:List = new List();
+	   drpLst.x = 275; drpLst.y=50;  drpLst.width=175;
+	   drpLst.height=250; drpLst.labelField = "age";
+	   drpLst.dropEnabled = true; drpLst.dragEnabled = true;
+	   drpLst.dragMoveEnabled = true;
+	   application.mybox.addChild(drpLst);
+	}
+	
+	public function addDragList():void
+	{
+	   var drgLst:List = new List();
+	   drgLst.x = 275; drgLst.y=50;  drgLst.width=175;
+	   drgLst.height=250; drgLst.labelField = "age";
+	   drgLst.dropEnabled = true; drgLst.dragEnabled = true;
+	   drgLst.dragMoveEnabled = true; drgLst.allowMultipleSelection=true;
+	    drgLst.dataProvider=[{slno:"1",name:"Raghu",age:"12"},{slno:"2",name:"Ram",age:"21"},{slno:"3",name:"Harish",age:"4"}
+	   	 ,{slno:"4",name:"Lauren",age:"1"},{slno:"5",name:"Rishi",age:"12"},{slno:"6",name:"Jyoti",age:"52"}]
+	   application.mybox.addChild(drgLst);
+	}
+	
+	public function remove_and_repopulate():void
+	{
+	    application.mybox.mylist.dataProvider.removeAll();
+	    application.mybox.mylist.dataProvider=[{slno:"1",label:"Joseph",age:"23"},{slno:"2",label:"Jeena",age:"21"},{slno:"3",label:"Jerry",age:"4"}
+		 ,{slno:"4",label:"Tom",age:"1"},{slno:"5",label:"Rick",age:"12"},{slno:"6",label:"John",age:"52"}];
+	}
+	
+	public function myListLabelFunction(obj:Object):String
+	{
+	      return(obj.name + "[check]");
+	}
+	
+
+	]]>
+	</mx:Script>
+	
+	<testCases>
+	 <TestCase testID="list_inherited_scrollcontrolbase_properties_verticalScrollPosition" keywords="[scrollcontrolbase, properties, verticalScrollPosition]">
+	      <setup>
+		  <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"  />	
+		  <RunCode code="addItems(20)"  waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+	     </setup>
+	     <body>
+			<SetProperty target="mybox.mylist" propertyName="verticalScrollPosition" value= "5" />	     	
+			<WaitForEffectsToEnd/>
+			<AssertPropertyValue target="mybox.mylist" propertyName="verticalScrollPosition" value="5"/>
+		       <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_verticalScrollPosition_programatic.png" numColorVariances="4" ignoreMaxColorVariance="true" />
+	     </body>
+	   </TestCase>
+	  <!--
+	  <TestCase testID="list_inherited_scrollcontrolbase_properties_livescrolling" keywords="[scrollcontrolbase, properties, livescrolling]">
+	      <setup>
+		  <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"  />	
+		  <RunCode code="addItems(20)"  waitEvent="updateComplete" waitTarget="mybox.mylist" />
+	     </setup>
+	     <body>
+		 <AssertPropertyValue target="mybox.mylist" propertyName="liveScrolling" value="true"/>
+		 <SetProperty target="mybox.mylist" propertyName="liveScrolling" value= "false"/>
+		 <AssertPropertyValue target="mybox.mylist" propertyName="liveScrolling" value="false"/>
+		 <DispatchMouseEvent target="mybox.mylist" type="mouseDown" localX="190" localY="75"/>
+		 <DispatchMouseEvent target="mybox.mylist" type="mouseMove" localX="190" localY="150"/>
+		 <WaitForEffectsToEnd/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_livescrolling_false_mouseDown.png"  />
+		 <DispatchMouseEvent target="mybox.mylist" type="mouseUp" localX="190" localY="150" waitEvent="scroll" waitTarget="mybox.mylist"/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_livescrolling_false_mouseUp.png"  />
+		 <SetProperty target="mybox.mylist" propertyName="verticalScrollPosition" value= "0" />	   
+		 <SetProperty target="mybox.mylist" propertyName="liveScrolling" value= "true"/> 	  
+		 <AssertPropertyValue target="mybox.mylist" propertyName="liveScrolling" value="true"/>
+		 <WaitForEffectsToEnd/>
+		 <DispatchMouseEvent target="mybox.mylist" type="mouseDown" localX="190" localY="75"/>
+		 <DispatchMouseEvent target="mybox.mylist" type="mouseMove" localX="190" localY="150"/>
+		  <WaitForEffectsToEnd/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_livescrolling_true_mouseDown.png"  />
+		 <DispatchMouseEvent target="mybox.mylist" type="mouseUp" localX="190" localY="150" waitEvent="scroll" waitTarget="mybox.mylist"/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_livescrolling_true_mouseUp.png"  />
+	     </body>
+	    </TestCase>
+	    
+           <TestCase testID="list_inherited_scrollcontrolbase_properties_showScrollTips" keywords="[scrollcontrolbase, properties, showScrollTips]">
+	      <setup>
+		  <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"  />	
+		  <RunCode code="addItems(20)"  waitEvent="updateComplete" waitTarget="mybox.mylist" />
+	     </setup>
+	     <body>
+		  <SetProperty target="mybox.mylist" propertyName="showScrollTips" value= "true"/> 	  
+		 <AssertPropertyValue target="mybox.mylist" propertyName="showScrollTips" value="true"/>
+		 <WaitForEffectsToEnd/>
+		 <DispatchMouseEvent target="mybox.mylist" type="mouseDown" localX="190" localY="75"/>
+		 <DispatchMouseEvent target="mybox.mylist" type="mouseMove" localX="190" localY="150"/>
+		  <WaitForEffectsToEnd/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_showScrollTips_true_vertical.png"  />
+		 <DispatchMouseEvent target="mybox.mylist" type="mouseUp" localX="190" localY="150" waitEvent="scroll" waitTarget="mybox.mylist"/>
+	     </body>
+	    </TestCase>
+	    
+	     <TestCase testID="list_inherited_scrollcontrolbase_properties_verticalScrollPolicy" keywords="[scrollcontrolbase, properties, verticalscrollpolicy]">
+	      <setup>
+		  <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"  />		 
+	     </setup>
+	     <body>
+		   <SetProperty target="mybox.mylist" propertyName="maxHorizontalScrollPosition" value= "100"   />
+		  <RunCode code="addItems(2)" waitEvent="updateComplete" waitTarget="mybox.mylist" />
+		 <AssertPropertyValue target="mybox.mylist" propertyName="verticalScrollPolicy" value="auto"/>
+	 	 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_verticalscrollpolicy_auto_withoutScroll.png"/>
+		 <RunCode code="addItems(10)" waitEvent="updateComplete" waitTarget="mybox.mylist" />
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_verticalscrollpolicy_auto_withScroll.png"  />
+		 <SetProperty target="mybox.mylist" propertyName="verticalScrollPolicy" value= "off"   />
+		 <WaitForEffectsToEnd/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_verticalscrollpolicy_off.png"  />
+		 <SetProperty target="mybox.mylist" propertyName="verticalScrollPolicy" value= "on"   />
+		 <RunCode code="removeAllItems()" waitEvent="updateComplete" waitTarget="mybox.mylist" />
+		  <RunCode code="addItems(4)" waitEvent="updateComplete" waitTarget="mybox.mylist" />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_verticalscrollpolicy_on.png"  />
+	     </body>
+	    </TestCase>
+
+	    <TestCase testID="list_inherited_scrollcontrolbase_properties_horizontalScrollPolicy" keywords="[scrollcontrolbase, properties, horizontalScrollPolicy]">
+	      <setup>
+		  <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"  />		 
+	     </setup>
+	     <body>
+		  <AssertPropertyValue target="mybox.mylist" propertyName="horizontalScrollPolicy" value="off"/>
+		   <SetProperty target="mybox.mylist" propertyName="horizontalScrollPolicy" value= "auto"   />
+		   <RunCode code="addItems(1)" waitEvent="updateComplete" waitTarget="mybox.mylist" />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_horizontalScrollPolicy_auto.png"  />
+		 <RunCode code="addLongItems(2)" waitEvent="updateComplete" waitTarget="mybox.mylist" />
+		 <SetProperty target="mybox.mylist" propertyName="horizontalScrollPolicy" value= "off"   />
+		 <WaitForEffectsToEnd/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_horizontalScrollPolicy_off.png"  />
+		 <SetProperty target="mybox.mylist" propertyName="horizontalScrollPolicy" value= "on"   />
+		 <RunCode code="removeAllItems()" waitEvent="updateComplete" waitTarget="mybox.mylist" />
+		  <RunCode code="addItems(4)" waitEvent="updateComplete" waitTarget="mybox.mylist" />
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_horizontalScrollPolicy_on.png"  />
+		  <SetProperty target="mybox.mylist" propertyName="showScrollTips" value= "true"/> 	  
+		 <AssertPropertyValue target="mybox.mylist" propertyName="showScrollTips" value="true"/>
+		 <WaitForEffectsToEnd/>
+		<DispatchMouseEvent target="mybox.mylist" type="mouseDown" stageX="125" stageY="310"/>
+		 <DispatchMouseEvent target="mybox.mylist" type="mouseMove" stageX="150" stageY="310"/>
+		  <WaitForEffectsToEnd/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_showScrollTips_true_horizontal.png"  />
+		 <DispatchMouseEvent target="mybox.mylist" type="mouseUp" stageX="150" stageY="310" waitEvent="scroll" waitTarget="mybox.mylist"/>  
+		 <SetProperty target="mybox.mylist" propertyName="horizontalScrollPosition" value= "15"/> 	  
+		 <AssertPropertyValue target="mybox.mylist" propertyName="horizontalScrollPosition" value="15"/>
+		  <WaitForEffectsToEnd/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_scrollcontrolbase_properties_horizontalScrollPosition_programmatic.png"  />
+	     </body>
+	    </TestCase>
+	    
+	    <TestCase testID="list_inherited_listbase_properties_allowMultipleSelection_shift" keywords="[listbase, properties, allowMultipleSelection,shift]">
+	      <setup>
+		  <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"  />		 
+	     </setup>
+	     <body>
+		  <SetProperty target="mybox.mylist" propertyName="allowMultipleSelection" value= "true"   />
+		  <AssertPropertyValue target="mybox.mylist" propertyName="allowMultipleSelection" value="true"/>
+		   <WaitForEffectsToEnd/>
+		  <DispatchMouseClickEvent target="mybox.mylist" localX="40" localY="40" />
+		 <DispatchMouseClickEvent target="mybox.mylist" localX="40" localY="100" shiftKey="true" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_allowMultipleSelection_shift.png"  />
+	     </body>
+	    </TestCase>
+	    
+	    <TestCase testID="list_inherited_listbase_properties_allowMultipleSelection_ctrl" keywords="[listbase, properties, allowMultipleSelection,ctrl]">
+	      <setup>
+		  <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"  />		 
+	     </setup>
+	     <body>
+		  <SetProperty target="mybox.mylist" propertyName="allowMultipleSelection" value= "true"   />
+		  <AssertPropertyValue target="mybox.mylist" propertyName="allowMultipleSelection" value="true"/>
+		   <WaitForEffectsToEnd/>
+		  <DispatchMouseClickEvent target="mybox.mylist" localX="40" localY="40" />
+		<DispatchMouseClickEvent target="mybox.mylist" localX="40" localY="100" ctrlKey="true" />
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_allowMultipleSelection_ctrl.png"  />
+	     </body>
+	    </TestCase>
+	    
+	    <TestCase testID="list_inherited_listbase_properties_dragEnabled" keywords="[listbase, properties, dragEnabled]" >
+		<setup>
+			 <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+			  <SetProperty target="mybox.mylist" propertyName="dragEnabled" value= "true"   />
+			 <RunCode code="addDropList()" waitEvent="updateComplete" waitTarget="mybox" />
+		</setup>
+		<body>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_dragDrop_initial.png"  />
+			<DispatchMouseEvent target="mybox.mylist" type="mouseDown" localX="46" localY="72" />
+			<DispatchMouseEvent target="mybox.mylist" type="mouseMove" buttonDown="true"  localX="72" localY="72" />
+			<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="285" stageY="150" />
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_dragDrop_DE1.png"  />
+			<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="350" stageY="150" />
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_dragDrop_DE2.png"  />
+			<DispatchMouseEvent target="stage" type="mouseUp" buttonDown="true" stageX="350" stageY="150" /> 
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_dragDrop_final.png"  />			
+		</body> 
+	       </TestCase>
+	       
+            <TestCase testID="list_inherited_listbase_properties_dragMoveEnabled" keywords="[listbase, properties, dragMoveEnabled]" >
+		<setup>
+			<ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+			  <SetProperty target="mybox.mylist" propertyName="dragEnabled" value= "true"   />
+			  <SetProperty target="mybox.mylist" propertyName="dragMoveEnabled" value= "true"   />
+			 <RunCode code="addDropList()" waitEvent="updateComplete" waitTarget="mybox" />
+		</setup>
+		<body>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_dragDrop_initial.png"  />
+			<DispatchMouseEvent target="mybox.mylist" type="mouseDown" localX="46" localY="72" />
+			<DispatchMouseEvent target="mybox.mylist" type="mouseMove" buttonDown="true"  localX="72" localY="72" />
+			<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="285" stageY="150" />
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_dragMove_DME1.png"  />
+			<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="350" stageY="150" />
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_dragMove_DME2.png"  />
+			<DispatchMouseEvent target="stage" type="mouseUp" buttonDown="true" stageX="350" stageY="150" /> 
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_dragMove_final.png"  />				
+		</body> 
+	       </TestCase> 
+
+	     <TestCase testID="list_inherited_listbase_properties_dropEnabled" keywords="[listbase, properties, dropEnabled]" >
+		<setup>
+			<ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"  />
+			  <SetProperty target="mybox.mylist" propertyName="dropEnabled" value= "true"   />
+			 <RunCode code="addDragList()" waitEvent="updateComplete" waitTarget="mybox" />
+		</setup>
+		<body>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_drop_initial.png"  />
+			<DispatchMouseEvent target="stage" type="mouseDown" stageX="350" stageY="150" />
+			<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true"  stageX="325" stageY="150" />
+			<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="285" stageY="150" />
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_drop_DP1.png"  />
+			<DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="250" stageY="150" />
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_drop_DP2.png"  />
+			<DispatchMouseEvent target="stage" type="mouseUp" buttonDown="true" stageX="250" stageY="150" /> 
+			<WaitForEffectsToEnd/>
+			<CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_drop_final.png"  />				
+		</body> 
+       </TestCase>-->
+	  <TestCase testID="list_listbase_properties_labelfield_default" keywords="[list, listbase, properties, labelfield]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+	     </setup>
+	    <body>
+		  <RunCode code="remove_and_repopulate()" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_labelfield_default.png" />
+	 	  <SetProperty target="mybox.mylist" propertyName="labelField" value="slno" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		   <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_labelfield_set.png" />
+	     </body>
+	  </TestCase> 
+	  
+	  <TestCase testID="list_listbase_properties_labelFunction" keywords="[list, listbase, properties, labelfunction]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+	     </setup>
+	    <body>
+		  <SetProperty target="mybox.mylist" propertyName="width" value= "300" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		 <SetProperty target="mybox.mylist" propertyName="labelFunction" valueExpression ="value = myListLabelFunction" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_labelfunction.png" />		
+	     </body>
+ 	 </TestCase> 
+ 	 
+ 	   <TestCase testID="list_listbase_properties_variableRowHeight_wordWrap" keywords="[list, listbase, properties, variablerowheight, wordwrap]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ListComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+	     </setup>
+	    <body>
+		 <RunCode code="addLongItems(3)" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		  <AssertPropertyValue target="mybox.mylist" propertyName="variableRowHeight" value="false"/>
+		   <AssertPropertyValue target="mybox.mylist" propertyName="wordWrap" value="false"/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_var row ht_wrd wrp_false.png" />
+		 <SetProperty target="mybox.mylist" propertyName="variableRowHeight" value= "true" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_var row ht_true.png" />
+		   <SetProperty target="mybox.mylist" propertyName="variableRowHeight" value= "false" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		    <SetProperty target="mybox.mylist" propertyName="wordWrap" value= "true" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_wrd wrp_true.png" />
+		 <SetProperty target="mybox.mylist" propertyName="variableRowHeight" value= "true" waitEvent="updateComplete" waitTarget="mybox.mylist"/>
+		  <CompareBitmap target="mybox.mylist" url="../Properties/Baselines/list_listbase_properties_var row ht_wrd wrp_true.png" />		
+	     </body>
+ 	 </TestCase>
+</testCases>                	     
+</UnitTester>
+
+		  
+
+	                  
+	                   

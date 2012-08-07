@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/LinkButton/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LinkButton_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.LinkButton;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+	public var styleDecl:Object;
+	public var styleObj:Object;
+
+	]]>
+	</mx:Script>
+	<testCases>
+	
+	
+	
+		
+		
+		
+		
+
+		<TestCase testID="Checking_Default_Value_of_Style_color" keywords="[LinkButton, color, Style]" description="Checking Default set Value of Style color">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="color" value="0x0B333C" />
+				
+			</body>
+		</TestCase>
+		
+		
+		
+		<TestCase testID="Checking_MXML_Value_of_Style_color" keywords="[LinkButton, color, Style]" description="Checking MXML set Value of Style color">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				
+				<SetStyle target="myLinkButton" styleName="color" value="0xFF0000" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="color" value="0xFF0000" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Value_of_Style_color" keywords="[LinkButton, color, Style]" description="Checking AS set Value of Style color">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.setStyle('color',0x0000FF)"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="color" value="0x0000FF" />
+				
+			</body>
+		</TestCase>
+			<TestCase testID="Checking_Default_Value_of_Style_backgroundColor" keywords="[LinkButton, backgroundColor, Style]" description="Checking Default set Value of Style backgroundColor">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="backgroundColor" value="null" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Value_of_Style_backgroundColor" keywords="[LinkButton, backgroundColor, Style]" description="Checking MXML set Value of Style backgroundColor">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetStyle target="myLinkButton" styleName="backgroundColor" value="0xFF00000" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="backgroundColor" value="0xFF00000" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Value_of_Style_backgroundColor" keywords="[LinkButton, backgroundColor, Style]" description="Checking AS set Value of Style backgroundColor">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.setStyle('backgroundColor',0xFF00000)"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="backgroundColor" value="0xFF00000" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Checking_Default_Value_of_Style_disabledColor" keywords="[LinkButton, disabledColor, Style]" description="Checking Default set Value of Style disabledColor">
+					<setup>
+						<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+						
+					</setup>
+					<body>
+						<AssertStyleValue target="myLinkButton" styleName="disabledColor" value="0xAAB3B3" />
+						
+					</body>
+				</TestCase>
+		
+				<TestCase testID="Checking_MXML_Value_of_Style_disabledColor" keywords="[LinkButton, disabledColor, Style]" description="Checking MXML set Value of Style disabledColor">
+					<setup>
+						<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+						<SetStyle target="myLinkButton" styleName="disabledColor" value="0xFF00000" waitEvent="updateComplete" waitTarget="myLinkButton" />
+						
+					</setup>
+					<body>
+						<AssertStyleValue target="myLinkButton" styleName="disabledColor" value="0xFF00000" />
+						
+					</body>
+				</TestCase>
+		
+				<TestCase testID="Checking_AS_Value_of_Style_disabledColor" keywords="[LinkButton, disabledColor, Style]" description="Checking AS set Value of Style disabledColor">
+					<setup>
+						<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+						<RunCode code="application.myLinkButton.setStyle('disabledColor',0xFF00000)"/>
+					</setup>
+					<body>
+						<AssertStyleValue target="myLinkButton" styleName="disabledColor" value="0xFF00000" />
+						
+					</body>
+		</TestCase>
+		
+<TestCase testID="Checking_Default_Value_of_Style_fontFamily" keywords="[LinkButton, fontFamily, Style]" description="Checking Default set Value of Style fontFamily">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontFamily" value="EmbeddedVerdana" />
+				
+			</body>
+		</TestCase>
+ 
+		<TestCase testID="Checking_MXML_Value_of_Style_fontFamily" keywords="[LinkButton, fontFamily, Style]" description="Checking MXML set Value of Style fontFamily">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetStyle target="myLinkButton" styleName="fontFamily" value="_sans" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontFamily" value="_sans" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Value_of_Style_fontFamily" keywords="[LinkButton, fontFamily, Style]" description="Checking AS set Value of Style fontFamily">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.setStyle('fontFamily','_sans')"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontFamily" value="_sans" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_Default_Value_of_Style_fontSize" keywords="[LinkButton, fontSize, Style]" description="Checking Default set Value of Style fontSize">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontSize" value="10" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Value_of_Style_fontSize" keywords="[LinkButton, fontSize, Style]" description="Checking MXML set Value of Style fontSize">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetStyle target="myLinkButton" styleName="fontSize" value="12" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontSize" value="12" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Value_of_Style_fontSize" keywords="[LinkButton, fontSize, Style]" description="Checking AS set Value of Style fontSize">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.setStyle('fontSize',12)"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontSize" value="12" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Checking_Default_Value_of_Style_fontStyle" keywords="[LinkButton, fontStyle, Style]" description="Checking Default set Value of Style fontStyle">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontStyle" value="normal" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Value_of_Style_fontStyle" keywords="[LinkButton, fontStyle, Style]" description="Checking MXML set Value of Style fontStyle">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetStyle target="myLinkButton" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontStyle" value="italic" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Value_of_Style_fontStyle" keywords="[LinkButton, fontStyle, Style]" description="Checking AS set Value of Style fontStyle">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" /><SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.setStyle('fontStyle','italic')"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontStyle" value="italic" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_Default_Value_of_Style_fontWeight" keywords="[LinkButton, fontWeight, Style]" description="Checking Default set Value of Style fontWeight">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontWeight" value="bold" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Value_of_Style_fontWeight" keywords="[LinkButton, fontWeight, Style]" description="Checking MXML set Value of Style fontWeight">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetStyle target="myLinkButton" styleName="fontWeight" value="bold" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontWeight" value="bold" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Value_of_Style_fontWeight" keywords="[LinkButton, fontWeight, Style]" description="Checking AS set Value of Style fontWeight">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.setStyle('fontWeight','bold')"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myLinkButton" styleName="fontWeight" value="bold" />
+				
+			</body>
+		</TestCase>
+
+		
+	</testCases>
+</UnitTester>

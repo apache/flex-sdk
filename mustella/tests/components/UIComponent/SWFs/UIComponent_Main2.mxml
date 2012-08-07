@@ -1,0 +1,25 @@
+<mx:Application width="800" height="600" backgroundColor="0xffffff"
+xmlns:mx="http://www.adobe.com/2006/mxml"
+xmlns:comps="comps.*"
+xmlns:filters="flash.filters.*"
+>
+
+<!-- Use this one for regular tests. -->
+<comps:UICTester id="uic1" />
+
+<!-- Use this one for binding tests. It's just a UICTester as an MXML component with binding expressions. -->
+<comps:BindingUICTester id="uic2" />
+
+<!-- Use this one for currentState. -->
+<comps:StatefulUICTester id="uic3" />
+
+<!-- Use this one for testing it in a container, such as the minXX and maxXX properties. -->
+<comps:ContainedUICTester id="box1" />
+
+<!-- Use this for testing multiple items in a container.  e.g. includeInLayout. -->
+<comps:ContainedUICTesters id="box2" />
+
+<!-- Use this to test moving things into/out of a container. -->
+<comps:ContainerAndUICTester id="box3" />
+
+</mx:Application>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TabBar/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBar_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	public function addData(bool:int):void
+	{
+	    application.tb.dataProvider = myDP;
+	}
+
+	public function addObjData():void
+	{
+	    application.tb.dataProvider = iconDP;
+	}
+
+	public function changeDP(node:int, bool:String):void
+	{
+	    myDP.node[node].@enabled = bool;
+	}
+
+
+	[Bindable]
+	public var iconDP:Array= [{label:"Toys", icon:"dinosaur"},{label:"Dinosaur", icon: "dinosaur"}];
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.TabBar;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.events.ListEvent;
+
+    [Bindable]
+    private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+	]]>
+	</mx:Script>
+	<testCases>
+		<TestCase testID="Tab_Selection" description="TabBar dataProvider item is set to false test." keywords="[enabled, TabBar]">
+			<setup>
+				<ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb" />
+			    <RunCode code="addData(0);" />
+			    <DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tb" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="RIGHT" waitTarget="tb" />
+				<DispatchKeyEvent key="SPACE" waitTarget="tb" waitEvent="itemClick" />
+			    <AssertPropertyValue target="tb" propertyName="selectedIndex" value="1" />
+			</body>
+		</TestCase>
+		<TestCase testID="Tab_Selection1" description="TabBar dataProvider item is set to false test." keywords="[enabled, TabBar]">
+					<setup>
+					<ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb" />
+					    <RunCode code="addData(0);" />
+					    <DispatchKeyEvent key="TAB"  />
+						<DispatchKeyEvent key="TAB"  />
+						<DispatchKeyEvent key="TAB" waitTarget="tb" waitEvent="focusIn" />
+					</setup>
+					<body>
+						<DispatchKeyEvent key="RIGHT" waitTarget="tb" />
+						<DispatchKeyEvent key="RIGHT" waitTarget="tb" />
+						<DispatchKeyEvent key="SPACE" waitTarget="tb" waitEvent="itemClick" />
+					    <AssertPropertyValue target="tb" propertyName="selectedIndex" value="2" />
+					</body>
+		</TestCase>
+		<TestCase testID="Tab_Selection2" description="TabBar dataProvider item is set to false test." keywords="[enabled, TabBar]">
+			<setup>
+				<ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb" />
+				<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tb" />
+			</setup>
+			<body>
+				
+				<DispatchMouseClickEvent target="tb" localX="88" localY="16" />
+				
+				<AssertPropertyValue target="tb" propertyName="selectedIndex" value="1" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

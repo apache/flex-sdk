@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/Label/methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label_main.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}			
+
+		]]>
+
+	</mx:Script>
+
+	
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>	
+
+	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	
+
+	<mx:Script>
+
+		<![CDATA[
+
+			import mx.controls.Label;
+
+			import flash.text.TextLineMetrics;
+
+
+
+			private var irLabel:ClassFactory = new ClassFactory(Label);		
+
+	
+
+			[Bindable]
+
+			private var condensePhrase:String="condenseWhite text          Next paragraph";
+
+			
+
+			[Bindable]
+
+			private var htmlPhrase:String="This is <b>bold</b>.  This is <i>italic</i>";
+
+
+
+			[Bindable]
+
+			private var buttonLabel:String="Button label";
+
+
+
+			[Bindable]
+
+			private var longPhrase:String="This is an extremely long string that does not fit in the space of the panel.";
+
+			
+
+			private function myToString(ml:Label):String
+
+			{
+
+				var newTL:TextLineMetrics = ml.getLineMetrics(0);
+
+				var newString:String = new String();
+
+				
+
+				newString = newTL.ascent + ", " + newTL.descent + ", " + newTL.height + ", " + newTL.leading + ", " + newTL.width + ", " + newTL.x;
+
+
+
+				return newString;
+
+			}
+
+			
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+
+		<TestCase testID="getLineMetrics_method_Label" description="Tests that the getLineMetrics() method returns the correct TextLineMetrics object." keywords="[getLineMetrics, method, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty target="myLabel" propertyName="text" value="Label Metrics" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<RunCode code="application.myLabel.validateNow()"/>
+
+			</setup>
+
+			<body>	
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).ascent" value="10.65"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).descent" value="2.9"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).height" value="15.55"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).leading" value="2"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).width" value="61.6"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).x" value="2"/>
+
+				<!--<AssertMethodValue target="myLabel" method="value=myToString(application.myLabel)" value="10.05, 2.0500000000000003, 14.100000000000001, 2, 65.5, 2"/>-->
+
+			</body>
+
+		</TestCase>
+
+	
+
+		<TestCase testID="getLineMetrics_empty_string_method_Label" description="Tests that the getLineMetrics() method returns the correct TextLineMetrics object for an empty string." keywords="[getLineMetrics, method, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty target="myLabel" propertyName="text" value=""/>
+
+				<RunCode code="application.myLabel.validateNow()"/>
+
+			</setup>
+
+			<body>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).ascent" value="10.65"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).descent" value="2.9"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).height" value="15.55"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).leading" value="2"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).width" value="0"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).x" value="2"/>
+
+				<!--<AssertMethodValue target="myLabel" method="value=myToString(application.myLabel)" value="10.05, 2.0500000000000003, 14.100000000000001, 2, 0, 2"/>-->
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="getLineMetrics_long_string_method_Label" description="Tests that the getLineMetrics() method returns the correct TextLineMetrics object for a long string." keywords="[getLineMetrics, method, Label]">
+
+			<setup>
+
+				<ResetComponent target="myLabel" className="mx.controls.Label" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<SetProperty target="myLabel" propertyName="text" value="{longPhrase}" waitEvent="updateComplete" waitTarget="myLabel"/>
+
+				<RunCode code="application.myLabel.validateNow()"/>
+
+			</setup>
+
+			<body>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).ascent" value="10.65"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).descent" value="2.9"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).height" value="15.55"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).leading" value="2"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).width" value="338.4"/>
+
+				<AssertMethodValue target="myLabel" method="value=application.myLabel.getLineMetrics(0).x" value="2"/>
+
+				<!--<AssertMethodValue target="myLabel" method="value=myToString(application.myLabel)" value="10.05, 2.0500000000000003, 14.100000000000001, 2, 373.05, 2"/>-->
+
+			</body>
+
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>
+
+				
+
+				

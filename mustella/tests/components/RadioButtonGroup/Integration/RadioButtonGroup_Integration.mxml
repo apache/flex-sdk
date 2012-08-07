@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/RadioButtonGroup/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RBG_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+		
+	]]>
+	</mx:Script>
+
+  <testCases>
+   
+	<TestCase testID="RadioButton_Integration_Keyboard_Navigation"  keywords="[TextInput, RadioButton]">
+		<setup>
+			<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+		</setup>	
+		<body>
+			<DispatchKeyEvent keys="[TAB, TAB, TAB, DOWN, UP, RIGHT, LEFT ]"/>
+			<AssertPropertyValue target="tn.rb1" propertyName="selected" value="true" /> 			
+		</body>
+	</TestCase>  
+
+	<TestCase testID="RadioButton_Integration_Layouts"  keywords="[TextInput, RadioButton]">
+		<setup>
+			<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+			<ResetComponent target="myCustomRBG" className="CustomRBG" waitEvent="updateComplete" waitTarget="myCustomRBG"/>
+		 	<SetProperty target="tn.tabn" propertyName="selectedIndex" value="1" waitTarget="tn.tabn" waitEvent="updateComplete" />  
+		</setup>	
+		<body>
+			<DispatchKeyEvent keys="[TAB, TAB, RIGHT, RIGHT, TAB, RIGHT, LEFT ]" waitEvent="focusIn" waitTarget="tn.rb7"/>
+			<AssertPropertyValue target="tn.rb7" propertyName="selected" value="true" />
+			<CompareBitmap target="tn.int2" url="../Integration/baselines/layout_integration.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true" />  
+		</body>
+	</TestCase>	
+
+	<TestCase testID="RadioButton_Integration_mxml_component"  keywords="[mxmlcomponent, RadioButton]">
+		<setup>
+			<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+			<ResetComponent target="myCustomRBG" className="CustomRBG" waitEvent="updateComplete" waitTarget="myCustomRBG"/>
+		 	<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />  
+		</setup>	
+		<body>
+			
+			<CompareBitmap target="tn.int3" url="../Integration/baselines/mxml_component.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>  
+		</body> 
+	</TestCase>	
+
+	
+	<TestCase testID="RadioButton_Integration_Performance"  keywords="[performance, RadioButton]">
+		<setup>
+			<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+		 	<SetProperty target="tn.tabn" propertyName="selectedIndex" value="3" waitTarget="tn.tabn" waitEvent="updateComplete" />  
+		</setup>	
+		<body>
+			<AssertMethodValue method="value=application.tn.int4.getChildren().length" value="100" />
+			
+		</body> 
+	</TestCase>	
+	<TestCase testID="RadioButton_Integration_Stress"  keywords="[Stress, RadioButton]">
+		<setup>
+			<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+		 	<SetProperty target="tn.tabn" propertyName="selectedIndex" value="4" waitTarget="tn.tabn" waitEvent="updateComplete" />  
+		</setup>	
+		<body>
+			<AssertMethodValue method="value=application.tn.rb13.label" value="I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button I am a Button" />
+			
+		</body> 
+	</TestCase>	
+
+  </testCases>
+</UnitTester>
+

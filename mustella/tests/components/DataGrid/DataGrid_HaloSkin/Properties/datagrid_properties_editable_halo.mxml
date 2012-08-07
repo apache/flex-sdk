@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_HaloSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp_halo.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+        import mx.collections.ArrayCollection;
+        import mx.controls.TextInput;
+        import mx.core.Application;
+
+		use namespace mx_internal;
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <TestCase testID="editable_true_halo" keywords="[DataGrid,editable]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1)" />
+                <SetProperty target="dg1" propertyName="editable" value="true" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="275" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="dg1" waitEvent="itemEditBegin" />
+                <DispatchKeyEvent char="hello" waitTarget="dg1.itemEditorInstance" waitEvent="change" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="dg1" waitEvent="itemEditEnd" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="hello"/>
+            </body>
+        </TestCase> 
+
+        <TestCase testID="editable_false_halo" keywords="[DataGrid,editable]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1)" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="275" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <Pause timeout="1" />
+                <AssertNoEvent target="dg1" eventName="itemEditBegin" eventClass="mx.event::FlexEvent" />
+            </body>
+        </TestCase> 
+   
+        <TestCase testID="editable_true_shiftFocus_halo" keywords="[DataGrid,editable]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1)" />
+                <SetProperty target="dg1" propertyName="editable" value="true" />
+                <SetProperty target="dg1" propertyName="rowCount" value="18" />
+                <SetProperty target="dg1" propertyName="width" value="600" waitEvent="updateComplete" />
+                <SetProperty target="ck1" propertyName="visible" value="true" waitEvent="show" />
+            </setup>
+            <body>
+                <RunCode code="Application.application.setColumnConfig3(Application.application.dg1)" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.17.2" localX="2" localY="2" waitTarget="dg1" waitEvent="itemEditBegin" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="ck1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[SPACE]" waitTarget="ck1" waitEvent="change" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="dg1" waitEvent="focusIn" />
+                <AssertEvent target="dg1" eventName="itemEditBegin" eventClass="mx.events::DataGridEvent" />
+            </body>
+        </TestCase> 
+
+        <TestCase testID="editable_noData_halo" keywords="[DataGrid,editable]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="editable" value="true" />
+                <SetProperty target="dg1" propertyName="width" value="600" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="Application.application.setColumnConfig3(Application.application.dg1)" />
+                <DispatchMouseClickEvent target="dg1" localX="150" localY="55" />
+                <Pause timeout="1" />
+                <AssertNoEvent target="dg1" eventName="itemEditBegin" eventClass="mx.event::FlexEvent" />
+            </body>
+        </TestCase> 
+
+        <TestCase testID="editable_dataRemoved_halo" keywords="[DataGrid,editable]" description="Select item1, remove item0 from the dataProvider, then press Tab and confirm that item3 is now editable.">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="editable" value="true" />
+                <RunCode code="application.dg1.dataProvider = new ArrayCollection()" />
+                <RunCode code="application.dg1.dataProvider.addItem({name:'item0'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({name:'item1'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({name:'item2'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({name:'item3'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({name:'item4'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({name:'item5'})" waitTarget="dg1" waitEvent="updateComplete"  />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" waitTarget="dg1" waitEvent="itemEditBegin" />
+                <RunCode code="Application.application.dg1.dataProvider.removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <DispatchKeyEvent key="TAB" waitTarget="dg1" waitEvent="itemEditBegin" />
+                <AssertPropertyValue target="dg1.itemEditorInstance.data" propertyName="name" value="item2" />
+            </body>
+        </TestCase> 
+
+        <TestCase testID="editable_deleteNumberZero_halo" keywords="[DataGrid,editable]" description="Delete the number 0 and confirm that the cell becomes blank instead of leaving the number 0.">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="editable" value="true" />
+                <RunCode code="application.dg1.dataProvider = new ArrayCollection()" />
+                <RunCode code="application.dg1.dataProvider.addItem({num:'0'})" />
+                <RunCode code="application.dg1.dataProvider.addItem({num:'1'})" waitTarget="dg1" waitEvent="updateComplete"  />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="dg1" waitEvent="itemEditBegin" />
+                <RunCode code="TextInput(application.dg1.itemEditorInstance).text = ''" />
+                <DispatchKeyEvent key="TAB" waitTarget="dg1" waitEvent="itemEditBegin" />
+                <AssertPropertyValue target="dg1.mx_internal:rendererArray.1.0" propertyName="text" value="" />
+            </body>
+        </TestCase> 
+    </testCases>
+</UnitTester>

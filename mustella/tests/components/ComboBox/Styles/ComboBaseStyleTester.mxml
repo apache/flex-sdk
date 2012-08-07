@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ComboBox/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ComboBoxMain.mxml">
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.controls.Button;
+	import mx.managers.SystemManager;
+	private var btn:Button;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.jpg")]
+	public var dsjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.gif")]
+	public var dsgif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.png")]
+	public var dspng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/disabledSkin.swf")]
+	public var dsswf:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/downSkin.jpg")]
+	public var dwnjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/downSkin.gif")]
+	public var dwngif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/downSkin.png")]
+	public var dwnpng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/downSkin.swf")]
+	public var dwnswf:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableDisabledSkin.jpg")]
+	public var edsjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableDisabledSkin.gif")]
+	public var edsgif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableDisabledSkin.png")]
+	public var edspng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableDisabledSkin.swf")]
+	public var edsswf:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableDownSkin.jpg")]
+	public var edwnjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableDownSkin.gif")]
+	public var edwngif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableDownSkin.png")]
+	public var edwnpng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableDownSkin.swf")]
+	public var edwnswf:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableOverSkin.jpg")]
+	public var eovrjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableOverSkin.gif")]
+	public var eovrgif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableOverSkin.png")]
+	public var eovrpng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableOverSkin.swf")]
+	public var eovrswf:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableUpSkin.jpg")]
+	public var eupjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableUpSkin.gif")]
+	public var eupgif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableUpSkin.png")]
+	public var euppng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/editableUpSkin.swf")]
+	public var eupswf:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/overSkin.jpg")]
+	public var ovrsjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/overSkin.gif")]
+	public var ovrsgif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/overSkin.png")]
+	public var ovrspng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/overSkin.swf")]
+	public var ovrsswf:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/smallUpSkin.jpg")]
+	public var sjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/smallUpSkin.gif")]
+	public var sgif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/smallUpSkin.png")]
+	public var spng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/smallUpSkin.swf")]
+	public var  sswf:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.jpg")]
+	public var upsjpg:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.gif")]
+	public var upsgif:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.png")]
+	public var upspng:Class;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/ButtonImages/upSkin.swf")]
+	public var upsswf:Class;
+
+
+	private function addButton():void{
+		btn = new Button();
+		btn.label = "Button to Focus Out";
+		application.addChild(btn);
+	}
+	private function removeButton():void{
+		application.removeChild(btn);
+	}
+	]]>
+	</mx:Script>
+
+      <testCases>
+	<TestCase testID="comboBase_styles_disabledSkin_jpg"  keywords="[combobase, styles, disabledSkin, jpg]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="enabled" value="false"/>
+			<SetStyle target="mybox.myCB" styleName="disabledSkin" value="{dsjpg}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="mybox.myCB" propertyName="enabled" value="false"/>
+			<CompareBitmap url="../styles/baselines/cb_inherited_styles_disabledSkin_jpg.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_disabledSkin_gif"  keywords="[combobase, styles, disabledSkin, gif]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="enabled" value="false"/>
+			<SetStyle target="mybox.myCB" styleName="disabledSkin" value="{dsgif}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="mybox.myCB" propertyName="enabled" value="false"/>
+			<CompareBitmap url="../styles/baselines/cb_inherited_styles_disabledSkin_gif.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_disabledSkin_png"  keywords="[combobase, styles, disabledSkin, png]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="enabled" value="false"/>
+			<SetStyle target="mybox.myCB" styleName="disabledSkin" value="{dspng}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="mybox.myCB" propertyName="enabled" value="false"/>
+			<CompareBitmap url="../styles/baselines/cb_inherited_styles_disabledSkin_png.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+
+	 <TestCase testID="comboBase_styles_downSkin_jpg"  keywords="[combobase, styles, downSkin, jpg]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetStyle target="mybox.myCB" styleName="downSkin" value="{dwnjpg}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+			 <DispatchMouseEvent target="mybox.myCB" type="mouseDown" localX="10" localY="10" />
+		</setup>
+		<body>
+			 <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+	 		<CompareBitmap url="../styles/baselines/cb_inherited_styles_downSkin_jpg.png" target="mybox.myCB"/>
+			  <RunCode code="application.mybox.myCB.close()" />
+			  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		</body>
+	</TestCase>
+	 <TestCase testID="comboBase_styles_downSkin_gif"  keywords="[combobase, styles, downSkin, gif]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetStyle target="mybox.myCB" styleName="downSkin" value="{dwngif}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+			 <DispatchMouseEvent target="mybox.myCB" type="mouseDown" localX="10" localY="10" />
+		</setup>
+		<body>
+			 <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+	 		<CompareBitmap url="../styles/baselines/cb_inherited_styles_downSkin_gif.png" target="mybox.myCB"/>
+			  <RunCode code="application.mybox.myCB.close()" />
+			  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		</body>
+	</TestCase>
+	 <TestCase testID="comboBase_styles_downSkin_png"  keywords="[combobase, styles, downSkin, png]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetStyle target="mybox.myCB" styleName="downSkin" value="{dwnpng}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+			 <DispatchMouseEvent target="mybox.myCB" type="mouseDown" localX="10" localY="10" />
+		</setup>
+		<body>
+			 <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+	 		<CompareBitmap url="../styles/baselines/cb_inherited_styles_downSkin_png.png" target="mybox.myCB"/>
+			  <RunCode code="application.mybox.myCB.close()" />
+			  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		</body>
+	</TestCase>
+
+	 <TestCase testID="comboBase_styles_overSkin_jpg"  keywords="[combobase, styles, overSkin, jpg]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		</setup>
+		<body>
+ 			   <SetStyle target="mybox.myCB" styleName="overSkin" value="{ovrsjpg}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+			  <DispatchMouseClickEvent target="mybox.myCB" localX="10" localY="10" />
+			  <DispatchMouseClickEvent target="mybox.myCB" localX="10" localY="10" />
+			   <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="90"/>
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_overSkin_jpg.png" target="mybox.myCB"/>
+			 <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="200"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_overSkin_gif"  keywords="[combobase, styles, overSkin, gif]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetStyle target="mybox.myCB" styleName="overSkin" value="{ovrsgif}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			  <DispatchMouseClickEvent target="mybox.myCB" localX="10" localY="10" />
+			  <DispatchMouseClickEvent target="mybox.myCB" localX="10" localY="10" />
+			   <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="90"/>
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_overSkin_gif.png" target="mybox.myCB"/>
+			 <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="200"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_overSkin_png"  keywords="[combobase, styles, overSkin, png]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetStyle target="mybox.myCB" styleName="overSkin" value="{ovrspng}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			  <DispatchMouseClickEvent target="mybox.myCB" localX="10" localY="10" />
+			  <DispatchMouseClickEvent target="mybox.myCB" localX="10" localY="10" />
+			   <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="90"/>
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_overSkin_png.png" target="mybox.myCB"/>
+			 <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="200"/>
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="comboBase_styles_skin_jpg"  keywords="[combobase, styles, skin, jpg]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetStyle target="mybox.myCB" styleName="skin" value="{sjpg}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_skin_jpg.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_skin_gif"  keywords="[combobase, styles, skin, gif]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetStyle target="mybox.myCB" styleName="skin" value="{sgif}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_skin_gif.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_skin_png"  keywords="[combobase, styles, skin, png]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetStyle target="mybox.myCB" styleName="skin" value="{spng}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_skin_png.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="comboBase_styles_upSkin_jpg"  keywords="[combobase, styles, upSkin, jpg]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetStyle target="mybox.myCB" styleName="upSkin" value="{upsjpg}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_upSkin_jpg.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_upSkin_gif"  keywords="[combobase, styles, upSkin, gif]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetStyle target="mybox.myCB" styleName="upSkin" value="{upsgif}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_upSkin_gif.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_upSkin_png"  keywords="[combobase, styles, upSkin, png]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetStyle target="mybox.myCB" styleName="upSkin" value="{upspng}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_upSkin_png.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="comboBase_styles_editableDisabledSkin_jpg"  keywords="[combobase, styles, editableDisabledSkin, jpg]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetProperty target="mybox.myCB" propertyName="enabled" value="false"/>
+			<SetStyle target="mybox.myCB" styleName="editableDisabledSkin" value="{edsjpg}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="mybox.myCB" propertyName="enabled" value="false"/>
+			<AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			<CompareBitmap url="../styles/baselines/cb_inherited_styles_editableDisabledSkin_jpg.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_editableDisabledSkin_gif"  keywords="[combobase, styles, editableDisabledSkin, gif]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetProperty target="mybox.myCB" propertyName="enabled" value="false"/>
+			<SetStyle target="mybox.myCB" styleName="editableDisabledSkin" value="{edsgif}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="mybox.myCB" propertyName="enabled" value="false"/>
+			<AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			<CompareBitmap url="../styles/baselines/cb_inherited_styles_editableDisabledSkin_gif.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_editableDisabledSkin_png"  keywords="[combobase, styles, editableDisabledSkin, png]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetProperty target="mybox.myCB" propertyName="enabled" value="false"/>
+			<SetStyle target="mybox.myCB" styleName="editableDisabledSkin" value="{edspng}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="mybox.myCB" propertyName="enabled" value="false"/>
+			<AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			<CompareBitmap url="../styles/baselines/cb_inherited_styles_editableDisabledSkin_png.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+
+	 <TestCase testID="comboBase_styles_editableDownSkin_jpg"  keywords="[combobase, styles, editableDownSkin, jpg]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetStyle target="mybox.myCB" styleName="editableDownSkin" value="{edwnjpg}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+			 <DispatchMouseEvent target="mybox.myCB" type="mouseDown" localX="75" localY="10" />
+		</setup>
+		<body>
+			 <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+			 <AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			<CompareBitmap url="../styles/baselines/cb_inherited_styles_editableDownSkin_jpg.png" target="mybox.myCB"/>
+			  <RunCode code="application.mybox.myCB.close()" />
+			  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		</body>
+	</TestCase>
+	 <TestCase testID="comboBase_styles_editableDownSkin_gif"  keywords="[combobase, styles, editableDownSkin, gif]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetStyle target="mybox.myCB" styleName="editableDownSkin" value="{edwngif}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+			 <DispatchMouseEvent target="mybox.myCB" type="mouseDown" localX="75" localY="10" />
+		</setup>
+		<body>
+			 <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+			 <AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			<CompareBitmap url="../styles/baselines/cb_inherited_styles_editableDownSkin_gif.png" target="mybox.myCB"/>
+			  <RunCode code="application.mybox.myCB.close()" />
+			  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		</body>
+	</TestCase>
+	 <TestCase testID="comboBase_styles_editableDownSkin_png"  keywords="[combobase, styles, editableDownSkin, png]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetStyle target="mybox.myCB" styleName="editableDownSkin" value="{edwnpng}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+			 <DispatchMouseEvent target="mybox.myCB" type="mouseDown" localX="75" localY="10" />
+		</setup>
+		<body>
+			 <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+			 <AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			<CompareBitmap url="../styles/baselines/cb_inherited_styles_editableDownSkin_png.png" target="mybox.myCB"/>
+			  <RunCode code="application.mybox.myCB.close()" />
+			  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="comboBase_styles_editableOverSkin_jpg"  keywords="[combobase, styles, editableOverSkin, jpg]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetStyle target="mybox.myCB" styleName="editableOverSkin" value="{ovrsjpg}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			 <AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			  <DispatchMouseClickEvent target="mybox.myCB" localX="75" localY="10" />
+			  <DispatchMouseClickEvent target="mybox.myCB" localX="75" localY="10" />
+			   <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="90"/>
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_editableOverSkin_jpg.png" target="mybox.myCB"/>
+			 <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="200"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_editableOverSkin_gif"  keywords="[combobase, styles, editableOverSkin, gif]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetStyle target="mybox.myCB" styleName="editableOverSkin" value="{ovrsgif}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			 <AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			  <DispatchMouseClickEvent target="mybox.myCB" localX="75" localY="10" />
+			  <DispatchMouseClickEvent target="mybox.myCB" localX="75" localY="10" />
+			   <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="90"/>
+			  <WaitForEffectsToEnd/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_editableOverSkin_gif.png" target="mybox.myCB"/>
+			 <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="200"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_editableOverSkin_png"  keywords="[combobase, styles, editableOverSkin, png]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetStyle target="mybox.myCB" styleName="editableOverSkin" value="{ovrspng}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			 <AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			 <DispatchMouseClickEvent target="mybox.myCB" localX="75" localY="10" />
+			 <DispatchMouseClickEvent target="mybox.myCB" localX="75" localY="10" />
+			 <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="90"/>
+			 <WaitForEffectsToEnd/>
+			 <CompareBitmap url="../styles/baselines/cb_inherited_styles_editableOverSkin_png.png" target="mybox.myCB"/>
+			 <DispatchMouseEvent target="stage" type="mouseOver" stageX="100" stageY="200"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="comboBase_styles_editableUpSkin_jpg"  keywords="[combobase, styles, editableUpSkin, jpg]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetStyle target="mybox.myCB" styleName="editableUpSkin" value="{eupjpg}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			  <AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_editableUpSkin_jpg.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_editableUpSkin_gif"  keywords="[combobase, styles, editableUpSkin, gif]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetStyle target="mybox.myCB" styleName="editableUpSkin" value="{eupgif}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			  <AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_editableUpSkin_gif.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+	<TestCase testID="comboBase_styles_editableUpSkin_png"  keywords="[combobase, styles, editableUpSkin, png]">
+		<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="editable" value="true"/>
+			<SetStyle target="mybox.myCB" styleName="editableUpSkin" value="{euppng}" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+		</setup>
+		<body>
+			  <AssertPropertyValue target="mybox.myCB" propertyName="editable" value="true"/>
+			  <CompareBitmap url="../styles/baselines/cb_inherited_styles_editableUpSkin_png.png" target="mybox.myCB"/>
+		</body>
+	</TestCase>
+
+
+	</testCases>
+</UnitTester>

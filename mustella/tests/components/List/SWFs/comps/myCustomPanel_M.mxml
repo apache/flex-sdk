@@ -1,0 +1,21 @@
+<mx:Panel
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark" >
+
+	<mx:List id="theList" width="150" height="120" selectedIndex="0"  >
+
+		<mx:dataProvider>
+			<mx:ArrayCollection>
+				<fx:String>one</fx:String>
+				<fx:String>.-</fx:String>
+				<fx:String>=</fx:String>
+				<fx:String>-=</fx:String>
+				<fx:String>I</fx:String>
+
+			</mx:ArrayCollection>
+		</mx:dataProvider>
+
+	</mx:List>
+
+</mx:Panel>

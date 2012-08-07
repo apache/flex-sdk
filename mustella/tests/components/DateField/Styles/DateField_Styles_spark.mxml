@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateField/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateField_Basic_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.DateField;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+	]]>
+	</mx:Script>
+	
+	<!-- cornerRadius tests removed, style not supported -->
+
+	<testCases>
+	
+		<TestCase testID="fontSize_25_spark" description="DateField style fontSize=25." keywords="[styles, fontSize, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontSize" target="df" value="25" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+			    <AssertPropertyValue propertyName="height" target="df" value="42" />
+			</body>
+		</TestCase>
+		<TestCase testID="fontSize_9_spark" description="DateField style fonSize=9." keywords="[styles, fontSize, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontSize" target="df" value="9" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="df" value="22" />
+			</body>
+		</TestCase>
+		<TestCase testID="fontSize_80_spark" description="DateField style fonSize=80." keywords="[styles, fontSize, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontSize" target="df" value="80" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="height" target="df" value="117" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="rollOverColor_0x_spark" description="DateField style rollOverColor=0xff0000." keywords="[styles, rollOverColor, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="rollOverColor" target="df" value="0xFF0000" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+
+				<AssertStyleValue target="df" styleName="rollOverColor" value="0xFF0000" />
+			</body>
+		</TestCase>
+		<TestCase testID="rollOverColor_Number_spark" description="DateField style rollOverColor=0x0000ff." keywords="[styles, rollOverColor, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="rollOverColor" target="df" value="0x0000FF" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<AssertStyleValue target="df" styleName="rollOverColor" value="0x0000FF"/>
+			</body>
+		</TestCase>
+		<TestCase testID="rollOverColor_red_spark" description="DateField style rollOverColor='red'." keywords="[styles, rollOverColor, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="rollOverColor" target="df" value="red" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<AssertStyleValue target="df" styleName="rollOverColor" value="0xFF0000"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="selectionColor_0x_toplevel_spark" description="DateField style selectionColor=0xff0000." keywords="[styles, selectionColor, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="selectionColor" target="df" value="0xFF0000" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/selectionColor_0x_toplevel_spark.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="selectionColor_0x_spark" description="DateField style selectionColor=0xff0000." keywords="[styles, selectionColor, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="dateChooserStyleName" target="df" value="customSelectionColor1" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/selectionColor_0x_spark.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="selectionColor_Number_spark" description="DateField style selectionColor=0x0000ff." keywords="[styles, selectionColor, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="dateChooserStyleName" target="df" value="customSelectionColor2" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/selectionColor_number_spark.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="textDecoration_none_spark" description="DateField style textDecoration=0x0000ff." keywords="[styles, textDecoration, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="textDecoration" target="df" value="none" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />				
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/textDecoration_none_spark.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="textDecoration_underline_spark" description="DateField style textDecoration=0xff0000." keywords="[styles, textDecoration, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="textDecoration" target="df" value="underline" />
+			</setup>
+			<body>
+				<AssertStyleValue target="df" styleName="textDecoration" value="underline"/>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/textDecoration_underline_spark.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="fontWeight_normal_spark" description="DateField style fontWeight=bold." keywords="[styles, fontWeight, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+				<CompareBitmap target="df" url="../Styles/baselines/fontWeight_normal_DateField_spark.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontWeight_bold_spark" description="DateField style fontWeight=bold." keywords="[styles, fontWeight, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontWeight" target="df" value="bold" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<CompareBitmap target="df" url="../Styles/baselines/fontWeight_bold_DateField_spark.png" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="fontStyle_normal_spark" description="DateField style fontStyle=normal." keywords="[styles, fontStyle, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontStyle" target="df" value="italic" waitEvent="updateComplete" waitTarget="df" />
+			    <SetStyle styleName="fontStyle" target="df" value="normal" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<CompareBitmap target="df" url="../Styles/baselines/fontStyle_normal_DateField_spark.png" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontStyle_italics_spark" description="DateField style fontStyle=italics." keywords="[styles, fontStyle, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontStyle" target="df" value="italic" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<AssertStyleValue target="df" styleName="fontStyle" value="italic" />
+				<CompareBitmap target="df" url="../Styles/baselines/fontStyle_italics_spark.png"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="focusAlpha_04_spark" description="DateField style focusAlpha=1." keywords="[styles, focusAlpha, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="focusAlpha" target="df" value="1"  waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<CompareBitmap target="df" url="../Styles/baselines/focusAlpha_1_spark.png" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusRoundedforners_tr_spark" description="DateField style focusRoundedforners=tr" keywords="[styles, focusRoundedforners, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>			    
+			    <SetStyle styleName="focusRoundedforners" target="df" value="tr" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<CompareBitmap target="df" url="../Styles/baselines/focusRoundedforners_tr_spark.png" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusRoundedforners_tl_spark" description="DateField style focusRoundedforners=tl." keywords="[styles, focusRoundedforners, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>			    
+			    <SetStyle styleName="focusRoundedforners" target="df" value="tl"  waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<CompareBitmap target="df" url="../Styles/baselines/focusRoundedforners_tl_spark.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusRoundedforners_br_spark" description="DateField style focusRoundedforners=br" keywords="[styles, focusRoundedforners, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>			    
+			    <SetStyle styleName="focusRoundedforners" target="df" value="br" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<CompareBitmap target="df" url="../Styles/baselines/focusRoundedforners_br_spark.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusRoundedforners_bl_spark" description="DateField style focusRoundedforners='bl'." keywords="[styles, focusRoundedforners, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>			    
+			    <SetStyle styleName="focusRoundedforners" target="df" value="bl"  waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<CompareBitmap target="df" url="../Styles/baselines/focusRoundedforners_bl_spark.png" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="fontFamily_Arial_spark" description="DateField style fontFamily=Arial (local)." keywords="[styles, fontFamily, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontFamily" value="EmbeddedArial" target="df" waitEvent="updateComplete" waitTarget="df" />
+			    </setup>
+			<body>
+			    <CompareBitmap target="df" url="../Styles/baselines/fontFamily_arial_spark.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontFamily_Georgia_spark" description="DateField style fontFamily = Sydfol." keywords="[styles, fontFamily, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontFamily" value="EmbeddedGeorgia" target="df" waitEvent="updateComplete" waitTarget="df" />
+			    </setup>
+			<body>
+			    <CompareBitmap target="df" url="../Styles/baselines/fontFamily_Georgia_spark.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="fontThickness_200_spark" description="DateField style fontThickness = 200. flashtype font Hancock." keywords="[styles, fontThickness, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+                <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontThickness" value="200" target="df" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+			    <CompareBitmap target="df" url="../Styles/baselines/fontThickness_200_spark.png" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontThickness_10_spark" description="DateField style fontThickness = 10. flashtype font Hancock." keywords="[styles, fontThickness, DateField]">
+			<setup>
+			   <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			   <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			   <SetStyle styleName="fontFamily" value="EmbeddedVerdana" target="df" />
+			   <SetStyle styleName="fontThickness" value="10" target="df" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+			    <CompareBitmap target="df" url="../Styles/baselines/fontThickness_10_spark.png" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="fontAntiAliasType_normal_spark" description="DateField style fontAntiAliasType = normal. flashtype font Hancock." keywords="[styles, fontAntiAliasType, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontAntiAliasType" value="normal" target="df" />
+			    <SetStyle styleName="fontThickness" value="200" target="df" waitEvent="updateComplete" waitTarget="df" />
+		    </setup>
+			<body>
+			    <CompareBitmap target="df" url="../Styles/baselines/fontAntiAliasType_normal_spark.png" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontSharpness_400_spark" description="DateField style fontSharpness = 400. flashtype font Hancock." keywords="[styles, fontSharpness, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+	   		    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+	   		    <SetStyle styleName="fontSize" value="30" target="df" />
+			    <SetStyle styleName="fontSharpness" value="400" target="df" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+			    <CompareBitmap target="df" url="../Styles/baselines/fontSharpness_400_spark.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontSharpness_0_spark" description="DateField style fontSharpness = 0. flashtype font Hancock." keywords="[styles, fontSharpness, DateField]">
+			<setup>
+			   <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			   <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontSize" value="30" target="df" />
+			    <SetStyle styleName="fontSharpness" value="0" target="df" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+			    <CompareBitmap target="df" url="../Styles/baselines/fontSharpness_0_spark.png" numColorVariances="4" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateField_styles_todayColor2" keywords="[styles, fontSharpness, DateField]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" />
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetStyle target="df" styleName="todayColor" value="0xFF0000"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="open" waitTarget="df" />
+				<AssertStyleValue target="df" styleName="todayColor" value="0xFF0000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateField_styles_todayColor3" keywords="[styles, fontSharpness, DateField]">
+			<setup>
+				<ResetComponent target="df" className="mx.controls::DateField" />
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+				<SetStyle target="df" styleName="todayColor" value="0x0000FF" />
+			</setup>
+			<body>
+				<AssertStyleValue target="df" styleName="todayColor" value="0x0000FF" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontSize_25_dropDown_spark" description="DateField style fonSize=25." keywords="[styles, fontSize, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="dateChooserStyleName" target="df" value="customFontSize" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<AssertPropertyValue propertyName="height" target="df.dropdown" value="352" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="fontSize_25_dropDown_toplevel_spark" description="DateField style fonSize=25." keywords="[styles, fontSize, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontSize" target="df" value="25" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<AssertPropertyValue propertyName="height" target="df.dropdown" value="354" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="rollOverColor_0x_dropDown_spark" description="DateField style rollOverColor=0xff0000." keywords="[styles, rollOverColor, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="dateChooserStyleName" target="df" value="customRollOverColor" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+ 				<DispatchMouseEvent type="mouseDown" target="df.dropdown" localX="52" localY="2" waitEvent="mouseDown" waitTarget="df.dropdown" />
+				<DispatchMouseEvent type="mouseUp" target="df.dropdown" localX="12" localY="2" waitEvent="mouseUp" waitTarget="df.dropdown" />
+				<DispatchMouseEvent type="mouseMove" target="df.dropdown" localX="65" localY="100" waitEvent="mouseMove" waitTarget="df.dropdown" />
+				<DispatchMouseEvent type="mouseMove" target="df.dropdown" localX="75" localY="100" waitEvent="mouseMove" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/rollOverColor_dropDown_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="rollOverColor_0x_dropDown_toplevel_spark" description="DateField style rollOverColor=0xff0000." keywords="[styles, rollOverColor, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="rollOverColor" target="df" value="0xFF0000" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+ 				<DispatchMouseEvent type="mouseDown" target="df.dropdown" localX="52" localY="2" waitEvent="mouseDown" waitTarget="df.dropdown" />
+				<DispatchMouseEvent type="mouseUp" target="df.dropdown" localX="12" localY="2" waitEvent="mouseUp" waitTarget="df.dropdown" />
+				<DispatchMouseEvent type="mouseMove" target="df.dropdown" localX="65" localY="100" waitEvent="mouseMove" waitTarget="df.dropdown" />
+				<DispatchMouseEvent type="mouseMove" target="df.dropdown" localX="75" localY="100" waitEvent="mouseMove" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/rollOverColor_dropDown_toplevel_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="textDecoration_underline_dropDown_spark" description="DateField style textDecoration=0xff0000." keywords="[styles, textDecoration, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="dateChooserStyleName" target="df" value="customTextDecoration" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/textDecoration_dropDown_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		    </body>
+		</TestCase>
+
+		<TestCase testID="textDecoration_underline_dropDown_toplevel_spark" description="DateField style textDecoration=0xff0000." keywords="[styles, textDecoration, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/textDecoration_dropDown_toplevel_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		    </body>
+		</TestCase>
+
+		<TestCase testID="fontWeight_bold_dropDown_spark" description="DateField style fontWeight=bold." keywords="[styles, fontWeight, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="dateChooserStyleName" target="df" value="customFontWeight" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/fontWeight_dropDown_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="fontWeight_bold_dropDown_toplevel_spark" description="DateField style fontWeight=bold." keywords="[styles, fontWeight, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontWeight" target="df" value="bold" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/fontWeight_dropDown_toplevel_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontStyle_italics_dropDown_spark" description="DateField style fontStyle=italics." keywords="[styles, fontStyle, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="dateChooserStyleName" target="df" value="customFontStyle" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/fontStyle_dropDown_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontStyle_italics_dropDown_toplevel_spark" description="DateField style fontStyle=italics." keywords="[styles, fontStyle, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontStyle" target="df" value="italic" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/fontStyle_dropDown_toplevel_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+								
+		<TestCase testID="fontFamily_Arial_dropDown_spark" description="DateField style fontFamily=Arial (local)." keywords="[styles, fontFamily, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="dateChooserStyleName" value="customFontFamily" target="df" waitEvent="updateComplete" waitTarget="df" />
+			    </setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/fontFamily_dropDown_spark.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontFamily_Arial_dropDown_toplevel_spark" description="DateField style fontFamily=Arial (local)." keywords="[styles, fontFamily, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="fontFamily" target="df" value="EmbeddedArial" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/fontFamily_dropDown_toplevel_spark.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="color_dropdown_toplevel_spark" description="DateField style color of the dropdown." keywords="[styles, color, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="color" target="df" value="0xCCDD00" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/color_dropdown_toplevel_spark.png" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="color_dropdown_dropChooserStyleName_spark" description="DateField style color of the dropdown." keywords="[styles, color, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="dateChooserStyleName" target="df" value="customColor" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+				<CompareBitmap target="df.dropdown" url="../Styles/baselines/color_dropdown_spark.png" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="baseColor_spark" description="DateField baseColor" keywords="[styles, baseColor, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="showToday" value="false" waitEvent="updateComplete" waitTarget="df"/>
+ 			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="chromeColor" target="df" value="0xFF0000" waitEvent="updateComplete" waitTarget="df" />			    
+			</setup>
+			<body>
+			    <CompareBitmap target="df" url="../Styles/baselines/$testID_1.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			    <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+			    <CompareBitmap target="df.dropdown" url="../Styles/baselines/$testID_2.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="symbolColor_spark" description="DateField symbolColor" keywords="[styles, symbolColor, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+ 			    <SetProperty target="df" propertyName="showToday" value="false" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="symbolColor" target="df" value="0xFF0000" waitEvent="updateComplete" waitTarget="df" />
+			</setup>
+			<body>				
+			    <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+			    <CompareBitmap target="df.dropdown" url="../Styles/baselines/$testID.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+				
+		<TestCase testID="contentBackgroundColor_spark" description="DateField contentBackgroundColor" keywords="[styles, contentBackgroundColor, DateField]">
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete" waitTarget="df" />
+			    <SetProperty target="df" propertyName="showToday" value="false" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="df"/>
+			    <SetStyle styleName="contentBackgroundColor" target="df" value="0xFF0000" waitEvent="updateComplete" waitTarget="df" />			    
+			</setup>
+			<body>
+			    <CompareBitmap target="df" url="../Styles/baselines/$testID_1.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			    <DispatchMouseClickEvent target="df.getChildAt(1)" localX="5" localY="5" waitEvent="updateComplete" waitTarget="df.dropdown" />
+		   	    <CompareBitmap target="df.dropdown" url="../Styles/baselines/$testID_2.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+		
+	</testCases>
+</UnitTester>

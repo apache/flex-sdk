@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"  creationComplete="initApp()" width="500">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			public function initApp():void {
+				setDataProvider();
+			}
+			
+			public function setDataProvider():void {
+		   		dg1.dataProvider = null;
+	        	dg1.dataProvider = dataArray1;
+	    	}
+	    
+	    	public var canvasFacBlue:ClassFactory = new ClassFactory(MyHeaderRenderer_Blue);
+				
+			[Bindable]
+			public var currentHeaderRenderer:IFactory = canvasFacBlue; 
+			
+			
+					
+		]]>
+	</mx:Script>
+	
+			
+	<mx:Style>
+			@font-face{
+				src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+				fontFamily: myVerdana;
+			embedAsCFF: false;
+			}
+	</mx:Style>
+	
+	<mx:ArrayCollection id="dataArray1">
+	    <mx:Object name="Uncle Ted" family="Smith" age="39" hobby="Building model ships" thoughts="What a cute litle ship!"/>
+	    <mx:Object name="Aunt Imari" family="Smith" age="17" hobby="Building model airplanes" thoughts="What a cute litle airplane!"/>
+	    <mx:Object name="Uncle Umbra" family="Smith" age="28" hobby="Building model cars" thoughts="What a cute litle car!"/>
+	    <mx:Object name="Aunt Izzy" family="Smith" age="91" hobby="Building model trains" thoughts="What a cute litle train!"/>
+	    <mx:Object name="Uncle TJ" family="Smith" age="51" hobby="Building model trucks" thoughts="What a cute litle truck!"/>
+	    <mx:Object name="Uncle Bo" family="Hampton" age="47"  hobby="Photographing real ships" thoughts="consider renaming menu to pop-up menu and also investigate renaming linkbar and tabbar. Susan will own putting inventory together and will work on naming proposal with Glenn"/>
+	</mx:ArrayCollection> 
+
+    <mx:DataGrid id="dg1" width="100%" rowCount="3" editable="true">
+        <mx:columns>
+            <mx:DataGridColumn id="dgc0"/>
+            <mx:DataGridColumn id="dgc1"/>
+            <mx:DataGridColumn id="dgc2"/>
+            <mx:DataGridColumn id="dgc3"/>
+            <mx:DataGridColumn id="dgc4"/>
+            <mx:DataGridColumn id="dgc5" dataField="thoughts"/>
+     </mx:columns>
+    </mx:DataGrid>
+    
+    <mx:Label id="watchMe" text="Watch this space"/>
+
+
+</mx:Application>        

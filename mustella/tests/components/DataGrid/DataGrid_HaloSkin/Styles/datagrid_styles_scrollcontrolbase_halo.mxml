@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_HaloSkin/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridMain_halo.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.DateChooser;
+	import mx.controls.DataGrid;
+	import mx.containers.Canvas;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	public var mydatagrid:DataGrid
+	public var testgrid:DataGrid
+	public var mybox:Canvas;
+	public function genericCleanUp():void
+	{
+	 mydatagrid= stringToObject ("mydatagrid") as DataGrid;
+
+	 mybox = stringToObject ("box") as Canvas;
+	 mybox = new Canvas();
+		mydatagrid = new DataGrid();
+
+
+		application.startIt();
+
+	}
+	public function addItems():void
+	{
+	   for(var i:int=0;i<15;i++)
+	   {
+	      var obj:Object={col1:'one'+i,col2:i,col3:'three'+i}
+	      application.mydatagrid.dataProvider.addItem(obj);
+	   }
+        }
+        public function setAIcolors():void
+        {
+            application.mydatagrid.setStyle("alternatingItemColors",[0xFFCC00,0x00FF00]);
+        }
+        public function setBg():void
+        {
+            application.mydatagrid.setStyle("backgroundColor",0xFF0000);
+        }
+        public function setFF():void
+        {
+
+           application.mydatagrid.setStyle("fontFamily","EmbeddedMyriadWebPro");
+        }
+        public function startApp():void
+        {
+          application.startIt();
+        }
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+        <TestCase testID="style_borderThickness_halo" keywords="[DataGrid, borderColor, borderThickness]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="borderThickness" value="5"/>
+                <SetStyle target="mydatagrid" styleName="borderColor" value="0xFF0000" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPixelValue target="mydatagrid" x="2" y="2" value="0xFF0000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_borderColor_string_halo" keywords="[DataGrid, borderColor, borderThickness]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="borderThickness" value="5"/>
+                <SetStyle target="mydatagrid" styleName="borderColor" value="green" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPixelValue target="mydatagrid" x="2" y="2" value="0x008000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="style_borderColor_0x_halo" keywords="[DataGrid, borderColor, borderThickness]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="borderColor" value="0x0FFCC00" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+		<AssertPixelValue target="mydatagrid" x="1" y="0" value="0xFFCC00" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="style_borderColor_pound_halo" keywords="[DataGrid, borderColor, borderThickness]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="borderThickness" value="5"/>
+                <SetStyle target="mydatagrid" styleName="borderColor" value="#008000" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <AssertPixelValue target="mydatagrid" x="2" y="2" value="0x008000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="style_borderSides_all_halo" keywords="[DataGrid, borderSides]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <SetStyle target="mydatagrid" styleName="borderSides" value="top bottom left right" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_bordersides_all.png" />
+            </body>
+        </TestCase>
+	                
+        <TestCase testID="style_borderSides_lr_halo" keywords="[DataGrid, borderSides]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <SetStyle target="mydatagrid" styleName="borderSides" value="left right" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_bordersides_lr.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="style_borderStyle_inset_halo" keywords="[DataGrid, borderStyle, inset]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <SetStyle target="mydatagrid" styleName="borderStyle" value="inset" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_borderstyle_inset.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="style_borderStyle_outset_halo" keywords="[DataGrid, borderStyle, outset]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <SetStyle target="mydatagrid" styleName="borderStyle" value="outset" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_borderstyle_outset.png" />
+            </body>
+        </TestCase>
+	                
+        <TestCase testID="style_color_string_halo" keywords="[DataGrid, borderStyle, solid]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <SetStyle target="mydatagrid" styleName="borderStyle" value="solid" />
+		<SetStyle target="mydatagrid" styleName="borderColor" value="0x008800" waitTarget="mydatagrid" waitEvent="updateComplete" />
+                <RunCode code="addItems()"/>    
+            </setup>
+            <body>
+                <AssertPixelValue target="mydatagrid" x="1" y="0" value="0x008800" />
+            </body>
+        </TestCase>
+    
+        <TestCase testID="style_color_0x_halo" keywords="[DataGrid, color]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="color" value="0xFFCC00" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </body>
+        </TestCase>
+    
+        <TestCase testID="style_color_pound_halo" keywords="[DataGrid, color]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>            
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="color" value="#FF0000" waitTarget="mydatagrid" waitEvent="updateComplete"/>            
+            </body>
+        </TestCase>
+
+        <TestCase testID="style_fontFamily_AS_halo" keywords="[DataGrid, fontFamily]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>            
+                <SetStyle target="mydatagrid" styleName="fontFamily" value="EmbeddedVerdana" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="setFF()"/>
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="fontFamily" value="EmbeddedArial" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_fontfamily_arial.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="style_fontWeight_halo" keywords="[DataGrid, fontWeight]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>            
+                <SetStyle target="mydatagrid" styleName="fontWeight" value="bold" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_fontweight_bold.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="style_fontStyle_halo" keywords="[DataGrid, fontStyle]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <SetStyle target="mydatagrid" styleName="fontStyle" value="italic" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_fontstyle_italic.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_fontSize_halo" keywords="[DataGrid, fontStyle]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <SetStyle target="mydatagrid" styleName="fontSize" value="16" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_fontsize_16.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_dropShadowEnabled_halo" keywords="[DataGrid, dropShadowEnabled]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+                <SetStyle target="mydatagrid" styleName="dropShadowEnabled" value="true" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="shadowDirection" value="left" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetStyle target="mydatagrid" styleName="shadowDistance" value="6" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_dropShadowEnabled_true.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_shadowDirection_halo" keywords="[DataGrid, dropShadowDirection]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="shadowDirection" value="right" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_shadowdirection_right.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_shadowDistance_halo" keywords="[DataGrid, dropShadowDistance]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="shadowDirection" value="left" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetStyle target="mydatagrid" styleName="shadowDistance" value="8" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_shadowdistance_8.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="style_textDecoration_halo" keywords="[DataGrid, textDecoration]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="startApp()"/>
+            </setup>
+            <body>
+                <SetStyle target="mydatagrid" styleName="textDecoration" value="underline" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <CompareBitmap target="mydatagrid" url="../Styles/Baselines/datagrid_textdecoration_underline.png" />
+            </body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>

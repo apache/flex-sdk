@@ -1,0 +1,1067 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_SparkSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    
+    ]]>
+    </mx:Script>
+
+    <!--
+        Things to do:       
+            You should be able to use these propertiess in data binding...make some test cases for that.
+            Create test cases related to sorting.  e.g. Select an item, sort, and see what happens.
+            Be sure you can't use selectedIndex/ices and selectedItem/s to select multiple items when allowMultipleSelection is false.
+    -->
+
+    <testCases>
+
+<!-- Hopefully this will be the only bitmap compare that we need to do!  Use AssertPixelValue for the rest. -->
+        <TestCase testID="basicSelectionLooksRight" keywords="[DataGrid,properties,selection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/basicSelectionLooksRight.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+<!-- Tests which focus on allowMultipleSelection -->
+        <TestCase testID="allowMultipleSelection_false" keywords="[DataGrid,properties,allowMultipleSelection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="false" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" shiftKey="true" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndex" value="1" />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[1]" />
+                <AssertMethodValue method="value=application.dg1.selectedItem.name" value="SubjectD" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectD" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="allowMultipleSelection_true" keywords="[DataGrid,properties,allowMultipleSelection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" shiftKey="true" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[1,0]" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectD" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[1].name" value="SubjectO" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+<!-- Tests which focus on using the mouse to select items -->        
+        <TestCase testID="mouseSelection_shiftKey_twoVisibleItems" keywords="[DataGrid,properties,mouseSelection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" shiftKey="true" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[1,0]" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectD" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[1].name" value="SubjectO" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mouseSelection_ctrlKey_twoVisibleItems" keywords="[DataGrid,properties,mouseSelection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="2" ctrlKey="true" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[2,0]" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectE" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[1].name" value="SubjectO" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mouseSelection_twoVisibleItems_scrollDown" keywords="[DataGrid,properties,mouseSelection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" shiftKey="true" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[1,0]" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectD" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[1].name" value="SubjectO" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="mouseSelection_twoVisibleItems_scrollDownAndUp" keywords="[DataGrid,properties,mouseSelection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" shiftKey="true" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[1,0]" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectD" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[1].name" value="SubjectO" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mouseSelection_scrollBetweenSelections" keywords="[DataGrid,properties,mouseSelection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>                
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.5.0" localX="2" localY="2" ctrlKey="true" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[6,2]" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectI" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[1].name" value="SubjectE" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mouseSelection_scrollBetweenSelections_firstItemOffThenOnScreen" keywords="[DataGrid,properties,mouseSelection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>                
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="2" ctrlKey="true" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[4,0]" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectG" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[1].name" value="SubjectO" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mouseSelection_shiftClickAllItems" keywords="[DataGrid,properties,mouseSelection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.5.0" localX="2" localY="2" shiftKey="true" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[14,13,12,11,10,9,8,7,6,5,4,3,2,1,0]" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectN" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[1].name" value="SubjectM" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[2].name" value="SibjectL" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[3].name" value="SubjectC" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[4].name" value="SubjectK" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[5].name" value="SubjectJ" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[6].name" value="SubjectA" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[7].name" value="SubjectB" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[8].name" value="SubjectI" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[9].name" value="SubjectH" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[10].name" value="SubjectG" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[11].name" value="SubjectF" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[12].name" value="SubjectE" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[13].name" value="SubjectD" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[14].name" value="SubjectO" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mouseSelection_ctrlDeselectItems" keywords="[DataGrid,properties,mouseSelection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.5.0" localX="2" localY="2" shiftKey="true" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.5.0" localX="2" localY="2" ctrlKey="true" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="2" ctrlKey="true" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" ctrlKey="true" />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[13,11,9,8,7,6,5,4,3,2,1,0]" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectM" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[1].name" value="SubjectC" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[2].name" value="SubjectJ" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[3].name" value="SubjectA" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[4].name" value="SubjectB" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[5].name" value="SubjectI" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[6].name" value="SubjectH" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[7].name" value="SubjectG" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[8].name" value="SubjectF" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[9].name" value="SubjectE" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[10].name" value="SubjectD" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[11].name" value="SubjectO" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mouseSelection_disableAllowMultipleSelectionAfterMakingSelections" keywords="[DataGrid,properties,mouseSelection]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.3.0" localX="2" localY="2" shiftKey="true" />
+                <WaitForEffectsToEnd />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="false" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.4.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndex" value="3" />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[3]" />
+                <AssertMethodValue method="value=application.dg1.selectedItem.name" value="SubjectF" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectF" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+<!-- Tests which focus on selectedIndex -->
+        <TestCase testID="selectedIndex_defaultValue" keywords="[DataGrid,properties,selectedIndex]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1" propertyName="selectedIndex" value="-1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndex_negative" keywords="[DataGrid,properties,selectedIndex]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndex" value="-1" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[]" />
+                <AssertMethodValue method="value=application.dg1.selectedItem" valueExpression="value=null" />
+                <AssertMethodValue method="value=application.dg1.selectedItems" valueExpression="value=[]" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndex_changesOtherSelectionProperties" keywords="[DataGrid,properties,selectedIndex]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndex" value="2" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[2]" />
+                <AssertMethodValue method="value=application.dg1.selectedItem.name" value="SubjectE" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectE" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndex_zero" keywords="[DataGrid,properties,selectedIndex]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndex" value="0" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndex_lastItemOnScreen" keywords="[DataGrid,properties,selectedIndex]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndex" value="5" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndex_firstItemOffScreen" keywords="[DataGrid,properties,selectedIndex]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndex" value="6" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndex_last" keywords="[DataGrid,properties,selectedIndex]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndex" value="14" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <!-- 
+            ListBase chooses the lesser of the length of the collection and the value passed in,
+            so the expected result of this test case is for the last item to be selected.
+        -->
+        <TestCase testID="selectedIndex_outOfBounds" keywords="[DataGrid,properties,selectedIndex]">        
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndex" value="20" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+<!-- Tests which focus on selectedIndices -->
+        <TestCase testID="selectedIndices_defaultValue" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[]" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndices_changesOtherSelectionProperties_oneItem" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[2]" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndex" value="2" />
+                <AssertMethodValue method="value=application.dg1.selectedItem.name" value="SubjectE" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectE" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndices_changesOtherSelectionProperties_multipleItems" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[3,9,2]" />
+                <WaitForEffectsToEnd />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectF" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[1].name" value="SubjectJ" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[2].name" value="SubjectE" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndices_one" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[3]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndices_some" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[0,2,3,6]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndices_all" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndices_onlyOffscreen" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[12,14]" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="selectedIndices_reverseOrder" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[5,3,2,0]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndices_mixedOrder" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[3,5,0,2]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndices_sameItemSeveralTimes" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[5,3,0,3,2,0,5,5,3,0,0]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndices_resetToNone" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[0]" />
+                <WaitForEffectsToEnd />
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedIndices_followedByKeyboardSelection" keywords="[DataGrid,properties,selectedIndices]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetProperty target="dg1" propertyName="allowMultipleSelection" value="true" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedIndices" valueExpression="value=[0]" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.1.0" shiftKey="false" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.3.0" shiftKey="true" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+<!-- Tests which focus on selectedItem -->
+        <TestCase testID="selectedItem_defaultValue" keywords="[DataGrid,properties,selectedItem]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1" propertyName="selectedItem" valueExpression="value=null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItem_changesOtherSelectionProperties" keywords="[DataGrid,properties,selectedItem]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItem" valueExpression="value=application.dg1.dataProvider.getItemAt(2)" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndex" value="2" />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndices" valueExpression="value=[2]" />
+                <AssertMethodValue method="value=application.dg1.selectedItems[0].name" value="SubjectE" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItem_lastItemOnScreen" keywords="[DataGrid,properties,selectedItem]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItem" valueExpression="value=application.dg1.dataProvider.getItemAt(5)" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItem_firstItemOffScreen" keywords="[DataGrid,properties,selectedItem]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItem" valueExpression="value=application.dg1.dataProvider.getItemAt(6)" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItem_last" keywords="[DataGrid,properties,selectedItem]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItem" valueExpression="value=application.dg1.dataProvider.getItemAt(14)" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+<!-- Tests which focus on selectedItems -->
+        <TestCase testID="selectedItems_defaultValue" keywords="[DataGrid,properties,selectedItems]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1" propertyName="selectedItems" valueExpression="value=[]" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="selectedItems_changesOtherSelectionProperties_oneItem" keywords="[DataGrid,properties,selectedItems]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItems" valueExpression="value=[application.dg1.dataProvider.getItemAt(2)]" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="dg1" propertyName="selectedIndex" value="2" />
+                <AssertMethodValue method="value=application.dg1.selectedIndices[0]" value="2" />
+                <AssertMethodValue method="value=application.dg1.selectedItem.name" value="SubjectE" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItems_changesOtherSelectionProperties_multipleItems" keywords="[DataGrid,properties,selectedItems]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItems" valueExpression="value=[application.dg1.dataProvider.getItemAt(3),application.dg1.dataProvider.getItemAt(9),application.dg1.dataProvider.getItemAt(2)]" />
+                <WaitForEffectsToEnd />
+                <AssertMethodValue method="value=application.dg1.selectedIndices" valueExpression="value=[3,9,2]" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItems_one" keywords="[DataGrid,properties,selectedItems]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItems" valueExpression="value=[application.dg1.dataProvider.getItemAt(3)]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItems_some" keywords="[DataGrid,properties,selectedItems]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItems" valueExpression="value=[application.dg1.dataProvider.getItemAt(0),application.dg1.dataProvider.getItemAt(2),application.dg1.dataProvider.getItemAt(3),application.dg1.dataProvider.getItemAt(6)]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItems_all" keywords="[DataGrid,properties,selectedItems]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItems" valueExpression="value=[application.dg1.dataProvider.getItemAt(0),application.dg1.dataProvider.getItemAt(1),application.dg1.dataProvider.getItemAt(2),application.dg1.dataProvider.getItemAt(3),application.dg1.dataProvider.getItemAt(4),application.dg1.dataProvider.getItemAt(5),application.dg1.dataProvider.getItemAt(6),application.dg1.dataProvider.getItemAt(7),application.dg1.dataProvider.getItemAt(8),application.dg1.dataProvider.getItemAt(9),application.dg1.dataProvider.getItemAt(10),application.dg1.dataProvider.getItemAt(11),application.dg1.dataProvider.getItemAt(12),application.dg1.dataProvider.getItemAt(13),application.dg1.dataProvider.getItemAt(14)]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItems_onlyOffscreen" keywords="[DataGrid,properties,selectedItems]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItems" valueExpression="value=[application.dg1.dataProvider.getItemAt(12),application.dg1.dataProvider.getItemAt(14)]" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg1.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg1" waitEvent="scroll"/>
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItems_reverseOrder" keywords="[DataGrid,properties,selectedItems]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItems" valueExpression="value=[application.dg1.dataProvider.getItemAt(5),application.dg1.dataProvider.getItemAt(3),application.dg1.dataProvider.getItemAt(2),application.dg1.dataProvider.getItemAt(0)]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItems_mixedOrder" keywords="[DataGrid,properties,selectedItems]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItems" valueExpression="value=[application.dg1.dataProvider.getItemAt(3),application.dg1.dataProvider.getItemAt(5),application.dg1.dataProvider.getItemAt(0),application.dg1.dataProvider.getItemAt(2)]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_SELECTED_COLOR" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="selectedItems_resetToNone" keywords="[DataGrid,properties,selectedItems]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" waitEvent="updateComplete" waitTarget="dg1" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="selectedItems" valueExpression="value=[application.dg1.dataProvider.getItemAt(0)]" />
+                <WaitForEffectsToEnd />
+                <SetProperty target="dg1" propertyName="selectedItems" valueExpression="value=[]" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.1.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.2.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.3.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.4.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.5.0" x="50" y="5" valueExpression="value=application.ROW_DARK_ALTERNATING_COLOR" />
+                <AssertPixelValue target="dg1.mx_internal:rendererArray.6.0" x="50" y="5" valueExpression="value=application.ROW_LIGHT_ALTERNATING_COLOR" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

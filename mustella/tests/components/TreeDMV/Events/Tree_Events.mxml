@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TreeDMV/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Tree_Basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+
+    import mx.controls.Tree;
+    import data.TreeData;
+    import mx.events.TreeEvent;
+    import mx.events.ListEvent;
+
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    private function addXMLData():void
+    {
+
+
+        application.tree.dataProvider = application.treeXML;
+        application.tree.showRoot = false;
+        application.tree.labelField = '@label';
+
+    }
+
+    private function addXMLDataGlobal():void
+    {
+
+        application.tree.dataProvider = application.treeXML;
+        application.tree.showRoot = false;
+        application.tree.labelField = '@label';
+
+    }
+
+    public var treeDP:Object;
+    private function createNewObjectDP(): void
+    {
+        var newData:TreeData = new TreeData();
+        treeDP = newData.largeObj;
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <TestCase testID="change_onKeyBoard" description="Change event triggered when select item with keyboard" keywords="[events, change, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]" />
+                <AssertEvent target="tree" eventName="change" eventClass="mx.events::ListEvent" />
+                <AssertEventPropertyValue propertyName="rowIndex" value="0" target="tree" />
+            </body>
+        </TestCase>
+        <TestCase testID="itemClick_onKeyBoard" description="itemClick event triggered when select item with keyboard" keywords="[events, change, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="tree" localX="228" localY="9" waitEvent="click" waitTarget="tree"/>
+                <AssertEvent target="tree" eventName="itemClick" eventClass="mx.events::ListEvent" />
+                <AssertEventPropertyValue propertyName="rowIndex" value="0" target="tree" />
+            </body>
+        </TestCase>
+        <TestCase testID="itemCloseKeyboard" description="itemOpen event triggered when node opened with keyboard" keywords="[events, itemOpen, keyboard, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN, SPACE]" waitEvent="itemOpen" waitTarget="tree" />
+                <DispatchKeyEvent keys="[SPACE]"/>
+                <AssertEvent target="tree" eventName="itemClose" eventClass="mx.events::TreeEvent" />
+                <AssertEventPropertyValue propertyName="item" valueExpression="value=application.treeXML.node[0]" target="tree" />
+            </body>
+        </TestCase>
+        <!--<TestCase testID="itemCloseMouse" description="itemOpen event triggered when node disclosure is clicked" keywords="[events, itemClose, disclosureclick, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <displatch mouse event on itemRenderer's disclosure>
+                <AssertEvent target="tree" eventName="itemClose" eventClass="mx.events::TreeEvent" />
+                <AssertEventPropertyValue propertyName="item" valueExpression="value=application.treeXML.node[0]" target="tree" />
+            </body>
+        </TestCase>-->
+        <TestCase testID="itemOpenKeyboard" description="itemOpen event triggered when node opened with keyboard" keywords="[events, itemOpen, keyboard, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, SPACE]" />
+                <AssertEvent target="tree" eventName="itemOpen" eventClass="mx.events::TreeEvent" />
+                <AssertEventPropertyValue propertyName="item" valueExpression="value=application.treeXML.node[1]" target="tree" />
+            </body>
+        </TestCase>
+        <!--<TestCase testID="itemOpenMouse" description="itemOpen event triggered when node disclosure is clicked" keywords="[events, itemOpen, disclosureclick, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <displatch mouse event on itemRenderer's disclosure>
+                <AssertEvent target="tree" eventName="itemOpen" eventClass="mx.events::TreeEvent" />
+                <AssertEventPropertyValue propertyName="item" valueExpression="value=application.treeXML.node[1]" target="tree" />
+            </body>
+        </TestCase>-->
+        <TestCase testID="itemOpeningKeyboard" description="itemOpening event triggered when node opened with keyboard" keywords="[events, itemOpening, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, SPACE]" />
+                <AssertEvent target="tree" eventName="itemOpening" eventClass="mx.events::TreeEvent" />
+                <AssertEventPropertyValue propertyName="item" valueExpression="value=application.treeXML.node[1]" target="tree" />
+            </body>
+        </TestCase>
+        <!--<TestCase testID="itemOpeningMouse" description="itemOpening event triggered when node disclosure is clicked" keywords="[events, itemOpening, disclosureclick, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <displatch mouse event on itemRenderer's disclosure>
+                <AssertEvent target="tree" eventName="itemOpening" eventClass="mx.events::TreeEvent" />
+                <AssertEventPropertyValue propertyName="item" valueExpression="value=application.treeXML.node[1]" target="tree" />
+            </body>
+        </TestCase>-->
+        <TestCase testID="Tree_events_scroll_buttons" description="Ensure that the scroll event triggers when you click on the track."
+           keywords="[events, scroll, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="createNewObjectDP()" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=treeDP" target="tree" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="tree.getChildAt(3).getChildAt(3)" localX="8" localY="8" />
+                <AssertEvent target="tree" eventName="scroll" eventClass="mx.events::ScrollEvent" timeout="1000" />
+                <AssertPropertyValue target="tree" propertyName="verticalScrollPosition" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_events_scroll_track" description="Ensure that the scroll event triggers when you click on the track."
+           keywords="[events, scroll, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="createNewObjectDP()" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=treeDP" target="tree" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="tree.getChildAt(3)" localX="3" localY="110" waitEvent="scroll" waitTarget="tree" />
+                <AssertEvent target="tree" eventName="scroll" eventClass="mx.events::ScrollEvent" numExpectedEvents="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_events_scroll_bug11120" description="Use case for bug SDK-11120."
+           keywords="[Bug, scroll, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="createNewObjectDP()" />
+                <SetProperty propertyName="dataProvider" valueExpression="value=treeDP" target="tree" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="verticalScrollPosition" valueExpression="value=application.tree.maxVerticalScrollPosition" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider[10], true)" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="verticalScrollPosition" value="0" />
+                <WaitForEffectsToEnd />
+                <SetProperty target="tree" propertyName="verticalScrollPosition" valueExpression="value=application.tree.maxVerticalScrollPosition" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseClickEvent target="tree.mx_internal:rendererArray.3.0" localX="9" localY="9" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap target="tree.mx_internal:rendererArray.6.0" url="../Events/baselines/tree_scroll_bug.png" timeout="2500" />
+        </body>
+        </TestCase>
+        <TestCase testID="Tree_events_horizontal_scroll_buttons" description="Ensure that the scroll event triggers when you click on the track."
+           keywords="[events,horizontal, scroll, Tree]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty propertyName="horizontalScrollPolicy" value="on" target="tree" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="tree" localX="290" localY="150" waitEvent="click" waitTarget="tree" />
+                <DispatchMouseClickEvent target="tree.getChildAt(3).getChildAt(3)" localX="8" localY="8" waitEvent="click" waitTarget="tree.getChildAt(3).getChildAt(3)" />
+                <AssertEvent target="tree" eventName="scroll" eventClass="mx.events::ScrollEvent"  />
+                <AssertPropertyValue target="tree" propertyName="horizontalScrollPosition" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="change_onKeyBoardLeft" description="Change event triggered when select item with keyboard" keywords="[events, change, Tree, keys]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]"  waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="tree" />
+                <DispatchKeyEvent keys="[LEFT]" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="tree" propertyName="selectedIndex" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="change_onKeyBoardDownLeft" description="Change event triggered when select item with keyboard" keywords="[events, change, Tree, keys]">
+            <setup>
+                <ResetComponent target="tree" className="comps.TreeDMV" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]"  waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN, DOWN]" waitEvent="change" waitTarget="tree" />
+                <DispatchKeyEvent keys="[LEFT]" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="tree" propertyName="selectedIndex" value="1" />
+            </body>
+        </TestCase>     
+    </testCases>
+</UnitTester>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/PrintDataGrid/PrintDataGrid_HaloSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="PrintDataGrid_Basic_halo.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.printing.PrintDataGrid;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+			[Bindable]
+			public var myDP:Array =
+			 [ { Artist:'Pavement', Album:'Slanted and Enchanted', Price:11.99, Rating:'Excellent' },
+			   { Artist:'Pavement', Album:'Crooked Rain, Crooked Rain', Price:10.99, Rating:'Excellent' },
+			   { Artist:'Pavement', Album:'Wowee Zowee', Price:12.99, Rating:'Excellent' },
+			   { Artist:'Pavement', Album:'Brighten the Corners', Price:11.99, Rating:'Good' },
+			   { Artist:'Pavement', Album:'Terror Twilight', Price:11.99, Rating:'Good' },
+			   { Artist:'Other', Album:'Other', Price:5.99, Rating:'Bad' },
+			   { Artist:'Other1', Album:'Other1', Price:5.99, Rating:'Good' },
+			   { Artist:'Other2', Album:'Other2', Price:5.99, Rating:'Excellent' },
+			   { Artist:'Other3', Album:'Other3', Price:5.99, Rating:'Good' },
+			   { Artist:'Other4', Album:'Other4', Price:5.99, Rating:'Bad' }
+			 ];
+
+		public function setDP():void{
+			application.myPDG.dataProvider=myDP;
+			application.myPDG.height=400;
+			application.myPDG.sizeToPage=true;
+		
+		}
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="Bug_SDK_9818_halo" description="PrintDataGrid height property is tested here." keywords="[PrintDataGrid, height, sizeToPage]">
+			<setup>
+				<ResetComponent target="myPDG" className="mx.printing.PrintDataGrid" waitEvent="updateComplete" waitTarget="myPDG"/>
+				<RunCode code="setDP();" waitEvent="updateComplete" waitTarget="myPDG"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myPDG" propertyName="currentPageHeight" value="265.55" />
+				<AssertPropertyValue target="myPDG" propertyName="height" value="265" />
+				<AssertPropertyValue target="myPDG" propertyName="sizeToPage" value="true" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

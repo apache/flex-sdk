@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ToggleButtonBar/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ToggleButtonBar_Basic_Spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	public function addData(bool:int):void
+	{
+	    application.tbb.dataProvider = myDP;
+	}
+
+	public function addObjData():void
+	{
+	    application.tbb.dataProvider = iconDP;
+	}
+	public function run():void
+	{
+		application.ti1.text=application.tbb.toggleOnClick;
+	}
+
+	[Bindable]
+	public var iconDP:Array= [{label:"Toys", icon:"dinosaur"},{label:"dinosaur", icon: "dinosaur"}];
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.ToggleButtonBar;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.events.ListEvent;
+
+    [Bindable]
+    private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+	]]>
+	</mx:Script>
+	<testCases>
+		<TestCase testID="Tab_Selection" description="ToggleButtonBar dataProvider item is set to false test." keywords="[enabled, ToggleButtonBar]">
+			<setup>
+			    	<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+			    	<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tbb"/>
+			    	<DispatchMouseClickEvent target="tbb" localX="87" localY="11" />
+			    	<WaitForEffectsToEnd /> 
+			</setup>
+			<body>
+			    	<AssertPropertyValue target="tbb" propertyName="selectedIndex" value="1" />
+			</body> 
+		</TestCase>
+		<TestCase testID="selectedIndex_Selection1" description="ToggleButtonBar dataProvider item is set to false test." keywords="[enabled, ToggleButtonBar]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+				<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tbb"/>
+				<DispatchMouseClickEvent target="tbb" localX="171" localY="9" waitEvent="mouseUp" waitTarget="tbb"/>
+			</setup>
+			<body>
+			    	<AssertPropertyValue target="tbb" propertyName="selectedIndex" value="2" />
+			</body>
+		</TestCase>
+		<TestCase testID="selectedIndex_Selection2" description="ToggleButtonBar dataProvider item is set to false test." keywords="[enabled, ToggleButtonBar]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tbb"/>
+				<DispatchMouseClickEvent target="tbb" localX="28" localY="16" waitEvent="mouseUp" waitTarget="tbb"/>
+			</setup>
+			<body>
+
+				<AssertPropertyValue target="tbb" propertyName="selectedIndex" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="ToggleButtonBar_toggleOnClick_default" description="ToggleButtonBar dataProvider item is set to false test." keywords="[toggleOnClick, ToggleButtonBar]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetProperty target="tbb" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="tbb" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="tbb" propertyName="selectedIndex" value="1" />
+			</body>
+		</TestCase>
+		<TestCase testID="ToggleButtonBar_toggleOnClick_true" description="ToggleButtonBar dataProvider item is set to false test." keywords="[toggleOnClick, ToggleButtonBar]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetProperty target="tbb" propertyName="toggleOnClick" value="true" />
+				<DispatchMouseClickEvent target="tbb" localX="88" localY="9" waitEvent="mouseUp" waitTarget="tbb"/>
+				<DispatchMouseClickEvent target="tbb" localX="88" localY="9" waitEvent="mouseUp" waitTarget="tbb"/>
+				<RunCode code="run()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="tbb" propertyName="selectedIndex" value="-1" />
+			</body>
+		</TestCase>		
+	</testCases>
+</UnitTester>

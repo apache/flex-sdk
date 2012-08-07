@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Slider/events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="HSlider_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.HSlider;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+	public var styleDecl:Object;
+	public var styleObj:Object;
+
+	]]>
+	</mx:Script>
+	<testCases>
+		<TestCase testID="Checking_Change_Event_of_HSlider" keywords="[HSlider, change, Event]" description="Ensure that change event gets triggered when a HSlider's track is clicked.">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+			</setup>
+			<body>
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myHSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="myHSlider" localX="100" localY="10" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<DispatchMouseClickEvent target="myHSlider" localX="100" localY="10" waitEvent="change" waitTarget="myHSlider"/>
+				<AssertEvent target="myHSlider" eventName="change" eventClass="mx.events::SliderEvent" />
+			</body>
+			<cleanup>
+			    <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Checking_thumbPress_Event_of_HSlider" keywords="[HSlider, thumbPress, Event]" description="Ensure that thumbPress event gets triggered when a HSlider's thumb is pressed">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+			</setup>
+			<body>
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myHSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="myHSlider" localX="10" localY="10" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<DispatchMouseEvent target="myHSlider" localX="10" localY="10" type="mouseDown" waitEvent="thumbPress" waitTarget="myHSlider"/>
+				<AssertEvent target="myHSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
+			</body>
+			<cleanup>
+			    <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		    </cleanup>
+		</TestCase>
+		<TestCase testID="Checking_thumbDrag_Event_of_HSlider" keywords="[HSlider, change, Event]" description="Ensure that thumbDrag event gets triggered when a HSlider's thumb is dragged.">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+
+			</setup>
+			<body>
+				<SetProperty target="myHSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="myHSlider" localX="10" localY="10" type="mouseMove" />
+				<DispatchMouseEvent target="myHSlider" localX="10" localY="10" type="mouseDown" waitEvent="thumbPress" waitTarget="myHSlider"/>
+				<DispatchMouseEvent target="myHSlider" localX="10" localY="20" type="mouseMove" waitEvent="thumbDrag" waitTarget="myHSlider"/>
+				<AssertEvent target="myHSlider" eventName="thumbDrag" eventClass="mx.events::SliderEvent" />
+			</body>
+			<cleanup>
+			    <DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		    </cleanup>
+		</TestCase>
+	</testCases>
+</UnitTester>

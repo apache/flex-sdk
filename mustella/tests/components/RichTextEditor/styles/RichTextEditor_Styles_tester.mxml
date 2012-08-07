@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/RichTextEditor/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RichTextEditor_main.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+
+    ]]>
+    </mx:Script>
+
+    <mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+        .myStyle{
+            color: #00ff00;
+        }
+    </mx:Style>
+
+<testCases>
+
+    <TestCase testID="defaultAppearance" keywords="[RichTextEditor]" description="Check the default appearance." >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <CompareBitmap  url="../styles/baselines/$testID.png"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_color_1" keywords="[styles, color, RichTextEditor]" description="Set the color to red." >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            <SetStyle target="myRichTextEditor" styleName="color" value="0x0000ff" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="color" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <CompareBitmap  url="../styles/baselines/$testID.png"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_color_2" keywords="[styles, color, RichTextEditor]" description="Check default color." >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <AssertStyleValue target="myRichTextEditor" styleName="color" value="734012" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_backgroundColor" keywords="[styles, backgroundColor, RichTextEditor]" description="Set backgroundColor to red." >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" />
+            <SetProperty target="myRichTextEditor.textArea" propertyName="alpha" value="0.5" />
+            <SetStyle target="myRichTextEditor" styleName="backgroundColor" value="0xff0000" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="backgroundColor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <CompareBitmap  url="../styles/baselines/$testID.png"/>
+        </body>
+    </TestCase>
+        
+    <TestCase testID="richTextEditor_cornerRadius" keywords="[styles, cornerRadius, RichTextEditor]" description="Set cornerRadius." >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            <SetStyle target="myRichTextEditor" styleName="cornerRadius" value="10" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="cornerRadius" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <CompareBitmap  url="../styles/baselines/$testID.png"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_dropShadowEnabled" keywords="[styles, dropShadow, RichTextEditor]" description="Set dropShadow." >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            <SetStyle target="myRichTextEditor" styleName="dropShadowEnabled" value="false" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="dropShadowEnabled" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <CompareBitmap  url="../styles/baselines/$testID.png"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_footerColors" keywords="[styles, footerColors, RichTextEditor]" description="Set footerColors" >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            <SetStyle target="myRichTextEditor" styleName="footerColors" value="[0xff0000, 0x0000ff]" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="footerColors" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <CompareBitmap target="myRichTextEditor" url="../styles/baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_headerColors" keywords="[styles, headerColors, RichTextEditor]" description="Check headerColors" >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            <SetStyle target="myRichTextEditor" styleName="headerColors" value="[0xff0000, 0x0000ff]" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="headerColors" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <CompareBitmap target="myRichTextEditor" url="../styles/baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_headerHeight" keywords="[styles, headerHeight, RichTextEditor]" description="Check headerHeight" >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            <SetStyle target="myRichTextEditor" styleName="headerHeight" value="0" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="headerHeight" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <CompareBitmap target="myRichTextEditor" url="../styles/baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_paddingLeft" keywords="[styles, paddingLeft, RichTextEditor]" description="Check paddingLeft" >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            <SetStyle target="myRichTextEditor" styleName="paddingLeft" value="25" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="paddingLeft" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <CompareBitmap target="myRichTextEditor" url="../styles/baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_paddingRight" keywords="[styles, paddingRight, RichTextEditor]" description="Check paddingRight" >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            <SetStyle target="myRichTextEditor" styleName="paddingRight" value="25" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="paddingRight" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <CompareBitmap target="myRichTextEditor" url="../styles/baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_paddingTop" keywords="[styles, paddingTop, RichTextEditor]" description="Checking the paddingTop Style using the compare bit map feature" >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            <SetStyle target="myRichTextEditor" styleName="paddingTop" value="25" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="paddingTop" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <CompareBitmap target="myRichTextEditor" url="../styles/baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_paddingBottom" keywords="[styles, paddingBottom, RichTextEditor]" description="Checking the paddingBottom Style using the compare bit map feature" >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+            <SetStyle target="myRichTextEditor" styleName="paddingBottom" value="25" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="paddingBottom" waitEvent="updateComplete" waitTarget="myRichTextEditor" />
+        </setup>
+        <body>
+            <CompareBitmap target="myRichTextEditor" url="../styles/baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="richTextEditor_setStyle" keywords="[styles, setStyleMethod, RichTextEditor]" description="Checking whether the styles are getting applied when set with setStyleMethod" >
+        <setup>
+            <ResetComponent target="myRichTextEditor" className="mx.controls::RichTextEditor" waitEvent="updateComplete" waitTarget="myRichTextEditor"/>
+            <SetProperty target="myRichTextEditor" propertyName="styleName" value="myStyle" />
+            <SetProperty target="myRichTextEditor" propertyName="text" value="hello" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <CompareBitmap target="myRichTextEditor" url="../styles/baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+        </body>
+    </TestCase>
+
+</testCases>
+</UnitTester>

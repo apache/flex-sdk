@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/VideoDisplay/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="VideoMain.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script>
+        <![CDATA[
+        import flash.events.ProgressEvent;
+        public static function init(o:DisplayObject):void
+        {
+        }                   
+        ]]>
+        </mx:Script>
+        <mx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+        </mx:Metadata>  
+        <!-- end of set of lines that must be in each unit test -->
+    
+        <mx:Script>
+        <![CDATA[
+        import mx.controls.ComboBox;
+        import mx.controls.DateField;
+        import mx.styles.StyleManager;
+        import mx.managers.SystemManager;
+        import mx.controls.videoClasses.CuePointManager;
+        
+        public var ASCuePoints:Array = [{name:'ASCue0', time:2.60}, {name:'ASCue1', time:3.75}];
+         
+        public function scriptFunction(a:String, b:int):String
+        {
+            return a + ":" + b.toString();
+        }
+        
+        public function setASCuePoints():void
+        {
+            application.vd.cuePoints=ASCuePoints;
+        }
+        
+        public var styleDecl:Object;
+        public var styleObj:Object;
+        
+    
+        ]]>
+        </mx:Script>
+
+    <testCases>
+        <TestCase testID="myTest_events_compiletime_cuePoints0" keywords="[VideoDisplay, events, compiletime_cuePoints0]">
+            <setup>
+                <ResetComponent target="vd2" className="VideoMainComp" waitEvent="updateComplete" waitTarget="vd2" />
+            </setup>
+            <body>
+                <RunCode code="application.vd2.play()" waitEvent="cuePoint" waitTarget="vd2" />   
+                <AssertEvent target="vd2" eventName="cuePoint" eventClass="mx.events::CuePointEvent" timeout="1100"/>
+                <AssertEventPropertyValue propertyName="cuePointName" value="CompileCue0" />
+                <RunCode code="application.vd2.pause()" waitEvent="stateChange" waitTarget="vd2" />  
+           </body>
+        </TestCase>
+        <TestCase testID="myTest_events_compiletime_cuePoints1" keywords="[VideoDisplay, events, compiletime_cuePoints0]">
+            <setup>
+                <ResetComponent target="vd2" className="VideoMainComp" waitEvent="updateComplete" waitTarget="vd2" />
+            </setup>
+            <body>
+                <RunCode code="application.vd2.play()" waitEvent="cuePoint" waitTarget="vd2" />   
+                <AssertEvent target="vd2" eventName="cuePoint" eventClass="mx.events::CuePointEvent" timeout="4100" numExpectedEvents="2"/>
+                <AssertEventPropertyValue propertyName="cuePointName" value="CompileCue1" />
+                <RunCode code="application.vd2.pause()" waitEvent="stateChange" waitTarget="vd2" />    
+            </body>
+        </TestCase>
+        <TestCase testID="myTest_events_runtimeAS_cuePoints0" keywords="[VideoDisplay, events, runtimeAS_cuePoints0]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls.VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty propertyName="autoPlay" value="false" target="vd" />
+                <SetProperty propertyName="cuePointManagerClass" valueExpression="value=mx.controls.videoClasses.CuePointManager" target="vd" />
+                <SetProperty propertyName="source" target="vd" value="../../../../Assets/Video/video.flv" />
+                <SetProperty target="vd" propertyName="cuePoints" valueExpression="value=ASCuePoints" />
+            </setup>
+            <body>
+                <RunCode code="application.vd.play()"  /> 
+                <AssertEvent target="vd" eventName="cuePoint" eventClass="mx.events::CuePointEvent" timeout="4200"/>
+                <AssertEventPropertyValue propertyName="cuePointName" value="ASCue0" />
+                <RunCode code="application.vd.pause()" waitEvent="stateChange" waitTarget="vd" />    
+           </body>
+        </TestCase>
+        <TestCase testID="myTest_events_runtimeAS_cuePoints1" keywords="[VideoDisplay, events, runtimeAS_cuePoints0]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls.VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty propertyName="cuePointManagerClass" valueExpression="value=mx.controls.videoClasses.CuePointManager" target="vd" />
+                <SetProperty propertyName="autoPlay" value="false" target="vd" />
+                <SetProperty propertyName="source" target="vd" value="../../../../Assets/Video/video.flv" />
+                <SetProperty target="vd" propertyName="cuePoints" valueExpression="value=ASCuePoints" />
+            </setup>
+            <body>
+                <RunCode code="application.vd.play()"  /> 
+                <AssertEvent target="vd" eventName="cuePoint" eventClass="mx.events::CuePointEvent" timeout="2200" numExpectedEvents="2"/>
+                <AssertEventPropertyValue propertyName="cuePointName" value="ASCue1" />
+                <RunCode code="application.vd.stop()" waitEvent="stateChange" waitTarget="vd" /> 
+            </body>
+        </TestCase>
+        <TestCase testID="myTest_events_compiletime_cuePoints0_again" keywords="[VideoDisplay, events, compiletime_cuePoints0_again]">
+            <setup>
+                <ResetComponent target="vd2" className="VideoMainComp" waitEvent="updateComplete" waitTarget="vd2" />
+            </setup>
+            <body>
+                <RunCode code="application.vd2.play()" waitEvent="complete" waitTarget="vd2" timeout="2000" />
+                <RunCode code="application.vd2.play()" waitEvent="cuePoint" waitTarget="vd2" />    
+                <AssertEvent target="vd2" eventName="cuePoint" eventClass="mx.events::CuePointEvent" timeout="1100"/>
+                <AssertEventPropertyValue propertyName="cuePointName" value="CompileCue0" />
+                <RunCode code="application.vd2.pause()" waitEvent="stateChange" waitTarget="vd2" />    
+            </body>
+        </TestCase>
+        
+        <TestCase testID="myTest_events_complete" keywords="[VideoDisplay, events, complete]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd"/>
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/short.flv" waitEvent="ready" waitTarget="vd" />
+            </setup>
+            <body>  
+                <AssertEvent target="vd" eventName="complete" eventClass="mx.events::VideoEvent" timeout="6000"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="myTest_events_playheadUpdate" keywords="[VideoDisplay, events, playheadUpdate]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay"  waitEvent="updateComplete" waitTarget="vd"/>
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+            </setup>
+            <body>  
+                <SetProperty target="vd" propertyName="playheadTime" value="2" />
+                <AssertEvent target="vd" eventName="playheadUpdate" eventClass="mx.events::VideoEvent"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="myTest_events_progress" keywords="[VideoDisplay, events, progress]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay"  waitEvent="updateComplete" waitTarget="vd"/>
+            </setup>
+            <body>  
+                <SetProperty target="vd" propertyName="autoPlay" value="false" />
+                <SetProperty target="vd" propertyName="source" value="../../../../../../../../Assets/Video/video/caltrain.flv" />
+                <RunCode code="application.vd.load()" />
+                <AssertEvent target="vd" eventName="progress" eventClass="flash.events::ProgressEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="myTest_events_ready" keywords="[VideoDisplay, events, ready]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay"  waitEvent="updateComplete" waitTarget="vd"/>
+                <SetProperty target="vd" propertyName="autoPlay" value="false" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+            </setup>
+            <body>
+                <RunCode code="application.vd.load()" waitEvent="ready" waitTarget="vd" />
+                <AssertEvent target="vd" eventName="ready" eventClass="mx.events::VideoEvent"/>
+            </body>
+        </TestCase>
+        <TestCase testID="myTest_events_stateChange" keywords="[VideoDisplay, events, stateChange]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay"  waitEvent="updateComplete" waitTarget="vd"/>
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="updateComplete" waitTarget="vd" />
+            </setup>
+            <body>
+                <RunCode code="application.vd.pause()" waitEvent="stateChange" waitTarget="vd" />
+                <AssertEvent target="vd" eventName="stateChange" eventClass="mx.events::VideoEvent" numExpectedEvents="2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="myTest_events_autoRewind" keywords="[VideoDisplay, events, autoRewind]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay"  waitEvent="updateComplete" waitTarget="vd"/>
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/short.flv" waitEvent="ready" waitTarget="vd" />
+            </setup>
+            <body>
+                <AssertEvent target="vd" eventName="rewind" eventClass="mx.events::VideoEvent" timeout="6000"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>
+

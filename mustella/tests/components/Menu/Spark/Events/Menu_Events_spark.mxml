@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Menu/Spark/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Menu_Basic_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+
+    import mx.controls.Menu;
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    public function showMenu(): void
+    {
+        application.menu1.show();
+    }
+
+    public function createAMenu(): void
+    {
+        application.menu1 = Menu.createMenu(null, application.myDP, false);
+        application.menu1.labelField = "@label";
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <!-- change -->
+        <TestCase testID="change_onKeyBoard" description="Menu - ensure change event is triggered on keyboard events" keywords="[events, change, Menu]">
+            <setup>
+                <DispatchMouseClickEvent target="" localX="300" localY="50" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="showMenu()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, SPACE]" waitEvent="change" waitTarget="menu1" />
+                <AssertEvent target="menu1" eventName="change" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="Japan" target="menu1" />
+                <AssertEventPropertyValue propertyName="index" value="1" target="menu1" />
+            </body>
+        </TestCase>
+  <!-- itemClick -->
+        <TestCase testID="itemClick_onKeyBoard" description="Menu - ensure itemClick event is triggered on keyboard events" keywords="[events, itemClick, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="showMenu()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, SPACE]" waitEvent="change" waitTarget="menu1" />
+                <AssertEvent target="menu1" eventName="itemClick" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue propertyName="label" value="Japan" target="menu1" />
+                <AssertEventPropertyValue propertyName="index" value="1" target="menu1" />
+            </body>
+        </TestCase>
+        <!-- menuShow -->
+        <TestCase testID="menuShow_test" description="Menu - ensure menuShow event triggered" keywords="[events, menuShow, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="showMenu()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.hide();application.menu1.show(10,10)" />
+                <AssertEvent target="menu1" eventName="menuShow" eventClass="mx.events::MenuEvent" />
+            </body>
+            <cleanup>
+                <DispatchMouseEvent type="mouseDown" localX="100" localY="100" target="" />
+            </cleanup>
+        </TestCase>
+        <!-- menuHide -->
+        <TestCase testID="menuHide_onSelection" description="Menu - ensure menuHide event is triggered when a selection is made" keywords="[events, menuHide, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="showMenu()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, DOWN, SPACE]" waitEvent="change" waitTarget="menu1" />
+                <AssertEvent target="menu1" eventName="menuHide" eventClass="mx.events::MenuEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="menuHide_onClickOutside" description="Menu - ensure menuHide event is triggered when a you mouseDown elsewhere" keywords="[events, menuHide, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="showMenu()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" localX="100" localY="100" target="" />
+                <AssertEvent target="menu1" eventName="menuHide" eventClass="mx.events::MenuEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="itemRollOver_onKeyBoard" description="Menu - ensure itemRollOver event is triggered on keyboard events" keywords="[events, itemRollOver, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="showMenu()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, DOWN]" />
+                <AssertEvent target="menu1" eventName="itemRollOver" eventClass="mx.events::MenuEvent" numExpectedEvents="3" />
+                <AssertEventPropertyValue propertyName="label" value="China" target="menu1" />
+                <AssertEventPropertyValue propertyName="index" value="2" target="menu1" />
+            </body>
+            <cleanup>
+                <DispatchMouseEvent type="mouseDown" localX="100" localY="100" target="" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="itemRollOut_onKeyBoard" description="Menu - ensure itemRollOut event is triggered on keyboard events" keywords="[events, itemRollOut, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="showMenu()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN, RIGHT, DOWN, UP]" waitEvent="itemRollOut" waitTarget="menu1" />
+                <AssertEvent target="menu1" eventName="itemRollOut" eventClass="mx.events::MenuEvent" numExpectedEvents="2"/>
+                <AssertEventPropertyValue propertyName="label" value="China" target="menu1" />
+                <AssertEventPropertyValue propertyName="index" value="2" target="menu1" />
+            </body>
+            <cleanup>
+                <DispatchMouseEvent type="mouseDown" localX="100" localY="100" target="" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Menu_keyUp" description="Menu - ensure keyUp event is triggered on keyboard events" keywords="[events, itemRollOut, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="showMenu()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="itemRollOver" waitTarget="menu1" />
+                <AssertEvent target="menu1" eventName="keyUp" eventClass="flash.events::KeyboardEvent" />
+            </body>
+            <cleanup>
+                <DispatchMouseEvent type="mouseDown" localX="100" localY="100" target="" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Menu_keyDown" description="Menu - ensure keyDown event is triggered on keyboard events" keywords="[events, itemRollOut, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="showMenu()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[DOWN]" />
+                <AssertEvent target="menu1" eventName="keyDown" eventClass="flash.events::KeyboardEvent" />
+            </body>
+            <cleanup>
+                <DispatchMouseEvent type="mouseDown" localX="100" localY="100" target="" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Menu_mouseUp" description="Menu - ensure mouseUp event is triggered" keywords="[events, itemRollOut, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="showMenu()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="menu1.mx_internal:rendererArray.0.0" />
+                <AssertEvent target="menu1" eventName="mouseUp" eventClass="flash.events::MouseEvent" />
+            </body>
+            <cleanup>
+                <DispatchMouseEvent type="mouseDown" localX="100" localY="100" target="" />
+            </cleanup>
+        </TestCase>
+        <TestCase testID="Menu_mouseMove" description="Menu - ensure mouseMove event is triggered" keywords="[events, itemRollOut, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="showMenu()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="menu1.mx_internal:rendererArray.0.0" localX="10" localY="10"/>
+                <DispatchMouseEvent type="mouseMove" localX="50" localY="10" target="menu1.mx_internal:rendererArray.0.0" />
+                <AssertEvent target="menu1" eventName="mouseMove" eventClass="flash.events::MouseEvent" />
+            </body>
+            <cleanup>
+                <DispatchMouseEvent type="mouseDown" localX="100" localY="100" target="" />
+            </cleanup>
+        </TestCase>
+    </testCases>
+</UnitTester>

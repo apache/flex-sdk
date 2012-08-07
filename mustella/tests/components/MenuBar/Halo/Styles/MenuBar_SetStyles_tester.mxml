@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/MenuBar/Halo/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MenuBar_SetStyles.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.MenuBar;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.events.MenuEvent;
+
+    ]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="global_TypeSelector" description="Test that a global style and type selector work for MenuBar"
+		    keywords="[styles, global styles, MenuBar]">
+			<body>
+			    <CompareBitmap target="menu1" url="../Styles/baselines/global_typeSelector.png" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="parent_typeSelector" description="Test that a List type selector affects the MenuBar submenu" keywords="[styles, type selector, MenuBar]">
+			<body>
+			    <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]"  />
+				<AssertEvent target="menu1.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+			    <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="menu1.menus.1" waitEvent="itemRollOver" waitTarget="menu1" />
+				<AssertPixelValue x="10" y="30" target="menu1.menus.1" value="0x335532" />
+			</body>
+		</TestCase>
+		<TestCase testID="styleName_mxml" description="Test that setting styleName in mxml for a MenuBar works"
+		   keywords="[styles, styleName, mxml, MenuBar]">
+			<body>
+				<AssertPropertyValue  target="menu2" propertyName="x" value="140" />
+				<AssertPropertyValue  target="menu2" propertyName="y" value="25" />
+			</body>
+		</TestCase>
+		<TestCase testID="styleManager_getStyleDeclarations" description="Test that using the StyleManager.getStyleDeclarations for a MenuBar works"
+		   keywords="[styles, StyleManager, getStyleDeclarations, MenuBar]">
+			<setup>
+			    <RunCode code="application.changeStyles()" waitTarget="menu1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]"  />
+			    <AssertEvent target="menu1.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+			    <CompareBitmap target="menu1.menus.1" url="../Styles/baselines/styleManager_getStyleDeclarations.png" timeout="2500" numColorVariances="4" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TextInput/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TextInput_props_mxml1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+		<mx:Script><![CDATA[
+			public static function init(o:DisplayObject):void{}
+		]]></mx:Script>
+
+		<mx:Metadata><![CDATA[
+			[Mixin]
+		]]></mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+		
+		
+	]]></mx:Script>
+	
+	<testCases>
+		<TestCase frequency="all" testID="property_condenseWhite_mxml" description="Test that condenseWhite condenses spaces when set in mxml." keywords="[TextInput,condenseWhite,properties,mxml]">
+			<body>
+				<AssertPropertyValue target="ti1" propertyName="text" waitTarget="ti1" value="1 1" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_displayAsPassword_mxml" description="Test that displayAsPassword shows asterisks when set in mxml." keywords="[TextInput,displayAsPassword,properties,mxml]" >
+			<body>
+				<CompareBitmap target="ti4" url="../Properties/Baselines/displayAsPassword_Standard_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_displayAsPassword_UITextField_mxml" description="Test that TextInput's displayAsPassword sets the underlying textField's displayAsPassword when set in mxml." keywords="[TextInput,displayAsPassword,properties,mxml]" >
+			<body>
+				<AssertMethodValue target="ti4" method="value=application.ti4.getTextFieldDisplayAsPassword()" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="property_editable_true_mxml" description="Test that an editable TextInput can be edited when set in mxml." keywords="[TextInput,editable,properties,mxml]">
+			<setup>
+				<DispatchMouseEvent target="ti5" type="mouseDown" localX="10" localY="10" />
+				<DispatchMouseEvent target="ti5" type="mouseUp" localX="10" localY="10" />
+			</setup>
+			<body>
+				<DispatchKeyEvent char="hello" />
+				<AssertEvent target="ti5" eventName="change" eventClass="flash.events" numExpectedEvents="5" />
+				<AssertPropertyValue target="ti5" propertyName="text" value="hello" />
+			</body>			
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_editable_false_mxml" description="Test that an uneditable TextInput cannot be edited when set in mxml." keywords="[TextInput,editable,properties,mxml]">
+			<setup>
+				<DispatchMouseEvent target="ti6" type="mouseDown" localX="10" localY="10" />
+				<DispatchMouseEvent target="ti6" type="mouseUp" localX="10" localY="10" />
+			</setup>
+			<body>
+				<DispatchKeyEvent char="hello" />
+				<AssertNoEvent target="ti6" eventName="change" eventClass="flash.events" numExpectedEvents="5" />
+				<AssertPropertyValue target="ti6" propertyName="text" value="" />
+			</body>			
+		</TestCase>
+
+		<!-- horizontalScrollPosition does not work with TextInput when set in mxml. See bug 172770.  Exclude. -->
+		<TestCase frequency="all" testID="property_horizontalScrollPosition_mxml" keywords="[TextInput,horizontalScrollPosition,properties,mxml]" description="The horizontalScrollPosition property scrolls the control when set in mxml.">
+			<body>
+				<CompareBitmap target="ti7" url="../Properties/Baselines/horizontalScrollPosition_write_pos_mxml.png" />
+			</body>			
+		</TestCase>		
+
+		<TestCase frequency="all" testID="property_htmlText_colors_mxml" keywords="[TextInput,htmlText,font,color,mxml]" description="htmlText displays colors correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti9" url="../Properties/Baselines/htmlText_fontcolors.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_fontface_mxml" keywords="[TextInput,htmlText,font,face,mxml]" description="htmlText displays the font face correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti10" url="../Properties/Baselines/htmlText_fontface_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_fontsize_mxml" keywords="[TextInput,htmlText,font,size,mxml]" description="htmlText displays font size correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti11" url="../Properties/Baselines/htmlText_fontsize_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_bold_italics_underline_mxml" keywords="[TextInput,htmlText,font,face,mxml]" description="htmlText displays bold, italics, and underline correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti12" url="../Properties/Baselines/htmlText_bold_italics_underline_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_p_plain_mxml" keywords="[TextInput,htmlText,p,paragraph,properties,mxml]" description="htmlText displays paragraph's default setting correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti13" url="../Properties/Baselines/htmlText_para_plain_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_p_left_mxml" keywords="[TextInput,htmlText,p,paragraph,properties,mxml]" description="htmlText displays left justified paragraphs correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti14" url="../Properties/Baselines/htmlText_para_left_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_p_right_mxml" keywords="[TextInput,htmlText,p,paragraph,properties,mxml]" description="htmlText displays right justified paragraphs correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti15" url="../Properties/Baselines/htmlText_para_right_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_p_center_mxml" keywords="[TextInput,htmlText,p,paragraph,properties,mxml]" description="htmlText displays centered paragraphs correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti16" url="../Properties/Baselines/htmlText_para_center_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_textFormat_blockindent_neg_mxml" keywords="[TextInput,htmlText,textformat,blockindent,properties,mxml]" description="htmlText displays textformat's negative blockindent value correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti17" url="../Properties/Baselines/htmlText_textFormat_blockindent_neg_mxml.png" />
+			</body>
+		</TestCase>		
+
+		<TestCase frequency="all" testID="property_htmlText_textFormat_blockindent_zero_mxml" keywords="[TextInput,htmlText,textformat,blockindent,properties,mxml]" description="htmlText displays textformat's zero blockindent value correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti18" url="../Properties/Baselines/htmlText_textFormat_blockindent_zero_mxml.png" />
+			</body>
+		</TestCase>		
+
+		<TestCase frequency="all" testID="property_htmlText_textFormat_blockindent_pos_mxml" keywords="[TextInput,htmlText,textformat,blockindent,properties,mxml]" description="htmlText displays textformat's positive blockindent value correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti19" url="../Properties/Baselines/htmlText_textFormat_blockindent_pos_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_textFormat_indent_negative_mxml" keywords="[TextInput,htmlText,textformat,indent,properties,mxml]" description="htmlText displays textformat indent=negative number correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti20" url="../Properties/Baselines/htmlText_textFormat_indent_neg_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_textFormat_indent_zero_mxml" keywords="[TextInput,htmlText,textformat,indent,properties,mxml]" description="htmlText displays textformat indent=0 correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti21" url="../Properties/Baselines/htmlText_textFormat_indent_zero_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_textFormat_indent_positive_mxml" keywords="[TextInput,htmlText,textformat,indent,properties,mxml]" description="htmlText displays textformat indent=positive number correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti22" url="../Properties/Baselines/htmlText_textFormat_indent_pos_mxml.png" />
+			</body>
+		</TestCase>
+
+		<!-- Excluding due to 192789; not sure what the expected result is. -->
+		<TestCase frequency="all" testID="property_htmlText_textFormat_leftmargin_neg_mxml" keywords="[TextInput,htmlText,textformat,leftmargin,properties,mxml]" description="htmlText displays textformat leftmargin=negative number correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti23" url="../Properties/Baselines/htmlText_textFormat_leftmargin_neg_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_textFormat_leftmargin_zero_mxml" keywords="[TextInput,htmlText,textformat,leftmargin,properties,mxml]" description="htmlText displays textformat leftmargin=0 correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti24" url="../Properties/Baselines/htmlText_textFormat_leftmargin_zero_mxml.png" />
+			</body>
+		</TestCase>		
+
+		<TestCase frequency="all" testID="property_htmlText_textFormat_leftmargin_pos_mxml" keywords="[TextInput,htmlText,textformat,leftmargin,properties,mxml]" description="htmlText displays textformat leftmargin=positive number correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti25" url="../Properties/Baselines/htmlText_textFormat_leftmargin_pos_mxml.png" />
+			</body>
+		</TestCase>		
+
+		<!-- Excluding due to 192789; not sure what the expected result is. -->
+		<TestCase frequency="all" testID="property_htmlText_textFormat_rightmargin_neg_mxml" keywords="[TextInput,htmlText,textformat,rightmargin,properties,mxml]" description="htmlText displays textformat rightmargin=negative number correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti26" url="../Properties/Baselines/htmlText_textFormat_rightmargin_neg_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_textFormat_rightmargin_zero_mxml" keywords="[TextInput,htmlText,textformat,rightmargin,properties,mxml]" description="htmlText displays textformat rightmargin=0 correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti27" url="../Properties/Baselines/htmlText_textFormat_rightmargin_zero_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_textFormat_rightmargin_pos_mxml" keywords="[TextInput,htmlText,textformat,rightmargin,properties,mxml]" description="htmlText displays textformat rightmargin=positive number correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti28" url="../Properties/Baselines/htmlText_textFormat_rightmargin_pos_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_htmlText_specialChars_mxml" keywords="[TextInput,htmlText,less than,properties,mxml]" description="htmlText displays less than, greater than, ampersand, double quote, single quote, explicit char codes, and unicode chars correctly when set in mxml.">
+			<body>
+				<CompareBitmap target="ti29" url="../Properties/Baselines/htmlText_specialChars_mxml.png" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_length_zero_mxml" keywords="[TextInput,length,properties,mxml]" description="The length property is zero when there are zero characters when set in mxml.">
+			<body>
+				<AssertPropertyValue target="ti30" propertyName="length" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_length_ten_mxml" keywords="[TextInput,length,properties,mxml]" description="The length property is ten when there are ten characters when set in mxml.">
+			<body>
+				<AssertPropertyValue target="ti31" propertyName="length" value="10" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_maxchars_mxml" keywords="[TextInput,maxchars,properties,mxml]" description="The maxchars property is passed to the underlying TextField when set in mxml.">
+			<body>
+				<AssertMethodValue target="ti32" method="value=application.ti32.getMaxChars()" value="10" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_restrict_mxml" keywords="[TextInput,restrict,properties,mxml]" description="The restrict property is passed to the underlying TextField when set in mxml.">
+			<body>
+				<AssertMethodValue target="ti33" method="value=application.ti33.getRestrict()" value="a7" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_selectionBeginIndex_write_mxml" keywords="[TextInput,selectionBeginIndex,properties,mxml]" description="The selectionBeginIndex property is passed to the underlying TextField when set in mxml.">
+			<body>
+				<AssertMethodValue target="ti34" method="value=application.ti34.getSelectionBeginIndex()" value="5" />
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="property_selectionEndIndex_write_mxml" keywords="[TextInput,selectionEndIndex,properties,mxml]" description="The selectionEndIndex property is passed to the underlying TextField when set in mxml.">
+			<body>
+				<AssertMethodValue target="ti34" method="value=application.ti34.getSelectionEndIndex()" value="7" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>
+

@@ -1,0 +1,1115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_SparkSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGrid_lockedRowCount_mxml_app.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	]]>
+	</mx:Script>
+	
+	<!--
+        This file tests the setting of various properties in mxml.  Therefore, 
+        it cannot call ResetComponent, set properties, etc...
+        Also, it may be necessary to call Pause.
+        
+        For each DataGrid being tested:
+        1. Roll the mouse over every cell, including the headers.  Just make sure we don't RTE.
+            Note that there is no event to wait for when rolling over headers; see bug SDK-11126.
+        2. Scroll all the way down and do a bitmap compare.  We do a bitmap compare because we're verifying
+           that the appearnce of the DG did not go haywire due to scrolling with locked rows, as well as
+           to verify that locked rows really do not scroll.
+        3. Scroll back up and do a bitmap compare.
+        4. Sort the left column.
+        5. Sort the right column.
+        6 + ??? Drag and drop columns and rows?  Is that needed here?
+        
+        The setups set the ViewStack's selectedIndex to an incorrect value, then a correct value
+        so that we can wait for an updateComplete.  If we didn't have this, then we would not get
+        an updateComplete if we were already showing the ViewStack's correct index.
+        
+        BUGS IN BASELINE IMAGES:
+        Sorting is incorrect, but it has been that way since 2.0, so I've incorporated that behavior into the baselines.
+        A bug has been filed:  SDK-11738.
+        
+        Empty lines are in in the locked rows.  See bug SDK-11650.  Any affected baselines are being invalidated.  Once
+        the bug is fixed, these baselines will need to be regenerated.
+    -->
+
+	<testCases>
+
+        <TestCase testID="mxml_config1_defaultvalue" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="0" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg_mxml_config1_mouseover" propertyName="lockedRowCount" value="0" />
+                <Pause timeout="1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config2_mouseover" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="1" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.1.0" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.2.0" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.3.0" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.4.0" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.5.0" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.6.0" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.7.0" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.8.0" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.8.1" localX="10" localY="10" />               
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.7.1" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.6.1" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.5.1" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.4.1" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.3.1" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.2.1" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:rendererArray.1.1" localX="10" localY="10" waitTarget="dg_mxml_config2_mouseover" waitEvent="itemRollOver"/>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config2_mouseover.mx_internal:dataGridLockedRows.listItems.0.1" localX="10" localY="10" />
+                <AssertEvent target="dg_mxml_config2_mouseover" eventName="itemRollOver" eventClass="mx.events::ListEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config2_scrolldown" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="1" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrolldown" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config2_scrolldown" url="../Properties/baselines/lockedRowCount_mxml_config2_scrolldown.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config2_scrollup" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="1" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config2_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config2_scrollup" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config2_scrollup" url="../Properties/baselines/lockedRowCount_mxml_config2_scrollup.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config2_sortleft" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="1" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config2_sortleft.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="dg_mxml_config2_sortleft" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config2_sortleft" url="../Properties/baselines/lockedRowCount_mxml_config2_sortleft.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config2_sortright" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="1" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config2_sortright.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="10" localY="10" waitTarget="dg_mxml_config2_sortright" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config2_sortright" url="../Properties/baselines/lockedRowCount_mxml_config2_sortright.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <!-- In this test case, we just have to be sure that we can define, in mxml, a DataGrid with no data and a locked column. -->
+        <TestCase testID="dg_mxml_config2_nodata" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="1" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg_mxml_config2_nodata" propertyName="lockedRowCount" value="1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config3_mouseover" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="2" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:dataGridLockedRows.listItems.1.0" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:dataGridLockedRows.listItems.2.0" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.1.0" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.2.0" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.3.0" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.4.0" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.5.0" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.6.0" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver"/>                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.6.1" localX="10" localY="10" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.5.1" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.4.1" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.3.1" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.2.1" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:rendererArray.1.1" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:dataGridLockedRows.listItems.2.1" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:dataGridLockedRows.listItems.1.1" localX="10" localY="10" waitTarget="dg_mxml_config3_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config3_mouseover.mx_internal:dataGridLockedRows.listItems.0.1" localX="10" localY="10" />
+                <AssertEvent target="dg_mxml_config3_mouseover" eventName="itemRollOver" eventClass="mx.events::ListEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config3_scrolldown" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="2" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrolldown" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config3_scrolldown" url="../Properties/baselines/lockedRowCount_mxml_config3_scrolldown.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config3_scrollup" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="2" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config3_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config3_scrollup" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config3_scrollup" url="../Properties/baselines/lockedRowCount_mxml_config3_scrollup.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config3_sortleft" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="2" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config3_sortleft.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="dg_mxml_config3_sortleft" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config3_sortleft" url="../Properties/baselines/lockedRowCount_mxml_config3_sortleft.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config3_sortright" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="2" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config3_sortright.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="10" localY="10" waitTarget="dg_mxml_config3_sortright" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config3_sortright" url="../Properties/baselines/lockedRowCount_mxml_config3_sortright.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config4_mouseover" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="3" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.1.0" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.2.0" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.3.0" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.4.0" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.5.0" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.6.0" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.7.0" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver"/>                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.7.1" localX="10" localY="10" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.6.1" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver"/>                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.5.1" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.4.1" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.3.1" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.2.1" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:rendererArray.1.1" localX="10" localY="10" waitTarget="dg_mxml_config4_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config4_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" />
+                <AssertEvent target="dg_mxml_config4_mouseover" eventName="itemRollOver" eventClass="mx.events::ListEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config4_scrolldown" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="3" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrolldown" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config4_scrolldown" url="../Properties/baselines/lockedRowCount_mxml_config4_scrolldown.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config4_scrollup" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="3" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config4_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config4_scrollup" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config4_scrollup" url="../Properties/baselines/lockedRowCount_mxml_config4_scrollup.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config4_sortleft" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="3" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config4_sortleft.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="dg_mxml_config4_sortleft" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config4_sortleft" url="../Properties/baselines/lockedRowCount_mxml_config4_sortleft.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config4_sortright" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="3" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config4_sortright.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="10" localY="10" waitTarget="dg_mxml_config4_sortright" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config4_sortright" url="../Properties/baselines/lockedRowCount_mxml_config4_sortright.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config5_mouseover" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="4" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:dataGridLockedRows.listItems.1.0" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:dataGridLockedRows.listItems.2.0" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:rendererArray.1.0" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:rendererArray.2.0" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:rendererArray.3.0" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:rendererArray.4.0" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:rendererArray.5.0" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:rendererArray.5.1" localX="10" localY="10" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:rendererArray.4.1" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:rendererArray.3.1" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:rendererArray.2.1" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:rendererArray.1.1" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:dataGridLockedRows.listItems.2.1" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:dataGridLockedRows.listItems.1.1" localX="10" localY="10" waitTarget="dg_mxml_config5_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config5_mouseover.mx_internal:dataGridLockedRows.listItems.0.1" localX="10" localY="10" />        		        		
+                <AssertEvent target="dg_mxml_config5_mouseover" eventName="itemRollOver" eventClass="mx.events::ListEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config5_scrolldown" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="4" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrolldown" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config5_scrolldown" url="../Properties/baselines/lockedRowCount_mxml_config5_scrolldown.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config5_scrollup" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="4" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config5_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config5_scrollup" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config5_scrollup" url="../Properties/baselines/lockedRowCount_mxml_config5_scrollup.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config5_sortleft" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="4" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config5_sortleft.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="dg_mxml_config5_sortleft" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config5_sortleft" url="../Properties/baselines/lockedRowCount_mxml_config5_sortleft.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config5_sortright" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="4" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config5_sortright.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="10" localY="10" waitTarget="dg_mxml_config5_sortright" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config5_sortright" url="../Properties/baselines/lockedRowCount_mxml_config5_sortright.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config6_mouseover" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="5" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.1.0" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.2.0" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.3.0" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.4.0" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.5.0" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.6.0" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver"/>                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.6.1" localX="10" localY="10" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.5.1" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver"/>                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.4.1" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.3.1" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.2.1" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:rendererArray.1.1" localX="10" localY="10" waitTarget="dg_mxml_config6_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config6_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" />
+                <AssertEvent target="dg_mxml_config6_mouseover" eventName="itemRollOver" eventClass="mx.events::ListEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config6_scrolldown" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="5" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrolldown" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config6_scrolldown" url="../Properties/baselines/lockedRowCount_mxml_config6_scrolldown.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>        
+
+        <TestCase testID="mxml_config6_scrollup" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="5" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config6_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config6_scrollup" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config6_scrollup" url="../Properties/baselines/lockedRowCount_mxml_config6_scrollup.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>        
+
+        <TestCase testID="mxml_config6_sortleft" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="5" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config6_sortleft.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="dg_mxml_config6_sortleft" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config6_sortleft" url="../Properties/baselines/lockedRowCount_mxml_config6_sortleft.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config6_sortright" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="5" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config6_sortright.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="10" localY="10" waitTarget="dg_mxml_config6_sortright" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config6_sortright" url="../Properties/baselines/lockedRowCount_mxml_config6_sortright.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config7_mouseover" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="6" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:dataGridLockedRows.listItems.1.0" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:dataGridLockedRows.listItems.2.0" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />        		        		
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:rendererArray.1.0" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:rendererArray.2.0" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:rendererArray.3.0" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:rendererArray.4.0" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:rendererArray.4.1" localX="10" localY="10" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:rendererArray.3.1" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:rendererArray.2.1" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:rendererArray.1.1" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:dataGridLockedRows.listItems.2.1" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:dataGridLockedRows.listItems.1.1" localX="10" localY="10" waitTarget="dg_mxml_config7_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config7_mouseover.mx_internal:dataGridLockedRows.listItems.0.1" localX="10" localY="10" />
+                <AssertEvent target="dg_mxml_config7_mouseover" eventName="itemRollOver" eventClass="mx.events::ListEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config7_scrolldown" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="6" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrolldown" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config7_scrolldown" url="../Properties/baselines/lockedRowCount_mxml_config7_scrolldown.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="mxml_config7_scrollup" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="6" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config7_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config7_scrollup" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config7_scrollup" url="../Properties/baselines/lockedRowCount_mxml_config7_scrollup.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config7_sortleft" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="6" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config7_sortleft.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="dg_mxml_config7_sortleft" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config7_sortleft" url="../Properties/baselines/lockedRowCount_mxml_config7_sortleft.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config7_sortright" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="6" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config7_sortright.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="10" localY="10" waitTarget="dg_mxml_config7_sortright" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config7_sortright" url="../Properties/baselines/lockedRowCount_mxml_config7_sortright.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config8_mouseover" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="7" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" waitTarget="dg_mxml_config8_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:rendererArray.1.0" localX="10" localY="10" waitTarget="dg_mxml_config8_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:rendererArray.2.0" localX="10" localY="10" waitTarget="dg_mxml_config8_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:rendererArray.3.0" localX="10" localY="10" waitTarget="dg_mxml_config8_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:rendererArray.4.0" localX="10" localY="10" waitTarget="dg_mxml_config8_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:rendererArray.5.0" localX="10" localY="10" waitTarget="dg_mxml_config8_mouseover" waitEvent="itemRollOver"/>                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:rendererArray.5.1" localX="10" localY="10" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:rendererArray.4.1" localX="10" localY="10" waitTarget="dg_mxml_config8_mouseover" waitEvent="itemRollOver"/>                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:rendererArray.3.1" localX="10" localY="10" waitTarget="dg_mxml_config8_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:rendererArray.2.1" localX="10" localY="10" waitTarget="dg_mxml_config8_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:rendererArray.1.1" localX="10" localY="10" waitTarget="dg_mxml_config8_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config8_mouseover.mx_internal:dataGridLockedRows.listItems.0.1" localX="10" localY="10" />
+                <AssertEvent target="dg_mxml_config8_mouseover" eventName="itemRollOver" eventClass="mx.events::ListEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config8_scrolldown" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="7" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrolldown" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config8_scrolldown" url="../Properties/baselines/lockedRowCount_mxml_config8_scrolldown.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config8_scrollup" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="7" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config8_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config8_scrollup" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config8_scrollup" url="../Properties/baselines/lockedRowCount_mxml_config8_scrollup.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config8_sortleft" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="7" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config8_sortleft.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="dg_mxml_config8_sortleft" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config8_sortleft" url="../Properties/baselines/lockedRowCount_mxml_config8_sortleft.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config8_sortright" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="7" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config8_sortright.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="10" localY="10" waitTarget="dg_mxml_config8_sortright" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config8_sortright" url="../Properties/baselines/lockedRowCount_mxml_config8_sortright.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config9_mouseover" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="8" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" waitTarget="dg_mxml_config9_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:dataGridLockedRows.listItems.1.0" localX="10" localY="10" waitTarget="dg_mxml_config9_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:dataGridLockedRows.listItems.2.0" localX="10" localY="10" waitTarget="dg_mxml_config9_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:rendererArray.1.0" localX="10" localY="10" waitTarget="dg_mxml_config9_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:rendererArray.2.0" localX="10" localY="10" waitTarget="dg_mxml_config9_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:rendererArray.3.0" localX="10" localY="10" waitTarget="dg_mxml_config9_mouseover" waitEvent="itemRollOver"/>                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:rendererArray.3.1" localX="10" localY="10" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:rendererArray.2.1" localX="10" localY="10" waitTarget="dg_mxml_config9_mouseover" waitEvent="itemRollOver"/>                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:rendererArray.1.1" localX="10" localY="10" waitTarget="dg_mxml_config9_mouseover" waitEvent="itemRollOver"/>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:dataGridLockedRows.listItems.2.1" localX="10" localY="10" waitTarget="dg_mxml_config9_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:dataGridLockedRows.listItems.1.1" localX="10" localY="10" waitTarget="dg_mxml_config9_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config9_mouseover.mx_internal:dataGridLockedRows.listItems.0.1" localX="10" localY="10" />
+                <AssertEvent target="dg_mxml_config9_mouseover" eventName="itemRollOver" eventClass="mx.events::ListEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config9_scrolldown" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="8" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>            
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrolldown" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config9_scrolldown" url="../Properties/baselines/lockedRowCount_mxml_config9_scrolldown.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config9_scrollup" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="8" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config9_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config9_scrollup" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config9_scrollup" url="../Properties/baselines/lockedRowCount_mxml_config9_scrollup.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config9_sortleft" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="8" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config9_sortleft.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="dg_mxml_config9_sortleft" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config9_sortleft" url="../Properties/baselines/lockedRowCount_mxml_config9_sortleft.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config9_sortright" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="8" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config9_sortright.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="10" localY="10" waitTarget="dg_mxml_config9_sortright" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config9_sortright" url="../Properties/baselines/lockedRowCount_mxml_config9_sortright.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config10_mouseover" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="9" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" waitTarget="dg_mxml_config10_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:dataGridLockedRows.listItems.1.0" localX="10" localY="10" waitTarget="dg_mxml_config10_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:dataGridLockedRows.listItems.2.0" localX="10" localY="10" waitTarget="dg_mxml_config10_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:rendererArray.1.0" localX="10" localY="10" waitTarget="dg_mxml_config10_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:rendererArray.2.0" localX="10" localY="10" waitTarget="dg_mxml_config10_mouseover" waitEvent="itemRollOver"/>
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:rendererArray.3.0" localX="10" localY="10" waitTarget="dg_mxml_config10_mouseover" waitEvent="itemRollOver"/>                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:rendererArray.3.1" localX="10" localY="10" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:rendererArray.2.1" localX="10" localY="10" waitTarget="dg_mxml_config10_mouseover" waitEvent="itemRollOver" />                
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:rendererArray.1.1" localX="10" localY="10" waitTarget="dg_mxml_config10_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:dataGridLockedRows.listItems.2.1" localX="10" localY="10" waitTarget="dg_mxml_config10_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:dataGridLockedRows.listItems.1.1" localX="10" localY="10" waitTarget="dg_mxml_config10_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config10_mouseover.mx_internal:dataGridLockedRows.listItems.0.1" localX="10" localY="10" />
+                <AssertEvent target="dg_mxml_config10_mouseover" eventName="itemRollOver" eventClass="mx.events::ListEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config10_scrolldown" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="9" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrolldown" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config10_scrolldown" url="../Properties/baselines/lockedRowCount_mxml_config10_scrolldown.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config10_scrollup" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="9" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config10_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config10_scrollup" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config10_scrollup" url="../Properties/baselines/lockedRowCount_mxml_config10_scrollup.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config10_sortleft" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="9" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config10_sortleft.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="dg_mxml_config10_sortleft" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config10_sortleft" url="../Properties/baselines/lockedRowCount_mxml_config10_sortleft.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config10_sortright" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="9" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config10_sortright.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="10" localY="10" waitTarget="dg_mxml_config10_sortright" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config10_sortright" url="../Properties/baselines/lockedRowCount_mxml_config10_sortright.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config11_mouseover" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="10" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:dataGridLockedRows.listItems.0.0" localX="10" localY="10" waitTarget="dg_mxml_config11_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:dataGridLockedRows.listItems.1.0" localX="10" localY="10" waitTarget="dg_mxml_config11_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:dataGridLockedRows.listItems.2.0" localX="10" localY="10" waitTarget="dg_mxml_config11_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:dataGridLockedRows.listItems.3.0" localX="10" localY="10" waitTarget="dg_mxml_config11_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:rendererArray.1.0" localX="10" localY="10" waitTarget="dg_mxml_config11_mouseover" waitEvent="itemRollOver" />
+        		<DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:rendererArray.2.0" localX="10" localY="10" waitTarget="dg_mxml_config11_mouseover" waitEvent="itemRollOver" />        		
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:rendererArray.2.1" localX="10" localY="10" />        		
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:rendererArray.1.1" localX="10" localY="10" waitTarget="dg_mxml_config11_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:dataGridLockedRows.listItems.3.1" localX="10" localY="10" waitTarget="dg_mxml_config11_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:dataGridLockedRows.listItems.2.1" localX="10" localY="10" waitTarget="dg_mxml_config11_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:dataGridLockedRows.listItems.1.1" localX="10" localY="10" waitTarget="dg_mxml_config11_mouseover" waitEvent="itemRollOver" />
+                <DispatchMouseEvent type="mouseMove" target="dg_mxml_config11_mouseover.mx_internal:dataGridLockedRows.listItems.0.1" localX="10" localY="10" />
+                <AssertEvent target="dg_mxml_config11_mouseover" eventName="itemRollOver" eventClass="mx.events::ListEvent" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="mxml_config11_scrolldown" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="10" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrolldown" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrolldown.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrolldown" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config11_scrolldown" url="../Properties/baselines/lockedRowCount_mxml_config11_scrolldown.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config11_scrollup" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="10" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg_mxml_config11_scrollup.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg_mxml_config11_scrollup" waitEvent="scroll"/>
+                <CompareBitmap target="dg_mxml_config11_scrollup" url="../Properties/baselines/lockedRowCount_mxml_config11_scrollup.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config11_sortleft" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="10" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config11_sortleft.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="10" localY="10" waitTarget="dg_mxml_config11_sortleft" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config11_sortleft" url="../Properties/baselines/lockedRowCount_mxml_config11_sortleft.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="mxml_config11_sortright" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="10" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+        		<DispatchMouseClickEvent target="dg_mxml_config11_sortright.mx_internal:dataGridHeader.mx_internal:rendererArray.1" localX="10" localY="10" waitTarget="dg_mxml_config11_sortright" waitEvent="updateComplete" />
+                <CompareBitmap target="dg_mxml_config11_sortright" url="../Properties/baselines/lockedRowCount_mxml_config11_sortright.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <!-- The main thing here is that an RTE did not occur. -->
+        <TestCase testID="mxml_lockedRowCount_noDataProvider" keywords="[DataGrid,properties,lockedRowCount]">
+            <setup>
+                <SetProperty target="vs" propertyName="selectedIndex" valueExpression="value=application.vs.numChildren-1" waitTarget="vs" waitEvent="updateComplete" />
+                <SetProperty target="vs" propertyName="selectedIndex" value="11" waitTarget="vs" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg_mxml_lockedRowCount_noDataProvider" propertyName="lockedRowCount" value="4" />
+            </body>
+        </TestCase>
+
+	</testCases>                	     
+</UnitTester>

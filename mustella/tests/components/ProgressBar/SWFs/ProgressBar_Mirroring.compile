@@ -1,0 +1,1 @@
+-theme+=${sdk.dir}/frameworks/projects/spark/MXFTEText.css -define=CONFIG::skaha,false

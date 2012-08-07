@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ColorPicker/events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ColorPicker_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	
+
+	public static function init(o:DisplayObject):void
+	{
+	}
+
+					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.ColorPicker;
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+	]]>
+	</mx:Script>
+	<testCases>
+	
+		<TestCase testID="ColorPicker_events_hide" keywords="[events, hide, ColorPicker]" description="Testing the hide event for ColorPicker">
+			<setup>
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			</setup>
+			<body>
+				<SetProperty target="myColorPicker" propertyName="visible" value="false" waitEvent="hide" waitTarget="myColorPicker"/>
+				<AssertEvent target="myColorPicker" eventName="hide" eventClass="mx.events::FlexEvent" />  
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ColorPicker_events_show" keywords="[events, show, ColorPicker]" description="Testing the show event for ColorPicker">
+			<setup>
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			</setup>
+			<body>
+				<SetProperty target="myColorPicker" propertyName="visible" value="false"/>
+				<SetProperty target="myColorPicker" propertyName="visible" value="true" waitEvent="show" waitTarget="myColorPicker"/>
+				<AssertEvent target="myColorPicker" eventName="show" eventClass="mx.events::FlexEvent" />  
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ColorPicker_events_click" keywords="[events, click, ColorPicker]" description="Testing the click event for ColorPicker">
+			<setup>
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="myColorPicker" localX="10" localY="10"/>
+				<AssertEvent target="myColorPicker" eventName="click" eventClass="flash.events::MouseEvent"/>  
+			</body>
+		</TestCase>
+		
+
+		<TestCase testID="ColorPicker_events_mouseOver" keywords="[events, mouseOver, ColorPicker]" description="Testing the mouseOver event for ColorPicker">
+			<setup>
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent type="mouseOver"  target="myColorPicker" localX="10" localY="10"/>
+				<AssertEvent target="myColorPicker" eventName="mouseOver" eventClass="flash.events::MouseEvent"/>  
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ColorPicker_events_mouseMove" keywords="[events, mouseMove, ColorPicker]" description="Testing the mouseMove event for ColorPicker">
+			<setup>
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent type="mouseMove"  target="myColorPicker" localX="10" localY="10"/>
+				<AssertEvent target="myColorPicker" eventName="mouseMove" eventClass="flash.events::MouseEvent"/>  
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ColorPicker_events_mouseOut" keywords="[events, mouseOut, ColorPicker]" description="Testing the mouseOut event for ColorPicker">
+			<setup>
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent type="mouseOver"  target="myColorPicker" localX="10" localY="10"/>
+				<DispatchMouseEvent type="mouseMove"  target="myColorPicker" localX="20" localY="20"/>
+				<DispatchMouseEvent type="mouseOut"  target="myColorPicker" localX="20" localY="20"/>
+				<AssertEvent target="myColorPicker" eventName="mouseOut" eventClass="flash.events::MouseEvent"/>  
+			</body>
+		</TestCase>
+
+		<TestCase testID="ColorPicker_events_mouseDown" keywords="[events, mouseDown, ColorPicker]" description="Testing the mouseDown event for ColorPicker">
+			<setup>
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent type="mouseDown"  target="myColorPicker" localX="10" localY="10"/>
+				<AssertEvent target="myColorPicker" eventName="mouseDown" eventClass="flash.events::MouseEvent"/> 
+				<DispatchMouseEvent type="mouseUp"  target="myColorPicker" localX="10" localY="10"/> 
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ColorPicker_events_mouseUp" keywords="[events, mouseUp, ColorPicker]" description="Testing the mouseUp event for ColorPicker">
+			<setup>
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent type="mouseDown"  target="myColorPicker" localX="10" localY="10"/>
+				<DispatchMouseEvent type="mouseUp"  target="myColorPicker" localX="10" localY="10"/>
+				<AssertEvent target="myColorPicker" eventName="mouseUp" eventClass="flash.events::MouseEvent"/>  
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="ColorPicker_events_toolTipShow" keywords="[events, toolTipShow, Inherited, ColorPicker]" description="Testing the toolTipShow event for ColorPicker">
+			<setup>	
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+				<SetProperty target="myColorPicker" propertyName="toolTip" value="My ColorPicker"/>
+
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myColorPicker" type="mouseOver" localX="10" localY="10"/>
+				<AssertEvent target="myColorPicker" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" timeout="10000"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ColorPicker_events_toolTipHide" keywords="[events, toolTipHide, Inherited, ColorPicker]" description="Testing the toolTipHide event for ColorPicker">
+			<setup>	
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+				<SetProperty target="myColorPicker" propertyName="toolTip" value="My ColorPicker"/>
+				<SetProperty target="myColorPicker4" propertyName="toolTip" value="My ColorPicker4"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myColorPicker" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShow"/>
+				<DispatchMouseEvent target="myColorPicker4" type="mouseOver" localX="20" localY="10" waitEvent="mouseOver" waitTarget="myColorPicker4"/>
+				<AssertEvent target="myColorPicker" eventName="toolTipHide" eventClass="mx.events::ToolTipEvent" timeout="50000"/>
+				
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="ColorPicker_events_focusIn" keywords="[events, focusIn, ColorPicker]" description="Testing the focusIn event for ColorPicker">
+			<setup>
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"/>
+				<AssertEvent target="myColorPicker" eventName="focusIn" eventClass="flash.events::FocusEvent"/>  
+			</body>
+		</TestCase>
+
+		<TestCase testID="ColorPicker_events_focusOut" keywords="[events, focusOut, ColorPicker]" description="Testing the focusOut event for ColorPicker">
+			<setup>
+				<ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="DOWN" ctrlKey="true" waitEvent="open" waitTarget="myColorPicker" />
+				<AssertEvent target="myColorPicker" eventName="focusOut" eventClass="flash.events::FocusEvent"/> 
+				<!-- close next focused colorPicker -->
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="application.myColorPicker.close()" waitEvent="close" waitTarget="myColorPicker" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 
+			</body>
+		</TestCase>
+		
+	
+	</testCases>
+</UnitTester>

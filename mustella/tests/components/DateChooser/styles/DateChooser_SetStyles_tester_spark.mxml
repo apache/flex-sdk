@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateChooser/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateChooser_SetStyles_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.DateChooser;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="global_typeSelector_parentTypeSelector_test_spark" description="Test that global, DateChooser type selector and parent type selectors work." keywords="[styles, Type Selector, global styles, DateChooser]">
+			<setup>
+			    <SetProperty target="dc1" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc1"/>
+			</setup>
+			<body>
+			    <CompareBitmap target="dc1" url="../Styles/baselines/$testID.png" numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="mxml_styleName_spark" description="Test setting styleName in mxml for DateChooser" keywords="[styles, styleName, mxml, DateChooser]">
+			<setup>
+			    <SetProperty target="dc2" propertyName="selectedDate" valueExpression="value=new Date(2006, 2, 5)" waitEvent="updateComplete" waitTarget="dc2"/>
+			</setup>
+			<body>
+				<CompareBitmap target="dc2" url="../Styles/baselines/$testID.png" timeout="5000" numColorVariances="3" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="StyleManager_getStyleDeclaration_setStyle_spark" description="Set a DateChooser style through the StyleManager.getStyleDeclarations method" keywords="[styles, StyleManager, getStyleDeclarations, DateChooser]">
+			<setup>
+			    <RunCode code="application.changeStyles()" waitTarget="dc1" waitEvent="updateComplete" />
+			    <SetProperty target="dc1" propertyName="selectedDate" valueExpression="value=new Date(2006, 11, 5)" waitEvent="updateComplete" waitTarget="dc1"/>
+			</setup>
+			<body>
+				<CompareBitmap target="dc1" url="../Styles/baselines/$testID.png" timeout="5000" numColorVariances="3" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

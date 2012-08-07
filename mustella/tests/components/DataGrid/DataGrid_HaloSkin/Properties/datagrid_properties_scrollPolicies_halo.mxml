@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_HaloSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp_halo.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+        import mx.core.Application;
+
+		use namespace mx_internal;
+
+    ]]>
+    </mx:Script>
+
+<!--
+
+General approach:
+There are a few tests which use bitmap compares to verify that when a scrollbar's 
+visible property is true, it's visible, and when false, not visible.  After that,
+we use that visible property to confirm whether tests pass.
+
+Scroll policy tests:
+- on/off/auto when needed and not needed.
+- appears/disappears as appropriate for on/off/auto at runtime.
+
+Use dataArray1 because it has a lot of columns.
+horizontal, needed: Use dataArray1, and then use columnConfig6 if we need to switch from the
+unneeded state.
+horizontal, unneeded: Use dataArray1 and columnConfig3.
+vertical, needed: Use dataArray1 and height=400.
+vertical, unneeded: Use dataArray1 and height=500 or more.
+vertical, becomes (un)needed: Change the data provider.
+-->
+
+    <testCases>
+
+        <TestCase testID="horizontalScrollPolicy_visibleBitmapCalibration_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1.mx_internal:scroll_horizontalScrollBar" propertyName="visible" value="true" />
+                <CompareBitmap target="dg1.mx_internal:scroll_horizontalScrollBar" url="../Properties/Baselines/horizontalScrollPolicy_visibleBitmapCalibration.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_notVisibleBitmapCalibration_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value = application.dg1.scroll_horizontalScrollBar" value="null" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/horizontalScrollPolicy_notVisibleBitmapCalibration.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_notVisibleBitmapCalibration2_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.setColumnConfig3(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:scroll_horizontalScrollBar" propertyName="visible" value="false" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/horizontalScrollPolicy_notVisibleBitmapCalibration2.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="verticalScrollPolicy_visibleBitmapCalibration_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1.mx_internal:vScrollBar" propertyName="visible" value="true" />
+                <CompareBitmap target="dg1.mx_internal:vScrollBar" url="../Properties/Baselines/verticalScrollPolicy_visibleBitmapCalibration.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="verticalScrollPolicy_notVisibleBitmapCalibration_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />                
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value = application.dg1.vScrollBar" value="null" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/verticalScrollPolicy_notVisibleBitmapCalibration.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="verticalScrollPolicy_notVisibleBitmapCalibration2_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="auto" />                
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.dg1.dataProvider.removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <RunCode code="application.dg1.dataProvider.removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:vScrollBar" propertyName="visible" value="false" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/verticalScrollPolicy_notVisibleBitmapCalibration2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+<!--
+================================================================================
+Horizontal
+================================================================================
+-->        
+
+        <TestCase testID="horizontalScrollPolicy_onNeeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1.mx_internal:scroll_horizontalScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="horizontalScrollPolicy_onUnneeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <RunCode code="application.setColumnConfig3(application.dg1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1.mx_internal:scroll_horizontalScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_offNeeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value = application.dg1.scroll_horizontalScrollBar" value="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_offUnneeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <RunCode code="application.setColumnConfig3(application.dg1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>            
+            <body>
+                <AssertMethodValue method="value = application.dg1.scroll_horizontalScrollBar" value="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_autoNeeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1.mx_internal:scroll_horizontalScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_autoUnneeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <RunCode code="application.setColumnConfig3(application.dg1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>            
+            <body>
+                <AssertMethodValue method="value = application.dg1.scroll_horizontalScrollBar" value="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_offBecomesNeeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <RunCode code="application.setColumnConfig3(application.dg1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>            
+            <body>
+                <RunCode code="application.setColumnConfig6(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertMethodValue method="value = application.dg1.scroll_horizontalScrollBar" value="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_offBecomesUnneeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="off" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>            
+            <body>
+                <RunCode code="application.setColumnConfig3(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertMethodValue method="value = application.dg1.scroll_horizontalScrollBar" value="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_autoBecomesNeeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <RunCode code="application.setColumnConfig3(application.dg1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>            
+            <body>
+                <RunCode code="application.setColumnConfig6(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:scroll_horizontalScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_autoBecomesUnneeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>            
+            <body>
+                <RunCode code="application.setColumnConfig3(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:scroll_horizontalScrollBar" propertyName="visible" value="false" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_onBecomesNeeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <RunCode code="application.setColumnConfig3(application.dg1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>            
+            <body>
+                <RunCode code="application.setColumnConfig6(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:scroll_horizontalScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalScrollPolicy_onBecomesUnneeded_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>            
+            <body>
+                <RunCode code="application.setColumnConfig3(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:scroll_horizontalScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+
+        <!-- In this one, the column width is reported incorrrectly when bug SDK-11834 occurs, so we are stuck doing an image compare. -->
+        <TestCase testID="horizontalScrollPolicy_offToOnAtRuntime_halo" keywords="[DataGrid,horizontalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>            
+            <body>
+                <SetProperty target="dg1" propertyName="horizontalScrollPolicy" value="on" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/horizontalScrollPolicy_offToOnAtRuntime.png" numColorVariances="2" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="horizontalScrollBar_offWhenNoData_halo" keywords="[DataGrid,horizontalScrollBar]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setColumnConfig1(application.dg1)" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>            
+            <body>
+                <AssertMethodValue method="value = Application.application.dg1.scroll_horizontalScrollBar" value="null" />
+            </body>
+        </TestCase>
+
+        
+<!--
+================================================================================
+Vertical
+================================================================================
+-->        
+        
+
+        <TestCase testID="verticalScrollPolicy_onNeeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1.mx_internal:vScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="verticalScrollPolicy_onUnneeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="on" /> 
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="500" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1.mx_internal:vScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="verticalScrollPolicy_offNeeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value = application.dg1.vScrollBar" value="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="verticalScrollPolicy_offUnneeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" /> 
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="500" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value = application.dg1.vScrollBar" value="null" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="verticalScrollPolicy_autoNeeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="dg1.mx_internal:vScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="verticalScrollPolicy_autoUnneeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="auto" /> 
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="500" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value = application.dg1.vScrollBar" value="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="verticalScrollPolicy_offBecomesNeeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="500" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.addNewDataArrayItems(application.dg1, 1, 5)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertMethodValue method="value = application.dg1.vScrollBar" value="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="verticalScrollPolicy_offBecomesUnneeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="off" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.dg1.dataProvider.removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <RunCode code="application.dg1.dataProvider.removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertMethodValue method="value = application.dg1.vScrollBar" value="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="verticalScrollPolicy_autoBecomesNeeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="500" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.addNewDataArrayItems(application.dg1, 1, 5)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:vScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="verticalScrollPolicy_autoBecomesUnneeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="auto" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.dg1.dataProvider.removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <RunCode code="application.dg1.dataProvider.removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:vScrollBar" propertyName="visible" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="verticalScrollPolicy_onBecomesNeeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="500" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.addNewDataArrayItems(application.dg1, 1, 5)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:vScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="verticalScrollPolicy_onBecomesUnneeded_halo" keywords="[DataGrid,verticalScrollPolicy]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="verticalScrollPolicy" value="on" />
+                <SetProperty target="dg1" propertyName="width" value="600" />
+                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.dg1.dataProvider.removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <RunCode code="application.dg1.dataProvider.removeItemAt(0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg1.mx_internal:vScrollBar" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

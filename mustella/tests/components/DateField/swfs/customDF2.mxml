@@ -1,0 +1,5 @@
+<mx:DateField 
+    styleName="myDFStyles" 
+    dateChooserStyleName="myDFStyles" 
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"/>

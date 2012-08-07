@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Menu/Spark/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Menu_Basic_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+
+    import mx.controls.Menu;
+    import mx.managers.PopUpManager;
+    import data.MenuDataXML;
+
+    private var iconDP:Object;
+    private var myDP2:MenuDataXML;
+
+    private var mydp:Object= {label: "top", children: [
+                {label: "File", children: [
+                    {label: "Open"},
+                    {label: "New File"}
+                ]},
+                {label: "Edit", children: [
+                    {label: "Copy"},
+                    {label: "Paste"},
+                    {label: "Send"}
+                ]},
+                {label: "Window"}
+    ]};
+
+    public static function init(o:DisplayObject):void
+    {
+    }
+
+    public function createAMenu2(): void
+    {
+        myDP2 = new MenuDataXML();
+        application.menu1 = Menu.createMenu(null, myDP2.myData, false);
+        application.menu1.labelField = "@label";
+    }
+
+    public function createAMenu(): void
+    {
+        application.menu1 = Menu.createMenu(null, myDP, false);
+        application.menu1.labelField = "@label";
+        //application.menu1.show();
+    }
+
+    public function createAMenu3(): void
+    {
+        application.menu1 = Menu.createMenu(null, mydp, false);
+        //application.menu1.show();
+    }
+
+    public function addObjData():void
+    {
+        var iconDP2:MenuDataAS = new MenuDataAS();
+        iconDP = iconDP2.myData;
+        application.menu1 = Menu.createMenu(null, iconDP, false);
+        application.menu1.iconField = "icon";
+    }
+
+    public function changeEnabled(): void
+    {
+        application.menu1.dataDescriptor.setEnabled(iconDP[1], false);
+    }
+
+    private function addSeparator(): void
+    {
+        var newChild:Object = <node type="separator" />;
+        application.menu1.dataDescriptor.addChildAt(myDP2.myData, newChild, 1)
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.MenuEvent;
+    import data.MenuDataAS;
+
+    ]]>
+    </mx:Script>
+
+<mx:XML id="myDP">
+    <topnode>
+        <node label="Europe">
+            <nodeitem type="check" label="Italy" enabled="false"/>
+            <nodeitem type="check" label="England">
+                <city label="London" />
+                <city label="Yorkshire" />
+            </nodeitem>
+            <nodeitem type="check" label="Slovenia"/>
+        </node>
+        <node label="Asia">
+            <nodeitem type="radio" groupName="group1" label="Phillipines" >
+                <city label="Manila" />
+                <city label="Quezon City" />
+            </nodeitem>
+            <nodeitem type="radio" groupName="group1" label="Japan">
+                <city label="Osaka" />
+                <city label="Tokyo" />
+                <city label="Okinawa" />
+            </nodeitem>
+            <nodeitem type="radio" groupName="group1" label="China"/>
+        </node>
+        <node label="Africa">
+            <nodeitem label="Uganda" enabled="false"/>
+            <nodeitem label="South Africa"/>
+            <nodeitem label="Nigeria"/>
+        </node>
+    </topnode>
+</mx:XML>
+
+<mx:Style source="menuStyles.css" />
+
+    <testCases>
+        <TestCase testID="OpenDuration_200_firstOpen" keywords="[Menu, openDuration]" description="Ensure that you can open a Menu and make a selection when the openDuration is set.">
+            <setup>
+                <RunCode code="if(application.menu1 !=null) application.menu1.hide()" />
+                <RunCode code="createAMenu()" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="openDuration" value="200" />
+                <DispatchKeyEvent keys="['DOWN', 'DOWN','RIGHT', 'RIGHT']"  />
+                <DispatchKeyEvent key="SPACE" waitTarget="menu1" waitEvent="itemClick" />
+                <AssertEvent target="menu1" eventName="itemClick" eventClass="mx.events::MenuEvent" />
+                <AssertEventPropertyValue target="menu1" propertyName="label" value="Manila" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="OpenDuration_Zero_secondOpen" keywords="[Menu, openDuration]" description="Ensure that you can open a Menu and make a selection when the openDuration is set a second time.">
+                <setup>
+                    <RunCode code="application.menu1.hide()" />
+                    <RunCode code="createAMenu()" />
+                    <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                    <DispatchKeyEvent keys="['DOWN', 'RIGHT', 'RIGHT']"  />
+                    <DispatchKeyEvent key="SPACE" waitTarget="menu1" waitEvent="itemClick" />
+                </setup>
+                <body>
+                    <RunCode code="application.menu1.show()" waitEvent="menuShow" waitTarget="menu1" />
+                    <DispatchKeyEvent keys="['DOWN', 'RIGHT', 'RIGHT']"  />
+                    <DispatchKeyEvent key="SPACE" waitTarget="menu1" waitEvent="itemClick" />
+                    <AssertEvent target="menu1" eventName="itemClick" eventClass="mx.events::MenuEvent" />
+                    <AssertEventPropertyValue target="menu1" propertyName="label" value="London" />
+                </body>
+        </TestCase>
+        <TestCase testID="AlternatingItemColors_css" keywords="[Menu, alternatingItemColors]" description="alternatingItemColors is set in css for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu3()" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <SetProperty target="menu1" propertyName="styleName" value="redStripes" waitEvent="updateComplete" waitTarget="menu1" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  url="../Styles/baselines/$testID.png" target="menu1" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="AlternatingItemColors_0x" keywords="[Menu, alternatingItemColors]" description="alternatingItemColors is set with 0x format.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu3()" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <SetProperty target="menu1" propertyName="styleName" value="undefined" waitEvent="updateComplete" waitTarget="menu1" />
+                <SetStyle target="menu1" styleName="alternatingItemColors" value="[0x00FF00, 0x0000FF]" waitEvent="updateComplete" waitTarget="menu1" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  url="../Styles/baselines/$testID.png" target="menu1" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="AlternatingItemColors_pound" keywords="[Menu, alternatingItemColors]" description="alternatingItemColors is set in # format for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu3()" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="alternatingItemColors" value="[0x33CCDD, 0x459900]" waitEvent="updateComplete" waitTarget="menu1" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  url="../Styles/baselines/$testID.png" target="menu1" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RollOverColor_css" keywords="[Menu, rollOverColor]" description="rollOverColor is set in css for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu3()" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <SetProperty target="menu1" propertyName="styleName" value="mightyRed" waitEvent="updateComplete" waitTarget="menu1" />
+                <DispatchMouseEvent target="menu1" type="mouseOver" localX="20" localY="8" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  url="../Styles/baselines/$testID.png" target="menu1" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RollOverColor_0x" keywords="[Menu, rollOverColor]" description="rollOverColor is set in 0x format for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu3()" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <SetProperty target="menu1" propertyName="styleName" value="undefined" waitEvent="updateComplete" waitTarget="menu1" />
+                <SetStyle target="menu1" styleName="rollOverColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="menu1" />
+                <DispatchMouseEvent target="menu1" type="mouseOver" localX="20" localY="8" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  url="../Styles/baselines/$testID.png" target="menu1" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="RollOverColor_pound" keywords="[Menu, rollOverColor]" description="rollOverColor is set in # format for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu3()" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="rollOverColor" value="#459900" waitEvent="updateComplete" waitTarget="menu1" />
+                <DispatchMouseEvent target="menu1" type="mouseOver" localX="20" localY="8" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  url="../Styles/baselines/$testID.png" target="menu1" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="SelectionColor_css" keywords="[Menu, selectionColor]" description="selectionColor is set in css for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="createAMenu();"  />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <SetProperty target="menu1" propertyName="styleName" value="mightyBlue" waitEvent="updateComplete" waitTarget="menu1" />
+                <DispatchKeyEvent keys="['DOWN', 'DOWN', 'RIGHT', 'RIGHT']"  waitEvent="menuShow" waitTarget="menu1"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  url="../Styles/baselines/$testID.png" target="menu1" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="SelectionColor_0x" keywords="[Menu, selectionColor]" description="selectionColor is set in 0x format for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()"  />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="selectionColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="menu1" />
+                <DispatchKeyEvent keys="['DOWN', 'DOWN', 'RIGHT', 'RIGHT']"  waitEvent="menuShow" waitTarget="menu1"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  url="../Styles/baselines/$testID.png" target="menu1" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="SelectionColor_pound" keywords="[Menu, selectionColor]" description="selectionColor is set in # for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu()"  />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="selectionColor" value="#555000" waitEvent="updateComplete" waitTarget="menu1" />
+                <DispatchKeyEvent keys="['DOWN', 'DOWN', 'RIGHT', 'RIGHT']"  waitEvent="menuShow" waitTarget="menu1"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  url="../Styles/baselines/$testID.png" target="menu1" timeout="2000" />
+            </body>
+        </TestCase>
+<!-- ******* branchDisabledIcon ****** -->
+        <TestCase testID="branchDisabledIcon_static" keywords="[Menu, branchDisabledIcon]" description="branchDisabledIcon where data was disabled at startup for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="addObjData()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="branchDisabledIcon" valueExpression="value=application.orangerect" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/branchdisabledIcon_static.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <!-- This test will fail because of bug #190399 -->
+        <TestCase testID="branchDisabledIcon_runtimeChange" keywords="[Menu, branchDisabledIcon]" description="branchDisabledIcon where data was disabled through the dataDescriptor for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="addObjData()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="branchDisabledIcon" valueExpression="value=application.orangerect" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/branchdisabledIcon_runtime.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="branchDisabledIcon_css" keywords="[Menu, branchDisabledIcon]" description="branchDisabledIcon set in css for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="addObjData()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="styleName" value="dinosaurDisabledBranch" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/branchdisabledIcon_css.png" timeout="2500" />
+            </body>
+        </TestCase>
+<!-- ******* branchIcon ****** -->
+        <TestCase testID="branchIcon_static" keywords="[Menu, branchIcon]" description="branchIcon where data was disabled at startup for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="addObjData()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="branchIcon" valueExpression="value=application.orangerect" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/branchIcon_static.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="branchIcon_css" keywords="[Menu, branchIcon]" description="branchIcon set in css for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="addObjData()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="styleName" value="dinosaurBranch" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/branchIcon_css.png" timeout="2500" />
+            </body>
+        </TestCase>
+<!-- ******* checkIcon ****** -->
+        <TestCase testID="checkIcon_static" keywords="[Menu, checkIcon]" description="checkIcon where data was disabled at startup for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="checkIcon" valueExpression="value=application.orangerect" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, RIGHT]"  />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.0" url="../Styles/baselines/checkIcon_static.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="checkIcon_css" keywords="[Menu, checkIcon]" description="checkIcon in css for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="styleName" value="bearCheck" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.0" url="../Styles/baselines/checkIcon_css.png" timeout="2500" />
+            </body>
+        </TestCase>
+ <!-- ******* checkDisabledIcon ****** -->
+        <TestCase testID="checkDisabledIcon_static" keywords="[Menu, checkDisabledIcon]" description="checkDisabledIcon where data was disabled at startup for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="checkDisabledIcon" valueExpression="value=application.orangerect" />
+                <RunCode code="application.menu1.dataDescriptor.setEnabled(XML(myDP2.myData).node[0].nodeitem[1], false)" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, RIGHT]"   />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.0" url="../Styles/baselines/checkDisabledIcon_static.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="checkDisabledIcon_css" keywords="[Menu, checkDisabledIcon]" description="checkDisabledIcon set in css for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="styleName" value="bearCheckD" />
+                <RunCode code="application.menu1.dataDescriptor.setEnabled(XML(myDP2.myData).node[0].nodeitem[1], false)" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, RIGHT]"  />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.0" url="../Styles/baselines/checkDisabledIcon_css.png" timeout="2500" />
+            </body>
+        </TestCase>
+ <!-- ******* radioIcon ****** -->
+        <TestCase testID="radioIcon_static" keywords="[Menu, radioIcon]" description="radioIcon set in AS for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="radioIcon" valueExpression="value=application.orangerect" />
+                <RunCode code="application.menu1.dataDescriptor.setToggled(XML(myDP2.myData).node[1].nodeitem[1], true)" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.1" url="../Styles/baselines/radioIcon_static.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="radioIcon_css" keywords="[Menu, radioIcon]" description="radioIcon set in css for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="styleName" value="bearRadio" />
+                <RunCode code="application.menu1.dataDescriptor.setToggled(XML(myDP2.myData).node[1].nodeitem[1], true)" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.1" url="../Styles/baselines/radioIcon_css.png" timeout="2500" />
+            </body>
+        </TestCase>
+ <!-- ******* radioDisabledIcon ****** -->
+        <TestCase testID="radioDisabledIcon_static" keywords="[Menu, radioDisabledIcon]" description="radioDisabledIcon where data was disabled at startup for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="radioDisabledIcon" valueExpression="value=application.orangerect" />
+                <RunCode code="application.menu1.dataDescriptor.setToggled(XML(myDP2.myData).node[1].nodeitem[1], true)" />
+                <RunCode code="application.menu1.dataDescriptor.setEnabled(XML(myDP2.myData).node[1].nodeitem[1], false)" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.1" url="../Styles/baselines/radioDisabledIcon_static.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="radioDisabledIcon_css" keywords="[Menu, radioDisabledIcon]" description="radioDisabledIcon in css for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="styleName" value="bearRadioD" />
+                <RunCode code="application.menu1.dataDescriptor.setToggled(XML(myDP2.myData).node[1].nodeitem[1], true)" />
+                <RunCode code="application.menu1.dataDescriptor.setEnabled(XML(myDP2.myData).node[1].nodeitem[1], false)" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.1" url="../Styles/baselines/radioDisabledIcon_css.png" timeout="2500" />
+            </body>
+        </TestCase>
+ <!-- ******* separatorSkin ****** -->
+        <TestCase testID="separatorSkin_test" keywords="[Menu, separatorSkin]" description="separatorSkin where data was disabled at startup for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <RunCode code="addSeparator()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="separatorSkin" valueExpression="value=application.orangerect" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/separatorSkin_test.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="separatorSkin_css" keywords="[Menu, separatorSkin]" description="separatorSkin set in css for Menu.">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <RunCode code="addSeparator()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="styleName" value="bearSeparator" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1" url="../Styles/baselines/separatorSkin_css.png" timeout="2500" />
+            </body>
+        </TestCase>
+<!-- textSelectedColor  tests -->
+        <TestCase testID="textSelectedColor_0x" description="Menu style textSelectedColor =0xff0000." keywords="[styles, textSelectedColor , Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle styleName="textSelectedColor" target="menu1" value="0xFF0000" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="menu1.mx_internal:subMenus.0" waitTarget="menu1.mx_internal:subMenus.0" waitEvent="mouseDown"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.0" url="../Styles/baselines/textSelectedColor_0x.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textSelectedColor_pound" description="Menu style textSelectedColor =#0000ff." keywords="[styles, textSelectedColor , Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.hide()" />
+                <SetStyle styleName="textSelectedColor" target="menu1" value="#0000FF" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="menu1.mx_internal:subMenus.0"  waitTarget="menu1.mx_internal:subMenus.0" waitEvent="mouseDown" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.0" url="../Styles/baselines/textSelectedColor_pound.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textSelectedColor_red" description="Menu style textSelectedColor ='red'." keywords="[styles, textSelectedColor , Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle styleName="textSelectedColor" target="menu1" value="red"  />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="menu1.mx_internal:subMenus.0" waitTarget="menu1.mx_internal:subMenus.0" waitEvent="mouseDown"   />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.0" url="../Styles/baselines/textSelectedColor_red.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="textSelectedColor_css" description="Menu style textSelectedColor set in css to purple." keywords="[styles, textSelectedColor , Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <SetStyle target="menu1" styleName="styleName" value="purpleDown" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="menu1.mx_internal:subMenus.0" waitTarget="menu1.mx_internal:subMenus.0" waitEvent="mouseDown"   />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.0" url="../Styles/baselines/textSelectedColor_css.png" timeout="2500" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="contentBackgroundColor_0x" description="Menu style contentBackgroundColor=0xff0000." keywords="[styles, contentBackgroundColor, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="contentBackgroundColor" target="menu1" value="0xFF0000" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <Pause timeout="500"/>
+                <AssertPixelValue x="6" y="6" target="menu1" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="contentBackgroundColor_pound" description="Menu style contentBackgroundColor=#0000ff." keywords="[styles, contentBackgroundColor, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="contentBackgroundColor" target="menu1" value="#0000FF" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <Pause timeout="500"/>
+                <AssertPixelValue x="6" y="6" target="menu1" value="0x0000FF" />
+            </body>
+        </TestCase>
+        <TestCase testID="contentBackgroundColor_red" description="Menu style backGroundColor='red'" keywords="[styles, contentBackgroundColor, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="contentBackgroundColor" target="menu1" value="red" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <Pause timeout="500"/>
+		<AssertPixelValue x="6" y="6" target="menu1" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="color_0x" description="Menu style color=0xff0000." keywords="[styles, color, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="color" target="menu1" value="0xFF0000" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.0.0" url="../Styles/baselines/menu_color_x.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="color_pound" description="Menu style color=#0000ff." keywords="[styles, color, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="color" target="menu1" value="#0000FF" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.0.0" url="../Styles/baselines/menu_color_pound.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="color_red" description="Menu style color='red'." keywords="[styles, color, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="color" target="menu1" value="red" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:rendererArray.0.0" url="../Styles/baselines/menu_color_red.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="disabledColor_default" description="Menu style disabledColor=0xff0000." keywords="[styles, disabledColor, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.0.0" url="../Styles/baselines/menu_disabledColor_default.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="disabledColor_0x" description="Menu style disabledColor=0xff0000." keywords="[styles, disabledColor, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="disabledColor" target="menu1" value="0xFF0000" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.0.0" url="../Styles/baselines/menu_disabledColor_x.png" timeout="2500" />
+            </body>
+       </TestCase>
+        <TestCase testID="disabledColor_pound" description="Menu style disabledColor=#0000ff." keywords="[styles, disabledColor, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="disabledColor" target="menu1" value="#0000FF" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.0.0" url="../Styles/baselines/menu_disabledColor_pound.png" timeout="2500" />
+            </body>
+       </TestCase>
+        <TestCase testID="disabledColor_red" description="Menu style disabledColor='red'." keywords="[styles, disabledColor, Menu]">
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="createAMenu2()" />
+                <SetStyle styleName="disabledColor" target="menu1" value="red" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT]" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.2.mx_internal:rendererArray.0.0" url="../Styles/baselines/menu_disabledColor_red.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="leftIconGap_rightIconGap_default" keywords="[icon, Menu, styles,leftIconGap]" description="Ensure that an icon and radio icon look correct together." >
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <RunCode code="addObjData()" />
+            </setup>
+            <body>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT, RIGHT, DOWN, SPACE]" waitEvent="itemClick" waitTarget="menu1" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT, RIGHT]" waitEvent="menuShow" waitTarget="menu1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.1.mx_internal:subMenus.0" url="../Styles/baselines/leftRightIconGap_default.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="leftIconGap_0" keywords="[icon, Menu, styles,leftIconGap]" description="Ensure that an icon and radio icon look correct together." >
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="addObjData()" />
+            </setup>
+            <body>
+                <SetStyle styleName="leftIconGap" target="menu1" value="0"/>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <WaitForEffectsToEnd />
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT, DOWN, RIGHT]" waitEvent="menuShow" waitTarget="menu1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.1.mx_internal:subMenus.1" url="../Styles/baselines/leftIconGap_0.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="leftIconGap_30" keywords="[icon, Menu, styles,leftIconGap]" description="Ensure that an icon and radio icon look correct together." >
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="addObjData()" />
+            </setup>
+            <body>
+                <SetStyle styleName="leftIconGap" target="menu1" value="30"/>
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT, DOWN, RIGHT]" waitEvent="menuShow" waitTarget="menu1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.1.mx_internal:subMenus.1" url="../Styles/baselines/leftIconGap_30.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="rightIconGap_0" keywords="[icon, Menu, styles,leftIconGap]" description="Ensure that an icon and radio icon look correct together." >
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="addObjData()" />
+            </setup>
+            <body>
+                <SetStyle styleName="rightIconGap" target="menu1" value="0"/>
+                <SetStyle styleName="branchIcon" target="menu1" valueExpression="value=application.orangerect" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT]" waitEvent="menuShow" waitTarget="menu1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.1" url="../Styles/baselines/rightIconGap_0.png" timeout="2500" />
+            </body>
+        </TestCase>
+        <TestCase testID="rightIconGap_25" keywords="[icon, Menu, styles,leftIconGap]" description="Ensure that an icon and radio icon look correct together." >
+            <setup>
+                <RunCode code="application.menu1.hide()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="addObjData()" />
+            </setup>
+            <body>
+                <SetStyle styleName="rightIconGap" target="menu1" value="25"/>
+                <SetStyle styleName="branchIcon" target="menu1" valueExpression="value=application.orangerect" />
+                <RunCode code="application.menu1.show()" waitTarget="menu1" waitEvent="menuShow" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, RIGHT]" waitEvent="menuShow" waitTarget="menu1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="8"  target="menu1.mx_internal:subMenus.1" url="../Styles/baselines/rightIconGap_25.png" timeout="2500" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

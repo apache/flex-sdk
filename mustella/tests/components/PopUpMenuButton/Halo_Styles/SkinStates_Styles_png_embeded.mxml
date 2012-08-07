@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/PopUpMenuButton/Halo_Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="PopUpMenuButton_SkinStates.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.managers.SystemManager;
+    import mx.controls.*;
+    import mx.containers.*;
+    import mx.core.*;
+    import flash.events.*;
+    use namespace mx_internal;
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    public function disablePopUpMenuButton_png_embeded():void{
+        application.myPopUpMenuButton_embeded.enabled=false;
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="Test_pumb_Skin_over_png_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpMenuButtons, over]">
+            <setup>
+                <ResetComponent target="myPopUpMenuButton_embeded" className="mx.controls.PopUpMenuButton" waitEvent="updateComplete" waitTarget="myPopUpMenuButton_embeded" />
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="width" value="250" waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="height" value="23" waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete" />
+                <SetStyle styleName="styleName" target="myPopUpMenuButton_embeded" value="stylePNG" waitEvent="updateComplete" waitTarget="myPopUpMenuButton_embeded"/>
+                <DispatchMouseClickEvent localX="10" localY="10" target="myPopUpMenuButton_embeded" timeout="2000" waitTarget="myPopUpMenuButton_embeded" waitEvent="mouseUp"/>
+                <DispatchMouseEvent localX="10" localY="10" buttonDown="false" type="mouseOver" target="myPopUpMenuButton_embeded" timeout="1000" waitTarget="myPopUpMenuButton_embeded" waitEvent="mouseOver" />
+            </setup>
+            <body>
+                <AssertPixelValue target="myPopUpMenuButton_embeded" x="10" y="10" value="0xB4DFDB" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_pumb_Skin_up_png_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpMenuButtons, up]">
+            <setup>
+                <ResetComponent target="myPopUpMenuButton_embeded" className="mx.controls.PopUpMenuButton" waitEvent="updateComplete" />
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="width" value="250" waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="height" value="23" waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete" />
+                <SetStyle styleName="styleName" target="myPopUpMenuButton_embeded" value="stylePNG" waitEvent="updateComplete" waitTarget="myPopUpMenuButton_embeded"/>
+                <DispatchMouseClickEvent localX="10" localY="10" target="myPopUpMenuButton_embeded" timeout="1000" waitTarget="myPopUpMenuButton_embeded" waitEvent="mouseUp"/>
+            </setup>
+            <body>
+                    <AssertPixelValue target="myPopUpMenuButton_embeded" x="10" y="10" value="0xB4DFDB" />
+            </body>
+        </TestCase>
+        <TestCase testID="Test_pumb_Skin_down_png_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpMenuButtons, down]">
+            <setup>
+                <ResetComponent target="myPopUpMenuButton_embeded" className="mx.controls.PopUpMenuButton" waitEvent="updateComplete" />
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="width" value="250" waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="height" value="23" waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete" />
+                <SetStyle styleName="styleName" target="myPopUpMenuButton_embeded" value="stylePNG" waitEvent="updateComplete" waitTarget="myPopUpMenuButton_embeded"/>
+                <DispatchMouseEvent localX="10" localY="10" target="myPopUpMenuButton_embeded" type="mouseDown"  timeout="1000" waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                    <AssertPixelValue target="myPopUpMenuButton_embeded" x="10" y="10" value="0x54BCB5" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Test_PopUpMenuButton_Skin_disabled_png_embeded" description="Skins set by skin states being validated." keywords="[SkinStates, PopUpMenuButton, disabled]">
+            <setup>
+                <ResetComponent target="myPopUpMenuButton_embeded" className="mx.controls.PopUpMenuButton" waitEvent="updateComplete" />
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="label" value="Check popUpOverSkin is displayed." waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="width" value="250" waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete"/>
+                <SetProperty target="myPopUpMenuButton_embeded" propertyName="height" value="23" waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete" />
+                <SetStyle styleName="styleName" target="myPopUpMenuButton_embeded" value="stylePNG" waitEvent="updateComplete" waitTarget="myPopUpMenuButton_embeded"/>
+                <RunCode code="disablePopUpMenuButton_png_embeded();" waitTarget="myPopUpMenuButton_embeded" waitEvent="updateComplete" timeout="1000"/>
+            </setup>
+            <body>
+                    <CompareBitmap target="myPopUpMenuButton_embeded" url="../Halo_Styles/Baselines/PopUpMenuButton_Skinned_disabled_png_embeded.png" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

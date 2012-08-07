@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  height="375" width="500" xmlns:mx="http://www.adobe.com/2006/mxml" >
+
+<mx:Script>
+<![CDATA[
+
+     [Embed(source="../../../../Assets/Images/smallredU.jpg")]
+	public var redU:Class;
+
+	[Embed(source="../../../../Assets/Images/smallblackO.jpg")]
+	public var blackO:Class;
+
+]]>
+</mx:Script>
+<mx:XML id="treeXML">
+	<node label="rootnode">
+		<node label="Containers">
+		    <node label="DividedBoxClasses">
+				<node label="BoxDivider" data="BoxDivider.as" />
+		    </node>
+		    <node label="GridClasses">
+				<node label="GridRow" data="GridRow.as" />
+				<node label="GridItem" data="GridItem.as" />
+		    </node>
+		</node>
+		<node label="Printing">
+			<node label="PrintJob" data="PrintJob.as" />
+			<node label="PrintJob1" data="PrintJob1.as" />
+			<node label="PrintTree" data="PrintTree.as" />
+		</node>
+	</node>
+</mx:XML>
+
+<mx:XML id="treeXMLVScroll">
+	<node label="rootnode">
+		<node label="Containers">
+		    <node label="DividedBoxClasses">
+				<node label="BoxDivider" data="BoxDivider.as" />
+		    </node>
+		    <node label="GridClasses">
+				<node label="GridRow" data="GridRow.as" />
+				<node label="GridItem" data="GridItem.as" />
+		    </node>
+		</node>
+		<node label="Printing1" />
+		<node label="Printing2" />
+		<node label="Printing3" />
+		<node label="Printing4" />
+		<node label="Printing5" />
+		<node label="Printing6" />
+		<node label="Printing7" />
+		<node label="Printing8" />
+		<node label="Printing9" />
+		<node label="Printing10" />
+
+	</node>
+</mx:XML>
+<mx:XML id="treeXMLHScroll">
+	<node label="rootnode">
+		<node label="Containers">
+		    <node label="DividedBoxClasses DividedBoxClasses DividedBoxClasses DividedBoxClasses DividedBoxClasses DividedBoxClasses">
+				<node label="BoxDivider" data="BoxDivider.as" />
+		    </node>
+		    <node label="GridClasses">
+				<node label="GridRow" data="GridRow.as" />
+				<node label="GridItem" data="GridItem.as" />
+		    </node>
+		</node>
+		<node label="Printing">
+			<node label="PrintJob" data="PrintJob.as" />
+			<node label="PrintJob1" data="PrintJob1.as" />
+			<node label="PrintTree" data="PrintTree.as" />
+		</node>
+	</node>
+</mx:XML>
+<mx:XML id="treeXMLEmptyBranches">
+	<node label="rootnode">
+		<node label="Containers">
+		    <node label="DividedBoxClasses">
+				<node label="BoxDivider" data="BoxDivider.as" />
+		    </node>
+		    <node label="GridClasses">
+		    	     <node label="empty branch2" isBranch="true"/>
+				<node label="GridRow" data="GridRow.as" />
+				<node label="GridItem" data="GridItem.as" />
+		    </node>
+		</node>
+		<node label="Printing">
+			<node label="PrintJob" data="PrintJob.as" />
+			<node label="PrintJob1" data="PrintJob1.as" />
+			<node label="PrintTree" data="PrintTree.as" />
+		</node>
+		<node label="empty branch1" isBranch="true"/>
+	</node>
+</mx:XML>
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    Tree{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</mx:Style>
+
+<mx:Tree id="tree" />
+
+</mx:Application>

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/MenuBar/Halo/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="MenuBar_Custom.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+    private function addSeparator(): void
+	{
+	   var newChild:Object = <nodeitem type="separator" />;
+	   application.mb2.dataDescriptor.addChildAt(XML(application.mb2.myDP).node[1], newChild, 1)
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+<mx:Style source="menuStyles.css" />
+
+	<testCases>
+<!--***********  alternatingItemColors *********** -->
+		<TestCase testID="AlternatingItemColors_css" keywords="[MenuBar, alternatingItemColors]" description="alternatingItemColors is set in css for MenuBar.">
+            <setup>
+			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+			    <SetStyle target="mb2" styleName="menuStyleName" value="redStripes" waitEvent="updateComplete" waitTarget="mb2" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]"  />
+				<AssertEvent target="mb2.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+				<AssertPixelValue x="94" y="1" target="mb2.menus.2" value="0xFF0000" />
+				<AssertPixelValue x="94" y="28" target="mb2.menus.2" value="0xFFFF33" />
+			</body>
+		</TestCase>
+		<TestCase testID="AlternatingItemColors_0x" keywords="[MenuBar, alternatingItemColors]" description="alternatingItemColors is set with 0x format.">
+            <setup>
+			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+			    <SetStyle target="mb2" styleName="alternatingItemColors" value="[0x00FF00, 0x0000FF]" waitEvent="updateComplete" waitTarget="mb2" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]"  />
+				<AssertEvent target="mb2.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+				<AssertPixelValue x="94" y="1" target="mb2.menus.2" value="0x00FF00" />
+				<AssertPixelValue x="94" y="28" target="mb2.menus.2" value="0x0000FF" />
+			</body>
+		</TestCase>
+		<TestCase testID="AlternatingItemColors_pound" keywords="[MenuBar, alternatingItemColors]" description="alternatingItemColors is set in # format for MenuBar.">
+            <setup>
+			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+			    <SetStyle target="mb2" styleName="alternatingItemColors" value="[#33CCDD, #459900]" waitEvent="updateComplete" waitTarget="mb2" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]"  />
+				<AssertEvent target="mb2.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+				<AssertPixelValue x="94" y="1" target="mb2.menus.2" value="0x33CCDD" />
+				<AssertPixelValue x="94" y="28" target="mb2.menus.2" value="0x459900" />
+			</body>
+		</TestCase>
+<!-- ******* branchDisabledIcon ****** -->
+       	<TestCase testID="branchDisabledIcon_static" keywords="[MenuBar, branchDisabledIcon]" description="branchDisabledIcon where data was disabled at startup for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="branchDisabledIcon" valueExpression="value=application.bearIcon" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   			<DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.2" url="../Styles/baselines/branchdisabledIcon_static.png" timeout="2500" numColorVariances="4" ignoreMaxColorVariance="true"/>
+	   		</body>
+		</TestCase>
+       	<TestCase testID="branchDisabledIcon_css" keywords="[MenuBar, branchDisabledIcon]" description="branchDisabledIcon set in css for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="menuStyleName" value="bearBranchD" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   			<DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.2" url="../Styles/baselines/branchdisabledIcon_css.png" timeout="2500" />
+	   		</body>
+		</TestCase>
+ <!-- ******* branchIcon ****** -->
+       	<TestCase testID="branchIcon_static" keywords="[MenuBar, branchIcon]" description="branchIcon where data was disabled at startup for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="branchIcon" valueExpression="value=application.bearIcon" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   			<DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.2" url="../Styles/baselines/branchIcon_static.png" timeout="2500" numColorVariances="4" ignoreMaxColorVariance="true"/>
+	   		</body>
+		</TestCase>
+	    <TestCase testID="branchIcon_css" keywords="[MenuBar, branchIcon]" description="branchIcon set in css for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="menuStyleName" value="bearBranch" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   			<DispatchKeyEvent keys="[TAB, RIGHT, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.2.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.2" url="../Styles/baselines/branchIcon_css.png" timeout="2500" numColorVariances="4" ignoreMaxColorVariance="true"/>
+	   		</body>
+		</TestCase>
+ <!-- ******* checkDisabledIcon ****** -->
+       	<TestCase testID="checkDisabledIcon_static" keywords="[MenuBar, checkDisabledIcon]" description="checkDisabledIcon where data was disabled at startup for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="checkDisabledIcon" valueExpression="value=application.bearIcon" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   		    <RunCode code="application.mb2.dataDescriptor.setEnabled(XML(application.mb2.myDP).node[0], true)" />
+	   		    <RunCode code="application.mb2.dataDescriptor.setToggled(XML(application.mb2.myDP).node[0].nodeitem[0], true)" />
+	   			<DispatchKeyEvent keys="[TAB, RIGHT, RIGHT, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.0.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.0" url="../Styles/baselines/checkDisabledIcon_static.png" timeout="2500" />
+	   	    </body>
+		</TestCase>
+       	<TestCase testID="checkDisabledIcon_css" keywords="[MenuBar, checkDisabledIcon]" description="checkDisabledIcon set in css for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="menuStyleName" value="bearCheckD" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   		    <RunCode code="application.mb2.dataDescriptor.setEnabled(XML(application.mb2.myDP).node[0], true)" />
+	   		    <RunCode code="application.mb2.dataDescriptor.setToggled(XML(application.mb2.myDP).node[0].nodeitem[0], true)" />
+	   			<DispatchKeyEvent keys="[TAB, RIGHT, RIGHT, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.0.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.0" url="../Styles/baselines/checkDisabledIcon_css.png" timeout="2500" />
+	   	    </body>
+		</TestCase>
+ <!-- ******* checkIcon ****** -->
+       	<TestCase testID="checkIcon_static" keywords="[MenuBar, checkIcon]" description="checkIcon where data was disabled at startup for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="checkIcon" valueExpression="value=application.bearIcon" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   		    <RunCode code="application.mb2.dataDescriptor.setEnabled(XML(application.mb2.myDP).node[0], true)" />
+	   		    <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.0.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.0" url="../Styles/baselines/checkIcon_static.png" timeout="2500" />
+	   	    </body>
+		</TestCase>
+       	<TestCase testID="checkIcon_css" keywords="[MenuBar, checkIcon]" description="checkIcon in css for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="menuStyleName" value="bearCheck" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   		    <RunCode code="application.mb2.dataDescriptor.setEnabled(XML(application.mb2.myDP).node[0], true)" />
+	   		    <DispatchKeyEvent keys="[TAB, RIGHT, RIGHT, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.0.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.0" url="../Styles/baselines/checkIcon_css.png" timeout="2500" />
+	   	    </body>
+		</TestCase>
+ <!-- ******* radioDisabledIcon ****** -->
+       	<TestCase testID="radioDisabledIcon_static" keywords="[MenuBar, radioDisabledIcon]" description="radioDisabledIcon where data was disabled at startup for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="radioDisabledIcon" valueExpression="value=application.bearIcon" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   		    <RunCode code="application.mb2.dataDescriptor.setToggled(XML(application.mb2.myDP).node[1].nodeitem[0], true)" />
+	   			<DispatchKeyEvent keys="[TAB, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/radioDisabledIcon_static.png" timeout="2500" />
+	   	    </body>
+		</TestCase>
+      	<TestCase testID="radioDisabledIcon_css" keywords="[MenuBar, radioDisabledIcon]" description="radioDisabledIcon in css for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="menuStyleName" value="bearRadioD" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   		    <RunCode code="application.mb2.dataDescriptor.setToggled(XML(application.mb2.myDP).node[1].nodeitem[0], true)" />
+	   			<DispatchKeyEvent keys="[TAB, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/radioDisabledIcon_css.png" timeout="2500" />
+	   	    </body>
+		</TestCase>
+ <!-- ******* radioIcon ****** -->
+       	<TestCase testID="radioIcon_static" keywords="[MenuBar, radioIcon]" description="radioIcon set in AS for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="radioIcon" valueExpression="value=application.bearIcon" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   		    <RunCode code="application.mb2.dataDescriptor.setToggled(XML(application.mb2.myDP).node[1].nodeitem[1], true)" />
+	   			<DispatchKeyEvent keys="[TAB, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/radioIcon_static.png" timeout="2500" />
+	   	    </body>
+		</TestCase>
+       	<TestCase testID="radioIcon_css" keywords="[MenuBar, radioIcon]" description="radioIcon set in css for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		   <SetStyle target="mb2" styleName="menuStyleName" value="bearRadio" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   		    <RunCode code="application.mb2.dataDescriptor.setToggled(XML(application.mb2.myDP).node[1].nodeitem[1], true)" />
+	   			<DispatchKeyEvent keys="[TAB, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/radioIcon_css.png" timeout="2500" />
+	   	    </body>
+		</TestCase>
+ <!-- ******* separatorSkin ****** -->
+       	<TestCase testID="separatorSkin_test" keywords="[MenuBar, separatorSkin]" description="separatorSkin where data was disabled at startup for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="separatorSkin" valueExpression="value=application.bearIcon" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   		    <RunCode code="addSeparator()" />
+	   			<DispatchKeyEvent keys="[TAB, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/separatorSkin_test.png" timeout="2500" />
+	   	    </body>
+		</TestCase>
+       	<TestCase testID="separatorSkin_css" keywords="[MenuBar, separatorSkin]" description="separatorSkin set in css for MenuBar.">
+	        <setup>
+	   		    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="menuStyleName" value="bearSeparator" waitEvent="updateComplete" waitTarget="mb2" />
+	   		</setup>
+	   		<body>
+	   		    <RunCode code="addSeparator()" />
+	   			<DispatchKeyEvent keys="[TAB, RIGHT]"  />
+	   			<AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+	   			<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/separatorSkin_css.png" timeout="2500" />
+	   	    </body>
+		</TestCase>
+<!-- textSelectedColor  tests -->
+		<TestCase testID="textSelectedColor_0x" description="MenuBar style textSelectedColor =0xff0000." keywords="[styles, textSelectedColor , MenuBar]">
+			<setup>
+			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle styleName="textSelectedColor" target="mb2" value="0xFF0000" waitEvent="updateComplete" waitTarget="mb2" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+			    <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb2.menus.1" waitTarget="mb2.menus.1" waitEvent="mouseDown"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textSelectedColor _0x.png" timeout="2500" />
+			</body>
+		</TestCase>
+		<!-- note: I have a pause for this test because there is a tween that happens
+		after a mouseDown to change the textSelectedColor . I have no access to this tween for now." -->
+		<TestCase testID="textSelectedColor_pound" description="MenuBar style textSelectedColor =#0000ff." keywords="[styles, textSelectedColor , MenuBar]">
+			<setup>
+			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle styleName="textSelectedColor" target="mb2" value="#0000FF" waitEvent="updateComplete" waitTarget="mb2" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+			    <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb2.menus.1"  waitTarget="mb2.menus.1" waitEvent="mouseDown" />
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textSelectedColor_pound.png" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="textSelectedColor_red" description="MenuBar style textSelectedColor ='red'." keywords="[styles, textSelectedColor , MenuBar]">
+			<setup>
+			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle styleName="textSelectedColor" target="mb2" value="red" waitEvent="updateComplete" waitTarget="mb2" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent keys="[TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+			    <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb2.menus.1" waitTarget="mb2.menus.1" waitEvent="mouseDown"   />
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textSelectedColor _red.png" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="textSelectedColor_css" description="MenuBar style textSelectedColor set in css to purple." keywords="[styles, textSelectedColor , MenuBar]">
+			<setup>
+			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="menuStyleName" value="purpleDown" waitEvent="updateComplete" waitTarget="mb2" />
+		    </setup>
+			<body>
+			    <DispatchKeyEvent keys="[TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+			    <DispatchMouseEvent type="mouseDown" localX="55" localY="30" target="mb2.menus.1" waitTarget="mb2.menus.1" waitEvent="mouseDown"   />
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textSelectedColor_css.png" timeout="2500" />
+			</body>
+		</TestCase>
+        <TestCase testID="textRollOverColor_0x" description="MenuBar style textRollOverColor =0xff0000." keywords="[styles, textRollOverColor , MenuBar]">
+			<setup>
+			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle styleName="textRollOverColor" target="mb2" value="0xFF0000" waitEvent="updateComplete" waitTarget="mb2" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+			    <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="mb2.menus.1" waitTarget="mb2.menus.1" waitEvent="mouseOver"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textRollOverColor _0x.png" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="textRollOverColor_pound" description="MenuBar style textRollOverColor =#0000ff." keywords="[styles, textRollOverColor , MenuBar]">
+			<setup>
+			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle styleName="textRollOverColor" target="mb2" value="#0000FF" waitEvent="updateComplete" waitTarget="mb2" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+			    <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="mb2.menus.1"  waitTarget="mb2.menus.1" waitEvent="mouseOver" />
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textRollOverColor_pound.png" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="textRollOverColor_red" description="MenuBar style textRollOverColor ='red'." keywords="[styles, textRollOverColor , MenuBar]">
+			<setup>
+			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle styleName="textRollOverColor" target="mb2" value="red" waitEvent="updateComplete" waitTarget="mb2" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent keys="[TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+			    <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="mb2.menus.1" waitTarget="mb2.menus.1" waitEvent="mouseOver"   />
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textRollOverColor _red.png" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="textRollOverColor_css" description="MenuBar style textRollOverColor in css to green." keywords="[styles, textRollOverColor , MenuBar]">
+			<setup>
+			    <ResetComponent target="mb2" className="MyMenuBar" waitEvent="updateComplete" waitTarget="mb2" />
+	   		    <SetStyle target="mb2" styleName="menuStyleName" value="greenRoll" waitEvent="updateComplete" waitTarget="mb2" />
+		    </setup>
+			<body>
+			    <DispatchKeyEvent keys="[TAB, RIGHT]" waitEvent="menuShow" waitTarget="mb2" />
+			    <AssertEvent target="mb2.menus.1.mx_internal:popupTween" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+			    <DispatchMouseEvent type="mouseOver" localX="55" localY="30" target="mb2.menus.1" waitTarget="mb2.menus.1" waitEvent="mouseOver"   />
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="mb2.menus.1" url="../Styles/baselines/textRollOverColor_css.png" timeout="2500" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

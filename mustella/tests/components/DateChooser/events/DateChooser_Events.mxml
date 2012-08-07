@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateChooser/events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateChooser_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.controls.DateChooser;
+	public function setSize():void{
+		application.dcc.dc.setActualSize(300,300);
+	}
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="DateChooser_events_change" keywords="[open, close,change, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="RIGHT"/>
+				<AssertEvent target="dcc.dc" eventName="change" eventClass="mx.events::CalendarLayoutChangeEvent" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_events_show" keywords="[open, close,show, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="visible" value="false" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<SetProperty target="dcc.dc" propertyName="visible" value="true" />
+				<AssertEvent target="dcc.dc" eventName="show" eventClass="mx.events::FlexEvent" />
+				<SetProperty target="dcc.dc" propertyName="visible" value="false" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_mouseDown" keywords="[open, close,mouseDown, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" waitEvent="updateComplete" waitTarget="dcc" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="dcc.dc" type="mouseDown" localX="10" localY="10" waitEvent="mouseDown" waitTarget="dcc.dc" />
+				<AssertEvent target="dcc.dc" eventName="mouseDown" eventClass="flash.events::MouseEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_mouseUp" keywords="[open, close,mouseUp, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" waitEvent="updateComplete" waitTarget="dcc" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="dcc.dc" type="mouseUp" localX="10" localY="10" waitEvent="mouseUp" waitTarget="dcc.dc" />
+				<AssertEvent target="dcc.dc" eventName="mouseUp" eventClass="flash.events::MouseEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_mouseOver" keywords="[open, close,mouseOver, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" waitEvent="updateComplete" waitTarget="dcc" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="dcc.dc" type="mouseOver" localX="10" localY="10" waitEvent="mouseOver" waitTarget="dcc.dc" />
+				<AssertEvent target="dcc.dc" eventName="mouseOver" eventClass="flash.events::MouseEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_mouseOut" keywords="[open, close,mouseOut, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" waitEvent="updateComplete" waitTarget="dcc" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="dcc.dc" type="mouseOut" localX="10" localY="10" waitEvent="mouseOut" waitTarget="dcc.dc" />
+				<AssertEvent target="dcc.dc" eventName="mouseOut" eventClass="flash.events::MouseEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_mouseHide" keywords="[open, close,mouseHide, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<SetProperty target="dcc.dc" propertyName="visible" value="false"/>
+				<AssertEvent target="dcc.dc" eventName="hide" eventClass="mx.events::FlexEvent" />
+				<SetProperty target="dcc.dc" propertyName="visible" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_focusIn" keywords="[open, close,focusIn, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<AssertEvent target="dcc.dc" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_focusOut" keywords="[open, close,focusOut, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<AssertEvent target="dcc.dc" eventName="focusOut" eventClass="flash.events::FocusEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_updateComplete" keywords="[open, close,updateComplete, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 6)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<AssertEvent target="dcc.dc" eventName="updateComplete" eventClass="mx.events::FlexEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_creationComplete" keywords="[open, close,creationComplete, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.ti" propertyName="text" value="Creation Complete event triggered" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_initialize" keywords="[open, close,initialize, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.ti2" propertyName="text" value="Initialize event triggered" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_scroll" keywords="[open, close,scroll, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent char="+"/>
+				<AssertEvent target="dcc.dc" eventName="scroll" eventClass="mx.events::DateChooserEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_resize" keywords="[open, close,resize, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<RunCode code="setSize()" />
+				<AssertEvent target="dcc.dc" eventName="resize" eventClass="mx.events::ResizeEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_events_mouseMove" keywords="[open, close,mouseMove, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" waitEvent="updateComplete" waitTarget="dcc" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="dcc.dc" type="mouseMove" localX="10" localY="10" waitEvent="mouseMove" waitTarget="dcc.dc" />
+				<AssertEvent target="dcc.dc" eventName="mouseMove" eventClass="flash.events::MouseEvent" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

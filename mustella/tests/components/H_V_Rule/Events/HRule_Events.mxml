@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/H_V_Rule/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Rule_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Style>
+
+	    .myStyle{
+		color: #FF0000
+	    }
+	    .myStyle2{
+		color: #0000FF
+	    }
+
+	</mx:Style>
+	
+	<mx:Script>
+	<![CDATA[
+		public function moveHRule():void
+		{
+			application.myCustomHRule.myHRule.move(6,60);
+		}
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+		<TestCase testID="HRule_Event_mouseOver" keywords="[mouseOver, Event, HRule]">
+			<setup>
+				<ResetComponent target="myCustomHRule" className="CustomHRule" waitEvent="updateComplete" waitTarget="myCustomHRule"/>
+				
+			</setup>  
+			<body>
+				<RunCode code="application.mainHRule.setActualSize(200,200)"/>  
+				<DispatchMouseEvent target="myCustomHRule.myHRule" type="mouseOver" localX="19" localY="1" />
+				<AssertEvent target="myCustomHRule.myHRule" eventName="mouseOver" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="HRule_Event_mouseDown" keywords="[mouseDown, Event, HRule]">
+			<setup>
+				<ResetComponent target="myCustomHRule" className="CustomHRule" waitEvent="updateComplete" waitTarget="myCustomHRule"/>
+				
+			</setup>  
+			<body>
+				<RunCode code="application.mainHRule.setActualSize(200,200)"/>  
+				<DispatchMouseEvent target="myCustomHRule.myHRule" type="mouseOver" localX="19" localY="1" waitEvent="mouseOver" waitTarget="myCustomHRule.myHRule"/>
+				<DispatchMouseEvent target="myCustomHRule.myHRule" type="mouseDown" localX="19" localY="1" waitEvent="mouseDown" waitTarget="myCustomHRule.myHRule"/>
+				<AssertEvent target="myCustomHRule.myHRule" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+				<DispatchMouseEvent target="myCustomHRule.myHRule" type="mouseUp" localX="19" localY="1" waitEvent="mouseUp" waitTarget="myCustomHRule.myHRule"/>
+			</body>
+		</TestCase>
+		<TestCase testID="HRule_Event_mouseUp" keywords="[mouseUp, Event, HRule]">
+			<setup>
+				<ResetComponent target="myCustomHRule" className="CustomHRule" waitEvent="updateComplete" waitTarget="myCustomHRule"/>
+				
+			</setup>  
+			<body>
+				<RunCode code="application.mainHRule.setActualSize(200,200)"/>  
+				<DispatchMouseEvent target="myCustomHRule.myHRule" type="mouseOver" localX="19" localY="1" waitEvent="mouseOver" waitTarget="myCustomHRule.myHRule"/>
+				<DispatchMouseEvent target="myCustomHRule.myHRule" type="mouseDown" localX="19" localY="1" waitEvent="mouseDown" waitTarget="myCustomHRule.myHRule"/>
+				<DispatchMouseEvent target="myCustomHRule.myHRule" type="mouseUp" localX="19" localY="1" waitEvent="mouseUp" waitTarget="myCustomHRule.myHRule"/>
+				<AssertEvent target="myCustomHRule.myHRule" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="HRule_Event_mouseMove" keywords="[mouseMove, Event, HRule]">
+			<setup>
+				<ResetComponent target="myCustomHRule" className="CustomHRule" waitEvent="updateComplete" waitTarget="myCustomHRule"/>				
+			</setup>  
+			<body>
+				<RunCode code="application.mainHRule.setActualSize(200,200)"/>  
+				<DispatchMouseEvent target="myCustomHRule.myHRule" type="mouseOver" localX="9" localY="1" waitEvent="mouseOver" waitTarget="myCustomHRule.myHRule"/>
+				<DispatchMouseEvent target="myCustomHRule.myHRule" type="mouseMove" localX="19" localY="1" waitEvent="mouseMove" waitTarget="myCustomHRule.myHRule"/>
+				<AssertEvent target="myCustomHRule.myHRule" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="HRule_Event_click" keywords="[mouseMove, Event, HRule]">
+			<setup>
+				<ResetComponent target="myCustomHRule" className="CustomHRule" waitEvent="updateComplete" waitTarget="myCustomHRule"/>
+				
+			</setup>  
+			<body>
+				<RunCode code="application.mainHRule.setActualSize(200,200)"/>  
+				<DispatchMouseEvent target="myCustomHRule.myHRule" type="mouseOver" localX="19" localY="1" waitEvent="mouseOver" waitTarget="myCustomHRule.myHRule"/>
+				<DispatchMouseClickEvent target="myCustomHRule.myHRule"  localX="19" localY="1" waitEvent="click" waitTarget="myCustomHRule.myHRule"/>
+				<AssertEvent target="myCustomHRule.myHRule" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

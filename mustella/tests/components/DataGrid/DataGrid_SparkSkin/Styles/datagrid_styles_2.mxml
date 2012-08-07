@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_SparkSkin/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <TestCase testID="datagrid_style_baseColor"  keywords="[DataGrid, headerColors]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" />
+                <SetStyle target="dg1" styleName="chromeColor" value="0xffff00" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_headerBackgroundSkin" keywords="[DataGrid, headerBackgroundSkin]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="headerBackgroundSkin" valueExpression="value=application.dg_header_skin" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_separatorSkins" keywords="[DataGrid, separatorSkins]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetStyle target="dg1" styleName="horizontalGridLines" value="true" />
+                <SetStyle target="dg1" styleName="verticalSeparatorSkin" valueExpression="value=application.dg_v_s_skin" />
+                <SetStyle target="dg1" styleName="horizontalSeparatorSkin" valueExpression="value=application.dg_h_s_skin" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_verticalGridLines_false" keywords="[DataGrid, verticalGridLines]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="verticalGridLines" value="false" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_verticalGridLines_true" keywords="[DataGrid, verticalGridLines]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="verticalGridLines" value="false" waitEvent="updateComplete" />
+                <SetStyle target="dg1" styleName="verticalGridLines" value="true" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_verticalGridLineColor_string" keywords="[DataGrid, verticalGridLineColor]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="verticalGridLineColor" value="red" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_verticalGridLineColor_0x" keywords="[DataGrid, verticalGridLineColor]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="verticalGridLineColor" value="0x00ff00" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_verticalGridLineColor_#" keywords="[DataGrid, verticalGridLineColor]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="verticalGridLineColor" value="#0000ff" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_rollOverColor" keywords="[DataGrid, mouseOver, rollOverColor]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetStyle target="dg1" styleName="rollOverColor" value="0x00ff00" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseMove" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" waitTarget="dg1" waitEvent="itemRollOver" />
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_alternatingitemcolors" keywords="[DataGrid, alternatingItemColors]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="alternatingItemColors" value="[0xff0000,0x00ff00]" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_paddingBottom" keywords="[DataGrid, paddingbottom]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="paddingBottom" value="12" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_paddingtop" keywords="[DataGrid, paddingTop]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="paddingTop" value="12" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <!--Known bug-->
+        <TestCase testID="datagrid_style_paddingleft" keywords="[DataGrid, paddingLeft]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="paddingLeft" value="12" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <!--Known bug-->
+        <TestCase testID="datagrid_style_paddingright" keywords="[DataGrid, paddingRight]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="paddingRight" value="12" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+    
+        <TestCase testID="datagrid_style_selectionColor" keywords="[DataGrid, mouseOver, mouseDown, selectionColor]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetStyle target="dg1" styleName="selectionColor" value="0xff0000" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseMove" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_selectionDisabledColor" keywords="[DataGrid, selectionBackgroundDisabled]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+                <SetStyle target="dg1" styleName="selectionDisabledColor" value="0x0000ff" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseMove" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" waitTarget="dg1" waitEvent="itemRollOver" />
+                <DispatchMouseClickEvent target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <SetProperty propertyName="enabled" value="false" target="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_userollover_false" keywords="[DataGrid, useRollOver]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetStyle target="dg1" styleName="useRollOver" value="false" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseMove" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_userollover_true" keywords="[DataGrid, useRollOver]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <SetStyle target="dg1" styleName="useRollOver" value="false" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseMove" target="dg1.mx_internal:rendererArray.2.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <SetStyle target="dg1" styleName="useRollOver" value="true" />
+                <DispatchMouseEvent type="mouseMove" target="dg1.mx_internal:rendererArray.1.0" localX="2" localY="2" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="datagrid_style_verticalalign_top" keywords="[DataGrid, verticalAlign]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="rowHeight" value="100" />
+                <SetStyle target="dg1" styleName="verticalAlign" value="top" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="datagrid_style_verticalalign_bottom" keywords="[DataGrid, verticalAlign]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="dg1" propertyName="rowHeight" value="100" />
+                <SetStyle target="dg1" styleName="verticalAlign" value="bottom" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_color_string" keywords="[DataGrid, borderStyle, solid]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="color" value="blue" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+    
+        <TestCase testID="datagrid_style_color_0x" keywords="[DataGrid, color]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="color" value="0xFF0000" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+    
+        <TestCase testID="datagrid_style_color_pound" keywords="[DataGrid, color]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="color" value="#00FF00" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_fontFamily_AS" keywords="[DataGrid, fontFamily]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="fontFamily" value="EmbeddedComic" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="2" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_fontWeight" keywords="[DataGrid, fontWeight]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="fontWeight" value="bold" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_style_fontStyle" keywords="[DataGrid, fontStyle]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="fontStyle" value="italic" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="datagrid_style_fontSize" keywords="[DataGrid, fontStyle]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="fontSize" value="16" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+                
+        <TestCase testID="datagrid_style_textDecoration" keywords="[DataGrid, textDecoration]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.showOnlyTheseDataGrids([application.dg1])" />
+                <RunCode code="application.setDataProvider(application.dg1, 6)" waitTarget="dg1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="dg1" styleName="textDecoration" value="underline" waitTarget="dg1" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg1" numColorVariances="20" ignoreMaxColorVariance="true" url="../Styles/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>

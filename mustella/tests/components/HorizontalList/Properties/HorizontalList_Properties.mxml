@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/HorizontalList/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="HorizontalList_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	public function addData(bool:int):void
+	{
+		application.hl.dataProvider = myDP;
+	  	
+	  	if(bool ==0)
+	  	{
+	        //application.hl.labelField="@label";
+	    }
+	    else
+	    {
+	        //application.hl.labelField="@data";
+	    }
+	}
+
+	public function addObjData():void
+	{
+		application.hl.dataProvider = iconDP;
+	  	application.hl.iconField = "icon";
+	}
+
+	public function changeDP(node:int, bool:String):void
+	{
+	    application.hl.enabled=Boolean(bool);
+	}
+
+    [Bindable]
+	private var rootDP:Array= [{label: "top"},{label: "File"},{label: "Open"},{label: "New File"},{label: "Edit"},{label: "Copy"},{label: "Paste"},{label: "Send"},{label: "Window"}];
+
+	[Bindable]
+	public var iconDP:Array= [{label:"Toys", icon:"blueback", icon2: "greenback"}, {label:"Dino", icon: "yellowback"}, {label:"RaceCar01"}, {label:"RaceCar02"},{label:"Games", icon:"redback"}, { label:"Age 6 and up"}, {label:"Board Games"}, {label:"UpWords"}, {label:"WhiteSquares"},{label:"Video Games"}, {label:"ActionFigure"},{label:"VideoFigure"}];
+
+     public function labelFunc(item:Object):String
+     {
+         var newLabel:String = item[application.hl.labelField].toUpperCase();
+         return newLabel;
+     }
+
+     public function testAddChildAt():void
+     {
+        var newChild:Object = <node label='France' data='FRANCE' />;
+     }
+
+     public function testGetChildren(): void
+     {
+         //application.lengthValue = application.hl.dataDescriptor.getChildren(myDP.node[1]).length;
+     }
+
+     public function testRemoveChildAt():void
+     {
+        var newChild:Object = <node label='France' data='FRANCE' />;
+     }
+
+     public function testSetEnabled(bool:int): void
+     {
+        if(bool==0)
+        {
+        	
+        }
+        else
+        {
+        	
+        }
+     }
+
+     public function testSetToggled(bool:int): void
+     {
+        if(bool==0)
+        {
+        	
+        }
+        else
+        {
+        	
+        }
+     }
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.HorizontalList;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.events.MenuEvent;
+
+    [Bindable]
+    private var myDP:Array=[{label:"Europe", data:"EUROPE"},{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"},{label:"Asia", enabled:"true", data:"ASIA"},{label:"Phillipines", enabled:"false", data:"PHILIPPINES"},{label:"Japan", data:"JAPAN"},{label:"China", data:"CHINA"},{label:"Africa", data:"AFRICA"},{label:"Uganda", enabled:"false", data:"UGANDA"},{label:"South Africa", data:"SOUTH AFRICA"},{label:"Nigeria", data:"NIGERIA"}] ;
+    
+    
+	]]>
+	</mx:Script>
+
+	<testCases>
+	
+		<TestCase testID="Key_selection" description="HorizontalList dataProvider item is set to false test." keywords="[enabled, HorizontalList]">
+			<setup>
+			<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="addData(0);" />
+			    <DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<DispatchKeyEvent key="DOWN" waitTarget="hl" />
+				
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[DOWN, DOWN, RIGHT, DOWN, DOWN]" waitTarget="hl" waitEvent="change" />
+			    <AssertPropertyValue target="hl" propertyName="selectedIndex" value="5" />
+			</body>
+		</TestCase>
+		<TestCase testID="Key_selection1" description="HorizontalList dataProvider item is set to false and changed to true test." keywords="[enabled, HorizontalList]">
+			<setup>
+			    <ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    <RunCode code="addData(0);" />
+			    <RunCode code="changeDP(0,'true');" />
+			    <DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<DispatchKeyEvent key="DOWN" waitTarget="hl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, RIGHT, RIGHT, RIGHT, RIGHT,RIGHT, RIGHT, RIGHT, RIGHT, RIGHT]" waitTarget="hl" waitEvent="change" />
+				<AssertPropertyValue target="hl" propertyName="selectedIndex" value="10" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Key_selection_end"  description="HorizontalList end key." keywords="[enabled, HorizontalList]">
+			<setup>
+				<ResetComponent target="hl" className="mx.controls.HorizontalList" />
+			    	<RunCode code="addData(0);" />
+				<RunCode code="changeDP(1, 'false');" /> 
+				
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="hl" waitEvent="focusIn" />
+				<DispatchKeyEvent key="DOWN" waitTarget="hl"  />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="END" waitTarget="hl" waitEvent="change" />
+			    	<AssertPropertyValue target="hl" propertyName="selectedIndex" value="11" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

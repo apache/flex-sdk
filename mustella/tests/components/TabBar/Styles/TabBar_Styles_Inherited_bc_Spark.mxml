@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/TabBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBar_Basic_bc_Spark.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <mx:Script>
+
+    <![CDATA[
+
+    public static function init(o:DisplayObject):void
+
+    {
+
+
+
+    }
+
+
+
+    public function addData(bool:int):void
+
+    {
+
+        application.tb.dataProvider = myDP;
+
+    }
+
+
+
+    public function addObjData():void
+
+    {
+
+        application.tb.dataProvider = iconDP;
+
+    }
+
+
+
+    public function changeDP(node:int, bool:String):void
+
+    {
+
+        myDP.node[node].@enabled = bool;
+
+    }
+
+
+
+    [Bindable]
+
+    public var iconDP:Array= [{label:"Toys", icon:"dino"},{label:"Dinosaur", icon: "dino"}];
+
+
+
+    ]]>
+
+    </mx:Script>
+
+    <mx:Metadata>
+
+    <![CDATA[
+
+        [Mixin]
+
+    ]]>
+
+    </mx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+
+    <![CDATA[
+
+    import mx.controls.TabBar;
+
+    import mx.styles.StyleManager;
+
+    import mx.managers.SystemManager;
+
+    import mx.events.ListEvent;
+
+    [Bindable]
+
+    private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+
+    ]]>
+
+    </mx:Script>
+
+    
+
+<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+
+    .myTabStyle
+
+    {
+
+       color:red;
+
+       fontFamily:Georgia;
+
+       fontSize:18;
+
+       fontStyle:italic;
+
+       fontWeight:bold;
+
+       paddingLeft:5;
+
+       paddingRight:5;
+
+       textAlign:left;
+
+       textDecoration:underline;
+
+       textIndent:3;
+
+    }
+
+</mx:Style>
+
+    
+
+    <testCases> 
+
+        <TestCase testID="TabBar_Style_Inherited_disabledColor" description="TabBar Inherited styles." keywords="[style, TabBar, disabledColor]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" />
+
+                <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tb" /> 
+
+            </setup>
+
+            <body>
+
+                <SetStyle target="tb" styleName="disabledColor"  value="#0000FF" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap target="tb" url="../styles/baselines/spark/disabledColor_img_bc.png" timeout="5000" />
+
+            </body>
+
+        </TestCase> 
+
+        <TestCase testID="TabBar_Style_Inherited_color" description="TabBar Inherited styles." keywords="[style, TabBar, color]">
+
+            <setup>
+
+                <ResetComponent target="tb" className="mx.controls.TabBar" waitEvent="updateComplete" waitTarget="tb"/>
+
+                <WaitForEffectsToEnd />
+
+                <RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tb"/>               
+
+            </setup>
+
+            <body>         
+
+                <SetStyle target="tb" styleName="color"  value="#0000FF" waitEvent="updateComplete" waitTarget="tb"/>               
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap target="tb" url="../styles/baselines/spark/color_img_bc.png" timeout="5000" />
+
+            </body>
+
+        </TestCase> 
+
+    </testCases>
+
+</UnitTester>

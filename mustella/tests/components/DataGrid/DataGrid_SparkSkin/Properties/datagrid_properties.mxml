@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_SparkSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridMain.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.controls.DateChooser;
+    import mx.controls.DataGrid;
+    import mx.controls.dataGridClasses.*
+    import mx.containers.Canvas;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+
+    public var mydatagrid:DataGrid
+    public var mybox:Canvas;
+
+    private var dataAC:ArrayCollection;
+
+    public function addItems():void
+    {
+        dataAC = new ArrayCollection();
+
+        // This entry from the function formerly known as "startApp()"...keeping
+        // to avoid having to re-evaluate test results.
+        dataAC.addItem({col1:"one",col2:"two",col3:"three"});
+
+        for(var i:int=0;i<15;i++)
+        {
+            dataAC.addItem({col1:'one'+i,col2:i,col3:'three'+i});
+        }
+
+        application.mydatagrid.dataProvider = dataAC;
+    }
+
+    private function addCols():void
+    {
+        var dgc:DataGridColumn = new DataGridColumn()
+        dgc.dataField="col1";
+        dgc.headerText = "new column1"
+        dgc.width=100
+        var dgc1:DataGridColumn = new DataGridColumn()
+        dgc1.dataField="col1";
+        dgc1.headerText = "new column2"
+        dgc1.width=100
+        application.mydatagrid.columns=[dgc,dgc1];
+    }
+
+    //resizable columns and sortableColumns are getter setter checks, revisit.
+
+    ]]>
+    </mx:Script>
+
+
+    <!--
+        I use Pause here because there is no event to wait for in some cases. e.g. In datagrid_own_properties_editable_false,
+         the test case will pass with <AssertNoEvent target="mydatagrid" eventName="itemEditBegin" eventClass="mx.event::FlexEvent" />
+         even if we set editable to true, in which case there is definitely an itemEditBegin.  Dunno...so there is a pause before
+         the AssertNoEvent.
+    -->
+
+    <testCases>
+
+        <TestCase testID="datagrid_properties_columns" keywords="[columns]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid"/>
+                <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="addCols()"/>
+                <Pause timeout="300"/>
+            </setup>
+            <body>
+                <SetProperty target="mydatagrid" propertyName="selectedIndex" value="1" />
+                <Pause timeout="100"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_columns.png"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_horizontalScrollPosition" keywords="[DataGrid, sortableColumns, mouseOver,enabled, horizontalScrollPosition]">
+            <setup>
+                <SetProperty target="mydatagrid" propertyName="enabled" value="false" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="horizontalScrollPolicy" value="on"/>
+                <SetProperty target="mydatagrid" propertyName="editable" value="true"/>
+                <SetProperty target="mydatagrid" propertyName="width" value="100"/>
+                <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="mydatagrid" propertyName="horizontalScrollPosition" value="2" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="mydatagrid.mx_internal:rendererArray.1.0" localX="2" localY="2" waitTarget="mydatagrid" waitEvent="itemEditBegin" />
+                <AssertPropertyValue target="mydatagrid.editedItemPosition" propertyName="columnIndex" value="2"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_resizableColumns" keywords="[DataGrid,resizableColumns]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid"/>
+                <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="resizableColumns" value="false" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mydatagrid" propertyName="resizableColumns" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_mincolumnwidth" keywords="[DataGrid, sortableColumns, mouseOver,enabled, editable]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="mydatagrid" propertyName="minColumnWidth" value="50" waitTarget="mydatagrid" waitEvent="updateComplete" />
+                <SetProperty target="mydatagrid.columns.0" propertyName="width" value="40" />
+                <AssertPropertyValue target="mydatagrid.columns.0" propertyName="width" value="50" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_editedItemRenderer" keywords="[editeditemrenderer]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid"/>
+                <SetProperty target="mydatagrid" propertyName="editable" value="true"/>
+                <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="editedItemPosition" valueExpression="value={rowIndex:1,columnIndex:1}" waitEvent="itemEditBegin" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value = (application.mydatagrid.editedItemRenderer != null)" valueExpression="value=true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_itemEditorInstance" keywords="[itemeditorinstance]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid"/>
+                <SetProperty target="mydatagrid" propertyName="editable" value="true"/>
+                <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="editedItemPosition" valueExpression="value={rowIndex:1,columnIndex:1}" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value = (application.mydatagrid.itemEditorInstance != null)" valueExpression="value=true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="property_showheaders_true" keywords="[DataGrid,properties,showHeaders]">
+           <setup>
+               <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+               <RunCode code="addItems()"/>
+               <SetProperty propertyName="showHeaders" value="true" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+           </setup>
+           <body>
+               <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_showHeadersTrue.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+           </body>
+        </TestCase>
+
+        <TestCase testID="property_showheaders_false" keywords="[DataGrid,properties,showHeaders]">
+           <setup>
+               <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+               <RunCode code="addItems()"/>
+               <SetProperty propertyName="showHeaders" value="false" target="mydatagrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+           </setup>
+           <body>
+               <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_showHeadersFalse.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+           </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_sortableColumns_true" keywords="[p1,DataGrid, sortableColumns, mouseOver,enabled]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="sortableColumns" value="true" />
+                <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="mydatagrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="2" localY="2" waitTarget="mydatagrid" waitEvent="updateComplete" />
+                <AssertPropertyValue target="mydatagrid.mx_internal:rendererArray.4.0" propertyName="text" value="one10"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_sortableColumns_false" keywords="[p1,DataGrid, sortableColumns, mouseOver,enabled]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="sortableColumns" value="false" />
+                <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="mydatagrid.mx_internal:dataGridHeader.mx_internal:rendererArray.0" localX="2" localY="2" />
+                <Pause timeout="1" />
+                <AssertPropertyValue target="mydatagrid.mx_internal:rendererArray.4.0" propertyName="text" value="one2"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_sortableColumns_setget" keywords="[DataGrid, sortableColumns, mouseOver,enabled, editable]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid"/>
+                <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="sortableColumns" value="false" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mydatagrid" propertyName="sortableColumns" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_draggablecolumns_true" keywords="[draggablecolumns]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid"/>
+                <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="draggableColumns" value="true"/>
+            </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_state1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+                <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="244" localY="14"/>
+                <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="150" localY="14"/>
+                <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="112" localY="14"/>
+                <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="87" localY="14"/>
+                <DispatchMouseEvent target="mydatagrid" type="mouseUp" buttonDown="true" localX="87" localY="14"/>
+                <Pause timeout="100"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_state2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_draggablecolumns_false" keywords="[draggablecolumns_false]">
+            <setup>
+                <ResetComponent target="mydatagrid" className="mx.controls.DataGrid"/>
+                <RunCode code="addItems()" waitTarget="mydatagrid" waitEvent="updateComplete"/>
+                <SetProperty target="mydatagrid" propertyName="draggableColumns" value="false"/>
+            </setup>
+            <body>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_false_state1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+                <DispatchMouseEvent target="mydatagrid" type="mouseDown" localX="244" localY="14"/>
+                <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="150" localY="14"/>
+                <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="112" localY="14"/>
+                <DispatchMouseEvent target="mydatagrid" type="mouseMove" buttonDown="true" localX="87" localY="14"/>
+                <DispatchMouseEvent target="mydatagrid" type="mouseUp" buttonDown="true" localX="87" localY="14"/>
+                <Pause timeout="100"/>
+                <CompareBitmap target="mydatagrid" url="../Properties/Baselines/datagrid_draggablecolumns_false_state2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

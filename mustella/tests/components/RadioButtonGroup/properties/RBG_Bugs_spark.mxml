@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/RadioButtonGroup/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RBG_Basic_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.RadioButtonGroup;
+	import mx.controls.RadioButton;
+	public function setRBGSelectionNull():void{
+		application.myCustomRBG.myRBG.selection=null;
+	}	
+	public function setRBGSelectedValueAS():void{
+		application.myCustomRBG.myRBG.selectedValue='MC';
+	}
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="RBG_BugNumber_178571_spark"  keywords="[selectedValue, Selection, RadioButtonGroup]">
+			<setup>
+				<ResetComponent target="myCustomRBG" className="CustomRBG" waitEvent="updateComplete" waitTarget="myCustomRBG"/>
+				<RunCode code="setRBGSelectionNull()"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomRBG.myRBG" propertyName="selectedValue" valueExpression="value=null" />
+			</body>
+		</TestCase>
+		<TestCase testID="RBG_BugNumber_138911"  keywords="[selectedValue, Selection, RadioButtonGroup]">
+			<setup>
+				<ResetComponent target="myCustomRBG" className="CustomRBG" waitEvent="updateComplete" waitTarget="myCustomRBG"/>
+				<DispatchMouseClickEvent target="myCustomRBG.rb1" localX="10" localY="10" ctrlKey="true"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomRBG.myRBG" propertyName="selectedValue" value="AE" />
+			</body>
+		</TestCase>		
+	</testCases>	
+</UnitTester>

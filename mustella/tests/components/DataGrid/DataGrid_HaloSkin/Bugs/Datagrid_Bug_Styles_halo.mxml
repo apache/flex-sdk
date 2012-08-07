@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_HaloSkin/Bugs/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGrid_Bugs_Styles_halo.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.DataGrid;
+	import mx.controls.dataGridClasses.DataGridColumn;
+	import mx.events.DataGridEvent;
+
+	[Bindable]
+	public var smallArray:Array
+	private function foo():void
+	{
+	
+	smallArray= [
+           { Artist:'Artist A', Album:'Album A', Price:11.99, Rating:'Excellent' },
+           { Artist:'Artist A', Album:'Album B', Price:10.99, Rating:'Excellent' },
+           { Artist:'Artist A', Album:'Album C', Price:12.99, Rating:'Excellent' },
+           { Artist:'Artist A', Album:'Album G', Price:11.99, Rating:'Good' },
+           { Artist:'Other', Album:'Other', Price:5.99, Rating:'Bad' },
+         ];
+         application.dg1.dataProvider=smallArray;
+         application.dg1.allowMultipleSelection = true
+         application.dg1.dragEnabled = true
+	 }
+	 
+	 private function addColumns():void
+	 {
+		
+		var newColumns:Array = [];
+		newColumns.push( new DataGridColumn("Artist"))
+		application["dgc1"] = newColumns[0];
+		newColumns.push( new DataGridColumn ("Album"));
+		application["dgc2"] = newColumns[1];
+		newColumns.push( new DataGridColumn ("Price"));
+		application["dgc3"] = newColumns[2];
+		newColumns.push( new DataGridColumn ("Rating"));
+		application["dgc4"] = newColumns[3];
+		
+	   application.dg1.columns = newColumns;
+	 }
+
+	
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="datagrid_Bug_139322_halo" keywords="[DataGrid, textRollOverColor]">
+			<setup>
+				<ResetComponent target="dg1" className="mx.controls::DataGrid" waitEvent="updateComplete" waitTarget="dg1"/> 
+				<RunCode code="addColumns()"/>
+				<RunCode code="foo()"/> 
+				<SetStyle target="dg1" styleName="textRollOverColor" value="red" waitEvent="updateComplete" waitTarget="dg1" /> 
+			</setup>
+			<body>
+				<DispatchMouseEvent target="dg1" type="mouseOver" localX="46" localY="72" waitEvent="mouseOver" waitTarget="dg1"/>
+				<CompareBitmap target="dg1" url="../Bugs/baselines/Bug_139322_textRollOverColor.png" timeout="5000" numColorVariances="2" ignoreMaxColorVariance="true"/>
+		        </body> 
+	        </TestCase> 
+		<TestCase testID="datagrid_Bug_139322_more_halo" keywords="[DataGrid, textRollOverColor]">
+			<setup>
+				<ResetComponent target="dg1" className="mx.controls::DataGrid" waitEvent="updateComplete" waitTarget="dg1"/> 
+				<RunCode code="addColumns()"/>
+				<RunCode code="foo()"/> 
+				<SetStyle target="dg1" styleName="textSelectedColor" value="0x0000ff" waitEvent="updateComplete" waitTarget="dg1" /> 
+				<SetStyle target="dg1" styleName="rollOverColor" value="0xff0000" waitEvent="updateComplete" waitTarget="dg1" /> 
+				<SetStyle target="dg1" styleName="selectionColor" value="red" waitEvent="updateComplete" waitTarget="dg1" /> 
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="dg1" localX="46" localY="72" waitEvent="mouseUp" waitTarget="dg1"/>
+				<Pause timeout="200"/>
+				<CompareBitmap target="dg1" url="../Bugs/baselines/Bug_139322_textSelectedColor.png" timeout="5000" numColorVariances="2" ignoreMaxColorVariance="true"/>
+		        </body> 
+	        </TestCase>
+	</testCases>                
+</UnitTester>

@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/LinkButton/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LinkButton_main.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>
+
+
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+			import mx.controls.LinkButton;
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+
+		<TestCase testID="Checking_Default_Value_of_Property_alpha" keywords="[LinkButton, showTextField, Inherited, Property]" description="Checking Default Value of Property alpha">
+		<setup>
+			<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+			<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myLinkButton" propertyName="alpha" value="1" />
+		</body>
+	</TestCase>
+
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_alpha" keywords="[LinkButton, alpha, Inherited, Property]" description="Checking MXML set Value of Inherited Property alpha  using bitmap comparision">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" />
+				<SetProperty target="myLinkButton" propertyName="alpha" value="0.5" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+			</setup>
+			<body>
+				<!--<Pause timeout="5000"/>-->
+				<CompareBitmap target="myLinkButton" url="../properties/baselines/alpha_mxml_bm.png" />
+			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_alpha" keywords="[LinkButton, alpha, Inherited, Property]" description="Checking AS set Value of Inherited Property alpha  using bitmap comparision">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" />
+				<RunCode code="application.myLinkButton.alpha=0.5" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+			</setup>
+			<body>
+			
+				<CompareBitmap target="myLinkButton" url="../properties/baselines/alpha_as_bm.png"/>
+			</body>
+	</TestCase>
+
+
+
+		<TestCase testID="Checking_label_property_of_LinkButton" description="Test that label sets the label" keywords="[LinkButton, label, properties]">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="hello" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="label" value="hello"/>
+				
+				<CompareBitmap url="../properties/baselines/Checking_label_property_of_LinkButton.png" target="myLinkButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_labelPlacement_property_right_of_LinkButton" description="Test that checks the orientation of the label right" keywords="[LinkButton, labelPlacement, properties]">
+
+					<setup>
+
+						<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete"/>
+
+						<SetProperty target="myLinkButton" propertyName="label" value="LinkButton Right"/>
+
+						<SetProperty target="myLinkButton" propertyName="labelPlacement" value="right" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+					</setup>
+
+					<body>
+
+						<AssertPropertyValue target="myLinkButton" propertyName="label" value="LinkButton Right"/>
+
+						<AssertPropertyValue target="myLinkButton" propertyName="labelPlacement" value="right"/>
+						
+						<CompareBitmap url="../properties/baselines/Checking_labelPlacement_property_right_of_LinkButton.png" target="myLinkButton"/>
+
+					</body>
+
+		</TestCase>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<TestCase testID="Checking_labelPlacement_property_left_of_LinkButton" description="Test that checks the orientation of the label is left" keywords="[LinkButton, labelPlacement, properties]">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="LinkButton Left"/>
+
+				<SetProperty target="myLinkButton" propertyName="labelPlacement" value="left" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="label" value="LinkButton Left"/>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="labelPlacement" value="left"/>
+				<CompareBitmap url="../properties/baselines/Checking_labelPlacement_property_left_of_LinkButton.png" target="myLinkButton"/>
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Checking_labelPlacement_property_bottom_of_LinkButton" description="Test that checks the orientation of the label is bottom" keywords="[LinkButton, labelPlacement, properties]">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="LinkButton Bottom"/>
+
+				<SetProperty target="myLinkButton" propertyName="labelPlacement" value="bottom" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="label" value="LinkButton Bottom"/>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="labelPlacement" value="bottom"/>
+			
+				<CompareBitmap url="../properties/baselines/Checking_labelPlacement_property_bottom_of_LinkButton.png" target="myLinkButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_labelPlacement_property_top_of_LinkButton" description="Test that checks the orientation of the label is top" keywords="[LinkButton, labelPlacement, properties]">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="LinkButton Top"/>
+
+				<SetProperty target="myLinkButton" propertyName="labelPlacement" value="top" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="label" value="LinkButton Top"/>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="labelPlacement" value="top"/>
+			
+				<CompareBitmap url="../properties/baselines/Checking_labelPlacement_property_top_of_LinkButton.png" target="myLinkButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+
+
+		<TestCase testID="Checking_selected_property_true_of_toggle_LinkButton" description="Test that checks whether or not a toggle LinkButton is selected" keywords="[LinkButton, selected, properties]">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+				<SetProperty target="myLinkButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myLinkButton" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="toggle" value="true"/>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="selected" value="true"/>
+			
+				<CompareBitmap url="../properties/baselines/Checking_selected_property_true_of_toggle_LinkButton.png" target="myLinkButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_selected_property_true_of_nontoggle_LinkButton" description="Test that checks that selected is not set for a non toggle LinkButton" keywords="[LinkButton, selected, properties]">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+				<SetProperty target="myLinkButton" propertyName="toggle" value="false"/>
+
+				<SetProperty target="myLinkButton" propertyName="selected" value="true"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="selected" value="true"/>
+				<CompareBitmap url="../properties/baselines/Checking_selected_property_true_of_nontoggle_LinkButton.png" target="myLinkButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_selected_property_false_of_toggle_LinkButton" description="Test that checks that selected is false for a toggle LinkButton" keywords="[LinkButton, selected, properties]">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+				<SetProperty target="myLinkButton" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myLinkButton" propertyName="selected" value="false"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="toggle" value="true"/>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="selected" value="false"/>
+				<CompareBitmap url="../properties/baselines/Checking_selected_property_false_of_toggle_LinkButton.png" target="myLinkButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_toggle_property_true_of_LinkButton" description="Test that toggle creates a toggle LinkButton" keywords="[LinkButton, toggle, properties]">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+				<SetProperty target="myLinkButton" propertyName="toggle" value="true"/>
+
+
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseClickEvent target="myLinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="toggle" value="true"/>
+				<CompareBitmap url="../properties/baselines/Checking_toggle_property_true_of_LinkButton.png" target="myLinkButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_toggle_property_false_of_LinkButton" description="Test that toggle false does not create a toggle LinkButton" keywords="[LinkButton, toggle, properties]">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls.LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+				<SetProperty target="myLinkButton" propertyName="toggle" value="false"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseClickEvent target="myLinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<AssertPropertyValue target="myLinkButton" propertyName="toggle" value="false"/>
+				<CompareBitmap url="../properties/baselines/Checking_toggle_property_false_of_LinkButton.png" target="myLinkButton"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+
+	<TestCase testID="Checking_MXML_Set_Value_of_Property_toolTip" keywords="[LinkButton, toolTip, Inherited, Property]" description="Checking MXML set Value of Inherited Property toolTip  using bitmap comparision">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="toolTip" value="My LinkButton"/>
+
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myLinkButton" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShow" waitTarget="myLinkButton" />
+				<AssertEvent target="myLinkButton" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" timeout="10000"/>
+				<AssertPropertyValue target="myLinkButton" propertyName="toolTip" value="My LinkButton" />
+				<CompareBitmap url="../properties/baselines/toolTip_mxml_bm.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_toolTip" keywords="[LinkButton, toolTip, Inherited, Property]" description="Checking AS set Value of Inherited Property toolTip  using bitmap comparision">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.toolTip='My LinkButton'"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myLinkButton" type="mouseOver" localX="10" localY="10" waitEvent="toolTipShow" waitTarget="myLinkButton" />
+				<AssertEvent target="myLinkButton" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" timeout="10000"/>
+				<AssertPropertyValue target="myLinkButton" propertyName="toolTip" value="My LinkButton" />
+				<CompareBitmap url="../properties/baselines/toolTip_AS_bm.png" timeout="5000" />
+			</body>
+	</TestCase>
+
+
+<TestCase testID="Checking_Default_Value_of_Property_height" keywords="[LinkButton, showTextField, Inherited, Property]" description="Checking Default Value of Property height">
+		<setup>
+			<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myLinkButton" propertyName="height" value="24" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Checking_MXML_Set_Value_of_Property_height" keywords="[LinkButton, height, Inherited, Property]" description="Checking MXML set Value of Inherited Property height">
+		<setup>
+			<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+			<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			<SetProperty target="myLinkButton" propertyName="height" value="40" waitEvent="updateComplete" waitTarget="myLinkButton" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myLinkButton" propertyName="height" value="40" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Checking_AS_Set_Value_of_Property_height" keywords="[LinkButton, height, Inherited, Property]" description="Checking AS set Value of Inherited Property height">
+		<setup>
+			<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+			<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			<RunCode code="application.myLinkButton.height=40" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="myLinkButton" propertyName="height" value="40" />
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="Checking_Default_Value_of_Property_width" keywords="[LinkButton, showTextField, Inherited, Property]" description="Checking Default Value of Property width">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="width" value="78" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_width" keywords="[LinkButton, width, Inherited, Property]" description="Checking MXML set Value of Inherited Property width">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="width" value="40" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="width" value="40" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_width" keywords="[LinkButton, width, Inherited, Property]" description="Checking AS set Value of Inherited Property width">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.width=40" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="width" value="40" />
+			</body>
+	</TestCase>
+
+
+		<TestCase testID="Checking_Default_Value_of_Property_scaleX" keywords="[LinkButton, showTextField, Inherited, Property]" description="Checking Default Value of Property scaleX">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="scaleX" value="1" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_scaleX" keywords="[LinkButton, scaleX, Inherited, Property]" description="Checking MXML set Value of Inherited Property scaleX">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="scaleX" value="2" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="scaleX" value="2" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_scaleX" keywords="[LinkButton, scaleX, Inherited, Property]" description="Checking AS set Value of Inherited Property scaleX">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.scaleX=3" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="scaleX" value="3" />
+			</body>
+	</TestCase>
+
+	<TestCase testID="Checking_Default_Value_of_Property_scaleY" keywords="[LinkButton, showTextField, Inherited, Property]" description="Checking Default Value of Property scaleY">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="scaleY" value="1" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_scaleY" keywords="[LinkButton, scaleY, Inherited, Property]" description="Checking MXML set Value of Inherited Property scaleY">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="scaleY" value="2" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="scaleY" value="2" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_scaleY" keywords="[LinkButton, scaleY, Inherited, Property]" description="Checking AS set Value of Inherited Property scaleY">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.scaleY=3" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="scaleY" value="3" />
+			</body>
+	</TestCase>
+
+
+
+	<TestCase testID="Checking_Default_Value_of_Property_x" keywords="[LinkButton, showTextField, Inherited, Property]" description="Checking Default Value of Property x">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="x" value="211" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_x" keywords="[LinkButton, x, Inherited, Property]" description="Checking MXML set Value of Inherited Property x">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="x" value="40" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="x" value="40" />
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_x" keywords="[LinkButton, x, Inherited, Property]" description="Checking AS set Value of Inherited Property x">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.x=40" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="x" value="40" />
+			</body>
+		</TestCase>
+
+	<TestCase testID="Checking_Default_Value_of_Property_y" keywords="[LinkButton, showTextField, Inherited, Property]" description="Checking Default Value of Property y">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="y" value="24" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_y" keywords="[LinkButton, y, Inherited, Property]" description="Checking MXML set Value of Inherited Property y">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="y" value="2" waitEvent="updateComplete" waitTarget="myLinkButton" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="y" value="2" />
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_y" keywords="[LinkButton, y, Inherited, Property]" description="Checking AS set Value of Inherited Property y">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+				<RunCode code="application.myLinkButton.y=3" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myLinkButton" propertyName="y" value="3" />
+			</body>
+	</TestCase>
+
+
+	<TestCase testID="Checking_MXML_Set_Value_of_Property_visible" keywords="[LinkButton, visible, Inherited, Property]" description="Checking MXML set Value of Inherited Property visible  using bitmap comparision">
+				<setup>
+					<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+					<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+					<SetProperty target="myLinkButton" propertyName="visible" value="false" waitEvent="hide" waitTarget="myLinkButton"  />
+				</setup>
+				<body>
+					<CompareBitmap target="myLinkButton" url="../properties/baselines/visible_mxml_bm.png" timeout="5000" />
+				</body>
+			</TestCase>
+
+			<TestCase testID="Checking_AS_Set_Value_of_Property_visible" keywords="[LinkButton, visible, Inherited, Property]" description="Checking AS set Value of Inherited Property visible  using bitmap comparision">
+				<setup>
+					<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+					<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+					<RunCode code="application.myLinkButton.visible=false" waitEvent="hide" waitTarget="myLinkButton"  />
+				</setup>
+				<body>
+					<CompareBitmap target="myLinkButton" url="../properties/baselines/visible_AS_bm.png" timeout="5000" />
+				</body>
+	</TestCase>
+
+	<TestCase testID="Checking_MXML_Set_Value_of_Property_enabled" keywords="[LinkButton, enabled, Inherited, Property]" description="Checking MXML set Value of Inherited Property enabled  using bitmap comparision">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" />
+				<SetProperty target="myLinkButton" propertyName="enabled" value="false" />
+				
+			</setup>
+			<body>
+				<CompareBitmap target="myLinkButton" url="../properties/baselines/enabled_mxml_bm.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_enabled" keywords="[LinkButton, enabled, Inherited, Property]" description="Checking AS set Value of Inherited Property enabled  using bitmap comparision">
+			<setup>
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" />
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" />
+				<RunCode code="application.myLinkButton.enabled=false"/>
+				
+			</setup>
+			<body>
+				<CompareBitmap target="myLinkButton" url="../properties/baselines/enabled_AS_bm.png" timeout="5000" />
+			</body>
+	</TestCase>
+
+	</testCases>
+
+</UnitTester>

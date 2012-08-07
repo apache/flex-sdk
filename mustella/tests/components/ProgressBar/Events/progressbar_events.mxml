@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ProgressBar/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ProgressBar_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+
+	import mx.controls.ProgressBar;
+
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	public var newPB:ProgressBar;
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+		<!--TestCase testID="ProgressBar_complete_mode_event" description="Test that complete event is fired when mode='event'"
+		    keywords="[events, complete, ProgressBar]">
+			<setup>
+				<ResetComponent target="pic" className="mx.controls.SWFLoader" waitTarget="pic" waitEvent="updateComplete" />
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="mode" value="event" target="pb" />
+			    <SetProperty propertyName="source" target="pb" valueExpression="value=application.pic" waitTarget="pb" waitEvent="updateComplete" />
+				<SetProperty propertyName="source" target="pic" valueExpression="value=application.pictureSource" waitEvent="complete" waitTarget="pb" />
+				<AssertEvent target="pb" eventName="complete" eventClass="flash.events::Event" timeout="2500" />
+			</body>
+		</TestCase -->
+		<!--TestCase testID="ProgressBar_complete_mode_polled" description="Test that complete event is fired when mode='polled'"
+		    keywords="[events, complete, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pic" className="mx.controls.SWFLoader" waitTarget="pic" waitEvent="updateComplete" />
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="mode" value="polled" target="pb" />
+			    <SetProperty propertyName="source" target="pb" valueExpression="value=application.pic" waitTarget="pb" waitEvent="updateComplete" />
+				<SetProperty propertyName="source" target="pic" valueExpression="value=application.pictureSource" waitEvent="complete" waitTarget="pb" />
+				<AssertEvent target="pb" eventName="complete" eventClass="flash.events::Event" timeout="2500" />
+			</body>
+		</TestCase -->
+		<TestCase testID="ProgressBar_complete_mode_manual" description="Test that complete event is fired when mode='manual'"
+		    keywords="[events, complete, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pic" className="mx.controls.SWFLoader" waitTarget="pic" waitEvent="updateComplete" />
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="mode" value="manual" target="pb" />
+			    <RunCode code="application.pb.setProgress(50, 100)" waitTarget="pb" waitEvent="progress" />
+			    <RunCode code="application.pb.setProgress(100, 100)" waitTarget="pb" waitEvent="progress" />
+				<AssertEvent target="pb" eventName="complete" eventClass="flash.events::Event" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="ProgressBar_progress_mode_manual" description="Test that progress event is fired when mode='manual'"
+		    keywords="[events, progress, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pic" className="mx.controls.SWFLoader" waitTarget="pic" waitEvent="updateComplete" />
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="mode" value="manual" target="pb" />
+			    <RunCode code="application.pb.setProgress(50, 100)" waitTarget="pb" waitEvent="progress" />
+				<AssertEvent target="pb" eventName="progress" eventClass="flash.events::ProgressEvent" timeout="2500" />
+				<AssertEventPropertyValue target="pb" propertyName="bytesLoaded" value="50" />
+			    <AssertEventPropertyValue target="pb" propertyName="bytesTotal" value="100" />
+			</body>
+		</TestCase>
+		<TestCase testID="ProgressBar_effectStart" description="Test that effectStart event is fired an effect plays"
+		    keywords="[events, effectStart, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="application.myFade.play([application.pb])" waitEvent="effectStart" waitTarget="pb" />
+			    <AssertEvent target="pb" eventName="effectStart" eventClass="mx.events::EffectEvent" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="ProgressBar_effectEnd" description="Test that effectEnd event is fired an effect plays"
+		    keywords="[events, effectEnd, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="application.myFade.play([application.pb])" waitEvent="effectStart" waitTarget="pb" />
+			    <AssertEvent target="pb" eventName="effectEnd" eventClass="mx.events::EffectEvent" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="ProgressBar_hide" description="Test that hide event is fired an effect plays"
+		    keywords="[events, hide, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="visible" target="pb" value="false" waitEvent="hide" waitTarget="pb" />
+			    <AssertEvent target="pb" eventName="hide" eventClass="mx.events::FlexEvent" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="ProgressBar_show" description="Test that show event is fired an effect plays"
+		    keywords="[events, show, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="visible"  target="pb" value="false" waitEvent="hide" waitTarget="pb" />
+			    <SetProperty propertyName="visible"  target="pb" value="true" waitEvent="show" waitTarget="pb" />
+			    <AssertEvent target="pb" eventName="show" eventClass="mx.events::FlexEvent" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="ProgressBar_move" description="Test that move event is fired an effect plays"
+		    keywords="[events, show, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="x" target="pb" value="40" waitEvent="move" waitTarget="pb" />
+			    <AssertEvent target="pb" eventName="move" eventClass="mx.events::MoveEvent" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="ProgressBar_resize" description="Test that resize event is fired an effect plays"
+		    keywords="[events, resize, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetStyle styleName="trackHeight" target="pb" value="40" />
+			    <SetProperty propertyName="height" target="pb" value="70" waitEvent="resize" waitTarget="pb" />
+			    <AssertEvent target="pb" eventName="resize" eventClass="mx.events::ResizeEvent" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="ProgressBar_mouseDown" description="Test that mouseDown event is fired an effect plays"
+		    keywords="[events, mouseDown, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="pb" localX="20" localY="5" waitEvent="mouseDown" waitTarget="pb" />
+			    <AssertEvent target="pb" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="ProgressBar_mouseUp" description="Test that mouseUp event is fired an effect plays"
+		    keywords="[events, mouseUp, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="pb" localX="20" localY="5" waitEvent="mouseUp" waitTarget="pb" />
+			    <AssertEvent target="pb" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="2500" />
+			</body>
+		</TestCase>
+		<TestCase testID="ProgressBar_mouseMove" description="Test that mouseMove event is fired an effect plays"
+		    keywords="[events, mouseMove, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseEvent type="mouseMove" target="pb" localX="20" localY="5" />
+			    <DispatchMouseEvent type="mouseMove" target="pb" localX="40" localY="5" waitEvent="mouseMove" waitTarget="pb" />
+			    <AssertEvent target="pb" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="2500" />
+			</body>
+		</TestCase>
+		<!--TestCase testID="ProgressBar_mouseOut" description="Test that mouseOut event is fired an effect plays"
+		    keywords="[events, mouseOut, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseEvent type="mouseMove" target="pb" localX="190" localY="2" waitEvent="mouseMove" waitTarget="pb"/>
+			    <DispatchMouseEvent type="mouseMove" target="pb" localX="195" localY="2" />
+			    <DispatchMouseEvent type="mouseMove" target="" localX="210" localY="2" waitEvent="mouseMove" waitTarget="" />
+			    <AssertEvent target="pb" eventName="mouseOut" eventClass="flash.events::MouseEvent" timeout="2500" />
+			</body>
+		</TestCase-->
+		<TestCase testID="ProgressBar_mouseOver" description="Test that mouseOver event is fired an effect plays"
+		    keywords="[events, mouseOver, ProgressBar]">
+			<setup>
+			    <ResetComponent target="pb" className="mx.controls.ProgressBar" waitTarget="pb" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseEvent type="mouseOver" target="pb" localX="20" localY="5" waitEvent="mouseOver" waitTarget="pb" />
+			    <AssertEvent target="pb" eventName="mouseOver" eventClass="flash.events::MouseEvent" timeout="2500" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

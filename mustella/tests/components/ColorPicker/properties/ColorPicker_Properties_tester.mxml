@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ColorPicker/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ColorPicker_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	[Bindable]
+	public var simpleDP:Array = ['0x000000', '0xFF0000', '0xFF8800', '0xFFFF00',
+	'0x88FF00', '0x00FF00', '0x00FF88', '0x00FFFF', '0x0088FF', '0x0000FF',
+	'0x8800FF', '0xFF00FF', '0xFFFFFF'];
+	[Bindable]
+	public var simpleDP1:Array = ['0xFF0000', '0xFF8800', '0xFFFF00',
+	'0x88FF00', '0x00FF00', '0x00FF88', '0x00FFFF', '0x0088FF', '0x0000FF',
+	'0x8800FF', '0xFF00FF', '0xFFFFFF'];
+
+	[Bindable]
+	public var ComplexDP:Array = [{label: "yellow", color:"0xCCFF00",mycolorfield:"0xCCFF00"}, {label: "black",color:"0x000000",mycolorfield:"0xCCFF00"},
+{label: "white",color:"0xFFFFFF",mycolorfield:"0xCCFF00"}, {label: "pink", color:"0XFF3366",mycolorfield:"0xCCFF00"},{label: "grey",color:"0x999999",mycolorfield:"0xCCFF00"}];
+	[Bindable]
+	public var ComplexDP1:Array = [{label: "black",color:"0x000000"},{label: "yellow", color:"0xCCFF00"}, 
+{label: "white",color:"0xFFFFFF"}, {label: "pink", color:"0XFF3366"},{label: "grey",color:"0x999999"}];
+[Bindable]
+	public var ComplexDP2:Array = [{label: "yellow", color:"0xCCFF00",mylabelField:"0xCCFF00"}, {label: "black",color:"0x000000",mylabelField:"0xCCFF00"},
+{label: "white",color:"0xFFFFFF",mylabelField:"0xCCFF00"}, {label: "pink", color:"0XFF3366",mylabelField:"0xCCFF00"},{label: "grey",color:"0x999999",mylabelField:"0xCCFF00"}];
+
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.ColorPicker;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+	public var styleDecl:Object;
+	public var styleObj:Object;
+
+	]]>
+	</mx:Script>
+    <testCases>
+	
+    <TestCase testID="Default_Value_of_Property_showTextField" keywords="[ColorPicker, showTextField, Property]" description="Checking Default Value of Property showTextField">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="showTextField" value="true" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_showTextField" keywords="[ColorPicker, showTextField, Property]" description="Checking AS set Value of Property showTextField"> 
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="showTextField" value="false" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="showTextField" value="false" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Default_Set_Value_of_Property_colorField" keywords="[ColorPicker, colorField, Property]" description="Checking Default Value of Property colorField">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="colorField" value="color" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_colorField" keywords="[ColorPicker, colorField, Property]" description="Checking AS set Value of Property colorField">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP"/>
+            <SetProperty target="myColorPicker" propertyName="colorField" value="mycolorfield" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="colorField" value="mycolorfield" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Default_Set_Value_of_Property_labelField" keywords="[ColorPicker, labelField, Property]" description="Checking Default Value of Property labelField">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP2" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="labelField" value="label" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_labelField" keywords="[ColorPicker, labelField, Property]" description="Checking AS set Value of Property labelField">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP2"/>
+            <SetProperty target="myColorPicker" propertyName="labelField" value="mylabelField" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="labelField" value="mylabelField" />
+        </body>
+    </TestCase>	
+
+    <TestCase testID="Default_Value_of_Property_selectedColor" keywords="[ColorPicker, selectedColor, Property]" description="Checking Default set Value of Property selectedColor">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0x000000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_selectedColor" keywords="[ColorPicker, selectedColor, Property]" description="Checking AS set Value of Property selectedColor">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="selectedColor" value="0xff0000" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0xff0000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Default_Value_of_Property_selectedColor_for_custom_Simple_dataProvider_option1" keywords="[ColorPicker, selectedColor, Property, simple dataprovider]" description="Checking Default Value of Property selectedColor custom Simple dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=simpleDP" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0x000000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_selectedColor_for_custom_Simple_dataProvider_option1" keywords="[ColorPicker, selectedColor, Property, simple dataprovider]" description="Checking AS set Value of Property selectedColor custom Simple dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=simpleDP" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            <SetProperty target="myColorPicker" propertyName="selectedColor" value="0xff0000" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0xff0000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Default_Value_of_Property_selectedColor_for_custom_Simple_dataProvider_option2" keywords="[ColorPicker, selectedColor, Property, simple dataprovider]" description="Checking Default Value of Property selectedColor custom Simple dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=simpleDP1" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0xff0000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_selectedColor_for_custom_Simple_dataProvider_option2" keywords="[ColorPicker, selectedColor, Property, simple dataprovider]" description="Checking AS set Value of Property selectedColor custom Simple dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=simpleDP1" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            <SetProperty target="myColorPicker" propertyName="selectedColor" value="0xff8800" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0xff8800" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Default_Value_of_Property_selectedColor_for_custom_Complex_dataProvider_option1" keywords="[ColorPicker, selectedColor, Property, complex dataprovider]" description="Checking Default Value of Property selectedColor custom complex dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0x000000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_selectedColor_for_custom_Complex_dataProvider_option1" keywords="[ColorPicker, selectedColor, Property, complex dataprovider]" description="Checking AS set Value of Property selectedColor custom complex dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            <SetProperty target="myColorPicker" propertyName="selectedColor" value="0xccff00" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0xccff00" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Default_Value_of_Property_selectedColor_for_custom_Complex_dataProvider_option2" keywords="[ColorPicker, selectedColor, Property, complex dataprovider]" description="Checking Default Value of Property selectedColor custom complex dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP1" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0x000000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_selectedColor_for_custom_Complex_dataProvider_option2" keywords="[ColorPicker, selectedColor, Property, complex dataprovider]" description="Checking AS set Value of Property selectedColor custom complex dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP1" />
+            <SetProperty target="myColorPicker" propertyName="selectedColor" value="0xffffff" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0xffffff" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Default_Value_of_Property_selectedIndex" keywords="[ColorPicker, selectedIndex, Property]" description="Checking Default Value of Property selectedIndex">
+        <body>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_selectedIndex" keywords="[ColorPicker, selectedIndex, Property]" description="Checking AS set Value of Property selectedIndex">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="selectedIndex" value="40" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="40" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_selectedIndex_but_by_setting_selectedColor" keywords="[ColorPicker,selectedColor, selectedIndex, Property]" description="Checking AS Set Value of Property selectedIndex but by setting selectedColor">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="selectedColor" value="0xff0000" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="120" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Default_Value_of_Property_selectedIndex_for_custom_Simple_dataProvider_option1" keywords="[ColorPicker, selectedIndex, Property, simple dataprovider]" description="Checking Default Value of Property selectedIndex custom Simple dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=simpleDP" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_selectedIndex_for_custom_Simple_dataProvider_option1" keywords="[ColorPicker, selectedIndex, Property, simple dataprovider]" description="Checking AS set Value of Property selectedIndex custom Simple dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=simpleDP" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            <SetProperty target="myColorPicker" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Default_Value_of_Property_selectedIndex_for_custom_Simple_dataProvider_option2" keywords="[ColorPicker, selectedIndex, Property, simple dataprovider]" description="Checking Default Value of Property selectedIndex custom Simple dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=simpleDP1" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_selectedIndex_for_custom_Simple_dataProvider_option2" keywords="[ColorPicker, selectedIndex, Property, simple dataprovider]" description="Checking AS set Value of Property selectedIndex custom Simple dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=simpleDP1" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            <SetProperty target="myColorPicker" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="3" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Default_Value_of_Property_selectedIndex_for_custom_Complex_dataProvider_option1" keywords="[ColorPicker, selectedIndex, Property, complex dataprovider]" description="Checking Default Value of Property selectedIndex custom complex dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_selectedIndex_for_custom_Complex_dataProvider_option1" keywords="[ColorPicker, selectedIndex, Property, complex dataprovider]" description="Checking AS set Value of Property selectedIndex custom complex dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            <SetProperty target="myColorPicker" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="3" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Default_Value_of_Property_selectedIndex_for_custom_Complex_dataProvider_option2" keywords="[ColorPicker, selectedIndex, Property, complex dataprovider]" description="Checking Default Value of Property selectedIndex custom complex dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP1" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="AS_Set_Value_of_Property_selectedIndex_for_custom_Complex_dataProvider_option2" keywords="[ColorPicker, selectedIndex, Property, complex dataprovider]" description="Checking AS set Value of Property selectedIndex custom complex dataProvider">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=ComplexDP1" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            <SetProperty target="myColorPicker" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="3" />
+        </body>
+    </TestCase>
+		
+    </testCases>
+</UnitTester>

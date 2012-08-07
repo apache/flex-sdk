@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ComboBox/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ComboBoxMain.mxml">
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+	public function setSize():void{
+		application.mybox.myCB.setActualSize(300,300);
+	}
+	]]>
+	</mx:Script>
+
+      <testCases>
+	<TestCase testID="combobox_events_open_close_thruAS" keywords="[comboBox, events, open, close,thruAS]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		  <RunCode code="application.mybox.myCB.open()" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		 <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	  <TestCase testID="combobox_events_open_close_keyboard" keywords="[comboBox, events, open, close,keyboard]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		   <DispatchKeyEvent key="TAB" ctrlKey="true" />
+		  <DispatchKeyEvent key="DOWN" ctrlKey="true" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <DispatchKeyEvent key="DOWN" ctrlKey="false" repeatCount="2"/>
+		  <DispatchKeyEvent key="ENTER" ctrlKey="true" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		 <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	  <TestCase testID="combobox_events_open_close_mouse_click_inside" keywords="[comboBox, events, open, close,mouse, clickinside]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		  <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" />
+		   <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <DispatchMouseClickEvent target="mybox.myCB.dropdown" stageX="100" stageY="150" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		 <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	   <TestCase testID="combobox_events_open_close_mouse_click_outside" keywords="[comboBox, events, open, close,mouse, clickoutside]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		  <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" />
+		   <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <DispatchMouseClickEvent target="mybox.myCB.dropdown" stageX="10" stageY="15" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		 <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	   <TestCase testID="combobox_events_itemRollOver" keywords="[comboBox, events,itemRollOver]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+		  <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" />
+		   <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <DispatchMouseEvent target="mybox.myCB.dropdown"  type="mouseOver" localX="40" localY="15" />
+		  <AssertEvent target="mybox.myCB" eventName="itemRollOver" eventClass="mx.events::ListEvent"/>
+     	          <RunCode code="application.mybox.myCB.close()" />
+  		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		 <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+	  <TestCase testID="combobox_events_scroll" keywords="[comboBox, events,scroll]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>
+	      <DispatchMouseClickEvent target="mybox.myCB" localX="25" localY="5" />
+		  <AssertEvent target="mybox.myCB" eventName="open" eventClass="mx.events::DropdownEvent"/>
+		  <WaitForEffectsToEnd />
+		  <DispatchMouseClickEvent target="mybox.myCB.dropdown" localX="75" localY="40" />
+		  <AssertEvent target="mybox.myCB" eventName="scroll" eventClass="mx.events::ScrollEvent"/>
+		  <RunCode code="application.mybox.myCB.close()" />
+		  <AssertEvent target="mybox.myCB" eventName="close" eventClass="mx.events::DropdownEvent"/>
+		 <WaitForEffectsToEnd/>
+	     </body>
+	  </TestCase>
+
+		<TestCase testID="ComboBox_events_change" keywords="[open, close,change, ComboBox]">
+			<setup>
+				<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="DOWN"/>
+				<AssertEvent target="mybox.myCB" eventName="change" eventClass="mx.events::ListEvent" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_events_show" keywords="[open, close,show, ComboBox]">
+			<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<SetProperty target="mybox.myCB" propertyName="visible" value="false" />
+			</setup>
+			<body>
+			<SetProperty target="mybox.myCB" propertyName="visible" value="true" />
+			<AssertEvent target="mybox.myCB" eventName="show" eventClass="mx.events::FlexEvent" />
+			<SetProperty target="mybox.myCB" propertyName="visible" value="false" />
+			</body>
+		</TestCase>
+		<TestCase testID="ComboBox_events_mouseOver" keywords="[open, close,mouseOver, ComboBox]">
+			<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			<WaitForEffectsToEnd />
+			</setup>
+			<body>
+			<DispatchMouseEvent target="mybox.myCB" type="mouseOver" localX="10" localY="10" />
+			<AssertEvent target="mybox.myCB" eventName="mouseOver" eventClass="flash.events::MouseEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="ComboBox_events_mouseOut" keywords="[open, close,mouseOut, ComboBox]">
+			<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+
+			</setup>
+			<body>
+			<DispatchMouseEvent target="mybox.myCB" type="mouseOut" localX="10" localY="10" />
+			<AssertEvent target="mybox.myCB" eventName="mouseOut" eventClass="flash.events::MouseEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="ComboBox_events_mouseHide" keywords="[open, close,mouseHide, ComboBox]">
+			<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+
+			</setup>
+			<body>
+			<SetProperty target="mybox.myCB" propertyName="visible" value="false"/>
+			<AssertEvent target="mybox.myCB" eventName="hide" eventClass="mx.events::FlexEvent" />
+			<SetProperty target="mybox.myCB" propertyName="visible" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ComboBox_events_focusIn" keywords="[open, close,focusIn, ComboBox]">
+			<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"/>
+				<AssertEvent target="mybox.myCB" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="ComboBox_events_resize" keywords="[open, close,resize, ComboBox]">
+			<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+			</setup>
+			<body>
+			<RunCode code="setSize()" />
+			<AssertEvent target="mybox.myCB" eventName="resize" eventClass="mx.events::ResizeEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="ComboBox_events_mouseMove" keywords="[open, close,mouseMove, ComboBox]">
+			<setup>
+			<ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+
+			</setup>
+			<body>
+			<DispatchMouseEvent target="mybox.myCB" type="mouseMove" localX="10" localY="10" />
+			<AssertEvent target="mybox.myCB" eventName="mouseMove" eventClass="flash.events::MouseEvent" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/VideoDisplay/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="VideoMain.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }                   
+        ]]>
+        </mx:Script>
+        <mx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+        </mx:Metadata>  
+        <!-- end of set of lines that must be in each unit test -->
+    
+        <mx:Script>
+        <![CDATA[
+        import mx.controls.ComboBox;
+        import mx.controls.DateField;
+        import mx.styles.StyleManager;
+        import mx.managers.SystemManager;
+        
+        public function scriptFunction(a:String, b:int):String
+        {
+            return a + ":" + b.toString();
+        }
+        public var styleDecl:Object;
+        public var styleObj:Object;
+    
+        public function checkValue(val:Number): Boolean
+        {
+           return 0.25 <= val <= 0.5;
+        }
+        ]]>
+        </mx:Script>
+
+    <testCases>
+        <TestCase testID="myTest_property_autoPlay_True" keywords="[VideoDisplay, property, autoPlay, true]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd"/>
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="vd" propertyName="state" value="playing"  />               
+            </body>
+        </TestCase>
+
+        <TestCase testID="myTest_property_autoPlay_True_airOnly" keywords="[VideoDisplay, property, autoPlay, true]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd"/>
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+            </setup>
+            <body>
+            	<!--
+                <AssertPropertyValue target="vd" propertyName="state" value="buffering" />
+                -->
+                <AssertEvent target="vd" eventName="stateChange" eventClass="mx.events::VideoEvent" numExpectedEvents="1" />
+                <AssertPropertyValue target="vd" propertyName="state" value="playing" />
+            </body>
+        </TestCase>
+
+        
+        <TestCase testID="myTest_property_autoPlay_False" keywords="[VideoDisplay, property, autoPlay, false]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd"/>
+                <SetProperty target="vd" propertyName="autoPlay" value="false" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+            </setup>
+            <body>
+                <RunCode code="application.vd.load()" waitEvent="ready" waitTarget="vd" />
+                <AssertPropertyValue target="vd" propertyName="state" value="stopped" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="myTest_property_bytesLoaded" keywords="[VideoDisplay, property, bytesLoaded]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd"/>
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="vd"  propertyName="bytesLoaded" valueExpression ="value=application.vd.bytesTotal" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="myTest_property_default_height_width" keywords="[VideoDisplay, property, default, height, width]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv"  waitEvent="updateComplete" waitTarget="vd"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd/>                  
+                <AssertPropertyValue  target="vd"  propertyName="height" valueExpression ="value=application.vd.videoHeight"/>
+                <AssertPropertyValue target="vd"  propertyName="width" valueExpression ="value=application.vd.videoWidth" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="myTest_property_playheadtime" keywords="[VideoDisplay, property, playheadTime]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="autoPlay" value="false" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="vd" propertyName="playheadTime" value="0" />
+                <AssertPropertyValue target="vd" propertyName="playheadUpdateInterval" value="250" />
+                <RunCode code="application.vd.play()" />
+                <AssertEvent target="vd" eventName="playheadUpdate" eventClass="mx.events::VideoEvent" timeout="1000"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="myTest_property_maintainAspectRatio_true" keywords="[VideoDisplay, property, maintainAspectRatio,true]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="autoPlay" value="false" />
+                <SetProperty target="vd" propertyName="width" value="400" />
+                <SetProperty target="vd" propertyName="height" value="400" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+            </setup>
+            <body>
+                <SetProperty target="vd" propertyName="maintainAspectRatio" value="true" waitEvent="updateComplete" waitTarget="vd" />
+                <RunCode code="application.vd.load()" waitEvent="ready" waitTarget="vd"/>
+                <AssertPropertyValue propertyName="width" target="vd.getChildAt(1)" value="400" />
+                <AssertPropertyValue propertyName="height" target="vd.getChildAt(1)" value="300" />
+            </body>
+        </TestCase>
+        <TestCase testID="myTest_property_maintainAspectRatio_false" keywords="[VideoDisplay, property, maintainAspectRatio,false]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="autoPlay" value="false" />
+                <SetProperty target="vd" propertyName="width" value="400" />
+                <SetProperty target="vd" propertyName="height" value="400" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+            </setup>
+            <body>
+                <SetProperty target="vd" propertyName="maintainAspectRatio" value="false" />
+                <RunCode code="application.vd.load()" waitEvent="ready" waitTarget="vd"/>
+                <AssertPropertyValue propertyName="width" target="vd.getChildAt(1)" value="400" />
+                <AssertPropertyValue propertyName="height" target="vd.getChildAt(1)" value="400" />
+            </body>
+        </TestCase>     
+        <TestCase testID="myTest_property_maintainAspectRatio_pixelverification" keywords="[VideoDisplay, property, maintainAspect Ratio pixelverification]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="autoPlay" value="false" />
+                <SetProperty target="vd" propertyName="maintainAspectRatio" value="false" />
+                <SetProperty target="vd" propertyName="width" value="250" />
+                <SetProperty target="vd" propertyName="height" value="275" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+                <RunCode code="application.vd.load()" waitEvent="ready" waitTarget="vd"/>
+            </setup>
+            <body>
+                <SetProperty target="vd" propertyName="maintainAspectRatio" value="true" />
+                <AssertPixelValue target="vd" x="5" y="5" value="0x000000" waitEvent="updateComplete" waitTarget="vd" />
+            </body>
+        </TestCase>
+        <TestCase testID="myTest_property_visible" keywords="[VideoDisplay, property, visible]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="autoPlay" value="false" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" />
+                <RunCode code="application.vd.load()" waitEvent="ready" waitTarget="vd"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="vd" propertyName="visible" value="true" />
+                <SetProperty target="vd" propertyName="visible" value="false" />
+                <AssertPropertyValue target="vd" propertyName="visible" value="false" />
+                <AssertPixelValue target="vd" x="1" y="1" value="0xFFFFFF" />
+                <CompareBitmap target="vd" url="../Properties/Baselines/vd_visible_false.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="myTest_property_state" keywords="[VideoDisplay, property, state]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="vd" propertyName="state" value="playing" />
+                <RunCode code="application.vd.pause();" waitEvent="stateChange" waitTarget="vd" />
+                <AssertPropertyValue target="vd" propertyName="state" value="paused" />
+                <RunCode code="application.vd.play()" waitEvent="stateChange" waitTarget="vd" />
+                <AssertPropertyValue target="vd" propertyName="state" value="playing" />
+                <RunCode code="application.vd.stop()" />
+                <AssertPropertyValue target="vd" propertyName="state" value="rewinding" />
+                <AssertEvent target="vd" eventName="stateChange" eventClass="mx.events::VideoEvent" numExpectedEvents="2" />
+                <AssertPropertyValue target="vd" propertyName="state" value="stopped" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="myTest_property_state_airOnly" keywords="[VideoDisplay, property, state]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+            </setup>
+            <body>
+            	<!--
+            	<AssertPropertyValue target="vd" propertyName="state" value="buffering" />
+            	-->
+				<AssertEvent target="vd" eventName="stateChange" eventClass="mx.events::VideoEvent" numExpectedEvents="-1" />
+                <AssertPropertyValue target="vd" propertyName="state" value="playing" />
+                <RunCode code="application.vd.pause();" waitEvent="stateChange" waitTarget="vd" />
+                <AssertPropertyValue target="vd" propertyName="state" value="paused" />
+                <RunCode code="application.vd.play()" waitEvent="stateChange" waitTarget="vd" />
+                <AssertPropertyValue target="vd" propertyName="state" value="playing" />
+                <RunCode code="application.vd.stop()" />
+                <AssertPropertyValue target="vd" propertyName="state" value="rewinding" />
+                <AssertEvent target="vd" eventName="stateChange" eventClass="mx.events::VideoEvent" numExpectedEvents="2" />
+                <AssertPropertyValue target="vd" propertyName="state" value="stopped" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="myTest_property_video_Height_Width" keywords="[VideoDisplay, property, videoHeight, videoWidth]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="width" value="400" />
+                <SetProperty target="vd" propertyName="height" value="400" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="vd" propertyName="height" value="400" />
+                <AssertPropertyValue target="vd" propertyName="width" value="400" />
+                <AssertPropertyValue target="vd" propertyName="videoHeight" value="240" />
+                <AssertPropertyValue target="vd" propertyName="videoWidth" value="320" />                
+            </body>
+        </TestCase>
+        <TestCase testID="myTest_property_autoRewind" keywords="[VideoDisplay, property, autoRewind]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="autoPlay" value="false" />
+                <SetProperty target="vd" propertyName="autoRewind" value="false" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/short.flv" />
+            </setup>
+            <body>
+                <RunCode code="application.vd.play()" waitEvent="stateChange" waitTarget="vd" timeout="3000" />
+                <AssertEvent target="vd" eventName="complete" eventClass="mx.events::VideoEvent" timeout="5000"/>
+                <AssertPropertyValue target="vd" propertyName="playheadTime" valueExpression="value=4.04" />
+            </body>
+        </TestCase>
+        <TestCase testID="myTest_property_volume" keywords="[VideoDisplay, property, volume]">
+            <setup>
+                <ResetComponent target="vd" className="mx.controls::VideoDisplay" waitEvent="updateComplete" waitTarget="vd" />
+                <SetProperty target="vd" propertyName="source" value="../../../../Assets/Video/video.flv" waitEvent="ready" waitTarget="vd" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="vd" propertyName="volume" value="0.75" />
+                <SetProperty target="vd" propertyName="volume" value="1" />
+                <AssertPropertyValue target="vd" propertyName="volume" value="1"/>  
+                <SetProperty target="vd" propertyName="volume" value="0.000000000000001" />
+                <AssertPropertyValue target="vd" propertyName="volume" value="1e-15"/>  
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>
+

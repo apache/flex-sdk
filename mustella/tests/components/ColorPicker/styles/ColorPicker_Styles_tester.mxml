@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ColorPicker/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ColorPicker_main.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.ColorPicker;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.controls.TextInput;
+    import mx.core.mx_internal;
+    import comps.CustomColorPicker2;
+
+    use namespace mx_internal;
+
+    public function scriptFunction(a:String, b:int):String
+    {
+        return a + ":" + b.toString();
+    }
+    public var styleDecl:Object;
+    public var styleObj:Object;
+
+    public function getRidOfCursor(): void
+    {
+        var dropDownTextInput:TextInput = application.myColorPicker.mx_internal::dropdown.getChildAt(2);
+        dropDownTextInput.mx_internal::getTextField().type ="dynamic";
+    }
+
+    ]]>
+    </mx:Script>
+    <testCases>
+        <TestCase testID="Default_Value_of_Style_columnCount" keywords="[ColorPicker, columnCount, Style]" description="Checking Default Value of Style columnCount">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue propertyName="width" target="myColorPicker.mx_internal:dropdown" value="231" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="columnCount_2" keywords="[ColorPicker, columnCount, Style]" description="Checking columnCount using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customColumnCount2" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Default_Value_of_Style_closeDuration" keywords="[ColorPicker, closeDuration, Style]" description="Checking Default Value of Style closeDuration">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="closeDuration" value="250" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="AS_Value_of_Style_closeDuration" keywords="[ColorPicker, closeDuration, Style]" description="Checking AS set Value of Style closeDuration">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="closeDuration" value="100" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="closeDuration" value="100" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Default_Value_of_Style_openDuration" keywords="[ColorPicker, openDuration, Style]" description="Checking Default Value of Style openDuration">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="openDuration" value="250" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="AS_Value_of_Style_openDuration" keywords="[ColorPicker, openDuration, Style]" description="Checking AS set Value of Style openDuration">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="openDuration" value="100" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="openDuration" value="100" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Default_Value_of_Style_color" keywords="[ColorPicker, color, Style]" description="Checking Default set Value of Style color">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="color" value="0x0B333C" />
+                <DispatchMouseClickEvent target="myColorPicker" localX="5" localY="5" waitEvent="open" waitTarget="myColorPicker" />
+                <RunCode code="application.getRidOfCursor()" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown.getChildAt(2)" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="AS_Value_of_Style_color" keywords="[ColorPicker, color, Style]" description="Checking AS set Value of Style color">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="color" value="0xFF0000" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="color" value="0xFF0000" />
+                <DispatchMouseClickEvent target="myColorPicker" localX="5" localY="5" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown.getChildAt(2)" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Default_Value_of_Style_backgroundColor" keywords="[ColorPicker, backgroundColor, Style]" description="Checking Default set Value of Style backgroundColor">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <AssertPixelValue target="myColorPicker.mx_internal:dropdown" y="5" x="225" value="0xE5E6E7"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="backgroundColor_using_bitmap" keywords="[ColorPicker, backgroundColor, Style]" description="Checking backgroundColor using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customBackgroundColor2" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Default_Value_of_Style_borderColor" keywords="[ColorPicker, borderColor, Style]" description="Checking Default set Value of Style borderColor">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="borderColor_using_bitmap" keywords="[ColorPicker, borderColor, Style]" description="Checking borderColor using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customBorderColor" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+                
+        <TestCase testID="Default_Value_of_Style_disabledColor" keywords="[ColorPicker, disabledColor, Style]" description="Checking Default set Value of Style disabledColor">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="disabledColor" value="0xAAB3B3" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Value_of_Style_disabledColor" keywords="[ColorPicker, disabledColor, Style]" description="Checking MXML set Value of Style disabledColor">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="disabledColor" value="0xFF00000" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="disabledColor" value="0xFF00000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Default_Value_of_Style_fontFamily" keywords="[ColorPicker, fontFamily, Style]" description="Checking Default set Value of Style fontFamily">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="fontFamily" value="EmbeddedVerdana" />
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Value_of_Style_fontFamily" keywords="[ColorPicker, fontFamily, Style]" description="Checking MXML set Value of Style fontFamily">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="fontFamily" value="EmbeddedArial" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="fontFamily" value="EmbeddedArial" />
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Default_Value_of_Style_fontSize" keywords="[ColorPicker, fontSize, Style]" description="Checking Default set Value of Style fontSize">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Value_of_Style_fontSize" keywords="[ColorPicker, fontSize, Style]" description="Checking MXML set Value of Style fontSize">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customFontSize" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Value_of_Style_textFieldWidth" keywords="[ColorPicker, textWidth, Style]" description="Checking MXML set Value of Style textWidth">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customTextFieldWidth" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue propertyName="width" target="myColorPicker.mx_internal:dropdown.getChildAt(2)" value="120" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Value_of_Style_textAlign" keywords="[ColorPicker, textAlign, Style]" description="Checking MXML set Value of Style textAlign">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="textAlign" value="right" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="textAlign" value="right" />
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown.getChildAt(2)" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Value_of_Style_textIndent" keywords="[ColorPicker, textIndent, Style]" description="Checking MXML set Value of Style textIndent">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="textIndent" value="15" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="textIndent" value="15" />
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown.getChildAt(2)" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Default_Value_of_Style_fontStyle" keywords="[ColorPicker, fontStyle, Style]" description="Checking Default set Value of Style fontStyle">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="fontStyle" value="normal" />
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Value_of_Style_fontStyle" keywords="[ColorPicker, fontStyle, Style]" description="Checking MXML set Value of Style fontStyle">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="fontStyle" value="italic" />
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Default_Value_of_Style_fontWeight" keywords="[ColorPicker, fontWeight, Style]" description="Checking Default set Value of Style fontWeight">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="myColorPicker" styleName="fontWeight" value="normal" />
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Value_of_Style_fontWeight" keywords="[ColorPicker, fontWeight, Style]" description="Checking MXML set Value of Style fontWeight">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customFontWeight" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Default_Value_of_Style_horizontalGap" keywords="[ColorPicker, horizontalGap, Style]" description="Checking Default set Value of Style horizontalGap">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="myColorPicker.mx_internal:dropdown" value="231" propertyName="width" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Value_of_Style_horizontalGap" keywords="[ColorPicker, horizontalGap, Style]" description="Checking MXML set Value of Style horizontalGap">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customHorizontalGap2" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="myColorPicker.mx_internal:dropdown" value="611" propertyName="width" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="horizontalGap_using_bitmap" keywords="[ColorPicker, horizontalGap, Style]" description="Checking horizontalGap using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customHorizontalGap" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+      
+        <TestCase testID="Default_Value_of_Style_verticalGap" keywords="[ColorPicker, verticalGap, Style]" description="Checking Default set Value of Style verticalGap">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="myColorPicker.mx_internal:dropdown" value="167" propertyName="height" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Value_of_Style_verticalGap" keywords="[ColorPicker, verticalGap, Style]" description="Checking MXML set Value of Style verticalGap" >
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls.ColorPicker" waitEvent="updateComplete" />
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customVerticalGap2" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="myColorPicker.mx_internal:dropdown" value="387" propertyName="height" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="verticalGap_using_bitmap" keywords="[ColorPicker, verticalGap, Style]" description="Checking verticalGap using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customVerticalGap" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="paddingLeft_using_bitmap" keywords="[ColorPicker, paddingLeft, Style]" description="Checking paddingLeft using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customPaddingLeft" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="paddingTop_using_bitmap" keywords="[ColorPicker, paddingTop, Style]" description="Checking paddingTop using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customPaddingTop" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="paddingRight_using_bitmap" keywords="[ColorPicker, paddingRight, Style]" description="Checking paddingRight using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customPaddingRight" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="paddingBottom_using_bitmap" keywords="[ColorPicker, paddingBottom, Style]" description="Checking paddingBottom using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customPaddingBottom" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="previewWidth_using_bitmap" keywords="[ColorPicker, previewWidth, Style]" description="Checking previewWidth using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customPreviewWidth"/>
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="previewHeight_using_bitmap" keywords="[ColorPicker, previewHeight, Style]" description="Checking previewHeight using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="myColorPicker" waitEvent="focusIn" />
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customPreviewHeight" waitEvent="updateComplete" />
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="swatchBorderColor_using_bitmap" keywords="[ColorPicker, swatchBorderColor, Style]" description="Checking swatchBorderColor using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customSwatchBorderColor" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="swatchGridBackgroundColor_using_bitmap" keywords="[ColorPicker, swatchGridBackgroundColor, Style]" description="Checking swatchGridBackgroundColor using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customSwatchGridBackgroundColor" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="swatchGridBorderSize_using_bitmap" keywords="[ColorPicker, swatchGridBorderSize, Style]" description="Checking swatchGridBorderSize using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customSwatchGridBorderSize" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap  target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="swatchWidth_using_bitmap" keywords="[ColorPicker, swatchWidth, Style]" description="Checking swatchWidth using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customSwatchWidth" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown"  url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="swatchHeight_using_bitmap" keywords="[ColorPicker, swatchHeight, Style]" description="Checking swatchHeight using bitmap comparision">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customSwatchHeight" />
+            </setup>
+            <body>
+                <RunCode code="application.myColorPicker.open()" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ColorPicker_textFieldStyleName_custom" keywords="[ColorPicker, textFieldStyleName, Style]" description="Changing the textFieldStyleName at runtime." >
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchPanelStyleName" value="customTextFieldStyleName" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="myColorPicker" localX="5" localY="5" />
+                <WaitForEffectsToEnd />
+                <RunCode code="application.getRidOfCursor()" />
+                <CompareBitmap target="myColorPicker.mx_internal:dropdown.getChildAt(2)" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="custom_swatchBorderSize" keywords="[ColorPicker, swatchBorderSize, Style]" description="Checking swatchBorderSize ">
+            <setup>
+                <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" waitTarget="myColorPicker"/>
+                <SetStyle target="myColorPicker" styleName="swatchBorderSize" value="5" />
+                <SetStyle target="myColorPicker" styleName="swatchBorderColor" value="0xFF0000"  waitEvent="updateComplete" waitTarget="myColorPicker" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myColorPicker" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="swatchStyleFilters_removeswatchBorderSize" keywords="[ColorPicker, swatchStyleFilters, swatchBorderSize, Style]" description="Checking swatchBorderSize ">
+            <setup>
+                <ResetComponent target="myColorPicker4" className="comps.CustomColorPicker2" waitEvent="updateComplete" waitTarget="myColorPicker4"/>
+                <SetStyle target="myColorPicker4" styleName="swatchBorderSize" value="5" />
+                <SetStyle target="myColorPicker4" styleName="swatchBorderColor" value="0xFF0000" />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myColorPicker4" url="../styles/baselines/$testID.png" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

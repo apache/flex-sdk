@@ -1,0 +1,1028 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ComboBox/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ComboBoxMain_spark.mxml">
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <mx:Script>
+    <![CDATA[
+    import mx.styles.StyleManager;
+    import mx.controls.Button;
+    import mx.managers.SystemManager;
+    private var btn:Button;
+
+
+    ]]>
+    </mx:Script>
+
+      <testCases>
+
+
+      <TestCase testID="Spark_combobox_styles_bugs_176563" keywords="[comboBox, bugs, 176563]">
+              <setup>
+               <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+             </setup>
+            <body>
+               <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" stageX="2" stageY="2"/>
+               <SetStyle target="mybox.myCB" styleName="fillColors" value="[#ff0000, #ff0000]" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+               <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_bugs_priorityA_176563_inital_spark.png"  />
+               <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="open" waitTarget="mybox.myCB" />
+               <WaitForEffectsToEnd/>
+               <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="close" waitTarget="mybox.myCB" />
+               <WaitForEffectsToEnd/>
+               <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_bugs_priorityA_176563_rollover1_spark.png"  />
+               <DispatchMouseClickEvent target="mybox.myCB" localX="68" localY="5" waitEvent="open" waitTarget="mybox.myCB" />
+               <WaitForEffectsToEnd />
+               <DispatchMouseClickEvent target="mybox.myCB.dropdown" localX="45" localY="25" waitEvent="close" waitTarget="mybox.myCB" />
+               <WaitForEffectsToEnd />
+               <DispatchMouseClickEvent target="mybox.myCB" localX="40" localY="5" waitEvent="open" waitTarget="mybox.myCB" />
+               <WaitForEffectsToEnd />
+               <DispatchMouseClickEvent target="mybox.myCB.dropdown" localX="45" localY="85" waitEvent="close" waitTarget="mybox.myCB" />
+               <WaitForEffectsToEnd />
+               <DispatchMouseClickEvent target="mybox.myCB" localX="10" localY="10" waitEvent="open" waitTarget="mybox.myCB" />
+               <WaitForEffectsToEnd />
+               <DispatchMouseClickEvent target="mybox.myCB" localX="15" localY="5" waitEvent="close" waitTarget="mybox.myCB" />
+               <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" localX="2" localY="2" />
+               <WaitForEffectsToEnd/>
+               <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_bugs_priorityA_176563_rollover2_spark.png"  />
+
+             </body>
+          </TestCase>
+          <TestCase testID="Spark_combobox_styles_bugs_179201" keywords="[comboBox, bugs, 179201]">
+              <setup>
+               <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+               <SetStyle target="mybox.myCB" styleName="openDuration" value="0" />
+               <SetStyle target="mybox.myCB" styleName="selectionDuration" value="0" />
+               <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+             </setup>
+            <body>
+             <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2"/>
+             <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2"/>
+             <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2"/>
+             <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2"/>
+             <!-- I'm looking for a player crash -->
+             </body>
+    </TestCase>
+
+
+    <TestCase testID="Spark_combobox_styles_alternatingItemColors_0x" keywords="[comboBox, styles, alternatingColors,0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customAlternatingItemColors" />
+            <RunCode code="application.mybox.myCB.open()"  waitEvent="open" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_alternatingColors_0x_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_alternatingItemColors_string" keywords="[comboBox, styles, alternatingColors,string]">
+          <setup>
+              <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+          </setup>
+          <body>
+              <SetStyle target="mybox.myCB" styleName="alternatingItemColors" value="['yellow','green']"/>
+              <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_alternatingColors_string_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+          </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_alternatingItemColors_hash" keywords="[comboBox, styles, alternatingColors,hash]">
+          <setup>
+              <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+          </setup>
+          <body>
+              <SetStyle target="mybox.myCB" styleName="alternatingItemColors" value="[#abcdef,#fedcba]"/>
+              <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_alternatingColors_hash_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+
+      <TestCase testID="Spark_combobox_styles_color_0x" keywords="[comboBox, styles, color,0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="color" value="0xfff000" />
+            <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customColor" />
+            <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_color_0x_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_color_string" keywords="[comboBox, styles, color,string]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="color" value="green"/>
+              <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_color_string_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_color_hash" keywords="[comboBox, styles, color,hash]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="color" value="#ff00ff"/>
+            <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_color_hash_spark.png"  />
+       </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_color_dropdown" keywords="[comboBox, styles, color,hash]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="color" value="#ff00ff"/>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_color_dropdown_spark.png"  />
+       </body>
+      </TestCase>
+
+        <TestCase testID="Spark_combobox_styles_cornerRadius" keywords="[comboBox, styles, cornerRadius]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="cornerRadius" value="10"/>
+              <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_cornerRadius_spark.png"  />
+       </body>
+      </TestCase>
+
+      <TestCase testID="Spark_combobox_styles_disabledColor_default" keywords="[comboBox, styles, disabledColor,default]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetProperty target="mybox.myCB" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <WaitForEffectsToEnd/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_disabledColor_default_spark.png"  />
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_combobox_styles_disabledColor_0x" keywords="[comboBox, styles, disabledColor,0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="disabledColor" value="0xfff000" />
+            <SetProperty target="mybox.myCB" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_disabledColor_0x_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_disabledColor_string" keywords="[comboBox, styles, disabledColor,string]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="disabledColor" value="green"/>
+              <SetProperty target="mybox.myCB" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_disabledColor_string_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_disabledColor_hash" keywords="[comboBox, styles, disabledColor,hash]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="disabledColor" value="#ff00ff"/>
+              <SetProperty target="mybox.myCB" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_disabledColor_hash_spark.png"  />
+       </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_disabledColor_dropdown" keywords="[comboBox, styles, disabledColor,hash]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="disabledColor" value="#ff00ff"/>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+            <SetProperty target="mybox.myCB" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_disabledColor_dropdown_spark.png"  />
+       </body>
+      </TestCase>
+    <TestCase testID="Spark_combobox_styles_borderColor_0x" keywords="[comboBox, styles, borderColor,0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="borderColor" value="0xfff000" />
+            <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_borderColor_0x_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_borderColor_string" keywords="[comboBox, styles, borderColor,string]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="borderColor" value="green"/>
+              <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_borderColor_string_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_borderColor_hash" keywords="[comboBox, styles, borderColor,hash]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="borderColor" value="#ff00ff"/>
+              <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_borderColor_hash_spark.png"  />
+       </body>
+      </TestCase>
+
+        <TestCase testID="Spark_combobox_styles_fillColors_default" keywords="[comboBox, styles, fillColors,default]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_closed_default_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_fillColors_0x" keywords="[comboBox, styles, fillColors,0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="fillColors" value="[0xffff00, 0x00ffff]"/>
+          <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" target="mybox" url="../Styles/Baselines/cb_styles_fillColors_0x_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_fillColors_string" keywords="[comboBox, styles, fillColors,string]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="fillColors" value="['green','yellow']"/>
+              <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fillColors_string_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_fillColors_hash" keywords="[comboBox, styles, fillColors,hash]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="fillColors" value="[#ff00ff, #00ff00]"/>
+           <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fillColors_hash_spark.png"  />
+         </body>
+        </TestCase>
+
+
+    <TestCase testID="Spark_combobox_styles_focusAlpha_default" keywords="[comboBox, styles, focusAlpha,default]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+               <DispatchKeyEvent key="TAB"  />
+                <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_focusAlpha_default_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_focusAlpha_small" keywords="[comboBox, styles, focusAlpha,small]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="focusAlpha" value="0.15"/>
+            <DispatchKeyEvent key="TAB"  />
+          <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_focusAlpha_small_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_focusAlpha_string" keywords="[comboBox, styles, focusAlpha,large]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="focusAlpha" value="1"/>
+            <DispatchKeyEvent key="TAB"  />
+          <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_focusAlpha_large_spark.png"  />
+         </body>
+      </TestCase>
+
+      <TestCase testID="Spark_combobox_styles_focusRoundedCorners_default" keywords="[comboBox, styles, focusRoundedCorners,default]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+          <DispatchKeyEvent key="TAB"  />
+          <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_focusRoundedCorners_default_spark.png"  />
+         </body>
+      </TestCase>
+
+
+     <TestCase testID="Spark_combobox_styles_fontFamily" keywords="[comboBox, styles, fontFamily]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle styleName="fontFamily" value="MyVerdana" target="mybox.myCB" />
+            <Pause timeout="20"/>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB" url="../Styles/Baselines/cb_styles_fontFamily_spark.png"  />
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_fontFamily_dropdown_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+         </body>
+     </TestCase>
+     <TestCase testID="Spark_combobox_styles_fontFamily_throughStyleName" keywords="[comboBox, styles, fontFamily]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle styleName="fontFamily" value="MyVerdana" target="mybox.myCB"/>
+            <Pause timeout="20"/>
+            <SetStyle styleName="dropDownStyleName" value="customFontFamily" target="mybox.myCB" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fontFamily_stylename_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+         </body>
+     </TestCase>
+     <TestCase testID="Spark_combobox_styles_fontSize_default" keywords="[comboBox, styles, fontSize]">
+         <setup>
+            <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+         <body>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_open_default_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_fontSize_large" keywords="[comboBox, styles, fontSize]">
+         <setup>
+            <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+         <body>
+            <SetStyle target="mybox.myCB" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB" url="../Styles/Baselines/cb_styles_fontSize_large_spark.png"  />
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_fontSize_large_dropdown_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+         </body>
+     </TestCase>
+      <TestCase testID="Spark_combobox_styles_fontSize_large_styleName" keywords="[comboBox, styles, fontSize]">
+         <setup>
+            <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+         <body>
+            <SetStyle target="mybox.myCB" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customFontSize" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fontSize_large_stylename_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+         </body>
+     </TestCase>
+     <TestCase testID="Spark_combobox_styles_fontSize_small" keywords="[comboBox, styles, fontSize]">
+        <setup>
+            <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+        </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="fontSize" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customFontSize2" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fontSize_small_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+        </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_fontStyle" keywords="[comboBox, styles, fontStyle]">
+          <setup>
+              <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+          </setup>
+          <body>
+              <SetStyle target="mybox.myCB" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+              <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB" url="../Styles/Baselines/cb_styles_fontStyle_italic_spark.png"  />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_fontStyle_italic_dropdown_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_fontStyle_stylename" keywords="[comboBox, styles, fontStyle]">
+          <setup>
+              <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+          </setup>
+          <body>
+              <RunCode code="application.mybox.myCB.open()"  waitEvent="open" waitTarget="mybox.myCB"/>
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_open_default_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB"/>
+              <WaitForEffectsToEnd />
+              <SetStyle target="mybox.myCB" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+              <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customFontStyle" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fontStyle_italic_styleName_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <SetStyle target="mybox.myCB" styleName="fontStyle" value="normal" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customFontStyle2" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fontStyle_normal_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+
+     <!--Exclude due to bug 196454 - from here
+      <TestCase testID="Spark_combobox_styles_fillAlphas_default" keywords="[comboBox, styles, fillAlphas,default]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_open_default_spark.png"  />
+          <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+
+         <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_fillAlphas_low" keywords="[comboBox, styles, fillAlphas,low]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="fillAlphas" value="[0.05, 0.25]"/>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fillAlphas_low_spark.png"  />
+          <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+
+         <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_fillAlphas_opaque" keywords="[comboBox, styles, fillAlphas,opaque]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="fillAlphas" value="[1,1]"/>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fillAlphas_opaque_spark.png"  />
+          <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+
+         <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      Exclude due to bug 196454 - till here-->
+
+
+      <!--Exclude due to bug 196606 - from here
+      <TestCase testID="Spark_combobox_styles_dropdownBorderColor_0x" keywords="[comboBox, styles, dropdownBorderColor,0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="dropdownBorderColor" value="0xfff000"/>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_dropdownBorderColor_0x_spark.png"  />
+          <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+
+         <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_dropdownBorderColor_string" keywords="[comboBox, styles, dropdownBorderColor,string]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="dropdownBorderColor" value="magenta"/>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_dropdownBorderColor_string_spark.png"  />
+          <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+
+         <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_dropdownBorderColor_hash" keywords="[comboBox, styles, dropdownBorderColor,hash]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="dropdownBorderColor" value="#2cc22c"/>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_dropdownBorderColor_hash_spark.png"  />
+          <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+
+         <WaitForEffectsToEnd />
+         </body>
+      </TestCase>- Exclude due to bug 196606 - till  here-->
+
+
+         <!--Exclude due to bug 195907 - from here
+     <TestCase testID="Spark_combobox_styles_arrowButonWidth_small" keywords="[comboBox, styles, arrowButonWidth, small]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="arrowButonWidth" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <AssertStyleValue target="mybox.myCB" styleName="arrowButonWidth" value="2"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB" url="../Styles/Baselines/cb_styles_arrowButonWidth_small_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_arrowButonWidth_large" keywords="[comboBox, styles, arrowButonWidth, large]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="arrowButonWidth" value="150" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <AssertStyleValue target="mybox.myCB" styleName="arrowButonWidth" value="150"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB" url="../Styles/Baselines/cb_styles_arrowButonWidth_large_spark.png"  />
+         </body>
+      </TestCase>
+    Exclude due to bug 195907 - till here-->
+     <TestCase testID="Spark_combobox_styles_fontWeight" keywords="[comboBox, styles, fontWeight]">
+         <setup>
+             <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+         <body>
+             <SetStyle target="mybox.myCB" styleName="fontWeight" value="bold" />
+             <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+             <WaitForEffectsToEnd />
+             <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB" url="../Styles/Baselines/cb_styles_fontWeight_bold_spark.png"  />
+             <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_fontWeight_bold_dropdown_spark.png"  />
+             <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+             <WaitForEffectsToEnd />
+          </body>
+      </TestCase>
+     <TestCase testID="Spark_combobox_styles_fontWeight_stylename" keywords="[comboBox, styles, fontWeight]">
+         <setup>
+             <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+         <body>
+             <RunCode code="application.mybox.myCB.open()"  waitEvent="open" waitTarget="mybox.myCB"/>
+             <WaitForEffectsToEnd />
+             <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_open_default_spark.png"  />
+             <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB"/>
+             <WaitForEffectsToEnd />
+             <SetStyle target="mybox.myCB" styleName="fontWeight" value="normal"/>
+             <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+             <WaitForEffectsToEnd />
+             <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fontWeight_normal_spark.png"  />
+             <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+             <WaitForEffectsToEnd />
+             <SetStyle target="mybox.myCB" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+             <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customFontWeight" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+             <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+             <WaitForEffectsToEnd />
+             <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_fontWeight_bold_stylename_spark.png"  />
+             <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+             <WaitForEffectsToEnd />
+          </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_textIndent" keywords="[comboBox, styles, textIndent]">
+          <setup>
+              <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+          </setup>
+          <body>
+              <SetStyle target="mybox.myCB" styleName="textIndent" value="20"  waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB" url="../Styles/Baselines/cb_styles_textIndent_set_spark.png"  />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_textIndent_set_dropdown_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+          </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_textIndent_stylename" keywords="[comboBox, styles, textIndent]">
+          <setup>
+              <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+          </setup>
+          <body>
+              <RunCode code="application.mybox.myCB.open()"  waitEvent="open" waitTarget="mybox.myCB"/>
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_open_default_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB"/>
+              <WaitForEffectsToEnd />
+              <SetStyle target="mybox.myCB" styleName="textIndent" value="20"  waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customTextIndent"  waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_textIndent_set_stylename_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+          </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_textDecoration" keywords="[comboBox, styles, textDecoration]">
+          <setup>
+              <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+          </setup>
+          <body>
+              <RunCode code="application.mybox.myCB.open()"  waitEvent="open" waitTarget="mybox.myCB"/>
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_open_default_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB"/>
+              <WaitForEffectsToEnd />
+              <SetStyle target="mybox.myCB" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customTextDecoration" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_textDecoration_underline_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <SetStyle target="mybox.myCB" styleName="textDecoration" value="normal" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customTextDecoration2" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_textDecoration_normal_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+
+        <TestCase testID="Spark_combobox_styles_textDecoration_mac" keywords="[comboBox, styles, textDecoration]">
+          <setup>
+              <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+          </setup>
+          <body>
+              <RunCode code="application.mybox.myCB.open()"  waitEvent="open" waitTarget="mybox.myCB"/>
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_open_default_mac_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB"/>
+              <WaitForEffectsToEnd />
+              <SetStyle target="mybox.myCB" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customTextDecoration" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_textDecoration_underline_mac_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <SetStyle target="mybox.myCB" styleName="textDecoration" value="normal" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customTextDecoration2" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+              <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+              <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_textDecoration_normal_mac_spark.png"  />
+              <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+              <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+
+      <TestCase testID="Spark_combobox_styles_highlightAlphas_default" keywords="[comboBox, styles, highlightAlphas, default]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_closed_default_spark.png"  />
+              <AssertStyleValue target="mybox.myCB" styleName="highlightAlphas" value="[0.3,0.0]"/>
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_highlightAlphas_smallDiff" keywords="[comboBox, styles, highlightAlphas, smallDiff]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="highlightAlphas" value="[0.55, 0.45]"/>
+            <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <AssertStyleValue target="mybox.myCB" styleName="highlightAlphas" value="[0.55, 0.45]"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_highlightAlphas_smallDiff_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_highlightAlphas_largeDiff" keywords="[comboBox, styles, highlightAlphas, largeDiff]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="highlightAlphas" value="[0, 1]"/>
+           <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <AssertStyleValue target="mybox.myCB" styleName="highlightAlphas" value="[0, 1]"/>
+          <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_highlightAlphas_largeDiff_spark.png"  />
+         </body>
+      </TestCase>
+
+    <TestCase testID="Spark_combobox_styles_paddingLeft_default" keywords="[comboBox, styles, paddingLeft, default]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_closed_default_spark.png"  />
+              <AssertStyleValue target="mybox.myCB" styleName="paddingLeft" value="5"/>
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_combobox_styles_paddingLeft_set" keywords="[comboBox, styles, paddingLeft, set]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="paddingLeft" value="25" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customPaddingLeft" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <SetProperty target="mybox" propertyName="width" value="320" waitEvent="updateComplete" waitTarget="mybox"/>
+            <SetProperty target="mybox.myCB" propertyName="width" value="250"  waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <AssertStyleValue target="mybox.myCB" styleName="paddingLeft" value="25"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_paddingLeft_set_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_paddingRight_default" keywords="[comboBox, styles, paddingRight, default]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="textAlign" value="right" />
+            <SetProperty target="mybox" propertyName="width" value="320" waitEvent="updateComplete" waitTarget="mybox"/>
+            <SetProperty target="mybox.myCB" propertyName="width" value="250" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <AssertStyleValue target="mybox.myCB" styleName="paddingRight" value="5"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_paddingRight_default_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_paddingRight_set" keywords="[comboBox, styles, paddingRight, set]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="textAlign" value="right" />
+             <SetStyle target="mybox.myCB" styleName="paddingRight" value="25" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+               <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customPaddingRight" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <SetProperty target="mybox" propertyName="width" value="320" waitEvent="updateComplete" waitTarget="mybox"/>
+           <SetProperty target="mybox.myCB" propertyName="width" value="250" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <AssertStyleValue target="mybox.myCB" styleName="paddingRight" value="25"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_paddingRight_set_spark.png"  />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_textAlign" keywords="[comboBox, styles, textAlign]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="textAlign" value="right" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+            <RunCode code="application.mybox.myCB.open()"  waitEvent="open" waitTarget="mybox.myCB"/>
+            <WaitForEffectsToEnd />
+            <AssertStyleValue target="mybox.myCB" styleName="textAlign" value="right"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB" url="../Styles/Baselines/cb_styles_textAlign_right_spark.png"  />
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_textAlign_right_dropdown_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()"  waitEvent="close" waitTarget="mybox.myCB"/>
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_textAlign_styleName" keywords="[comboBox, styles, textAlign]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetProperty target="mybox" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="mybox"/>
+           <SetProperty target="mybox.myCB" propertyName="width" value="250" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <AssertStyleValue target="mybox.myCB" styleName="textAlign" value="start"/>
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_textAlign_default_spark.png"  />
+           <SetStyle target="mybox.myCB" styleName="textAlign" value="right" />
+           <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <AssertStyleValue target="mybox.myCB" styleName="textAlign" value="right"/>
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_textAlign_right_styleName_spark.png"  />
+           <SetStyle target="mybox.myCB" styleName="textAlign" value="center" />
+           <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <AssertStyleValue target="mybox.myCB" styleName="textAlign" value="center"/>
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_textAlign_center_spark.png"  />
+           <SetStyle target="mybox.myCB" styleName="textAlign" value="left" />
+           <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <AssertStyleValue target="mybox.myCB" styleName="textAlign" value="left"/>
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_textAlign_left_spark.png"  />
+        </body>
+      </TestCase>
+      <TestCase testID="Spark_cb_styles_rollOverColor_0x" keywords="[listbase, styles, rollOverColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="rollOverColor" value="0x11770e" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+           <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+           <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" stageX="100" stageY="125" />
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_rollOverColor_0x_spark.png"  />
+           <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_cb_styles_rollOverColor_0x_styleName" keywords="[listbase, styles, rollOverColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="rollOverColor" value="0x11770e" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+           <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customRollOverColor" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+           <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+           <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" stageX="100" stageY="125" />
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_rollOverColor_0x_stylename_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_cb_styles_selectionColor_0x" keywords="[listbase, styles, selectionColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="selectionColor" value="0xcc2211" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_selectionColor_0x_spark.png"  />
+           <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+        </body>
+      </TestCase>
+       <TestCase testID="Spark_cb_styles_selectionColor_0x_styleName" keywords="[listbase, styles, selectionColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="selectionColor" value="0xcc2211" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customSelectionColor" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_selectionColor_0x_styleName_spark.png"  />
+           <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_cb_styles_textRollOverColor_0x" keywords="[listbase, styles, textRollOverColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="textRollOverColor" value="0x11770e" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+           <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+           <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" stageX="100" stageY="125" />
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_textRollOverColor_0x_spark.png"  />
+           <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_cb_styles_textRollOverColor_0x_styleName" keywords="[listbase, styles, textRollOverColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="textRollOverColor" value="0x11770e" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+           <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customTextRollOverColor" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+           <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" stageX="100" stageY="125" />
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_textRollOverColor_0x_styleName_spark.png"  />
+           <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_cb_styles_textSelectedColor_0x" keywords="[listbase, styles, textSelectedColor, 0x]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="textSelectedColor" value="0xcc2211"  waitEvent="updateComplete" waitTarget="mybox.myCB" />
+           <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_textSelectedColor_0x_spark.png"  />
+           <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_cb_styles_textSelectedColor_0x_styleName" keywords="[listbase, styles, textSelectedColor, 0x]">
+        <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+        </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="textSelectedColor" value="0xcc2211"  waitEvent="updateComplete" waitTarget="mybox.myCB" />
+           <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customTextSelectedColor" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+           <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_textSelectedColor_0x_styleName_spark.png"  />
+           <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+     <!--Bug exists 196725 for letterSpacing and borderThickness-->
+     <TestCase testID="Spark_combobox_styles_letterSpacing_default" keywords="[comboBox, styles, letterSpacing, default]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+            <AssertStyleValue target="mybox.myCB" styleName="letterSpacing" value="0"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_open_default_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+         <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+    <TestCase testID="Spark_combobox_styles_letterSpacing_small" keywords="[comboBox, styles, letterSpacing, small]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <SetStyle target="mybox.myCB" styleName="letterSpacing" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customLetterSpacing" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+            <AssertStyleValue target="mybox.myCB" styleName="letterSpacing" value="2"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_letterSpacing_small_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_letterSpacing_large" keywords="[comboBox, styles, letterSpacing, large]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+         <body>
+           <SetStyle target="mybox.myCB" styleName="letterSpacing" value="10" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+           <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+           <AssertStyleValue target="mybox.myCB" styleName="letterSpacing" value="10"/>
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB" url="../Styles/Baselines/cb_styles_letterSpacing_large_spark.png"  />
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox.myCB.dropdown" url="../Styles/Baselines/cb_styles_letterSpacing_large_dropdown_spark.png"  />
+           <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+           <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+      <TestCase testID="Spark_combobox_styles_letterSpacing_large_styleName" keywords="[comboBox, styles, letterSpacing, large]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="letterSpacing" value="10" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+           <SetStyle target="mybox.myCB" styleName="dropDownStyleName" value="customLetterSpacing2" waitEvent="updateComplete" waitTarget="mybox.myCB" />
+           <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <WaitForEffectsToEnd />
+           <AssertStyleValue target="mybox.myCB" styleName="letterSpacing" value="10"/>
+           <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_letterSpacing_large_styleName_spark.png"  />
+           <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+        <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+       <TestCase testID="Spark_combobox_styles_letterSpacing_reset" keywords="[comboBox, styles, letterSpacing, reset]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+           <SetStyle target="mybox.myCB" styleName="letterSpacing" value="0"  />
+           <SetProperty target="mybox.myCB" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mybox.myCB"/>
+          <AssertStyleValue target="mybox.myCB" styleName="letterSpacing" value="0"/>
+         </body>
+      </TestCase>
+
+    <TestCase testID="Spark_combobox_styles_borderThickness_default" keywords="[comboBox, styles, borderThickness, default]">
+          <setup>
+           <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>
+         </setup>
+        <body>
+            <RunCode code="application.mybox.myCB.open()" waitEvent="open" waitTarget="mybox.myCB" />
+            <AssertStyleValue target="mybox.myCB.dropdown" styleName="borderThickness" value="1"/>
+            <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="mybox" url="../Styles/Baselines/cb_styles_open_default_spark.png"  />
+            <RunCode code="application.mybox.myCB.close()" waitEvent="close" waitTarget="mybox.myCB" />
+         <WaitForEffectsToEnd />
+         </body>
+      </TestCase>
+
+    </testCases>
+</UnitTester>

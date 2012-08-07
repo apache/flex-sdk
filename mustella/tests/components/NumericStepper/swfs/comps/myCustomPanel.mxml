@@ -1,0 +1,5 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" width="62" height="58">
+   	 
+    <mx:NumericStepper id="theNs" width="60" height="25"/>
+    
+</mx:Panel>    

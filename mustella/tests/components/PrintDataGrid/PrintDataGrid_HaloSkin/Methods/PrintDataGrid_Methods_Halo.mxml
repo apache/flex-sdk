@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/PrintDataGrid/PrintDataGrid_HaloSkin/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="PrintDataGrid_Basic_halo.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.printing.PrintDataGrid;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+		[Bindable]	        
+		public var arr:Array =
+		[
+		{ EmpName:'Employee1', Department:'Department1', EmpCode:1, Rating:'Excellent' },
+		{ EmpName:'Employee2', Department:'Department2', EmpCode:2, Rating:'Excellent' },
+		{ EmpName:'Employee3', Department:'Department3', EmpCode:3, Rating:'Excellent' },
+		{ EmpName:'Employee4', Department:'Department4', EmpCode:4, Rating:'Excellent' },
+		{ EmpName:'Employee5', Department:'Department5', EmpCode:5, Rating:'Excellent' },
+		{ EmpName:'Employee6', Department:'Department6', EmpCode:6, Rating:'Excellent' },
+		{ EmpName:'Employee7', Department:'Department7', EmpCode:7, Rating:'Excellent' },
+		{ EmpName:'Employee8', Department:'Department8', EmpCode:8, Rating:'Excellent' },
+		{ EmpName:'Employee9', Department:'Department9', EmpCode:9, Rating:'Excellent' },
+		{ EmpName:'Employee10', Department:'Department10', EmpCode:10, Rating:'Excellent' },
+		{ EmpName:'Employee11', Department:'Department11', EmpCode:11, Rating:'Excellent' },
+		{ EmpName:'Employee12', Department:'Department12', EmpCode:12, Rating:'Excellent' },
+		{ EmpName:'Employee13', Department:'Department13', EmpCode:13, Rating:'Excellent' },
+		{ EmpName:'Employee14', Department:'Department14', EmpCode:14, Rating:'Excellent' },
+		{ EmpName:'Employee15', Department:'Department15', EmpCode:15, Rating:'Excellent' },
+		{ EmpName:'Employee16', Department:'Department16', EmpCode:16, Rating:'Excellent' },
+		{ EmpName:'Employee17', Department:'Department17', EmpCode:17, Rating:'Excellent' },
+		{ EmpName:'Employee18', Department:'Department18', EmpCode:18, Rating:'Excellent' },
+		{ EmpName:'Employee19', Department:'Department19', EmpCode:19, Rating:'Excellent' },
+		{ EmpName:'Employee20', Department:'Department20', EmpCode:20, Rating:'Excellent' },
+		{ EmpName:'Employee21', Department:'Department21', EmpCode:21, Rating:'Excellent' },
+		{ EmpName:'Employee22', Department:'Department22', EmpCode:22, Rating:'Excellent' },
+		{ EmpName:'Employee23', Department:'Department23', EmpCode:23, Rating:'Excellent' },
+		{ EmpName:'Employee24', Department:'Department24', EmpCode:24, Rating:'Excellent' },
+		{ EmpName:'Employee25', Department:'Department25', EmpCode:25, Rating:'Excellent' },
+		{ EmpName:'Employee26', Department:'Department26', EmpCode:26, Rating:'Excellent' },
+		{ EmpName:'Employee27', Department:'Department27', EmpCode:27, Rating:'Excellent' },
+		{ EmpName:'Employee28', Department:'Department28', EmpCode:28, Rating:'Excellent' },
+		{ EmpName:'Employee29', Department:'Department29', EmpCode:29, Rating:'Excellent' },
+		{ EmpName:'Employee30', Department:'Department30', EmpCode:30, Rating:'Excellent' },
+		{ EmpName:'Employee31', Department:'Department31', EmpCode:31, Rating:'Excellent' },
+		{ EmpName:'Employee32', Department:'Department32', EmpCode:32, Rating:'Excellent' },
+		{ EmpName:'Employee33', Department:'Department33', EmpCode:33, Rating:'Excellent' },
+		{ EmpName:'Employee34', Department:'Department34', EmpCode:34, Rating:'Excellent' },
+		{ EmpName:'Employee35', Department:'Department35', EmpCode:35, Rating:'Excellent' },
+		{ EmpName:'Employee36', Department:'Department36', EmpCode:36, Rating:'Excellent' },
+		{ EmpName:'Employee37', Department:'Department37', EmpCode:37, Rating:'Excellent' },
+		{ EmpName:'Employee38', Department:'Department38', EmpCode:38, Rating:'Excellent' },
+		{ EmpName:'Employee39', Department:'Department39', EmpCode:39, Rating:'Excellent' },
+		{ EmpName:'Employee40', Department:'Department40', EmpCode:40, Rating:'Excellent' },
+		{ EmpName:'Employee41', Department:'Department41', EmpCode:41, Rating:'Excellent' },
+		{ EmpName:'Employee42', Department:'Department42', EmpCode:42, Rating:'Excellent' },
+		{ EmpName:'Employee43', Department:'Department43', EmpCode:43, Rating:'Excellent' },
+		{ EmpName:'Employee44', Department:'Department44', EmpCode:44, Rating:'Excellent' },
+		{ EmpName:'Employee45', Department:'Department45', EmpCode:45, Rating:'Excellent' },
+		{ EmpName:'Employee46', Department:'Department46', EmpCode:46, Rating:'Excellent' },
+		{ EmpName:'Employee47', Department:'Department47', EmpCode:47, Rating:'Excellent' },
+		{ EmpName:'Employee48', Department:'Department48', EmpCode:48, Rating:'Excellent' },
+		{ EmpName:'Employee49', Department:'Department49', EmpCode:49, Rating:'Excellent' },
+		{ EmpName:'Employee50', Department:'Department50', EmpCode:50, Rating:'Excellent' },
+		{ EmpName:'Employee51', Department:'Department51', EmpCode:51, Rating:'Excellent' },
+		{ EmpName:'Employee52', Department:'Department52', EmpCode:52, Rating:'Excellent' },
+		{ EmpName:'Employee53', Department:'Department53', EmpCode:53, Rating:'Excellent' },
+		{ EmpName:'Employee54', Department:'Department54', EmpCode:54, Rating:'Excellent' },
+		{ EmpName:'Employee55', Department:'Department55', EmpCode:55, Rating:'Excellent' },
+		{ EmpName:'Employee56', Department:'Department56', EmpCode:56, Rating:'Excellent' },
+		{ EmpName:'Employee57', Department:'Department57', EmpCode:57, Rating:'Excellent' },
+		{ EmpName:'Employee58', Department:'Department58', EmpCode:58, Rating:'Excellent' },
+		{ EmpName:'Employee59', Department:'Department59', EmpCode:59, Rating:'Excellent' },
+		{ EmpName:'Employee60', Department:'Department60', EmpCode:60, Rating:'Excellent' },
+		{ EmpName:'Employee61', Department:'Department61', EmpCode:61, Rating:'Excellent' },
+		{ EmpName:'Employee62', Department:'Department62', EmpCode:62, Rating:'Excellent' },
+		{ EmpName:'Employee63', Department:'Department63', EmpCode:63, Rating:'Excellent' },
+		{ EmpName:'Employee64', Department:'Department64', EmpCode:64, Rating:'Excellent' },
+		{ EmpName:'Employee65', Department:'Department65', EmpCode:65, Rating:'Excellent' },
+		{ EmpName:'Employee66', Department:'Department66', EmpCode:66, Rating:'Excellent' },
+		{ EmpName:'Employee67', Department:'Department67', EmpCode:67, Rating:'Excellent' },
+		{ EmpName:'Employee68', Department:'Department68', EmpCode:68, Rating:'Excellent' },
+		{ EmpName:'Employee69', Department:'Department69', EmpCode:69, Rating:'Excellent' },
+		{ EmpName:'Employee70', Department:'Department70', EmpCode:70, Rating:'Excellent' },
+		{ EmpName:'Employee71', Department:'Department71', EmpCode:71, Rating:'Excellent' },
+		{ EmpName:'Employee72', Department:'Department72', EmpCode:72, Rating:'Excellent' },
+		{ EmpName:'Employee73', Department:'Department73', EmpCode:73, Rating:'Excellent' },
+		{ EmpName:'Employee74', Department:'Department74', EmpCode:74, Rating:'Excellent' },
+		{ EmpName:'Employee75', Department:'Department75', EmpCode:75, Rating:'Excellent' },
+		{ EmpName:'Employee76', Department:'Department76', EmpCode:76, Rating:'Excellent' },
+		{ EmpName:'Employee77', Department:'Department77', EmpCode:77, Rating:'Excellent' },
+		{ EmpName:'Employee78', Department:'Department78', EmpCode:78, Rating:'Excellent' },
+		{ EmpName:'Employee79', Department:'Department79', EmpCode:79, Rating:'Excellent' },
+		{ EmpName:'Employee80', Department:'Department80', EmpCode:80, Rating:'Excellent' },
+		{ EmpName:'Employee81', Department:'Department81', EmpCode:81, Rating:'Excellent' },
+		{ EmpName:'Employee82', Department:'Department82', EmpCode:82, Rating:'Excellent' },
+		{ EmpName:'Employee83', Department:'Department83', EmpCode:83, Rating:'Excellent' },
+		{ EmpName:'Employee84', Department:'Department84', EmpCode:84, Rating:'Excellent' },
+		{ EmpName:'Employee85', Department:'Department85', EmpCode:85, Rating:'Excellent' },
+		{ EmpName:'Employee86', Department:'Department86', EmpCode:86, Rating:'Excellent' },
+		{ EmpName:'Employee87', Department:'Department87', EmpCode:87, Rating:'Excellent' },
+		{ EmpName:'Employee88', Department:'Department88', EmpCode:88, Rating:'Excellent' },
+		{ EmpName:'Employee89', Department:'Department89', EmpCode:89, Rating:'Excellent' },
+		{ EmpName:'Employee90', Department:'Department90', EmpCode:90, Rating:'Excellent' },
+		{ EmpName:'Employee91', Department:'Department91', EmpCode:91, Rating:'Excellent' },
+		{ EmpName:'Employee92', Department:'Department92', EmpCode:92, Rating:'Excellent' },
+		{ EmpName:'Employee93', Department:'Department93', EmpCode:93, Rating:'Excellent' },
+		{ EmpName:'Employee94', Department:'Department94', EmpCode:94, Rating:'Excellent' },
+		{ EmpName:'Employee95', Department:'Department95', EmpCode:95, Rating:'Excellent' },
+		{ EmpName:'Employee96', Department:'Department96', EmpCode:96, Rating:'Excellent' },
+		{ EmpName:'Employee97', Department:'Department97', EmpCode:97, Rating:'Excellent' },
+		{ EmpName:'Employee98', Department:'Department98', EmpCode:98, Rating:'Excellent' },
+		{ EmpName:'Employee99', Department:'Department99', EmpCode:99, Rating:'Excellent' },
+		{ EmpName:'Employee100', Department:'Department100', EmpCode:100, Rating:'Excellent' }
+		];
+		
+		public function setDP():void{
+			application.myPrintDataGrid.dataProvider=arr;
+			application.myPrintDataGrid.width=700;
+			application.myPrintDataGrid.height=600;
+		}
+		
+		public function callNextPage():void{
+			application.myPrintDataGrid.nextPage();
+		}
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="PrintDataGrid_Method_NextPage_initial_halo" description="PrintDataGrid NextPage() method is tested here." keywords="[PrintDataGrid, NextPage, initial]">
+			<setup>
+				<ResetComponent target="myPrintDataGrid" className="mx.printing.PrintDataGrid" waitTarget="myPrintDataGrid" waitEvent="updateComplete"/>
+				<RunCode code="setDP();"  waitTarget="myPrintDataGrid" waitEvent="updateComplete"/>
+				<WaitForEffectsToEnd />
+				<RunCode code="callNextPage();" />
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<CompareBitmap url="../Methods/baselines/NextPageInitial.png" target="myPrintDataGrid" numColorVariances="4" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+        
+		<TestCase testID="PrintDataGrid_Method_NextPage_second_halo" description="PrintDataGrid NextPage() method is tested here." keywords="[PrintDataGrid, NextPage, second ]">
+			<setup>
+				<RunCode code="callNextPage();" />
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+			    <CompareBitmap url="../Methods/baselines/NextPageSecond.png" target="myPrintDataGrid" />
+			</body>
+		</TestCase>
+		
+        <TestCase testID="PrintDataGrid_Method_NextPage_third_halo" description="PrintDataGrid NextPage() method is tested here." keywords="[PrintDataGrid, NextPage, third ]">
+			<setup>
+				<RunCode code="callNextPage();" />
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+			    <CompareBitmap url="../Methods/baselines/NextPageThird.png" target="myPrintDataGrid" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,1152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/UIComponent/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="UIComponent_Main2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+<!-- Note: These are arranged alphabetically. -->
+
+<testCases>
+
+<!--
+================================================================================
+explicitHeight
+================================================================================
+-->
+<TestCase testID="explicitHeight_setterGetter" keywords="[UIComponent,explicitHeight]" description="Test explicitHeight setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="explicitHeight" value="100" />
+        <AssertPropertyValue target="uic1" propertyName="explicitHeight" value="100" />
+        <SetProperty target="uic1" propertyName="explicitHeight" value="101" />
+        <AssertPropertyValue target="uic1" propertyName="explicitHeight" value="101" />
+    </body>
+</TestCase>
+
+<TestCase testID="explicitHeight_binding" keywords="[UIComponent,explicitHeight]" description="Test explicitHeight and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="explicitHeightBindingVar" value="100" />
+        <AssertPropertyValue target="uic2" propertyName="explicitHeight" value="100" />
+        <SetProperty target="uic2" propertyName="explicitHeightBindingVar" value="101" />
+        <AssertPropertyValue target="uic2" propertyName="explicitHeight" value="101" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+explicitMaxHeight
+================================================================================
+-->
+<TestCase testID="explicitMaxHeight_setterGetter" keywords="[UIComponent,explicitMaxHeight]" description="Test explicitMaxHeight setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="explicitMaxHeight" value="100" />
+        <AssertPropertyValue target="uic1" propertyName="explicitMaxHeight" value="100" />
+        <SetProperty target="uic1" propertyName="explicitMaxHeight" value="101" />
+        <AssertPropertyValue target="uic1" propertyName="explicitMaxHeight" value="101" />
+    </body>
+</TestCase>
+
+<TestCase testID="explicitMaxHeight_binding" keywords="[UIComponent,explicitMaxHeight]" description="Test explicitMaxHeight and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="explicitMaxHeightBindingVar" value="102" />
+        <AssertPropertyValue target="uic2" propertyName="explicitMaxHeight" value="102" />
+        <SetProperty target="uic2" propertyName="explicitMaxHeightBindingVar" value="103" />
+        <AssertPropertyValue target="uic2" propertyName="explicitMaxHeight" value="103" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+explicitMaxWidth
+================================================================================
+-->
+<TestCase testID="explicitMaxWidth_setterGetter" keywords="[UIComponent,explicitMaxWidth]" description="Test explicitMaxWidth setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="explicitMaxWidth" value="104" />
+        <AssertPropertyValue target="uic1" propertyName="explicitMaxWidth" value="104" />
+        <SetProperty target="uic1" propertyName="explicitMaxWidth" value="105" />
+        <AssertPropertyValue target="uic1" propertyName="explicitMaxWidth" value="105" />
+    </body>
+</TestCase>
+
+<TestCase testID="explicitMaxWidth_binding" keywords="[UIComponent,explicitMaxWidth]" description="Test explicitMaxWidth and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="explicitMaxWidthBindingVar" value="106" />
+        <AssertPropertyValue target="uic2" propertyName="explicitMaxWidth" value="106" />
+        <SetProperty target="uic2" propertyName="explicitMaxWidthBindingVar" value="107" />
+        <AssertPropertyValue target="uic2" propertyName="explicitMaxWidth" value="107" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+explicitMinHeight
+================================================================================
+-->
+<TestCase testID="explicitMinHeight_setterGetter" keywords="[UIComponent,explicitMinHeight]" description="Test explicitMinHeight setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="explicitMinHeight" value="108" />
+        <AssertPropertyValue target="uic1" propertyName="explicitMinHeight" value="108" />
+        <SetProperty target="uic1" propertyName="explicitMinHeight" value="109" />
+        <AssertPropertyValue target="uic1" propertyName="explicitMinHeight" value="109" />
+    </body>
+</TestCase>
+
+<TestCase testID="explicitMinHeight_binding" keywords="[UIComponent,explicitMinHeight]" description="Test explicitMinHeight and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="explicitMinHeightBindingVar" value="110" />
+        <AssertPropertyValue target="uic2" propertyName="explicitMinHeight" value="110" />
+        <SetProperty target="uic2" propertyName="explicitMinHeightBindingVar" value="111" />
+        <AssertPropertyValue target="uic2" propertyName="explicitMinHeight" value="111" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+explicitMinWidth
+================================================================================
+-->
+<TestCase testID="explicitMinWidth_setterGetter" keywords="[UIComponent,explicitMinWidth]" description="Test explicitMinWidth setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="explicitMinWidth" value="108" />
+        <AssertPropertyValue target="uic1" propertyName="explicitMinWidth" value="108" />
+        <SetProperty target="uic1" propertyName="explicitMinWidth" value="109" />
+        <AssertPropertyValue target="uic1" propertyName="explicitMinWidth" value="109" />
+    </body>
+</TestCase>
+
+<TestCase testID="explicitMinWidth_binding" keywords="[UIComponent,explicitMinWidth]" description="Test explicitMinWidth and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="explicitMinWidthBindingVar" value="110" />
+        <AssertPropertyValue target="uic2" propertyName="explicitMinWidth" value="110" />
+        <SetProperty target="uic2" propertyName="explicitMinWidthBindingVar" value="111" />
+        <AssertPropertyValue target="uic2" propertyName="explicitMinWidth" value="111" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+explicitWidth
+================================================================================
+-->
+<TestCase testID="explicitWidth_setterGetter" keywords="[UIComponent,explicitWidth]" description="Test explicitWidth setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="explicitWidth" value="112" />
+        <AssertPropertyValue target="uic1" propertyName="explicitWidth" value="112" />
+        <SetProperty target="uic1" propertyName="explicitWidth" value="113" />
+        <AssertPropertyValue target="uic1" propertyName="explicitWidth" value="113" />
+    </body>
+</TestCase>
+
+<TestCase testID="explicitWidth_binding" keywords="[UIComponent,explicitWidth]" description="Test explicitWidth and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="explicitWidthBindingVar" value="114" />
+        <AssertPropertyValue target="uic2" propertyName="explicitWidth" value="114" />
+        <SetProperty target="uic2" propertyName="explicitWidthBindingVar" value="115" />
+        <AssertPropertyValue target="uic2" propertyName="explicitWidth" value="115" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+height
+================================================================================
+-->
+<TestCase testID="height_setterGetter" keywords="[UIComponent,height]" description="Test height setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="116" />
+        <AssertPropertyValue target="uic1" propertyName="height" value="116" />
+        <SetProperty target="uic1" propertyName="height" value="117" />
+        <AssertPropertyValue target="uic1" propertyName="height" value="117" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_binding" keywords="[UIComponent,height]" description="Test height and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="heightBindingVar" value="118" />
+        <AssertPropertyValue target="uic2" propertyName="height" value="118" />
+        <SetProperty target="uic2" propertyName="heightBindingVar" value="119" />
+        <AssertPropertyValue target="uic2" propertyName="height" value="119" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_functionality_1" keywords="[UIComponent,height]" description="Increase the height.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="200" waitEvent="updateComplete"/>
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="uic1" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_functionality_2" keywords="[UIComponent,height]" description="Decrease the height.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="50" waitEvent="updateComplete"/>
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="uic1" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_functionality_3" keywords="[UIComponent,height]" description="Set the height to 0.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="50" />
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="0" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="height_functionality_4" keywords="[UIComponent,height]" description="Set the height to -1.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="50" />
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="-1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+maxHeight
+================================================================================
+-->
+<TestCase testID="maxHeight_setterGetter" keywords="[UIComponent,maxHeight]" description="Test maxHeight setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="maxHeight" value="120" />
+        <AssertPropertyValue target="uic1" propertyName="maxHeight" value="120" />
+        <SetProperty target="uic1" propertyName="maxHeight" value="121" />
+        <AssertPropertyValue target="uic1" propertyName="maxHeight" value="121" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxHeight_binding" keywords="[UIComponent,maxHeight]" description="Test maxHeight and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="maxHeightBindingVar" value="122" />
+        <AssertPropertyValue target="uic2" propertyName="maxHeight" value="122" />
+        <SetProperty target="uic2" propertyName="maxHeightBindingVar" value="123" />
+        <AssertPropertyValue target="uic2" propertyName="maxHeight" value="123" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxHeight_functionality_1" keywords="[UIComponent,maxHeight]" description="Increase a container's height and be sure the component's maxHeight is respected.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="maxHeight" value="110" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="100" />
+        <SetProperty target="box1" propertyName="height" value="105" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1" propertyName="height" value="120" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="110" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxHeight_functionality_2" keywords="[UIComponent,maxHeight]" description="Set maxHeight to zero.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="maxHeight" value="0" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="100" />
+        <SetProperty target="box1" propertyName="height" value="105" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxHeight_functionality_3" keywords="[UIComponent,maxHeight]" description="Decrease a container's height from a value more than maxHeight to a value less than maxHeight.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="maxHeight" value="110" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="100" />
+        <SetProperty target="box1" propertyName="height" value="120" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1" propertyName="height" value="105" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="103" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+maxWidth
+================================================================================
+-->
+<TestCase testID="maxWidth_setterGetter" keywords="[UIComponent,maxWidth]" description="Test maxWidth setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="maxWidth" value="124" />
+        <AssertPropertyValue target="uic1" propertyName="maxWidth" value="124" />
+        <SetProperty target="uic1" propertyName="maxWidth" value="125" />
+        <AssertPropertyValue target="uic1" propertyName="maxWidth" value="125" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidth_binding" keywords="[UIComponent,maxWidth]" description="Test maxWidth and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="maxWidthBindingVar" value="126" />
+        <AssertPropertyValue target="uic2" propertyName="maxWidth" value="126" />
+        <SetProperty target="uic2" propertyName="maxWidthBindingVar" value="127" />
+        <AssertPropertyValue target="uic2" propertyName="maxWidth" value="127" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidth_functionality_1" keywords="[UIComponent,maxWidth]" description="Increase a container's width and be sure the component's maxWidth is respected.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="maxWidth" value="111" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="100" />
+        <SetProperty target="box1" propertyName="width" value="106" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1" propertyName="width" value="121" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="111" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidth_functionality_2" keywords="[UIComponent,maxWidth]" description="Set maxWidth to zero.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="maxWidth" value="0" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="100" />
+        <SetProperty target="box1" propertyName="width" value="106" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidth_functionality_3" keywords="[UIComponent,maxWidth]" description="Decrease a container's width from a value more than maxWidth to a value less than maxWidth.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="maxWidth" value="111" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="100" />
+        <SetProperty target="box1" propertyName="width" value="121" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1" propertyName="width" value="106" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="104" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+measuredHeight
+================================================================================
+-->
+<TestCase testID="measuredHeight_setterGetter" keywords="[UIComponent,measuredHeight]" description="Test measuredHeight setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="measuredHeight" value="128" />
+        <AssertPropertyValue target="uic1" propertyName="measuredHeight" value="128" />
+        <SetProperty target="uic1" propertyName="measuredHeight" value="129" />
+        <AssertPropertyValue target="uic1" propertyName="measuredHeight" value="129" />
+    </body>
+</TestCase>
+
+<TestCase testID="measuredHeight_binding" keywords="[UIComponent,measuredHeight]" description="Test measuredHeight and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="measuredHeightBindingVar" value="130" />
+        <AssertPropertyValue target="uic2" propertyName="measuredHeight" value="130" />
+        <SetProperty target="uic2" propertyName="measuredHeightBindingVar" value="131" />
+        <AssertPropertyValue target="uic2" propertyName="measuredHeight" value="131" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+measuredMinHeight
+================================================================================
+-->
+<TestCase testID="measuredMinHeight_setterGetter" keywords="[UIComponent,measuredMinHeight]" description="Test measuredMinHeight setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="measuredMinHeight" value="129" />
+        <AssertPropertyValue target="uic1" propertyName="measuredMinHeight" value="129" />
+        <SetProperty target="uic1" propertyName="measuredMinHeight" value="130" />
+        <AssertPropertyValue target="uic1" propertyName="measuredMinHeight" value="130" />
+    </body>
+</TestCase>
+
+<TestCase testID="measuredMinHeight_binding" keywords="[UIComponent,measuredMinHeight]" description="Test measuredMinHeight and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="measuredMinHeightBindingVar" value="130" />
+        <AssertPropertyValue target="uic2" propertyName="measuredMinHeight" value="130" />
+        <SetProperty target="uic2" propertyName="measuredMinHeightBindingVar" value="131" />
+        <AssertPropertyValue target="uic2" propertyName="measuredMinHeight" value="131" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+measuredMinWidth
+================================================================================
+-->
+<TestCase testID="measuredMinWidth_setterGetter" keywords="[UIComponent,measuredMinWidth]" description="Test measuredMinWidth setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="measuredMinWidth" value="132" />
+        <AssertPropertyValue target="uic1" propertyName="measuredMinWidth" value="132" />
+        <SetProperty target="uic1" propertyName="measuredMinWidth" value="133" />
+        <AssertPropertyValue target="uic1" propertyName="measuredMinWidth" value="133" />
+    </body>
+</TestCase>
+
+<TestCase testID="measuredMinWidth_binding" keywords="[UIComponent,measuredMinWidth]" description="Test measuredMinWidth and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="measuredMinWidthBindingVar" value="134" />
+        <AssertPropertyValue target="uic2" propertyName="measuredMinWidth" value="134" />
+        <SetProperty target="uic2" propertyName="measuredMinWidthBindingVar" value="135" />
+        <AssertPropertyValue target="uic2" propertyName="measuredMinWidth" value="135" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+measuredWidth
+================================================================================
+-->
+<TestCase testID="measuredWidth_setterGetter" keywords="[UIComponent,measuredWidth]" description="Test measuredWidth setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="measuredWidth" value="136" />
+        <AssertPropertyValue target="uic1" propertyName="measuredWidth" value="136" />
+        <SetProperty target="uic1" propertyName="measuredWidth" value="137" />
+        <AssertPropertyValue target="uic1" propertyName="measuredWidth" value="137" />
+    </body>
+</TestCase>
+
+<TestCase testID="measuredWidth_binding" keywords="[UIComponent,measuredWidth]" description="Test measuredWidth and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="measuredWidthBindingVar" value="138" />
+        <AssertPropertyValue target="uic2" propertyName="measuredWidth" value="138" />
+        <SetProperty target="uic2" propertyName="measuredWidthBindingVar" value="139" />
+        <AssertPropertyValue target="uic2" propertyName="measuredWidth" value="139" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+minHeight
+================================================================================
+-->
+
+<TestCase testID="minHeight_setterGetter" keywords="[UIComponent,minHeight]" description="Test minHeight setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="minHeight" value="140" />
+        <AssertPropertyValue target="uic1" propertyName="minHeight" value="140" />
+        <SetProperty target="uic1" propertyName="minHeight" value="141" />
+        <AssertPropertyValue target="uic1" propertyName="minHeight" value="141" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_binding" keywords="[UIComponent,minHeight]" description="Test minHeight and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="minHeightBindingVar" value="142" />
+        <AssertPropertyValue target="uic2" propertyName="minHeight" value="142" />
+        <SetProperty target="uic2" propertyName="minHeightBindingVar" value="143" />
+        <AssertPropertyValue target="uic2" propertyName="minHeight" value="143" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_functionality_1" keywords="[UIComponent,minHeight]" description="Decrease a container's height and be sure the component's minHeight is respected.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="minHeight" value="112" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="100" />
+        <SetProperty target="box1" propertyName="height" value="120" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1" propertyName="height" value="100" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="112" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_functionality_2" keywords="[UIComponent,minHeight]" description="Set minHeight to zero.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="minHeight" value="0" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="100" />
+        <SetProperty target="box1" propertyName="height" value="-1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_functionality_3" keywords="[UIComponent,minHeight]" description="Increase a container's height from a value less than minHeight to a value more than minHeight.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="minHeight" value="113" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1" propertyName="height" value="120" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="118" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+minWidth
+================================================================================
+-->
+<TestCase testID="minWidth_setterGetter" keywords="[UIComponent,minWidth]" description="Test minWidth setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="minWidth" value="144" />
+        <AssertPropertyValue target="uic1" propertyName="minWidth" value="144" />
+        <SetProperty target="uic1" propertyName="minWidth" value="145" />
+        <AssertPropertyValue target="uic1" propertyName="minWidth" value="145" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_binding" keywords="[UIComponent,minWidth]" description="Test minWidth and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="minWidthBindingVar" value="146" />
+        <AssertPropertyValue target="uic2" propertyName="minWidth" value="146" />
+        <SetProperty target="uic2" propertyName="minWidthBindingVar" value="147" />
+        <AssertPropertyValue target="uic2" propertyName="minWidth" value="147" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_functionality_1" keywords="[UIComponent,minWidth]" description="Decrease a container's width and be sure the component's minWidth is respected.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="minWidth" value="110" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="100" />
+        <SetProperty target="box1" propertyName="width" value="120" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1" propertyName="width" value="100" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="110" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_functionality_2" keywords="[UIComponent,minWidth]" description="Set minWidth to zero.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="minWidth" value="0" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="100" />
+        <SetProperty target="box1" propertyName="width" value="-1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_functionality_3" keywords="[UIComponent,minWidth]" description="Increase a container's width from a value less than minWidth to a value more than minWidth.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="minWidth" value="110" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="100" />
+        <SetProperty target="box1" propertyName="width" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1" propertyName="width" value="120" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="118" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+oldHeight
+================================================================================
+-->
+<TestCase testID="oldHeight_functionality_1" keywords="[UIComponent,oldHeight]" description="Make sure oldHeight is correct after expanding.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="height" value="15" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="120" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="resize" eventClass="mx.events::ResizeEvent" />
+        <AssertEventPropertyValue propertyName="oldHeight" value="15" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldHeight_functionality_2" keywords="[UIComponent,oldHeight]" description="Make sure oldHeight is correct after contracting.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="height" value="120" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="15" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="resize" eventClass="mx.events::ResizeEvent" />
+        <AssertEventPropertyValue propertyName="oldHeight" value="120" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldHeight_functionality_3" keywords="[UIComponent,oldHeight]" description="Make sure oldHeight is correct when it is 0.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="height" value="0" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="120" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="resize" eventClass="mx.events::ResizeEvent" />
+        <AssertEventPropertyValue propertyName="oldHeight" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldHeight_functionality_4" keywords="[UIComponent,oldHeight]" description="Make sure oldHeight is correct when it is -1.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="height" value="-1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="120" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="resize" eventClass="mx.events::ResizeEvent" />
+        <AssertEventPropertyValue propertyName="oldHeight" value="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldHeight_functionality_5" keywords="[UIComponent,oldHeight]" description="Make sure changing just the width does not change oldHeight.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="height" value="50" />
+        <SetProperty target="uic1" propertyName="width" value="60" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="70" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="resize" eventClass="mx.events::ResizeEvent" />
+        <AssertEventPropertyValue propertyName="oldHeight" value="50" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+oldWidth
+================================================================================
+-->
+<TestCase testID="oldWidth_functionality_1" keywords="[UIComponent,oldWidth]" description="Make sure oldWidth is correct after expanding.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="width" value="16" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="120" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="resize" eventClass="mx.events::ResizeEvent" />
+        <AssertEventPropertyValue propertyName="oldWidth" value="16" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldWidth_functionality_2" keywords="[UIComponent,oldWidth]" description="Make sure oldWidth is correct after contracting.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="width" value="121" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="10" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="resize" eventClass="mx.events::ResizeEvent" />
+        <AssertEventPropertyValue propertyName="oldWidth" value="121" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldWidth_functionality_3" keywords="[UIComponent,oldWidth]" description="Make sure oldWidth is correct when it is 0.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="width" value="0" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="120" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="resize" eventClass="mx.events::ResizeEvent" />
+        <AssertEventPropertyValue propertyName="oldWidth" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldWidth_functionality_4" keywords="[UIComponent,oldWidth]" description="Make sure oldWidth is correct when it is -1.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="width" value="-1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="120" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="resize" eventClass="mx.events::ResizeEvent" />
+        <AssertEventPropertyValue propertyName="oldWidth" value="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="oldWidth_functionality_5" keywords="[UIComponent,oldWidth]" description="Make sure changing just the height does not change oldWidth.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="width" value="50" />
+        <SetProperty target="uic1" propertyName="height" value="60" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="height" value="70" waitEvent="updateComplete" />
+        <AssertEvent target="uic1" eventName="resize" eventClass="mx.events::ResizeEvent" />
+        <AssertEventPropertyValue propertyName="oldWidth" value="50" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+percentHeight
+================================================================================
+-->
+<TestCase testID="percentHeight_setterGetter" keywords="[UIComponent,percentHeight]" description="Test percentHeight setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="148" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="percentHeight" value="148" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="149" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="percentHeight" value="149" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentHeight_binding" keywords="[UIComponent,percentHeight]" description="Test percentHeight and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="percentHeightBindingVar" value="150" />
+        <AssertPropertyValue target="uic2" propertyName="percentHeight" value="150" />
+        <SetProperty target="uic2" propertyName="percentHeightBindingVar" value="151" />
+        <AssertPropertyValue target="uic2" propertyName="percentHeight" value="151" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentHeight_functionality_1" keywords="[UIComponent,percentHeight]" description="Set percentHeight to 100.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="height" value="90" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="30" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="100" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="88" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentHeight_functionality_2" keywords="[UIComponent,percentHeight]" description="Set percentHeight to 25.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="25" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="24" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentHeight_functionality_3" keywords="[UIComponent,percentHeight]" description="Set percentHeight to 25 and increase the size of the container.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="height" value="50" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="25" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="height" value="80" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="19" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentHeight_functionality_4" keywords="[UIComponent,percentHeight]" description="Set percentHeight to 25 and decrease the size of the container.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="height" value="110" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="25" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="height" value="88" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="21" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentHeight_functionality_5" keywords="[UIComponent,percentHeight]" description="Set percentHeight to 0.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentHeight_functionality_6" keywords="[UIComponent,percentHeight]" description="Set percentHeight to -1.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="-1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentHeight_functionality_7" keywords="[UIComponent,percentHeight]" description="Set percentHeight to 150.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="20" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="150" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="98" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentHeight_functionality_8" keywords="[UIComponent,percentHeight]" description="Increase percentHeight.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="height" value="80" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="20" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="50" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="39" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentHeight_functionality_9" keywords="[UIComponent,percentHeight]" description="Decrease percentHeight.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="height" value="80" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="80" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentHeight" value="25" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="height" value="19" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+percentWidth
+================================================================================
+-->
+<TestCase testID="percentWidth_setterGetter" keywords="[UIComponent,percentWidth]" description="Test percentWidth setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="148" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="percentWidth" value="148" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="149" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="percentWidth" value="149" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidth_binding" keywords="[UIComponent,percentWidth]" description="Test percentWidth and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="percentWidthBindingVar" value="150" />
+        <AssertPropertyValue target="uic2" propertyName="percentWidth" value="150" />
+        <SetProperty target="uic2" propertyName="percentWidthBindingVar" value="151" />
+        <AssertPropertyValue target="uic2" propertyName="percentWidth" value="151" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidth_functionality_1" keywords="[UIComponent,percentWidth]" description="Set percentWidth to 100.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="120" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="80" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="100" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="118" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidth_functionality_2" keywords="[UIComponent,percentWidth]" description="Set percentWidth to 25.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="120" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="25" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="29" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidth_functionality_3" keywords="[UIComponent,percentWidth]" description="Set percentWidth to 25 and increase the size of the container.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="80" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="25" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="24" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidth_functionality_4" keywords="[UIComponent,percentWidth]" description="Set percentWidth to 25 and decrease the size of the container.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="110" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="25" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="24" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidth_functionality_5" keywords="[UIComponent,percentWidth]" description="Set percentWidth to 0.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidth_functionality_6" keywords="[UIComponent,percentWidth]" description="Set percentWidth to -1.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="-1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidth_functionality_7" keywords="[UIComponent,percentWidth]" description="Set percentWidth to 150.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="120" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="150" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="118" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidth_functionality_8" keywords="[UIComponent,percentWidth]" description="Increase percentWidth.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="80" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="20" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="50" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="39" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidth_functionality_9" keywords="[UIComponent,percentWidth]" description="Decrease percentWidth.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="80" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="80" waitEvent="updateComplete" />
+        <SetProperty target="box1.contained_uic1" propertyName="percentWidth" value="50" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="width" value="39" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+width
+================================================================================
+-->
+<TestCase testID="width_setterGetter" keywords="[UIComponent,width]" description="Test width setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="110" />
+        <AssertPropertyValue target="uic1" propertyName="width" value="110" />
+        <SetProperty target="uic1" propertyName="width" value="111" />
+        <AssertPropertyValue target="uic1" propertyName="width" value="111" />
+    </body>
+</TestCase>
+
+<TestCase testID="width_binding" keywords="[UIComponent,width]" description="Test width and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="widthBindingVar" value="112" />
+        <AssertPropertyValue target="uic2" propertyName="width" value="112" />
+        <SetProperty target="uic2" propertyName="widthBindingVar" value="113" />
+        <AssertPropertyValue target="uic2" propertyName="width" value="113" />
+    </body>
+</TestCase>
+
+<TestCase testID="width_functionality_1" keywords="[UIComponent,width]" description="Increase the width.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="10" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="width" value="50" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="uic1" />
+    </body>
+</TestCase>
+
+<TestCase testID="width_functionality_2" keywords="[UIComponent,width]" description="Decrease the width.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="width" value="50" waitEvent="updateComplete" />
+        <SetProperty target="uic1" propertyName="width" value="10" waitEvent="updateComplete" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="uic1" />
+    </body>
+</TestCase>
+
+<TestCase testID="width_functionality_3" keywords="[UIComponent,width]" description="Set the width to 0.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="50" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="0" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="width_functionality_4" keywords="[UIComponent,width]" description="Set the width to -1.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitTarget="box1" waitEvent="updateComplete" />
+        <SetProperty target="box1" propertyName="width" value="100" />
+        <SetProperty target="box1" propertyName="height" value="100" />
+        <SetProperty target="box1.contained_uic1" propertyName="height" value="50" />
+        <SetProperty target="box1.contained_uic1" propertyName="width" value="-1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+</testCases> 
+</UnitTester>

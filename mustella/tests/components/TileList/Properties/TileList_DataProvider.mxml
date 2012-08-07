@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/TileList/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileList_ForDataProvider.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	    import mx.controls.TileList;
+		import mx.managers.SystemManager;
+	    import mx.events.ListEvent;
+	    import mx.collections.*;
+
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+    [Bindable]
+	public var myDP:Array=[{label: "top"},{label: "file"},{label:"I am a Menu"},{label:"here goes Nothing"},{label:"aw, don't sell yourself short"},{label:"can you check me?"}];
+
+	[Bindable]
+    public var xmlObjE4X2:XML;
+
+    public function setXMLDP() : void
+    {
+		xmlObjE4X2= new XML("<topnode><node><label>Mailbox</label></node><node><label>Inbox</label></node><node><label>Old</label></node><node><label>Personal</label></node><node><label>Old</label></node></topnode>");
+        application.tl.labelField = "@label";
+        
+	    application.tl.dataProvider = xmlObjE4X2.topnode.node;
+	}
+
+	public function setXMLDP_AS() : void
+	{
+        application.tl.dataProvider = testXMLDP.topnode.node;
+        application.tl.labelField='@label';
+	}
+
+	 [Bindable]
+	 public var myCol:ArrayCollection;
+	 public var myDPArray:Array = [{label: "menu 2"},{label: "mail"},{label:"inbox"},{label:"outbox"},{label:"you are a draft"},{label:"check me"},{label: "menu 1"},{label: "file"},{label:"I am a Menu"},{label:"here goes Nothing"},{label:"aw, don't sell yourself short"},{label:"can you check me?"}];
+
+	public function setArrayCollectionDP() : void
+	{
+		myCol = new ArrayCollection(myDPArray);
+		application.tl.dataProvider = myCol;
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+<mx:XML id="testXMLDP" format="e4x">
+   <topnode>
+		<node>
+			<label>"file"</label>
+		</node>
+		<node>
+			<label>"I am a Menu"</label>
+		</node>
+		<node>
+			<label>"here goes Nothing"</label>
+		</node>
+		<node>
+			<label>"aw, don't sell yourself short"</label>
+		</node>
+		<node>
+			<label>"can you check me?"</label>
+		</node>
+   </topnode>
+</mx:XML>
+	<testCases>
+		<TestCase testID="ASObject_setInAS" description="Set an AS object as a dataProvider for TileList in AS" keywords="[TileList, dataProvider]">
+			<setup>
+			    <RunCode code="application.tl.dataProvider = myDP;" waitEvent="updateComplete" waitTarget="tl" />
+			    <DispatchKeyEvent keys="[TAB,TAB]"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tl" waitEvent="focusIn" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="RIGHT" waitTarget="tl" waitEvent="change" />
+				<DispatchKeyEvent keys="RIGHT" waitTarget="tl" waitEvent="change" />
+			    <AssertEvent eventName="change" eventClass="mx.events::ListEvent" target="tl" />
+			    <AssertEventPropertyValue propertyName="columnIndex" value="1" />
+			    <AssertEventPropertyValue propertyName="rowIndex" value="0" />
+			</body>
+		</TestCase>
+		<!--
+		<TestCase testID="ASObject_setWithBinding" description="Set an AS object as a dataProvider for TileList With Binding" keywords="[TileList, dataProvider]">
+			<setup>
+			    <RunCode code="application.tl_ASBinding.setFocus()" waitEvent="focusIn" waitTarget="tl_ASBinding" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, DOWN, DOWN, RIGHT, SPACE]" waitTarget="tl_ASBinding" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="tl_ASBinding" />
+			    <AssertEventPropertyValue propertyName="label" value="aw, don't sell yourself short" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="XMLObject_setInAS" description="Set an XML object as a dataProvider for TileList in AS" keywords="[TileList, dataProvider, XML]">
+			<setup>
+			    <ResetComponent target="tl" className="mx.controls.TileList" />
+				<RunCode code="setXMLDP_AS()" waitEvent="updateComplete" waitTarget="tl" />
+			    <RunCode code="application.tl.setFocus()" waitEvent="focusIn" waitTarget="tl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, DOWN, DOWN, RIGHT, DOWN, SPACE]" waitTarget="tl" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="tl" />
+			    <AssertEventPropertyValue propertyName="label" value="can you check me?" />
+			</body>
+		</TestCase>
+		<TestCase testID="XMLObject_setWithBinding" description="Set an XML object as a dataProvider for TileList with Binding" keywords="[TileList, dataProvider, XML]">
+			<setup>
+			    <RunCode code="application.tl_XMLBinding.setFocus()" waitEvent="focusIn" waitTarget="tl_XMLBinding" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, DOWN, DOWN, RIGHT, SPACE]" waitTarget="tl_XMLBinding" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="tl_XMLBinding" />
+			    <AssertEventPropertyValue propertyName="label" value="aw, don't sell yourself short" />
+			</body>
+		</TestCase>
+		<TestCase testID="XMLBuiltAS_setWithBinding" description="Set an XML object as a dataProvider for TileList with Binding" keywords="[TileList, dataProvider, XML]">
+			<setup>
+			    <RunCode code="application.MenuDP3.setFocus()" waitEvent="focusIn" waitTarget="MenuDP3" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, DOWN, SPACE]" waitTarget="MenuDP3" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="MenuDP3" />
+			    <AssertEventPropertyValue propertyName="label" value="Sent" />
+			</body>
+		</TestCase>
+		<TestCase testID="XMLBuiltAS_setWithAS" description="Set an XML object as a dataProvider for TileList with AS" keywords="[TileList, dataProvider, XML]">
+			<setup>
+			    <ResetComponent target="tl" className="mx.controls.TileList" />
+				<RunCode code="setXMLDP()" waitEvent="updateComplete" waitTarget="tl" />
+			    <RunCode code="application.tl.setFocus()" waitEvent="focusIn" waitTarget="tl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, DOWN, RIGHT, SPACE]" waitTarget="tl" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="tl" />
+			    <AssertEventPropertyValue propertyName="label" value="Old" />
+			</body>
+		</TestCase>
+		<TestCase testID="Model_setWithBinding" description="Set a Model as a dataProvider for TileList with Binding" keywords="[TileList, dataProvider, Model]">
+			<setup>
+			    <RunCode code="application.MenuDP3B.setFocus()" waitEvent="focusIn" waitTarget="MenuDP3B" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, RIGHT, DOWN, DOWN, DOWN, SPACE]" waitTarget="MenuDP3B" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="MenuDP3B" />
+			    <AssertEventPropertyValue propertyName="label" value="Whisk" />
+			</body>
+		</TestCase>
+		<TestCase testID="Model_setWithAS" description="Set Model as a dataProvider for TileList with AS" keywords="[TileList, dataProvider, Model]">
+			<setup>
+			    <ResetComponent target="tl" className="mx.controls.TileList" />
+				<RunCode code="application.tl.dataProvider=application.model1.Product" waitEvent="updateComplete" waitTarget="tl" />
+			    <RunCode code="application.tl.setFocus()" waitEvent="focusIn" waitTarget="tl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, RIGHT, DOWN, DOWN, SPACE]" waitTarget="tl" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="tl" />
+			    <AssertEventPropertyValue propertyName="label" value="Crock Pot" />
+			</body>
+		</TestCase>
+		<TestCase testID="ArrayCollection_setWithAS" description="Set ArrayCollection as a dataProvider for TileList with AS" keywords="[TileList, dataProvider, ArrayCollection]">
+			<setup>
+			    <ResetComponent target="tl" className="mx.controls.TileList" />
+				<RunCode code="setArrayCollectionDP()" waitEvent="updateComplete" waitTarget="tl" />
+			    <RunCode code="application.tl.setFocus()" waitEvent="focusIn" waitTarget="tl" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[RIGHT, RIGHT, DOWN, RIGHT, DOWN, RIGHT, DOWN, SPACE]" waitTarget="tl" waitEvent="itemClick" />
+			    <AssertEvent eventName="itemClick" eventClass="mx.events::MenuEvent" target="tl" />
+			    <AssertEventPropertyValue propertyName="label" value="can you check me?" />
+			</body>
+		</TestCase>
+		-->
+	</testCases>
+</UnitTester>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateChooser/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateChooser_Mirroring_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_btn" keywords="[DateChooser, Mirroring, Styles]" description="Test next month button without/with layoutDirection rtl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 1)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<DispatchMouseClickEvent target="dc" localX="168" localY="12" waitEvent="click"/>
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_1.png"/>
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			<DispatchMouseClickEvent target="dc" localX="168" localY="12" waitEvent="click"/>		
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_2.png"/>
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_customIcons" keywords="[DateChooser, Mirroring, Styles]" description="Test custom next month skin with layout rtl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 1)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="yearNavigationEnabled" value="true" waitEvent="yearNavigationEnabledChanged" />
+		</setup>
+		<body>
+			<SetStyle target="dc" styleName="nextMonthUpSkin" valueExpression="value=application.nextIcon" waitEvent="updateComplete"/>				
+			<SetStyle target="dc" styleName="prevMonthUpSkin" valueExpression="value=application.prevIcon" waitEvent="updateComplete"/>
+			<SetStyle target="dc" styleName="nextYearUpSkin" valueExpression="value=application.upIcon" waitEvent="updateComplete"/>
+			<SetStyle target="dc" styleName="prevYearUpSkin" valueExpression="value=application.downIcon" waitEvent="updateComplete"/>
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_1.png"/>
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_2.png"/>			
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_keyboardDown" keywords="[DateChooser, Mirroring, Styles]" description="Test setting layoutDirection to rtl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>	
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 1)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="dc"/>
+			<DispatchKeyEvent keys="[DOWN]"/>
+			<Pause timeout="100"/>					
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_1.png"/>
+			<DispatchKeyEvent keys="[DOWN]"/>
+			<Pause timeout="100"/>					
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_2.png"/>		
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_keyboardUp" keywords="[DateChooser, Mirroring, Styles]" description="Test setting layoutDirection to rtl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>	
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 25)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="dc"/>
+			<DispatchKeyEvent keys="[UP]"/>
+			<Pause timeout="100"/>					
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_1.png"/>
+			<DispatchKeyEvent keys="[UP]"/>
+			<Pause timeout="100"/>					
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_2.png"/>		
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_keyboardRight" keywords="[DateChooser, Mirroring, Styles]" description="Test setting layoutDirection to rtl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>	
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 6)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="dc"/>
+			<DispatchKeyEvent keys="[RIGHT]"/>
+			<Pause timeout="100"/>					
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_1.png"/>
+			<DispatchKeyEvent keys="[RIGHT]"/>
+			<Pause timeout="100"/>					
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_2.png"/>		
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_keyboardLeft" keywords="[DateChooser, Mirroring, Styles]" description="Test setting layoutDirection to rtl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>	
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 6)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="dc"/>
+			<DispatchKeyEvent keys="[LEFT]"/>
+			<Pause timeout="100"/>					
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_1.png"/>
+			<DispatchKeyEvent keys="[LEFT]"/>
+			<Pause timeout="100"/>					
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_2.png"/>		
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_nextMonth" keywords="[DateChooser, Mirroring, Styles]" description="Test next month button with layoutDirection tortl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 1)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			<DispatchMouseClickEvent target="dc" localX="168" localY="12" waitEvent="click"/>
+		</setup>
+		<body>
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID.png"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_parentContainer" keywords="[DateChooser, Mirroring, Styles]" description="Test setting layoutDirection rtl on parentContainer of DateChooser">
+		<setup>
+			<ResetComponent target="myPanel" className="components.myCustomPanel" waitEvent="updateComplete"/>
+			<SetProperty target="myPanel.theDc" propertyName="selectedDate" valueExpression="value=new Date(2010, 6, 1)" waitEvent="updateComplete"/>			
+			<SetProperty target="myPanel.theDc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<CompareBitmap target="myPanel.theDc" url="../Styles/baselines/$testID_1.png"/>
+			<SetStyle target="myPanel" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>			
+			<CompareBitmap target="myPanel.theDc" url="../Styles/baselines/$testID_2.png"/>
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_prevMonth" keywords="[DateChooser, Mirroring, Styles]" description="Test prev month button with layoutDirection rtl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 1)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			<DispatchMouseClickEvent target="dc" localX="12" localY="12" waitEvent="click"/>
+		</setup>
+		<body>
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID.png"/>
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl" keywords="[DateChooser, Mirroring, Styles]" description="Test setting layoutDirection to rtl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>	
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 1)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_1.png"/>
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_2.png"/>
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_yearUp" keywords="[DateChooser, Mirroring, Styles]" description="Test setting layoutDirection to rtl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>	
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 6)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="yearNavigationEnabled" value="true" waitEvent="yearNavigationEnabledChanged"/>			
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<DispatchMouseClickEvent target="dc" localX="155" localY="11" waitEvent="click"/>
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID.png" numColorVariances="3" ignoreMaxColorVariance="true"/>		
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_yearDown" keywords="[DateChooser, Mirroring, Styles]" description="Test setting layoutDirection to rtl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>	
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 6)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="yearNavigationEnabled" value="true" waitEvent="yearNavigationEnabledChanged"/>			
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<DispatchMouseClickEvent target="dc" localX="155" localY="19" waitEvent="click"/>
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID.png" numColorVariances="3" ignoreMaxColorVariance="true"/>		
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DateChooser_Styles_Mirroring_rtl_selectionIndicatorSkin" keywords="[DateChooser, Mirroring, Styles]" description="Test setting selectionIndicatorSkin when layoutDirection is rtl on DateChooser">
+		<setup>
+			<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete"/>	
+			<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2010, 1, 6)" waitEvent="updateComplete"/>
+			<SetProperty target="dc" propertyName="showToday" value="false" waitEvent="updateComplete"/>			
+			<SetStyle target="dc" styleName="selectionIndicatorSkin" valueExpression="value=application.nextIcon" waitEvent="updateComplete"/>
+			<SetStyle target="dc" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+		</setup>
+		<body>						
+			<DispatchMouseClickEvent target="dc" localX="155" localY="100" waitEvent="click"/>
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_1.png"/>		
+			<DispatchMouseClickEvent target="dc" localX="155" localY="140" waitEvent="click"/>
+			<CompareBitmap target="dc" url="../Styles/baselines/$testID_2.png"/>		
+		</body>
+	</TestCase>	
+	
+	</testCases>
+</UnitTester>

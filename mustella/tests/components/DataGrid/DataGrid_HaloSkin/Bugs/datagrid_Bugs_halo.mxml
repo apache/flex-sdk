@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_HaloSkin/Bugs/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGrid_Bugs_main_halo.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.DataGrid;
+    import mx.controls.Text
+    import mx.collections.ArrayCollection;
+    private function hideIt(value:Boolean):void
+    {
+       application.dg.columns[1].visible=value
+       application.dg.selectedIndex = application.dg.columns.length;
+    }
+
+    private function getItem():void
+    {
+     if(application.dg.dataProvider.getItemAt(0).Album=="Album A")
+     {
+        application.dg.selectedIndex=9;
+     }
+    }
+    private function removeBottom():void
+    {
+           application.dg.dataProvider.removeItemAt(4);
+
+    }
+    private function removeTop():void
+    {
+       application.dg.dataProvider.removeItemAt(0);
+    }
+    public function setDPagain():void {
+        var smallArray:Array
+         smallArray=
+         [
+           { Artist:'Artist A', Album:'Album A', Price:11.99, Rating:'Excellent' },
+           { Artist:'Artist A', Album:'Album B', Price:10.99, Rating:'Excellent' },
+           { Artist:'Artist A', Album:'Album C', Price:12.99, Rating:'Excellent' },
+           { Artist:'Artist A', Album:'Album D', Price:11.99, Rating:'Good' }
+
+
+         ];
+
+       application.dg.dataProvider = smallArray;
+     }
+     private function setit():void
+    {
+           application.dg.dataProvider.removeItemAt(2);
+
+    }
+    private function removeItemAt():void
+    {
+       application.dg.dataProvider.removeItemAt(2);
+
+    }
+    private function removeAll():void
+    {
+       application.dg.dataProvider.removeAll();
+
+    }
+    private function setWidth():void
+    {
+       application.dg.width=100
+
+    }
+    private function addItem():void
+    {
+       application.dg.dataProvider.addItem( { Artist:'Artist A', Album:'Album D', Price:11.99, Rating:'ugly' })
+    }
+    private function setHeaderRenderer():void
+    {
+       application.dg.columns[1].headerRenderer = new ClassFactory(mx.controls.Text)
+    }
+    private function setItemRenderer():void
+    {
+        application.dg.columns[1].itemRenderer = new ClassFactory(mx.controls.NumericStepper)
+    }
+        private function setColumnStyle():void
+    {
+        application.dg.columns[1].setStyle("color",0xCC0000)
+    }
+    private function createCollection():void
+    {
+      var ac:ArrayCollection = new ArrayCollection()
+      for(var i:int=0;i<10;i++)
+      {
+        var obj:Object={a:"a"+i,b:"b"+i,c:"c"+i,d:"d"+i,e:"e"+i,f:"f"+i};
+        ac.addItem(obj)
+      }
+      application.dg.dataProvider=ac;
+    }
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+         <!-- -->
+        <TestCase testID="datagrid_bug_127232_halo" keywords="[bug127232]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+                <RunCode code="hideIt(false)" waitTarget="dg" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="dg" propertyName="variableRowHeight" value="true" waitTarget="dg" waitEvent="updateComplete"/>
+                <SetProperty target="dg" propertyName="wordWrap" value="true" waitTarget="dg" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <SetProperty target="dg.columns.1" propertyName="visible" value="true" />
+                <SetProperty target="dg" propertyName="selectedIndex" value="5" />
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <AssertPropertyValue target="dg.mx_internal:rendererArray.1.1" propertyName="text" value="Artist A" />
+            </body>
+        </TestCase>
+        
+            <TestCase testID="datagrid_bug_127672_halo" keywords="[bug127672]">
+                    <setup>
+                        <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                        <RunCode code="application.setDP()"/>
+
+
+                    </setup>
+
+
+
+                         <body>
+
+                            <RunCode code="removeBottom()" waitTarget="dg" waitEvent="updateComplete"/>
+                            <DispatchMouseClickEvent target="dg" localX="70" localY="9" waitTarget="dg" waitEvent="headerRelease"/>
+                            <CompareBitmap target="dg" url="../Bugs/Baselines/bug127672.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                         </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_bug_134498_halo" keywords="[bug134498]">
+        <setup>
+            <ResetComponent target="dg" className="mx.controls::DataGrid" />
+            <RunCode code="application.setDP()"/>
+            <RunCode code="hideIt(false)" waitTarget="dg" waitEvent="updateComplete"/>
+
+        </setup>
+
+
+
+             <body>
+                 <SetProperty target="dg" propertyName="variableRowHeight" value="true" waitTarget="dg" waitEvent="updateComplete"/>
+                <SetProperty target="dg" propertyName="wordWrap" value="true" waitTarget="dg" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <RunCode code="hideIt(true)" waitTarget="dg" waitEvent="updateComplete"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug134498.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+
+             </body>
+            </TestCase>
+            <TestCase testID="datagrid_bug_138796_halo" keywords="[bug138796]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+                <RunCode code="hideIt(false)" waitTarget="dg" waitEvent="updateComplete"/>
+
+            </setup>
+
+
+
+                 <body>
+
+                    <SetProperty target="dg" propertyName="variableRowHeight" value="true" waitTarget="dg" waitEvent="updateComplete"/>
+                    <SetProperty target="dg" propertyName="wordWrap" value="true" waitTarget="dg" waitEvent="updateComplete"/>
+                    <DispatchMouseClickEvent target="dg" localX="70" localY="9" waitTarget="dg" waitEvent="headerRelease"/>
+
+                    <CompareBitmap target="dg" url="../Bugs/Baselines/bug138796.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+
+                 </body>
+            </TestCase>
+
+
+        <TestCase testID="datagrid_bug_138965_halo" keywords="[bug138965]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+                <RunCode code="hideIt(false)" waitTarget="dg" waitEvent="updateComplete"/>
+
+            </setup>
+
+
+
+                 <body>
+
+                    <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                    <RunCode code="hideIt(true)" waitTarget="dg" waitEvent="updateComplete"/>
+                    <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                    <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                    <RunCode code="getItem()"/>
+                    <AssertPropertyValue target="dg" propertyName="selectedIndex" value="9"/>
+
+                 </body>
+            </TestCase>
+
+        <TestCase testID="datagrid_bug_140993_halo" keywords="[bug140993]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+            </setup>
+            <body>
+                <SetProperty target="dg" propertyName="width" value="200" waitTarget="dg" waitEvent="updateComplete"/>
+                <SetProperty target="dg" propertyName="height" value="100" waitTarget="dg" waitEvent="updateComplete"/>
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug140993.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_bug_148387_halo" keywords="[bug148387]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="variableRowHeight" value="true" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+                <SetProperty propertyName="wordWrap" value="true" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="250" localY="90" waitTarget="dg" waitEvent="itemClick"/>
+                <AssertPropertyValue target="dg" propertyName="selectedIndex" value="10"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="datagrid_bug_149209_halo" keywords="[bug149209]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="selectedIndex" value="3" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+                <DispatchMouseClickEvent target="dg" localX="70" localY="9" waitTarget="dg" waitEvent="headerRelease"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <AssertPropertyValue target="dg" propertyName="selectedIndex" value="2"/>
+            </body>
+        </TestCase>
+
+            <TestCase testID="datagrid_bug_149533_halo" keywords="[Sanity check,AS width setting should work, no rte]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+
+
+            </setup>
+
+
+
+                 <body>
+                    <SetProperty propertyName="editable" value="true" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+                    <DispatchMouseClickEvent target="dg" localX="70" localY="9" waitTarget="dg" waitEvent="headerRelease"/>
+                    <DispatchKeyEvent keys="['TAB']"/>
+
+                    <AssertPropertyValue target="dg" propertyName="selectedIndex" value="-1"/>
+
+                 </body>
+            </TestCase>
+
+            <TestCase testID="datagrid_bug_149636_halo" keywords="[bug149636]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+
+
+            </setup>
+
+
+
+                 <body>
+
+                    <RunCode code="removeItemAt()" waitTarget="dg" waitEvent="updateComplete"/>
+
+                    <CompareBitmap target="dg" url="../Bugs/Baselines/bug149636.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                 </body>
+            </TestCase>
+            <TestCase testID="datagrid_bug_152055_halo" keywords="[bug152055]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+
+
+            </setup>
+
+
+
+                 <body>
+
+                    <RunCode code="removeAll()" waitTarget="dg" waitEvent="updateComplete"/>
+                    <DispatchMouseClickEvent target="dg" localX="70" localY="9" waitTarget="dg" waitEvent="headerRelease"/>
+                    <CompareBitmap target="dg" url="../Bugs/Baselines/bug152055.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                 </body>
+            </TestCase>
+            <TestCase testID="datagrid_bug_156330_halo" keywords="[bug156330]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+
+
+            </setup>
+
+
+
+                 <body>
+
+                    <RunCode code="setWidth()" waitTarget="dg" waitEvent="updateComplete"/>
+                    <AssertPropertyValue target="dg" propertyName="width" value="100"/>
+                    <CompareBitmap target="dg" url="../Bugs/Baselines/bug156330.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                 </body>
+            </TestCase>
+        <TestCase testID="datagrid_bug_158879_halo" keywords="[bug158879]">
+                <setup>
+                    <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                    <RunCode code="application.setDP()"/>
+                    <RunCode code="hideIt(false)" waitTarget="dg" waitEvent="updateComplete"/>
+
+                </setup>
+
+
+
+                     <body>
+
+                        <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="292" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <RunCode code="hideIt(true)" waitTarget="dg" waitEvent="updateComplete"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="34" waitTarget="dg" waitEvent="scroll"/>
+
+                        <CompareBitmap target="dg" url="../Bugs/Baselines/bug158879.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+
+                     </body>
+          </TestCase>
+          <TestCase testID="datagrid_bug_159473_halo" keywords="[bug159473]">
+                    <setup>
+                        <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                        <RunCode code="application.setDP()"/>
+                        <RunCode code="hideIt(false)" waitTarget="dg" waitEvent="updateComplete"/>
+
+                    </setup>
+
+
+
+                           <body>
+
+                            <DispatchMouseClickEvent target="dg" localX="70" localY="9" waitTarget="dg" waitEvent="headerRelease"/>
+                            <AssertPropertyValue target="dg" propertyName="selectedIndex" value="13"/>
+                            <CompareBitmap target="dg" url="../Bugs/Baselines/bug159473.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+
+                           </body>
+            </TestCase>
+
+
+
+
+                    <TestCase testID="datagrid_bug_192695_halo" keywords="[bug192695]">
+                    <setup>
+                        <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                        <RunCode code="application.setDP()"/>
+                    </setup>
+
+
+
+                         <body>
+                            <SetProperty target="dg" propertyName="horizontalScrollPolicy" value="on" waitTarget="dg" waitEvent="updateComplete"/>
+                            <SetProperty target="dg" propertyName="width" value="150" waitTarget="dg" waitEvent="updateComplete"/>
+                            <DispatchMouseClickEvent target="dg" localX="128" localY="156" waitTarget="dg" waitEvent="scroll"/>
+                            <DispatchMouseClickEvent target="dg" localX="128" localY="156" waitTarget="dg" waitEvent="scroll"/>
+                            <DispatchMouseClickEvent target="dg" localX="128" localY="156" waitTarget="dg" waitEvent="scroll"/>
+
+                            <CompareBitmap target="dg" url="../Bugs/Baselines/bug192695.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+
+                         </body>
+                    </TestCase>
+
+
+                <TestCase testID="datagrid_Bug_189446_halo" keywords="[DataGrid, scrollDown, scrollUp]">
+                    <setup>
+                        <ResetComponent target="dg" className="mx.controls::DataGrid" waitEvent="updateComplete" waitTarget="dg"/>
+                        <SetProperty target="dg" propertyName="width" value="200" />
+                        <SetProperty target="dg" propertyName="horizontalScrollPolicy" value="on" />
+                        <RunCode code="application.setDP()" waitTarget="dg" waitEvent="updateComplete"/>
+                    </setup>
+                    <body>
+                        <DispatchMouseEvent type="mouseDown" target="dg" localX="101" localY="10" />
+                        <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg" localX="90" localY="10" />
+                        <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg" localX="80" localY="10" />
+                        <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg" localX="70" localY="10" />
+                        <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg" localX="60" localY="10" />
+                        <DispatchMouseEvent type="mouseMove" buttonDown="true" target="dg" localX="50" localY="10" />
+                        <DispatchMouseEvent type="mouseUp" target="dg" localX="50" localY="10" />
+                        <WaitForEffectsToEnd />
+                        <DispatchMouseClickEvent target="dg.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg.mx_internal:scroll_horizontalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                        <AssertPropertyValue target="dg.mx_internal:dataGridHeader.mx_internal:rendererArray.0" propertyName="text" value="Rating" />
+                    </body>
+                </TestCase>    
+
+                    <TestCase testID="datagrid_bug_157493_halo" keywords="[bug157493]">
+                    <setup>
+                        <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                        <RunCode code="application.setDP()"/>
+                    </setup>
+                    <body>
+                        <SetProperty propertyName="visible" target="dg.columns.1" value="false" waitEvent="updateComplete" waitTarget="dg" />
+                        <SetProperty propertyName="selectedIndex" target="dg" valueExpression="value=application.dg.columns.length" />
+                        <!--RunCode code="hideIt(false)" waitEvent="dg" waitEvent="updateComplete"/-->
+                        <DispatchMouseClickEvent target="dg" localX="145" localY="9" waitTarget="dg" waitEvent="headerRelease"/>
+                        <DispatchMouseClickEvent target="dg" localX="129" localY="79" waitTarget="dg" waitEvent="change"/>
+                        <AssertPropertyValue target="dg" propertyName="selectedIndex" value="6"/>
+
+
+                    </body>
+                    </TestCase>
+                    <TestCase testID="datagrid_bug_154858_halo" keywords="[bug154858]">
+                    <setup>
+                        <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                        <RunCode code="application.setDP()"/>
+                    </setup>
+                    <body>
+                        <SetProperty propertyName="variableRowHeight" value="true" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+                        <SetProperty propertyName="wordWrap" value="true" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="250" localY="90" waitTarget="dg" waitEvent="itemClick"/>
+
+
+
+                        <AssertPropertyValue target="dg" propertyName="selectedIndex" value="10"/>
+
+
+
+                    </body>
+                    </TestCase>
+                    
+                    <TestCase testID="datagrid_bug_154411_halo" keywords="[bug154411]">
+                    <setup>
+                        <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                        <RunCode code="application.setDP()"/>
+                    </setup>
+                    <body>
+                        <SetProperty target="dg" propertyName="height" value="100" waitEvent="updateComplete" />
+                        <CompareBitmap target="dg" url="../Bugs/Baselines/bug154411.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                    </body>
+                    </TestCase>
+
+                    <TestCase testID="datagrid_bug_153310_halo" keywords="[bug153310]">
+                    <setup>
+                        <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                        <RunCode code="application.setDP()"/>
+                    </setup>
+                    <body>
+                        <SetProperty propertyName="headerHeight" value="10" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                        <DispatchMouseClickEvent target="dg" localX="250" localY="90" waitTarget="dg" waitEvent="itemClick"/>
+                        <AssertPropertyValue target="dg" propertyName="selectedIndex" value="11"/>
+
+
+
+                    </body>
+                    </TestCase>
+                    <TestCase testID="datagrid_bug_169567_halo" keywords="[bug169567]">
+                                    <setup>
+                                        <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                                        <RunCode code="application.setDP()"/>
+
+
+                                    </setup>
+
+
+
+                                                     <body>
+
+                                                            <RunCode code="removeBottom()" waitTarget="dg" waitEvent="updateComplete"/>
+                                                            <DispatchMouseClickEvent target="dg" localX="70" localY="9" waitTarget="dg" waitEvent="headerRelease"/>
+                                                            <CompareBitmap target="dg" url="../Bugs/Baselines/removebottom.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                                                     </body>
+
+
+           </TestCase>
+           
+        <TestCase testID="datagrid_bug_143981_halo" keywords="[bug143981]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="variableRowHeight" value="true" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+                <SetProperty propertyName="wordWrap" value="true" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg" localX="393" localY="150" waitTarget="dg" waitEvent="scroll"/>
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug143981.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_bug_136781_halo" keywords="[bug136781]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+            </setup>
+            <body>
+                <SetProperty target="dg.columns.1" propertyName="width" value="40" waitTarget="dg" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent target="dg" localX="70" localY="9" waitTarget="dg" waitEvent="headerRelease"/>
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug136781.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+                    <TestCase testID="datagrid_bug_137199_halo" keywords="[bug137199]">
+                                <setup>
+                                    <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                                    <RunCode code="application.setDP()"/>
+                                </setup>
+
+
+
+                                     <body>
+                                        <RunCode code="addItem()"/>
+                                        <SetProperty propertyName="selectedIndex" value="2" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+                                                <AssertPropertyValue target="dg" propertyName="selectedIndex" value="2"/>
+                                     </body>
+                    </TestCase>
+                    <TestCase testID="datagrid_bug_137367_halo" keywords="[bug137367]">
+                    <setup>
+                        <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                        <RunCode code="application.setDP()"/>
+                    </setup>
+
+
+
+                         <body>
+                    <SetProperty propertyName="variableRowHeight" value="true" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+                    <SetProperty propertyName="wordWrap" value="true" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+                    <CompareBitmap target="dg" url="../Bugs/Baselines/bug137367.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                     </body>
+            </TestCase>
+
+
+
+
+           <TestCase testID="datagrid_bug_137366_halo" keywords="[bug137366]">
+                    <setup>
+                        <ResetComponent target="dg" className="mx.controls::DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+                        <RunCode code="application.setDP()"/>
+
+
+                    </setup>
+
+
+
+            <body>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="dg"/>
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug137366.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                           </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_bug_160558_halo" keywords="[bug160558]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+                <RunCode code="application.setDP()"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="dg"/>
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="dg.mx_internal:vScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="dg" waitEvent="scroll"/>
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug160558.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+
+         <TestCase testID="datagrid_bug_155160_halo" keywords="[bug155160]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+                <RunCode code="application.setDP()"/>
+
+
+            </setup>
+
+
+
+            <body>
+                    <RunCode code="setHeaderRenderer()"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="dg"/>
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug155160.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                  </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_bug_148897_halo" keywords="[bug148897]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+                <RunCode code="application.setDP()"/>
+
+
+            </setup>
+
+
+
+            <body>
+                <RunCode code="setItemRenderer()"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="dg"/>
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug148897.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                  </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_bug_148666_halo" keywords="[bug148666]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+                <RunCode code="application.setDP()"/>
+
+
+            </setup>
+
+
+
+            <body>
+                <RunCode code="setColumnStyle()"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="dg"/>
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug148666.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="datagrid_bug_145046_halo" keywords="[bug145046]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+                <RunCode code="application.setDP()"/>
+
+
+            </setup>
+
+
+
+            <body>
+                <SetProperty target="dg" propertyName="lockedColumnCount" value="1" waitTarget="dg" waitEvent="updateComplete"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="dg"/>
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug145046.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+            <TestCase testID="datagrid_bug_143238_halo" keywords="[bug143238]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+                <RunCode code="application.setDP()"/>
+
+
+            </setup>
+
+
+
+            <body>
+                <RunCode code="hideIt(false)"/>
+                <SetProperty target="dg.columns.1" propertyName="width" value="240" waitTarget="dg" waitEvent="updateComplete" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="dg"/>
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug143238.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+               </body>
+        </TestCase>
+
+
+         <TestCase testID="datagrid_bug_141732_halo" keywords="[bug141732]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+                <RunCode code="application.setDP()"/>
+
+
+            </setup>
+
+
+
+            <body>
+
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="dg"/>
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug141732.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+               </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_bug_138558_halo" keywords="[bug138558]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+                <RunCode code="application.setDP()"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="dg"/>
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+                <SetProperty target="dg.columns.1" propertyName="width" value="240" waitTarget="dg" waitEvent="updateComplete" />
+                <SetProperty target="dg.columns.1" propertyName="width" value="40" waitTarget="dg" waitEvent="updateComplete" />
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug138558.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+            <TestCase testID="datagrid_bug_137588_halo" keywords="[bug137588]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+                <RunCode code="application.setDP()"/>
+
+
+            </setup>
+
+
+
+            <body>
+
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="dg"/>
+                <DispatchMouseEvent target="dg" type="mouseOver" localX="29" localY="9" waitTarget="dg" waitEvent="mouseOver" />
+                <DispatchMouseEvent target="dg" type="mouseDown" localX="29" localY="9" waitTarget="dg" waitEvent="mouseDown"/>
+                <DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="29" localY="12" waitTarget="dg" waitEvent="mouseMove" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="74" stageY="32" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseMove" buttonDown="true" stageX="297" stageY="37" />
+                <DispatchMouseEvent target="stage" type="mouseUp" stageX="318" stageY="37" waitTarget="dg" waitEvent="headerShift" />
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug137588.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+               </body>
+        </TestCase>
+
+     
+        <TestCase testID="datagrid_bug_127670_halo" keywords="[bug127670]">
+                                    <setup>
+                                        <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                                        <RunCode code="application.setDP()"/>
+                                    </setup>
+
+
+
+                                         <body>
+                                            <SetProperty target="dg" propertyName="editable" value="true" waitTarget="dg" waitEvent="updateComplete"/>
+                                            <DispatchMouseClickEvent target="dg" localX="214" localY="100" waitTarget="dg" waitEvent="updateComplete"/>
+                                            <DispatchMouseClickEvent target="dg" localX="214" localY="128" waitTarget="dg" waitEvent="updateComplete"/>
+                                            <AssertPropertyValue target="dg" propertyName="selectedIndex" value="4"/>
+                                            <DispatchMouseClickEvent target="dg" localX="75" localY="15" waitTarget="dg" waitEvent="focusIn"/>
+                                         </body>
+            </TestCase>
+            <TestCase testID="datagrid_bug_159527_halo" keywords="[bug159527]">
+                            <setup>
+                                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                                <RunCode code="application.setDP()"/>
+                            </setup>
+
+
+
+                                             <body>
+                                                        <SetProperty target="dg" propertyName="editable" value="true" waitTarget="dg" waitEvent="updateComplete"/>
+                                    <DispatchMouseClickEvent target="dg" localX="214" localY="100" waitTarget="dg" waitEvent="updateComplete"/>
+                                                    <AssertPropertyValue target="dg" propertyName="selectedIndex" value="3"/>
+                                                    <DispatchMouseClickEvent target="dg" localX="75" localY="15" waitTarget="dg" waitEvent="focusIn"/>
+                                             </body>
+            </TestCase>
+
+             <TestCase testID="datagrid_bug_136543_halo" keywords="[bug136543]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <RunCode code="application.setDP()"/>
+            </setup>
+
+
+
+                 <body>
+                    <SetProperty target="dg" propertyName="editable" value="true" waitTarget="dg" waitEvent="updateComplete"/>
+                    <RunCode code="hideIt(false)"/>
+                    <DispatchMouseClickEvent target="dg" localX="214" localY="100" waitTarget="dg" waitEvent="updateComplete"/>
+                    <DispatchMouseClickEvent target="dg" localX="214" localY="128" waitTarget="dg" waitEvent="updateComplete"/>
+                    <!--<CompareBitmap target="dg" url="../Bugs/Baselines/showeditorcorrectly.png" numColorVariances="4" ignoreMaxColorVariance="true"/>-->
+                    <DispatchMouseClickEvent target="dg" localX="75" localY="15" waitTarget="dg" waitEvent="focusIn"/>
+
+                 </body>
+               </TestCase>
+
+        <TestCase testID="datagrid_bug_174954_halo" keywords="[DataGrid,bug174954]">
+            <setup>
+                <ResetComponent target="dg" className="mx.controls::DataGrid" />
+                <SetProperty target="dg" propertyName="editable" value="true"/>
+                <RunCode code="application.setDP()" waitTarget="dg" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dg.mx_internal:rendererArray.1.0" localX="5" localY="5" waitTarget="dg" waitEvent="itemFocusIn" />
+                <RunCode code="removeTop()" waitTarget="dg" waitEvent="updateComplete" />
+                <AssertPropertyValue target="dg.itemEditorInstance" propertyName="text" value="Album B" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="datagrid_bug_sdk_13578_halo" keywords="[bug_sdk_13578]">
+		<setup>
+			<ResetComponent target="dg" className="mx.controls::DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+			<RunCode code="application.setDP()"/>
+			<WaitForEffectsToEnd />
+	    </setup>
+	    <body>
+		<DispatchMouseClickEvent target="dg" localX="67" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		<DispatchMouseClickEvent target="dg" localX="67" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		<DispatchMouseClickEvent target="dg" localX="67" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		<DispatchMouseClickEvent target="dg" localX="67" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		<DispatchMouseClickEvent target="dg" localX="67" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		<DispatchMouseClickEvent target="dg" localX="67" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		<WaitForEffectsToEnd />
+		
+		<SetProperty propertyName="enabled" value="false" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+		<SetProperty propertyName="enabled" value="true" target="dg" waitEvent="updateComplete" waitTarget="dg"/>
+		<WaitForEffectsToEnd />
+		<DispatchMouseClickEvent target="dg" localX="141" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		<DispatchMouseClickEvent target="dg" localX="141" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		<DispatchMouseClickEvent target="dg" localX="141" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		<DispatchMouseClickEvent target="dg" localX="141" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		<DispatchMouseClickEvent target="dg" localX="141" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		<DispatchMouseClickEvent target="dg" localX="141" localY="14" waitTarget="dg" waitEvent="mouseUp"/>
+		
+		<WaitForEffectsToEnd />
+                <CompareBitmap target="dg" url="../Bugs/Baselines/bug_sdk_13578.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>            
+    </testCases>
+
+
+</UnitTester>

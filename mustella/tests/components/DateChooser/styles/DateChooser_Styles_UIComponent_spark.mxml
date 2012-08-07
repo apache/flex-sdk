@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateChooser/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateChooser_InContainer_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.DateChooser;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import RedFocusRect;
+	import flash.display.BlendMode;
+
+	]]>
+	</mx:Script>
+	<testCases>
+        <TestCase testID="bottom_0_spark" description="DateChooser style bottom=0" keywords="[styles, bottom, DateChooser]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetStyle styleName="bottom" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="dc" value="120" />
+			</body>
+		</TestCase>
+		<TestCase testID="bottom_20_spark" description="DateChooser style bottom=20." keywords="[styles, bottom, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetStyle styleName="bottom" target="dc" value="20" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="dc" value="100" />
+			</body>
+		</TestCase>
+        <TestCase testID="top_0_spark" description="DateChooser style top=0" keywords="[styles, top, DateChooser]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetStyle styleName="top" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="dc" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="top_20_spark" description="DateChooser style top=20." keywords="[styles, top, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetStyle styleName="top" target="dc" value="20" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="dc" value="20" />
+			</body>
+		</TestCase>
+        <TestCase testID="right_0_spark" description="DateChooser style right=0" keywords="[styles, right, DateChooser]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetStyle styleName="right" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="dc" value="100" />
+			</body>
+		</TestCase>
+		<TestCase testID="right_20_spark" description="DateChooser style right=20." keywords="[styles, right, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetStyle styleName="right" target="dc" value="20" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="dc" value="80" />
+			</body>
+		</TestCase>
+        <TestCase testID="left_0_spark" description="DateChooser style left=0" keywords="[styles, left, DateChooser]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetStyle styleName="left" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="dc" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="left_20_spark" description="DateChooser style left=20." keywords="[styles, left, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetStyle styleName="left" target="dc" value="20" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="dc" value="20" />
+			</body>
+		</TestCase>
+
+        <TestCase testID="horizontalCenter_0_spark" description="DateChooser style horizontalCenter=0" keywords="[styles, left, DateChooser]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetStyle styleName="horizontalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="dc" value="50" />
+			</body>
+		</TestCase>
+		<TestCase testID="horizontalCenter_positive_spark" description="DateChooser style horizontalCenter=20." keywords="[styles, left, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+				<SetStyle styleName="horizontalCenter" target="dc" value="20" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="dc" value="70" />
+			</body>
+		</TestCase>
+		<TestCase testID="horizontalCenter_negative_spark" description="DateChooser style horizontalCenter=-20." keywords="[styles, left, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+				<SetStyle styleName="horizontalCenter" target="dc" value="-20" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="x" target="dc" value="30" />
+			</body>
+		</TestCase>
+        <TestCase testID="verticalCenter_0_spark" description="DateChooser style verticalCenter=0" keywords="[styles, left, DateChooser]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetStyle styleName="verticalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="dc" value="75" />
+			</body>
+		</TestCase>
+		<TestCase testID="verticalCenter_positive_spark" description="DateChooser style verticalCenter=20." keywords="[styles, left, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+				<SetStyle styleName="verticalCenter" target="dc" value="20" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="dc" value="95" />
+			</body>
+		</TestCase>
+		<TestCase testID="verticalCenter_negative_spark" description="DateChooser style verticalCenter=-20." keywords="[styles, left, DateChooser]">
+			<setup>
+				<ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+				<SetStyle styleName="verticalCenter" target="dc" value="-20" waitEvent="updateComplete" waitTarget="dc" />
+				<SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="y" target="dc" value="55" />
+			</body>
+		</TestCase>
+		<TestCase testID="focusThickness_0_spark" description="DateChooser style focusThickness=0." keywords="[styles, focusThickness, DateChooser]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="dc" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="canvas1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+				<SetStyle styleName="horizontalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetStyle styleName="focusThickness" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="dc" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusThickness_8_spark" description="DateChooser style focusThickness=8." keywords="[styles, focusThickness, DateChooser]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="dc" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="canvas1" propertyName="height" value="80" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+				<SetStyle styleName="horizontalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetStyle styleName="focusThickness" target="dc" value="8" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="dc" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusSkin_custom_spark" description="DateChooser style focusSkin=RedFocusRect." keywords="[styles, focusThickness, DateChooser]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="dc" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="canvas1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+				<SetStyle styleName="horizontalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetStyle styleName="focusSkin" target="dc" valueExpression="value=RedFocusRect" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="dc" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusBlend_screen_spark" description="DateChooser style focusThickness=8." keywords="[styles, focusThickness, DateChooser]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="dc" propertyName="width" value="95" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="canvas1" propertyName="height" value="75" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+				<SetStyle styleName="horizontalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetStyle styleName="focusBlend" target="dc" valueExpression="value=BlendMode.SCREEN" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetStyle styleName="focusThickness" target="dc" value="8" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="dc" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+		<TestCase testID="focusBlend_subtract_spark" description="DateChooser style focusThickness=8." keywords="[styles, focusThickness, DateChooser]">
+			<setup>
+			    <ResetComponent target="dc" className="mx.controls.DateChooser" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetProperty target="dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="dc" propertyName="width" value="99" waitEvent="updateComplete" waitTarget="dc"/>
+			    <SetProperty target="canvas1" propertyName="height" value="78" waitEvent="updateComplete" waitTarget="canvas1"/>
+			    <SetStyle styleName="verticalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+				<SetStyle styleName="horizontalCenter" target="dc" value="0" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetStyle styleName="focusBlend" target="dc" valueExpression="value=BlendMode.SUBTRACT" waitEvent="updateComplete" waitTarget="dc" />
+			    <SetStyle styleName="focusThickness" target="dc" value="8" waitEvent="updateComplete" waitTarget="dc" />
+			</setup>
+			<body>
+			    <DispatchKeyEvent key="TAB" waitTarget="dc" waitEvent="focusIn" />
+			    <WaitForEffectsToEnd />
+				<CompareBitmap target="canvas1" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+			<cleanup>
+			    <DispatchKeyEvent key="TAB" />
+			</cleanup>
+		</TestCase>
+	</testCases>
+</UnitTester>

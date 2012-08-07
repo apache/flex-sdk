@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Tree/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Tree_Basic.mxml">
+
+
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.Tree;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.TreeEvent;
+    import mx.collections.ArrayCollection;
+    import data.TreeData;
+    import data.LTDescriptor;
+    import data.LTNode;
+    import mx.collections.*;
+    import mx.effects.easing.Bounce;
+    import mx.effects.easing.Back;
+    import comps.HelloItemRenderer;
+
+    private function addArrayData():void
+    {
+
+        var treeData:TreeData = new TreeData();
+        application.tree.dataProvider = treeData.a1;
+
+    }
+
+    private function addXMLData():void
+    {
+
+        var treeData:TreeData = new TreeData();
+        application.tree.dataProvider = treeData.x1;
+        application.tree.showRoot = false;
+        application.tree.labelField = '@label';
+
+    }
+
+    private function setDescriptor():void
+    {
+
+        application.tree.dataDescriptor = new LTDescriptor();
+
+    }
+
+    private function addObjectData():void
+    {
+
+        var treeData:TreeData = new TreeData();
+        application.tree.dataProvider = treeData.o1;
+
+    }
+
+    private function addXMLListData():void
+    {
+
+        var treeData:TreeData = new TreeData();
+        application.tree.dataProvider = treeData.xlc1;
+        application.tree.labelField = '@label';
+
+    }
+
+
+    private function addXMLDataGlobal():void
+    {
+
+        application.tree.dataProvider = application.treeXML;
+        application.tree.showRoot = false;
+        application.tree.labelField = '@label';
+
+    }
+    private function addCustomNodes():void
+    {
+
+        var dataProvider:ArrayCollection = new ArrayCollection;
+        dataProvider = new ArrayCollection();
+        for (var i:int = 0; i < 20; i++)
+        {
+            dataProvider.addItem(new LTNode(i.toString()));
+        }
+
+        application.tree.dataProvider = dataProvider;
+    }
+
+    private function getFirstVisible():String
+    {
+
+
+        if(application.tree.firstVisibleItem is XML)
+        {
+            return application.tree.firstVisibleItem.@label;
+
+        }else
+        {
+            return application.tree.firstVisibleItem.label;
+        }
+
+    }
+
+    private function setTreeOpenItems():void
+    {
+
+
+        application.tree.openItems = [application.tree.dataProvider.children()[0], application.tree.dataProvider.children()[1]];
+    }
+
+    private function doAddChildAt():void
+    {
+        var newNode:XML = <node label="new node" />;
+        application.tree.dataDescriptor.addChildAt(application.tree.dataProvider.children()[0], newNode, 1);
+
+    }
+
+    private function doGetChildren():String
+    {
+        return IList(application.tree.dataDescriptor.getChildren(application.treeXML.node[0])).getItemAt(0).@label;
+
+    }
+
+
+    private function doGetData():String
+    {
+        return application.tree.dataDescriptor.getData(application.treeXML.node.node[0]).@label
+
+    }
+
+
+    private function addLargeData():void
+    {
+        var treeData:TreeData = new TreeData();
+        application.tree.dataProvider = treeData.largeObj;
+    }
+
+    private function doRemoveAll():void
+    {
+        var xlc:XMLListCollection = new XMLListCollection(application.tree.dataProvider.children()[0].children());
+        xlc.removeAll()
+    }
+
+
+    private function addToSelected():void
+    {
+        application.tree.selectedItem.addItem(new LTNode('new Item'))
+    }
+
+    private function addAtSelInd():void
+    {
+        application.tree.dataProvider.addItemAt(new LTNode("new node"), application.tree.selectedIndex);
+
+    }
+
+    private function invalidSelectionSet():void
+    {
+        application.tree.openItems = [application.tree.dataProvider.children()[0], application.tree.dataProvider.children()[1]];
+        application.tree.selectedItem = application.tree.dataProvider.children()[1].children()[0];
+        var node:XML = XML(application.tree.selectedItem);
+        if( node == null ) return;
+        var children:XMLList = XMLList(node);
+        for(var i:Number=0; i < children.length(); i++)
+        {
+            delete children[i];
+        }
+        application.tree.selectedItem = node;
+        }
+
+        private var treeOpenItems:Object;
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+        <!--******************************dataProvider*******************************-->
+
+        <TestCase testID="Tree_dataProviderArray" description="dataProvider set to Array object" keywords="[dataProvider, Array, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+               <RunCode code="addArrayData();" waitEvent="updateComplete" waitTarget="tree"/>
+                <AssertMethodValue method="value=getFirstVisible()" value="Containers" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_dataProviderXML" description="dataProvider set to XML object" keywords="[dataProvider, XML, Tree">
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+               <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+                <AssertMethodValue method="value=getFirstVisible()" value="Containers" />
+            </body>
+        </TestCase>
+
+        <!--******************************dataDescriptor*******************************-->
+
+        <TestCase testID="Tree_dataDescriptorAS" description="dataDescriptor set in AS to display custom nodes of nested ArrayCollections" keywords="[dataDescriptor, AS, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+               <RunCode code="setDescriptor();" />
+               <RunCode code="addCustomNodes();" waitEvent="updateComplete" waitTarget="tree"/>
+
+               <AssertMethodValue method="value=getFirstVisible()" value="0" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_dataDescriptorMXML" description="dataDescriptor set in MXML to display custom nodes of nested ArrayCollections" keywords="[dataDescriptor, MXML, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="dataDescriptor" valueExpression="value= new LTDescriptor()" />
+                <RunCode code="addCustomNodes();" waitEvent="updateComplete" waitTarget="tree"/>
+
+                <AssertMethodValue method="value=getFirstVisible()" value="0" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_dataDescriptorAddChildAt" description="adding a node to using custom dataDescriptor's addChildAt" keywords="[dataDescriptor, addChildAt, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <RunCode code="doAddChildAt()" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, SPACE]" ctrlKey="true" waitEvent="change" waitTarget="tree"/>
+                <AssertPropertyValue target="tree.selectedItem" propertyName="@label" value="new node" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Tree_dataDescriptorGetChildren" description="getting children using dataDescriptor's getChildren()" keywords="[dataDescriptor, getChildren, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=doGetChildren()" value="DividedBoxClasses" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_dataDescriptorGetData" description="getting data using dataDescriptor's getData()" keywords="[dataDescriptor, getData, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=doGetData()" value="DividedBoxClasses" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_dataDescriptorHasChildrenTrue" description="dataDescriptor's hasChildren() with node containing children" keywords="[dataDescriptor, hasChildren, true, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.tree.dataDescriptor.hasChildren(application.treeXML.node[0])" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_dataDescriptorHasChildrenFalse" description="dataDescriptor's hasChildren() with node containing no children" keywords="[dataDescriptor, hasChildren, false, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.tree.dataDescriptor.hasChildren(application.treeXML.node[0].node[0].node[0])" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_dataDescriptorIsBranchTrue" description="dataDescriptor's isBranch() with branch node" keywords="[dataDescriptor, isBranch, true, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.tree.dataDescriptor.isBranch(application.treeXML.node[0])" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_dataDescriptorIsBranchFalse" description="dataDescriptor's isBranch() with leaf node" keywords="[dataDescriptor, isBranch, false, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.tree.dataDescriptor.isBranch(application.treeXML.node[0].node[0].node[0])" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_dataDescriptorRemoveChildAt" description="dataDescriptor's removeChildAt" keywords="[dataDescriptor, removeChildAt, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData();" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.tree.dataDescriptor.removeChildAt(application.tree.dataProvider.children()[0], application.tree.dataProvider.children()[0].children()[0], 0)" value="true" />
+            </body>
+        </TestCase>
+
+        <!--******************************firstVisible*******************************-->
+
+        <TestCase testID="Tree_firstVisibleItemDefault" description="first visible item should be first item in Array dp" keywords="[firstVisibleItem, default, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="addArrayData();" waitEvent="updateComplete" waitTarget="tree"/>
+                <AssertMethodValue method="value=getFirstVisible()" value="Containers" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_firstVisibleItemAS" description="firstVisibleItem set to printing3 item" keywords="[firstVisibleItem, AS, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLVScroll" waitEvent="updateComplete" waitTarget="tree" />
+
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="firstVisibleItem" valueExpression="value=application.treeXMLVScroll.node[3]" waitEvent="firstVisibleItemChanged" waitTarget="tree" />
+
+                <AssertMethodValue method="value=getFirstVisible()" value="Printing3" />
+            </body>
+        </TestCase>
+
+        <!--********************************hasRoot************************************-->
+
+        <TestCase testID="Tree_hasRootArray" description="Array dp with multiple roots" keywords="[hasRoot, Array, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" valueExpression="value=Tree" />
+                <RunCode code="addArrayData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tree" propertyName="hasRoot" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_hasRootXML" description="XML dp with root node, hasRoot is true" keywords="[hasRoot, XML, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tree" propertyName="hasRoot" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_hasRootObject" description="Object dp, one root" keywords="[hasRoot, Object, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addObjectData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tree" propertyName="hasRoot" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_hasRootXMLList" description="XMLList dp, one root" keywords="[hasRoot, XMLList, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLListData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="tree" propertyName="hasRoot" value="false" />
+            </body>
+        </TestCase>
+
+        <!--******************************maxHorizontalScrollPosition*******************************-->
+
+        <TestCase testID="Tree_maxHorizontalScrollPosition" description="maxHorizontalScrollPosition" keywords="[maxHorizontalScrollPosition, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLHScroll" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="horizontalScrollPolicy" value="on" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="maxHorizontalScrollPosition" value="200" waitEvent="maxHorizontalScrollPositionChanged" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                    <DispatchMouseClickEvent  target="tree.getChildAt(3).getChildAt(3)" />
+                    <DispatchMouseClickEvent  target="tree.getChildAt(3).getChildAt(3)" />
+                    <DispatchMouseClickEvent  target="tree.getChildAt(3).getChildAt(3)" />
+                    <DispatchMouseEvent type="mouseUp" stageX="291" stageY="187" target="" />
+                <AssertPropertyValue target="tree" propertyName="maxHorizontalScrollPosition" value="200" />
+            </body>
+        </TestCase>
+
+        <!--******************************************openItems*******************************-->
+
+        <TestCase testID="Tree_openItemsGet" description="open nodes and verify nodes appear in openItems" keywords="[openItems, Get, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[0], true)" waitEvent="updateComplete" waitTarget="tree" />
+
+                <AssertMethodValue method="value=application.tree.isItemOpen(application.tree.dataProvider.children()[0].children()[1])" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_openItemsSet" description="open Containers and Printing nodes" keywords="[openItems, Set, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" valueExpression="value=300" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+
+            </setup>
+            <body>
+                <RunCode code="setTreeOpenItems()"  />
+                <AssertMethodValue method="value=application.tree.isItemOpen(application.tree.dataProvider.children()[0])" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Tree_dataProviderXMLOpenItems_bug11444" description="dataProvider set to XML object" keywords="[dataProvider, XML, Tree. openItems, SDK-11444">
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+               <RunCode code="addXMLDataGlobal();" waitEvent="updateComplete" waitTarget="tree"/>
+
+                   <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[0], true)" waitEvent="updateComplete" waitTarget="tree" />
+                   <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[1], true)" waitEvent="updateComplete" waitTarget="tree" />
+                   <WaitForEffectsToEnd/>
+               <RunCode code="treeOpenItems=application.tree.openItems" />
+               <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[0].children()[1], false)" waitEvent="updateComplete" waitTarget="tree" />
+                   <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[1], false)" waitEvent="updateComplete" waitTarget="tree" />
+                   <WaitForEffectsToEnd/>
+               <RunCode code="application.tree.openItems= treeOpenItems" waitEvent="updateComplete" waitTarget="tree"/>
+               <CompareBitmap  numColorVariances="10" ignoreMaxColorVariance="true" target="tree" url="../Properties/baselines/Tree_XMLOpenItems.png"/>
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="Tree_ArrayOpenItemsBug12879"  keywords="[openItems, Array, Tree, SDK-12879 " >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+               <RunCode code="addArrayData();" waitEvent="updateComplete" waitTarget="tree"/>
+               <RunCode code="application.tree.expandChildrenOf(application.tree.firstVisibleItem, true)" waitEvent="updateComplete" waitTarget="tree" />
+               <WaitForEffectsToEnd/>
+                   <RunCode code="application.tree.openItems=application.tree.dataProvider[1]" waitEvent="updateComplete" waitTarget="tree"/>
+                   <WaitForEffectsToEnd/>
+                   <AssertMethodValue method="value=application.tree.isItemOpen(application.tree.dataProvider[0])" value="false" />
+               <AssertMethodValue method="value=application.tree.isItemOpen(application.tree.dataProvider[1])" value="true" />
+            </body>
+        </TestCase>
+
+        <!--****************************************selectedIndex******************************-->
+
+        <TestCase testID="Tree_selectedIndexAS" description="selectedIndex set to zero programmatically" keywords="[selectedIndex, AS, Tree">
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData();" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertPropertyValue target="tree" propertyName="selectedIndex" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_selectedIndexKeys" description="selectedIndex set to 1 with keyboard keys" keywords="[selectedIndex, keyboard, Tree">
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData();" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN, DOWN]" />
+                <AssertPropertyValue target="tree" propertyName="selectedIndex" value="1" />
+            </body>
+        </TestCase>
+
+    <!--****************************************selectedIndices******************************-->
+
+        <TestCase testID="Tree_selectedIndicesAS" description="selectedIndices set to 0, 1 in AS" keywords="[selectedIndices, AS, Tree">
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300"  />
+                <SetProperty target="tree" propertyName="allowMultipleSelection" value="true" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="selectedIndices" valueExpression="value=[0,1]" waitEvent="valueCommit" waitTarget="tree" />
+                <AssertPropertyValue target="tree" propertyName="selectedItems" valueExpression="value=[application.treeXML.node[0], application.treeXML.node[1]]" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Tree_selectedIndicesKeys" description="selectedIndices set to Containers and Printing node using keyboard" keywords="[selectedIndices, keyboard, Tree">
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" />
+                <SetProperty target="tree" propertyName="allowMultipleSelection" value="true" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]"/>
+                <DispatchKeyEvent keys="[DOWN]" shiftKey="true"/>
+                <AssertPropertyValue target="tree" propertyName="selectedIndices" valueExpression="value=[1, 0]" />
+            </body>
+        </TestCase>
+
+        <!--****************************************selectedItem******************************-->
+
+        <TestCase testID="Tree_selectedItemAS" description="selectedItem set to Containers node" keywords="[selectedItem, AS, Tree">
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="selectedItem" valueExpression="value=application.treeXML.node[0]" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertPropertyValue target="tree" propertyName="selectedIndex" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Tree_selectedItemKeys" description="selectedItem set to Printing node with keyboard keys" keywords="[selectedIndex, keyboard, Tree">
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData();" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN, DOWN]" />
+                <AssertPropertyValue target="tree.selectedItem" propertyName="@label" value="Printing" />
+            </body>
+        </TestCase>
+
+
+        <!--****************************************selectedItems******************************-->
+
+        <TestCase testID="Tree_selectedItemsAS" description="selectedIndices set to Containers and Printing nodes in AS" keywords="[selectedItems, AS, Tree">
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300"  />
+                <SetProperty target="tree" propertyName="allowMultipleSelection" value="true" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="selectedItems" valueExpression="value=[application.treeXML.node[1], application.treeXML.node[0]]" waitEvent="valueCommit" waitTarget="tree" />
+                <AssertPropertyValue target="tree" propertyName="selectedIndices" valueExpression="value=[1,0]" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_selectedItemsKeys" description="selectedItems set to Containers and Printing node using keyboard" keywords="[selectedItems, keyboard, Tree">
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" />
+                <SetProperty target="tree" propertyName="allowMultipleSelection" value="true" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal();" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN]"/>
+                <DispatchKeyEvent keys="[DOWN]" shiftKey="true"/>
+                <AssertPropertyValue target="tree" propertyName="selectedItems" valueExpression="value=[application.treeXML.node[1], application.treeXML.node[0]]" />
+            </body>
+        </TestCase>
+
+        <!--************************************showRoot***************************************-->
+
+        <TestCase testID="Tree_showRootXMLTrue" description="showRoot true with XML dp" keywords="[showRoot, XML, true,  Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.showRoot = true" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertMethodValue method="value=getFirstVisible()" value="rootnode" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_showRootXMLFalse" description="showRoot false with XML dp" keywords="[showRoot, XML, false,  Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.showRoot = false"/>
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertMethodValue method="value=getFirstVisible()" value="Containers" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_showRootObjectTrue" description="showRoot true with Object dp" keywords="[showRoot, Object, true, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.showRoot = true" />
+                <RunCode code="addObjectData()" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertMethodValue method="value=getFirstVisible()" value="Containers" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_showRootObjectFalse" description="showRoot false with Object dp" keywords="[showRoot, Object, false, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.showRoot = false" />
+                <RunCode code="addObjectData()" waitEvent="updateComplete" waitTarget="tree" />
+                <AssertMethodValue method="value=getFirstVisible()" value="DividedBoxClasses" />
+            </body>
+        </TestCase>
+
+<!--******************************176536*******************************-->
+
+        <TestCase testID="Tree_bug_176536" description="collapsing parent of selected node should move selection up to parent" keywords="[selection, parent, collapse, Tree]" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[0], true)" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="selectedIndex" value="2" waitEvent="valueCommit" waitTarget="tree" />
+                <DispatchMouseEvent target="tree" type="mouseDown" stageX="128" stageY="57" waitEvent="updateComplete" waitTarget="tree"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap  numColorVariances="10" ignoreMaxColorVariance="true" target="tree" url="../Properties/baselines/176536.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <!--******************************192365*******************************-->
+
+        <TestCase testID="Tree_bug_192365" description="collapsing grandparent of selected node should move selection to grandparent" keywords="[selection, grandparent, collapse, Tree]" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[0], true)" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="selectedIndex" value="2" waitEvent="valueCommit" waitTarget="tree" />
+                <DispatchMouseEvent target="tree" type="mouseDown" stageX="110" stageY="35" waitEvent="updateComplete" waitTarget="tree"/>
+                <WaitForEffectsToEnd/>
+                <CompareBitmap  numColorVariances="10" ignoreMaxColorVariance="true" target="tree" url="../Properties/baselines/192365.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <!--******************************191167, 155790*******************************-->
+
+        <TestCase testID="Tree_bug_191167" description="right arrow on opened empty branch - should do nothing" keywords="[empty, branch, right-arrow, Tree]" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLEmptyBranches" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0].children()[1], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0].children()[1].children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="selectedIndex" value="3" waitEvent="valueCommit" waitTarget="tree" />
+                <WaitForEffectsToEnd />
+                <DispatchKeyEvent keys="[TAB,RIGHT]" waitEvent="change" waitTarget="tree"/>
+                <CompareBitmap  numColorVariances="10" ignoreMaxColorVariance="true" target="tree" url="../Properties/baselines/191167.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <!--******************************190079, 160827 *******************************-->
+        <TestCase testID="Tree_bug_190079" description="removing all of the children of a node should redraw correctly" keywords="[selection, parent, collapse, Tree]" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="doRemoveAll()" waitEvent="updateComplete" waitTarget="tree" />
+                <CompareBitmap  numColorVariances="10" ignoreMaxColorVariance="true" target="tree" url="../Properties/baselines/190079.png" timeout="4500" />
+            </body>
+        </TestCase>
+        <!--******************************173743*******************************-->
+        <TestCase testID="Tree_bug_173743" description="adding child to empty node should update to display new node" keywords="[dynamic, add, empty, Tree]" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="setDescriptor();" />
+                <RunCode code="addCustomNodes();" waitEvent="updateComplete" waitTarget="tree"/>
+                <SetProperty target="tree" propertyName="selectedIndex" value="3" waitEvent="valueCommit" waitTarget="tree" />
+                <WaitForEffectsToEnd />
+                <DispatchKeyEvent keys="[TAB,RIGHT]" waitEvent="updateComplete" waitTarget="tree"/>
+            </setup>
+            <body>
+                <RunCode code="addToSelected();" waitEvent="updateComplete" waitTarget="tree"/>
+                <CompareBitmap  numColorVariances="10" ignoreMaxColorVariance="true" target="tree" url="../Properties/baselines/173743.png" timeout="4500" />
+            </body>
+        </TestCase>
+
+
+        <!--*****************************180741 -replay, look into selection********************************-->
+        <TestCase testID="Tree_bug_180741" description="adding item at selected index, check selection" keywords="[dynamic, add, selected, Tree]" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="setDescriptor();" />
+                <RunCode code="addCustomNodes();" waitEvent="updateComplete" waitTarget="tree"/>
+                <DispatchKeyEvent keys="[TAB,DOWN,DOWN]" waitEvent="change" waitTarget="tree"/>
+            </setup>
+            <body>
+                <RunCode code="addAtSelInd();" waitEvent="updateComplete" waitTarget="tree"/>
+                <DispatchMouseClickEvent stageX="173" stageY="53" target=""/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap  numColorVariances="10" ignoreMaxColorVariance="true" target="tree" url="../Properties/baselines/180741.png" timeout="4500" />
+            </body>
+        </TestCase>
+
+        <!--*****************************SDK-11497 Zero dataprovider ********************************   -->
+        <TestCase testID="Tree_bug_11497" description="Set selection to the deleted item should not hang" keywords="[dataprovider, properties, Tree]" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="dataProvider" value="{[0]}" waitEvent="updateComplete" waitTarget="tree" />
+
+            </setup>
+            <body>
+                <SetProperty target="tree" propertyName="selectedItem" value="0" />
+                <WaitForEffectsToEnd/>
+                <AssertPropertyValue target="tree" propertyName="selectedIndex" value="0" />
+
+            </body>
+        </TestCase>
+        <!--*****************************SDK-11847 ******************************** -->
+        <TestCase testID="Tree_HorizontalScroll_SDK_11847"  keywords="[horizontalScrollPolicy, maxHorizontalScrollPosition,Property, Tree]" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="horizontalScrollPolicy" value="auto" />
+                <SetProperty target="tree" propertyName="maxHorizontalScrollPosition" value="200" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLEmptyBranches" waitEvent="updateComplete" waitTarget="tree" />
+                <WaitForEffectsToEnd/>
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0].children()[1], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0].children()[1].children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+                <DispatchMouseClickEvent  target="tree" localY="190" localX="70" waitEvent="scroll" waitTarget="tree" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap  numColorVariances="10" ignoreMaxColorVariance="true" target="tree" url="../Properties/baselines/SDK_11847.png"/>
+            </body>
+        </TestCase>
+        <!--*************************************************************-->
+        <TestCase testID="Tree_SetSelectedItem"  keywords="[navigation, selectedItem,Property, Tree]" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="120"  />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLVScroll" waitEvent="updateComplete" waitTarget="tree" />
+                <WaitForEffectsToEnd/>
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]"  waitEvent="focusIn" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="selectedItem" valueExpression="value=application.treeXMLVScroll.node[3]" waitEvent="valueCommit" waitTarget="tree" />
+                <WaitForEffectsToEnd/>
+                <DispatchKeyEvent keys="[DOWN,DOWN]"  waitEvent="change" waitTarget="tree" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="tree" propertyName="selectedIndex" value="5" />
+            </body>
+        </TestCase>
+
+        <!--*************************************************************-->
+        <TestCase testID="Tree_CustomItemRenderer"  keywords="[Renderer, Custom, Tree]" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="120"  />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLVScroll" waitEvent="updateComplete" waitTarget="tree" />
+                <WaitForEffectsToEnd/>
+                <RunCode code="application.tree.itemRenderer=new ClassFactory(comps.HelloItemRenderer);" waitTarget="tree" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]"  waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[DOWN, RIGHT]"  waitEvent="change" waitTarget="tree" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="tree.mx_internal:rendererArray.0.0.listData" propertyName="label" value="Hello World" />
+
+            </body>
+        </TestCase>
+        <!--*************************************************************-->
+        <TestCase testID="Tree_WordWrap_True"  keywords="[wordWrap, Tree, Property" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="width" value="200" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLHScroll" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="variableRowHeight" value="true" />
+                <SetProperty target="tree" propertyName="wordWrap" value="true" />
+                <SetProperty target="tree" propertyName="selectedIndex" value="0" />
+            </setup>
+            <body>
+                <!--RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" /-->
+                <DispatchKeyEvent keys="[TAB]"  waitEvent="focusIn" waitTarget="tree" />
+                    <DispatchKeyEvent keys="[RIGHT,DOWN,DOWN,RIGHT,DOWN,DOWN,RIGHT,DOWN,RIGHT,DOWN]" />
+                <WaitForEffectsToEnd />
+                <DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,DOWN]" />
+                <WaitForEffectsToEnd />
+                    <AssertPropertyValue target="tree" propertyName="selectedIndex" value="3" />
+
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

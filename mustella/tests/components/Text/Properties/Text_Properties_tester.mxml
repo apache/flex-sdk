@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Text/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Text_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	[Bindable]
+	public var htmlData:String = "This is       14 point blue italic text.<br><b><font color='#ff0000' size='10'>This text is 10 point black, italic, and bold.</font></b>";
+	[Bindable]
+	public var htmlData1:String = "<b><font color='#ff0000' size='10'>This text is 10 point black, italic, and bold.</font></b>";
+	[Bindable]
+	public var resulthtmlData:String = "<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"EmbeddedVerdana\" SIZE=\"10\" COLOR=\"#0B333C\" LETTERSPACING=\"0\" KERNING=\"0\">This is 14 point blue italic text.</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"EmbeddedVerdana\" SIZE=\"10\" COLOR=\"#FF0000\" LETTERSPACING=\"0\" KERNING=\"0\"><B>This text is 10 point black, italic, and bold.</B></FONT></P></TEXTFORMAT>";
+	[Bindable]
+	public var plainText:String ="This text is 10 point black, italic, and bold.";
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.Text;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+	public var styleDecl:Object;
+	public var styleObj:Object;
+
+	public function validateThisUI():void{
+
+	application.myText.validateNow();
+
+	}
+
+	]]>
+	</mx:Script>
+	<testCases>
+
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_condenseWhite" keywords="[Text,Property,condenseWhite]" description="checking the condenseWhite property by seeting through MXML">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" />
+				<SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlData" />
+				<SetProperty target="myText" propertyName="condenseWhite" value="true" waitEvent="updateComplete" waitTarget="myText" />
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="myText" propertyName="htmlText" valueExpression="value=resulthtmlData" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_condenseWhite" keywords="[Text,Property,condenseWhite]" description="checking the condenseWhite property by seeting through AS">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" />
+				<SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlData" waitEvent="updateComplete" waitTarget="myText" />
+				<RunCode code="application.myText.condenseWhite=true" waitEvent="updateComplete" waitTarget="myText"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="myText" propertyName="htmlText" valueExpression="value=resulthtmlData" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_htmlText" keywords="[Text,Property,htmlText]" description="checking the htmlText property by seeting through MXML">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" />
+				<SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlData1" waitEvent="updateComplete" waitTarget="myText"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="myText" propertyName="text" value="This text is 10 point black, italic, and bold."/>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_htmlText" keywords="[Text,Property,htmlText]" description="checking the htmlText property by seeting through AS">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" />
+				<RunCode code="application.myText.htmlText=htmlData1" waitEvent="updateComplete" waitTarget="myText"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="myText" propertyName="text" value="This text is 10 point black, italic, and bold."/>
+
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_text" keywords="[Text,Property,text]" description="checking the text property by seeting through MXML">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" />
+				<SetProperty target="myText" propertyName="text" valueExpression="value=plainText" waitEvent="updateComplete" waitTarget="myText"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="myText" propertyName="text" value="This text is 10 point black, italic, and bold."/>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_text" keywords="[Text,Property,text]" description="checking the text property by seeting through AS">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" />
+				<RunCode code="application.myText.text=plainText" waitEvent="updateComplete" waitTarget="myText"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="myText" propertyName="text" value="This text is 10 point black, italic, and bold."/>
+
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Checking_Default_Set_Value_of_Property_selectable" keywords="[Text,Property,selectable]" description="checking the Default selectable property">
+				<setup>
+					<ResetComponent target="myText" className="mx.controls::Text" />
+					<SetProperty target="myText" propertyName="text" valueExpression="value=plainText" waitEvent="updateComplete" waitTarget="myText"/>
+				</setup>
+				<body>
+					<AssertPropertyValue target="myText" propertyName="selectable" value="true"/>
+
+				</body>
+		</TestCase>
+
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_selectable" keywords="[Text,Property,selectable]" description="checking the MXML selectable property">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" />
+				<SetProperty target="myText" propertyName="text" valueExpression="value=plainText" />
+				<SetProperty target="myText" propertyName="selectable" value="false" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myText" propertyName="selectable" value="false"/>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Set_Value_of_Property_selectable" keywords="[Text,Property,selectable]" description="checking the AS selectable property">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" />
+				<SetProperty target="myText" propertyName="text" valueExpression="value=plainText" />
+				<RunCode code="application.myText.selectable=false"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myText" propertyName="selectable" value="false"/>
+
+			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_Property_textWidth" keywords="[Text,Property,textWidth]" description="checking textWidth property">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text"  waitEvent="updateComplete" waitTarget="myText" />
+				<SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlData1" />
+				<RunCode code="validateThisUI()"  waitEvent="updateComplete" waitTarget="myText" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myText" propertyName="textWidth" value="207.2"/>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_Property_textHeight" keywords="[Text,Property,textHeight]" description="checking textHeight property">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text"  waitEvent="updateComplete" waitTarget="myText" />
+				<SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlData1" />
+				<RunCode code="validateThisUI()" waitEvent="updateComplete" waitTarget="myText" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myText" propertyName="textHeight" value="15.55"/>
+
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

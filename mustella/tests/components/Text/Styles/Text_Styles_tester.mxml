@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Text/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Text_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.Text;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	
+	
+	[Bindable]
+	public var htmlData1:String = "<b><font color='#ff0000' size='10'>This text is 10 point black, italic, and bold.</font></b>";
+	
+	[Bindable]
+	public var plainText:String ="This is a plain text";
+	
+	
+	]]>
+	</mx:Script>
+	
+	<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+	    @font-face {
+	        src: url("../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+	        fontFamily: "Vonnes-ThinCond";
+	    }
+	    
+	    .myColorStyle {
+	        color: #FF0000;
+	    } 
+	    
+	    .myEmFont{
+	         fontFamily:"Vonnes-ThinCond";
+	    }
+	</mx:Style>
+
+	<testCases>
+	
+		<TestCase testID="textDecoration_Style" keywords="[styles, textDecoration, Text]" description="Checking the textDecoration Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlData1" />
+			   <SetStyle target="myText" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			</setup>
+			<body>
+			   <WaitForEffectsToEnd />
+			   <CompareBitmap target="myText" url="../styles/baselines/textDecoration_bm.png"  timeout="5000"/>
+			    
+			</body>
+		</TestCase>
+		
+		<TestCase testID="color_Style" keywords="[styles, color, Text]" description="Checking the color Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			   <SetStyle target="myText" styleName="color" value="0x0000ff" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />	
+			    <CompareBitmap target="myText" url="../styles/baselines/color_bm.png"  timeout="5000"/>
+			    
+			</body>
+		</TestCase>
+
+		<TestCase testID="disabledColor_Style" keywords="[styles, disabledColor, Text]" description="Checking the disabledColor Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+			    <SetProperty target="myText" propertyName="enabled" value="false" />			  
+ 			    <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			   <SetStyle target="myText" styleName="disabledColor" value="0xff00ff" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="myText" url="../styles/baselines/disabledColor_bm.png" timeout="5000" />
+			    
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontFamily_Style" keywords="[styles, fontFamily, Text]" description="Checking the fontFamily Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			   <SetStyle target="myText" styleName="fontFamily" value="Georgia" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="myText" url="../styles/baselines/fontFamily_bm.png" timeout="5000" />
+			    
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontSize_Style" keywords="[styles, fontSize, Text]" description="Checking the fontSize Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			   <SetStyle target="myText" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="myText" url="../styles/baselines/fontSize_bm.png"  timeout="5000"/>
+			    
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontStyle_Style" keywords="[styles, fontStyle, Text]" description="Checking the fontStyle Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			   <SetStyle target="myText" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />
+			    <CompareBitmap target="myText" url="../styles/baselines/fontStyle_bm.png"  timeout="5000"/>
+			    
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontWeight_Style" keywords="[styles, fontWeight, Text]" description="Checking the fontWeight Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			   <SetStyle target="myText" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />
+			    <CompareBitmap target="myText" url="../styles/baselines/fontWeight_bm.png" timeout="5000" />
+			    
+			</body>
+		</TestCase>
+		
+		<TestCase testID="textIndent_Style" keywords="[styles, textIndent, Text]" description="Checking the textIndent Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			   <SetStyle target="myText" styleName="textIndent" value="20" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />
+			    <CompareBitmap target="myText" url="../styles/baselines/textIndent_bm.png" timeout="5000" />
+			    
+			</body>
+		</TestCase>
+	
+		<TestCase testID="Checking_paddingLeft_using_bitmap" keywords="[Text, paddingLeft, Style]" description="Checking paddingLeft using bitmap comparision">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" waitEvent="updateComplete" waitTarget="myText"/>
+				 <SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlData1" />
+				<SetStyle target="myText" styleName="paddingLeft" value="10" waitEvent="updateComplete" waitTarget="myText" />
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="myText" url="../styles/baselines/paddingLeft_bm.png" timeout="5000" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_paddingTop_using_bitmap" keywords="[Text, paddingTop, Style]" description="Checking paddingTop using bitmap comparision">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" waitEvent="updateComplete" waitTarget="myText"/>
+				<SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlData1" />
+				<SetStyle target="myText" styleName="paddingTop" value="10" waitEvent="updateComplete" waitTarget="myText" />
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="myText" url="../styles/baselines/paddingTop_bm.png" timeout="5000" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_paddingRight_using_bitmap" keywords="[Text, paddingRight, Style]" description="Checking paddingRight using bitmap comparision">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" waitEvent="updateComplete" waitTarget="myText"/>
+				<SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlData1" />
+				<SetStyle target="myText" styleName="paddingRight" value="10" waitEvent="updateComplete" waitTarget="myText" />
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="myText" url="../styles/baselines/paddingRight_bm.png" timeout="5000" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_paddingBottom_using_bitmap" keywords="[Text, paddingBottom, Style]" description="Checking paddingBottom using bitmap comparision">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls::Text" waitEvent="updateComplete" waitTarget="myText"/>
+				<SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlData1" />
+				<SetStyle target="myText" styleName="paddingBottom" value="10" waitEvent="updateComplete" waitTarget="myText" />
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="myText" url="../styles/baselines/paddingBottom_bm.png" timeout="5000" />
+
+			</body>
+		</TestCase>
+		
+		<TestCase testID="themeColor_Style" keywords="[styles, themeColor, Text]" description="Checking the themeColor Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+ 			    <SetProperty target="myText" propertyName="htmlText" valueExpression="value=htmlData1" />
+			   <SetStyle target="myText" styleName="themeColor" value="0xff00ff" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="myText" url="../styles/baselines/themeColor_bm.png"  timeout="5000"/>
+			    
+			</body>
+		</TestCase>
+		
+		<TestCase testID="letterSpacing_Style" keywords="[styles, letterSpacing, Text]" description="Checking the letterSpacing Style using the compare bit map feature" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+ 			    <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			   <SetStyle target="myText" styleName="letterSpacing" value="10" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			</setup>
+			<body>
+			    	<WaitForEffectsToEnd />
+			    	<CompareBitmap target="myText" url="../styles/baselines/letterSpacing_bm.png"  timeout="5000"/>
+			    
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Checking_Default_Value_of_Style_verticalCenter" keywords="[Text, verticalCenter, Style]" description="Checking Default Value of Style verticalCenter">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+ 			    <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			</setup>
+			<body>
+				<AssertStyleValue target="myText" styleName="verticalCenter" value="null" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Value_of_Style_verticalCenter" keywords="[Text, verticalCenter, Style]" description="Checking MXML set Value of Style verticalCenter">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+ 			    <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+				<SetStyle target="myText" styleName="verticalCenter" value="10" waitEvent="updateComplete" waitTarget="myText" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="myText" styleName="verticalCenter" value="10" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Value_of_Style_verticalCenter" keywords="[Text, verticalCenter, Style]" description="Checking AS set Value of Style verticalCenter">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+ 			    <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+				<RunCode code="application.myText.setStyle('verticalCenter',10)"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myText" styleName="verticalCenter" value="10" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Checking_Default_Value_of_Style_horizontalCenter" keywords="[Text, horizontalCenter, Style]" description="Checking Default Value of Style horizontalCenter">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+ 			    <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			</setup>
+			<body>
+				<AssertStyleValue target="myText" styleName="horizontalCenter" value="null" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Value_of_Style_horizontalCenter" keywords="[Text, horizontalCenter, Style]" description="Checking MXML set Value of Style horizontalCenter">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+ 			    <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+				<SetStyle target="myText" styleName="horizontalCenter" value="10" waitEvent="updateComplete" waitTarget="myText" />
+				
+			</setup>
+			<body>
+				<AssertStyleValue target="myText" styleName="horizontalCenter" value="10" />
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_AS_Value_of_Style_horizontalCenter" keywords="[Text, horizontalCenter, Style]" description="Checking AS set Value of Style horizontalCenter">
+			<setup>
+				<ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+ 			    <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+				<RunCode code="application.myText.setStyle('horizontalCenter',10)"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myText" styleName="horizontalCenter" value="10" />
+				
+			</body>
+		</TestCase>
+		
+		
+		
+		<TestCase testID="fontFamily_myEmFont" description="Text style fontFamily = myEmFont." keywords="[styles, fontFamily, Text]">
+				<setup>
+				    <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+				    <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+				    <SetStyle styleName="fontFamily" value="myEmFont" target="myText" waitEvent="updateComplete" waitTarget="myText" />
+				</setup>
+				<body>
+				    <WaitForEffectsToEnd />
+				    <CompareBitmap target="myText" url="../Styles/baselines/fontFamily_myEmFont.png" timeout="5000" />
+				</body>
+			</TestCase>
+
+
+
+
+			<TestCase testID="fontThickness_200" description="Text style fontThickness = 200. flashtype font myEmFont." keywords="[styles, fontThickness, Text]">
+				<setup>
+				    <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+				  <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+				    <SetStyle styleName="fontThickness" value="200" target="myText" waitEvent="updateComplete" waitTarget="myText" />
+				     </setup>
+				<body>
+				    <WaitForEffectsToEnd />
+				    <CompareBitmap target="myText" url="../Styles/baselines/fontThickness_200.png" timeout="5000" />
+				</body>
+			</TestCase>
+			<TestCase testID="fontThickness_10" description="Text style fontThickness = 10. flashtype font myEmFont." keywords="[styles, fontThickness, Text]">
+				<setup>
+				   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+				   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" /> 
+				   <SetStyle styleName="fontFamily" value="myEmFont" target="myText" />
+				    <SetStyle styleName="fontThickness" value="10" target="myText" waitEvent="updateComplete" waitTarget="myText" />		
+			</setup>
+				<body>
+				    <WaitForEffectsToEnd />
+				    <CompareBitmap target="myText" url="../Styles/baselines/fontThickness_10.png" timeout="5000" />
+				</body>
+			</TestCase>
+
+
+			<TestCase testID="fontAntiAliasType_normal" description="Text style fontAntiAliasType = normal. flashtype font myEmFont." keywords="[styles, fontAntiAliasType, Text]">
+				<setup>
+				    <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+				   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" /> 
+				    <SetStyle styleName="fontAntiAliasType" value="normal" target="myText" />
+				    <SetStyle styleName="fontThickness" value="200" target="myText" waitEvent="updateComplete" waitTarget="myText" />
+				</setup>
+				<body>
+				    <WaitForEffectsToEnd />
+				    <CompareBitmap target="myText" url="../Styles/baselines/fontAntiAliasType_normal.png" timeout="5000" />
+				</body>
+			</TestCase>  
+
+			<TestCase testID="fontSharpness_400" description="Text style fontSharpness = 400. flashtype font myEmFont." keywords="[styles, fontSharpness, Text]">
+				<setup>
+				    <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+				   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" /> 
+				    <SetStyle styleName="fontSize" value="30" target="myText" />
+				    <SetStyle styleName="fontSharpness" value="400" target="myText" waitEvent="updateComplete" waitTarget="myText" />
+				</setup>
+				<body>
+				    <WaitForEffectsToEnd />
+				    <CompareBitmap target="myText" url="../Styles/baselines/fontSharpness_400.png" timeout="5000" />
+				</body>
+			</TestCase>
+			<TestCase testID="fontSharpness_0" description="Text style fontSharpness = 0. flashtype font myEmFont." keywords="[styles, fontSharpness, Text]">
+				<setup>
+				   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+				   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" /> 
+				    <SetStyle styleName="fontSize" value="30" target="myText" />
+				    <SetStyle styleName="fontSharpness" value="0" target="myText" waitEvent="updateComplete" waitTarget="myText" />
+				</setup>
+				<body>
+				    <WaitForEffectsToEnd />
+				    <CompareBitmap target="myText" url="../Styles/baselines/fontSharpness_0.png" timeout="5000" />
+				</body>
+		</TestCase>
+
+		<TestCase testID="fontFamily_Style_embedded_Font" keywords="[styles, fontFamily, Text, embedded, Font]" description="Checking the fontFamily Style using the compare bit map feature of an embedded font" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			   <SetStyle target="myText" styleName="fontFamily" value="Vonnes-ThinCond" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />
+			    <CompareBitmap target="myText" url="../styles/baselines/fontFamily_embedded_font_bm.png"  timeout="5000"/>
+			    
+			</body>
+		</TestCase>
+		<TestCase testID="fontThickness_Style_embedded_Font" keywords="[styles, fontThickness, Text, embedded, Font]" description="Checking the fontThickness Style using the compare bit map feature of an embedded font" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+			   
+			   <SetStyle target="myText" styleName="fontAntiAliasType " value="advanced" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetStyle target="myText" styleName="fontFamily" value="Vonnes-ThinCond" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetStyle target="myText" styleName="fontThickness" value="200" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+			   
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />
+			    <CompareBitmap target="myText" url="../styles/baselines/fontThickness_embedded_font_bm.png"  timeout="5000"/>
+			    
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontSharpness_Style_embedded_Font" keywords="[styles, fontSharpness, Text, embedded, Font]" description="Checking the fontSharpness Style using the compare bit map feature of an embedded font" >
+			<setup>
+			   <ResetComponent target="myText" className="mx.controls.Text" waitEvent="updateComplete" waitTarget="myText" />
+
+			   <SetStyle target="myText" styleName="fontAntiAliasType " value="advanced" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetStyle target="myText" styleName="fontFamily" value="Vonnes-ThinCond" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetStyle target="myText" styleName="fontSharpness" value="400" waitEvent="updateComplete" waitTarget="myText" />
+			   <SetProperty target="myText" propertyName="htmlText" valueExpression="value=plainText" />
+
+			</setup>
+			<body>
+			    <WaitForEffectsToEnd />	
+			    <CompareBitmap target="myText" url="../styles/baselines/fontSharpness_embedded_font_bm.png"  timeout="5000"/>
+
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

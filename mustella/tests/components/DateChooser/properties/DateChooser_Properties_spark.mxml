@@ -1,0 +1,1175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateChooser/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateChooser_Basic_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.controls.DateChooser;
+
+	public var rStart:Date = new Date();
+
+	public var rEnd:Date = new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()+30);
+
+	public function setDayNames():void
+	{
+		application.dcc.dc.dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+	}
+	public function setDisabledDays():void
+	{
+		application.dcc.dc.disabledDays = [0,4];
+	}
+	public function setYearNavigationEnabled():void{
+		application.dcc.dc.yearNavigationEnabled=true;
+	}
+	public function setShowToday():void{
+		application.dcc.dc.showToday=false;
+	}
+	public function setFirstDayOfWeek():void{
+		application.dcc.dc.firstDayOfWeek=4;
+	}
+	public function f():void{
+		application.dcc.dc.displayedYear=2005;
+	}
+	public function setDisplayedMonth():void{
+		application.dcc.dc.displayedMonth=5;
+	}
+	public function setDisplayedYear():void{
+		application.dcc.dc.displayedYear=2005;
+	}
+	public function setMonthNames():void
+	{
+		application.dcc.dc.monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+	}
+	public function setSelectableRange():void{
+		application.dcc.dc.selectableRange=[{rangeStart: new Date(), rangeEnd: rEnd}];
+	}
+	public function setDisabledRanges():void{
+		application.dcc.dc.disabledRanges=[{rangeStart: rStart, rangeEnd: new Date(new Date().getFullYear(),new Date().getMonth(),(new Date().getDate()+30))}];
+	}
+	public function setScaleY():void{
+		application.dcc.dc.scaleY=1.2;
+	}
+	public function setScaleX():void{
+		application.dcc.dc.scaleX=1.2;
+	}
+	public function setSelectedDate():void{
+		application.dcc.dc.selectedDate=new Date(new Date().getFullYear(),new Date().getMonth(),9);
+	}
+	public function setX():void{
+		application.dc_position.x=200;
+	}
+	public function setY():void{
+		application.dc_position.y=200;
+	}
+      	public function setWidth():void{
+		application.dcc.dc.width=200;
+      	}
+      	public function setHeight():void{
+		application.dcc.dc.height=200;
+      	}
+      	public function setPercentWidth():void{
+		application.dcc.dc.percentWidth=200;
+      	}
+      	public function setPercentHeight():void{
+		application.dcc.dc.percentHeight=200;
+      	}
+      	public function setMaxHeight():void{
+      		application.dcc.dc.maxHeight=50;
+      	}
+      	public function setMaxWidth():void{
+      		application.dcc.dc.maxWidth=50;
+      	}
+      	public function setMinYear():void{
+      		application.dcc.dc.minYear=1900;
+      	}
+      	public function setMaxYear():void{
+      		application.dcc.dc.maxYear=2100;
+      	}
+	public function setToolTip():void
+	{
+		application.dcc.dc.toolTip="My DateChooser";
+	}
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+		<TestCase testID="DateChooser_Property_DayNames_Default_spark" keywords="[dayNames, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="dayNames" value="['S','M','T','W','T','F','S']" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_DayNames1_spark" keywords="[dayNames, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="dayNames" value="['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="dayNames" value="['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"  />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_DayNames2_spark" keywords="[dayNames, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<RunCode code="setDayNames()"/>
+			</setup>
+			<body>
+
+				<AssertPropertyValue target="dcc.dc" propertyName="dayNames" value="['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_disabledDays_Default_spark" keywords="[disabledDays, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="disabledDays" value="[]" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_disabledDays1_spark" keywords="[disabledDays, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="disabledDays" value="[1,3,5]" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="disabledDays" value="[1,3,5]"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_disabledDays2_spark" keywords="[disabledDays, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<RunCode code="setDisabledDays()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="disabledDays" value="[0,4]" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_yearNavigationEnabled_Default_spark" keywords="[yearNavigationEnabled, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="yearNavigationEnabled" value="false" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_yearNavigationEnabled1_spark" keywords="[yearNavigationEnabled, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="yearNavigationEnabled" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_yearNavigationEnabled2_spark" keywords="[yearNavigationEnabled, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<RunCode code="setYearNavigationEnabled()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="yearNavigationEnabled" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_showToday_Default_spark" keywords="[showToday, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="showToday" value="true" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_showToday1_spark" keywords="[showToday, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="showToday" value="false" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="showToday" value="false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_showToday2_spark" keywords="[showToday, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<RunCode code="setShowToday()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="showToday" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_firstDayOfWeek_Default_spark" keywords="[firstDayOfWeek, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="firstDayOfWeek" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_firstDayOfWeek1_spark" keywords="[firstDayOfWeek, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="firstDayOfWeek" value="2" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="firstDayOfWeek" value="2"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_firstDayOfWeek2_spark" keywords="[firstDayOfWeek, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<RunCode code="setFirstDayOfWeek()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="firstDayOfWeek" value="4" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_displayedYear_Default_spark" keywords="[displayedYear, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="displayedYear" valueExpression="value=new Date().getFullYear()"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_displayedYear1_spark" keywords="[displayedYear, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="displayedYear" value="2004" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="displayedYear" value="2004"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_displayedYear2_spark" keywords="[displayedYear, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<RunCode code="setDisplayedYear()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="displayedYear" value="2005" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_displayedMonth_Default_spark" keywords="[displayedMonth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="displayedMonth" valueExpression="value=new Date().getMonth()"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_displayedMonth1_spark" keywords="[displayedMonth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="displayedMonth" value="9" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="displayedMonth" value="9"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_displayedMonth2_spark" keywords="[displayedMonth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<RunCode code="setDisplayedMonth()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="displayedMonth" value="5" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_MonthNames_Default_spark" keywords="[monthNames, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="monthNames" value="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_MonthNames1_spark" keywords="[backgroundAlpha, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="monthNames" value="['Ja','Fe','Ma','Ap','Ma','Ju','Ju','Au','Se','Oc','No','De']" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="monthNames" value="['Ja','Fe','Ma','Ap','Ma','Ju','Ju','Au','Se','Oc','No','De']"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_MonthNames2_spark" keywords="[selectedDate, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<RunCode code="setMonthNames()"/>
+			</setup>
+			<body>
+
+				<AssertPropertyValue target="dcc.dc" propertyName="monthNames" value="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_scaleY_Default_spark" keywords="[scaleY, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="scaleY" value="1" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_scaleY1_spark" keywords="[scaleY, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="scaleY" value="1.5" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="scaleY" value="1.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_scaleY2_spark" keywords="[backgroundAlpha, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<RunCode code="setScaleY()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="scaleY" value="1.2"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_scaleX_Default_spark" keywords="[scaleX, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="scaleX" value="1" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_scaleX1_spark" keywords="[scaleX, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="scaleX" value="1.5" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="scaleX" value="1.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_scaleX2_spark" keywords="[scaleX, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<RunCode code="setScaleX()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="scaleX" value="1.2"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_selectedDate1_spark" keywords="[selectedDate, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(new Date().getFullYear(),new Date().getMonth(),9)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(new Date().getFullYear(),new Date().getMonth(),9)"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_selectedDate2_spark" keywords="[selectedDate, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<RunCode code="setSelectedDate()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(new Date().getFullYear(),new Date().getMonth(),9)"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_x_Default_spark" keywords="[x, DateChooser]">
+			<setup>
+				<ResetComponent target="dc_position" className="mx.controls::DateChooser" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dc_position" propertyName="x" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_x1_spark" keywords="[x, DateChooser]">
+			<setup>
+				<ResetComponent target="dc_position" className="mx.controls::DateChooser" />
+				<SetProperty target="dc_position" propertyName="x" value="300" waitTarget="dc_position" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dc_position" propertyName="x" value="300"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_x2_spark" keywords="[x, DateChooser]">
+			<setup>
+				<ResetComponent target="dc_position" className="mx.controls::DateChooser" />
+				<RunCode code="setX()" waitEvent="updateComplete" waitTarget="dc_position" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dc_position" propertyName="x" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_y_Default_spark" keywords="[y, DateChooser]">
+			<setup>
+				<ResetComponent target="dc_position" className="mx.controls::DateChooser" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dc_position" propertyName="y" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_y1_spark" keywords="[y, DateChooser]">
+			<setup>
+				<ResetComponent target="dc_position" className="mx.controls::DateChooser" />
+				<SetProperty target="dc_position" propertyName="y" value="300" waitEvent="updateComplete" waitTarget="dc_position"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dc_position" propertyName="y" value="300"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_y2_spark" keywords="[y, DateChooser]">
+			<setup>
+				<ResetComponent target="dc_position" className="mx.controls::DateChooser" />
+				<RunCode code="setY()" waitEvent="updateComplete" waitTarget="dc_position" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dc_position" propertyName="y" value="200"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_disabledRanges1_spark" keywords="[disabledRanges, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="disabledRanges" valueExpression="value=[{rangeStart: rStart, rangeEnd: rEnd}]" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="disabledRanges" valueExpression="value=[{rangeStart: new Date(rStart.getFullYear(), rStart.getMonth(), rStart.getDate()), rangeEnd: new Date(rEnd.getFullYear(), rEnd.getMonth(), rEnd.getDate())}]"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_disabledRanges2_spark" keywords="[disabledRanges, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<RunCode code="setDisabledRanges()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="disabledRanges" valueExpression="value=[{rangeStart: new Date(rStart.getFullYear(), rStart.getMonth(), rStart.getDate()), rangeEnd: new Date(rEnd.getFullYear(), rEnd.getMonth(), rEnd.getDate())}]"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_disjointSelection_1_spark" keywords="[allowMultipleSelection, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,5), rangeEnd: new Date(2005,2,6)}]" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_disjointSelection_2_spark" keywords="[allowMultipleSelection, allowDisjointSelection, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowDisjointSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="71" ctrlKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,5), rangeEnd: new Date(2005,2,6)},{rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_disjointSelection_3_spark" keywords="[allowMultipleSelection, allowDisjointSelection, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowDisjointSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="false"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="38" localY="86" ctrlKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_disjointSelection_4_spark" keywords="[selectedRanges, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowDisjointSelection" value="false"/>
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="38" localY="86" ctrlKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_width_Default_spark" keywords="[width, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="width" value="175"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_width1_spark" keywords="[width, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="width" value="300"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_width_Small_spark" keywords="[width, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="width" value="50"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_width2_spark" keywords="[width, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<RunCode code="setWidth()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="width" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_height_Default_spark" keywords="[height, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="height" value="218"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_height1_spark" keywords="[height, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="height" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_height_Small_spark" keywords="[height, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="height" value="50"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_height2_spark" keywords="[height, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<RunCode code="setHeight()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="height" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_percentWidth_Default_spark" keywords="[percentWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="percentWidth" value="NaN"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_percentWidth1_spark" keywords="[percentWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="percentWidth" value="200" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="percentWidth" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_percentWidth_Small_spark" keywords="[percentWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="percentWidth" value="50"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_percentWidth2_spark" keywords="[percentWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<RunCode code="setPercentWidth()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="percentWidth" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_percentHeight_Default_spark" keywords="[percentHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="percentHeight" value="NaN"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_percentHeight1_spark" keywords="[percentHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="dc_position" className="mx.controls::DateChooser" />
+				<SetProperty target="dc_position" propertyName="percentHeight" value="200" waitEvent="updateComplete" waitTarget="dc_position" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dc_position" propertyName="percentHeight" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_percentHeight_Small_spark" keywords="[percentHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="percentHeight" value="50"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_percentHeight2_spark" keywords="[percentHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<RunCode code="setPercentHeight()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="percentHeight" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_maxHeight_Default_spark" keywords="[maxHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxHeight" value="10000"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_maxHeight1_spark" keywords="[maxHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="maxHeight" value="200" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxHeight" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_maxHeight_Dec_spark" keywords="[ maxHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="maxHeight" value="26.5" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxHeight" value="26.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_maxHeight2_spark" keywords="[maxHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<RunCode code="setMaxHeight()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxHeight" value="50"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_maxWidth_Default_spark" keywords="[maxWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxWidth" value="10000"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_maxWidth1_spark" keywords="[maxWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="maxWidth" value="200" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxWidth" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_maxWidth_Dec_spark" keywords="[maxWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="maxWidth" value="26.5" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxWidth" value="26.5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_maxWidth2_spark" keywords="[maxWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<RunCode code="setMaxWidth()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxWidth" value="50"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_minHeight_Default_spark" keywords="[minHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="minHeight" value="164"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_minHeight_Valid_spark" keywords="[minHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="minHeight" value="200" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="minHeight" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_minHeight_Dec_spark" keywords="[minHeight, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="minHeight" value="26.5" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="minHeight" value="26.5"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_minWidth_Default_spark" keywords="[minWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="minWidth" value="98"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_minWidth1_spark" keywords="[minWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="minWidth" value="200" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="minWidth" value="200"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_minWidth_Dec_spark" keywords="[minWidth, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="minWidth" value="26.5" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="minWidth" value="26.5"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_selectedRanges_1_spark" keywords="[selectedRanges, allowMultipleSelection, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,5), rangeEnd: new Date(2005,2,6)}]" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_selectedRanges_2_spark" keywords="[selectedRanges, allowMultipleSelection, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowDisjointSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="36" localY="71" ctrlKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,5), rangeEnd: new Date(2005,2,6)},{rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_selectedRanges_3_spark" keywords="[selectedRanges, allowMultipleSelection, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowDisjointSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="false"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="38" localY="86" ctrlKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_selectedRanges_4_spark" keywords="[selectedRanges, allowMultipleSelection, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowDisjointSelection" value="false"/>
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="38" localY="86" ctrlKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_multipleSelection_1_spark" keywords="[selectedRanges, allowMultipleSelection, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,5), rangeEnd: new Date(2005,2,6)}]" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_multipleSelection_2_spark" keywords="[selectedRanges, allowMultipleSelection, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="allowDisjointSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="38" localY="86" ctrlKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,5), rangeEnd: new Date(2005,2,6)},{rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_multipleSelection_3_spark" keywords="[selectedRanges, allowMultipleSelection, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowDisjointSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="false"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="38" localY="86" ctrlKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_multipleSelection_4_spark" keywords="[selectedRanges, allowMultipleSelection, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="allowDisjointSelection" value="false"/>
+				<SetProperty target="dcc.dc" propertyName="allowMultipleSelection" value="true"/>
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="RIGHT" shiftKey="true"/>
+				<DispatchMouseClickEvent target="dcc.dc.mx_internal:dateGrid" localX="38" localY="86" ctrlKey="true"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedRanges" valueExpression="value=[ {rangeStart:new Date(2005,2,14), rangeEnd: new Date(2005,2,14)} ]" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_minYear_Default_spark" keywords="[selectedRanges, yearNavigationEnabled, minYear, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="minYear" value="1900" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_minYear2_spark" keywords="[minYear, yearNavigationEnabled, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" />
+				<RunCode code="setMinYear()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="minYear" value="1900" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_minYear1_spark" keywords="[minYear, yearNavigationEnabled, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" />
+				<SetProperty target="dcc.dc" propertyName="minYear" value="1925"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="minYear" value="1925" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_minYear_Small_spark" keywords="[yearNavigationEnabled, DateChooser, minYear]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="minYear" value="50"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="minYear" value="50" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_minYear_Decimal_spark" keywords="[minYear, selectedDate, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="minYear" value="1900.34"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="minYear" value="1900" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_maxYear_Default_spark" keywords="[yearNavigationEnabled, selectedDate, maxYear, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxYear" value="2100" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_maxYear2_spark" keywords="[yearNavigationEnabled, selectedDate, maxYear, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" />
+				<RunCode code="setMaxYear()"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxYear" value="2100" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_maxYear1_spark" keywords="[yearNavigationEnabled, selectedDate, maxYear, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" />
+				<SetProperty target="dcc.dc" propertyName="maxYear" value="2125" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxYear" value="2125" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2126, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2126, 2, 5)" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_maxYear_Small_spark" keywords="[yearNavigationEnabled, selectedDate, maxYear, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" />
+				<SetProperty target="dcc.dc" propertyName="maxYear" value="50" waitEvent="updateComplete" waitTarget="dcc.dc" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxYear" value="50" />
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_Property_maxYear_Decimal_spark" keywords="[yearNavigationEnabled, selectedDate, maxYear, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc" />
+				<SetProperty target="dcc.dc" propertyName="maxYear" value="2100.34"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="maxYear" value="2100" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DateChooser_Property_ToolTip_NoToolTip_spark" keywords="[yearNavigationEnabled, toolTipShow, mouseOver, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="dcc.dc" type="mouseOver" localX="36" localY="71"/>
+				<AssertNoEvent target="dcc.dc" eventName="toolTipShow"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_BugNumber_142901_spark" keywords="[monthNames, width, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="monthNames" value="['Ja','Fe','Ma','Ap','Ma','Ju','Ju','Au','Se','Oc','No','De']" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="dcc.dc" propertyName="width" value="154"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DateChooser_BugNumber_142901a_spark" keywords="[yearNavigationEnabled, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="false" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="NUMPAD_ADD"/> 
+				<AssertPropertyValue target="dcc.dc" propertyName="displayedYear" value="2005" />  
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_the_selectedDate_property_by_selecting_mouse_spark" keywords="[yearNavigationEnabled, DateChooser]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+				<SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="false" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" />
+				<DispatchKeyEvent key="NUMPAD_ADD"/> 
+				<AssertPropertyValue target="dcc.dc" propertyName="displayedYear" value="2005" />  
+			</body>
+		</TestCase>
+
+	
+		<TestCase testID="DateChooser_property_selectedDate_spark" keywords="[DateChooser,property,selectedDate]">
+			<setup>
+				<ResetComponent target="dcc" className="DateChooserCustomComponent" />
+				<SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="RIGHT"/>
+				<AssertPropertyValue target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 6)"/>
+				
+			</body>
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>

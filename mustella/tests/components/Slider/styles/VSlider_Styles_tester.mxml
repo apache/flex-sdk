@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Slider/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="VSlider_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.VSlider;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	]]>
+	</mx:Script>
+	
+	<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+	    .myColorStyle {
+	        color: #FF0000;
+	    } 
+	</mx:Style>
+
+	<testCases>
+
+		<TestCase testID="VSlider_styles_borderColor_Default" keywords="[styles, borderColor,Default,  VSlider]" description="Checking the default borderColor Style using the compare bit map feature" >
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap target="myVSlider" url="../styles/baselines/VSlider_borderColor_Default_vs_bm.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_styles_borderColor" keywords="[styles, borderColor, VSlider]" description="Checking the borderColor Style using the compare bit map feature" >
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetStyle target="myVSlider" styleName="borderColor" value="0xff0000" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap target="myVSlider" url="../styles/baselines/VSlider_borderColor_vs_bm.png"  />
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_styles_dataTipOffset_Default" keywords="[styles, dataTipOffset, Default,  VSlider]" description="Checking the default dataTipOffset Style using the compare bit map feature" >
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="138" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="128" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="125" type="mouseDown" waitEvent="thumbPress" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseDown"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="115" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="112" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="110" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<CompareBitmap target="" url="../styles/baselines/VSlider_dataTipOffset_Default_vs_bm.png"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="138" type="mouseUp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VSlider_styles_dataTipOffset" keywords="[styles, dataTipOffset, VSlider]" description="Checking the dataTipOffset Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetStyle target="myVSlider" styleName="dataTipOffset" value="-20" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="138" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="128" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="125" type="mouseDown" waitEvent="thumbPress" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseDown"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="115" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="112" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="110" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<CompareBitmap target="myVSlider" url="../styles/baselines/VSlider_dataTipOffset_vs_bm.png" />
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="138" type="mouseUp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_styles_dataTipPrecision" keywords="[styles, dataTipPrecision, VSlider]" description="Checking the dataTipPrecision Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetStyle target="myVSlider" styleName="dataTipOffset" value="-20" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetStyle target="myVSlider" styleName="dataTipPrecision" value="0" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="138" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="128" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="125" type="mouseDown" waitEvent="thumbPress" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseDown"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="115" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="112" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="110" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<CompareBitmap target="" url="../styles/baselines/VSlider_dataTipPrecision_vs_bm.png"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VSlider_styles_dataTipStyleName" keywords="[styles, dataTipStyleName, VSlider]" description="Checking the dataTipStyleName Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetStyle target="myVSlider" styleName="dataTipOffset" value="-20" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetStyle target="myVSlider" styleName="dataTipStyleName" value="myColorStyle" waitEvent="updateComplete" waitTarget="myVSlider" />
+		
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="138" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="128" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="125" type="mouseDown" waitEvent="thumbPress" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseDown"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="115" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="112" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="110" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<CompareBitmap target="" url="../styles/baselines/VSlider_dataTipStyleName_vs_bm.png" numColorVariances="4" ignoreMaxColorVariance="true"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VSlider_styles_fillAlphas" keywords="[styles, fillAlphas , VSlider]" description="Checking the fillAlphas Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetStyle target="myVSlider" styleName="dataTipOffset" value="-20" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetStyle target="myVSlider" styleName="fillAlphas" value="[0,1,0,1]" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap target="myVSlider" url="../styles/baselines/VSlider_fillAlphas_vs_bm.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_styles_fillColors" keywords="[styles, fillColors , VSlider]" description="Checking the fillColors Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetStyle target="myVSlider" styleName="dataTipOffset" value="-20" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetStyle target="myVSlider" styleName="fillColors" value="[0xff0000,0xff0000,0xff0000,0xff0000]" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap target="myVSlider" url="../styles/baselines/VSlider_fillColors_vs_bm.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VSlider_styles_labelOffset_Default" keywords="[styles, labelOffset, Default, VSlider]" description="Checking the Default labelOffset Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>	
+				<SetProperty target="myVSlider" propertyName="labels" value="['Start','Middle','End']" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<CompareBitmap target="" url="../styles/baselines/VSlider_labelOffset_Default_vs_bm.png" />
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VSlider_styles_labelOffset" keywords="[styles, labelOffset, VSlider]" description="Checking the labelOffset Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="labels" value="['Start','Middle','End']"/>
+				<SetStyle target="myVSlider" styleName="labelOffset" value="0" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap target="" url="../styles/baselines/VSlider_labelOffset_vs_bm.png"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>		
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VSlider_styles_labelStyleName_Default" keywords="[styles, labelStyleName, Default, VSlider]" description="Checking the Default labelStyleName Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="labels" value="['Start','Middle','End']" waitEvent="updateComplete" waitTarget="myVSlider"/>						
+			</setup>
+			<body>
+				<CompareBitmap target="myVSlider" url="../styles/baselines/VSlider_labelStyleName_Default_vs_bm.png" />
+				<DispatchMouseEvent target="" localX="6" localY="6" type="mouseUp"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="VSlider_styles_labelStyleName" keywords="[styles, labelStyleName, VSlider]" description="Checking the labelStyleName Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="labels" value="['Start','Middle','End']"/>
+				<SetStyle target="myVSlider" styleName="labelStyleName" value="myColorStyle" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap target="myVSlider" url="../styles/baselines/VSlider_labelStyleName_vs_bm.png"/>
+				<DispatchMouseEvent target="" localX="6" localY="6" type="mouseUp"/>
+			</body>
+		</TestCase>
+		
+
+		<TestCase testID="VSlider_styles_showTrackHighlight_Default" keywords="[styles, showTrackHighlight, Default, VSlider]" description="Checking the Default showTrackHighlight Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />						
+			</setup>
+			<body>
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<AssertStyleValue styleName="showTrackHighlight" value="false" target="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseDown"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="138" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseDown" waitEvent="change" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="128" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="125" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="115" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="112" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="110" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<CompareBitmap target="myVSlider" url="../styles/baselines/VSlider_showTrackHighlight_Default_vs_bm.png"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="VSlider_styles_showTrackHighlight" keywords="[styles, showTrackHighlight, VSlider]" description="Checking the showTrackHighlight Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetStyle target="myVSlider" styleName="showTrackHighlight" value="true" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="147" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="138" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="132" type="mouseDown" waitEvent="change" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="128" type="mouseDown" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="125" type="mouseDown" />
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="120" type="mouseDown"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="115" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="112" type="mouseMove"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="110" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<CompareBitmap target="myVSlider" url="../styles/baselines/VSlider_showTrackHighlight_vs_bm.png"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VSlider_styles_tickColor" keywords="[styles, tickColor, VSlider]" description="Checking the tickColor Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="tickInterval" value="2"/>
+				<SetStyle target="myVSlider" styleName="tickColor" value="0xff0000" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap target="" url="../styles/baselines/VSlider_tickColor_vs_bm.png" />
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				
+			</body>
+		</TestCase>
+		<TestCase testID="VSlider_styles_tickLength" keywords="[styles, tickLength, VSlider]" description="Checking the tickLength Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="tickInterval" value="2"/>
+				<SetStyle target="myVSlider" styleName="tickLength" value="20" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap target="" url="../styles/baselines/VSlider_tickLength_vs_bm.png"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VSlider_styles_tickOffset" keywords="[styles, tickOffset,  VSlider]" description="Checking the tickOffset Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="tickInterval" value="2"/>
+				<SetStyle target="myVSlider" styleName="tickOffset" value="0" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap target="" url="../styles/baselines/VSlider_tickOffset_vs_bm.png" />
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VSlider_styles_tickThickness" keywords="[styles, tickThickness, VSlider]" description="Checking the tickThickness Style using the compare bit map feature" >
+			<setup>
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="tickInterval" value="2"/>
+				<SetStyle target="myVSlider" styleName="tickThickness" value="5" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap target="" url="../styles/baselines/VSlider_tickThickness_vs_bm.png" timeout="5000"/>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VSlider_styles_trackColors" keywords="[styles, trackColors , VSlider]" description="Checking the trackColors Style using the compare bit map feature" >
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="6" localY="6" type="mouseUp"/>	
+				<ResetComponent target="myVSlider" className="mx.controls.VSlider" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetStyle target="myVSlider" styleName="fillAlphas" value="[1,1,1,1]" waitEvent="updateComplete" waitTarget="myVSlider" />						
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetStyle target="myVSlider" styleName="trackColors" value="[0xff0000,0x0000ff]" waitEvent="updateComplete" waitTarget="myVSlider" />
+			</setup>
+			<body>
+				<CompareBitmap target="myVSlider" url="../styles/baselines/VSlider_trackColors_vs_bm.png" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"  creationComplete="setDataProvider()" height="700" width="600">
+	
+	<mx:Script>
+		<![CDATA[
+		
+		    import mx.utils.ObjectUtil;          
+		    import MyCustomRenderer_CheckBox;
+		    import MyCustomRenderer_NumericStepper;
+		    import mx.controls.Label;
+	
+	      	public function setDataProvider():void{
+	        	dg1.dataProvider = dataArray1;
+	    	}
+	
+			[Bindable]
+	        private var funk:Function = getDataTip;
+	
+	        private function getDataTip2(item:Object):String {
+	              return "qwertyuiop"
+	        }
+	        
+	        private function getDataTip(item:Object):String {
+	              return "asdfghjkl";
+	        }
+	        
+			[Bindable]
+	        private var labelFunk:Function = getLabelFunction;
+	        
+	        private function getLabelFunction(dg:Object, col:DataGridColumn):String {
+	        	return "blah blah blah";
+	        }
+	        
+	        private function getLabelFunction2(dg:Object, col:DataGridColumn):String {
+	        	return "fe fi fo fum";
+	        }            
+	        
+			[Bindable]
+	        private var sortFunk:Function = getSortFunction;
+	        
+	        private function getSortFunction(obj1:Object, obj2:Object):int {
+	        	return 1;
+	        }
+	        
+	        private function getSortFunction2(obj1:Object, obj2:Object):int {
+	        	return 0;
+	        }
+	                    
+			public var cbFac:ClassFactory = new ClassFactory(MyCustomRenderer_CheckBox);
+			public var nsFac:ClassFactory = new ClassFactory(MyCustomRenderer_NumericStepper);
+	
+			[Bindable]
+			public var currentItemRenderer:IFactory = nsFac;
+					
+			[Bindable]
+			public var currentNullItemRenderer:IFactory = nsFac;
+			
+			[Bindable]
+			public var aNull:Object = null;
+				                    
+			public var canvasFacRed:ClassFactory = new ClassFactory(MyHeaderRenderer_Red);
+			public var canvasFacBlue:ClassFactory = new ClassFactory(MyHeaderRenderer_Blue);
+				
+			[Bindable]
+			public var currentHeaderRenderer:IFactory = canvasFacRed;
+					
+		]]>
+	</mx:Script>
+	
+	<mx:ArrayCollection id="dataArray1">
+	    <mx:Object name="Uncle Ted" family="Smith" age="39" hobby="Building model ships" thoughts="What a cute litle ship!" married="true" myDataTip="Row 1"  myDataTip2="Field 1" />
+	    <mx:Object name="Aunt Imari" family="Smith" age="37" hobby="Building model airplanes" thoughts="What a cute litle airplane!"  married="false"  myDataTip="Row 2" myDataTip2="Field 2"/>
+	    <mx:Object name="Uncle Umbra" family="Smith" age="28" hobby="Building model cars" thoughts="What a cute litle car!"  married="true" myDataTip="Row 3" myDataTip2="Field 3"/>
+	    <mx:Object name="Aunt Izzy" family="Smith" age="91" hobby="Building model trains" thoughts="What a cute litle train!"  married="false"  myDataTip="Row 4"  myDataTip2="Field 4"/>
+	    <mx:Object name="Uncle TJ" family="Smith" age="51" hobby="Building model trucks" thoughts="What a cute litle truck!"  married="true"  myDataTip="Row 5"  myDataTip2="Field 5"/>
+	    <mx:Object name="Uncle Bo" family="Hampton" age="{aNull}"  hobby="Photographing real ships" thoughts="What a big ship!"  married="false"  myDataTip="Row 6"  myDataTip2="Field 6"/>
+	</mx:ArrayCollection> 
+
+    <mx:DataGrid id="dg1" width="100%" height="300" rowCount="6" editable="true">
+        <mx:columns>
+            <mx:DataGridColumn id="dgc0" dataField="name" headerText="{tester1.text}" editable="false" width="{tester1.width}" minWidth="{tester1.minWidth}" dataTipField="{tester2.text}" showDataTips="true"/>
+            <mx:DataGridColumn id="dgc1"  dataField="family" headerText="Family"  editable="false" dataTipFunction="{funk}" showDataTips="true"/>
+            <mx:DataGridColumn id="dgc2" dataField="age" headerText="Age"  editable="true" showDataTips="true" nullItemRenderer="{currentNullItemRenderer}"  rendererIsEditor="true"/>
+            <mx:DataGridColumn id="dgc3"  dataField="hobby" headerText="Hobby"  editable="false" showDataTips="true" labelFunction="{labelFunk}" headerRenderer="{currentHeaderRenderer}"/>
+            <mx:DataGridColumn id="dgc4"  dataField="thoughts" headerText="Thoughts"  editable="false" showDataTips="true" sortCompareFunction="{sortFunk}"/>
+       		<mx:DataGridColumn id="dgc5"  dataField="married" headerText="Married" editable="true" itemRenderer="{currentItemRenderer}"  rendererIsEditor="true"/>
+        </mx:columns>
+    </mx:DataGrid>
+    
+    <mx:Label id="tester1" text="Name" width="100" minWidth="50"/>
+    <mx:Label id="tester2" text="name"/>
+    
+    <mx:Button id="func1" label="func1" click="funk=getDataTip;" />
+	<mx:Button id="func2" label="func2" click="funk=getDataTip2;" />
+	
+	<mx:Button id="lfunc1" label="labelFunc1" click="labelFunk=getLabelFunction;" />
+	<mx:Button id="lfunc2" label="labelFunc2" click="labelFunk=getLabelFunction2;" />
+			
+	<mx:Button id="sfunc1" label="sortFunc1" click="labelFunk=getSortFunction;" />
+	<mx:Button id="sfunc2" label="sortFunc2" click="labelFunk=getSortFunction2;" />
+	
+	<mx:Button id="nullIRfunc1" label="Change Null  Item Renderer - NumericStepper" click="currentNullItemRenderer = nsFac;"/>
+	<mx:Button id="nullIRfunc2" label="Change Null  Item Renderer - CheckBox" click="currentNullItemRenderer = cbFac;"/>	
+	
+	<mx:Button id="irfunc1" label="Change Item Renderer - NumericStepper" click="currentItemRenderer = nsFac;"/>
+	<mx:Button id="irfunc2" label="Change Item Renderer - CheckBox" click="currentItemRenderer = cbFac;"/>
+	
+	<mx:Button id="hrChangeRed" label="HeaderRenderer Red" click="currentHeaderRenderer = canvasFacRed "/>
+	<mx:Button id="hrChangeBlue" label="HeaderRenderer Blue" click="currentHeaderRenderer = canvasFacBlue "/>
+
+</mx:Application>        

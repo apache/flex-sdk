@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" width="1200" height="800" backgroundColor="0xFFFFFF"
+    xmlns:comps="comps.*">
+<s:layout>
+    <s:VerticalLayout />
+</s:layout>
+    <fx:Script>
+        <![CDATA[
+
+        ]]>
+    </fx:Script>
+    <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face {
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+		}
+
+        mx|PopUpButton{
+            fontFamily: EmbeddedVerdana;
+            fontAntiAliasType: normal;
+        }
+
+        .newStyle {
+            selectionColor:#FFFF00;
+            rollOverColor: #FF99CC;
+        }
+    </fx:Style>
+    <mx:TextInput id="ti1" />
+    <mx:TextInput id="ti2" />
+   <mx:PopUpButton id="myPopUpButton" label="My PopUpButton." width="250" height="23" paddingTop="0" paddingBottom="0" paddingRight="0" paddingLeft="0"  creationComplete="{ti1.text='PopUpButton Creation Complete fired'}" initialize="{ti2.text='PopUpButton initialize fired'}">
+    <mx:popUp>
+        <mx:List>
+            <mx:dataProvider>
+                <fx:Array>
+                    <fx:Object label="Smily" data="icon11"/>
+                    <fx:Object label="no" data="icon12"/>
+                    <fx:Object label="yes" data="icon13"/>
+                </fx:Array>
+            </mx:dataProvider>
+        </mx:List>
+    </mx:popUp>
+   </mx:PopUpButton>
+
+   <mx:Box id="box1" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" >
+       <comps:PopUpButtonComp id="pubComp1" />
+   </mx:Box>
+   <mx:Box id="box2" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" >
+       <comps:PopUpButtonComp id="pubComp2" chromeColor="0x9999FF" focusColor="0xCC0033" color="0xFF00FF"
+           popUpStyleName="newStyle" />
+   </mx:Box>
+</s:Application>

@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/LinkButton/events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LinkButton_main1.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}			
+
+		]]>
+
+	</mx:Script>
+
+	
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>	
+
+	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+			import mx.controls.LinkButton;
+
+			import data.MyLinkButton;
+
+			private var irLinkButton:ClassFactory = new ClassFactory(MyLinkButton);
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+
+	
+
+		<TestCase testID="Checking_change_Event_of_LinkButton" keywords="[LinkButton, change, Event]" description="Ensure that the change event gets triggered when the selected property changes.">
+
+			<setup> 
+
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+				<SetProperty target="myLinkButton" propertyName="toggle" value="true" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB"/>
+
+				<DispatchKeyEvent key="SPACE"/>
+
+				<AssertEvent target="myLinkButton" eventName="change" eventClass="flash.events::Event" timeout="1000"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+		<TestCase testID="Checking_LinkButtonDown_Event_of_LinkButton" keywords="[LinkButton, LinkButtonDown, Event]" description="Ensure that the LinkButtonDown event gets triggered when the LinkButton is clicked.">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB"/>
+
+				<DispatchKeyEvent key="SPACE"/>
+
+				<AssertEvent target="myLinkButton" eventName="buttonDown" eventClass="mx.events::FlexEvent" timeout="1000"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		
+
+		<TestCase testID="Checking_dataChange_of_LinkButton" keywords="[LinkButton, dataChange, Event]" description="Ensure that the dataChange event gets triggered when the data changes.">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton"/>
+
+				<ResetComponent target="myList" className="mx.controls::List"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+				<SetProperty target="myList" propertyName="dataProvider" value="[1,2,3]" waitEvent="updateComplete" waitTarget="myList"/>
+
+				<SetProperty target="myList" propertyName="itemRenderer" valueExpression="value=irLinkButton" waitEvent="updateComplete" waitTarget="myList"/>
+
+			</setup>
+
+			<body>
+
+				<SetProperty target="myList" propertyName="dataProvider" value="[4,5,6]" waitEvent="updateComplete" waitTarget="myList"/>
+
+				<AssertEvent target="myList.mx_internal:rendererArray.0.0" eventName="dataChange" eventClass="mx.events::FlexEvent" timeout="1000"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="LinkButton_events_hide" keywords="[events, hide, LinkButton]" description="Testing the hide event for LinkButton">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+			</setup>
+
+			<body>
+
+				<SetProperty target="myLinkButton" propertyName="visible" value="false" waitEvent="hide" waitTarget="myLinkButton"/>
+
+				<AssertEvent target="myLinkButton" eventName="hide" eventClass="mx.events::FlexEvent" />  
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="LinkButton_events_show" keywords="[events, show, LinkButton]" description="Testing the show event for LinkButton">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+			</setup>
+
+			<body>
+
+				<SetProperty target="myLinkButton" propertyName="visible" value="false"/>
+
+				<SetProperty target="myLinkButton" propertyName="visible" value="true" waitEvent="show" waitTarget="myLinkButton"/>
+
+				<AssertEvent target="myLinkButton" eventName="show" eventClass="mx.events::FlexEvent" />  
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="LinkButton_events_click" keywords="[events, click, LinkButton]" description="Testing the click event for LinkButton">
+
+					<setup>
+
+						<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+						<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+					</setup>
+
+					<body>
+
+						<DispatchMouseClickEvent target="myLinkButton" localX="10" localY="10"/>
+
+						<AssertEvent target="myLinkButton" eventName="click" eventClass="flash.events::MouseEvent"/>  
+
+					</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="LinkButton_events_mouseOver" keywords="[events, mouseOver, LinkButton]" description="Testing the mouseOver event for LinkButton">
+
+					<setup>
+
+						<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+						<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+					</setup>
+
+					<body>
+
+						<DispatchMouseEvent type="mouseOver"  target="myLinkButton" localX="10" localY="10"/>
+
+						<AssertEvent target="myLinkButton" eventName="mouseOver" eventClass="flash.events::MouseEvent"/>  
+
+					</body>
+
+				</TestCase>
+
+				
+
+				<TestCase testID="LinkButton_events_mouseMove" keywords="[events, mouseMove, LinkButton]" description="Testing the mouseMove event for LinkButton">
+
+					<setup>
+
+						<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+						<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+					</setup>
+
+					<body>
+
+						<DispatchMouseEvent type="mouseMove"  target="myLinkButton" localX="10" localY="10"/>
+
+						<AssertEvent target="myLinkButton" eventName="mouseMove" eventClass="flash.events::MouseEvent"/>  
+
+					</body>
+
+				</TestCase>
+
+				
+
+				<TestCase testID="LinkButton_events_mouseOut" keywords="[events, mouseOut, LinkButton]" description="Testing the mouseOut event for LinkButton">
+
+					<setup>
+
+						<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+						<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+					</setup>
+
+					<body>
+
+						<DispatchMouseEvent type="mouseOver"  target="myLinkButton" localX="10" localY="10"/>
+
+						<DispatchMouseEvent type="mouseMove"  target="myLinkButton" localX="20" localY="20"/>
+
+						<DispatchMouseEvent type="mouseOut"  target="myLinkButton" localX="20" localY="20"/>
+
+						<AssertEvent target="myLinkButton" eventName="mouseOut" eventClass="flash.events::MouseEvent"/>  
+
+					</body>
+
+				</TestCase>
+
+		
+
+				<TestCase testID="LinkButton_events_mouseDown" keywords="[events, mouseDown, LinkButton]" description="Testing the mouseDown event for LinkButton">
+
+					<setup>
+
+						<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+						<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+					</setup>
+
+					<body>
+
+						<DispatchMouseEvent type="mouseDown"  target="myLinkButton" localX="10" localY="10"/>
+
+						<AssertEvent target="myLinkButton" eventName="mouseDown" eventClass="flash.events::MouseEvent"/> 
+
+						<DispatchMouseEvent type="mouseUp"  target="myLinkButton" localX="10" localY="10"/> 
+
+					</body>
+
+				</TestCase>
+
+				
+
+				<TestCase testID="LinkButton_events_mouseUp" keywords="[events, mouseUp, LinkButton]" description="Testing the mouseUp event for LinkButton">
+
+					<setup>
+
+						<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+						<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+					</setup>
+
+					<body>
+
+						<DispatchMouseEvent type="mouseDown"  target="myLinkButton" localX="10" localY="10"/>
+
+						<DispatchMouseEvent type="mouseUp"  target="myLinkButton" localX="10" localY="10"/>
+
+						<AssertEvent target="myLinkButton" eventName="mouseUp" eventClass="flash.events::MouseEvent"/>  
+
+					</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="LinkButton_events_toolTipShow" keywords="[events, toolTipShow, Inherited, LinkButton]" description="Testing the toolTipShow event for LinkButton">
+
+			<setup>	
+
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+				<SetProperty target="myLinkButton" propertyName="toolTip" value="My LinkButton"/>
+
+
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myLinkButton" type="mouseOver" localX="10" localY="10"/>
+
+				<AssertEvent target="myLinkButton" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" timeout="10000"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="LinkButton_events_toolTipHide" keywords="[events, toolTipHide, Inherited, LinkButton]" description="Testing the toolTipHide event for LinkButton">
+
+			<setup>	
+
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+				<SetProperty target="myLinkButton" propertyName="toolTip" value="My LinkButton"/>
+
+
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myLinkButton" type="mouseOver" localX="10" localY="10"/>
+
+				<AssertEvent target="myLinkButton" eventName="toolTipHide" eventClass="mx.events::ToolTipEvent" timeout="50000"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		
+
+		<TestCase testID="LinkButton_events_focusIn" keywords="[events, focusIn, LinkButton]" description="Testing the focusIn event for LinkButton">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB"/>
+
+				<AssertEvent target="myLinkButton" eventName="focusIn" eventClass="flash.events::FocusEvent"/>  
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="LinkButton_events_focusOut" keywords="[events, focusOut, LinkButton]" description="Testing the focusOut event for LinkButton">
+
+			<setup>
+
+				<ResetComponent target="myLinkButton" className="mx.controls::LinkButton" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+
+				<SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+
+			</setup>
+
+			<body>
+
+				<DispatchKeyEvent key="TAB"/>
+
+				<DispatchKeyEvent key="TAB"/>
+
+				<AssertEvent target="myLinkButton" eventName="focusOut" eventClass="flash.events::FocusEvent"/>  
+
+			</body>
+
+		</TestCase>
+
+		
+
+		
+
+	
+
+	</testCases>
+
+</UnitTester>
+
+			

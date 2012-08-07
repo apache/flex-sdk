@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/PopUpButton/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="PopUpButton_Basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.managers.SystemManager;
+    import mx.controls.*;
+    import mx.containers.*;
+    import mx.core.*;
+    import flash.events.*;
+    use namespace mx_internal;
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="PopUpButton_Styles_MXML_baseColor_color" description="Check baseColor, color set in mxml."
+            keywords="[PopUpButton, baseColor, color]">
+            <body>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="pubComp2" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpButton_Styles_AS_baseColor" description="Check baseColor set at runtime works."
+            keywords="[PopUpButton, baseColor]">
+            <setup>
+                <ResetComponent target="pubComp1" className="comps.PopUpButtonComp" waitEvent="updateComplete"
+                    waitTarget="pubComp1" />
+            </setup>
+            <body>
+                <SetStyle target="pubComp1" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete"
+                    waitTarget="pubComp1" />
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="pubComp1" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpButton_Styles_AS_color" description="Check color set at runtime works."
+            keywords="[PopUpButton, baseColor]">
+            <setup>
+                <ResetComponent target="pubComp1" className="comps.PopUpButtonComp" waitEvent="updateComplete"
+                    waitTarget="pubComp1" />
+            </setup>
+            <body>
+                <SetStyle target="pubComp1" styleName="color" value="0x00FF00" waitEvent="updateComplete"
+                    waitTarget="pubComp1" />
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="pubComp1" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpButton_Styles_MXML_focusColor" description="Check focusColor set in mxml."
+            keywords="[PopUpButton, focusColor]">
+            <setup>
+                <RunCode code="application.ti2.setFocus()" waitEvent="focusIn" waitTarget="ti2"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myPopUpButton" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="pubComp1" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="pubComp2" />
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="box2" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpButton_Styles_AS_focusColor" description="Check focusColor set at runtime works."
+            keywords="[PopUpButton, focusColor]">
+            <setup>
+                <ResetComponent target="pubComp1" className="comps.PopUpButtonComp" waitEvent="updateComplete"
+                    waitTarget="pubComp1" />
+                <RunCode code="application.ti2.setFocus()" waitEvent="focusIn" waitTarget="ti2"/>
+            </setup>
+            <body>
+                <SetStyle target="pubComp1" styleName="focusColor" value="0x0000FF" waitEvent="updateComplete"
+                    waitTarget="pubComp1" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myPopUpButton" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="pubComp1" />
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="box1" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpButton_Styles_MXML_rollOver_selectionColor" description="Check selectionColor and rollOvercolor set in css."
+            keywords="[PopUpButton, selectionColor, rollOverColor]">
+            <setup>
+                <DispatchMouseClickEvent target="pubComp2" localX="140" localY="8" waitEvent="open" waitTarget="pubComp2" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" target="pubComp2.popUp" localX="60" localY="5" />
+                <DispatchMouseEvent type="mouseMove" target="pubComp2.popUp" localX="55" localY="8" />
+                <DispatchMouseEvent type="mouseMove" target="pubComp2.popUp" localX="50" localY="4" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="pubComp2.popUp" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpButton_Styles_AS_rollOverColor" description="Check rollOvercolor set in AS."
+            keywords="[PopUpButton, selectionColor, rollOverColor]">
+            <setup>
+                <ResetComponent target="pubComp1" className="comps.PopUpButtonComp" waitEvent="updateComplete"
+                    waitTarget="pubComp1" />
+                <SetStyle styleName="rollOverColor" target="pubComp1.popUp" value="0xFF6600" />
+                <DispatchMouseClickEvent target="pubComp1" localX="140" localY="8" waitEvent="open" waitTarget="pubComp1" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" target="pubComp1.popUp" localX="60" localY="5" />
+                <DispatchMouseEvent type="mouseMove" target="pubComp1.popUp" localX="55" localY="8" />
+                <DispatchMouseEvent type="mouseMove" target="pubComp1.popUp" localX="50" localY="4" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap numColorVariances="4" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="pubComp1.popUp" />
+            </body>
+        </TestCase>
+        <TestCase testID="PopUpButton_Styles_AS_selectionColor" description="Check selectionColor set in AS."
+            keywords="[PopUpButton, selectionColor]">
+            <setup>
+                <ResetComponent target="pubComp1" className="comps.PopUpButtonComp" waitEvent="updateComplete"
+                    waitTarget="pubComp1" />
+                <SetStyle styleName="selectionColor" target="pubComp1.popUp" value="0xCC0066" />
+                <DispatchMouseClickEvent target="pubComp1" localX="140" localY="8" waitEvent="open" waitTarget="pubComp1" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="pubComp1.popUp" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

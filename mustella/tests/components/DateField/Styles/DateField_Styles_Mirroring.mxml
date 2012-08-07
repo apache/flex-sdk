@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateField/Styles/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateField_Mirroring_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+		]]>
+	</mx:Script>
+
+
+	<testCases>
+	
+		<TestCase testID="DateField_Styles_Mirroring_rtl_default" keywords="[DateField, Styles, Mirroring]" description="Test layout direction rtl on DateField" >
+			<setup>
+			    <ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete"/>					    
+			</setup>
+			<body>
+				<CompareBitmap target="df" url="../Styles/Baselines/$testID_1.png"/>
+				<SetStyle target="df" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+				<CompareBitmap target="df" url="../Styles/Baselines/$testID_2.png"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="DateField_Styles_Mirroring_rtl_dateChooser" keywords="[DateField, Styles, Mirroring]" description="Test layout direction rtl on DateField" >
+			<setup>
+				<ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete"/>	
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 1)" waitEvent="updateComplete"/>
+				<SetProperty target="df" propertyName="showToday" value="false" waitEvent="updateComplete"/>				    
+				<SetStyle target="df" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>
+				<DispatchMouseEvent type="rollOver" target="df" localX="94" localY="10" waitEvent="rollOver"/>
+				<CompareBitmap target="df" url="../Styles/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+				<DispatchMouseEvent type="mouseDown" target="df" localX="94" localY="10" waitEvent="mouseDown"/>
+				<DispatchMouseEvent type="mouseUp" target="df" localX="94" localY="10" waitEvent="mouseUp"/>
+				<CompareBitmap target="theBox" url="../Styles/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DateField_Styles_Mirroring_rtl_customIcons" keywords="[DateField, Mirroring, Styles]" description="Test custom icons with layout rtl on DateField">
+			<setup>
+				<ResetComponent target="df" className="mx.controls.DateField" waitEvent="updateComplete"/>
+				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 1)" waitEvent="updateComplete"/>
+				<SetProperty target="df" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+				<SetProperty target="df" propertyName="yearNavigationEnabled" value="true" waitEvent="yearNavigationEnabledChanged" />
+				<SetStyle target="df" styleName="nextMonthSkin" valueExpression="value=application.nextIcon" waitEvent="updateComplete"/>				
+				<SetStyle target="df" styleName="prevMonthSkin" valueExpression="value=application.prevIcon" waitEvent="updateComplete"/>
+				<SetStyle target="df" styleName="nextYearSkin" valueExpression="value=application.upIcon" waitEvent="updateComplete"/>
+				<SetStyle target="df" styleName="prevYearSkin" valueExpression="value=application.downIcon" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<DispatchMouseEvent type="rollOver" target="df" localX="94" localY="10" waitEvent="rollOver"/>
+				<DispatchMouseEvent type="mouseDown" target="df" localX="94" localY="10" waitEvent="mouseDown"/>
+				<DispatchMouseEvent type="mouseUp" target="df" localX="94" localY="10" waitEvent="mouseUp"/>				
+				<CompareBitmap target="theBox" url="../Styles/baselines/$testID_1.png"/>			
+				<SetStyle target="df" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+				<CompareBitmap target="theBox" url="../Styles/baselines/$testID_2.png"/>			
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DateField_Styles_Mirroring_rtl_customIcon2" keywords="[DateField, Mirroring, Styles]" description="Test custom icons with layout rtl on DateField">
+			<setup>
+				<ResetComponent target="df2" className="components.myCustomDF" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>								
+				<CompareBitmap target="df2" url="../Styles/baselines/$testID_1.png"/>							
+				<SetStyle target="df2" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+				<CompareBitmap target="df2" url="../Styles/baselines/$testID_2.png"/>							
+			</body>
+		</TestCase>			
+		
+	
+		<TestCase testID="DateField_Styles_Mirroring_rtl_parentContainer" keywords="[DateField, Styles, Mirroring]" description="Test layout direction rtl on parent container of DateField" >
+			<setup>
+			    <ResetComponent target="myPanel" className="components.myCustomPanel" waitEvent="updateComplete"/>
+			    <SetProperty target="myPanel.theDf" propertyName="selectedDate" valueExpression="value=new Date(2010, 2, 1)" waitEvent="updateComplete"/>
+				<SetProperty target="myPanel.theDf" propertyName="showToday" value="false" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap target="myPanel.theDf" url="../Styles/Baselines/$testID_1.png"/>
+				<SetStyle target="myPanel" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+				<CompareBitmap target="myPanel.theDf" url="../Styles/Baselines/$testID_2.png"/>
+			</body>
+		</TestCase>		
+
+		
+		
+		
+	</testCases>
+</UnitTester>

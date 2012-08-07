@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/LinkButton/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LinkButton_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.LinkButton;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.ListEvent;
+   
+    ]]>
+    </mx:Script>
+    
+<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+        .myLinkButtonJPG
+        {
+            skin: ClassReference("comps.button_jpg_embeded");       
+        }
+        .myLinkButtonGIF
+        {
+            skin: ClassReference("comps.button_gif_embeded");       
+        }
+        .myLinkButtonPNG
+        {
+            skin: ClassReference("comps.button_png_embeded");       
+        }
+        .myLinkButtonSWF
+        {
+            skin: ClassReference("comps.button_swf_embeded");       
+        }
+        
+        .myLinkButtonJPGRunTime
+        {
+            skin: ClassReference("comps.button_jpg_runtime");       
+        }
+        .myLinkButtonGIFRunTime
+        {
+            skin: ClassReference("comps.button_gif_runtime");       
+        }
+        .myLinkButtonPNGRunTime
+        {
+            skin: ClassReference("comps.button_png_runtime");       
+        }
+        .myLinkButtonSWFRunTime
+        {
+            skin: ClassReference("comps.button_swf_runtime");       
+        }
+
+        .myLinkButtonJPGIcon
+        {
+            skin: ClassReference("comps.icon_jpg_embeded");     
+        }
+        .myLinkButtonGIFIcon
+        {
+            skin: ClassReference("comps.icon_gif_embeded");     
+        }
+        .myLinkButtonPNGIcon
+        {
+            skin: ClassReference("comps.icon_png_embeded");     
+        }
+        .myLinkButtonSWFIcon
+        {
+            skin: ClassReference("comps.icon_swf_embeded");     
+        }
+        
+        .myLinkButtonJPGIconRunTime
+        {
+            skin: ClassReference("comps.icon_jpg_runtime");     
+        }
+        .myLinkButtonGIFIconRunTime
+        {
+            skin: ClassReference("comps.icon_gif_runtime");     
+        }
+        .myLinkButtonPNGIconRunTime
+        {
+            skin: ClassReference("comps.icon_png_runtime");     
+        }
+        .myLinkButtonSWFIconRunTime
+        {
+            skin: ClassReference("comps.icon_swf_runtime");     
+        }       
+</mx:Style>
+    
+    <testCases>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPG" keywords="[enabled, SkinStates,EmbedJPG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <SetProperty target="myLinkButton" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_JPG.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNG" keywords="[enabled, SkinStates,EmbedPNG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_PNG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedPNG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_PNG_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_PNG_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedPNG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_PNG_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_PNG_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNG_Disabled" keywords="[disabled, SkinStates,EmbedPNG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNG" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <SetProperty target="myLinkButton" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_PNG.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIF" keywords="[enabled, SkinStates,EmbedGIF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_GIF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIF_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedGIF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_GIF_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_GIF_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIF_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedGIF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_GIF_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_GIF_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIF_Disabled" keywords="[disabled, SkinStates,EmbedGIF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <SetProperty target="myLinkButton" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_GIF.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF" keywords="[enabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF_Disabled" keywords="[disabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <SetProperty target="myLinkButton" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_SWF.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_runtime_JPG" keywords="[enabled, SkinStates,runtimeJPG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPGRunTime" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_JPG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="LinkButton_Styles_SkinStates_runtime_PNG" keywords="[enabled, SkinStates,runtimePNG, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget=""/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNGRunTime" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_PNG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="LinkButton_Styles_SkinStates_runtime_GIF" keywords="[enabled, SkinStates,runtimeGIF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIFRunTime" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_GIF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="LinkButton_Styles_SkinStates_runtime_SWF" keywords="[enabled, SkinStates,runtimeSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWFRunTime" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_SWF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="LinkButton_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWFRunTime" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWFRunTime" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="LinkButton_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWFRunTime" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWFRunTime" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPGIcon" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPGIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_JPGIcon_Disabled" keywords="[disabled, SkinStates,EmbedJPGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <SetProperty target="myLinkButton" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_JPGIcon.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNGIcon" keywords="[enabled, SkinStates,EmbedPNGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_PNGIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_PNGIcon_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_PNGIcon_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_PNGIcon_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_PNGIcon_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_PNGIcon_Disabled" keywords="[disabled, SkinStates,EmbedPNGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNGIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <SetProperty target="myLinkButton" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_PNGIcon.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIFIcon" keywords="[enabled, SkinStates,EmbedGIFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_GIFIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIFIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_GIFIcon_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIFIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_GIFIcon_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIFIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_GIFIcon_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIFIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_GIFIcon_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_GIFIcon_Disabled" keywords="[disabled, SkinStates,EmbedGIFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <SetProperty target="myLinkButton" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_GIFIcon.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWFIcon" keywords="[enabled, SkinStates,EmbedSWFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWFIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWFIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWFIcon_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWFIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWFIcon_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWFIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWFIcon_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWFIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWFIcon_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWFIcon_Disabled" keywords="[disabled, SkinStates,EmbedSWFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWFIcon" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <SetProperty target="myLinkButton" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_SWFIcon.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_runtime_JPGIcon" keywords="[enabled, SkinStates,runtimeJPGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonJPGIconRunTime" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_JPGIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="LinkButton_Styles_SkinStates_runtime_PNGIcon" keywords="[enabled, SkinStates,runtimePNGIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget=""/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonPNGIconRunTime" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_PNGIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="LinkButton_Styles_SkinStates_runtime_GIFIcon" keywords="[enabled, SkinStates,runtimeGIFIcon, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonGIFIconRunTime" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_runtime_GIFIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+<!-- AIR specific tests -->
+
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF_airOnly" keywords="[enabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWF_air.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab_air.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" localX="10" localY="10" target="myLinkButton" waitEvent="mouseOver" waitTarget="myLinkButton" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="myLinkButton" waitEvent="mouseDown" waitTarget="myLinkButton" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinkButton_Styles_SkinStates_Embeding_SWF_Disabled_airOnly" keywords="[disabled, SkinStates,EmbedSWF, LinkButton]" >
+            <setup>
+                <ResetComponent target="myLinkButton" className="mx.controls.LinkButton"  waitEvent="updateComplete" waitTarget="myLinkButton"/>   
+                <SetProperty target="myLinkButton" propertyName="label" value="Test Button" waitEvent="updateComplete" waitTarget="myLinkButton" />
+                <SetStyle target="myLinkButton" styleName="styleName" value="myLinkButtonSWF" waitEvent="updateComplete" waitTarget="myLinkButton" /> 
+                <SetProperty target="myLinkButton" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myLinkButton"/>
+            </setup>
+            <body>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="myLinkButton" url="../Styles/baselines/LinkButton_Styles_SkinStates_Embeding_Disabled_SWF_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

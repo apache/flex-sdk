@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/UIComponent/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="UIComponent_Main2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        private function doubleClickEventHandler(e:MouseEvent):void{
+            trace(e);
+        }    
+
+	]]>
+	</mx:Script>
+
+
+<!-- Note: These are arranged alphabetically. -->
+
+<testCases>
+
+<!--
+================================================================================
+alpha
+Alpha is 0-1, but internally is 0-255, so the value returned from the getter is
+not necessarily what you set it to.  Stick to 0, 0.25, 0.5, 0.75, and 1.
+
+See:
+http://www.actionscript.org/resources/articles/199/1/Flash-Alpha-Innacuracies/Page1.html
+================================================================================
+-->
+<TestCase testID="alpha_setterGetter" keywords="[UIComponent,alpha]" description="Test alpha setter/getter.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="alpha" value="0.25" waitEvent="alphaChanged" />
+        <AssertPropertyValue target="uic1" propertyName="alpha" value="0.25" />
+        <SetProperty target="uic1" propertyName="alpha" value="0.5" waitEvent="alphaChanged" />
+        <AssertPropertyValue target="uic1" propertyName="alpha" value="0.5" />
+    </body>
+</TestCase>
+
+<TestCase testID="alpha_binding" keywords="[UIComponent,alpha]" description="Test alpha and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="alphaBindingVar" value="0.75" waitEvent="alphaChanged" />
+        <AssertPropertyValue target="uic2" propertyName="alpha" value="0.75" />
+        <SetProperty target="uic2" propertyName="alphaBindingVar" value="0.25" waitEvent="alphaChanged" />
+        <AssertPropertyValue target="uic2" propertyName="alpha" value="0.25" />
+    </body>
+</TestCase>
+
+<TestCase testID="alpha_functionality_1" keywords="[UIComponent,alpha]" description="Increase the alpha.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="alpha" value="0.1" waitEvent="alphaChanged" />
+        <SetProperty target="uic1" propertyName="alpha" value="0.25" waitEvent="alphaChanged" />
+        <AssertPixelValue target="uic1" x="2" y="2" value="0xFFF3C0" />
+    </body>
+</TestCase>
+
+<TestCase testID="alpha_functionality_2" keywords="[UIComponent,alpha]" description="Decrease the alpha.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="alpha" value="0.6" waitEvent="alphaChanged" />
+        <SetProperty target="uic1" propertyName="alpha" value="0.5" waitEvent="alphaChanged" />
+        <AssertPixelValue target="uic1" x="2" y="2" value="0xFFE680" />
+    </body>
+</TestCase>
+
+<TestCase testID="alpha_functionality_3" keywords="[UIComponent,alpha]" description="Set the alpha to -1.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="alpha" value="-1" waitEvent="alphaChanged" />
+        <AssertPixelValue target="uic1" x="2" y="2" value="0xFFFFFF" />
+    </body>
+</TestCase>
+
+<TestCase testID="alpha_functionality_4" keywords="[UIComponent,alpha]" description="Set the alpha to 0.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="alpha" value="0" waitEvent="alphaChanged" />
+        <AssertPixelValue target="uic1" x="2" y="2" value="0xFFFFFF" />
+    </body>
+</TestCase>
+
+<TestCase testID="alpha_functionality_5" keywords="[UIComponent,alpha]" description="Set the alpha to 0.5.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="alpha" value="0.5" waitEvent="alphaChanged" />
+        <AssertPixelValue target="uic1" x="2" y="2" value="0xFFE680" />
+    </body>
+</TestCase>
+
+<TestCase testID="alpha_functionality_6" keywords="[UIComponent,alpha]" description="Set the alpha to 1.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="alpha" value="1" />
+        <Pause timeout="200" />
+        <AssertPixelValue target="uic1" x="2" y="2" value="0xFFCC00" />
+    </body>
+</TestCase>
+
+<TestCase testID="alpha_functionality_7" keywords="[UIComponent,alpha]" description="Set the alpha to 2.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="alpha" value="2" waitEvent="alphaChanged" />
+        <AssertPixelValue target="uic1" x="2" y="2" value="0xFFCC00" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+cacheAsBitmap
+================================================================================
+-->
+<TestCase testID="cacheAsBitmap_setterGetter" keywords="[UIComponent,cacheAsBitmap]" description="Test cacheAsBitmap setter/getter.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="cacheAsBitmap" value="true" />
+        <AssertPropertyValue target="uic1" propertyName="cacheAsBitmap" value="true" />
+        <SetProperty target="uic1" propertyName="cacheAsBitmap" value="false" />
+        <AssertPropertyValue target="uic1" propertyName="cacheAsBitmap" value="false" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+currentState
+There are only a few tests here b/c the States tests cover it.
+================================================================================
+-->
+<TestCase testID="currentState_setterGetter" keywords="[UIComponent,currentState]" description="Test currentState setter/getter.">
+    <setup>
+        <ResetComponent target="uic3" className="comps.StatefulUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic3" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="uic3" propertyName="currentState" value="state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="currentState_binding" keywords="[UIComponent,currentState]" description="Test currentState and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="currentStateBindingVar" value="state2" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="uic2" propertyName="currentState" value="state2" />
+    </body>
+</TestCase>
+
+<TestCase testID="currentState_functionality_1" keywords="[UIComponent,currentState]" description="Change to state2.">
+    <setup>
+        <ResetComponent target="uic3" className="comps.StatefulUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic3" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="uic3.lbl1" propertyName="text" value="state2" />
+    </body>
+</TestCase>
+
+<!-- 
+================================================================================
+doubleClickEnabled
+================================================================================
+-->
+<TestCase testID="doubleClickEnabled_setterGetter" keywords="[UIComponent,doubleClickEnabled]" description="Test doubleClickEnabled setter/getter.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="doubleClickEnabled" value="true" />
+        <AssertPropertyValue target="uic1" propertyName="doubleClickEnabled" value="true" />
+        <SetProperty target="uic1" propertyName="doubleClickEnabled" value="false" />
+        <AssertPropertyValue target="uic1" propertyName="doubleClickEnabled" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="doubleClickEnabled_binding" keywords="[UIComponent,doubleClickEnabled]" description="Test doubleClickEnabled and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="doubleClickEnabledBindingVar" value="true" />
+        <AssertPropertyValue target="uic2" propertyName="doubleClickEnabled" value="true" />
+        <SetProperty target="uic2" propertyName="doubleClickEnabledBindingVar" value="false" />
+        <AssertPropertyValue target="uic2" propertyName="doubleClickEnabled" value="false" />
+    </body>
+</TestCase>
+
+<!-- 
+================================================================================
+enabled
+================================================================================
+-->
+<TestCase testID="enabled_setterGetter" keywords="[UIComponent,enabled]" description="Test enabled setter/getter.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="enabled" value="true" />
+        <AssertPropertyValue target="uic1" propertyName="enabled" value="true" />
+        <SetProperty target="uic1" propertyName="enabled" value="false" />
+        <AssertPropertyValue target="uic1" propertyName="enabled" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="enabled_binding" keywords="[UIComponent,enabled]" description="Test enabled and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="enabledBindingVar" value="true" />
+        <AssertPropertyValue target="uic2" propertyName="enabled" value="true" />
+        <SetProperty target="uic2" propertyName="enabledBindingVar" value="false" />
+        <AssertPropertyValue target="uic2" propertyName="enabled" value="false" />
+    </body>
+</TestCase>
+
+<!-- 
+================================================================================
+filters
+================================================================================
+-->
+<TestCase testID="filters_setterGetter" keywords="[UIComponent,filters]" description="Test filters setter/getter.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="filters" valueExpression="value=[new GlowFilter(), new BlurFilter()]" />
+        <AssertMethodValue method="value = application.uic1.filters[0] is GlowFilter" value="true" />
+        <AssertMethodValue method="value = application.uic1.filters[1] is BlurFilter" value="true" />
+    </body>
+</TestCase>
+
+
+<!-- 
+================================================================================
+id: If the id property doesn't work, nothing in mustella will.  Skip.
+================================================================================
+-->
+
+<!-- 
+================================================================================
+includeInLayout
+================================================================================
+-->
+<TestCase testID="includeInLayout_setterGetter" keywords="[UIComponent,includeInLayout]" description="Test includeInLayout setter/getter.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="includeInLayout" value="true" />
+        <AssertPropertyValue target="uic1" propertyName="includeInLayout" value="true" />
+        <SetProperty target="uic1" propertyName="includeInLayout" value="false" />
+        <AssertPropertyValue target="uic1" propertyName="includeInLayout" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeInLayout_binding" keywords="[UIComponent,includeInLayout]" description="Test includeInLayout and binding.  Do it twice in case the framework's default coincidentally changes to be one of the test values.">
+    <setup>
+        <ResetComponent target="uic2" className="comps.BindingUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic2" propertyName="includeInLayoutBindingVar" value="true" />
+        <AssertPropertyValue target="uic2" propertyName="includeInLayout" value="true" />
+        <SetProperty target="uic2" propertyName="includeInLayoutBindingVar" value="false" />
+        <AssertPropertyValue target="uic2" propertyName="includeInLayout" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeInLayout_functionality_1" keywords="[UIComponent,includeInLayout]" description="Set it to false, and be sure the other controls are arranged properly (1st item).">
+    <setup>
+        <ResetComponent target="box2" className="comps.ContainedUICTesters" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.uic1" propertyName="includeInLayout" value="false" waitTarget="box2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.uic2" propertyName="x" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeInLayout_functionality_2" keywords="[UIComponent,includeInLayout]" description="Set it to false, then true, and be sure the other controls are arranged properly (1st item).">
+    <setup>
+        <ResetComponent target="box2" className="comps.ContainedUICTesters" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.uic1" propertyName="includeInLayout" value="false" waitTarget="box2" waitEvent="updateComplete" />
+        <SetProperty target="box2.uic1" propertyName="includeInLayout" value="true" waitTarget="box2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.uic2" propertyName="x" value="18" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeInLayout_functionality_3" keywords="[UIComponent,includeInLayout]" description="Set it to false, and be sure the other controls are arranged properly (2nd item).">
+    <setup>
+        <ResetComponent target="box2" className="comps.ContainedUICTesters" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.uic2" propertyName="includeInLayout" value="false" waitTarget="box2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.uic3" propertyName="x" value="18" />
+    </body>
+</TestCase>
+
+<TestCase testID="includeInLayout_functionality_4" keywords="[UIComponent,includeInLayout]" description="Set it to false, then true, and be sure the other controls are arranged properly (2nd item).">
+    <setup>
+        <ResetComponent target="box2" className="comps.ContainedUICTesters" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.uic2" propertyName="includeInLayout" value="false" waitTarget="box2" waitEvent="updateComplete" />
+        <SetProperty target="box2.uic2" propertyName="includeInLayout" value="true" waitTarget="box2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.uic3" propertyName="x" value="36" />
+    </body>
+</TestCase>
+
+<!-- 
+================================================================================
+initialized
+================================================================================
+-->
+<TestCase testID="initialized_setterGetter" keywords="[UIComponent,initialized]" description="Test initialized setter/getter.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="initialized" value="true" />
+        <AssertPropertyValue target="uic1" propertyName="initialized" value="true" />
+        <SetProperty target="uic1" propertyName="initialized" value="false" />
+        <AssertPropertyValue target="uic1" propertyName="initialized" value="false" />
+    </body>
+</TestCase>
+
+<!-- 
+================================================================================
+nestLevel
+================================================================================
+-->
+<TestCase testID="nestLevel_setterGetter" keywords="[UIComponent,nestLevel]" description="Test nestLevel setter/getter.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="uic1" propertyName="nestLevel" value="4" />
+        <AssertPropertyValue target="uic1" propertyName="nestLevel" value="4" />
+        <SetProperty target="uic1" propertyName="nestLevel" value="5" />
+        <AssertPropertyValue target="uic1" propertyName="nestLevel" value="5" />
+    </body>
+</TestCase>
+
+<TestCase testID="nestLevel_functionality_1" keywords="[UIComponent,nestLevel]" description="Increase nestLevel of container.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="trace('box1: ' + application.box1.nestLevel)" />
+        <RunCode code="trace('contained_uic1: ' + application.box1.contained_uic1.nestLevel)" />
+        <SetProperty target="box1" propertyName="nestLevel" value="4" />
+        <AssertPropertyValue target="box1" propertyName="nestLevel" value="4" />
+    </body>
+</TestCase>
+
+<TestCase testID="nestLevel_functionality_2" keywords="[UIComponent,nestLevel]" description="Decrease nestLevel of a control in a container.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.contained_uic1" propertyName="nestLevel" value="2" />
+        <AssertPropertyValue target="box1.contained_uic1" propertyName="nestLevel" value="2" />
+    </body>
+</TestCase>
+
+<!-- 
+================================================================================
+parent
+The parent property is messy.  e.g. Even though a parent container has an id,
+the parent property is something like vpApp1_0.ContainedUICTester1127, which is
+volatile.  So we look at the parent's ID instead.
+================================================================================
+-->
+<TestCase testID="parent_functionality_1" keywords="[UIComponent,parent]" description="Verify the parent of a child of the application.">
+    <setup>
+        <ResetComponent target="uic1" className="comps.UICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="uic1.parent" propertyName="id" value="null" />
+    </body>
+</TestCase>
+
+<TestCase testID="parent_functionality_2" keywords="[UIComponent,parent]" description="Verify the parent of a child of a container.">
+    <setup>
+        <ResetComponent target="box1" className="comps.ContainedUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="box1.contained_uic1.parent" propertyName="id" value="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="parent_functionality_3" keywords="[UIComponent,parent]" description="Move a child and verify its new parent.">
+    <setup>
+        <ResetComponent target="box3" className="comps.ContainerAndUICTester" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.box3.contained_box1.addChild(application.box3.contained_uic1)" waitTarget="box3" waitEvent="updateComplete" />
+        <AssertMethodValue method="value=application.box3.contained_box1.getChildAt(0).id" value="contained_uic1" />
+    </body>
+</TestCase>
+
+
+
+</testCases> 
+</UnitTester>

@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/LinkBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LinkBar_Basic_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    public function addData(bool:int):void
+    {
+        application.lb.dataProvider = myDP;
+    }
+
+    public function addObjData():void
+    {
+        application.lb.dataProvider = iconDP;
+    }
+
+    public function changeDP(node:int, bool:String):void
+    {
+        myDP.node[node].@enabled = bool;
+    }
+
+    [Bindable]
+    public var iconDP:Array= [{label:"Toys", icon:"dinosaur"},{label:"Dinosaur", icon: "dinosaur"}];
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.LinkBar;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.ListEvent;
+
+
+
+    [Bindable]
+    private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+
+    ]]>
+    </mx:Script>
+
+
+
+
+    <testCases>
+        <TestCase testID="Spark_LinkBar_Style_Basic_horizontalGap" description="LinkBar Basic styles." keywords="[style, LinkBar, horizontalGap]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" waitEvent="updateComplete" waitTarget="lb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="horizontalGap"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="lb" waitEvent="focusIn" />
+                <AssertStyleValue target="lb" styleName="horizontalGap" value="20"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/horizontalGap_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Style_Basic_horizontalAlign" description="LinkBar Basic styles." keywords="[style, LinkBar, horizontalAlign]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" waitEvent="updateComplete" waitTarget="lb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb" />
+                <SetStyle target="lb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="lb" />
+                <SetStyle target="lb" styleName="horizontalAlign"  value="right" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="lb" waitEvent="focusIn" />
+                <AssertStyleValue target="lb" styleName="horizontalAlign" value="right"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/horizontalAlign_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Style_Basic_verticalAlign" description="LinkBar Basic styles." keywords="[style, LinkBar, verticalAlign]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" waitEvent="updateComplete" waitTarget="lb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb" />
+                <SetStyle target="lb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="lb" />
+                <SetStyle target="lb" styleName="verticalAlign"  value="bottom" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetProperty target="lb" propertyName="direction" value="VERTICAL" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="lb" waitEvent="focusIn" />
+                <AssertStyleValue target="lb" styleName="verticalAlign" value="bottom"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/verticalAlign_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Spark_LinkBar_Style_Basic_verticalGap_default" description="LinkBar Basic styles." keywords="[style, LinkBar, verticalGap]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" waitEvent="updateComplete" waitTarget="lb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb" />
+                <SetStyle target="lb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="lb" />
+                <SetProperty target="lb" propertyName="direction" value="VERTICAL" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetProperty target="lb" propertyName="height" value="150" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="lb" waitEvent="focusIn" />
+                <AssertStyleValue target="lb" styleName="verticalGap" value="8"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/verticalGap_default_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Style_Basic_verticalGap" description="LinkBar Basic styles." keywords="[style, LinkBar, verticalGap]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" waitEvent="updateComplete" waitTarget="lb" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb" />
+                <SetStyle target="lb" styleName="buttonHeight"  value="37" waitEvent="updateComplete" waitTarget="lb" />
+                <SetStyle target="lb" styleName="verticalGap"  value="30" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetProperty target="lb" propertyName="direction" value="VERTICAL" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetProperty target="lb" propertyName="height" value="150" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="lb" waitEvent="focusIn" />
+                <AssertStyleValue target="lb" styleName="verticalGap" value="30"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/verticalGap_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LinkBar_Style_Basic_disabledColor" description="LinkBar Basic styles." keywords="[style, LinkBar, disabledColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="disabledColor"  value="#00FF00" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" />
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetProperty target="lb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="lb"/>
+
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="disabledColor" value="#00FF00"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_TB_Style_Basic_textIndent" description="LinkBar Basic styles." keywords="[style, LinkBar, textIndent]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="textIndent"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB"  />
+                <DispatchKeyEvent key="TAB" waitTarget="lb" waitEvent="focusIn" />
+                <AssertStyleValue target="lb" styleName="textIndent" value="20"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/textIndent_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_TB_Style_Basic_paddingBottom_default" description="LinkBar Basic styles." keywords="[style, LinkBar, paddingBottom]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="paddingBottom" value="2"/>
+                <AssertPropertyValue target="lb.getChildAt(0)" propertyName="height" value="27" />
+                <AssertPropertyValue target="lb" propertyName="height" value="31" />
+                <!--CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/paddingBottom_default_spark.png" timeout="5000" /-->
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_TB_Style_Basic_horizontalGap_default" description="LinkBar Basic styles." keywords="[style, LinkBar, horizontalGap]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="horizontalGap" value="8"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/horizontalGap_default_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_TB_Style_Basic_paddingBottom_large" description="LinkBar Basic styles." keywords="[style, LinkBar, paddingBottom]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="paddingBottom"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="borderStyle"  value="solid" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="borderColor"  value="0xFF0000" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="paddingBottom" value="20"/>
+                <AssertPropertyValue target="lb.getChildAt(0)" propertyName="height" value="27" />
+                <AssertPropertyValue target="lb" propertyName="height" value="51" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_TB_Style_Basic_paddingTop_default" description="LinkBar Basic styles." keywords="[style, LinkBar, paddingTop]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="paddingTop" value="2"/>
+                <AssertPropertyValue target="lb.getChildAt(0)" propertyName="y" value="2" />
+                <!--CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/paddingTop_default_spark.png" timeout="5000" /-->
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_TB_Style_Basic_paddingTop_large" description="LinkBar Basic styles." keywords="[style, LinkBar, paddingTop]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="paddingTop"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="paddingTop" value="20"/>
+                <AssertPropertyValue target="lb.getChildAt(0)" propertyName="y" value="20" />
+                <!--CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/paddingTop_large_spark.png" timeout="5000" /-->
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_TB_Style_Basic_textRollOverColor_red" description="LinkBar Basic styles." keywords="[style, LinkBar, textRollOverColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="textRollOverColor"  value="0xFF0000" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchMouseEvent target="lb" type="rollOver" stageX="316" stageY="96" waitEvent="rollOver" waitTarget="lb"/>
+
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="textRollOverColor" value="0xFF0000"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/textRollOverColor_red_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_TB_Style_Basic_textRollOverColor_green" description="LinkBar Basic styles." keywords="[style, LinkBar, textRollOverColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="textRollOverColor"  value="0x00FF00" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchMouseEvent target="lb" type="rollOver" stageX="316" stageY="96" waitEvent="rollOver" waitTarget="lb"/>
+
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="textRollOverColor" value="0x00FF00"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/textRollOverColor_green_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Spark_TB_Style_Basic_selectionColor_red" description="LinkBar Basic styles." keywords="[style, LinkBar, selectionColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="selectionColor"  value="red" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchMouseEvent target="lb" type="mouseDown" stageX="316" stageY="96" waitEvent="mouseDown" waitTarget="lb"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="selectionColor" value="0xFF0000"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/selectionColor_red_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_TB_Style_Basic_selectionColor_green" description="LinkBar Basic styles." keywords="[style, LinkBar, selectionColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="selectionColor"  value="0x0000FF" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchMouseEvent target="lb" type="mouseDown" stageX="316" stageY="96" waitEvent="mouseDown" waitTarget="lb"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="selectionColor" value="0x0000FF"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/selectionColor_green_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_TB_Style_Basic_selectionColor_numeric" description="LinkBar Basic styles." keywords="[style, LinkBar, selectionColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="selectionColor"  value="13423244" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchMouseEvent target="lb" type="mouseDown" stageX="316" stageY="96" waitEvent="mouseDown" waitTarget="lb"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="selectionColor" value="13423244"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/selectionColor_numeric_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Spark_TB_Style_Basic_separatorColor_red" description="LinkBar Basic styles." keywords="[style, LinkBar, separatorColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="separatorColor"  value="red" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, SPACE]"  />
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="separatorColor" value="0xFF0000"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/separatorColor_red_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_TB_Style_Basic_separatorColor_green" description="LinkBar Basic styles." keywords="[style, LinkBar, separatorColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="separatorColor"  value="0x0000FF" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, SPACE]"  />
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="separatorColor" value="0x0000FF"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/separatorColor_green_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_TB_Style_Basic_separatorColor_numeric" description="LinkBar Basic styles." keywords="[style, LinkBar, separatorColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="separatorColor"  value="13423244" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, SPACE]"  />
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="separatorColor" value="13423244"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/separatorColor_numeric_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Spark_TB_Style_Basic_separatorWidth" description="LinkBar Basic styles." keywords="[style, LinkBar, separatorWidth]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, SPACE]"  />
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="separatorWidth" value="1"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/separatorWidth_green_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_TB_Style_Basic_separatorWidth_large" description="LinkBar Basic styles." keywords="[style, LinkBar, separatorWidth]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="separatorWidth"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, SPACE]"  />
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="separatorWidth" value="20"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/separatorWidth_large_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+
+
+        <TestCase testID="Spark_TB_Style_Basic_textSelectedColor_red" description="LinkBar Basic styles." keywords="[style, LinkBar, textSelectedColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="textSelectedColor"  value="red" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, SPACE]"  />
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="textSelectedColor" value="0xFF0000"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/textSelectedColor_red_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_TB_Style_Basic_textSelectedColor_green" description="LinkBar Basic styles." keywords="[style, LinkBar, textSelectedColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="textSelectedColor"  value="0x0000FF" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, SPACE]"  />
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="textSelectedColor" value="0x0000FF"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/textSelectedColor_green_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Spark_TB_Style_Basic_textSelectedColor_numeric" description="LinkBar Basic styles." keywords="[style, LinkBar, textSelectedColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="textSelectedColor"  value="3423244" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="lb"/>
+                <SetStyle target="lb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, SPACE]"  />
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="textSelectedColor" value="3423244"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/textSelectedColor_numeric_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Spark_TB_Style_Basic_textRollOverColor_default" description="LinkBar Basic styles." keywords="[style, LinkBar, textRollOverColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchMouseEvent target="lb" type="rollOver" stageX="316" stageY="96" waitEvent="rollOver" waitTarget="lb"/>
+
+            </setup>
+            <body>
+                <!--AssertStyleValue target="lb" styleName="textRollOverColor" value="0x2B333C"/-->
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/textRollOverColor_default_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LB_Style_Basic_rollOverColor_0x" description="LinkBar Basic styles." keywords="[style, LinkBar, rollOverColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="rollOverColor"  value="0xFF0000" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchMouseEvent target="lb.getChildAt(2)" type="rollOver" localX="5" localY="6" waitEvent="rollOver" waitTarget="lb"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="rollOverColor" value="0xFF0000"/>
+                <!--AssertPixelValue target="lb.getChildAt(2)" value="0xFF0000" x="12" y="19" /-->
+                </body>
+        </TestCase>
+        <TestCase testID="Spark_LB_Style_Basic_rollOverColor_pound" description="LinkBar Basic styles." keywords="[style, LinkBar, rollOverColor]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="rollOverColor"  value="#00FF00" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchMouseEvent target="lb.getChildAt(2)" type="rollOver" localX="5" localY="6" waitEvent="rollOver" waitTarget="lb"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="lb" styleName="rollOverColor" value="0x00FF00"/>
+                <!--AssertPixelValue target="lb.getChildAt(2)" value="0x00FF00" x="12" y="19" /-->
+                </body>
+        </TestCase>
+        <TestCase testID="Spark_LB_Style_Basic_separatorSkin_custom" description="Separator Basic styles." keywords="[style, LinkBar, separatorSkin]">
+            <setup>
+                <ResetComponent target="lb" className="mx.controls.LinkBar" />
+                <SetStyle target="lb" styleName="separatorSkin"  valueExpression="value=application.greenrect" waitEvent="updateComplete" waitTarget="lb"/>
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="lb"/>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, SPACE]"  />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true"   target="lb" url="../Styles/baselines/separatorSkin_custom_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LB_Style_Basic_paddingBottom_mxml" description="LinkBar Basic styles set in mxml." keywords="[style, LinkBar, paddingBottom]">
+            <body>
+                <AssertPropertyValue target="lb3.getChildAt(0)" propertyName="height" value="27" />
+                <AssertPropertyValue target="lb3" propertyName="height" value="51" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_LB_Style_Basic_paddingBottom_stylename_mxml" description="LinkBar Basic styles." keywords="[style, LinkBar, paddingBottom]">
+            <body>
+                <AssertPropertyValue target="lb4.getChildAt(0)" propertyName="height" value="27" />
+                <AssertPropertyValue target="lb4" propertyName="height" value="46" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

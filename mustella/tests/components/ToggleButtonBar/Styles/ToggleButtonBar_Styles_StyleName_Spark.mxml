@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ToggleButtonBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ToggleButtonBar_Basic_Spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	public function addData(bool:int):void
+	{
+	    application.tbb.dataProvider = myDP;
+	}
+
+	public function addObjData():void
+	{
+	    application.tbb.dataProvider = iconDP;
+	}
+
+	public function changeDP(node:int, bool:String):void
+	{
+	    myDP.node[node].@enabled = bool;
+	}
+
+	[Bindable]
+	public var iconDP:Array= [{label:"Toys", icon:"dinosaur"},{label:"dinosaur", icon: "dinosaur"}];
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.ToggleButtonBar;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.events.ListEvent;
+
+    [Bindable]
+    private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+
+	]]>
+	</mx:Script>
+
+<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+        .fontSizeCustom {
+	        fontSize: 14;
+	     }
+
+	     .boldStyle {
+	        fontWeight: bold;
+     }
+</mx:Style>
+
+	<testCases>
+		<TestCase testID="TB_Style_Basic_firstButtonStyleName_multiple" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, firstButtonStyleName]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="firstButtonStyleName"  value="fontSizeCustom underLineStyle" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="firstButtonStyleName" value="fontSizeCustom underLineStyle"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb.getChildAt(0)" url="../Styles/baselines/spark/firstButtonStyleName_multiple.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="TB_Style_Basic_lastButtonStyleName_multiple" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, lastButtonStyleName]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="lastButtonStyleName"  value="fontSizeCustom underLineStyle" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="lastButtonStyleName" value="fontSizeCustom underLineStyle"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb.getChildAt(2)" url="../Styles/baselines/spark/lastButtonStyleName_multiple.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="TB_Style_Basic_buttonStyleName_multiple" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, buttonStyleName]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="buttonStyleName"  value="fontSizeCustom underLineStyle" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"  />
+				<DispatchKeyEvent key="TAB" waitTarget="tbb" waitEvent="focusIn" />
+				<AssertStyleValue target="tbb" styleName="buttonStyleName" value="fontSizeCustom underLineStyle"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb.getChildAt(1)" url="../Styles/baselines/spark/buttonStyleName_multiple.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="TB_Style_Basic_selectedButtonTextStyleName_multiple" description="ToggleButtonBar Basic styles." keywords="[style, ToggleButtonBar, selectedButtonTextStyleName]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="selectedButtonTextStyleName"  value="fontSizeCustom underLineStyle" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="tbb" localX="171" localY="9" waitEvent="mouseUp" waitTarget="tbb"/>
+				<AssertStyleValue target="tbb" styleName="selectedButtonTextStyleName" value="fontSizeCustom underLineStyle"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb.getChildAt(1)" url="../Styles/baselines/spark/selectedButtonTextStyleName_multiple.png" timeout="5000" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

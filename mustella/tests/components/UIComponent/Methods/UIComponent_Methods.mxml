@@ -1,0 +1,128 @@
+<UnitTester testDir="components/UIComponent/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="../SWFs/UIComponent_Main.mxml">
+    
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import TrixUIComponent;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+        
+        <!-- SetFocus -->
+        <TestCase testID="SetFocus_Normal" keywords="[UIComponent, Events, GetFocus]" description="Test the SetFocus method.">
+            <setup>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.myComponent.setFocus()" />
+                <AssertMethodValue method="value=application.myComponent.getFocus()" valueExpression="value=application.myComponent"/>
+            </body>
+        </TestCase>
+
+        <!-- GetFocus -->
+        <TestCase testID="GetFocus_Normal" keywords="[UIComponent, Methods, GetFocus]" description="Test the GetFocus method.">
+            <setup>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+                <RunCode code="application.myComponent.setFocus()" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.myComponent.getFocus()" valueExpression="value=application.myComponent"/>
+            </body>
+        </TestCase>
+
+        <!-- DrawFocus -->
+        <TestCase testID="DrawFocus_Normal" keywords="[UIComponent, Methods, DrawFocus]" description="Test the DrawFocus method.">
+            <setup>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.myComponent.drawFocus(true)" />
+                <CompareBitmap target="myComponent" url="../Methods/Baselines/DrawFocus_Normal.png" />
+            </body>
+        </TestCase>
+
+        <!-- SetCurrentState -->
+        <TestCase testID="SetCurrentState_Normal" keywords="[UIComponent, Methods, SetCurrentState]" description="Test the SetCurrentState method.">
+            <setup>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+                <RunCode code="application.myComponent.states.push(application.states[0])"/>
+            </setup>
+            <body>
+                <RunCode code="application.myComponent.setCurrentState('stateBlack', true)" waitTarget="myComponent" waitEvent="updateComplete"/>
+                <AssertPixelValue target="myComponent" x="10" y="10" value="0x000000" />
+            </body>
+        </TestCase>
+
+        <!-- focusEnabled -->
+        <TestCase testID="FocusEnabled_Set" keywords="[UIComponent, Methods, FocusEnabled]" description="Test the FocusEnabled set method.">
+            <setup>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="myComponent" propertyName="focusEnabled" value="true" />
+                <AssertPropertyValue target="myComponent" propertyName="focusEnabled" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="FocusEnabled_Get" keywords="[UIComponent, Methods, FocusEnabled]" description="Test the FocusEnabled get method.">
+            <setup>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+                <SetProperty target="myComponent" propertyName="focusEnabled" value="false" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComponent" propertyName="focusEnabled" value="false" />
+            </body>
+        </TestCase>
+
+        <!-- MouseFocusEnabled -->
+        <TestCase testID="MouseFocusEnabled_Set" keywords="[UIComponent, Methods, MouseFocusEnabled]" description="Test the MouseFocusEnabled set method.">
+            <setup>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="myComponent" propertyName="mouseFocusEnabled" value="true" />
+                <AssertPropertyValue target="myComponent" propertyName="mouseFocusEnabled" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="MouseFocusEnabled_Get" keywords="[UIComponent, Methods, MouseFocusEnabled]" description="Test the MouseFocusEnabled get method.">
+            <setup>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+                <SetProperty target="myComponent" propertyName="mouseFocusEnabled" value="false" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComponent" propertyName="mouseFocusEnabled" value="false" />
+            </body>
+        </TestCase>
+
+        <!-- currentState -->
+        <TestCase testID="CurrentState_Set" keywords="[UIComponent, Methods, CurrentState]" description="Test the CurrentState set method.">
+            <setup>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+                <RunCode code="application.myComponent.states.push(application.states[0])"/>
+            </setup>
+            <body>
+                <RunCode code="application.myComponent.currentState = 'stateBlack';" waitTarget="myComponent" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="myComponent" propertyName="currentState" value="stateBlack" />
+            </body>
+        </TestCase>
+        <TestCase testID="CurrentState_Get" keywords="[UIComponent, Methods, CurrentState]" description="Test the CurrentState get method.">
+            <setup>
+                <ResetComponent target="myComponent" className="TrixUIComponent" waitEvent="updateComplete"/>
+                <RunCode code="application.myComponent.states.push(application.states[0])"/>
+                <RunCode code="application.myComponent.setCurrentState('stateBlack', true)" waitTarget="myComponent" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComponent" propertyName="currentState" value="stateBlack" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+
+</UnitTester>

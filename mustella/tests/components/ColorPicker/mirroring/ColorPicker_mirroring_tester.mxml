@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ColorPicker/mirroring/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ColorPicker_Mirroring_Basic.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.core.FlexGlobals;
+	[Bindable]
+	public var simpleDP:Array = ['0x000000', '0xFF0000', '0xFF8800', '0xFFFF00',
+	'0x88FF00', '0x00FF00', '0x00FF88', '0x00FFFF', '0x0088FF', '0x0000FF',
+	'0x8800FF', '0xFF00FF', '0xFFFFFF'];
+
+	
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.ColorPicker;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.controls.colorPickerClasses.*;
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+	public var styleDecl:Object;
+	public var styleObj:Object;
+	 
+
+	]]>
+	</mx:Script>
+    <testCases>
+	
+    <TestCase testID="LayoutMirroring_rtl1" keywords="[ColorPicker, Mirroring]" description="application.layoutDirection=rtl">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertStyleValue target="myColorPicker" styleName="layoutDirection" value="rtl"/>  
+            <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" waitEvent="open" waitTarget="myColorPicker"/>
+ 	    <WaitForEffectsToEnd />
+ 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	    
+       
+        </body>
+    </TestCase>
+
+    <TestCase testID="LayoutMirroring_rtl2" keywords="[ColorPicker, Mirroring]" description="application.layoutDirection=ltr">
+        <setup>
+            <ResetComponent target="myColorPicker2" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <!-- layoutDirection!=ltr since inherited value overrides the one set in styleName -->
+            <AssertStyleValue target="myColorPicker2" styleName="layoutDirection" value="rtl"/> 
+            <RunCode code="FlexGlobals.topLevelApplication.myColorPicker2.open()" />
+ 	     <AssertEvent target="myColorPicker2" eventName="open"  numExpectedEvents="-1" eventClass="mx.events::DropdownEvent" />
+	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker2)" />
+	    
+	    <RunCode code="application.sp=application.myColorPicker2.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+       
+        </body>
+    </TestCase>
+    
+ 
+     <TestCase testID="LayoutMirroring_rtl3" keywords="[ColorPicker, Mirroring]" description="application.layoutDirection=rtl">
+         <setup>
+             <ResetComponent target="myColorPicker4" className="comps.CustomColorPicker2" waitEvent="updateComplete" />
+         </setup>
+         <body>
+             <AssertStyleValue target="myColorPicker4" styleName="layoutDirection" value="rtl"/> 
+             <RunCode code="FlexGlobals.topLevelApplication.myColorPicker4.open()" />
+ 	     <AssertEvent target="myColorPicker4" eventName="open"  numExpectedEvents="-1" eventClass="mx.events::DropdownEvent" />
+ 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker4)" />
+	    
+ 	    <RunCode code="application.sp=application.myColorPicker4.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+        
+         </body>
+     </TestCase>
+    
+
+    <TestCase testID="LayoutMirroring_selectedColor1" keywords="[ColorPicker, selectedColor, Mirroring]" description="Checking AS set Value of Property selectedColor when layoutDirection=rtl">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="selectedColor" value="0xff0000" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0xff0000" />
+            <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" waitEvent="open" waitTarget="myColorPicker"/>
+ 	    <WaitForEffectsToEnd />
+ 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+            <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>        
+        </body>
+    </TestCase>
+
+    <TestCase testID="LayoutMirroring_selectedColor2" keywords="[ColorPicker, selectedColor, Mirroring]" 
+    description="Checking Default Value of Property selectedColor custom Simple dataProvider,layoutDirection=rtl">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="dataProvider" valueExpression="value=simpleDP" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0x000000" />
+            <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" />
+ 	     <AssertEvent target="myColorPicker" eventName="open"  numExpectedEvents="-1" eventClass="mx.events::DropdownEvent" />
+           <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+           <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>        
+       
+        </body>
+    </TestCase>
+
+    <TestCase testID="LayoutMirroring_selectedColor3" keywords="[ColorPicker, selectedColor, Mirroring]" 
+    description="Checking selectedColor setting when layoutDirection=rtl to ltr">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetStyle target="myColorPicker" styleName="selectionColor" value="0x000000" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+             <SetProperty target="myColorPicker" propertyName="selectedColor" value="0x9933FF" waitEvent="updateComplete" waitTarget="myColorPicker" />
+             
+ 	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" />
+ 	     <AssertEvent target="myColorPicker"   numExpectedEvents="-1" eventName="open" eventClass="mx.events::DropdownEvent" />
+ 	     <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+ 	     <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	     <MyCompareBitmap target="sp" air_url="../Mirroring/Baselines/$testID_rtl.png" url="../Mirroring/Baselines/$testID_rtl_sa.png"  numColorVariances="10" maxColorVariance="20"/>
+ 	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.close()" />
+ 	     <AssertEvent target="myColorPicker" eventName="close" eventClass="mx.events::DropdownEvent" />
+ 	     
+ 	     <SetStyle target="myColorPicker" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+ 	     <SetStyle target="myColorPicker" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+ 	     <AssertStyleValue target="myColorPicker" styleName="layoutDirection" value="ltr"/>
+ 	      
+	      <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" />
+ 	     <AssertEvent target="myColorPicker"  numExpectedEvents="-1"  eventName="open" eventClass="mx.events::DropdownEvent" />
+ 	     <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+ 	     <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	     <MyCompareBitmap target="sp" air_url="../Mirroring/Baselines/$testID_ltr.png" url="../Mirroring/Baselines/$testID_ltr_sa.png" numColorVariances="10" maxColorVariance="20"/>   
+ 	      
+       
+        </body>
+    </TestCase>
+    
+
+    <TestCase testID="LayoutMirroring_selectedColor4" keywords="[ColorPicker, selectedColor, Mirroring]" 
+    description="Checking selectedColor setting when layoutDirection=ltr to rtl">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetStyle target="myColorPicker" styleName="selectionColor" value="0x000000" waitEvent="updateComplete"/>
+            <SetStyle target="myColorPicker" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+	     <SetStyle target="myColorPicker" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+             <SetProperty target="myColorPicker" propertyName="selectedColor" value="0x9933FF" waitEvent="updateComplete" waitTarget="myColorPicker" />
+             
+ 	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" />
+ 	     <AssertEvent target="myColorPicker" eventName="open"  numExpectedEvents="-1" eventClass="mx.events::DropdownEvent" />
+ 	     <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+ 	     <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	     <MyCompareBitmap target="sp" air_url="../Mirroring/Baselines/$testID_ltr.png" url="../Mirroring/Baselines/$testID_ltr_sa.png" numColorVariances="10" maxColorVariance="20"/>
+ 	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.close()" />
+ 	     <AssertEvent target="myColorPicker" eventName="close" eventClass="mx.events::DropdownEvent" />
+ 	     
+ 	     <SetStyle target="myColorPicker" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+ 	     <SetStyle target="myColorPicker" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+ 	     <AssertStyleValue target="myColorPicker" styleName="layoutDirection" value="rtl"/>
+ 	     
+	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" />
+ 	     <AssertEvent target="myColorPicker" eventName="open"  numExpectedEvents="-1" eventClass="mx.events::DropdownEvent" />
+ 	     <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+ 	     <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	     <MyCompareBitmap target="sp" air_url="../Mirroring/Baselines/$testID_rtl.png" url="../Mirroring/Baselines/$testID_rtl_sa.png" numColorVariances="10" maxColorVariance="20"/>       
+ 	    
+       
+        </body>
+    </TestCase>
+    
+    
+    
+
+    <TestCase testID="LayoutMirroring__selectedIndex1" keywords="[ColorPicker, selectedIndex, Mirroring]" 
+    		description="Checking AS Set Value of Property selectedIndex but by setting selectedColor, layoutDirection=rtl">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="selectedColor" value="0xff0000" waitEvent="updateComplete" waitTarget="myColorPicker" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedIndex" value="120" />
+            <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" waitEvent="open" waitTarget="myColorPicker"/>
+ 	    <WaitForEffectsToEnd />
+ 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+            <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>        
+       
+        </body>
+    </TestCase>
+
+    <TestCase testID="LayoutMirroring__selectedIndex2" keywords="[ColorPicker, selectedIndex, Mirroring]" 
+    		description="Checking AS Set Value of Property selectedIndex but by setting selectedColor, layoutDirection=rtl">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+            <SetProperty target="myColorPicker" propertyName="selectedIndex" value="120" waitEvent="updateComplete" waitTarget="myColorPicker" />
+       </setup>
+        <body>
+            <AssertPropertyValue target="myColorPicker" propertyName="selectedColor" value="0xff0000" />
+            <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" waitEvent="open" waitTarget="myColorPicker"/>
+ 	    <WaitForEffectsToEnd />
+ 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+            <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>        
+       
+        </body>
+    </TestCase>
+    
+       <TestCase testID="LayoutMirroring_open1" keywords="[ColorPicker, Mirroring]" description="application.layoutDirection=rtl">
+        <setup>
+            <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" waitEvent="open" waitTarget="myColorPicker"/>
+ 	    <WaitForEffectsToEnd />					 	    
+ 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+	    <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	   
+        </body>
+    </TestCase> 
+    
+       <TestCase testID="LayoutMirroring_open2" keywords="[ColorPicker, Mirroring]" description="application.layoutDirection=rtl">
+        <setup>
+            <ResetComponent target="myColorPicker2" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.myColorPicker2.open()" waitEvent="open" waitTarget="myColorPicker2"/>
+ 	    <WaitForEffectsToEnd />					
+ 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker2)" />
+	    
+	    <RunCode code="application.sp=application.myColorPicker2.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	   
+        </body>
+    </TestCase> 
+    
+      <TestCase testID="LayoutMirroring_open3" keywords="[ColorPicker, Mirroring]" description="application.layoutDirection=rtl">
+         <setup>
+             <ResetComponent target="myColorPicker4" className="comps.CustomColorPicker2" waitEvent="updateComplete" />
+         </setup>
+         <body>
+             <RunCode code="FlexGlobals.topLevelApplication.myColorPicker4.open()" waitEvent="open" waitTarget="myColorPicker4"/>
+ 	    <WaitForEffectsToEnd />     
+ 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker4)" />
+	    
+ 	     <RunCode code="application.sp=application.myColorPicker4.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+ 	    
+         </body>
+     </TestCase>
+
+      <TestCase testID="LayoutMirroring_update1" keywords="[ColorPicker, Mirroring]" description="update layoutDirection=rtl to ltr">
+         <setup>
+	     <ResetComponent target="myColorPicker2" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+	     <SetStyle target="myColorPicker2" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+	     <SetStyle target="myColorPicker2" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+	 </setup>
+	 <body>
+	     <AssertStyleValue target="myColorPicker2" styleName="layoutDirection" value="ltr"/>
+	     <SetStyle target="myColorPicker2" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+	     <AssertStyleValue target="myColorPicker2" styleName="layoutDirection" value="rtl"/>
+	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker2.open()" />
+	     <AssertEvent target="myColorPicker2" eventName="open" eventClass="mx.events::DropdownEvent" />					 	        
+	     <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker2)" />
+	    
+	     <RunCode code="application.sp=application.myColorPicker2.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	    
+       
+         </body>
+     </TestCase> 
+    
+ 
+     <TestCase testID="LayoutMirroring_update2" keywords="[ColorPicker, Mirroring]" description="update layoutDirection=rtl to ltr">
+          <setup>
+ 	     <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+ 	 </setup>
+ 	 <body>
+ 	     <AssertStyleValue target="myColorPicker" styleName="layoutDirection" value="rtl"/>
+ 	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" />
+ 	     <AssertEvent target="myColorPicker" eventName="open"  numExpectedEvents="-1" eventClass="mx.events::DropdownEvent" />
+ 	     <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+ 	     <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	     <MyCompareBitmap target="sp" air_url="../Mirroring/Baselines/$testID_rtl.png" url="../Mirroring/Baselines/$testID_rtl_sa.png" numColorVariances="10" maxColorVariance="20"/>
+ 	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.close()" />
+ 	     <AssertEvent target="myColorPicker" eventName="close" eventClass="mx.events::DropdownEvent" />
+ 	     
+ 	     <SetStyle target="myColorPicker" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+ 	     <SetStyle target="myColorPicker" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+ 	     <AssertStyleValue target="myColorPicker" styleName="layoutDirection" value="ltr"/>
+ 	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" />
+ 	     <AssertEvent target="myColorPicker"  numExpectedEvents="-1" eventName="open" eventClass="mx.events::DropdownEvent" />
+ 	     <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+ 	     <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	     <MyCompareBitmap target="sp" air_url="../Mirroring/Baselines/$testID_ltr.png"  url="../Mirroring/Baselines/$testID_ltr_sa.png" numColorVariances="10" maxColorVariance="20"/>
+ 	     
+          </body>
+     </TestCase> 
+      
+     <TestCase testID="LayoutMirroring_update3" keywords="[ColorPicker, Mirroring]" description="update layoutDirection=ltr to rtl">
+          <setup>
+ 	     <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+ 	     <SetStyle target="myColorPicker" styleName="selectionColor" value="0x000000" waitEvent="updateComplete"/>
+ 	 </setup>
+ 	 <body>
+ 	     <SetStyle target="myColorPicker" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+	     <SetStyle target="myColorPicker" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+	     <AssertStyleValue target="myColorPicker" styleName="layoutDirection" value="ltr"/>
+	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" />
+	     <AssertEvent target="myColorPicker" numExpectedEvents="-1" eventName="open" eventClass="mx.events::DropdownEvent" />
+ 	     <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+ 	     <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+ 	     
+	     <MyCompareBitmap target="sp" air_url="../Mirroring/Baselines/$testID_ltr.png" url="../Mirroring/Baselines/$testID_ltr_sa.png" numColorVariances="10" maxColorVariance="20"/>
+ 	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.close()" />
+ 	     <WaitForEffectsToEnd />
+	     
+ 	     <SetStyle target="myColorPicker" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+	     <SetStyle target="myColorPicker" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+ 	     <AssertStyleValue target="myColorPicker" styleName="layoutDirection" value="rtl"/>
+ 	     
+ 	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" />
+ 	     <WaitForEffectsToEnd />
+ 	     <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+ 	     <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	     <MyCompareBitmap target="sp" air_url="../Mirroring/Baselines/$testID_rtl.png" url="../Mirroring/Baselines/$testID_rtl_sa.png" numColorVariances="10" maxColorVariance="20"/>
+ 	     
+          </body>
+     </TestCase> 
+    
+     
+      <TestCase testID="LayoutMirroring_update4" keywords="[ColorPicker, Mirroring]" description="update layoutDirection from ltr to rtl">
+         <setup>
+	     <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+	     <SetStyle target="myColorPicker" styleName="selectionColor" value="0x000000" waitEvent="updateComplete"/>
+	 </setup>
+	 <body>
+	     <SetStyle target="myColorPicker" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+	     <SetStyle target="myColorPicker" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+	     <AssertStyleValue target="myColorPicker" styleName="layoutDirection" value="ltr"/>
+	     <Pause timeout="100"/>
+	     <RunCode code="FlexGlobals.topLevelApplication.myColorPicker.open()" waitEvent="open" waitTarget="myColorPicker"/>
+ 	    <WaitForEffectsToEnd />
+ 	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+	     <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+             
+         </body>
+     </TestCase>
+     
+     <TestCase testID="labelField_input_test1" keywords="[ColorPicker, change, Event]" description="typing labels in the labelField, so change event gets triggered when a ColorPicker's color is changed.">
+	<setup>
+	    <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+	</setup>
+	<body>
+	    <RunCode code="application.myColorPicker.open()" waitTarget="myColorPicker" waitEvent="open" />
+	    <WaitForEffectsToEnd />
+	    <RunCode code="application.myColorPicker.mx_internal::dropdown.mx_internal::textInput.text = '668912'" />
+	   
+	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+	    <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	    
+	</body>
+     </TestCase>  
+
+     <TestCase testID="labelField_input_test2" keywords="[ColorPicker, change, Event]" description="typing labels in the labelField, so change event gets triggered when a ColorPicker's color is changed.">
+	<setup>
+	    <ResetComponent target="myColorPicker" className="mx.controls::ColorPicker" waitEvent="updateComplete" />
+	</setup>
+	<body>
+	    <RunCode code="application.myColorPicker.open()" waitTarget="myColorPicker" waitEvent="open" />
+	    <WaitForEffectsToEnd />
+	    <SetStyle target="myColorPicker" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+	    <SetStyle target="myColorPicker" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+	     
+	    <RunCode code="application.myColorPicker.mx_internal::dropdown.mx_internal::textInput.text = '668912'" />
+	    <RunCode code="application.getRidOfCursor(FlexGlobals.topLevelApplication.myColorPicker)" />
+	    
+	    <RunCode code="application.sp=application.myColorPicker.mx_internal::dropdown"/>
+	    <CompareBitmap target="sp" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	   
+	</body>
+     </TestCase>  
+     
+     
+    </testCases>
+</UnitTester>

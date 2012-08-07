@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ToggleButtonBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ToggleButtonBar_Basic_Spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	public function addData(bool:int):void
+	{
+	application.tbb.dataProvider = myDP;
+	}
+
+	public function addObjData():void
+	{
+	application.tbb.dataProvider = iconDP;
+	}
+
+	public function changeDP(node:int, bool:String):void
+	{
+	myDP.node[node].@enabled = bool;
+	}
+
+	[Bindable]
+	public var iconDP:Array= [{label:"Toys", icon:"dinosaur"},{label:"dinosaur", icon: "dinosaur"}];
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.ToggleButtonBar;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.events.ListEvent;
+[Bindable]
+private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+	]]>
+	</mx:Script>
+	
+<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+.myButtonStyle
+{
+ color:red;
+ fontSize:20;
+ fontStyle:italic;
+ fontWeight:bold;
+ paddingLeft:10;
+ paddingRight:10;
+ textAlign:left;
+ textIndent:5;
+}
+</mx:Style>
+	
+	<testCases>
+		<TestCase testID="ToggleButtonBar_Style_Inherited_horizontalGap" description="ToggleButtonBar Inherited styles." keywords="[style, ToggleButtonBar, horizontalGap]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+				<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<SetStyle target="tbb" styleName="horizontalGap" value="20" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle styleName="buttonWidth" value="30"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/spark/horizontalGap_Inherited.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="ToggleButtonBar_Style_Inherited_buttonWidth" description="ToggleButtonBar Inherited styles." keywords="[style, ToggleButtonBar, horizontalGap]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb" />
+				<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<SetStyle target="tbb" styleName="buttonWidth" value="37" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="horizontalGap" value="40" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle styleName="buttonWidth" value="50" />
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/spark/buttonWidth_Inherited.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="ToggleButtonBarStyle_Inherited_firstButtonStyleName" description="ToggleButtonBar Inherited styles." keywords="[style, ToggleButtonBar, firstButtonStyleName]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+			
+				<SetStyle target="tbb" styleName="firstButtonStyleName" value="myButtonStyle" waitEvent="updateComplete" waitTarget="tbb"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/spark/firstButtonStyleName_Inherited.png" timeout="5000" />
+			</body>
+		</TestCase> 
+		<TestCase testID="ToggleButtonBarStyle_Inherited_lastButtonStyleName" description="ToggleButtonBar Inherited styles." keywords="[style, ToggleButtonBar, lastButtonStyleName]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<SetStyle target="tbb" styleName="lastButtonStyleName" value="myButtonStyle" waitEvent="updateComplete" waitTarget="tbb"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/spark/lastButtonStyleName_Inherited.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase> 
+		<TestCase testID="ToggleButtonBarStyle_Inherited_textIndent" description="ToggleButtonBar Inherited styles." keywords="[style, ToggleButtonBar, textIndent]">
+			<setup>
+				<ResetComponent target="tbb" className="mx.controls.ToggleButtonBar" waitEvent="updateComplete" waitTarget="tbb"/>
+				<RunCode code="addData(0);" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="textIndent" value="20" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="tbb"/>
+				<SetStyle target="tbb" styleName="tabWidth" value="100" waitEvent="updateComplete" waitTarget="tbb"/>
+			</setup>
+			<body>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="tbb" url="../Styles/baselines/spark/textIndent_Inherited.png" timeout="5000" numColorVariances="6" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

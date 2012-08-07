@@ -1,0 +1,1526 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/CheckBox/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="CheckBox_main.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}			
+
+		]]>
+
+	</mx:Script>
+
+	
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>	
+
+	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+			import mx.controls.CheckBox;
+
+			import mx.effects.Fade;
+
+			import mx.managers.ToolTipManager;
+
+
+
+			[Bindable]
+
+			private var myFade:Fade = new Fade();
+
+
+
+			public var myToolTip:Object;
+
+			
+
+			private function getToolTip():void
+
+			{
+
+				myToolTip = ToolTipManager.currentToolTip;
+
+			}
+
+
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+
+		<TestCase testID="autoRepeat_property_true_of_CheckBox" description="Test that checks repeated buttonDown events are sent when autoRepeat is true" keywords="[CheckBox, autoRepeat, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="autoRepeat" value="true"/>			
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseOver" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<AssertEvent target="myCheckBox" eventName="buttonDown" eventClass="mx.events::FlexEvent" />
+
+				<AssertEvent target="myCheckBox" eventName="buttonDown" eventClass="mx.events::FlexEvent" />
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseUp" localX="5" localY="5" />
+
+				<AssertPropertyValue target="myCheckBox" propertyName="autoRepeat" value="true"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of enabled property of CheckBox-->
+
+		<TestCase testID="enabled_property_default_of_CheckBox" description="Test that CheckBox is enabled by default" keywords="[CheckBox, enabled, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="enabled" value="true"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="enabled_property_true_of_CheckBox" description="Test that CheckBox is enabled" keywords="[CheckBox, enabled, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="enabled" value="true"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="enabled" value="true"/>
+
+				<CompareBitmap url="../properties/baselines/enabled_property_true_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="enabled_property_false_of_CheckBox" description="Test that CheckBox is enabled" keywords="[CheckBox, enabled, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="enabled" value="false"/>
+
+				<CompareBitmap url="../properties/baselines/enabled_property_false_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of height property of CheckBox-->
+
+		<TestCase testID="height_property_default_of_CheckBox" description="Test that the default height of CheckBox is 18" keywords="[CheckBox, height, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="height" value="18"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="height_property_50_of_CheckBox" description="Test that the height of CheckBox is 50" keywords="[CheckBox, height, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="height" value="50" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="50 Height CheckBox" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="height" value="50"/>
+
+				<CompareBitmap url="../properties/baselines/height_property_50_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="height_property_60point5_of_CheckBox" description="Test that the height of CheckBox is 60.5" keywords="[CheckBox, height, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="height" value="60.5" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="60.5 Height CheckBox" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="height" value="60.5"/>
+
+				<CompareBitmap url="../properties/baselines/height_property_60point5_of_CheckBox.png" target="myCheckBox" numColorVariances="4" ignoreMaxColorVariance="true"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="height_property_22_of_CheckBox" description="Test that the height of CheckBox is 22" keywords="[CheckBox, height, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="height" value="22" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="22 Height CheckBox" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="height" value="22"/>
+
+				<CompareBitmap url="../properties/baselines/height_property_22_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of label of CheckBox-->
+
+		<TestCase testID="label_property_default_of_CheckBox" description="Test the default label of CheckBox is empty" keywords="[CheckBox, label, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="label" value=""/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="label_property_blank_of_CheckBox" description="Test the label of CheckBox is empty" keywords="[CheckBox, label, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="" target="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/label_property_blank_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="label_property_set_of_CheckBox" description="Test the label of CheckBox is set to CBLabel" keywords="[CheckBox, label, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="CBLabel" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/label_property_set_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of labelPlacement of CheckBox-->
+
+<TestCase testID="labelPlacement_property_right_of_CheckBox" description="Test that checks the orientation of the label right" keywords="[CheckBox, labelPlacement, properties]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="CheckBox Right"/>
+
+				<SetProperty target="myCheckBox" propertyName="labelPlacement" value="right" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="label" value="CheckBox Right"/>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="labelPlacement" value="right"/>
+
+				<CompareBitmap url="../properties/baselines/labelPlacement_property_right_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="labelPlacement_property_left_of_CheckBox" description="Test that checks the orientation of the label is left" keywords="[CheckBox, labelPlacement, properties]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="CheckBox Left"/>
+
+				<SetProperty target="myCheckBox" propertyName="labelPlacement" value="left" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="label" value="CheckBox Left"/>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="labelPlacement" value="left"/>
+
+				<CompareBitmap url="../properties/baselines/labelPlacement_property_left_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>	
+
+
+
+		<TestCase testID="labelPlacement_property_bottom_of_CheckBox" description="Test that checks the orientation of the label is bottom" keywords="[CheckBox, labelPlacement, properties]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox" />
+
+				<SetProperty target="myCheckBox" propertyName="label" value="CheckBox Bottom"/>
+
+				<SetProperty target="myCheckBox" propertyName="labelPlacement" value="bottom" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="label" value="CheckBox Bottom"/>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="labelPlacement" value="bottom"/>
+
+				<CompareBitmap url="../properties/baselines/labelPlacement_property_bottom_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="labelPlacement_property_top_of_CheckBox" description="Test that checks the orientation of the label is top" keywords="[CheckBox, labelPlacement, properties]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="CheckBox Top"/>
+
+				<SetProperty target="myCheckBox" propertyName="labelPlacement" value="top" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="label" value="CheckBox Top"/>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="labelPlacement" value="top"/>
+
+				<CompareBitmap url="../properties/baselines/labelPlacement_property_top_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of maxHeight of CheckBox-->
+
+		<TestCase testID="maxHeight_default_property_of_CheckBox" description="Test that the default maxHeight is 10000" keywords="[CheckBox, maxHeight, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="maxHeight" value="10000" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="maxHeight_50_property_of_CheckBox" description="Tests a maxHeight of 50 for CheckBox" keywords="[CheckBox, maxHeight, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="50" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="maxHeight Label test" target="myCheckBox"/>
+
+				<SetProperty propertyName="maxHeight" value="50" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/maxHeight_50_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="maxHeight_150_property_of_CheckBox" description="Tests a maxHeight of 150 for CheckBox" keywords="[CheckBox, maxHeight, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="50" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="maxHeight Label test" target="myCheckBox"/>
+
+				<SetProperty propertyName="maxHeight" value="150" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/maxHeight_150_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="maxHeight_200_property_of_CheckBox" description="Tests a maxHeight of 200 for CheckBox" keywords="[CheckBox, maxHeight, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="50" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="maxHeight Label test" target="myCheckBox"/>
+
+				<SetProperty propertyName="maxHeight" value="200" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/maxHeight_200_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of maxWidth of CheckBox-->
+
+		<TestCase testID="maxWidth_default_property_of_CheckBox" description="Test that the default maxWidth is 10000" keywords="[CheckBox, maxWidth, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="maxWidth" value="10000" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="maxWidth_50_property_of_CheckBox" description="Tests a maxWidth of 50 for CheckBox" keywords="[CheckBox, maxWidth, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="50" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="maxWidth CheckBox test" target="myCheckBox"/>
+
+				<SetProperty propertyName="maxWidth" value="50" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/maxWidth_50_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="maxWidth_60_property_of_CheckBox" description="Tests a maxWidth of 60 for CheckBox" keywords="[CheckBox, maxWidth, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="50" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="maxWidth CheckBox test" target="myCheckBox"/>
+
+				<SetProperty propertyName="maxWidth" value="60" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/maxWidth_60_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="maxWidth_120_property_of_CheckBox" description="Tests a maxWidth of 120 for CheckBox" keywords="[CheckBox, maxWidth, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="50" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="maxWidth CheckBox test" target="myCheckBox"/>
+
+				<SetProperty propertyName="maxWidth" value="120" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/maxWidth_120_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of minHeight of CheckBox-->
+
+		<TestCase testID="minHeight_50_property_of_CheckBox" description="Tests a minHeight of 50 for CheckBox" keywords="[CheckBox, minHeight, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="25" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="minHeight CheckBox test" target="myCheckBox"/>
+
+				<SetProperty propertyName="minHeight" value="50" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/minHeight_50_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="minHeight_150_property_of_CheckBox" description="Tests a minHeight of 150 for CheckBox" keywords="[CheckBox, minHeight, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="25" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="minHeight CheckBox test" target="myCheckBox"/>
+
+				<SetProperty propertyName="minHeight" value="150" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/minHeight_150_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="minHeight_30_property_of_CheckBox" description="Tests a minHeight of 30 for CheckBox" keywords="[CheckBox, minHeight, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="25" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="minHeight CheckBox test" target="myCheckBox"/>
+
+				<SetProperty propertyName="minHeight" value="30" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/minHeight_30_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of minWidth of CheckBox-->
+
+		<TestCase testID="minWidth_50_property_of_CheckBox" description="Tests a minWidth of 50 for CheckBox" keywords="[CheckBox, minWidth, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="25" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="minWidth CheckBox test" target="myCheckBox"/>
+
+				<SetProperty propertyName="minWidth" value="50" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/minWidth_50_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="minWidth_60_property_of_CheckBox" description="Tests a minWidth of 60 for CheckBox" keywords="[CheckBox, minWidth, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="25" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="minWidth CheckBox test" target="myCheckBox"/>
+
+				<SetProperty propertyName="minWidth" value="60" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/minWidth_60_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="minWidth_300_property_of_CheckBox" description="Tests a minWidth of 300 for CheckBox" keywords="[CheckBox, minWidth, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="25" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="minWidth CheckBox test" target="myCheckBox"/>
+
+				<SetProperty propertyName="minWidth" value="300" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/minWidth_300_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of percentHeight of CheckBox-->
+
+		<TestCase testID="percentHeight_property_1_of_CheckBox" keywords="[CheckBox, percentHeight, property]" description="Verifies the percentHeight of a CheckBox is set to 50">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="percentHeight" value="1" />
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/percentHeight_1_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="percentHeight_property_50_of_CheckBox" keywords="[CheckBox, percentHeight, property]" description="Verifies the percentHeight of a CheckBox is set to 50">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/percentHeight_50_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="percentHeight_property_150_of_CheckBox" keywords="[CheckBox, percentHeight, property]" description="Verifies the percentHeight of a CheckBox is set to 50">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="percentHeight" value="150" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/percentHeight_150_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+	
+
+		<TestCase testID="percentHeight_property_70_of_CheckBox" keywords="[CheckBox, percentHeight, property]" description="Verifies the percentHeight of a CheckBox is set to 50">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="percentHeight" value="70" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/percentHeight_70_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of percentWidth of CheckBox-->
+
+		<TestCase testID="percentWidth_property_50_of_CheckBox" keywords="[CheckBox, percentWidth, property]" description="Verifies the percentWidth of a CheckBox is set to 50">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/percentWidth_50_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="percentWidth_property_120_of_CheckBox" keywords="[CheckBox, percentWidth, property]" description="Verifies the percentWidth of a CheckBox is set to 50">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="percentWidth" value="120" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/percentWidth_120_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="percentWidth_property_60_of_CheckBox" keywords="[CheckBox, percentWidth, property]" description="Verifies the percentWidth of a CheckBox is set to 50">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="percentWidth" value="60" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/percentWidth_60_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="percentWidth_property_80_of_CheckBox" keywords="[CheckBox, percentWidth, property]" description="Verifies the percentWidth of a CheckBox is set to 50">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="percentWidth" value="80" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/percentWidth_80_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of scale X of CheckBox-->
+
+		<TestCase testID="Checking_scaleX_default_property_of_CheckBox" keywords="[CheckBox, scaleX, property]" description="Verifies the default scaleX value for CheckBox is 1.0">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="scaleX" value="1.0" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_scaleX_3_property_of_CheckBox" keywords="[CheckBox, scaleX, property]" description="Verifies the scaleX value for CheckBox is 3.0">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="scaleX" value="3.0" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/Checking_scaleX_3_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_scaleX_point6_property_of_CheckBox" keywords="[CheckBox, scaleX, property]" description="Verifies the scaleX value for CheckBox is .6">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="scaleX" value=".6" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/Checking_scaleX_point6_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_scaleX_point8_property_of_CheckBox" keywords="[CheckBox, scaleX, property]" description="Verifies the default scaleX value for CheckBox is 0.8">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="scaleX" value=".8" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/Checking_scaleX_point8_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of scale Y of CheckBox-->
+
+		<TestCase testID="Checking_scaleY_default_property_of_CheckBox" keywords="[CheckBox, scaleY, property]" description="Verifies the default scaleY value for CheckBox is 1.0">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="scaleY" value="1.0" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_scaleY_2_property_of_CheckBox" keywords="[CheckBox, scaleY, property]" description="Verifies scaleY value for CheckBox is 2.0">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="scaleY" value="2.0" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/Checking_scaleY_2_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_scaleY_8_property_of_CheckBox" keywords="[CheckBox, scaleY, property]" description="Verifies the scaleY value for CheckBox is .8">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="scaleY" value=".8" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/Checking_scaleY_point8_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Checking_scaleY_point5_property_of_CheckBox" keywords="[CheckBox, scaleY, property]" description="Verifies the default scaleY value for CheckBox is 0.5">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="scaleY" value=".5" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/Checking_scaleY_point5_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="selected_default_property_of_CheckBox" keywords="[CheckBox, selected, property]" description="The default value of selected for CheckBox should be false">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="selected" value="false" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="selected_false_property_of_CheckBox" keywords="[CheckBox, selected, property]" description="The value of selected for CheckBox should be false">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="selected" value="false" target="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/selected_false_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="selected_true_property_of_CheckBox" keywords="[CheckBox, selected, property]" description="The value of selected for CheckBox should be true">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="selected" value="true" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/selected_true_property_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of toolTip for CheckBox-->
+
+		<TestCase testID="toolTip_default_property_of_CheckBox" keywords="[CheckBox, toolTip, property]" description="Ensure the CheckBox defaults to no toolTip.">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="toolTip" value="null" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="toolTip_property_of_CheckBox" keywords="[CheckBox, toolTip, property]" description="Ensure the toolTip displays properly.">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="toolTip" value="CheckBox tool tip"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="Tool tip CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCheckBox" localX="5" localY="1" type="mouseMove"/>
+
+				<DispatchMouseEvent target="myCheckBox" localX="5" localY="2" type="mouseMove"/>
+
+				<DispatchMouseEvent target="myCheckBox" localX="5" localY="5" type="mouseOver" waitEvent="toolTipCreate" waitTarget="myCheckBox"/>
+
+				<RunCode code="getToolTip()"/>
+
+				<AssertPropertyValue propertyName="text" target="script:myToolTip" value="CheckBox tool tip"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of visible for CheckBox-->
+
+		<TestCase testID="visible_property_default_of_CheckBox" keywords="[CheckBox, visible, property]" description="Ensures that the visible property defaults to true">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue propertyName="visible" target="myCheckBox" value="true"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="visible_property_false_of_CheckBox" keywords="[CheckBox, visible, property]" description="Sets visible to false for CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="visible" value="false"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="myCheckBox" url="../properties/baselines/visible_property_false_of_CheckBox.png"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="visible_property_true_of_CheckBox" keywords="[CheckBox, visible, property]" description="Sets visible to true for CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="visible" value="true"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap target="myCheckBox" url="../properties/baselines/visible_property_true_of_CheckBox.png"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of width property of CheckBox-->
+
+		<TestCase testID="width_property_default_of_CheckBox" description="Test that the default width of CheckBox is 52 for Flex 3" keywords="[CheckBox, width, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="Label" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<!--Value is 52 for Flex 3.0, should be 58 for earlier versions-->
+
+				<AssertPropertyValue target="myCheckBox" propertyName="width" value="50"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="width_property_120_of_CheckBox" description="Test that the width of CheckBox is 120" keywords="[CheckBox, width, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="width" value="120" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="120 width CheckBox" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="width" value="120"/>
+
+				<CompareBitmap url="../properties/baselines/width_property_120_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="width_property_60point5_of_CheckBox" description="Test that the width of CheckBox is 60.5" keywords="[CheckBox, width, property]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="width" value="60.5" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="60.5 width CheckBox" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="width" value="60.5"/>
+
+				<CompareBitmap url="../properties/baselines/width_property_60point5_of_CheckBox.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of x for CheckBox-->
+
+		<TestCase testID="x_default_property_CheckBox" keywords="[x, property, CheckBox]" description="Tests that the  default x is 0 for a CheckBox inside of Canvas">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="x" value="0"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="x_100_property_CheckBox" keywords="[x, property, CheckBox]" description="Tests setting x to 100 for a CheckBox inside of Canvas">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="x" value="100"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/x_100_property_CheckBox.png" target="myCanvas"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="x_neg5point6_property_CheckBox" keywords="[x, property, CheckBox]" description="Tests setting x  to -5.6 for a CheckBox inside of Canvas">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="x" value="-5.6"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/x_neg5point6_property_CheckBox.png" target="myCanvas"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="x_50_property_CheckBox" keywords="[x, property, CheckBox]" description="Tests setting x to 50  for a CheckBox inside of Canvas">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="x" value="50"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/x_50_property_CheckBox.png" target="myCanvas"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<!--Testcases for manual test of y for CheckBox-->
+
+		<TestCase testID="y_default_property_CheckBox" keywords="[y, property, CheckBox]" description="Tests that the  default y is 0 for a CheckBox inside of Canvas">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="myCheckBox" propertyName="y" value="0"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="y_56_property_CheckBox" keywords="[y, property, CheckBox]" description="Tests setting y to 56  for a CheckBox inside of Canvas">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="y" value="56"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/y_56_property_CheckBox.png" target="myCanvas"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="y_neg5point6_property_CheckBox" keywords="[y, property, CheckBox]" description="Tests setting y  to -5.6 for a CheckBox inside of Canvas">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="y" value="-5.6"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/y_neg5point6_property_CheckBox.png"  target="myCanvas"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="y_50_property_CheckBox" keywords="[y, property, CheckBox]" description="Tests setting y to 50  for a CheckBox inside of Canvas">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="y" value="50"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="Label" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../properties/baselines/y_50_property_CheckBox.png" target="myCanvas"/>
+
+			</body>
+
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>
+

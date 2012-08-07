@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Slider/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="HSlider_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	
+	[Bindable]
+	public var labelsArray:Array = ['Left', 'Center', 'Right'];
+
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+		import mx.controls.HSlider;
+		import mx.styles.StyleManager;
+		import mx.managers.SystemManager;
+
+		public function scriptFunction(a:String, b:int):String
+		{
+			return a + ":" + b.toString();
+		}
+
+		public var styleDecl:Object;
+		public var styleObj:Object;
+		
+		[Bindable]
+		private var valuesArray:Array = [1, 5, 8];
+		
+		private var numChanges:int;
+		
+		private function initNumChanges():void{
+			numChanges = 0;
+		}
+		
+		private function countChangeEvents(e:Event):void{
+			numChanges++;
+		}
+		
+		private function addCount():void{
+			application.myHSlider.addEventListener("change", countChangeEvents);
+		}
+		
+		private function enoughChanges():Boolean{
+			return numChanges >= 2;
+		}
+
+	]]>
+	</mx:Script>
+	<testCases>
+		
+		<TestCase testID="Checking_Default_Value_of_Property_allowThumbOverlap" keywords="[HSlider, allowThumbOverlap, Property]" description="Checking Default Value of Property allowThumbOverlap">
+			<setup>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="allowThumbOverlap" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_allowThumbOverlap_false" keywords="[HSlider, allowThumbOverlap, Property]" description="Checking MXML Value of Property allowThumbOverlap">
+			<setup>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="thumbCount" value="2"/>
+				<SetProperty target="myHSlider" propertyName="allowThumbOverlap" value="false" />
+				<RunCode code="application.myHSlider.setThumbValueAt(1,6)" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<RunCode code="application.myHSlider.setThumbValueAt(0,6)" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/allowThumbOverlap_false.png" target="myHSlider"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_Property_allowThumbOverlap_true" keywords="[HSlider, allowThumbOverlap, Property]" description="Checking MXML Value of Property allowThumbOverlap">
+			<setup>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="thumbCount" value="2"/>
+				<SetProperty target="myHSlider" propertyName="allowThumbOverlap" value="true" />
+				<RunCode code="application.myHSlider.setThumbValueAt(1,6)" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<RunCode code="application.myHSlider.setThumbValueAt(0,6)" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/allowThumbOverlap_true.png" target="myHSlider"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="HSlider_Default_Value_of_Property_allowTrackClick" keywords="[HSlider, allowTrackClick, Property]" description="Checking Default Value of Property allowTrackClick">
+			<setup>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="allowTrackClick" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_property_allowTrackClick_true" keywords="[HSlider, allowTrackClick, Property]" description="Checking MXML Value of Property allowTrackClick">
+			<setup>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="allowTrackClick" value="true"  />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent localX="84" localY="6" target="myHSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<CompareBitmap url="../properties/baselines/allowTrackClick_true.png" target="myHSlider"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_property_allowTrackClick_false" keywords="[HSlider, allowTrackClick, Property]" description="Checking AS Value of Property allowTrackClick">
+			<setup>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<RunCode code="application.myHSlider.allowTrackClick=false" />
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="allowTrackClick" value="false" />
+				<DispatchMouseClickEvent localX="84" localY="6" target="myHSlider" />
+				<CompareBitmap url="../properties/baselines/allowTrackClick_false.png" target="myHSlider"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_Default_Value_of_Property_liveDragging" keywords="[HSlider, liveDragging, Property]" description="Checking Default Value of Property liveDragging">
+			<setup>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				
+				<AssertPropertyValue target="myHSlider" propertyName="liveDragging" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_Property_liveDragging_true" keywords="[HSlider, liveDragging, Property]" description="Checking MXML Value of Property liveDragging">
+			<setup>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="liveDragging" value="true"  />
+				<RunCode code="script:initNumChanges(); script:addCount();"/>
+				<DispatchMouseEvent target="myHSlider" localX="0" localY="6" type="mouseDown" />
+				<DispatchMouseEvent target="myHSlider" localX="5" localY="6" type="mouseMove" />
+				<DispatchMouseEvent target="myHSlider" localX="5" localY="6" type="mouseDown"/>
+				<DispatchMouseEvent target="myHSlider" localX="9" localY="6" type="mouseMove" waitEvent="change" waitTarget="myHSlider"/>
+				<DispatchMouseEvent target="myHSlider" localX="9" localY="6" type="mouseDown"/>
+				<DispatchMouseEvent target="myHSlider" localX="15" localY="6" type="mouseMove" waitEvent="change" waitTarget="myHSlider"/>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseMove" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=enoughChanges()" value="true"/>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<AssertPropertyValue target="myHSlider" propertyName="liveDragging" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_Property_liveDragging_false" keywords="[HSlider, liveDragging, Property]" description="Checking AS Value of Property liveDragging">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="0" localY="0" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<RunCode code="application.myHSlider.liveDragging=false"/>
+				<RunCode code="script:initNumChanges(); script:addCount();"/>
+				<DispatchMouseEvent target="myHSlider" localX="0" localY="6" type="mouseDown" />
+				<DispatchMouseEvent target="myHSlider" localX="5" localY="6" type="mouseMove" />
+				<DispatchMouseEvent target="myHSlider" localX="5" localY="6" type="mouseDown"/>
+				<DispatchMouseEvent target="myHSlider" localX="9" localY="6" type="mouseMove"/>
+				<DispatchMouseEvent target="myHSlider" localX="9" localY="6" type="mouseDown"/>
+				<DispatchMouseEvent target="myHSlider" localX="15" localY="6" type="mouseMove"/>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseMove" />				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=numChanges" value="0"/>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<AssertPropertyValue target="myHSlider" propertyName="liveDragging" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_Default_Value_of_Property_maximum" keywords="[HSlider, maximum, Property]" description="Checking Default Value of Property maximum">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="maximum" value="10" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_Property_maximum" keywords="[HSlider, maximum, Property]" description="Checking MXML Value of Property maximum">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				<SetProperty target="myHSlider" propertyName="value" value="150" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<CompareBitmap url="../properties/baselines/maximumproperty.png" target="myHSlider"/>
+				<AssertPropertyValue target="myHSlider" propertyName="maximum" value="100" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="100"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_Default_Value_of_Property_minimum" keywords="[HSlider, minimum, Property]" description="Checking Default Value of Property minimum">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				
+				<AssertPropertyValue target="myHSlider" propertyName="minimum" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_Property_minimum" keywords="[HSlider, minimum, Property]" description="Checking MXML Value of Property minimum">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="minimum" value="5" waitEvent="change" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				<SetProperty target="myHSlider" propertyName="value" value="3" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<AssertPropertyValue target="myHSlider" propertyName="minimum" value="5" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="5"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_Default_Value_of_Property_showDataTip" keywords="[HSlider, showDataTip, Property]" description="Checking Default Value of Property showDataTip">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				
+				<AssertPropertyValue target="myHSlider" propertyName="showDataTip" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_Property_showDataTip" keywords="[HSlider, showDataTip, Property]" description="Checking MXML Value of Property showDataTip">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="showDataTip" value="false" />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myHSlider" localX="0" localY="6" type="mouseDown" />
+				<DispatchMouseEvent target="myHSlider" localX="5" localY="6" type="mouseMove" />
+				<DispatchMouseEvent target="myHSlider" localX="5" localY="6" type="mouseDown"/>
+				<DispatchMouseEvent target="myHSlider" localX="9" localY="6" type="mouseMove"/>
+				<DispatchMouseEvent target="myHSlider" localX="9" localY="6" type="mouseDown"/>
+				<DispatchMouseEvent target="myHSlider" localX="15" localY="6" type="mouseMove"/>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseMove"  waitEvent="thumbDrag" waitTarget="myHSlider"/>	
+				<AssertPropertyValue target="myHSlider" propertyName="showDataTip" value="false" />
+				<CompareBitmap url="../properties/baselines/showDataTipFalse.png" target=""/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_Property_showDataTip_true" keywords="[HSlider, showDataTip, Property]" description="Checking MXML Value of Property showDataTip">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myHSlider" localX="0" localY="6" type="mouseDown" />
+				<DispatchMouseEvent target="myHSlider" localX="5" localY="6" type="mouseMove" />
+				<DispatchMouseEvent target="myHSlider" localX="5" localY="6" type="mouseDown"/>
+				<DispatchMouseEvent target="myHSlider" localX="9" localY="6" type="mouseMove"/>
+				<DispatchMouseEvent target="myHSlider" localX="9" localY="6" type="mouseDown"/>
+				<DispatchMouseEvent target="myHSlider" localX="15" localY="6" type="mouseMove"/>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseMove" waitEvent="thumbDrag" waitTarget="myHSlider"/>	
+				<CompareBitmap url="../properties/baselines/showDataTipTrue.png" target=""/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Checking_Default_Value_of_Property_snapInterval" keywords="[HSlider, snapInterval, Property]" description="Checking Default Value of Property snapInterval">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				
+				<AssertPropertyValue target="myHSlider" propertyName="snapInterval" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_Property_snapInterval" keywords="[HSlider, snapInterval, Property]" description="Checking MXML Value of Property snapInterval">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitTarget="myHSlider" waitEvent="updateComplete"/>
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+				<DispatchMouseEvent target="myHSlider" localX="100" localY="10" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<DispatchMouseClickEvent target="myHSlider" localX="100" localY="10" waitEvent="updateComplete" waitTarget="myHSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="6"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_Property_labels" keywords="[HSlider, labels, Property]" description="Checking MXML Value of Property labels">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="labels" valueExpression="value=labelsArray" waitEvent="updateComplete" waitTarget="myHSlider" />		
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/labels.png" target=""/>
+				<AssertPropertyValue target="myHSlider" propertyName="labels" value="Left,Center,Right" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_Default_Value_of_Property_thumbCount" keywords="[HSlider, labels, Property]" description="Checking Default Value of Property thumbCount">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="thumbCount" value="1" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="HSlider_Property_thumbCount" keywords="[HSlider, thumbCount, Property]" description="Checking MXML Value of Property thumbCount">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" />
+				<SetProperty target="myHSlider" propertyName="thumbCount" value="3" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="values" valueExpression="value=valuesArray" waitEvent="updateComplete" waitTarget="myHSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="thumbCount" value="3" />
+				<CompareBitmap url="../properties/baselines/thumbCount.png" target="myHSlider"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_Default_Value_of_Property_tickInterval" keywords="[HSlider, thumbCount, Property]" description="Checking Default Value of Property tickInterval">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="tickInterval" value="0" />
+				<CompareBitmap url="../properties/baselines/tickIntervalDefault.png" target=""/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Set_Value_of_Property_tickInterval" keywords="[HSlider, tickInterval, Property]" description="Checking MXML Value of Property tickInterval">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" />
+				<SetProperty target="myHSlider" propertyName="tickInterval" value="2" waitEvent="updateComplete" waitTarget="myHSlider" />
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="tickInterval" value="2" />
+				<CompareBitmap url="../properties/baselines/tickInterval2.png" target=""/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="Checking_MXML_Interactively_allowTrackClick" keywords="[HSlider, allowTrackClick, Property]" description="Checking Interactively the allowTrackClick Property using mouse events">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myHSlider" propertyName="allowTrackClick" value="false"/>
+				<DispatchMouseEvent target="myHSlider" localX="100" localY="10" type="mouseMove"/>
+				<DispatchMouseClickEvent target="myHSlider" localX="100" localY="10" waitEvent="updateComplete" waitTarget="myHSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0"/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Checking_MXML_Interactively_maximum" keywords="[HSlider, maximum, Property]" description="Checking Interactively the maximum Property using mouse events">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myHSlider" propertyName="maximum" value="20"/>
+				<DispatchMouseEvent target="myHSlider" localX="100" localY="10" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<DispatchMouseClickEvent target="myHSlider" localX="100" localY="10" waitEvent="updateComplete" waitTarget="myHSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="12"/>
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Interactively_minimum" keywords="[HSlider, minimum, Property]" description="Checking Interactively the minimum Property using mouse events">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myHSlider" propertyName="minimum" value="10"/>
+				<SetProperty target="myHSlider" propertyName="maximum" value="20"/>
+				<DispatchMouseEvent target="myHSlider" localX="100" localY="10" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<DispatchMouseClickEvent target="myHSlider" localX="100" localY="10" waitEvent="updateComplete" waitTarget="myHSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="16"/>
+				
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_MXML_Interactively_thumbCount" keywords="[HSlider, thumbCount, Property]" description="Checking Interactively the thumbCount Property using mouse events">
+			<setup>
+				<DispatchMouseEvent target="myHSlider" localX="20" localY="6" type="mouseUp"/>
+				<ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myHSlider" propertyName="thumbCount" value="2"/>
+				<DispatchMouseEvent target="myHSlider" localX="100" localY="10" type="mouseMove" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<DispatchMouseClickEvent target="myHSlider" localX="100" localY="10" waitEvent="updateComplete" waitTarget="myHSlider"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myHSlider" propertyName="values" value="0,6"/>
+				
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

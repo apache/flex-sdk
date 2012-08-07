@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="components/ComboBox/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ComboBoxMain.mxml">
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<mx:Script>
+	<![CDATA[
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.managers.ToolTipManager;
+	import mx.controls.TextArea;
+	import mx.controls.Alert;
+	private var ta:TextArea;
+		
+	public function remove_and_repopulate():void
+	{
+	    application.mybox.myCB.dataProvider.removeAll();
+	    application.mybox.myCB.dataProvider=[{slno:"1",label:"Joseph",age:"23"},{slno:"2",label:"Jeena",age:"21"},{slno:"3",label:"Jerry",age:"4"}
+		 ,{slno:"4",label:"Tom",age:"1"},{slno:"5",label:"Rick",age:"12"},{slno:"6",label:"John",age:"52"}];
+	}
+	
+	private function attachListener():void{
+		application.mybox.myCB.addEventListener('change',changeListener);
+	}
+	
+	private function changeListener(evt:Event):void{
+		Alert.show('An Item is Selected');
+	}
+	
+	private function addTA():void{
+		ta = new TextArea();
+		application.mybox.addChild(ta);
+	}
+	]]>
+	</mx:Script>
+	
+      <testCases>	           
+	 <TestCase testID="combobox_bugs_167943_1" keywords="[comboBox, bugs, 167943, 1]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>	
+		   <SetStyle target="mybox.myCB" styleName="borderColor" value="0xff0000" />
+		     <RunCode code="addTA()" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>			
+		 <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_injection_167943_1_initial.png"  />   	
+		 <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="open" waitTarget="mybox.myCB"/>
+		 <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="close" waitTarget="mybox.myCB"/>
+		 <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="open" waitTarget="mybox.myCB"/>
+		 <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="close" waitTarget="mybox.myCB"/>
+		 <!-- DispatchKeyEvent key="TAB" />-->
+		  <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_injection_167943_1_after_setting.png"  />  
+	     </body>
+	</TestCase>
+	<TestCase testID="combobox_bugs_167943_2" keywords="[comboBox, bugs, 167943, 2]">
+	      <setup>
+		   <ResetComponent target="mybox" className="ComboBoxComp" waitEvent="updateComplete" waitTarget="mybox"/>	
+		     <RunCode code="addTA()" waitEvent="updateComplete" waitTarget="mybox"/>
+	     </setup>
+	    <body>			
+		 <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_injection_167943_2_initial.png"  /> 
+		 <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="open" waitTarget="mybox.myCB"/>
+		 <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="close" waitTarget="mybox.myCB"/>
+		<SetStyle target="mybox.myCB" styleName="borderColor" value="0xff0000" />
+		<WaitForEffectsToEnd/>
+		<DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2" waitEvent="open" waitTarget="mybox.myCB"/>
+		 <DispatchMouseClickEvent target="mybox.myCB" localX="2" localY="2"  waitEvent="close" waitTarget="mybox.myCB"/>
+		 <WaitForEffectsToEnd/>
+		 <DispatchMouseEvent  target="mybox.myCB" type ="mouseOver" stageX="5" stageY="5" />
+		 <!-- <DispatchKeyEvent key="TAB" />-->
+		 <WaitForEffectsToEnd/>
+		 <CompareBitmap target="mybox" url="../Integration/Baselines/cb_bugs_injection_167943_2_after_setting.png"  />  
+	     </body>
+	</TestCase>
+	</testCases>                	     
+</UnitTester>

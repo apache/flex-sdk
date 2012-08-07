@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Image/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Image_main.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.Image;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    public function scriptFunction(a:String, b:int):String
+    {
+        return a + ":" + b.toString();
+    }
+    public var styleDecl:Object;
+    public var styleObj:Object;
+
+
+    ]]>
+    </mx:Script>
+    <testCases>
+        
+        <TestCase testID="source_property_AS"  keywords="[Image, Property, alpha]"  description="Checking whether the source property works fine when set with AS">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <RunCode code="application.myImage.source='../../../../Assets/Images/redrect.png'" waitEvent="updateComplete" waitTarget="myImage" timeout="5000"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="alpha_property_Default"  keywords="[Image, Property, alpha]" description="Checking whether the alpha property works fine by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" timeout="5000" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="alpha" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="alpha_property_MXML"  keywords="[Image, Property, alpha]" description="Checking whether the alpha property works fine when set with MXML using Bitmap Comparision">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                <SetProperty target="myImage" propertyName="alpha" value="0.5" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <CompareBitmap target="myImage" url="../properties/baselines/alpha_MXML_bm.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="alpha_property_AS"  keywords="[Image, Property, alpha]" description="Checking whether the alpha property works fine when set with AS using Bitmap Comparision">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                <RunCode code="application.myImage.alpha='0.25'" waitEvent="updateComplete" waitTarget="myImage"/>
+                
+            </setup>
+            <body>
+                <CompareBitmap target="myImage" url="../properties/baselines/alpha_AS_bm.png"  />
+                <Pause timeout="1500" />
+            </body>
+        </TestCase>
+        <TestCase testID="autoLoad_property_Default"  keywords="[Image, Property, autoLoad]" description="Checking whether the autoLoad property works fine by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="autoLoad" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="autoLoad_property_MXML"  keywords="[Image, Property, autoLoad]" description="Checking whether the autoLoad property works fine when set with MXML">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png"/>
+                <SetProperty target="myImage" propertyName="autoLoad" value="false" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="width" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="autoLoad_property_AS"  keywords="[Image, Property, autoLoad]" description="Checking whether the autoLoad property works fine when set with AS">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png"/>
+                <RunCode code="application.myImage.autoLoad=false" waitEvent="updateComplete" waitTarget="myImage"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="width" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="bytesLoaded_property"  keywords="[Image, Property, autoLoad]" description="Checking whether the bytesLoaded property works">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="bytesLoaded" value="1475" waitEvent="complete" waitTarget="myImage" />
+            </body>
+        </TestCase>
+        <TestCase testID="bytesTotal_property"  keywords="[Image, Property, autoLoad]" description="Checking whether the bytesTotal property works">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="bytesTotal" value="1475" waitEvent="complete" waitTarget="myImage"  />
+            </body>
+        </TestCase>
+        <TestCase testID="contentHeight_property_Default"  keywords="[Image, Property, contentHeight]" description="Checking whether the contentHeight property works by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="contentHeight" value="100" waitEvent="complete" waitTarget="myImage"  />
+            </body>
+        </TestCase>
+        <TestCase testID="contentWidth_property_Default"  keywords="[Image, Property, contentWidth]" description="Checking whether the contentWidth property works by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="contentWidth" value="100"  waitEvent="complete" waitTarget="myImage"  />
+            </body>
+        </TestCase>
+        <TestCase testID="doubleClickEnabled_property"  keywords="[Image, Property, doubleClickEnabled]" description="Checking whether the doubleClickEnabled property works by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="doubleClickEnabled" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="enabled_property"  keywords="[Image, Property, enabled]" description="Checking whether the enabled property works by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="enabled" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="focusEnabled_property"  keywords="[Image, Property, focusEnabled]" description="Checking whether the focusEnabled property works by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="focusEnabled" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="focusRect_property"  keywords="[Image, Property, focusRect]" description="Checking whether the focusRect property works by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="focusRect" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="height_property"  keywords="[Image, Property, height]" description="Checking whether the height property works by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                <SetProperty target="myImage" propertyName="maintainAspectRatio" value="true" waitEvent="updateComplete" waitTarget="myImage" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="height" value="100"  />
+            </body>
+        </TestCase>
+        <TestCase testID="height_property_MXML"  keywords="[Image, Property, height]" description="Checking whether the height property works when set with MXML by Bitmap Comparision">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                <SetProperty target="myImage" propertyName="maintainAspectRatio" value="false" waitEvent="updateComplete" waitTarget="myImage" />
+                <SetProperty target="myImage" propertyName="height" value="350" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <CompareBitmap target="myImage" url="../properties/baselines/height_MXML_bm.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="height_property_AS"  keywords="[Image, Property, height]" description="Checking whether the height property works when set with AS by Bitmap Comparision">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                <SetProperty target="myImage" propertyName="maintainAspectRatio" value="false" waitEvent="updateComplete" waitTarget="myImage" />
+                <RunCode code="application.myImage.height=350" waitEvent="updateComplete" waitTarget="myImage"/>
+                
+            </setup>
+            <body>
+                <CompareBitmap target="myImage" url="../properties/baselines/height_AS_bm.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="width_property"  keywords="[Image, Property, width]" description="Checking whether the width property works by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                <SetProperty target="myImage" propertyName="maintainAspectRatio" value="true" waitEvent="updateComplete" waitTarget="myImage" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="width" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="width_property_MXML"  keywords="[Image, Property, width]" description="Checking whether the width property works when set with MXML by Bitmap Comparision">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                <SetProperty target="myImage" propertyName="maintainAspectRatio" value="false" waitEvent="updateComplete" waitTarget="myImage" />
+                <SetProperty target="myImage" propertyName="width" value="320" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <CompareBitmap target="myImage" url="../properties/baselines/width_MXML_bm.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="width_property_AS"  keywords="[Image, Property, width]" description="Checking whether the width property works when set with AS by Bitmap Comparision">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                <SetProperty target="myImage" propertyName="maintainAspectRatio" value="false" waitEvent="updateComplete" waitTarget="myImage" />
+                <RunCode code="application.myImage.width=320" waitEvent="updateComplete" waitTarget="myImage"/>
+                
+            </setup>
+            <body>
+                <CompareBitmap target="myImage" url="../properties/baselines/width_AS_bm.png"  />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="maintainAspectRatio_property"  keywords="[Image, Property, maintainAspectRatio]" description="Checking whether the maintainAspectRatio property works by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="maintainAspectRatio" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="visible_property_Default"  keywords="[Image, Property, visible]" description="Checking whether the visible property works fine by Default">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="visible" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="visible_property_MXML"  keywords="[Image, Property, visible]" description="Checking whether the visible property works fine when set with MXML">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png"/>
+                <SetProperty target="myImage" propertyName="visible" value="false" waitEvent="updateComplete" waitTarget="myImage" />
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="visible" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="visible_property_AS"  keywords="[Image, Property, visible]" description="Checking whether the visible property works fine when set with AS">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <SetProperty target="myImage" propertyName="source" value="../../../../Assets/Images/redrect.png"/>
+                <RunCode code="application.myImage.visible=false" waitEvent="updateComplete" waitTarget="myImage"/>
+                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myImage" propertyName="visible" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="layoutDirection_property_onImageParent"  keywords="[Image, Mirroring]" description="Verify that an Image doesn't mirror in an RTL layout">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image" waitEvent="updateComplete" waitTarget="myImage"/>
+                <ResetComponent target="myImage2" className="mx.controls::Image" waitEvent="updateComplete" waitTarget="myImage2"/>
+                <SetProperty target="box1" propertyName="layoutDirection" value="rtl" />
+                <SetProperty target="myImage2" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitEvent="complete" waitTarget="myImage2" />
+           </setup>
+            <body>
+               <CompareBitmap target="box1" url="../properties/baselines/$testID.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="layoutDirection_property_onImage"  keywords="[Image, Mirroring]" description="Verify that an Image mirrors if its layoutDirection=rtl">
+            <setup>
+                <ResetComponent target="myImage" className="mx.controls::Image"/>
+                <ResetComponent target="myImage2" className="mx.controls::Image" waitEvent="updateComplete" waitTarget="myImage2"/>
+                <SetProperty target="box1" propertyName="layoutDirection" value="ltr" />
+                <SetProperty target="myImage2" propertyName="layoutDirection" value="rtl" />
+                <SetProperty target="myImage2" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitEvent="complete" waitTarget="myImage2" />
+            </setup>
+            <body>
+                <CompareBitmap target="box1" url="../properties/baselines/$testID.png"  />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

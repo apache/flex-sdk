@@ -1,0 +1,19 @@
+<mx:VBox xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="left" width="100%" height="100%">
+                     
+	<mx:Spacer height="150" />
+	<mx:FormItem label="Padding Top" width="100%">
+		<mx:HSlider id="pTop" minimum="-100" maximum="200"  value="30" snapInterval="1" width="100%"/>
+	</mx:FormItem>
+	<mx:FormItem label="Padding Bottom" width="100%">
+		<mx:HSlider id="pBot" minimum="-100" maximum="200"  value="30" snapInterval="1" width="100%"/>
+	</mx:FormItem>
+	<mx:FormItem label="Padding Left" width="100%">
+		<mx:HSlider id="pLef" minimum="-100" maximum="200"  value="2" snapInterval="1" width="100%"/>
+	</mx:FormItem>
+	<mx:FormItem label="Padding Right" width="100%">
+		<mx:HSlider id="pRig" minimum="-100" maximum="200"  value="2" snapInterval="1" width="100%"/>
+	</mx:FormItem>
+	<mx:ComboBox id="cb1" dataProvider="['one','two','three','four','five']" paddingBottom="{pBot.value}" paddingTop="{pTop.value}" paddingLeft="{pLef.value}" paddingRight="{pRig.value}" />
+	<mx:ComboBox id="cb2" dataProvider="['one','two','three','four','five']" paddingBottom="{pBot.value}" paddingTop="{pTop.value}" paddingLeft="{pLef.value}" paddingRight="{pRig.value}"  editable="true"/>
+	<mx:ComboBox id="cb3" dataProvider="['one','two','three','four','five']" paddingBottom="{pBot.value}" paddingTop="{pTop.value}"   editable="true"/>
+</mx:VBox>

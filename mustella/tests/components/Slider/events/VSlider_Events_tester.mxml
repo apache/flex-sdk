@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Slider/events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="VSlider_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+
+					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.VSlider;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+	public var styleDecl:Object;
+	public var styleObj:Object;
+
+	]]>
+	</mx:Script>
+	<testCases>
+		<TestCase testID="Checking_Change_Event_of_VSlider" keywords="[VSlider, change, Event]" description="Ensure that change event gets triggered when a VSlider's track is clicked.">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="9" localY="154" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="myVSlider" localX="10" localY="100" type="mouseMove" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseClickEvent target="myVSlider" localX="10" localY="100" waitEvent="change" waitTarget="myVSlider"/>
+				<AssertEvent target="myVSlider" eventName="change" eventClass="mx.events::SliderEvent" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_thumbPress_Event_of_VSlider" keywords="[VSlider, change, Event]" description="Ensure that thumbPress event gets triggered when a VSlider's thumb is pressed.">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="9" localY="154" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>	
+			</setup>
+			<body>
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="2"/>
+				<SetProperty target="myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="myVSlider" localX="9" localY="154" type="mouseMove" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="9" localY="154" type="mouseDown" waitEvent="thumbPress" waitTarget="myVSlider"/>
+				<AssertEvent target="myVSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
+				<DispatchMouseEvent target="myVSlider" localX="9" localY="154" type="mouseUp" waitEvent="thumbRelease" waitTarget="myVSlider"/>	
+			</body>
+		</TestCase>
+
+		<TestCase testID="Checking_thumbDrag_Event_of_VSlider" keywords="[VSlider, change, Event]" description="Ensure that thumbDrag event gets triggered when a VSlider's thumb is dragged.">
+			<setup>
+				<DispatchMouseEvent target="myVSlider" localX="9" localY="154" type="mouseUp"/>
+				<ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+			</setup>
+			<body>
+				<SetProperty target="myVSlider" propertyName="liveDragging" value="false"/>
+				<DispatchMouseEvent target="myVSlider" localX="9" localY="154" type="mouseMove" />
+				<DispatchMouseEvent target="myVSlider" localX="9" localY="154" type="mouseDown" waitEvent="thumbPress" waitTarget="myVSlider"/>
+				<DispatchMouseEvent target="myVSlider" localX="9" localY="124" type="mouseMove" waitEvent="thumbDrag" waitTarget="myVSlider"/>
+				<AssertEvent target="myVSlider" eventName="thumbDrag" eventClass="mx.events::SliderEvent" />
+				<DispatchMouseEvent target="myVSlider" localX="10" localY="20" type="mouseUp" />
+			</body>
+		</TestCase>
+		
+	
+		
+		
+	</testCases>
+</UnitTester>

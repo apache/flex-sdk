@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/NumericStepper/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="NumericStepper_main_bc_spark.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>
+
+
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<testCases>
+ 	 	<TestCase testID="NumericStepper_Styles_borderColor_text_spark" keywords="[NumericStepper,  borderColor, borderColor]" >
+			<setup>
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+ 				<SetStyle target="myNumericStepper" styleName="borderColor" value="red"/>
+ 				<SetStyle target="myNumericStepper" styleName="borderStyle" value="inset" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+ 				<SetStyle target="myNumericStepper" styleName="borderThickness" value="10" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+			</setup>
+			<body>
+				<CompareBitmap target="" url="../Styles/baselines/borderColor_text_bc_spark.png" timeout="5000" />
+ 				<AssertStyleValue target="myNumericStepper" styleName="borderColor" value="0xFF0000" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="NumericStepper_Styles_cornerRadius_spark" keywords="[NumericStepper, cornerRadius]" >
+			<setup>
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+ 				<SetStyle target="myNumericStepper" styleName="cornerRadius" value="5" />
+			</setup>
+			<body>
+				<CompareBitmap target="" url="../Styles/baselines/cornerRadius_bc_spark.png" timeout="5000" />
+				<AssertStyleValue target="myNumericStepper" styleName="cornerRadius" value="5" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="NumericStepper_Styles_cornerRadius_negative_spark" keywords="[NumericStepper, cornerRadius]" >
+			<setup>
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+ 				<SetStyle target="myNumericStepper" styleName="cornerRadius" value="-5" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+			</setup>
+			<body>
+				<CompareBitmap target="" url="../Styles/baselines/cornerRadius_negative_bc_spark.png" timeout="5000" />
+				<AssertStyleValue target="myNumericStepper" styleName="cornerRadius" value="-5" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="NumericStepper_Styles_fillAlphas_spark" keywords="[NumericStepper, fillColors, fillAlphas]" >
+			<setup>
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+				<SetStyle target="myNumericStepper" styleName="fillColors" value="[0xFF0000,0xCCDD44]" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+			    <SetStyle target="myNumericStepper" styleName="fillAlphas" value="[0.1,0.5]" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+			</setup>
+			<body>
+                <CompareBitmap target="myNumericStepper" url="../Styles/baselines/fillAlphas_bc_spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="NumericStepper_Styles_fillColors_spark" keywords="[NumericStepper, fillColors]" >
+			<setup>
+				<ResetComponent target="myNumericStepper" className="mx.controls.NumericStepper"  waitEvent="updateComplete" waitTarget="myNumericStepper"/>
+				<SetStyle target="myNumericStepper" styleName="fillColors" value="[0xFF0000,0xCCDD44]" waitEvent="updateComplete" waitTarget="myNumericStepper" />
+			</setup>
+			<body>
+                <CompareBitmap target="myNumericStepper" url="../Styles/baselines/fillColors_bc_spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+	</testCases>
+
+
+</UnitTester>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DateChooser/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DateChooser_Styles_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.controls.DateChooser;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="nextMonthUpSkin_custom_spark" description="DateChooser style nextMonthUpSkin test." keywords="[styles, nextMonthUpSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="nextMonthUpSkin" valueExpression="value=application.blueback" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    	</setup>
+			<body>
+			    <CompareBitmap target="dcc.dc.mx_internal:fwdMonthButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="prevMonthUpSkin_custom_spark" description="DateChooser style prevMonthUpSkin test." keywords="[styles, prevMonthUpSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="prevMonthUpSkin" valueExpression="value=application.blueback" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    	</setup>
+			<body>
+			    <CompareBitmap target="dcc.dc.mx_internal:backMonthButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="nextMonthOverSkin_custom_spark" description="DateChooser style nextMonthOverSkin test." keywords="[styles, nextMonthOverSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="nextMonthOverSkin" valueExpression="value=application.blueback" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    </setup>
+			<body>
+			    <DispatchMouseClickEvent target="dcc.dc" localX="165" localY="15" waitEvent="click" waitTarget="dcc.dc" />			    
+			    <CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="prevMonthOverSkin_custom_spark" description="DateChooser style prevMonthOverSkin test." keywords="[styles, prevMonthOverSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="prevMonthOverSkin" valueExpression="value=application.blueback" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    	</setup>
+			<body>
+			    <DispatchMouseClickEvent target="dcc.dc" localX="12" localY="15" waitEvent="click" waitTarget="dcc.dc"/>			    
+			    <CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="nextMonthDownSkin_custom_spark" description="DateChooser style nextMonthDownSkin test." keywords="[styles, nextMonthDownSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="nextMonthDownSkin" valueExpression="value=application.blueback" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    </setup>
+			<body>
+			    <DispatchMouseEvent target="dcc.dc.mx_internal:fwdMonthButton" localX="8" localY="8" type="mouseDown" waitEvent="mouseDown" waitTarget="dcc.dc" />
+			    <CompareBitmap target="dcc.dc.mx_internal:fwdMonthButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="prevMonthDownSkin_custom_spark" description="DateChooser style prevMonthDownSkin test." keywords="[styles, prevMonthDownSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="prevMonthDownSkin" valueExpression="value=application.blueback" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    	</setup>
+			<body>
+			    <DispatchMouseEvent target="dcc.dc.mx_internal:backMonthButton" localX="8" localY="8" type="mouseDown" waitEvent="mouseDown" waitTarget="dcc.dc" />
+			    <CompareBitmap target="dcc.dc.mx_internal:backMonthButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="nextMonthDisabledSkin_custom_spark" description="DateChooser style nextMonthDisabledSkin test." keywords="[styles, nextMonthDisabledSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="nextMonthDisabledSkin" valueExpression="value=application.blueback" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    </setup>
+			<body>
+			    <SetProperty propertyName="enabled" target="dcc.dc" value="false" waitTarget="dcc.dc" waitEvent="updateComplete" />
+			   <CompareBitmap target="dcc.dc.mx_internal:fwdMonthButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>						
+		<TestCase testID="prevMonthDisabledSkin_custom_spark" description="DateChooser style prevMonthDisabledSkin test." keywords="[styles, prevMonthDisabledSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"/>
+			    <SetProperty propertyName="enabled" target="dcc.dc" value="true" waitTarget="dcc.dc" waitEvent="updateComplete" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetStyle styleName="prevMonthDisabledSkin" valueExpression="value=application.blueback" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc"/>			    
+		    </setup>
+			<body>
+			    <SetProperty propertyName="enabled" target="dcc.dc" value="false" waitTarget="dcc.dc" waitEvent="updateComplete" />
+			    <CompareBitmap target="dcc.dc.mx_internal:backMonthButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="nextYearDisabledSkin_custom_spark" description="DateChooser style prevMonthDisabledSkin test." keywords="[styles, prevMonthDisabledSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty propertyName="enabled" target="dcc.dc" value="true" waitTarget="dcc.dc" waitEvent="updateComplete" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+		        <SetStyle styleName="nextYearDisabledSkin" valueExpression="value=application.bearIcon" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc"/>		        
+		    </setup>
+			<body>
+			    <SetProperty propertyName="enabled" target="dcc.dc" value="false" waitTarget="dcc.dc" waitEvent="updateComplete" />
+			    <CompareBitmap target="dcc.dc.mx_internal:upYearButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="prevYearDisabledSkin_custom_spark" description="DateChooser style prevMonthDisabledSkin test." keywords="[styles, prevMonthDisabledSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty propertyName="enabled" target="dcc.dc" value="true" waitTarget="dcc.dc" waitEvent="updateComplete" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+		        <SetStyle styleName="prevYearDisabledSkin" valueExpression="value=application.bearIcon" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc"/>		        
+		    </setup>
+			<body>
+			    <SetProperty propertyName="enabled" target="dcc.dc" value="false" waitTarget="dcc.dc" waitEvent="updateComplete" />
+			    <CompareBitmap target="dcc.dc.mx_internal:downYearButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>		
+		<TestCase testID="nextYearUpSkin_custom_spark" description="DateChooser style prevMonthUpSkin test." keywords="[styles, prevYearUpSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+		        <SetStyle styleName="nextYearUpSkin" valueExpression="value=application.bearIcon" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    </setup>
+			<body>
+			    <CompareBitmap target="dcc.dc.mx_internal:upYearButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="prevYearUpSkin_custom_spark" description="DateChooser style prevMonthUpSkin test." keywords="[styles, prevYearUpSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+		        <SetStyle styleName="prevYearUpSkin" valueExpression="value=application.bearIcon" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    </setup>
+			<body>
+			    <CompareBitmap target="dcc.dc.mx_internal:downYearButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="nextYearDownSkin_custom_spark" description="DateChooser style prevMonthDownSkin test." keywords="[styles, prevYearDownSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+		        <SetStyle styleName="nextYearDownSkin" valueExpression="value=application.bearIcon" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    </setup>
+			<body>
+			    <DispatchMouseEvent target="dcc.dc.mx_internal:upYearButton" localX="3" localY="3" type="mouseDown" waitEvent="mouseDown" waitTarget="dcc.dc" />
+			    <CompareBitmap target="dcc.dc.mx_internal:upYearButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="prevYearDownSkin_custom_spark" description="DateChooser style prevMonthDownSkin test." keywords="[styles, prevYearDownSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+		        <SetStyle styleName="prevYearDownSkin" valueExpression="value=application.bearIcon" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    </setup>
+			<body>
+			    <DispatchMouseEvent target="dcc.dc.mx_internal:downYearButton" localX="3" localY="3" type="mouseDown" waitEvent="mouseDown" waitTarget="dcc.dc" />
+			    <CompareBitmap target="dcc.dc.mx_internal:downYearButton" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="nextYearOverSkin_custom_spark" description="DateChooser style prevMonthOverSkin test." keywords="[styles, prevYearOverSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark"/>
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+		        <SetStyle styleName="nextYearOverSkin" valueExpression="value=application.bearIcon" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    </setup>
+			<body>
+			    <DispatchMouseClickEvent target="dcc.dc" localX="146" localY="12" waitEvent="click" waitTarget="dcc.dc" />			    
+				<CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="prevYearOverSkin_custom_spark" description="DateChooser style prevMonthOverSkin test." keywords="[styles, prevYearOverSkin, DateChooser]">
+			<setup>
+			    <ResetComponent target="dcc" className="DateChooserCustomComponent_spark" />
+			    <SetProperty target="dcc.dc" propertyName="selectedDate" valueExpression="value=new Date(2005, 2, 5)" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+			    <SetProperty target="dcc.dc" propertyName="yearNavigationEnabled" value="true" waitEvent="updateComplete" waitTarget="dcc.dc"/>
+		        <SetStyle styleName="prevYearOverSkin" valueExpression="value=application.bearIcon" target="dcc.dc" waitEvent="updateComplete" waitTarget="dcc.dc" />
+		    </setup>
+			<body>
+			    <DispatchMouseClickEvent target="dcc.dc" localX="147" localY="17" waitEvent="click" waitTarget="dcc.dc" />
+			    <DispatchMouseEvent target="stage" stageX="0" stageY="0" type="mouseMove"/>			    
+			    <CompareBitmap target="dcc.dc" url="../Styles/baselines/$testID.png" timeout="5000" numColorVariances="3" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		</testCases>
+</UnitTester>
+

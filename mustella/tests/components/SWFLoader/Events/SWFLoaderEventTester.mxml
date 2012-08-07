@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/SWFLoader/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SWFLoaderMain.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+		<mx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+		</mx:Script>
+		<mx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+		</mx:Metadata>
+		<!-- end of set of lines that must be in each unit test -->
+
+		<mx:Script>
+		<![CDATA[
+		
+		import mx.controls.SWFLoader;
+		import mx.styles.StyleManager;
+		import mx.managers.SystemManager;
+
+		public function scriptFunction(a:String, b:int):String
+		{
+			return a + ":" + b.toString();
+		}
+
+		public var styleDecl:Object;
+		public var styleObj:Object;
+
+                private function doTest(loader:SWFLoader) : void 
+                {
+                    var bytes:ByteArray = new ByteArray();
+                    bytes.writeUTFBytes("This is not an image");
+                
+                    loader.load(bytes);
+                }
+                
+		]]>
+		</mx:Script>
+		
+	<testCases>
+	    <TestCase testID="myTest_events_complete"  keywords="[SWFLoader, events, complete]">
+		 <setup>
+	    	    <ResetComponent target="SWFLoad" className="mx.controls::SWFLoader" waitEvent="updateComplete" waitTarget="SWFLoad"/>
+		    <SetProperty target="SWFLoad" propertyName="autoLoad" value="false" />
+		 </setup>
+		 <body>
+		    <SetProperty target="SWFLoad" propertyName="source" value="assets/FlexSWF.swf" />
+		    <AssertPropertyValue target="SWFLoad"  propertyName="bytesLoaded" value="NaN" />
+		    <RunCode code="application.SWFLoad.load()"/>
+		    <Pause timeout="500"/>
+		    <AssertEvent target="SWFLoad" eventName="complete" eventClass="flash.events::Event"/>
+		    <AssertPropertyValue target="SWFLoad"  propertyName="bytesLoaded" valueExpression ="value=application.SWFLoad.bytesTotal" />
+		 </body>
+	    </TestCase>
+	    <TestCase testID="SWFLoader_events_ioError"  keywords="[SWFLoader, events, error]" description="verify that you get an ioError event triggered
+		   when trying to write an invalid ByteArray." >
+		 <setup>
+		    <ResetComponent target="SWFLoad" className="mx.controls::SWFLoader" waitEvent="updateComplete" waitTarget="SWFLoad" />
+		 </setup>
+		 <body>
+		    <RunCode code="doTest(application.SWFLoad)"/>
+		    <AssertEvent target="SWFLoad" eventName="ioError" eventClass="flash.events::IOErrorEvent"/>
+	        </body>
+            </TestCase>
+	</testCases>
+</UnitTester>
+

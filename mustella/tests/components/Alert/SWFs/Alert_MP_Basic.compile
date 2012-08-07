@@ -1,0 +1,2 @@
+-theme=${flexlib}/themes/Halo/halo.swc
+-includes=mx.managers.systemClasses.MarshallingSupport

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGrid/DataGrid_SparkSkin/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridApp.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+<!--
+================================================================================
+Columns Property (Note that we're testing the columns property, not the 
+DataGridColumn class.):
+Reset, then:
+    0 columns
+    1 column
+    2 columns
+    Increase from 0 columns to 1 column.
+    Increase from 1 column to 2 columns.
+    Decrease from 2 to 1 column.
+    Decrease from 1 to 0 columns.
+    Start with 3 columns, then change their order.
+    Duplicate columns.
+    Start with 3 columns, then swap them out for another array of columns which point
+        to different data fields.
+================================================================================
+-->
+        <TestCase testID="datagrid_properties_columns_0" keywords="[DataGrid,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 0)" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/datagrid_properties_columns_0.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_columns_1" keywords="[DataGrid,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/datagrid_properties_columns_1.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_columns_2" keywords="[DataGrid,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 2)" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap target="dg1" url="../Properties/Baselines/datagrid_properties_columns_2.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_columns_increase0to1" keywords="[DataGrid,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 0)" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/datagrid_properties_columns_increase0to1.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_columns_increase1to2" keywords="[DataGrid,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 2)" waitTarget="dg1" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/datagrid_properties_columns_increase1to2.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_columns_decrease2to1" keywords="[DataGrid,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 2)" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/datagrid_properties_columns_decrease2to1.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>        
+
+        <TestCase testID="datagrid_properties_columns_decrease1to0" keywords="[DataGrid,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 1)" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 0)" waitTarget="dg1" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/datagrid_properties_columns_decrease1to0.png" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_columns_rearrange" keywords="[DataGrid,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.rearrangeDataArray3Columns(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/datagrid_properties_columns_rearrange.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="datagrid_properties_columns_duplicate" keywords="[DataGrid,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.duplicateDataArray3Columns(application.dg1)" waitTarget="dg1" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/datagrid_properties_columns_duplicate.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="datagrid_properties_columns_differentSet" keywords="[DataGrid,properties,columns]">
+            <setup>
+                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+                <RunCode code="application.setDataProvider(application.dg1, 3)" />
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3)" />
+                <SetProperty target="dg1" propertyName="width" value="300" />
+                <SetProperty target="dg1" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.setUpDataArray3Columns(application.dg1, 3, true)" waitTarget="dg1" waitEvent="updateComplete" />
+                <CompareBitmap target="dg1" url="../Properties/Baselines/datagrid_properties_columns_differentSet.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        
+    </testCases>                
+         
+</UnitTester>

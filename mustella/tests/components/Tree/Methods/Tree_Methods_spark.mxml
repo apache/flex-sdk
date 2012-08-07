@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Tree/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Tree_Basic_spark.mxml">
+
+
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.Tree;
+    import mx.events.TreeEvent;
+    import mx.collections.*;
+    import data.TreeData;
+    import data.LTDescriptor;
+    import data.LTNode;
+
+    private function addXMLData():void
+    {
+
+        var treeData:TreeData = new TreeData();
+        application.tree.dataProvider = treeData.x1;
+        application.tree.showRoot = false;
+        application.tree.labelField = '@label';
+
+    }
+
+    private function addXMLDataGlobal():void
+    {
+
+        application.tree.dataProvider = application.treeXML;
+        application.tree.showRoot = false;
+        application.tree.labelField = '@label';
+
+    }
+
+
+    private function doSetItemIcon():void
+    {
+        application.tree.setItemIcon(application.tree.dataProvider.children()[0], application.redU, application.blackO);
+
+    }
+
+    private function dataLabelFunction(item:Object):String
+        {
+            return (item.@label.toUpperCase());
+    }
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <!--****************************************expandChildren******************************-->
+
+        <TestCase testID="Tree_expandChildrenOfTrue" description="expandChildrenOf Containers node with true = open" keywords="[expandChildrenOf, true, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[0], true)" waitEvent="updateComplete" waitTarget="tree"/>
+                <AssertMethodValue method="value=application.tree.isItemOpen(application.tree.dataProvider.children()[0])" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_expandChildrenOfFalse" description="expandChildrenOf Containers node with false = close" keywords="[expandChildrenOf, false, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandChildrenOf(application.tree.dataProvider.children()[0], false)" waitEvent="updateComplete" waitTarget="tree"/>
+                <AssertMethodValue method="value=application.tree.isItemOpen(application.tree.dataProvider.children()[0])" value="false" />
+            </body>
+        </TestCase>
+
+        <!--****************************************expandItem**********************************-->
+
+        <TestCase testID="Tree_expandItemTrue" description="expandItem Printing node with true = open" keywords="[expandItem, true, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[1], true)" waitEvent="updateComplete" waitTarget="tree"/>
+                <AssertMethodValue method="value=application.tree.isItemOpen(application.tree.dataProvider.children()[1])" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_expandItemFalse" description="expandItem Printing node with false = close" keywords="[expandItem, false, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], false)" waitEvent="updateComplete" waitTarget="tree"/>
+                <AssertMethodValue method="value=application.tree.isItemOpen(application.tree.dataProvider.children()[1])" value="false" />
+            </body>
+        </TestCase>
+
+        <!--****************************************getParentItem********************************-->
+
+        <TestCase testID="Tree_getParentItemNLevel" description="getParentItem with n-level item" keywords="[getParentItem, n-level, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="tree" />
+
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.tree.getParentItem(application.tree.dataProvider.children()[0].children()[0])" valueExpression="value=application.tree.dataProvider.children()[0]" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_getParentItemTopLevel" description="getParentItem with top-level item" keywords="[getParentItem, top-level, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.tree.getParentItem(application.tree.dataProvider.children()[0])" value="null" />
+            </body>
+        </TestCase>
+
+        <!--****************************************isItemOpen***********************************-->
+
+        <TestCase testID="Tree_isItemOpenTrue" description="isItemOpen with open node" keywords="[isItemOpen, true, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[0], true)" waitEvent="updateComplete" waitTarget="tree"/>
+                <AssertMethodValue method="value=application.tree.isItemOpen(application.tree.dataProvider.children()[0])" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_isItemOpenFalse" description="isItemOpen with closed node" keywords="[isItemOpen, false, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.tree.isItemOpen(application.tree.dataProvider.children()[0])" value="false" />
+            </body>
+        </TestCase>
+
+        <!--****************************************setItemIcon******************************-->
+
+        <TestCase testID="Tree_setItemIcon" description="setItemIcon " keywords="[setItemIcon, Tree" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLData()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="doSetItemIcon()" waitEvent="updateComplete" waitTarget="tree"/>
+                <CompareBitmap  numColorVariances="10" ignoreMaxColorVariance="true" target="tree" url="../Methods/baselines/branchicon_spark.png" timeout="4500" />
+            </body>
+        </TestCase>
+
+    <!--****************************************findString******************************-->
+        <TestCase testID="Tree_FindString" description="findString " keywords="[findString, Tree, Methods" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.tree.findString('Containers')" value="true" />
+                <AssertMethodValue method="value=application.tree.findString('PrintTree10')" value="false" />
+                <AssertMethodValue method="value=application.tree.findString(' ')" value="false" />
+                <AssertMethodValue method="value=application.tree.findString('PrintTree')" value="false" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Tree_FindString_OpenItem" description="findString " keywords="[findString, Tree, Methods" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <RunCode code="addXMLDataGlobal()" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <RunCode code="application.tree.expandItem(application.tree.dataProvider.children()[1], true)" waitEvent="updateComplete" waitTarget="tree"/>
+                <AssertMethodValue method="value=application.tree.findString('PrintTree')" value="true" />
+                <AssertMethodValue method="value=application.tree.findString('BoxDivider')" value="false" />
+
+            </body>
+        </TestCase>
+
+    <!--****************************************isItemSelected******************************-->
+
+        <TestCase testID="Tree_isItemSelectedClick" description="isItemSelected " keywords="[isItemSelected, Tree, Methods" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLEmptyBranches" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]"  waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[RIGHT,DOWN,DOWN,RIGHT]" />
+                <WaitForEffectsToEnd />
+                <DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN]" shiftKey="true" />
+                <WaitForEffectsToEnd />
+
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[0])" value="false" />
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[0].children()[1])" value="false" />
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[0].children()[1].children()[0])" value="false" />
+
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[2])" value="true" />
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[1].children()[1])" value="true" />
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[1].children()[1].children()[0])" value="false" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="Tree_isItemSelectedSetSelected" description="isItemSelected " keywords="[isItemSelected, Tree, Methods" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLEmptyBranches" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]"  waitEvent="focusIn" waitTarget="tree" />
+                <DispatchKeyEvent keys="[RIGHT,DOWN,DOWN,RIGHT,DOWN,DOWN]" />
+                <WaitForEffectsToEnd />
+                <SetProperty target="tree" propertyName="selectedIndices" value="[0,3,5]" />
+                <WaitForEffectsToEnd />
+
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[0])" value="true" />
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[0].children()[1])" value="false" />
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[0].children()[1].children()[0])" value="false" />
+
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[2])" value="true" />
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[1].children()[1])" value="true" />
+                <AssertMethodValue method="value=application.tree.isItemSelected(application.tree.dataProvider.children()[1].children()[1].children()[0])" value="false" />
+
+            </body>
+        </TestCase>
+
+        <!--****************************************itemToLabel******************************-->
+
+        <TestCase testID="Tree_itemToLabelMethod" description="itemToLabel " keywords="[itemToLabel, Tree, Methods" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+                <SetProperty target="tree" propertyName="labelField" value="@label" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLEmptyBranches" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+
+                <AssertMethodValue method="value=application.tree.itemToLabel(application.tree.dataProvider.children()[0])" value="Containers" />
+                <AssertMethodValue method="value=application.tree.itemToLabel(application.tree.dataProvider.children()[0].children()[1])" value="GridClasses" />
+                <AssertMethodValue method="value=application.tree.itemToLabel(application.tree.dataProvider.children()[0].children()[1].children()[0])" value="empty branch2" />
+                <AssertMethodValue method="value=application.tree.itemToLabel(application.tree.dataProvider.children()[2])" value="empty branch1" />
+                <AssertMethodValue method="value=application.tree.itemToLabel(application.tree.dataProvider.children()[1].children()[1])" value="PrintJob1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="Tree_itemToLabelFunction" description="itemToLabel " keywords="[itemToLabel, Tree, Methods" >
+            <setup>
+                <ResetComponent target="tree" className="mx.controls::Tree" />
+                <SetProperty target="tree" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="tree" />
+
+                <SetProperty target="tree" propertyName="labelFunction" valueExpression="value=dataLabelFunction" />
+                <SetProperty target="tree" propertyName="showRoot" value="false" />
+                <SetProperty target="tree" propertyName="dataProvider" valueExpression="value=application.treeXMLEmptyBranches" waitEvent="updateComplete" waitTarget="tree" />
+            </setup>
+            <body>
+
+                <AssertMethodValue method="value=application.tree.itemToLabel(application.tree.dataProvider.children()[0])" value="CONTAINERS" />
+                <AssertMethodValue method="value=application.tree.itemToLabel(application.tree.dataProvider.children()[0].children()[1])" value="GRIDCLASSES" />
+                <AssertMethodValue method="value=application.tree.itemToLabel(application.tree.dataProvider.children()[0].children()[1].children()[0])" value="EMPTY BRANCH2" />
+                <AssertMethodValue method="value=application.tree.itemToLabel(application.tree.dataProvider.children()[2])" value="EMPTY BRANCH1" />
+                <AssertMethodValue method="value=application.tree.itemToLabel(application.tree.dataProvider.children()[1].children()[1])" value="PRINTJOB1" />
+
+            </body>
+        </TestCase>
+
+
+    </testCases>
+
+</UnitTester>

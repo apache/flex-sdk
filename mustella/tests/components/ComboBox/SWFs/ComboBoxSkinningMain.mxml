@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" width="600" height="600" >
+	<mx:Style source="../../../../Assets/Fonts/myStyles.css" />
+	<mx:Style>
+		.customAlternatingItemColors {
+		    alternatingItemColors: #fff000,#000fff;
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customColor {
+		    color: #FFF000;
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customFontFamily {
+		    fontFamily: "Arial";
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customFontSize {
+		    fontSize: 20;
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customFontSize2 {
+		    fontSize: 2;
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		 .customFontStyle {
+		    fontStyle: "italic";
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customFontStyle2 {
+		    fontStyle: "normal";
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customFontWeight {
+		    fontWeight: "bold";
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customTextIndent {
+		    textIndent: 20;
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customTextDecoration2 {
+		    textDecoration: "normal";
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customTextDecoration {
+		    textDecoration: "underline";
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customRollOverColor {
+		    rollOverColor: #11770e;
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customSelectionColor {
+		    selectionColor: #cc2211;
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customTextRollOverColor {
+		    textRollOverColor: #11770e;
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customTextSelectedColor {
+		    textSelectedColor: #cc2211;
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customLetterSpacing {
+		    letterSpacing: 2;
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+
+		.customLetterSpacing2 {
+		    letterSpacing: 10;
+				borderThickness: 0;
+				cornerRadius: 0;
+				dropShadowEnabled: true;
+				fontWeight: "normal";
+				leading: 0;
+				paddingLeft: 5;
+				paddingRight: 5;
+				shadowDirection: "center";
+				shadowDistance: 1;
+		}
+		
+		.gifEmbeddedComboBox{
+		    skin: ClassReference("comps.button_gif_embeded");
+		    icon: ClassReference("comps.icon_gif_embeded");
+		}
+		.jpgEmbeddedComboBox{
+		    skin: ClassReference("comps.button_jpg_embeded");
+		    icon: ClassReference("comps.icon_jpg_embeded");
+	        }		
+		.pngEmbeddedComboBox{
+		    skin: ClassReference("comps.button_png_embeded");
+		    icon: ClassReference("comps.icon_png_embeded");
+	        }
+	        .swfSymbolEmbeddedComboBox
+		{
+		    skin: ClassReference("comps.button_swfsymbol_embeded");
+		    icon: ClassReference("comps.icon_swfsymbol_embeded");
+		}
+		
+		.gifRuntimeComboBox{
+		    skin: ClassReference("comps.button_gif_runtime");
+		    icon: ClassReference("comps.icon_gif_runtime");
+		}
+		.jpgRuntimeComboBox{
+		    skin: ClassReference("comps.button_jpg_runtime");
+		    icon: ClassReference("comps.icon_jpg_runtime");
+		}		
+		.pngRuntimeComboBox{
+		    skin: ClassReference("comps.button_png_runtime");
+		    icon: ClassReference("comps.icon_png_runtime");
+		}
+		.swfSymbolRuntimeComboBox
+		{
+		    skin: ClassReference("comps.button_swf_runtime");
+		    icon: ClassReference("comps.icon_swf_runtime");
+		}
+	        
+    </mx:Style>
+
+	<mx:Script>
+        <![CDATA[
+          	public function changeSkinStates(value:int):void{
+			switch(value){
+				case 0: 
+					myCB.clearStyle('styleName');
+					break;
+				
+				case 1:
+					myCB.setStyle('styleName', 'gifEmbeddedComboBox');	
+					break;
+				
+				case 2:
+					myCB.setStyle('styleName', 'jpgEmbeddedComboBox');	
+					break;
+									
+				case 3:
+					myCB.setStyle('styleName', 'pngEmbeddedComboBox');	
+					break;
+									
+				case 4:
+					myCB.setStyle('styleName', 'swfSymbolEmbeddedComboBox');	
+					break;
+				
+				case 5:
+					myCB.setStyle('styleName', 'gifRuntimeComboBox');	
+					break;
+
+				case 6:
+					myCB.setStyle('styleName', 'jpgRuntimeComboBox');	
+					break;
+
+				case 7:
+					myCB.setStyle('styleName', 'pngRuntimeComboBox');	
+					break;
+
+				case 8:
+					myCB.setStyle('styleName', 'swfSymbolRuntimeComboBox');	
+					break;
+			}
+		}
+		
+	    
+        ]]>
+    </mx:Script>
+	
+    <mx:ComboBox id="myCB"/>
+</mx:Application>

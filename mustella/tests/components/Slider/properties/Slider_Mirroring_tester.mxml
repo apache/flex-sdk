@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/Slider/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Slider_Mirroring_Main.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    
+    [Bindable]
+    public var labelsArray:Array = ['Left', 'Center', 'Right'];
+
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+        import mx.controls.VSlider;
+        import mx.controls.HSlider;
+        import mx.managers.ToolTipManager;
+        
+    ]]>
+    </mx:Script>
+    <testCases>
+        
+        <TestCase testID="VSlider_layoutDirection_RTL" keywords="[VSlider, Mirroring, layoutDirection]" description="Visual check of a mirrored VSlider">
+            <setup>
+                <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+                <SetProperty propertyName="layoutDirection" value="rtl" target="myVSlider" waitEvent="updateComplete"
+                    waitTarget="myVSlider" />                 
+            </setup>
+            <body>
+                <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myVSlider" />
+            </body>
+        </TestCase>
+        <TestCase testID="VSlider_layoutDirection_RTL_upKey" keywords="[VSlider, Mirroring, layoutDirection]" description="Use left and right keys to change values of a mirrored VSlider">
+            <setup>
+                <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+                <SetProperty propertyName="layoutDirection" value="rtl" target="myVSlider" waitEvent="updateComplete"
+                    waitTarget="myVSlider" />                 
+            </setup>
+            <body>
+                <SetProperty propertyName="snapInterval" value="1" target="myVSlider" />
+                <DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+                <DispatchKeyEvent keys="[UP]" waitEvent="updateComplete" waitTarget="myVSlider" />
+                <AssertPropertyValue target="myVSlider" propertyName="value" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="VSlider_layoutDirection_RTL_downKey" keywords="[VSlider, Mirroring, layoutDirection]" description="Use left and right keys to change values of a mirrored VSlider">
+            <setup>
+                <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+                <SetProperty propertyName="layoutDirection" value="rtl" target="myVSlider" waitEvent="updateComplete"
+                    waitTarget="myVSlider" />                 
+            </setup>
+            <body>
+                <SetProperty propertyName="value" value="9" target="myVSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+                <SetProperty propertyName="snapInterval" value="1" target="myVSlider" />
+                <DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="updateComplete" waitTarget="myVSlider" />
+                <AssertPropertyValue target="myVSlider" propertyName="value" value="8" />
+            </body>
+        </TestCase>
+        <TestCase testID="VSlider_layoutDirection_RTL_dataTip" keywords="[VSlider, Mirroring, layoutDirection]" description="Use left and right keys to change values of a mirrored VSlider">
+            <setup>
+                <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+                <SetProperty propertyName="layoutDirection" value="rtl" target="myVSlider" waitEvent="updateComplete"
+                    waitTarget="myVSlider" />                 
+            </setup>
+            <body>
+                <SetProperty propertyName="value" value="9" target="myVSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+                <SetStyle styleName="dataTipPlacement" value="right" target="myVSlider" />
+                <DispatchMouseEvent target="myVSlider" localX="4" localY="18" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider"/>
+                <DispatchMouseEvent target="myVSlider" localX="4" localY="18" type="mouseDown" waitEvent="thumbPress" waitTarget="myVSlider"/>
+                <AssertEvent target="myVSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
+                <Pause timeout="500"  />
+                <AssertPropertyValue propertyName="x" target="myVSlider.mx_internal:dataTip" value="27" />
+                <AssertMethodValue method="value=Math.round(application.myVSlider.mx_internal::dataTip.y)" value="24" />
+                <DispatchMouseEvent target="myVSlider" localX="4" localY="18" type="mouseUp" waitEvent="thumbRelease" waitTarget="myVSlider"/> 
+                 
+            </body>
+        </TestCase> 
+        <TestCase testID="HSlider_layoutDirection_RTL" keywords="[HSlider, Mirroring, layoutDirection]" description="Visual check of a mirrored HSlider">
+            <setup>
+                <ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <SetProperty propertyName="layoutDirection" value="rtl" target="myHSlider" waitEvent="updateComplete"
+                    waitTarget="myHSlider" />                 
+            </setup>
+            <body>
+                <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myHSlider" />
+            </body>
+        </TestCase>
+        <TestCase testID="HSlider_layoutDirection_RTL_leftKey" keywords="[HSlider, Mirroring, layoutDirection]" description="Use left and right keys to change values of a mirrored HSlider">
+            <setup>
+                <ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <SetProperty propertyName="layoutDirection" value="rtl" target="myHSlider" waitEvent="updateComplete"
+                    waitTarget="myHSlider" />                 
+            </setup>
+            <body>
+                <SetProperty propertyName="snapInterval" value="1" target="myHSlider" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+                <DispatchKeyEvent keys="[LEFT]" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <AssertPropertyValue target="myHSlider" propertyName="value" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="HSlider_layoutDirection_RTL_rightKey" keywords="[HSlider, Mirroring, layoutDirection]" description="Use left and right keys to change values of a mirrored HSlider">
+            <setup>
+                <ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <SetProperty propertyName="layoutDirection" value="rtl" target="myHSlider" waitEvent="updateComplete"
+                    waitTarget="myHSlider" />                 
+            </setup>
+            <body>
+                <SetProperty propertyName="value" value="9" target="myHSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <SetProperty propertyName="snapInterval" value="1" target="myHSlider" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+                <DispatchKeyEvent keys="[RIGHT]" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <AssertPropertyValue target="myHSlider" propertyName="value" value="8" />
+            </body>
+        </TestCase>
+        <TestCase testID="Slider_layoutDirection_RTL_onParent" keywords="[HSlider, Mirroring, layoutDirection]" description="Use left and right keys to change values of a mirrored HSlider">
+            <setup>
+                <ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <ResetComponent target="myVSlider" className="mx.controls::VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+                <SetProperty propertyName="layoutDirection" value="rtl" target="box1" waitEvent="updateComplete"
+                    waitTarget="box1" />                 
+            </setup>
+            <body>
+                <SetProperty propertyName="snapInterval" value="1" target="myHSlider" />
+                <SetProperty propertyName="snapInterval" value="1" target="myVSlider" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+                <DispatchKeyEvent keys="[LEFT]" waitEvent="updateComplete" waitTarget="myHSlider" />
+                <AssertPropertyValue target="myHSlider" propertyName="value" value="1" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+                <DispatchKeyEvent keys="[UP]" waitEvent="updateComplete" waitTarget="myVSlider" />
+                <AssertPropertyValue target="myVSlider" propertyName="value" value="1" />
+                <SetProperty propertyName="layoutDirection" value="ltr" target="box1" /> 
+            </body>
+        </TestCase>        
+        <TestCase testID="HSlider_layoutDirection_RTL_dataTip" keywords="[HSlider, Mirroring, layoutDirection]" description="Test location of dataTip on a mirrored HSlider">
+            <setup>
+                <ResetComponent target="myHSlider" className="mx.controls::HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <SetProperty propertyName="layoutDirection" value="rtl" target="myHSlider" waitEvent="updateComplete"
+                    waitTarget="myHSlider" />                 
+            </setup>
+            <body>
+                <SetProperty propertyName="value" value="9" target="myHSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+                <DispatchMouseEvent target="myHSlider" localX="136" localY="4" type="mouseMove" waitEvent="mouseMove" waitTarget="myHSlider"/>
+                <DispatchMouseEvent target="myHSlider" localX="136" localY="4" type="mouseDown" waitEvent="thumbPress" waitTarget="myHSlider"/>
+                <AssertEvent target="myHSlider" eventName="thumbPress" eventClass="mx.events::SliderEvent" />
+                <Pause timeout="900" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+                <DispatchMouseEvent target="myHSlider" localX="136" localY="4" type="mouseUp" /> 
+            </body>
+        </TestCase> 
+    </testCases>
+</UnitTester>

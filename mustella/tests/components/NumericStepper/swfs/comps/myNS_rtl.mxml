@@ -1,0 +1,4 @@
+<mx:NumericStepper  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layoutDirection="rtl"
+    direction="rtl"/>

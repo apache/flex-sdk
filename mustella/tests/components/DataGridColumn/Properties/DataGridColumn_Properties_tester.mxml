@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/DataGridColumn/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGridColumn_Properties.mxml">
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+		{
+		}		
+			
+		public var canvasFacBlue:ClassFactory = new ClassFactory(MyHeaderRenderer_Blue);
+			
+		[Bindable]
+		public var currentHeaderRenderer:IFactory = canvasFacBlue; 
+		
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	
+	<testCases>
+	<!--dataField : String
+	The name of the field or property in the data provider item associated with the column.-->
+	       
+	        <TestCase testID="datagridcolumn_dataField" keywords="[DataGridColumn,properties,columns,dataField]">
+	            <setup>
+	                <ResetComponent target="dg1" className="mx.controls.DataGrid" waitEvent="updateComplete" />
+	                <RunCode code="application.initApp()" />
+	                <SetProperty target="dg1" propertyName="width" value="500" />
+	                <SetProperty target="dg1" propertyName="height" value="400" waitEvent="updateComplete" />
+	            </setup>
+	            <body>
+	                <SetProperty target="dgc0" propertyName="dataField" value="name" />
+	                <AssertPropertyValue target="dgc0" propertyName="dataField" value="name" />
+	            </body>
+	        </TestCase>
+	        
+	        
+	<!--draggable : Boolean = true
+	A flag that indicates whether the user is allowed to drag the column to a new position If true, the user can drag the the column headers to a new position-->
+	       
+	        <TestCase testID="datagridcolumn_draggable" keywords="[DataGridColumn,properties,columns,draggable]">
+	            <body>
+	                <SetProperty target="dgc0" propertyName="draggable" value="false" />
+	                <AssertPropertyValue target="dgc0" propertyName="draggable" value="false" />
+	            </body>
+	        </TestCase>
+	        
+	<!--editable : Boolean = true
+	A flag that indicates whether the items in the column are editable.-->
+	       
+	        <TestCase testID="datagridcolumn_editable" keywords="[DataGridColumn,properties,columns,editable]">
+	            <body>
+	                <SetProperty target="dgc0" propertyName="editable" value="false" />
+	                <AssertPropertyValue target="dgc0" propertyName="editable" value="false" />
+	            </body>
+	        </TestCase>
+	        
+	<!--editorDataField : String = "text"
+	The name of the property of the item editor that contains the new data for the list item.-->
+	       
+	        <TestCase testID="datagridcolumn_editorDataField" keywords="[DataGridColumn,properties,columns,editorDataField]">
+	            <body>
+	                <SetProperty target="dgc4" propertyName="editorDataField" value='String="id"' />
+	                <AssertPropertyValue target="dgc4" propertyName="editorDataField" value='String="id"'/>
+	            </body>
+	        </TestCase>
+	<!--editorHeightOffset : Number = 0
+	The height of the item editor, in pixels, relative to the size of the item renderer.-->
+	       
+	        <TestCase testID="datagridcolumn_editorHeightOffset" keywords="[DataGridColumn,properties,columns,editorHeightOffset]">
+	            <body>
+	                <SetProperty target="dgc0" propertyName="editorHeightOffset" value="41" />
+	                <AssertPropertyValue target="dgc0" propertyName="editorHeightOffset" value="41" />
+	            </body>
+	        </TestCase>
+		
+	<!--editorUsesEnterKey : Boolean = false
+	A flag that indicates whether the item editor uses Enter key.-->
+	       
+	        <TestCase testID="datagridcolumn_editorUsesEnterKey" keywords="[DataGridColumn,properties,columns,editorUsesEnterKey]">
+	            <body>
+	                <SetProperty target="dgc0" propertyName="editorUsesEnterKey" value="true" />
+	                <AssertPropertyValue target="dgc0" propertyName="editorUsesEnterKey" value="true" />
+	            </body>
+	        </TestCase>
+		
+	<!--editorWidthOffset : Number = 0
+	The width of the item editor, in pixels, relative to the size of the item renderer.-->
+	       
+	        <TestCase testID="datagridcolumn_editorWidthOffset" keywords="[DataGridColumn,properties,columns,editorWidthOffset]">
+	            <body>
+	                <SetProperty target="dgc0" propertyName="editorWidthOffset" value="37" />
+	                <AssertPropertyValue target="dgc0" propertyName="editorWidthOffset" value="37" />
+	            </body>
+	        </TestCase>
+		
+		
+	<!--editorXOffset : Number = 0
+	The x location of the upper-left corner of the item editor, in pixels, relative to the upper-left corner of the item.-->
+	        <TestCase testID="datagridcolumn_editorXOffset" keywords="[DataGridColumn,properties,columns,editorXOffset]">
+	            <body>
+	                <SetProperty target="dgc0" propertyName="editorXOffset" value="11" />
+	                <AssertPropertyValue target="dgc0" propertyName="editorXOffset" value="11" />
+	            </body>
+	        </TestCase>
+		
+	<!--editorYOffset : Number = 0
+	The y location of the upper-left corner of the item editor, in pixels, relative to the upper-left corner of the item.-->
+	  
+	     <TestCase testID="datagridcolumn_editorYOffset" keywords="[DataGridColumn,properties,columns,editorYOffset]">
+	            <body>
+	                <SetProperty target="dgc0" propertyName="editorYOffset" value="13" />
+	                <AssertPropertyValue target="dgc0" propertyName="editorYOffset" value="13" />
+	            </body>
+	        </TestCase>
+		
+	<!--headerWordWrap : *
+	A flag that indicates whether text in the header will be word wrapped if it doesn't fit on one line.-->
+	  
+	     <TestCase testID="datagridcolumn_headerWordWrap" keywords="[DataGridColumn,properties,columns,headerWordWrap]">
+	            <body>
+	                <SetProperty target="dgc0" propertyName="headerWordWrap" value="1" />
+	                <AssertPropertyValue target="dgc0" propertyName="headerWordWrap" value="1" />
+	            </body>
+	        </TestCase>
+		
+	<!--imeMode : String
+	Specifies the IME (input method editor) mode.-->
+	  
+	     <TestCase testID="datagridcolumn_imeMode" keywords="[DataGridColumn,properties,columns,imeMode]">
+	            <body>
+	                <SetProperty target="dgc0" propertyName="imeMode" value="Chinese" />
+	                <AssertPropertyValue target="dgc0" propertyName="imeMode" value="Chinese" />
+	            </body>
+	        </TestCase>
+		
+	<!--itemEditor : IFactory
+	A class factory for the instances of the item editor to use for the column, when it is editable.-->
+	                                
+	        <TestCase testID="datagridcolumn_itemEditor" keywords="[DataGridColumn, itemRenderer, columns, itemEditor]">
+	            <body>
+	               <SetProperty  target="dgc1" propertyName="itemEditor" value="{currentHeaderRenderer}"/>                
+	        	   <AssertPropertyValue target="dgc1" propertyName="itemEditor" value="{currentHeaderRenderer}"/>
+	            </body>
+	        </TestCase>      
+	 
+	<!--rendererIsEditor : Boolean = false
+	A flag that indicates that the item renderer is also an item editor.-->
+	  
+	     <TestCase testID="datagridcolumn_rendererIsEditor" keywords="[DataGridColumn,properties,columns,rendererIsEditor]">
+	            <body>
+	                <SetProperty target="dgc1" propertyName="rendererIsEditor" value="true" />
+	                <AssertPropertyValue target="dgc1" propertyName="rendererIsEditor" value="true" />
+	            </body>
+	        </TestCase>
+		
+	<!--resizable : Boolean = true
+	A flag that indicates whether the user is allowed to resize the width of the column.-->
+	  
+	     <TestCase testID="datagridcolumn_resizable" keywords="[DataGridColumn,properties,columns,resizable]">
+	            <body>
+	                <SetProperty target="dgc2" propertyName="resizable" value="false" />
+	                <AssertPropertyValue target="dgc2" propertyName="resizable" value="false" />
+	            </body>
+	        </TestCase>
+		
+	<!--showDataTips : *
+	A flag that indicates whether the datatips are shown in the column.-->
+	  
+	     <TestCase testID="datagridcolumn_showDataTips" keywords="[DataGridColumn,properties,columns,showDataTips]">
+	            <body>
+	                <SetProperty target="dgc2" propertyName="showDataTips" value="true" />
+	                <AssertPropertyValue target="dgc2" propertyName="showDataTips" value="true" />
+	            </body>
+	        </TestCase>
+		
+	<!--sortable : Boolean = true
+	A flag that indicates whether the user can click on the header of this column to sort the data provider.-->
+	  
+	     <TestCase testID="datagridcolumn_sortable" keywords="[DataGridColumn,properties,columns,sortable]">
+	            <body>
+	                <SetProperty target="dgc3" propertyName="sortable" value="false" />
+	                <AssertPropertyValue target="dgc3" propertyName="sortable" value="false" />
+	            </body>
+	        </TestCase>
+	 
+	<!--sortDescending : Boolean = false
+	Indicates whether the column sort is in ascending order, false, or descending order, true.-->
+	  
+	     <TestCase testID="datagridcolumn_sortDescending" keywords="[DataGridColumn,properties,columns,sortDescending]">
+	            <body>
+	                <SetProperty target="dgc3" propertyName="sortDescending" value="true" />
+	                <AssertPropertyValue target="dgc3" propertyName="sortDescending" value="true" />
+	            </body>
+	        </TestCase>
+		
+	<!--visible : Boolean
+	A flag that indicates whethe the column is visible.-->
+	  
+	     <TestCase testID="datagridcolumn_visible" keywords="[DataGridColumn,properties,columns,visible]">
+	            <body>
+	                <SetProperty target="dgc4" propertyName="visible" value="false" />
+	                <AssertPropertyValue target="dgc4" propertyName="visible" value="false" />
+	            </body>
+	        </TestCase>
+	        
+	<!--wordWrap : *
+	A flag that indicates whether the text in a row of this column is word wrapped if it doesn't fit on one line.-->
+	  
+	     <TestCase testID="datagridcolumn_wordWrap" keywords="[DataGridColumn,properties,columns,wordWrap]">
+	            <body>
+	            	<SetProperty target="dgc5" propertyName="width" value="50" />
+	            	<SetProperty target="dgc5" propertyName="wordWrap" value="true" />
+	                <AssertPropertyValue target="dgc5" propertyName="wordWrap" value="true" />
+	            </body>
+	        </TestCase>
+	</testCases>
+</UnitTester>

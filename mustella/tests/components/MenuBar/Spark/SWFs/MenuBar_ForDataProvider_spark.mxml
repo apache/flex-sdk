@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application  height="375" width="500" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" >
+<s:layout>
+    <s:VerticalLayout />
+</s:layout>
+
+	<fx:Script>
+	<![CDATA[
+
+        public var lengthValue:int;
+
+         [Bindable]
+			public var myDP2:Object = {label: "top", children: [
+				{label: "file", name: "FILE", children: [
+					{label:"I am a Menu", name:"MENU"},
+					{label:"here goes Nothing", name:"NOTHING", children: [
+						{label:"aw, don't sell yourself short", name:"AW"},
+						{type:"check", label:"can you check me?", name:"CHECK ME"}
+					]}
+				]}
+	    ]};
+
+	[Bindable]
+    public var xmlDoc:XMLNode;
+
+	public function setDP() : void
+	{
+	   xmlDoc = new XMLDocument("<node label='Mailbox'><node label='Sent'/><node label='Inbox' /></node>");
+	}
+
+	]]>
+	</fx:Script>
+<fx:Declarations>
+	<fx:XML id="myDPXML" format="e4x">
+	   <topnode>
+			<node label="file" name="FILE">
+				<node label="I am a Menu" name="MENU"/>
+				<node label="here goes Nothing" name="NOTHING" >
+					<node label="aw, don't sell yourself short" name="AW"/>
+					<node type="check" label="can you check me?" name="CHECK ME"/>
+				</node>
+			</node>
+	   </topnode>
+	</fx:XML>
+
+	<fx:Model id="model1" source="Assets/myXMLFile.xml" />
+</fx:Declarations>
+
+<mx:TextInput id="ti" />
+<mx:Button id="btn" label="click" />
+<mx:MenuBar id="mb" />
+
+<mx:Label text="MenuBar with AS dataProvider set with binding." />
+<mx:MenuBar showRoot="false" id="mb_ASBinding" dataProvider="{myDP2}"/>
+<mx:MenuBar showRoot="false" id="mb_XMLBinding" dataProvider="{myDPXML}" labelField="@label" />
+
+<mx:Text width="400" text="MenuBar with XML (built in AS) as a dataProvider: set with binding" fontWeight="bold" />
+<mx:MenuBar  id="MenuDP3" dataProvider="{xmlDoc}" labelField="@label" creationComplete="setDP()" />
+
+<mx:Text  width="400" text="MenuBar with Model as a dataProvider: set with binding" fontWeight="bold" />
+<mx:MenuBar id="MenuDP3B" dataProvider="{model1.Product}"/>
+
+</s:Application>

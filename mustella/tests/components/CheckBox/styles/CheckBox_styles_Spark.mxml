@@ -1,0 +1,1399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="components/CheckBox/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="CheckBox_main_Spark.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}			
+
+		]]>
+
+	</mx:Script>
+
+	
+
+	<mx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</mx:Metadata>	
+
+	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+		<![CDATA[
+
+			import mx.controls.CheckBox;
+
+			import mx.effects.Fade;
+
+			import ASsets.MyDisabledIcon;
+
+			import ASsets.MyDisabledSkin;
+
+			import ASsets.MyDownIcon;
+
+			import ASsets.MyDownSkin;
+
+			import ASsets.MyOverIcon;
+
+			import ASsets.MyOverSkin;
+
+			import ASsets.MySelectedDisabledIcon;
+
+			import ASsets.MySelectedDisabledSkin;
+
+			import ASsets.MySelectedDownIcon;
+
+			import ASsets.MySelectedDownSkin;
+
+			import ASsets.MySelectedOverIcon;
+
+			import ASsets.MySelectedOverSkin;
+
+			import ASsets.MySelectedUpIcon;
+
+			import ASsets.MySelectedUpSkin;
+
+			import ASsets.MySmallDisabledSkin;
+
+			import ASsets.MySmallDownSkin;
+
+			import ASsets.MySmallOverSkin;
+
+			import ASsets.MySmallSelectedDisabledSkin;
+
+			import ASsets.MySmallSelectedDownSkin;
+
+			import ASsets.MySmallSelectedOverSkin;
+
+			import ASsets.MySmallSelectedUpSkin;
+
+			import ASsets.MySmallUpSkin;
+
+			import ASsets.MyUpIcon;
+
+			import ASsets.MyUpSkin;
+
+			
+
+			[Bindable]
+
+			[Embed(source="../../../../Assets/Images/ButtonImages/smallUpSkin.jpg")]
+
+			public var RedU:Class;
+
+
+
+		]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+
+		<!--TestCase for manual test of color for CheckBox-->
+
+		<TestCase testID="Spark_color_text_Style_CheckBox" keywords="[CheckBox, color, style]" description="Verifies setting the color via text works">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="Red CheckBox" target="myCheckBox"/>
+
+				<SetStyle styleName="color" value="red" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/color_text_style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_color_pound_Style_CheckBox" keywords="[CheckBox, color, style]" description="Verifies setting the color via # works">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="Blue CheckBox" target="myCheckBox"/>
+
+				<SetStyle styleName="color" value="#00FF00" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/color_pound_style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_color_0x_Style_CheckBox" keywords="[CheckBox, color, style]" description="Verifies setting the color via text works">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="Green CheckBox" target="myCheckBox"/>
+
+				<SetStyle styleName="color" value="0x0000FF" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/color_0x_style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of disabledColor for CheckBox-->
+
+		<TestCase testID="Spark_disabledColor_text_Style_CheckBox" keywords="[CheckBox, disabledColor, style]" description="Verifies setting the disabledColor via text works">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="Red CheckBox" target="myCheckBox"/>
+
+				<SetProperty propertyName="enabled" value="false" target="myCheckBox"/>
+
+				<SetStyle styleName="disabledColor" value="red" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/disabledColor_text_style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_disabledColor_pound_Style_CheckBox" keywords="[CheckBox, disabledColor, style]" description="Verifies setting the disabledColor via # works">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="Blue CheckBox" target="myCheckBox"/>
+
+				<SetProperty propertyName="enabled" value="false" target="myCheckBox"/>
+
+				<SetStyle styleName="disabledColor" value="#00FF00" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/disabledColor_pound_style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_disabledColor_0x_Style_CheckBox" keywords="[CheckBox, disabledColor, style]" description="Verifies setting the disabledColor via text works">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="Green CheckBox" target="myCheckBox"/>
+
+				<SetProperty propertyName="enabled" value="false" target="myCheckBox"/>
+
+				<SetStyle styleName="disabledColor" value="0x0000FF" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/disabledColor_0x_style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of disabledIcon of CheckBox-->
+
+		<TestCase testID="Spark_disabledIcon_Style_CheckBox" keywords="[CheckBox, disabledIcon, style]" description="Verifies setting the disabledIcon of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="enabled" value="false" target="myCheckBox"/>
+
+				<SetStyle styleName="disabledIcon" value="{MyDisabledIcon}" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/disabledIcon_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>	
+
+
+
+		<!--Testcase for manual test of disabledSkin of CheckBox-->
+
+		<TestCase testID="Spark_disabledSkin_Style_CheckBox" keywords="[CheckBox, disabledSkin, style]" description="Verifies setting the disabledSkin of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="enabled" value="false" target="myCheckBox"/>
+
+				<SetStyle styleName="disabledSkin" value="{MyDisabledSkin}" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/disabledSkin_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>	
+
+
+
+		<!--Testcase for manual test of downIcon of CheckBox-->
+
+		<TestCase testID="Spark_downIcon_Style_CheckBox" keywords="[CheckBox, downIcon, style]" description="Verifies setting the downIcon of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="downIcon" value="{MyDownIcon}" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseOver" localX="3" localY="3" />
+
+                                <DispatchMouseEvent target="myCheckBox" type="mouseDown" localX="3" localY="3"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<CompareBitmap url="../styles/baselines/downIcon_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>	
+
+
+
+		<!--Testcase for manual test of downSkin of CheckBox-->
+
+		<TestCase testID="Spark_downSkin_Style_CheckBox" keywords="[CheckBox, downSkin, style]" description="Verifies setting the downSkin of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="DownSkin CheckBox" target="myCheckBox"/>
+
+				<SetStyle styleName="downSkin" value="{MyDownSkin}" target="myCheckBox" waitTarget="myCanvas" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseOver" localX="20" localY="10" />
+
+                                <DispatchMouseEvent target="myCheckBox" type="mouseDown" localX="20" localY="10"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<CompareBitmap url="../styles/baselines/downSkin_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of fontFamily of CheckBox-->
+
+		<TestCase testID="Spark_fontFamily_Arial_Style_CheckBox" keywords="[CheckBox,downSkin, style]" description="Verifies setting the fontFamily of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontFamily" value="EmbeddedArial" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="EmbeddedArial" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/fontFamily_TimesNewRoman_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>	
+
+		
+
+		<!--Testcase for manual test of fontSize of CheckBox-->
+
+		<TestCase testID="Spark_fontSize_20_Style_of_CheckBox" keywords="[CheckBox, fontSize, style]" description="Tests setting fontSize to 20 for CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="20" target="myCheckBox"/>				
+
+				<SetProperty propertyName="label" value="fontSize CheckBox" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/fontSize_20_Style_of_CheckBox_Spark.png" target="myCheckBox" numColorVariances="4" ignoreMaxColorVariance="true" />
+
+			</body>
+
+		</TestCase>
+
+				
+
+		<TestCase testID="Spark_fontSize_200_Style_of_CheckBox" keywords="[CheckBox, fontSize, style]" description="Tests setting fontSize to 200 for CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="fontSize" value="200" target="myCheckBox"/>				
+
+				<SetProperty propertyName="label" value="fontSize CheckBox" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/fontSize_200_Style_of_CheckBox_Spark.png" target="myCanvas" numColorVariances="10" ignoreMaxColorVariance="true"/>
+
+			</body>
+
+		</TestCase>
+
+				
+
+		<!--Testcase for manual test of fontWeight of CheckBox-->
+
+		<TestCase testID="Spark_fontWeight_default_of_CheckBox" keywords="[CheckBox, fontWeight, style]" description="Tests default fontWeight is normal">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="fontWeight CheckBox" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myCheckBox" value="normal" styleName="fontWeight"/>
+
+				<CompareBitmap url="../styles/baselines/deleteme_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_fontWeight_bold_of_CheckBox" keywords="[CheckBox, fontWeight, style]" description="Tests fontWeight is bold">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="fontWeight CheckBox" target="myCheckBox"/>
+
+				<SetStyle styleName="fontFamily" value="EmbeddedArial" target="myCheckBox"/>
+
+				<SetStyle styleName="fontWeight" value="bold" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/fontWeight_bold_of_CheckBox_Spark.png" target="myCheckBox"/>	
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test of horizontalGap of CheckBox-->
+
+		<!--Bug 203601 open for horizontalGap defaults to 5 in Flex 3, instead of 2 like in Flex 2.0.1-->
+
+		<TestCase testID="Spark_horizontalGap_default_of_CheckBox" keywords="[CheckBox, horizontalGap, style]" description="Tests the default horizontalGap is 2">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="icon" value="{RedU}" target="myCheckBox"/>
+
+				<SetProperty propertyName="labelPlacement" value="left" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="horizontal gap checkbox" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="horizontalGap" value="3" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_horizontalGap_20_of_CheckBox" keywords="[CheckBox, horizontalGap, style]" description="Tests setting the horizontalGap to 20">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="horizontalGap" value="20" target="myCheckBox"/>
+
+				<SetStyle styleName="icon" value="{RedU}" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="horizontal gap checkbox" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/horizontalGap_20_of_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_horizontalGap_2000_of_CheckBox" keywords="[CheckBox, horizontalGap, style]" description="Tests setting the horizontalGap to 2000">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="horizontalGap" value="2000" target="myCheckBox"/>
+
+				<SetStyle styleName="icon" value="{RedU}" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="horizontal gap checkbox" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/horizontalGap_2000_of_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test checking kerning of CheckBox-->
+
+		<TestCase testID="Spark_Checking_kerning_true_of_CheckBox" description="Test that the kerning value of true is  passed on to the text field of CheckBox." keywords="[CheckBox, kerning, style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetStyle target="myCheckBox" styleName="kerning" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="Kerning true CheckBox"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myCheckBox.getTextField()" styleName="kerning" value="true"/>
+
+			</body>
+
+		</TestCase>		
+
+
+
+		<TestCase testID="Spark_Checking_kerning_false_of_CheckBox" description="Test that the kerning value of false is  passed on to the text field of CheckBox." keywords="[CheckBox, kerning, style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetStyle target="myCheckBox" styleName="kerning" value="false"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="Kerning true CheckBox"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myCheckBox.getTextField()" styleName="kerning" value="false"/>
+
+			</body>
+
+		</TestCase>		
+
+
+
+		<!--Testcase for manual test checking letterSpacing of CheckBox-->
+
+		<TestCase testID="Spark_Checking_letterSpacing_5_of_CheckBox" description="Test that the letterSpacing value of 5 is  passed on to the text field of CheckBox." keywords="[CheckBox, letterSpacing, style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetStyle target="myCheckBox" styleName="letterSpacing" value="5"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="letterSpacing CheckBox"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myCheckBox.getTextField()" styleName="letterSpacing" value="5"/>
+
+			</body>
+
+		</TestCase>		
+
+
+
+		<TestCase testID="Spark_Checking_letterSpacing_neg5_of_CheckBox" description="Test that the letterSpacing value of  -5 is passed on to the text field of CheckBox." keywords="[CheckBox, letterSpacing, style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetStyle target="myCheckBox" styleName="letterSpacing" value="-5"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="letterSpacing CheckBox"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myCheckBox.getTextField()" styleName="letterSpacing" value="-5"/>
+
+			</body>
+
+		</TestCase>	
+
+
+
+		<!--Testcases for manual test checking paddingLeft of CheckBox-->
+
+		<!--Bug 203607 In Flex 2.0.1 paddingLeft defaults to 3, In Flex 3 it defaults to 0-->
+
+		<TestCase testID="Spark_paddingLeft_default_style_CheckBox" description="Test that default paddingLeft is 3 for CheckBox" keywords="[CheckBox, paddingLeft, style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="paddingLeft" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myCheckBox" value="0" styleName="paddingLeft"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_paddingLeft_20_Style_CheckBox" description="Tests setting paddingLeft to 20 for CheckBox" keywords="[CheckBox, paddingLeft, Style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="paddingLeft 20 CheckBox"/>
+
+				<SetStyle target="myCheckBox" styleName="paddingLeft" value="20" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/paddingLeft_20_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcases for manual test checking paddingRight of CheckBox-->
+
+		<!--Bug 203607 In Flex 2.0.1 paddingRight defaults to 3, In Flex 3 it defaults to 0-->
+
+		<TestCase testID="Spark_paddingRight_default_style_CheckBox" description="Test that default paddingRight is 3 for CheckBox" keywords="[CheckBox, paddingRight, style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="paddingRight" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue target="myCheckBox" value="0" styleName="paddingRight"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_paddingRight_20_Style_CheckBox" description="Tests setting paddingRight to 20 for CheckBox" keywords="[CheckBox, paddingRight, Style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="label" value="paddingRight 20 CheckBox"/>
+
+				<SetStyle target="myCheckBox" styleName="paddingRight" value="20" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/paddingRight_20_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of overIcon of CheckBox-->
+
+		<TestCase testID="Spark_overIcon_Style_CheckBox" keywords="[CheckBox, overIcon, style]" description="Verifies setting the overIcon of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="overIcon" value="{MyOverIcon}" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseMove" localX="20" localY="10"/>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseMove" localX="20" localY="10"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<CompareBitmap url="../styles/baselines/overIcon_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>	
+
+
+
+		<!--Testcase for manual test of overSkin of CheckBox-->
+
+		<TestCase testID="Spark_overSkin_Style_CheckBox" keywords="[CheckBox, overSkin, style]" description="Verifies setting the overSkin of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="overSkin CheckBox" target="myCheckBox"/>
+
+				<SetStyle styleName="overSkin" value="{MyOverSkin}" target="myCheckBox" waitTarget="myCanvas" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseMove" localX="20" localY="10"/>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseMove" localX="20" localY="10"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<CompareBitmap url="../styles/baselines/overSkin_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of selectedDisabledIcon of CheckBox-->
+
+		<TestCase testID="Spark_Checking_selectedDisabledIcon_of_CheckBox" description="Test the selectedDisabledIcon style of CheckBox" keywords="[CheckBox, selectedDisabledIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetStyle target="myCheckBox" styleName="selectedDisabledIcon" value="{MySelectedDisabledIcon}"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="selected" value="true"/>
+				
+				<SetProperty target="myCheckBox" propertyName="height" value="18"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedDisabledIcon_Style_of_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of selectedDisabledSkin of CheckBox-->
+
+		<TestCase testID="Spark_Checking_selectedDisabledSkin_of_CheckBox" description="Test the selectedDisabledSkin style of CheckBox" keywords="[CheckBox, selectedDisabledSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete"  waitTarget="myCheckBox"/>
+
+				<SetStyle target="myCheckBox" styleName="selectedDisabledSkin" value="{MySelectedDisabledSkin}"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="selected" value="true"/>
+				
+				<SetProperty target="myCheckBox" propertyName="height" value="18"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/Checking_selectedDisabledSkin_Style_of_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>	
+
+		
+
+		<!--Testcase for manual test of selectedDownIcon of CheckBox-->
+
+		<TestCase testID="Spark_selectedDownIcon_Style_CheckBox" description="Test the selectedDownIcon style of CheckBox" keywords="[CheckBox, selectedDownIcon, style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle target="myCheckBox" styleName="selectedDownIcon" value="{MySelectedDownIcon}"/>
+
+				<SetProperty target="myCheckBox" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="selected" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="enabled" value="true" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseOver" localX="3" localY="3" />
+
+                                <DispatchMouseEvent target="myCheckBox" type="mouseDown" localX="3" localY="3"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<CompareBitmap url="../styles/baselines/selectedDownIcon_Style_CheckBox_Spark.png" target="myCheckBox"/>	
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of selectedDownSkin of CheckBox-->
+
+		<TestCase testID="Spark_selectedDownSkin_Style_CheckBox" description="Test the selectedDownSkin style of CheckBox" keywords="[CheckBox, selectedDownSkin, style]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle target="myCheckBox" styleName="selectedDownSkin" value="{MySelectedDownSkin}"/>
+
+				<SetProperty target="myCheckBox" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="selected" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="enabled" value="true" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseMove" localX="3" localY="3"/>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseOver" localX="3" localY="3" />
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseMove" localX="4" localY="3"/>
+
+                                <DispatchMouseEvent target="myCheckBox" type="mouseDown" localX="3" localY="3"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<CompareBitmap url="../styles/baselines/selectedDownSkin_Style_CheckBox_Spark.png" target="myCheckBox"/>	
+
+			</body>
+
+		</TestCase>
+
+
+
+		
+
+		<!--Testcase for manual test of selectedOverIcon of CheckBox-->
+
+		<TestCase testID="Spark_selectedOverIcon_Style_CheckBox" keywords="[CheckBox, selectedOverIcon, style]" description="Verifies setting the selectedOverIcon of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="selected" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="enabled" value="true" />
+
+				<SetStyle styleName="selectedOverIcon" value="{MySelectedOverIcon}" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseMove" localX="20" localY="10"/>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseMove" localX="20" localY="10"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<CompareBitmap url="../styles/baselines/selectedOverIcon_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>	
+
+
+
+		<!--Testcase for manual test of selectedOverSkin of CheckBox-->
+
+		<TestCase testID="Spark_selectedOverSkin_Style_CheckBox" keywords="[CheckBox, selectedOverSkin, style]" description="Verifies setting the selectedOverSkin of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="selectedOverSkin CheckBox" target="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="selected" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="enabled" value="true" />
+
+				<SetStyle styleName="selectedOverSkin" value="{MySelectedOverSkin}" target="myCheckBox" waitTarget="myCanvas" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseMove" localX="20" localY="10"/>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseUp" localX="5" localY="5"/>
+
+				<DispatchMouseEvent target="myCheckBox" type="mouseMove" localX="20" localY="10"  waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<CompareBitmap url="../styles/baselines/selectedOverSkin_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of selectedUpIcon of CheckBox-->
+
+		<TestCase testID="Spark_selectedUpIcon_Style_CheckBox" keywords="[CheckBox, selectedUpIcon, style]" description="Verifies setting the selectedUpIcon of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="selected" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="enabled" value="true" />
+
+				<SetStyle styleName="selectedUpIcon" value="{MySelectedUpIcon}" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/selectedUpIcon_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>	
+
+
+
+		<!--Testcase for manual test of selectedUpSkin of CheckBox-->
+
+		<TestCase testID="Spark_selectedUpSkin_Style_CheckBox" keywords="[CheckBox, selectedUpSkin, style]" description="Verifies setting the selectedUpSkin of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="selectedUpSkin CheckBox" target="myCheckBox"/>
+
+				<SetProperty target="myCheckBox" propertyName="toggle" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="selected" value="true"/>
+
+				<SetProperty target="myCheckBox" propertyName="enabled" value="true" />
+
+				<SetStyle styleName="selectedUpSkin" value="{MySelectedUpSkin}" target="myCheckBox" waitTarget="myCanvas" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/selectedUpSkin_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<!--Testcase for manual test of textAlign of CheckBox-->
+
+		<TestCase testID="Spark_textAlign_default_Style_of_CheckBox" description="Verifies the default textAlign style of CheckBox is left" keywords="[CheckBox, style, textAlign]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="textAlign" value="start" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_textAlign_left_Style_of_CheckBox" description="Verifies setting textAlign style of CheckBox to left" keywords="[CheckBox, style, textAlign]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="textAlign" value="left" target="myCheckBox"/>
+
+				<SetProperty propertyName="width" value="200" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="textAlign CheckBox" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/textAlign_left_Style_of_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_textAlign_right_Style_of_CheckBox" description="Verifies setting textAlign style of CheckBox to right" keywords="[CheckBox, style, textAlign]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="textAlign" value="right" target="myCheckBox"/>
+
+				<SetProperty propertyName="width" value="200" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="textAlign CheckBox" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/textAlign_right_Style_of_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_textAlign_center_Style_of_CheckBox" description="Verifies setting textAlign style of CheckBox to center" keywords="[CheckBox, style, textAlign]">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="textAlign" value="center" target="myCheckBox"/>
+
+				<SetProperty propertyName="width" value="200" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="textAlign CheckBox" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/textAlign_center_Style_of_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of textDecoration of CheckBox-->
+
+		<TestCase testID="Spark_textDecoration_underline_style_of_CheckBox" keywords="[CheckBox, textDecoration, style]" description="Verifies setting textDecoration to underline">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="textDecoration" value="underline" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="textDecoration CheckBOx" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/textDecoration_underline_style_of_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_textDecoration_none_style_of_CheckBox" keywords="[CheckBox, textDecoration, style]" description="Verifies setting textDecoration to none">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="textDecoration" value="none" target="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="textDecoration CheckBOx" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/textDecoration_none_style_of_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!--Testcase for manual test of upIcon of CheckBox-->
+
+		<TestCase testID="Spark_upIcon_Style_CheckBox" keywords="[CheckBox, upIcon, style]" description="Verifies setting the upIcon of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="upIcon" value="{MyUpIcon}" target="myCheckBox" waitTarget="myCheckBox" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upIcon_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>	
+
+
+
+		<!--Testcase for manual test of upSkin of CheckBox-->
+
+		<TestCase testID="Spark_upSkin_Style_CheckBox" keywords="[CheckBox, upSkin, style]" description="Verifies setting the upSkin of CheckBox">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetProperty propertyName="label" value="upSkin CheckBox" target="myCheckBox"/>
+
+				<SetStyle styleName="upSkin" value="{MyUpSkin}" target="myCheckBox" waitTarget="myCanvas" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/upSkin_Style_CheckBox_Spark.png" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<!--Testcase for manual test of verticalGap of CheckBox-->
+
+		<TestCase testID="Spark_verticalGap_default_Style_CheckBox" keywords="[CheckBox, verticalGap, style]" description="Verifies the default value of verticalGap is 2">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="icon" value="{RedU}" target="myCheckBox"/>
+
+				<SetProperty propertyName="labelPlacement" value="top" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="verticalGap" value="2" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_verticalGap_20_Style_CheckBox" keywords="[CheckBox, verticalGap, style]" description="Verifies setting the value of verticalGap to 20">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="icon" value="{RedU}" target="myCheckBox"/>
+
+				<SetStyle styleName="verticalGap" value="20" target="myCheckBox"/>
+
+				<SetProperty propertyName="labelPlacement" value="top" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/verticalGap_20_style_CheckBox_Spark.png"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_verticalGap_2000_Style_CheckBox" keywords="[CheckBox, verticalGap, style]" description="Verifies setting the value of verticalGap to 2000">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="icon" value="{RedU}" target="myCheckBox"/>
+
+				<SetStyle styleName="verticalGap" value="2000" target="myCheckBox"/>
+
+				<SetProperty propertyName="labelPlacement" value="top" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/verticalGap_2000_style_CheckBox_Spark.png"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_verticalGap_default_bottom_Style_CheckBox" keywords="[CheckBox, verticalGap, style]" description="Verifies the default value of verticalGap is 2">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="icon" value="{RedU}" target="myCheckBox"/>
+
+				<SetProperty propertyName="labelPlacement" value="bottom" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<AssertStyleValue styleName="verticalGap" value="2" target="myCheckBox"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_verticalGap_20_bottom_Style_CheckBox" keywords="[CheckBox, verticalGap, style]" description="Verifies setting the value of verticalGap to 20">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="icon" value="{RedU}" target="myCheckBox"/>
+
+				<SetStyle styleName="verticalGap" value="20" target="myCheckBox"/>
+
+				<SetProperty propertyName="labelPlacement" value="bottom" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/verticalGap_20_bottom_style_CheckBox_Spark.png"/>
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Spark_verticalGap_2000_bottom_Style_CheckBox" keywords="[CheckBox, verticalGap, style]" description="Verifies setting the value of verticalGap to 2000">
+
+			<setup>
+
+				<ResetComponent target="myCheckBox" className="mx.controls.CheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+				<SetStyle styleName="icon" value="{RedU}" target="myCheckBox"/>
+
+				<SetStyle styleName="verticalGap" value="2000" target="myCheckBox"/>
+
+				<SetProperty propertyName="labelPlacement" value="bottom" target="myCheckBox" waitEvent="updateComplete" waitTarget="myCheckBox"/>
+
+			</setup>
+
+			<body>
+
+				<CompareBitmap url="../styles/baselines/verticalGap_2000_bottom_style_CheckBox_Spark.png"/>
+
+			</body>
+
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>

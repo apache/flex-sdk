@@ -1,0 +1,1041 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="components/ToggleButtonBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ToggleButtonBar_Basic_Spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+		
+    }
+
+    public function addData(bool:int):void
+    {
+        application.tbb.dataProvider = myDP;
+    }
+
+    public function addObjData():void
+    {
+        application.tbb.dataProvider = iconDP;
+    }
+
+    public function changeDP(node:int, bool:String):void
+    {
+        myDP.node[node].@enabled = bool;
+    }
+
+    [Bindable]
+    public var iconDP:Array= [{label:"Toys", icon:"dinosaur"},{label:"dinosaur", icon: "dinosaur"}];
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.controls.ToggleButtonBar;
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+    import mx.events.ListEvent;
+    
+    [Bindable]
+    private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+    
+    ]]>
+    </mx:Script>
+    
+<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+        .myToggleButtonBarJPG
+        {
+            skin: ClassReference("comps.button_jpg_embeded");       
+        }
+        .myToggleButtonBarGIF
+        {
+            skin: ClassReference("comps.button_gif_embeded");       
+        }
+        .myToggleButtonBarPNG
+        {
+            skin: ClassReference("comps.button_png_embeded");       
+        }
+        .myToggleButtonBarSWF
+        {
+            skin: ClassReference("comps.button_swf_embeded");       
+        }
+        
+        .myToggleButtonBarJPGRunTime
+        {
+            skin: ClassReference("comps.button_jpg_runtime");       
+        }
+        .myToggleButtonBarGIFRunTime
+        {
+            skin: ClassReference("comps.button_gif_runtime");       
+        }
+        .myToggleButtonBarPNGRunTime
+        {
+            skin: ClassReference("comps.button_png_runtime");       
+        }
+        .myToggleButtonBarSWFRunTime
+        {
+            skin: ClassReference("comps.button_swf_runtime");       
+        }
+
+        .myToggleButtonBarJPGIcon
+        {
+            skin: ClassReference("comps.icon_jpg_embeded");     
+        }
+        .myToggleButtonBarGIFIcon
+        {
+            skin: ClassReference("comps.icon_gif_embeded");     
+        }
+        .myToggleButtonBarPNGIcon
+        {
+            skin: ClassReference("comps.icon_png_embeded");     
+        }
+        .myToggleButtonBarSWFIcon
+        {
+            skin: ClassReference("comps.icon_swf_embeded");     
+        }
+        
+        .myToggleButtonBarJPGIconRunTime
+        {
+            skin: ClassReference("comps.icon_jpg_runtime");     
+        }
+        .myToggleButtonBarGIFIconRunTime
+        {
+            skin: ClassReference("comps.icon_gif_runtime");     
+        }
+        .myToggleButtonBarPNGIconRunTime
+        {
+            skin: ClassReference("comps.icon_png_runtime");     
+        }
+        .myToggleButtonBarSWFIconRunTime
+        {
+            skin: ClassReference("comps.icon_swf_runtime");     
+        }       
+</mx:Style>
+    
+    <testCases>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPG" keywords="[enabled, SkinStates,EmbedJPG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_JPG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" />
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_Disabled_JPG.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNG" keywords="[enabled, SkinStates,EmbedPNG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_PNG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedPNG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_PNG_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" />
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_PNG_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedPNG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" />
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_PNG_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_PNG_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNG_Disabled" keywords="[disabled, SkinStates,EmbedPNG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_Disabled_PNG.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIF" keywords="[enabled, SkinStates,EmbedGIF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNG" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_GIF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIF_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedGIF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_GIF_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_GIF_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIF_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedGIF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_GIF_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_GIF_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIF_Disabled" keywords="[disabled, SkinStates,EmbedGIF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_Disabled_GIF.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWF" keywords="[enabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWF_Disabled" keywords="[disabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_Disabled_SWF.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_JPG" keywords="[enabled, SkinStates,runtimeJPG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPGRunTime" waitEvent="updateComplete" waitTarget="tbb" />
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPGRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPGRunTime" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_JPG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_PNG" keywords="[enabled, SkinStates,runtimePNG, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNGRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNGRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNGRunTime" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_PNG.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_GIF" keywords="[enabled, SkinStates,runtimeGIF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIFRunTime" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_GIF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_SWF" keywords="[enabled, SkinStates,runtimeSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_SWF.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" />
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFRunTime" waitEvent="updateComplete" waitTarget="tbb" />
+				<DispatchMouseEvent type="rollOver" localX="85" localY="13" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="85" localY="13" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+				
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon" keywords="[enabled, SkinStates,EmbedJPGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" />
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" />
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_JPGIcon_Disabled" keywords="[disabled, SkinStates,EmbedJPGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_Disabled_JPGIcon.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon" keywords="[enabled, SkinStates,EmbedPNGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" />
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_PNGIcon_Disabled" keywords="[disabled, SkinStates,EmbedPNGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" />
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNGIcon" waitEvent="updateComplete" waitTarget="tbb" />  
+                <SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_Disabled_PNGIcon.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIFIcon" keywords="[enabled, SkinStates,EmbedGIFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_GIFIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIFIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_GIFIcon_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIFIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_GIFIcon_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIFIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_GIFIcon_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIFIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_GIFIcon_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_GIFIcon_Disabled" keywords="[disabled, SkinStates,EmbedGIFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_Disabled_GIFIcon.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWFIcon" keywords="[enabled, SkinStates,EmbedSWFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWFIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWFIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWFIcon_mouseOver_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWFIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWFIcon_mouseOver_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWFIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWFIcon_mouseDown_selectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWFIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" />
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWFIcon_mouseDown_NonselectedTab.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_Embeding_SWFIcon_Disabled" keywords="[disabled, SkinStates,EmbedSWFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWFIcon" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_Disabled_SWFIcon.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_JPGIcon" keywords="[enabled, SkinStates,runtimeJPGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarJPGIconRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarJPGIconRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarJPGIconRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_JPGIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_PNGIcon" keywords="[enabled, SkinStates,runtimePNGIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarPNGIconRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarPNGIconRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarPNGIconRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_PNGIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="ToggleButtonBar_Styles_SkinStates_runtime_GIFIcon" keywords="[enabled, SkinStates,runtimeGIFIcon, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarGIFIconRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarGIFIconRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarGIFIconRunTime" waitEvent="updateComplete" waitTarget="tbb" /> 
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_runtime_GIFIcon.png" timeout="5000" />
+            </body>
+        </TestCase> 
+<!-- AIR specific cases -->
+
+        <TestCase testID="TBBar_SkinStates_Embeding_SWF_airOnly" keywords="[enabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" />
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWF_air.png" timeout="5000" />
+            </body>
+        </TestCase> 
+        <TestCase testID="TBBar_SkinStates_Embeding_SWF_mouseOver_selectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="TBBar_SkinStates_Embeding_SWF_mouseOver_NonselectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab_air.png" timeout="5000" />
+            </body>
+        </TestCase>     
+        <TestCase testID="TBBar_SkinStates_Embeding_SWF_mouseDown_selectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" />
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" />   
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="TBBar_SkinStates_Embeding_SWF_mouseDown_NonselectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" />  
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="109" localY="10" target="tbb" waitEvent="rollOver" waitTarget="tbb" /> 
+                <DispatchMouseEvent type="mouseDown" localX="109" localY="10" target="tbb" waitEvent="mouseDown" waitTarget="tbb" /> 
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="TBBar_SkinStates_Embeding_SWF_Disabled_airOnly" keywords="[disabled, SkinStates,EmbedSWF, ToggleButtonBar]" >
+            <setup>
+                <ResetComponent target="tbb" className="mx.controls.ToggleButtonBar"  waitEvent="updateComplete" waitTarget="tbb"/>   
+                <RunCode code="addData(0);"  waitEvent="updateComplete" waitTarget="tbb"/>
+                <SetStyle target="tbb" styleName="buttonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="firstButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" /> 
+                <SetStyle target="tbb" styleName="lastButtonStyleName" value="myToggleButtonBarSWF" waitEvent="updateComplete" waitTarget="tbb" />  
+                <SetProperty target="tbb" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tbb"/>
+            </setup>
+            <body>
+                <CompareBitmap target="tbb" url="../Styles/baselines/spark/ToggleButtonBar_Styles_SkinStates_Embeding_Disabled_SWF_air.png" timeout="5000" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

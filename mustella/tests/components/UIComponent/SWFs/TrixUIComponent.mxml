@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+        width="100"
+        height="100"
+        backgroundColor="#9999FF"
+        borderStyle="solid"
+        borderColor="#000000"
+        dragEnter="parentApplication.dragEnterHandler(event);" 
+        dragDrop="parentApplication.dragDropHandler(event);"
+        dragOver="parentApplication.dragOverHandler(event);"
+        toolTip="This is raising an event or seven"
+        currentState=""
+        >
+
+</mx:Canvas>
