@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="resources/ResourceManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceManagerApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+		public static function init(o:DisplayObject):void{}
+	]]></mx:Script>
+
+	<mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+	
+		import mx.resources.IResourceManager;
+		import mx.resources.ResourceManager;
+		
+		private var resourceManager:IResourceManager = ResourceManager.getInstance();
+			
+		public function testGetUint(key:String, expectedValue:uint, locale:String = null):Boolean
+		{
+			return resourceManager.getUint('myResources', key, locale) === expectedValue;
+		}
+
+	]]></mx:Script>
+	
+	<testCases>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_NO_SUCH_KEY" description="Tests that the getUint() method of ResourceManager throws an Error when accessing a non-existent resource" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('NO_SUCH_KEY', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING" description="Tests the getUint() method of ResourceManager for a resource value which is a typical String" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_LIST" description="Tests the getUint() method of ResourceManager for a resource value which is a typical String of comma-separated items" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_LIST', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_EMPTY" description="Tests the getUint() method of ResourceManager for a resource value which is an empty String" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_EMPTY', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_NULL" description="Tests the getUint() method of ResourceManager for a resource value which is the String 'null'" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_NULL', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_UNDEFINED" description="Tests the getUint() method of ResourceManager for a resource value which is the String 'undefined'" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_UNDEFINED', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_TRUE_LOWERCASE" description="Tests the getUint() method of ResourceManager for a resource value which is the String 'true'" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_TRUE_LOWERCASE', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_TRUE_MIXEDCASE" description="Tests the getUint() method of ResourceManager for a resource value which is the String 'True'" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_TRUE_MIXEDCASE', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_TRUE_UPPERCASE" description="Tests the getUint() method of ResourceManager for a resource value which is the String 'TRUE'" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_TRUE_UPPERCASE', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_FALSE_LOWERCASE" description="Tests the getUint() method of ResourceManager for a resource value which is the String 'false'" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_FALSE_LOWERCASE', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_FALSE_MIXEDCASE" description="Tests the getUint() method of ResourceManager for a resource value which is the String 'False'" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_FALSE_MIXEDCASE', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_FALSE_UPPERCASE" description="Tests the getUint() method of ResourceManager for a resource value which is the String 'FALSE'" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_FALSE_UPPERCASE', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_NAN" description="Tests the getUint() method of ResourceManager for a resource value which is the String 'NaN'" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_NAN', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_ZERO" description="Tests the getUint() method of ResourceManager for a resource value which is the String '0'" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_ZERO', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_POSITIVE_INTEGER" description="Tests the getUint() method of ResourceManager for a resource value which is the String rep of a typical positive integer" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_POSITIVE_INTEGER', 3)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_NEGATIVE_INTEGER" description="Tests the getUint() method of ResourceManager for a resource value which is the String rep of a typical negative integer" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_NEGATIVE_INTEGER', 4294967293)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_FIXEDPOINT" description="Tests the getUint() method of ResourceManager for a resource value which is the String rep of a typical fractional Number" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_FIXEDPOINT', 1)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_STRING_FLOATINGPOINT" description="Tests the getUint() method of ResourceManager for a resource value which is the String rep of a typical fractional Number in exponential notation" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('STRING_FLOATINGPOINT', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_NULL" description="Tests the getUint() method of ResourceManager for a resource value which is null" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('NULL', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getUint_UNDEFINED" description="Tests the getUint() method of ResourceManager for a resource value which is undefined" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('UNDEFINED', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_TRUE" description="Tests the getUint() method of ResourceManager for a resource value which is true" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('TRUE', 1)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_FALSE" description="Tests the getUint() method of ResourceManager for a resource value which is false" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('FALSE', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_NAN" description="Tests the getUint() method of ResourceManager for a resource value which is NaN" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('NAN', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_ZERO" description="Tests the getUint() method of ResourceManager for a resource value which is 0" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('ZERO', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getUint_POSITIVE_INTEGER" description="Tests the getUint() method of ResourceManager for a resource value which is a typical positive integer" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('POSITIVE_INTEGER', 3)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_NEGATIVE_INTEGER" description="Tests the getUint() method of ResourceManager for a resource value which is a typical negative integer" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('NEGATIVE_INTEGER', 4294967293)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_FIXEDPOINT" description="Tests the getUint() method of ResourceManager for a resource value which is a typical fractional Number" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('FIXEDPOINT', 1)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getUint_FLOATINGPOINT" description="Tests the getUint() method of ResourceManager for a resource value which is a typical fractional Number in exponential notation" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('FLOATINGPOINT', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getUint_CLASS" description="Tests the getUint() method of ResourceManager for a resource value which is a Class reference" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('CLASS', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getUint_ARRAY" description="Tests the getUint() method of ResourceManager for a resource value which is an Array of Strings" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('ARRAY', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getUint_OBJECT" description="Tests the getUint() method of ResourceManager for a resource value which is a plain Object" keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetUint('OBJECT', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_localeParam_firstInLocaleChain_true" description="Tests the getUint() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+			    <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetUint('POSITIVE_INTEGER', 3, 'fr_FR')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_localeParam_notFirstInLocaleChain_true" description="Tests the getUint() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetUint('POSITIVE_INTEGER', 2, 'ja_JP')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getUint_localeParam_localeMissing" description="Tests the getUint() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getUint]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetUint('POSITIVE_INTEGER', 0, 'fu_BR')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		
+	</testCases>
+
+</UnitTester>
+

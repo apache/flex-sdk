@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="resources/ResourceManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceManagerApp.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            public static function init(o:DisplayObject):void{}
+        ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>   
+    <!-- end of set of lines that must be in each unit test. -->
+    
+    <mx:Script><![CDATA[
+        import mx.controls.Alert;
+        import mx.utils.*;
+        import mx.resources.IResourceManager
+        import mx.resources.ResourceManager;
+        import mx.resources.ResourceBundle;
+        import mx.events.ResourceEvent;
+        import mx.managers.PopUpManager;
+        
+        public var rm:IResourceManager = ResourceManager.getInstance();
+        public var curAlert:Alert = null;
+
+        // There is very funky behavior when reusing the same variable for the returned IEventDispatchers.  Bug 203869.
+        public var ed1:IEventDispatcher;
+        public var ed2:IEventDispatcher;
+        public var ed3:IEventDispatcher;
+        public var ed4:IEventDispatcher;
+        public var ed5:IEventDispatcher;
+        public var ed6:IEventDispatcher;
+        public var ed7:IEventDispatcher;
+        public var ed8:IEventDispatcher;
+        public var ed9:IEventDispatcher;
+        public var ed10:IEventDispatcher;
+//        public var ed11:IEventDispatcher; 
+//        public var ed12:IEventDispatcher;      
+//        public var ed13:IEventDispatcher;      
+        public var ed14:IEventDispatcher;      
+        public var ed15:IEventDispatcher;      
+//        public var ed16:IEventDispatcher;      
+//        public var ed17:IEventDispatcher;      
+        public var ed18:IEventDispatcher;      
+//        public var ed19:IEventDispatcher;      
+//        public var ed20:IEventDispatcher;      
+//        public var ed21:IEventDispatcher;
+//        public var ed22:IEventDispatcher;
+        public var ed23:IEventDispatcher;
+
+        private function clearAllLocaleData():void{            
+            
+            ResourceManager.getInstance().localeChain = [];
+            
+            var numLocales:int = ResourceManager.getInstance().getLocales().length;
+            
+            for(var i:int = numLocales; i > 0; --i){
+                ResourceManager.getInstance().removeResourceBundlesForLocale(ResourceManager.getInstance().getLocales()[i-1]);
+            }
+        }
+
+		// Try calling loadResourceModule and add the event listeners in the same block of AS.
+		// ed15, ed18, and ed23 aren't anything yet, so we can't pass them in, and we can't pass 
+		// by reference in Actionscript.
+		private function setUpEventDispatcher(ed:int, url:String):void{
+			var ied:IEventDispatcher;
+			
+			switch(ed){
+				case 15:
+					ed15 = ResourceManager.getInstance().loadResourceModule(url);
+					ied = ed15;
+					break;
+				case 18:
+					ed18 = ResourceManager.getInstance().loadResourceModule(url);
+					ied = ed18;
+					break;
+				case 23:
+					ed23 = ResourceManager.getInstance().loadResourceModule(url);
+					ied = ed23;
+					break;
+				
+			}
+	
+			ied.addEventListener(ResourceEvent.PROGRESS, handleProgressEvent);
+			ied.addEventListener(ResourceEvent.ERROR, handleErrorEvent);
+			ied.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent);
+		}
+
+        private function handleErrorEvent(e:ResourceEvent):void{trace("handleErrorEvent: " + e.toString())}
+        private function handleProgressEvent(e:ResourceEvent):void{trace("handleProgressEvent: " + e.toString())}
+        private function handleCompleteEvent(e:ResourceEvent):void{trace("handleCompleteEvent: " + e.toString())}
+                
+    ]]></mx:Script>
+
+<!-- 
+
+General approach:
+    <setup>
+        - Remove all locales.
+        - Clear the locale chain.
+        - Verify that there are no resources left.
+        - Load bundles, add event listeners (e.g. add an error event listener to avoid RTEs, which slow down mustella) for setup.
+    </setup>
+    <body>
+        - Verify.
+    </body>        
+-->
+
+    <testCases>
+        <TestCase frequency="all" testID="RTL_Method_loadResourceModule_ReturnType" description="Confirm that loadResourceModule returns the correct type." keywords="[Runtime Localization,loadResourceModule]" >
+            <setup>
+                <RunCode code="clearAllLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS_bundle1_001.swf') is IEventDispatcher" value="true" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_Method_loadResourceModule_OneLocaleOneBundle" description="Be sure loadResourceModule loads the locale and resources for a bundle." keywords="[Runtime Localization,loadResourceModule]" >
+            <setup>
+                <RunCode code="clearAllLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US']" />
+            </setup>
+            <body>
+                <RunCode code="ed1=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS_bundle1_002.swf')" />
+                <RunCode code="ed1.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
+                <RunCode code="ed1.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+                <AssertEvent target="script:ed1" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="en_US" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1','SHUTDOWN')" value="Shut down" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_Method_loadResourceModule_OneLocaleThreeBundles" description="Be sure loadResourceModule loads the locale and resources for three bundles." keywords="[Runtime Localization,loadResourceModule]" >
+            <setup>
+                <RunCode code="clearAllLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US']" />
+            </setup>
+            <body>
+                <RunCode code="ed8=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS_bundles1,2,3_001.swf')" />
+                <RunCode code="ed8.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
+                <RunCode code="ed8.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+                <AssertEvent target="script:ed8" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="en_US" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1','SHUTDOWN')" value="Shut down" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle2','BUNDLETWOSTRING')" value="BundleTwoString, en_US" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle3','BUNDLETHREESTRING')" value="BundleThreeString, en_US" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_Method_loadResourceModule_SameLocaleAdditionalBundle" description="Be sure loadResourceModule works correctly when adding a bundle to an existing locale." keywords="[Runtime Localization,loadResourceModule]" >
+            <setup>
+                <RunCode code="clearAllLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US']" />
+            </setup>
+            <body>
+                <RunCode code="ed2=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS_bundle1_003.swf')" />
+                <RunCode code="ed2.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
+                <RunCode code="ed2.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+                <AssertEvent target="script:ed2" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <RunCode code="ed3=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS_bundles1,2,3_002.swf')" />
+                <RunCode code="ed3.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
+                <RunCode code="ed3.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+                <AssertEvent target="script:ed3" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="en_US" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1','SHUTDOWN')" value="Shut down" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle2','BUNDLETWOSTRING')" value="BundleTwoString, en_US" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_Method_loadResourceModule_SameLocaleSameBundle" description="Be sure loadResourceModule works correctly when adding resources to an existing locale and bundle.  Note that in this case, no additional information should be added to a bundle in a locale which is already present." keywords="[Runtime Localization,loadResourceModule]" >
+            <setup>
+                <RunCode code="clearAllLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US']" />
+            </setup>
+            <body>
+                <RunCode code="ed4=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS_bundle1_004.swf')" />
+                <RunCode code="ed4.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
+                <RunCode code="ed4.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+                <AssertEvent target="script:ed4" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <RunCode code="ed5=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom2/resMod_loadResourceModule_enUS_bundle1_005.swf')" />
+                <RunCode code="ed5.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
+                <RunCode code="ed5.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+                <AssertEvent target="script:ed5" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="en_US" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1','SHUTDOWN')" value="Shut down" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1', 'SHUTDOWN2')" valueExpression="value=null" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_Method_loadResourceModule_AdditionalLocale1Bundle" description="Be sure loadResourceModule works correctly when adding one additional locale with one new bundle." keywords="[Runtime Localization,loadResourceModule]" >
+            <setup>
+                <RunCode code="clearAllLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','fr_FR']" />
+            </setup>
+            <body>
+                <RunCode code="ed6=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS_bundle1_006.swf')" />
+                <RunCode code="ed6.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
+                <RunCode code="ed6.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+                <AssertEvent target="script:ed6" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <RunCode code="ed7=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_frFR_bundle2.swf')" />
+                <RunCode code="ed7.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
+                <RunCode code="ed7.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+                <AssertEvent target="script:ed7" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="2" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('en_US') != -1" value="true" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('fr_FR') != -1" value="true" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1','SHUTDOWN')" value="Shut down" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle2','BUNDLETWOSTRING')" value="BundleTwoString, fr_FR" />
+            </body>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_Method_loadResourceModule_AdditionalLocales3Bundles" description="Be sure loadResourceModule works correctly when adding two additional locales and two additional bundles." keywords="[Runtime Localization,loadResourceModule]" >
+            <setup>
+                <RunCode code="clearAllLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['en_US','fr_FR','ja_JP']" />
+            </setup>
+            <body>
+                <RunCode code="ed9=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS_bundle1_007.swf')" />
+                <RunCode code="ed9.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
+                <RunCode code="ed9.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+                <AssertEvent target="script:ed9" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <RunCode code="ed10=ResourceManager.getInstance().loadResourceModule('assets/bundles/custom/resMod_loadResourceModule_enUS,frFR,jaJP_bundles1,2,3.swf')" />
+                <RunCode code="ed10.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
+                <RunCode code="ed10.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+                <AssertEvent target="script:ed10" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="3" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('en_US') != -1" value="true" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('fr_FR') != -1" value="true" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('ja_JP') != -1" value="true" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1','SHUTDOWN')" value="Shut down" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle2','BUNDLETWOSTRING')" value="BundleTwoString, en_US" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle3','BUNDLETHREESTRING')" value="BundleThreeString, en_US" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','en_US','ja_JP']" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1','SHUTDOWN')" value="Arrêté" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle2','BUNDLETWOSTRING')" value="BundleTwoString, fr_FR" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle3','BUNDLETHREESTRING')" value="BundleThreeString, fr_FR" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','en_US']" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1','SHUTDOWN')" value="シャットダウンされています" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle2','BUNDLETWOSTRING')" value="BundleTwoString, ja_JP" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle3','BUNDLETHREESTRING')" value="BundleThreeString, ja_JP" />
+            </body>
+        </TestCase>
+
+<!--
+    These next four are excluded - bug SDK-9607
+-->    
+        <TestCase frequency="all" testID="RTL_Method_loadResourceModule_OneFrameworkLocale" description="Test using loadResourceModule() to load one framework locale (Japanese)." keywords="[Runtime Localization,loadResourceModule]" >
+            <setup>
+                <RunCode code="clearAllLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+            </setup>
+            <body>
+                <RunCode code="ed14=ResourceManager.getInstance().loadResourceModule('assets/bundles/framework/resMod_loadResourceModule_jaJP_framework.swf')" />
+                <RunCode code="ed14.addEventListener(ResourceEvent.ERROR, handleErrorEvent)" />
+                <RunCode code="ed14.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+                <AssertEvent target="script:ed14" eventName="complete" eventClass="mx.events::ResourceEvent" />
+
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP']" />
+                <RunCode code="curAlert=Alert.show('The buttons should be in Japanese.', 'Alert Test', mx.controls.Alert.YES|mx.controls.Alert.NO)" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="script:curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="はい" />
+            </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+                <DispatchKeyEvent key="ESCAPE" />
+                <WaitForEffectsToEnd />
+            </cleanup>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_Method_loadResourceModule_SeveralFrameworkLocales_1of3" description="Test using loadResourceModule() to load multiple framework locales (Japanese, French, German)." keywords="[Runtime Localization,loadResourceModule]" >
+            <setup>
+                <RunCode code="clearAllLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP','fr_FR','de_DE']" />
+            </setup>
+            <body>
+				<RunCode code="setUpEventDispatcher(15, 'assets/bundles/framework/resMod_loadResourceModule_jaJP,frFR,deDE_framework_001.swf')" />
+                <AssertEvent target="script:ed15" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <RunCode code="curAlert=Alert.show('The buttons should be in Japanese.', 'Alert Test', mx.controls.Alert.YES|mx.controls.Alert.NO)" />                
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="script:curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="はい" />
+           </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+                <DispatchKeyEvent key="ESCAPE" />
+                <WaitForEffectsToEnd />
+            </cleanup>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_Method_loadResourceModule_SeveralFrameworkLocales_2of3" description="Test using loadResourceModule() to load multiple framework locales (Japanese, French, German)." keywords="[Runtime Localization,loadResourceModule]" >
+            <setup>
+                <RunCode code="curAlert=null" />
+                <RunCode code="clearAllLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','de_DE','ja_JP']" />
+            </setup>
+            <body>
+				<RunCode code="setUpEventDispatcher(18, 'assets/bundles/framework/resMod_loadResourceModule_jaJP,frFR,deDE_framework_002.swf')" />
+                <AssertEvent target="script:ed18" eventName="complete" eventClass="mx.events::ResourceEvent" />
+                <RunCode code="curAlert=Alert.show('The buttons should be in French.', 'Alert Test', mx.controls.Alert.YES|mx.controls.Alert.NO)" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="script:curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="FYes" />
+           </body>
+            <cleanup>
+                <RunCode code="PopUpManager.removePopUp(curAlert)" />
+                <WaitForEffectsToEnd />
+            </cleanup>
+        </TestCase>
+
+        <TestCase frequency="all" testID="RTL_Method_loadResourceModule_SeveralFrameworkLocales_3of3" description="Test using loadResourceModule() to load multiple framework locales (Japanese, French, German)." keywords="[Runtime Localization,loadResourceModule]" >
+            <setup>
+                <RunCode code="curAlert=null" />
+                <RunCode code="clearAllLocaleData()" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+                <RunCode code="ResourceManager.getInstance().localeChain=['de_DE','fr_FR','ja_JP']" />
+            </setup>
+            <body>
+				<RunCode code="setUpEventDispatcher(23, 'assets/bundles/framework/resMod_loadResourceModule_jaJP,frFR,deDE_framework_003.swf')" />
+                <AssertEvent target="script:ed23" eventName="complete" eventClass="mx.events::ResourceEvent" />                
+				<RunCode code="curAlert=Alert.show('The buttons should be in German.', 'Alert Test', mx.controls.Alert.YES|mx.controls.Alert.NO)" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="script:curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="GYes" />
+           </body>
+            <cleanup>
+                <DispatchKeyEvent key="TAB" />
+                <DispatchKeyEvent key="ESCAPE" />
+                <WaitForEffectsToEnd />
+            </cleanup>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

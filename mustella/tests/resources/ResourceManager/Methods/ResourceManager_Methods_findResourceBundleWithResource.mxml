@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="resources/ResourceManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceManagerApp.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+        <mx:Script><![CDATA[
+
+            public static function init(o:DisplayObject):void{}
+
+        ]]></mx:Script>
+
+
+
+        <mx:Metadata><![CDATA[
+
+            [Mixin]
+
+        ]]></mx:Metadata>   
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    
+
+    <mx:Script><![CDATA[
+
+        import mx.resources.ResourceManager;
+
+        import mx.resources.IResourceManager;
+
+        import mx.resources.ResourceBundle;
+
+        import mx.resources.IResourceBundle;
+
+    ]]></mx:Script>
+
+
+
+    <testCases>
+
+
+
+<!-- 
+
+    test cases:
+
+        - The locale chain is null.
+
+        - The locale chain has no elements (returns null, does no searching)
+
+
+
+        -
+
+
+
+        - Call when the first locale in the locale chain is not in the locale map (e.g. never call addResourceBundle() for it).  Should return first valid item's bundle. (or null if the only one)
+
+        - Call when the locale is in the locale chain, is valid, but does not have the specified bundle.  Should return the first item's bundle which has it. (or null if the only one)
+
+        - The locale is in the locale chain, has the bundle, but the resource is not there.  Should return the first item's bundle which has it. (or null if the only one)
+
+
+
+        - The locale is in the chain, has the bundle, and the resource is there.  Returns the bundle
+
+-->
+
+
+
+<TestCase frequency="all" testID="RTL_ResourceManager_Method_findResourceBundleWithResource_LocaleChainNull" description="Call findResourceBundleWithResource() when the locale chain is null." keywords="[Runtime Localization,ResourceManager,findResourceBundleWithResource]" >
+
+    <setup>
+
+        <RunCode code="application.clearLocales()" />
+
+        <RunCode code="ResourceManager.getInstance().localeChain = null" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'OPEN')" valueExpression="value=null" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase frequency="all" testID="RTL_ResourceManager_Method_findResourceBundleWithResource_LocaleChainEmpty" description="Call findResourceBundleWithResource() when the locale chain is empty." keywords="[Runtime Localization,ResourceManager,findResourceBundleWithResource]" >
+
+    <setup>
+
+        <RunCode code="application.clearLocales()" />
+
+        <RunCode code="ResourceManager.getInstance().localeChain = []" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'OPEN')" valueExpression="value=null" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase frequency="all" testID="RTL_ResourceManager_Method_findResourceBundleWithResource_1LocaleChainItem_InvalidLocale" description="Call findResourceBundleWithResource() when the element in the locale chain in the locale map is not valid (e.g. does not appear in getLocales())." keywords="[Runtime Localization,ResourceManager,findResourceBundleWithResource]" >
+
+    <setup>
+
+        <RunCode code="application.clearLocales()" />
+
+        <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR']" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'OPEN')" valueExpression="value=null" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase frequency="all" testID="RTL_ResourceManager_Method_findResourceBundleWithResource_1LocaleChainItem_BundleMissing" description="Call findResourceBundleWithResource() when the element in the locale chain does not contain the bundle." keywords="[Runtime Localization,ResourceManager,findResourceBundleWithResource]" >
+
+    <setup>
+
+        <RunCode code="application.clearLocales()" />
+
+        <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle2', 'OPEN')" valueExpression="value=null" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase frequency="all" testID="RTL_ResourceManager_Method_findResourceBundleWithResource_1LocaleChainItem_ResourceMissing" description="Call findResourceBundleWithResource() when the element in the locale chain does not contain the resource." keywords="[Runtime Localization,ResourceManager,findResourceBundleWithResource]" >
+
+    <setup>
+
+        <RunCode code="application.clearLocales()" />
+
+        <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'HOTDOG')" valueExpression="value=null" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase frequency="all" testID="RTL_ResourceManager_Method_findResourceBundleWithResource_1LocaleChainItem_Works_ReturnType" description="Call findResourceBundleWithResource() when the element in the locale chain is valid, has the bundle, and has the resource." keywords="[Runtime Localization,ResourceManager,findResourceBundleWithResource]" >
+
+    <setup>
+
+        <RunCode code="application.clearLocales()" />
+
+        <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+        <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR']" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'OPEN') is IResourceBundle" value="true" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase frequency="all" testID="RTL_ResourceManager_Method_findResourceBundleWithResource_1LocaleChainItem_Works" description="Call findResourceBundleWithResource() when the element in the locale chain is valid, has the bundle, and has the resource." keywords="[Runtime Localization,ResourceManager,findResourceBundleWithResource]" >
+
+    <setup>
+
+        <RunCode code="application.clearLocales()" />
+
+        <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+        <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR']" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'OPEN').bundleName" value="bundle1" />
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'OPEN').locale" value="fr_FR" />
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'OPEN').content['OPEN']" value="fr_FR_bundle1_Open" />                
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase frequency="all" testID="RTL_ResourceManager_Method_findResourceBundleWithResource_3LocaleChainItems_InvalidLocale" description="Call findResourceBundleWithResource() when the first element in the locale chain in the locale map is not valid (e.g. does not appear in getLocales())." keywords="[Runtime Localization,ResourceManager,findResourceBundleWithResource]" >
+
+    <setup>
+
+        <RunCode code="application.clearLocales()" />
+
+        <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+        <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle1')" />
+
+        <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR','de_DE','ja_JP']" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'OPEN').bundleName" value="bundle1" />
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'OPEN').locale" value="de_DE" />
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'OPEN').content['OPEN']" value="de_DE_bundle1_Open" />                
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase frequency="all" testID="RTL_ResourceManager_Method_findResourceBundleWithResource_3LocaleChainItems_BundleMissing" description="Call findResourceBundleWithResource() when the first element in the locale chain does not contain the bundle." keywords="[Runtime Localization,ResourceManager,findResourceBundleWithResource]" >
+
+    <setup>
+
+        <RunCode code="application.clearLocales()" />
+
+        <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+        <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+        <RunCode code="application.doAddResourceBundle('de_DE', 'bundle2')" />
+
+        <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle1')" />
+
+        <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle2')" />
+
+        <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR','de_DE','ja_JP']" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle2', 'OPEN').bundleName" value="bundle2" />
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle2', 'OPEN').locale" value="de_DE" />
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle2', 'OPEN').content['OPEN']" value="de_DE_bundle2_Open" />                
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase frequency="all" testID="RTL_ResourceManager_Method_findResourceBundleWithResource_3LocaleChainItems_ResourceMissing" description="Call findResourceBundleWithResource() when the first element in the locale chain does not contain the resource." keywords="[Runtime Localization,ResourceManager,findResourceBundleWithResource]" >
+
+    <setup>
+
+        <RunCode code="application.clearLocales()" />
+
+        <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1', false)" />
+
+        <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+        <RunCode code="application.doAddResourceBundle('de_DE', 'bundle2')" />
+
+        <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle1')" />
+
+        <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle2')" />
+
+        <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR','de_DE','ja_JP']" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'CLOSE').bundleName" value="bundle1" />
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'CLOSE').locale" value="de_DE" />
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle1', 'CLOSE').content['CLOSE']" value="de_DE_bundle1_Close" />                
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase frequency="all" testID="RTL_ResourceManager_Method_findResourceBundleWithResource_3LocaleChainItems_EverythingValid" description="Call findResourceBundleWithResource() when the first element in the locale chain is valid, has the bundle, and has the resource." keywords="[Runtime Localization,ResourceManager,findResourceBundleWithResource]" >
+
+    <setup>
+
+        <RunCode code="application.clearLocales()" />
+
+        <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+        <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle2')" />        
+
+        <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+        <RunCode code="application.doAddResourceBundle('de_DE', 'bundle2')" />
+
+        <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle1')" />
+
+        <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle2')" />
+
+        <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR','de_DE','ja_JP']" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle2', 'OPEN').bundleName" value="bundle2" />
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle2', 'OPEN').locale" value="fr_FR" />
+
+        <AssertMethodValue method="value=ResourceManager.getInstance().findResourceBundleWithResource('bundle2', 'OPEN').content['OPEN']" value="fr_FR_bundle2_Open" />                
+
+    </body>
+
+</TestCase>
+
+
+
+    </testCases>
+
+</UnitTester>

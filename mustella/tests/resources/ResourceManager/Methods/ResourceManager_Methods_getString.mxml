@@ -1,0 +1,1165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="resources/ResourceManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceManagerApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+		public static function init(o:DisplayObject):void{}
+	]]></mx:Script>
+
+	<mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+	
+		import mx.resources.IResourceManager;
+		import mx.resources.ResourceManager;
+		
+		private var resourceManager:IResourceManager = ResourceManager.getInstance();
+		
+		// This is mainly to make copy/paste of the parameter testing test cases easier/less error prone.
+		private var paramsIndex:int = 0;
+        
+		public function testGetString(key:String, expectedValue:String, params:Array = null, locale:String = null):Boolean
+		{
+		    // To help with debugging:
+            //var result:String = resourceManager.getString('myResources', key, params, locale);
+            //trace("Expected: " + expectedValue);
+            //trace("Actual:   " + result);
+            //return result === expectedValue;
+            
+			return resourceManager.getString('myResources', key, params, locale) === expectedValue;
+		}
+
+	]]></mx:Script>
+	
+	<testCases>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_NO_SUCH_KEY" description="Tests that the getString() method of ResourceManager throws an Error when accessing a non-existent resource" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('NO_SUCH_KEY', null)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING" description="Tests the getString() method of ResourceManager for a resource value which is a typical String" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING', 'abc')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_LIST" description="Tests the getString() method of ResourceManager for a resource value which is a typical String of comma-separated items" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_LIST', ' abc,def , ghi jil\tmno ')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_EMPTY" description="Tests the getString() method of ResourceManager for a resource value which is an empty String" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_EMPTY', '')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_NULL" description="Tests the getString() method of ResourceManager for a resource value which is the String 'null'" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_NULL', 'null')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_UNDEFINED" description="Tests the getString() method of ResourceManager for a resource value which is the String 'undefined'" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_UNDEFINED', 'undefined')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_TRUE_LOWERCASE" description="Tests the getString() method of ResourceManager for a resource value which is the String 'true'" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_TRUE_LOWERCASE', 'true')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_TRUE_MIXEDCASE" description="Tests the getString() method of ResourceManager for a resource value which is the String 'True'" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_TRUE_MIXEDCASE', 'True')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_TRUE_UPPERCASE" description="Tests the getString() method of ResourceManager for a resource value which is the String 'TRUE'" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_TRUE_UPPERCASE', 'TRUE')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_FALSE_LOWERCASE" description="Tests the getString() method of ResourceManager for a resource value which is the String 'false'" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_FALSE_LOWERCASE', 'false')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_FALSE_MIXEDCASE" description="Tests the getString() method of ResourceManager for a resource value which is the String 'False'" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_FALSE_MIXEDCASE', 'False')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_FALSE_UPPERCASE" description="Tests the getString() method of ResourceManager for a resource value which is the String 'FALSE'" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_FALSE_UPPERCASE', 'FALSE')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_NAN" description="Tests the getString() method of ResourceManager for a resource value which is the String 'NaN'" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_NAN', 'NaN')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_ZERO" description="Tests the getString() method of ResourceManager for a resource value which is the String '0'" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_ZERO', '0')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_POSITIVE_INTEGER" description="Tests the getString() method of ResourceManager for a resource value which is the String rep of a typical positive integer" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_POSITIVE_INTEGER', '3')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_NEGATIVE_INTEGER" description="Tests the getString() method of ResourceManager for a resource value which is the String rep of a typical negative integer" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_NEGATIVE_INTEGER', '-3')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_FIXEDPOINT" description="Tests the getString() method of ResourceManager for a resource value which is the String rep of a typical fractional Number" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_FIXEDPOINT', '1.5')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_STRING_FLOATINGPOINT" description="Tests the getString() method of ResourceManager for a resource value which is the String rep of a typical fractional Number in exponential notation" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('STRING_FLOATINGPOINT', '5.0e-1')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_NULL" description="Tests the getString() method of ResourceManager for a resource value which is null" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('NULL', 'null')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_UNDEFINED" description="Tests the getString() method of ResourceManager for a resource value which is undefined" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('UNDEFINED', 'undefined')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_TRUE" description="Tests the getString() method of ResourceManager for a resource value which is true" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('TRUE', 'true')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_FALSE" description="Tests the getString() method of ResourceManager for a resource value which is false" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('FALSE', 'false')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_NAN" description="Tests the getString() method of ResourceManager for a resource value which is NaN" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('NAN', 'NaN')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_ZERO" description="Tests the getString() method of ResourceManager for a resource value which is 0" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('ZERO', '0')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_POSITIVE_INTEGER" description="Tests the getString() method of ResourceManager for a resource value which is a typical positive integer" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('POSITIVE_INTEGER', '3')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_NEGATIVE_INTEGER" description="Tests the getString() method of ResourceManager for a resource value which is a typical negative integer" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('NEGATIVE_INTEGER', '-3')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_FIXEDPOINT" description="Tests the getString() method of ResourceManager for a resource value which is a typical fractional Number" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('FIXEDPOINT', '1.5')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_FLOATINGPOINT" description="Tests the getString() method of ResourceManager for a resource value which is a typical fractional Number in exponential notation" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('FLOATINGPOINT', '0.5')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_CLASS" description="Tests the getString() method of ResourceManager for a resource value which is a Class reference" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('CLASS', '[class ResourceBundle]')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_ARRAY" description="Tests the getString() method of ResourceManager for a resource value which is an Array of Strings" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('ARRAY', 'abc,def')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_OBJECT" description="Tests the getString() method of ResourceManager for a resource value which is a plain Object" keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('OBJECT', '[object Object]')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_localeParam_firstInLocaleChain" description="Tests the getString() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+			    <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetString('STRING', 'Arrêté', null, 'fr_FR')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_localeParam_notFirstInLocaleChain" description="Tests the getString() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetString('STRING', 'シャットダウンされています', null, 'ja_JP')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_localeParam_localeMissing" description="Tests the getString() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetString('STRING', null, null, 'fu_br')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_simple" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 0" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_onlyNonzeroParam" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 1" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_multipleParams" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 2" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_outOfOrderParams" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 3" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats sleeping on the chair and the couch.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>		
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_manyParams" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 4" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats (2 cats), 5 dogs (5 dogs), 3 bears (3 bears), 9 pigs (9 pigs), 7 capybaras (7 capybaras), 4 snakes (4 snakes), 11 sloths (11 sloths), 1 sea cucumber (1 sea cucumber), 6 skunks (6 skunks), 8 wart hogs (8 wart hots), and 10 fruit flies (10 fruit flies).', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_sameParamsMultipleTimes" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 5" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats.  Do you like the 2 cats?  The 2 cats are lazy.  The 2 cats are sleeping in the sun.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>		
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_sameParamsMultipleTimesChangingOrder" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 6" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'The number of cats is 2.  There are 2 cats.  Again, the number of cats is 2. The 2 cats get hungry at 2:00.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_indexDoesNotExist" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 7" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '{5} would be too many cats.  I would rather have just 2 cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_moreItemsInArrayThanNeeded" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 8" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_moreItemsInArrayThanNeeded_2" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 9" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_extraLetterInBraces" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 10" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are {a0} cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_extraSymbolInBraces" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 11" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are {-0} cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_extraLetterInBraces_2" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 12" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are {0a} cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_leadingZeroInBraces" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 13" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are {01} cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_bracesInBraces" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 14" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are {2} cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_bracesInBraces_2" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 15" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are {12} cats.  That is 10  more than we want.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramZeroIsEmptyString" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 16" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are {2} cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramOneIsEmptyString" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 17" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are {22} cats.  That is 20 more than we want.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsBraces" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 18" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats.  The number of cats is more than {0}.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsSpace" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 19" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'It is raining cats and dogs.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsManySpaces" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 20" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'It is raining cats     and          dogs.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsSlash" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 21" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'It is raining cats/dogs.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsSlash" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 22" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'It is raining/pouring cats and dogs.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsBackslash" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 23" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'On Windows, look in qa\testsuites\mustella.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsBackslash" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 24" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'On Windows, look in qa\testsuites\mustella.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsPeriods" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 25" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'We have cats, dogs, etc...', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsPeriods" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 26" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'Mr. Smith has cats, dogs, etc...', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsBackslash_2" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 27" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are \2 \\cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsCaret" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 28" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'Cats^2 = cats squared.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsCaret" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 29" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'Cats^2 = cats squared.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsExcludeExpression" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 30" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'To indicate cats can use no characters from a-z, use [^a-z], please.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsExcludeExpression" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 31" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'To indicate cats can use no characters from a-z, use [^a-z], please.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsDollarSymbol" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 32" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'The cat sharpens its claws on the $3000 sofa.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsDollarSymbol" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 33" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'The cat sharpens its claws on the $3000 sofa.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsAsterisk" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 34" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'The cat deleted *.*.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsAsterisk" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 35" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'The cat deleted *.*.  That darn cat!', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsParentheses" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 36" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'We are trying a new cat food. (Do not tell him!)', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsParentheses" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 37" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'We are trying a new cat food. (Do not tell him!)', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsQuestionMark" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 38" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'What?  We are trying a new cat food?', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsQuestionMark" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 39" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'What?  We are trying a new cat food?', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsPlus" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 40" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'Dogs + cats = a potential mess.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsPlus" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 41" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'Dogs + cats = a potential mess.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsPipe" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 42" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'A pipe character: |.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsPipe" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 43" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '| is the pipe character.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsWhitespaceChars" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 44" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'The cat walked across the keyboard and typed [\t\r\n\v\f].', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsWhitespaceChars" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 45" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'The letters [\t\r\n\v\f] were typed by the cat.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsTabChar" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 46" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\t is the tab character.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsTabChar" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 47" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\t is the tab character.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsCarriageReturnChar" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 48" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\r is the carriage return character.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsCarriageReturnChar" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 49" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\r is the carriage return character.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsNewlineChar" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 50" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\n is the newline character.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsNewlineChar" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 51" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\n is the newline character.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsCRLF" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 52" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\r\n is used for a line ending on certain operating systems.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsCRLF" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 53" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\r\n is used for a line ending on certain operating systems.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsVertWhiteSpace" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 54" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\v indicates vertical white space.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsVertWhiteSpace" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 55" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\v indicates vertical white space.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsFormFeed" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 56" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\f indicates form feed.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsFormFeed" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 57" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), '\f indicates form feed.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsSingleQuote" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+			<setup>
+				<RunCode code="application.setup()"/>
+				<RunCode code="paramsIndex = 58" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'The cat\'s name is \'Carmen\'.', application.localeParamArrays[paramsIndex])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+    	<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsSingleQuote" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+    		<setup>
+    			<RunCode code="application.setup()"/>
+    			<RunCode code="paramsIndex = 59" />
+    		</setup>
+    		<body>
+    			<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'The cat\'s name is \'Carmen\'.', application.localeParamArrays[paramsIndex])" value="true"/>
+    			<Pause timeout="1"/>
+    		</body>
+    	</TestCase>
+
+    	<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsDoubleQuote" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+    		<setup>
+    			<RunCode code="application.setup()"/>
+    			<RunCode code="paramsIndex = 60" />
+    		</setup>
+    		<body>
+    			<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'She thinks her name is &#34;Princess&#34;.', application.localeParamArrays[paramsIndex])" value="true"/>
+    			<Pause timeout="1"/>
+    		</body>
+    	</TestCase>
+    
+    	<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_targetContainsDoubleQuote" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+    		<setup>
+    			<RunCode code="application.setup()"/>
+    			<RunCode code="paramsIndex = 61" />
+    		</setup>
+    		<body>
+    			<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'She thinks her name is &#34;Princess&#34;.', application.localeParamArrays[paramsIndex])" value="true"/>
+    			<Pause timeout="1"/>
+    		</body>
+    	</TestCase>
+    
+    	<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsNull" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+    		<setup>
+    			<RunCode code="application.setup()"/>
+    			<RunCode code="paramsIndex = 62" />
+    		</setup>
+    		<body>
+    			<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are null cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+    			<Pause timeout="1"/>
+    		</body>
+    	</TestCase>
+    
+    	<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsUndefined" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+    		<setup>
+    			<RunCode code="application.setup()"/>
+    			<RunCode code="paramsIndex = 63" />
+    		</setup>
+    		<body>
+    			<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are undefined cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+    			<Pause timeout="1"/>
+    		</body>
+    	</TestCase>
+    
+    	<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsANumber" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+    		<setup>
+    			<RunCode code="application.setup()"/>
+    			<RunCode code="paramsIndex = 64" />
+    		</setup>
+    		<body>
+    			<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+    			<Pause timeout="1"/>
+    		</body>
+    	</TestCase>
+    
+    	<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsInt" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+    		<setup>
+    			<RunCode code="application.setup()"/>
+    			<RunCode code="paramsIndex = 65" />
+    		</setup>
+    		<body>
+    			<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+    			<Pause timeout="1"/>
+    		</body>
+    	</TestCase>
+    
+    	<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsNumberObject" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+    		<setup>
+    			<RunCode code="application.setup()"/>
+    			<RunCode code="paramsIndex = 66" />
+    		</setup>
+    		<body>
+    			<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+    			<Pause timeout="1"/>
+    		</body>
+    	</TestCase>	
+    
+    	<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsExpression" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+    		<setup>
+    			<RunCode code="application.setup()"/>
+    			<RunCode code="paramsIndex = 67" />
+    		</setup>
+    		<body>
+    			<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2+1 cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+    			<Pause timeout="1"/>
+    		</body>
+    	</TestCase>	
+    
+    	<TestCase frequency="all" testID="ResourceManager_getString_substitutionParameters_paramContainsObject" description="Tests the getString() method of ResourceManager for the ability to specify substitution parameters." keywords="[resources,ResourceManager,getString]">
+    		<setup>
+    			<RunCode code="application.setup()"/>
+    			<RunCode code="paramsIndex = 68" />
+    		</setup>
+    		<body>
+    			<AssertMethodValue method="value=testGetString('PARAM_' + paramsIndex.toString(), 'There are 2 cats.', application.localeParamArrays[paramsIndex])" value="true"/>
+    			<Pause timeout="1"/>
+    		</body>
+    	</TestCase>	
+	
+	</testCases>
+
+</UnitTester>
+

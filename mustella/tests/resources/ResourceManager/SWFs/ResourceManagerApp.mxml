@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  xmlns:mx="http://www.adobe.com/2006/mxml">
+
+	<mx:Script>
+	<![CDATA[
+
+        import mx.collections.ArrayCollection;
+		import mx.core.*;
+		import mx.resources.IResourceBundle;
+		import mx.resources.ResourceBundle;
+
+		public var aClass:Class = ResourceBundle;
+        public var frClass:Object = UIComponent;
+        public var jaClass:Object = UITextField;
+        
+		public var anArray:Array = [ "abc", "def" ];
+		public var frArray:Array = [ "fr", "FR" ];
+		public var jaArray:Array = [ "ja", "JP" ];
+		
+		public var anObject:Object = { abc: "def" };
+        public var frObject:Object = { abc: "French" };
+        public var jaObject:Object = { abc: "Japanese" };
+
+        public var localeParamArrays:ArrayCollection;
+
+		public function setup():void
+		{
+            var tmpArr:Array;
+            var anInt:int = 2;
+            var anObjectWithANumber:Object = new Object();
+            anObjectWithANumber = 2;
+            		
+            localeParamArrays = new ArrayCollection();
+		
+			resourceManager.removeResourceBundlesForLocale("qa_QA");
+        	resourceManager.removeResourceBundlesForLocale("ja_JP");
+        	resourceManager.removeResourceBundlesForLocale("fr_FR");
+			
+			var resourceBundle:IResourceBundle = new ResourceBundle("qa_QA", "myResources");
+
+			resourceBundle.content["STRING"] = "abc";
+			resourceBundle.content["STRING_LIST"] = " abc,def , ghi jil\tmno ";
+			resourceBundle.content["STRING_EMPTY"] = "";
+			resourceBundle.content["STRING_NULL"] = "null";
+			resourceBundle.content["STRING_UNDEFINED"] = "undefined";
+			resourceBundle.content["STRING_TRUE_LOWERCASE"] = "true";
+			resourceBundle.content["STRING_TRUE_MIXEDCASE"] = "True";
+			resourceBundle.content["STRING_TRUE_UPPERCASE"] = "TRUE";
+			resourceBundle.content["STRING_FALSE_LOWERCASE"] = "false";
+			resourceBundle.content["STRING_FALSE_MIXEDCASE"] = "False";
+			resourceBundle.content["STRING_FALSE_UPPERCASE"] = "FALSE";
+			resourceBundle.content["STRING_NAN"] = "NaN";
+			resourceBundle.content["STRING_ZERO"] = "0";
+			resourceBundle.content["STRING_POSITIVE_INTEGER"] = "3";
+			resourceBundle.content["STRING_NEGATIVE_INTEGER"] = "-3";
+			resourceBundle.content["STRING_FIXEDPOINT"] = "1.5";
+			resourceBundle.content["STRING_FLOATINGPOINT"] = "5.0e-1";
+			resourceBundle.content["NULL"] = null;
+			resourceBundle.content["UNDEFINED"] = undefined;
+			resourceBundle.content["TRUE"] = true;
+			resourceBundle.content["FALSE"] = false;
+			resourceBundle.content["NAN"] = NaN;
+			resourceBundle.content["ZERO"] = 0;
+			resourceBundle.content["POSITIVE_INTEGER"] = 3;
+			resourceBundle.content["NEGATIVE_INTEGER"] = -3;
+			resourceBundle.content["FIXEDPOINT"] = 1.5;
+			resourceBundle.content["FLOATINGPOINT"] = 5.0e-1;
+			resourceBundle.content["CLASS"] = aClass;
+			resourceBundle.content["ARRAY"] = anArray;
+			resourceBundle.content["OBJECT"] = anObject;
+            
+            // The items below are used for testing the "params" parameter.  If you change the order of them,
+            // be sure to also change Methods/ResourceManager_Methods_getString.mxml.
+            
+            // 0
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are 2 {0}.";
+            localeParamArrays.addItem(new Array('cats'));
+
+            // 1
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are 2 {3}.";
+            localeParamArrays.addItem(new Array('dogs', 'mice', 'birds', 'cats'));
+
+            // 2
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} {1}.";
+            localeParamArrays.addItem(new Array('2', 'cats'));
+
+            // 3
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {2} {3} sleeping on the {1} and the {0}.";
+            localeParamArrays.addItem(new Array('couch', 'chair', '2', 'cats'));
+
+            // 4
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} {1} (2 cats), {2} {3} (5 dogs), {4} {5} (3 bears), {6} {7} (9 pigs), {8} {9} (7 capybaras), {10} {11} (4 snakes), {12} {13} (11 sloths), {14} {15} (1 sea cucumber), {16} {17} (6 skunks), {18} {19} (8 wart hots), and {20} {21} (10 fruit flies).";
+            localeParamArrays.addItem(new Array('2', 'cats', '5', 'dogs', '3', 'bears', '9', 'pigs', '7', 'capybaras', '4', 'snakes', '11', 'sloths', '1', 'sea cucumber', '6', 'skunks', '8', 'wart hogs', '10', 'fruit flies'));
+
+            // 5
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} {1}.  Do you like the {0} {1}?  The {0} {1} are lazy.  The {0} {1} are sleeping in the sun.";
+            localeParamArrays.addItem(new Array('2', 'cats'));
+
+            // 6
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "The number of {1} is {0}.  There are {0} {1}.  Again, the number of {1} is {0}. The {0} {1} get hungry at {0}:00.";
+            localeParamArrays.addItem(new Array('2', 'cats'));
+
+            // 7
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "{5} would be too many {1}.  I would rather have just {0} {1}.";
+            localeParamArrays.addItem(new Array('2', 'cats'));
+
+            // 8
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are 2 cats.";
+            localeParamArrays.addItem(new Array('2', 'cats'));
+
+            // 9
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} cats.";
+            localeParamArrays.addItem(new Array('2', 'cats'));
+
+            // 10
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {a0} cats.";
+            localeParamArrays.addItem(new Array('2'));
+
+            // 11
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {-0} cats.";
+            localeParamArrays.addItem(new Array('2'));
+
+            // 12
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0a} cats.";
+            localeParamArrays.addItem(new Array('2'));
+
+            // 13
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {01} cats.";
+            localeParamArrays.addItem(new Array('2'));
+
+            // 14
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {{0}} cats.";
+            localeParamArrays.addItem(new Array('2'));
+
+            // 15
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {1{0}} cats.  That is 10  more than we want.";
+            localeParamArrays.addItem(new Array('2'));
+
+            // 16
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {2{0}} cats.";
+            localeParamArrays.addItem(new Array('', '2'));
+
+            // 17
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {2{0}} cats.  That is 20 more than we want.";
+            localeParamArrays.addItem(new Array('2', ''));
+
+            // 18
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} cats.  The number of cats is more than {1}.";
+            localeParamArrays.addItem(new Array('2', '{0}'));
+
+            // 19
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "It is raining {0}.";
+            localeParamArrays.addItem(new Array('cats and dogs'));
+
+            // 20
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "It is raining {0}.";
+            localeParamArrays.addItem(new Array('cats     and          dogs'));
+
+            // 21
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "It is raining {0}.";
+            localeParamArrays.addItem(new Array('cats/dogs'));
+
+            // 22
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "It is raining/pouring {0}.";
+            localeParamArrays.addItem(new Array('cats and dogs'));
+
+            // 23
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "On Windows, look in {0}.";
+            localeParamArrays.addItem(new Array('qa\testsuites\mustella'));
+
+            // 24
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "On Windows, look in qa\testsuites\{0}.";
+            localeParamArrays.addItem(new Array('mustella'));
+
+            // 25
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "We have cats, dogs, etc{0}{0}{0}";
+            localeParamArrays.addItem(new Array('.'));
+
+            // 26
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "Mr. Smith has {0}, dogs, etc...";
+            localeParamArrays.addItem(new Array('cats'));
+
+            // 27
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are \{0} \\{1}.";
+            localeParamArrays.addItem(new Array('2', 'cats'));
+
+            // 28
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "Cats{0}2 = cats squared.";
+            localeParamArrays.addItem(new Array('^'));
+
+            // 29
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "Cats^{0} = cats squared.";
+            localeParamArrays.addItem(new Array('2'));
+
+            // 30
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "To indicate {0} can use no characters from a-z, use [^a-z], {1}.";
+            localeParamArrays.addItem(new Array('cats', 'please'));
+
+            // 31
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "To indicate {0} can use no characters from a-z, use {1}, please.";
+            localeParamArrays.addItem(new Array('cats', '[^a-z]'));
+
+            // 32
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "The cat sharpens its claws on the {0} sofa.";
+            localeParamArrays.addItem(new Array('$3000'));
+
+            // 33
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "The cat sharpens its claws on the ${0} sofa.";
+            localeParamArrays.addItem(new Array('3000'));
+
+            // 34
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "The cat deleted {0}.{0}.";
+            localeParamArrays.addItem(new Array('*'));
+
+            // 35
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "The {0} deleted *.*.  That darn {0}!";
+            localeParamArrays.addItem(new Array('cat'));
+
+            // 36
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "We are trying a new cat food. {0}Do not tell him!{1}";
+            localeParamArrays.addItem(new Array('(', ')'));
+
+            // 37
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "We are trying a new {0} food. (Do not tell him!)";
+            localeParamArrays.addItem(new Array('cat'));
+
+            // 38
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "What{0}  We are trying a new cat food{0}";
+            localeParamArrays.addItem(new Array('?'));
+
+            // 39
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "What?  We are trying a new {0} food?";
+            localeParamArrays.addItem(new Array('cat'));
+
+            // 40
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "Dogs {0} cats = a potential mess.";
+            localeParamArrays.addItem(new Array('+'));
+
+            // 41
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "Dogs + {0} = a potential mess.";
+            localeParamArrays.addItem(new Array('cats'));
+
+            // 42
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "A pipe character: {0}.";
+            localeParamArrays.addItem(new Array('|'));
+
+            // 43
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "| is the {0} character.";
+            localeParamArrays.addItem(new Array('pipe'));
+
+            // 44
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "The cat walked across the keyboard and typed {0}.";
+            localeParamArrays.addItem(new Array('[\t\r\n\v\f]'));
+
+            // 45
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "The letters [\t\r\n\v\f] were typed by the {0}.";
+            localeParamArrays.addItem(new Array('cat'));
+
+            // 46
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "{0} is the tab character.";
+            localeParamArrays.addItem(new Array('\t'));
+
+            // 47
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "\t is the {0} character.";
+            localeParamArrays.addItem(new Array('tab'));
+
+            // 48
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "{0} is the carriage return character.";
+            localeParamArrays.addItem(new Array('\r'));
+
+            // 49
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "\r is the {0} character.";
+            localeParamArrays.addItem(new Array('carriage return'));
+
+            // 50
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "{0} is the newline character.";
+            localeParamArrays.addItem(new Array('\n'));
+
+            // 51
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "\n is the {0} character.";
+            localeParamArrays.addItem(new Array('newline'));
+
+            // 52
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "{0} is used for a line ending on certain operating systems.";
+            localeParamArrays.addItem(new Array('\r\n'));
+
+            // 53
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "\r\n is used for a {0} on certain operating systems.";
+            localeParamArrays.addItem(new Array('line ending'));
+
+            // 54
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "{0} indicates vertical white space.";
+            localeParamArrays.addItem(new Array('\v'));
+
+            // 55
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "\v indicates {0}.";
+            localeParamArrays.addItem(new Array('vertical white space'));
+
+            // 56
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "{0} indicates form feed.";
+            localeParamArrays.addItem(new Array('\f'));
+
+            // 57
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "\f indicates {0}.";
+            localeParamArrays.addItem(new Array('form feed'));
+
+            // 58
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "The cat{0}s name is {0}Carmen{0}.";
+            localeParamArrays.addItem(new Array('\''));
+
+            // 59
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "The cat's name is {0}.";
+            localeParamArrays.addItem(new Array('\'Carmen\''));
+
+            // 60
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "She thinks her name is {0}Princess{0}.";
+            localeParamArrays.addItem(new Array('"'));
+
+            // 61
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "She thinks her name is \"{0}\".";
+            localeParamArrays.addItem(new Array('Princess'));
+
+            // 62
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} cats.";
+            localeParamArrays.addItem(new Array(null));
+
+            // 63
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} cats.";
+            localeParamArrays.addItem(new Array(undefined));
+
+            // 64
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} cats.";
+            tmpArr = new Array();
+            tmpArr.push(2);
+            localeParamArrays.addItem(tmpArr);
+
+            // 65
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} cats.";
+            tmpArr = new Array();
+            tmpArr.push(anInt);
+            localeParamArrays.addItem(tmpArr);
+
+            // 66
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} cats.";
+            tmpArr = new Array();
+            tmpArr.push(new Number(2));
+            localeParamArrays.addItem(tmpArr);
+
+            // 67
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} cats.";
+            localeParamArrays.addItem(new Array('2+1'));
+
+            // 68
+            resourceBundle.content["PARAM_" + localeParamArrays.length.toString()] = "There are {0} cats.";
+            tmpArr = new Array();
+            tmpArr.push(anObjectWithANumber);
+            localeParamArrays.addItem(tmpArr);
+            
+			resourceManager.addResourceBundle(resourceBundle);
+			
+            resourceBundle = new ResourceBundle("fr_FR", "myResources");
+            resourceBundle.content["STRING"] = "Arrêté";
+            resourceBundle.content["TRUE"] = "true";
+            resourceBundle.content["FALSE"] = "false";
+            resourceBundle.content["CLASS"] = frClass;
+            resourceBundle.content["POSITIVE_INTEGER"] = 3;
+            resourceBundle.content["OBJECT"] = frObject;
+            resourceBundle.content["ARRAY"] = frArray;
+            resourceManager.addResourceBundle(resourceBundle);
+
+			resourceBundle = new ResourceBundle("ja_JP", "myResources");
+	        resourceBundle.content["STRING"] = "シャットダウンされています";
+	        resourceBundle.content["TRUE"] = "true";
+	        resourceBundle.content["FALSE"] = "false";
+	        resourceBundle.content["CLASS"] = jaClass;
+	        resourceBundle.content["POSITIVE_INTEGER"] = 2;
+	        resourceBundle.content["OBJECT"] = jaObject;
+	        resourceBundle.content["ARRAY"] = jaArray;
+            resourceManager.addResourceBundle(resourceBundle);
+            			
+			resourceManager.localeChain = [ "qa_QA" ];
+		}
+
+        public function clearLocales():void
+        {            
+            var numLocales:int
+            
+            resourceManager.localeChain = [];
+            numLocales = resourceManager.getLocales().length;
+            
+            for(var i:int = numLocales; i > 0; --i){
+                resourceManager.removeResourceBundlesForLocale(resourceManager.getLocales()[i-1]);
+            }
+        }
+    
+        public function doAddResourceBundle(localeName:String, bundleName:String, includeClose:Boolean = true):void
+        {
+            var newBundle:ResourceBundle;
+            
+            newBundle = new ResourceBundle(localeName, bundleName);
+            newBundle.content["OPEN"] = localeName + "_" + bundleName + "_" + "Open";
+            
+            if(includeClose)
+                newBundle.content["CLOSE"] = localeName + "_" + bundleName + "_" + "Close";
+
+            resourceManager.addResourceBundle(newBundle);
+        }
+
+	]]>
+	</mx:Script>
+
+</mx:Application>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="resources/ResourceManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceManagerApp.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+        <mx:Script><![CDATA[
+
+            public static function init(o:DisplayObject):void{}
+
+        ]]></mx:Script>
+
+
+
+        <mx:Metadata><![CDATA[
+
+            [Mixin]
+
+        ]]></mx:Metadata>   
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    
+
+    <mx:Script><![CDATA[
+
+        import mx.resources.ResourceManager;
+
+        import mx.resources.IResourceManager;
+
+        import mx.resources.ResourceBundle;
+
+        import mx.resources.IResourceBundle;
+
+    ]]></mx:Script>
+
+
+
+    <testCases>
+
+
+
+        <TestCase frequency="all" testID="ResourceManager_getResourceBundle_ReturnType" description="Confirm that getResourceBundle() returns a ResourceBundle." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+
+           <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+           </setup>
+
+           <body>
+
+               <AssertMethodValue method="value=(ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle1')) is IResourceBundle" value="true" />
+
+           </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_getResourceBundle_1Locale1Bundle" description="Call getResourceBundle() when there is 1 locale and 1 bundle." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+
+           <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+           </setup>
+
+           <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle1').bundleName" value="bundle1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle1').locale" value="fr_FR" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle1').content['OPEN']" value="fr_FR_bundle1_Open" />       
+
+           </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_getResourceBundle_3Locales3Bundles" description="Call getResourceBundle() when there are 3 locales and 3 bundles." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+
+           <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle2')" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle3')" />
+
+                <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle2')" />
+
+                <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle3')" />
+
+                <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('de_DE', 'bundle2')" />
+
+                <RunCode code="application.doAddResourceBundle('de_DE', 'bundle3')" />
+
+           </setup>
+
+           <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle1').bundleName" value="bundle1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle1').locale" value="fr_FR" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle1').content['OPEN']" value="fr_FR_bundle1_Open" />       
+
+        
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle2').bundleName" value="bundle2" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle2').locale" value="fr_FR" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle2').content['OPEN']" value="fr_FR_bundle2_Open" />       
+
+        
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle3').bundleName" value="bundle3" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle3').locale" value="fr_FR" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle3').content['OPEN']" value="fr_FR_bundle3_Open" />       
+
+        
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('ja_JP', 'bundle1').bundleName" value="bundle1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('ja_JP', 'bundle1').locale" value="ja_JP" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('ja_JP', 'bundle1').content['OPEN']" value="ja_JP_bundle1_Open" />       
+
+        
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('ja_JP', 'bundle2').bundleName" value="bundle2" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('ja_JP', 'bundle2').locale" value="ja_JP" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('ja_JP', 'bundle2').content['OPEN']" value="ja_JP_bundle2_Open" />       
+
+        
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('ja_JP', 'bundle3').bundleName" value="bundle3" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('ja_JP', 'bundle3').locale" value="ja_JP" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('ja_JP', 'bundle3').content['OPEN']" value="ja_JP_bundle3_Open" />       
+
+        
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('de_DE', 'bundle1').bundleName" value="bundle1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('de_DE', 'bundle1').locale" value="de_DE" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('de_DE', 'bundle1').content['OPEN']" value="de_DE_bundle1_Open" />       
+
+        
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('de_DE', 'bundle2').bundleName" value="bundle2" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('de_DE', 'bundle2').locale" value="de_DE" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('de_DE', 'bundle2').content['OPEN']" value="de_DE_bundle2_Open" />       
+
+        
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('de_DE', 'bundle3').bundleName" value="bundle3" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('de_DE', 'bundle3').locale" value="de_DE" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('de_DE', 'bundle3').content['OPEN']" value="de_DE_bundle3_Open" />       
+
+           </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_getResourceBundle_NonexistantLocale" description="Call getResourceBundle() passing in a nonexistant locale parameter." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+
+           <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+           </setup>
+
+           <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('aa_BB', 'bundle1')" valueExpression="value=null" />
+
+           </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_getResourceBundle_NonexistantBundle" description="Call getResourceBundle() passing in a nonexistant bundle parameter." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+
+           <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+           </setup>
+
+           <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle2')" valueExpression="value=null" />
+
+           </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_getResourceBundle_NonexistantBoth" description="Call getResourceBundle() passing in nonexistant locale and bundle parameters." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+
+           <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+           </setup>
+
+           <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('aa_BB', 'bundle2')" valueExpression="value=null" />   
+
+           </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_getResourceBundle_NoBundlesPresent" description="Call getResourceBundle() when there are no bundles." keywords="[Runtime Localization,ResourceManager,getResourceBundle]" >
+
+           <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+           </setup>
+
+           <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle1')" valueExpression="value=null" />   
+
+           </body>
+
+        </TestCase>
+
+
+
+    </testCases>
+
+</UnitTester>

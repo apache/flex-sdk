@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="resources/ResourceManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceManagerApp.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+        <mx:Script><![CDATA[
+
+            public static function init(o:DisplayObject):void{}
+
+        ]]></mx:Script>
+
+
+
+        <mx:Metadata><![CDATA[
+
+            [Mixin]
+
+        ]]></mx:Metadata>   
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    
+
+    <mx:Script><![CDATA[
+
+        import mx.resources.ResourceManager;
+
+        import mx.resources.IResourceManager;
+
+        import mx.resources.ResourceBundle;
+
+        import mx.resources.IResourceBundle;
+
+    ]]></mx:Script>
+
+
+
+    <testCases>
+
+
+
+        <TestCase frequency="all" testID="ResourceManager_removeResourceBundlesForLocale_1Locale" description="Call removeResourceBundlesForLocale() when there is one locale." keywords="[Runtime Localization,ResourceManager,removeResourceBundlesForLocale]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+            </setup>
+
+            <body>
+
+                <RunCode code="ResourceManager.getInstance().removeResourceBundlesForLocale('fr_FR')" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_removeResourceBundlesForLocale_3Locales_1" description="Call removeResourceBundlesForLocale() to remove the first of three locales." keywords="[Runtime Localization,ResourceManager,removeResourceBundlesForLocale]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle1')" />
+
+            </setup>
+
+            <body>
+
+                <RunCode code="ResourceManager.getInstance().removeResourceBundlesForLocale('fr_FR')" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="2" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('fr_FR')" value="-1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('de_DE') != -1" value="true" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('ja_JP') != -1" value="true" />                
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_removeResourceBundlesForLocale_3Locales_2" description="Call removeResourceBundlesForLocale() to remove the last of three locales." keywords="[Runtime Localization,ResourceManager,removeResourceBundlesForLocale]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle1')" />
+
+            </setup>
+
+            <body>
+
+                <RunCode code="ResourceManager.getInstance().removeResourceBundlesForLocale('ja_JP')" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="2" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('ja_JP')" value="-1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('fr_FR') != -1" value="true" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('de_DE') != -1" value="true" />                
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_removeResourceBundlesForLocale_3Locales_3" description="Call removeResourceBundlesForLocale() to remove all locales when several are present." keywords="[Runtime Localization,ResourceManager,removeResourceBundlesForLocale]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('ja_JP', 'bundle1')" />
+
+            </setup>
+
+            <body>
+
+                <RunCode code="ResourceManager.getInstance().removeResourceBundlesForLocale('fr_FR')" />
+
+                <RunCode code="ResourceManager.getInstance().removeResourceBundlesForLocale('de_DE')" />
+
+                <RunCode code="ResourceManager.getInstance().removeResourceBundlesForLocale('ja_JP')" />                        
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="0" />
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_removeResourceBundlesForLocale_NonexistantLocale" description="Call removeResourceBundlesForLocale() for a locale which does not exist." keywords="[Runtime Localization,ResourceManager,removeResourceBundlesForLocale]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+            </setup>
+
+            <body>
+
+                <RunCode code="ResourceManager.getInstance().removeResourceBundlesForLocale('aa_BB')" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales()[0]" value="fr_FR" />        
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_removeResourceBundlesForLocale_RecreatedLocale" description="Call removeResourceBundlesForLocale(), re-add the locale, and be sure the old values are not hanging around." keywords="[Runtime Localization,ResourceManager,removeResourceBundlesForLocale]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+            </setup>
+
+            <body>
+
+                <RunCode code="ResourceManager.getInstance().removeResourceBundlesForLocale('fr_FR')" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle2')" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').length" value="1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR')[0]" value="bundle2" />        
+
+            </body>
+
+        </TestCase>
+
+
+
+    </testCases>
+
+</UnitTester>

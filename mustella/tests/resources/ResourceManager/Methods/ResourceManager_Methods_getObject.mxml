@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="resources/ResourceManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceManagerApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+		public static function init(o:DisplayObject):void{}
+	]]></mx:Script>
+
+	<mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+	
+		import mx.resources.IResourceManager;
+		import mx.resources.ResourceManager;
+		
+		private var resourceManager:IResourceManager = ResourceManager.getInstance();
+		
+		public function testGetObject(key:String, expectedValue:*, locale:String = null):Boolean
+		{
+			// Special-case logic for when the resource value is NaN,
+			// because you can't use === to check for NaN.
+			if (expectedValue is Number && isNaN(expectedValue))
+			{
+				var resourceValue:* = resourceManager.getObject('myResources', key, locale);
+				return resourceValue is Number && isNaN(resourceValue);
+			}
+
+			return resourceManager.getObject('myResources', key, locale) === expectedValue;
+		}
+
+	]]></mx:Script>
+	
+	<testCases>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_NO_SUCH_KEY" description="Tests that the getObject() method of ResourceManager throws an Error when accessing a non-existent resource" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('NO_SUCH_KEY', undefined)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING" description="Tests the getObject() method of ResourceManager for a resource value which is a typical String" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING', 'abc')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_LIST" description="Tests the getObject() method of ResourceManager for a resource value which is a typical String of comma-separated items" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_LIST', ' abc,def , ghi jil\tmno ')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_EMPTY" description="Tests the getObject() method of ResourceManager for a resource value which is an empty String" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_EMPTY', '')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_NULL" description="Tests the getObject() method of ResourceManager for a resource value which is the String 'null'" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_NULL', 'null')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_UNDEFINED" description="Tests the getObject() method of ResourceManager for a resource value which is the String 'undefined'" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_UNDEFINED', 'undefined')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_TRUE_LOWERCASE" description="Tests the getObject() method of ResourceManager for a resource value which is the String 'true'" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_TRUE_LOWERCASE', 'true')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_TRUE_MIXEDCASE" description="Tests the getObject() method of ResourceManager for a resource value which is the String 'True'" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_TRUE_MIXEDCASE', 'True')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_TRUE_UPPERCASE" description="Tests the getObject() method of ResourceManager for a resource value which is the String 'TRUE'" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_TRUE_UPPERCASE', 'TRUE')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_FALSE_LOWERCASE" description="Tests the getObject() method of ResourceManager for a resource value which is the String 'false'" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_FALSE_LOWERCASE', 'false')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_FALSE_MIXEDCASE" description="Tests the getObject() method of ResourceManager for a resource value which is the String 'False'" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_FALSE_MIXEDCASE', 'False')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_FALSE_UPPERCASE" description="Tests the getObject() method of ResourceManager for a resource value which is the String 'FALSE'" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_FALSE_UPPERCASE', 'FALSE')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_NAN" description="Tests the getObject() method of ResourceManager for a resource value which is the String 'NaN'" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_NAN', 'NaN')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_ZERO" description="Tests the getObject() method of ResourceManager for a resource value which is the String '0'" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_ZERO', '0')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_POSITIVE_INTEGER" description="Tests the getObject() method of ResourceManager for a resource value which is the String rep of a typical positive integer" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_POSITIVE_INTEGER', '3')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_NEGATIVE_INTEGER" description="Tests the getObject() method of ResourceManager for a resource value which is the String rep of a typical negative integer" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_NEGATIVE_INTEGER', '-3')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_FIXEDPOINT" description="Tests the getObject() method of ResourceManager for a resource value which is the String rep of a typical fractional Number" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_FIXEDPOINT', '1.5')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_STRING_FLOATINGPOINT" description="Tests the getObject() method of ResourceManager for a resource value which is the String rep of a typical fractional Number in exponential notation" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_FLOATINGPOINT', '5.0e-1')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_NULL" description="Tests the getObject() method of ResourceManager for a resource value which is null" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('NULL', null)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_UNDEFINED" description="Tests the getObject() method of ResourceManager for a resource value which is undefined" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('UNDEFINED', undefined)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_TRUE" description="Tests the getObject() method of ResourceManager for a resource value which is true" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('TRUE', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_FALSE" description="Tests the getObject() method of ResourceManager for a resource value which is false" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('FALSE', false)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_NAN" description="Tests the getObject() method of ResourceManager for a resource value which is NaN" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('NAN', NaN)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_ZERO" description="Tests the getObject() method of ResourceManager for a resource value which is 0" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('ZERO', 0)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_POSITIVE_INTEGER" description="Tests the getObject() method of ResourceManager for a resource value which is a typical positive integer" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('POSITIVE_INTEGER', 3)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_NEGATIVE_INTEGER" description="Tests the getObject() method of ResourceManager for a resource value which is a typical negative integer" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('NEGATIVE_INTEGER', -3)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_FIXEDPOINT" description="Tests the getObject() method of ResourceManager for a resource value which is a typical fractional Number" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('FIXEDPOINT', 1.5)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_FLOATINGPOINT" description="Tests the getObject() method of ResourceManager for a resource value which is a typical fractional Number in exponential notation" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('FLOATINGPOINT', 5.0e-1)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_CLASS" description="Tests the getObject() method of ResourceManager for a resource value which is a Class reference" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('CLASS', application.aClass)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_ARRAY" description="Tests the getObject() method of ResourceManager for a resource value which is an Array of Strings" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('ARRAY', application.anArray)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_OBJECT" description="Tests the getObject() method of ResourceManager for a resource value which is a plain Object" keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('OBJECT', application.anObject)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getObject_localeParam_firstInLocaleChain_true" description="Tests the getObject() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+			    <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetObject('OBJECT', application.frObject, 'fr_FR')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_localeParam_notFirstInLocaleChain_true" description="Tests the getObject() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetObject('OBJECT', application.jaObject, 'ja_JP')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getObject_localeParam_localeMissing" description="Tests the getObject() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetObject('OBJECT', undefined, 'fu_BR')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+
+</UnitTester>
+

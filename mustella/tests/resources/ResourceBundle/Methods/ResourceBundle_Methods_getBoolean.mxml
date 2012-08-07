@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="resources/ResourceBundle/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceBundleApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+		public static function init(o:DisplayObject):void{}
+	]]></mx:Script>
+
+	<mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+	
+		public function testGetBooleanError(key:String):String
+		{
+			try
+			{
+				application.resourceBundle.getBoolean(key);
+			}
+			catch (e:Error)
+			{
+				return e.toString();
+			}
+			return null;
+		}
+	
+		public function testGetBoolean(key:String, expectedValue:Boolean):Boolean
+		{
+			return application.resourceBundle.getBoolean(key) === expectedValue;
+		}
+
+	]]></mx:Script>
+	
+	<testCases>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_NO_SUCH_KEY" description="Tests that the getBoolean() method of ResourceBundle throws an Error when accessing a non-existent resource" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBooleanError('NO_SUCH_KEY')" value="Error: Key NO_SUCH_KEY was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a typical String" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_LIST" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a typical String of comma-separated items" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_LIST', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_EMPTY" description="Tests the getBoolean() method of ResourceBundle for a resource value which is an empty String" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetBooleanError('STRING_EMPTY')" value="Error: Key STRING_EMPTY was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_NULL" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'null'" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_NULL', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_UNDEFINED" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'undefined'" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_UNDEFINED', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_TRUE_LOWERCASE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'true'" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_TRUE_LOWERCASE', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_TRUE_MIXEDCASE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'True'" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_TRUE_MIXEDCASE', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_TRUE_UPPERCASE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'TRUE'" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_TRUE_UPPERCASE', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_FALSE_LOWERCASE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'false'" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_FALSE_LOWERCASE', false)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_FALSE_MIXEDCASE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'False'" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_FALSE_MIXEDCASE', false)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_FALSE_UPPERCASE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'FALSE'" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_FALSE_UPPERCASE', false)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_NAN" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String 'NaN'" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_NAN', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_ZERO" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String '0'" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_ZERO', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_POSITIVE_INTEGER" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String rep of a typical positive integer" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_POSITIVE_INTEGER', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_NEGATIVE_INTEGER" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String rep of a typical negative integer" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_NEGATIVE_INTEGER', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_FIXEDPOINT" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String rep of a typical fractional Number" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_FIXEDPOINT', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_STRING_FLOATINGPOINT" description="Tests the getBoolean() method of ResourceBundle for a resource value which is the String rep of a typical fractional Number in exponential notation" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetBoolean('STRING_FLOATINGPOINT', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_NULL" description="Tests the getBoolean() method of ResourceBundle for a resource value which is null" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetBooleanError('NULL')" value="Error: Key NULL was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_UNDEFINED" description="Tests the getBoolean() method of ResourceBundle for a resource value which is undefined" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetBooleanError('UNDEFINED')" value="Error: Key UNDEFINED was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_TRUE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is true" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 2 below -->
+				<AssertMethodValue method="value=testGetBooleanError('TRUE')" value="TypeError: Error #1006: value is not a function."/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_FALSE" description="Tests the getBoolean() method of ResourceBundle for a resource value which is false" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetBooleanError('FALSE')" value="Error: Key FALSE was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_NAN" description="Tests the getBoolean() method of ResourceBundle for a resource value which is NaN" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetBooleanError('NAN')" value="Error: Key NAN was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_ZERO" description="Tests the getBoolean() method of ResourceBundle for a resource value which is 0" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetBooleanError('ZERO')" value="Error: Key ZERO was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_POSITIVE_INTEGER" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a typical positive integer" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 2 below -->
+				<AssertMethodValue method="value=testGetBooleanError('POSITIVE_INTEGER')" value="TypeError: Error #1006: value is not a function."/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_NEGATIVE_INTEGER" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a typical negative integer" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 2 below -->
+				<AssertMethodValue method="value=testGetBooleanError('NEGATIVE_INTEGER')" value="TypeError: Error #1006: value is not a function."/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_FIXEDPOINT" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a typical fractional Number" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 2 below -->
+				<AssertMethodValue method="value=testGetBooleanError('FIXEDPOINT')" value="TypeError: Error #1006: value is not a function."/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_FLOATINGPOINT" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a typical fractional Number in exponential notation" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 2 below -->
+				<AssertMethodValue method="value=testGetBooleanError('FLOATINGPOINT')" value="TypeError: Error #1006: value is not a function."/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_CLASS" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a Class reference" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 2 below -->
+				<AssertMethodValue method="value=testGetBooleanError('CLASS')" value="TypeError: Error #1006: toLowerCase is not a function."/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_ARRAY" description="Tests the getBoolean() method of ResourceBundle for a resource value which is an Array of Strings" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 2 below -->
+				<AssertMethodValue method="value=testGetBooleanError('ARRAY')" value="TypeError: Error #1006: toLowerCase is not a function."/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getBoolean_OBJECT" description="Tests the getBoolean() method of ResourceBundle for a resource value which is a plain Object" keywords="[resources,ResourceBundle,getBoolean]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 2 below -->
+				<AssertMethodValue method="value=testGetBooleanError('OBJECT')" value="TypeError: Error #1006: toLowerCase is not a function."/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+
+	<!--
+
+	Note 1: This is peculiar legacy behavior due to bad coding that used !value
+			to try to detect a nonexistent resource.
+			But it doesn't matter, because getBoolean() is a deprecated method.
+
+
+	Note 2: This is peculiar legacy behavior due to bad coding that called
+			toLowerCase() on the resource value even if it wasn't a String.
+			But it doesn't matter, because getBoolean() is a deprecated method.
+
+	-->
+
+</UnitTester>
+

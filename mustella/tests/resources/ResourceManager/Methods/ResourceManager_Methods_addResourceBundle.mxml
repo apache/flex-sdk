@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="resources/ResourceManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceManagerApp.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+        <mx:Script><![CDATA[
+
+            public static function init(o:DisplayObject):void{}
+
+        ]]></mx:Script>
+
+
+
+        <mx:Metadata><![CDATA[
+
+            [Mixin]
+
+        ]]></mx:Metadata>   
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    
+
+    <mx:Script><![CDATA[
+
+        import mx.resources.ResourceManager;
+
+        import mx.resources.IResourceManager;
+
+        import mx.resources.ResourceBundle;
+
+        import mx.resources.IResourceBundle;
+
+        
+
+        private function callAddResourceBundle(useBundleName:Boolean, useContent:Boolean):void{
+
+            var newBundle:ResourceBundle;
+
+            
+
+            if(useBundleName) 
+
+                newBundle = new ResourceBundle("fr_FR", "bundle1");
+
+            else
+
+                newBundle = new ResourceBundle();
+
+            
+
+            if(useContent){
+
+                newBundle.content["OPEN"] = "Open";
+
+                newBundle.content["CLOSE"] = "Close";    
+
+            }
+
+        
+
+            ResourceManager.getInstance().addResourceBundle(newBundle);            
+
+        }        
+
+    ]]></mx:Script>
+
+
+
+    <testCases>
+
+    
+
+        <!-- 
+
+            Verify that the locale was added, that the bundle is present, that the bundle has content, and that the
+
+            locale chain has NOT been updated to include the new locale. 
+
+        -->
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_addResourceBundle_WithBundleName_Content" description="Call addResourceBundle() to add a ResourceBundle which has a name and content." keywords="[Runtime Localization,ResourceManager,addResourceBundle]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="callAddResourceBundle(true, true)" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('fr_FR')" value="0" />                
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').length" value="1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR')[0]" value="bundle1" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+
+                <RunCode code="ResourceManager.getInstance().localeChain.push('fr_FR')" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1','OPEN')" value="Open" />                                                                
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <!-- 
+
+            This is to be able to link with Flex 2 SWCs. It should never be called.  Just verify the current behavior to 
+
+            keep an eye out for changes. 
+
+        -->
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_addResourceBundle_NoBundleName_NoContent" description="Call addResourceBundle() to add a ResourceBundle which has no bundle name, and no content." keywords="[Runtime Localization,ResourceManager,addResourceBundle]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="callAddResourceBundle(false, false)" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="ResourceManager.getInstance().getLocales()" valueExpression="value=null" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!-- There is no use case to support these next two, but try them anyway. -->
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_addResourceBundle_NoBundleName_WithContent" description="Call addResourceBundle() to add a ResourceBundle which has no bundle name, but does have content." keywords="[Runtime Localization,ResourceManager,addResourceBundle]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="callAddResourceBundle(false, true)" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="ResourceManager.getInstance().getLocales()" valueExpression="value=null" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase frequency="all" testID="RTL_ResourceManager_Method_addResourceBundle_WithBundleName_NoContent" description="Call addResourceBundle() to add a ResourceBundle which has a name and content." keywords="[Runtime Localization,ResourceManager,addResourceBundle]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="callAddResourceBundle(true, false)" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('fr_FR')" value="0" />                
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR').length" value="1" />
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getBundleNamesForLocale('fr_FR')[0]" value="bundle1" /> 
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().localeChain.length" value="0" />
+
+            </body>
+
+        </TestCase>
+
+        
+
+    </testCases>
+
+</UnitTester>

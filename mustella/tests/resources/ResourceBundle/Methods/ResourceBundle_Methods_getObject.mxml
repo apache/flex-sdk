@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="resources/ResourceBundle/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceBundleApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+		public static function init(o:DisplayObject):void{}
+	]]></mx:Script>
+
+	<mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+	
+		public function testGetObjectError(key:String):String
+		{
+			try
+			{
+				application.resourceBundle.getObject(key);
+			}
+			catch (e:Error)
+			{
+				return e.toString();
+			}
+			return null;
+		}
+	
+		public function testGetObject(key:String, expectedValue:*):Boolean
+		{
+			// Special-case logic for when the resource value is NaN,
+			// because you can't use === to check for NaN.
+			if (expectedValue is Number && isNaN(expectedValue))
+			{
+				var resourceValue:* = application.resourceBundle.getObject(key);
+				return resourceValue is Number && isNaN(resourceValue);
+			}
+
+			return application.resourceBundle.getObject(key) === expectedValue;
+		}
+
+	]]></mx:Script>
+	
+	<testCases>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_NO_SUCH_KEY" description="Tests that the getObject() method of ResourceBundle throws an Error when accessing a non-existent resource" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObjectError('NO_SUCH_KEY')" value="Error: Key NO_SUCH_KEY was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING" description="Tests the getObject() method of ResourceBundle for a resource value which is a typical String" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING', 'abc')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_LIST" description="Tests the getObject() method of ResourceBundle for a resource value which is a typical String of comma-separated items" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_LIST', ' abc,def , ghi jil\tmno ')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_EMPTY" description="Tests the getObject() method of ResourceBundle for a resource value which is an empty String" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetObjectError('STRING_EMPTY')" value="Error: Key STRING_EMPTY was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_NULL" description="Tests the getObject() method of ResourceBundle for a resource value which is the String 'null'" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_NULL', 'null')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_UNDEFINED" description="Tests the getObject() method of ResourceBundle for a resource value which is the String 'undefined'" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_UNDEFINED', 'undefined')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_TRUE_LOWERCASE" description="Tests the getObject() method of ResourceBundle for a resource value which is the String 'true'" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_TRUE_LOWERCASE', 'true')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_TRUE_MIXEDCASE" description="Tests the getObject() method of ResourceBundle for a resource value which is the String 'True'" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_TRUE_MIXEDCASE', 'True')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_TRUE_UPPERCASE" description="Tests the getObject() method of ResourceBundle for a resource value which is the String 'TRUE'" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_TRUE_UPPERCASE', 'TRUE')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_FALSE_LOWERCASE" description="Tests the getObject() method of ResourceBundle for a resource value which is the String 'false'" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_FALSE_LOWERCASE', 'false')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_FALSE_MIXEDCASE" description="Tests the getObject() method of ResourceBundle for a resource value which is the String 'False'" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_FALSE_MIXEDCASE', 'False')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_FALSE_UPPERCASE" description="Tests the getObject() method of ResourceBundle for a resource value which is the String 'FALSE'" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_FALSE_UPPERCASE', 'FALSE')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_NAN" description="Tests the getObject() method of ResourceBundle for a resource value which is the String 'NaN'" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_NAN', 'NaN')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_ZERO" description="Tests the getObject() method of ResourceBundle for a resource value which is the String '0'" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_ZERO', '0')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_POSITIVE_INTEGER" description="Tests the getObject() method of ResourceBundle for a resource value which is the String rep of a typical positive integer" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_POSITIVE_INTEGER', '3')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_NEGATIVE_INTEGER" description="Tests the getObject() method of ResourceBundle for a resource value which is the String rep of a typical negative integer" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_NEGATIVE_INTEGER', '-3')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_FIXEDPOINT" description="Tests the getObject() method of ResourceBundle for a resource value which is the String rep of a typical fractional Number" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_FIXEDPOINT', '1.5')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_STRING_FLOATINGPOINT" description="Tests the getObject() method of ResourceBundle for a resource value which is the String rep of a typical fractional Number in exponential notation" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('STRING_FLOATINGPOINT', '5.0e-1')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_NULL" description="Tests the getObject() method of ResourceBundle for a resource value which is null" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetObjectError('NULL')" value="Error: Key NULL was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getObject_UNDEFINED" description="Tests the getObject() method of ResourceBundle for a resource value which is undefined" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetObjectError('UNDEFINED')" value="Error: Key UNDEFINED was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_TRUE" description="Tests the getObject() method of ResourceBundle for a resource value which is true" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('TRUE', true)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_FALSE" description="Tests the getObject() method of ResourceBundle for a resource value which is false" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetObjectError('FALSE')" value="Error: Key FALSE was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_NAN" description="Tests the getObject() method of ResourceBundle for a resource value which is NaN" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetObjectError('NAN')" value="Error: Key NAN was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_ZERO" description="Tests the getObject() method of ResourceBundle for a resource value which is 0" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<!-- See Note 1 below -->
+				<AssertMethodValue method="value=testGetObjectError('ZERO')" value="Error: Key ZERO was not found in resource bundle myResources"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getObject_POSITIVE_INTEGER" description="Tests the getObject() method of ResourceBundle for a resource value which is a typical positive integer" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('POSITIVE_INTEGER', 3)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_NEGATIVE_INTEGER" description="Tests the getObject() method of ResourceBundle for a resource value which is a typical negative integer" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('NEGATIVE_INTEGER', -3)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceBundle_getObject_FIXEDPOINT" description="Tests the getObject() method of ResourceBundle for a resource value which is a typical fractional Number" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('FIXEDPOINT', 1.5)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getObject_FLOATINGPOINT" description="Tests the getObject() method of ResourceBundle for a resource value which is a typical fractional Number in exponential notation" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('FLOATINGPOINT', 5.0e-1)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getObject_CLASS" description="Tests the getObject() method of ResourceBundle for a resource value which is a Class reference" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('CLASS', application.aClass)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getObject_ARRAY" description="Tests the getObject() method of ResourceBundle for a resource value which is an Array of Strings" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('ARRAY', application.anArray)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceBundle_getObject_OBJECT" description="Tests the getObject() method of ResourceBundle for a resource value which is a plain Object" keywords="[resources,ResourceBundle,getObject]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetObject('OBJECT', application.anObject)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+
+	<!--
+
+	Note 1: This is peculiar legacy behavior due to bad coding that used !value
+			to try to detect a nonexistent resource.
+			But it doesn't matter, because getObject() is a deprecated method.
+
+	-->
+
+</UnitTester>
+

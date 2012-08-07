@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="resources/ResourceManager/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceManagerApp.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+        <mx:Script><![CDATA[
+
+            public static function init(o:DisplayObject):void{}
+
+        ]]></mx:Script>
+
+
+
+        <mx:Metadata><![CDATA[
+
+            [Mixin]
+
+        ]]></mx:Metadata>   
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    
+
+    <mx:Script><![CDATA[
+
+        import assets.classes.TestUIComponent;
+
+        import flash.events.Event;
+
+        import mx.events.ResourceEvent;
+
+        import mx.resources.ResourceManager;
+
+        
+
+        public var testUIC:TestUIComponent;
+
+        public var ed:IEventDispatcher;
+
+
+
+        private function addTestUIComponent():void{
+
+            testUIC = new TestUIComponent();
+
+            application.addChild(testUIC);
+
+        }
+
+        
+
+        private function handleCompleteEvent(e:ResourceEvent):void{trace("handleCompleteEvent");}        
+
+    
+
+    ]]></mx:Script>
+
+
+
+    <testCases>
+
+
+
+        <TestCase frequency="all" testID="ResourceManager_Integration_UIComponent_resourcesChanged_update" description="Override the resourcesChanged method of a custom UIComponent class and be sure it is called after update() is called." keywords="[Runtime Localization,ResourceManager,resourcesChanged]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="addTestUIComponent()" />
+
+                <AssertEvent target="script:application" eventClass="mx.events::FlexEvent" eventName="updateComplete" />
+
+            </setup>
+
+            <body>
+
+                <RunCode code="ResourceManager.getInstance().update()" />
+
+                <AssertEvent target="script:testUIC" eventClass="flash.events::Event" eventName="TestUIComponent_resourcesChangedCalled" />
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <!-- 
+
+            Note: These next two work by calling update(), which was just tested above.  But test anyway to be a little paranoid.
+
+        -->
+
+        <TestCase frequency="all" testID="ResourceManager_Integration_UIComponent_resourcesChanged_loadResourceModule" description="Override the resourcesChanged method of a custom UIComponent class and be sure it is called after loadResourceModule() is called." keywords="[Runtime Localization,ResourceManager,resourcesChanged]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="addTestUIComponent()" />
+
+                <AssertEvent target="script:application" eventClass="mx.events::FlexEvent" eventName="updateComplete" />
+
+            </setup>
+
+            <body>
+
+                <RunCode code="ed = ResourceManager.getInstance().loadResourceModule('assets/bundles/framework/resMod_framework_jaJP,frFR,deDE.swf')" />
+
+                <RunCode code="ed.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+
+                <AssertEvent target="script:ed" eventName="complete" eventClass="mx.events::ResourceEvent" />
+
+                <AssertEvent target="script:testUIC" eventClass="flash.events::Event" eventName="TestUIComponent_resourcesChangedCalled" />
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <!-- Be sure to load a resource module swf so we do not RTE when messing with the locale chain! -->
+
+        <TestCase frequency="all" testID="ResourceManager_Integration_UIComponent_resourcesChanged_localeChain" description="Override the resourcesChanged method of a custom UIComponent class and be sure it is called when the locale chain is modified." keywords="[Runtime Localization,ResourceManager,resourcesChanged]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="addTestUIComponent()" />
+
+                <AssertEvent target="script:application" eventClass="mx.events::FlexEvent" eventName="updateComplete" />
+
+            </setup>
+
+            <body>
+
+                <RunCode code="ed = ResourceManager.getInstance().loadResourceModule('assets/bundles/framework/resMod_framework_jaJP,frFR,deDE_02.swf')" />
+
+                <RunCode code="ed.addEventListener(ResourceEvent.COMPLETE, handleCompleteEvent)" />
+
+                <AssertEvent target="script:ed" eventName="complete" eventClass="mx.events::ResourceEvent" />
+
+                <AssertEvent target="script:testUIC" eventClass="flash.events::Event" eventName="TestUIComponent_resourcesChangedCalled" numExpectedEvents="-1" />
+
+                <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP']" />
+
+                <AssertEvent target="script:testUIC" eventClass="flash.events::Event" eventName="TestUIComponent_resourcesChangedCalled" />
+
+            </body>
+
+        </TestCase>
+
+
+
+    </testCases>
+
+</UnitTester>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="resources/Integration/Compiler/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Compc_Params_Commas_App.mxml" >
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            public static function init(o:DisplayObject):void{}
+        ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>   
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <mx:Script><![CDATA[
+        import mx.resources.*;
+    ]]></mx:Script>
+
+<!-- 
+    Confirm that locales were included in the SWC which was used to compmile this.
+    The SWC locales and bundles were specified on the command line as -locale=x,y,z.
+-->    
+
+<testCases>
+
+<TestCase frequency="all" testID="Compc_Params_Locale_IncludeResourceBundles_Commas_VerifyLocales" description="Confirm that -locale can be given a comma-delimited list of locales.  Confirm that the locales are present." keywords="[Localization,Compiler,locale]" >
+    <body>
+        <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().length" value="3" />
+        <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('en_US') != -1" value="true" />
+        <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('ja_JP') != -1" value="true" />
+        <AssertMethodValue method="value=ResourceManager.getInstance().getLocales().indexOf('fr_FR') != -1" value="true" />
+        <Pause timeout="1" />
+    </body>
+</TestCase>
+
+<TestCase frequency="all" testID="Compc_Params_Locale_IncludeResourceBundles_Comma_enUSResource" description="Confirm that -locale can be given a comma-delimited list of locales.  Check en_US." keywords="[Localization,Compiler,include-resource-bundles]" >
+    <setup>
+        <RunCode code="ResourceManager.getInstance().localeChain=['en_US']" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1', 'GREETING')" value="Bundle 1 in en_US says howdy!" />
+        <Pause timeout="1" />
+    </body>
+</TestCase>
+
+<TestCase frequency="all" testID="Compc_Params_Locale_IncludeResourceBundles_Comma_jaJPResource" description="Confirm that -locale can be given a comma-delimited list of locales.  Check ja_JP." keywords="[Localization,Compiler,include-resource-bundles]" >
+    <setup>
+        <RunCode code="ResourceManager.getInstance().localeChain=['ja_JP']" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1', 'GREETING')" value="Bundle 1 in ja_JP says Japanese Hello!" />
+        <Pause timeout="1" />
+    </body>
+</TestCase>
+
+<TestCase frequency="all" testID="Compc_Params_Locale_IncludeResourceBundles_Comma_frFRResource" description="Confirm that -locale can be given a comma-delimited list of locales.  Check fr_FR." keywords="[Localization,Compiler,include-resource-bundles]" >
+    <setup>
+        <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR']" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1', 'GREETING')" value="Bundle 1 in fr_FR says bonjour!" />
+        <Pause timeout="1" />
+    </body>
+</TestCase>
+
+</testCases>
+
+</UnitTester>

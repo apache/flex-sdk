@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="resources/ResourceManager/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceManagerApp.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+        <mx:Script><![CDATA[
+
+            public static function init(o:DisplayObject):void{}
+
+        ]]></mx:Script>
+
+
+
+        <mx:Metadata><![CDATA[
+
+            [Mixin]
+
+        ]]></mx:Metadata>   
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    
+
+    <mx:Script><![CDATA[
+
+        import mx.resources.ResourceManager;
+
+        import mx.resources.IResourceManager;
+
+        import mx.resources.ResourceBundle;
+
+        import mx.resources.IResourceBundle;
+
+        
+
+        public var rm:IResourceManager = ResourceManager.getInstance();
+
+        
+
+    ]]></mx:Script>
+
+
+
+    <testCases>
+
+
+
+        <!-- A few setter/getter tests.  Yes, we go beyond this further down! -->
+
+        <TestCase frequency="all" testID="ResourceManager_Property_localeChain_null" description="Setter/getter for null localeChain." keywords="[Runtime Localization,ResourceManager,localeChain]" >
+
+            <body>
+
+                <SetProperty target="script:rm" propertyName="localeChain" valueExpression="value=null" />
+
+                <AssertPropertyValue target="script:rm" propertyName="localeChain" valueExpression="value=null" />
+
+            </body>
+
+        </TestCase>    
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_Property_localeChain_empty" description="Setter/getter for empty localeChain." keywords="[Runtime Localization,ResourceManager,localeChain]" >
+
+            <body>
+
+                <SetProperty target="script:rm" propertyName="localeChain" valueExpression="value=[]" />
+
+                <AssertPropertyValue target="script:rm.localeChain" propertyName="length" value="0" />
+
+            </body>
+
+        </TestCase>    
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_Property_localeChain_valid" description="Setter/getter for valid locale chain." keywords="[Runtime Localization,ResourceManager,localeChain]" >
+
+            <body>
+
+                <SetProperty target="script:rm" propertyName="localeChain" valueExpression="value=['fr_FR','en_US','ja_JP']" />
+
+                <AssertPropertyValue target="script:rm.localeChain" propertyName="length" value="3" />
+
+                <AssertMethodValue method="value = ResourceManager.getInstance().localeChain.indexOf('fr_FR') != -1" value="true" />
+
+                <AssertMethodValue method="value = ResourceManager.getInstance().localeChain.indexOf('en_US') != -1" value="true" />
+
+                <AssertMethodValue method="value = ResourceManager.getInstance().localeChain.indexOf('ja_JP') != -1" value="true" />
+
+            </body>
+
+        </TestCase>    
+
+        
+
+        <!-- Basic functionality -->
+
+        <TestCase frequency="all" testID="ResourceManager_Property_localeChain_TriggersChangeEvent" description="Changing the localeChain triggers a change event" keywords="[Runtime Localization,ResourceManager,localeChain]" >
+
+            <body>
+
+                <SetProperty target="script:rm" propertyName="localeChain" value="['fr_FR']" />
+
+                <AssertEvent target="script:rm" eventName="change" eventClass="flash.events::Event" />
+
+            </body>
+
+        </TestCase>    
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_Property_localeChain_NoFallThrough" description="Ensure that a resource is retrieved from the first item in the locale chain." keywords="[Runtime Localization,ResourceManager,localeChain]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />    
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+                <RunCode code="ResourceManager.getInstance().localeChain = ['de_DE','fr_FR']" />       
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1', 'OPEN')" value="de_DE_bundle1_Open" />
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_Property_localeChain_FallThrough_BundleMissing" description="" keywords="[Runtime Localization,ResourceManager,localeChain]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />    
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('de_DE', 'bundle2')" />        
+
+                <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR', 'de_DE']" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle2', 'OPEN')" value="de_DE_bundle2_Open" />
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_Property_localeChain_FallThrough_ResourceMissing" description="" keywords="[Runtime Localization,ResourceManager,localeChain]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />    
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1', false)" />
+
+                <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+                <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR', 'de_DE']" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1', 'CLOSE')" value="de_DE_bundle1_Close" />
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase frequency="all" testID="ResourceManager_Property_localeChain_NoFallThrough_ResourcePresentButEmpty" description="" keywords="[Runtime Localization,ResourceManager,localeChain]" >
+
+            <setup>
+
+                <RunCode code="application.clearLocales()" />
+
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+                <RunCode code="application.doAddResourceBundle('de_DE', 'bundle1')" />
+
+                <RunCode code="ResourceManager.getInstance().getResourceBundle('fr_FR', 'bundle1').content['GREETING']=''" />
+
+                <RunCode code="ResourceManager.getInstance().getResourceBundle('de_DE', 'bundle1').content['GREETING']='Hello'" />        
+
+                <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR', 'de_DE']" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=ResourceManager.getInstance().getString('bundle1', 'GREETING')" value="" />
+
+            </body>
+
+        </TestCase>
+
+
+
+    </testCases>
+
+</UnitTester>
+

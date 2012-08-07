@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="resources/ResourceManager/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ResourceManagerApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+		public static function init(o:DisplayObject):void{}
+	]]></mx:Script>
+
+	<mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+	
+		import mx.resources.IResourceManager;
+		import mx.resources.ResourceManager;
+		
+		private var resourceManager:IResourceManager = ResourceManager.getInstance();
+		
+		public function testGetStringArray(key:String, expectedValue:Array, locale:String = null):Boolean
+		{
+			var a1:Array = resourceManager.getStringArray('myResources', key, locale);
+			var a2:Array = expectedValue;
+
+			if (a1 === null && a2 === null)
+				return true;
+			
+			var n1:int = a1.length;
+			var n2:int = a2.length;
+			
+			if (n1 != n2)
+				return false;
+
+			for (var i:int = 0; i < n1; i++)
+			{
+				if (a1[i] !== a2[i])
+					return false;
+			}
+
+			return true;
+		}
+
+	]]></mx:Script>
+	
+	<testCases>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_NO_SUCH_KEY" description="Tests that the getStringArray() method of ResourceManager throws an Error when accessing a non-existent resource" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('NO_SUCH_KEY', null)" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING" description="Tests the getStringArray() method of ResourceManager for a resource value which is a typical String" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING', [ 'abc' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_LIST" description="Tests the getStringArray() method of ResourceManager for a resource value which is a typical String of comma-separated items" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_LIST', [ 'abc', 'def', 'ghi jil\tmno' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_EMPTY" description="Tests the getStringArray() method of ResourceManager for a resource value which is an empty String" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_EMPTY', [ '' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_NULL" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String 'null'" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_NULL', [ 'null' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_UNDEFINED" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String 'undefined'" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_UNDEFINED', [ 'undefined' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_TRUE_LOWERCASE" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String 'true'" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_TRUE_LOWERCASE', [ 'true' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_TRUE_MIXEDCASE" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String 'True'" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_TRUE_MIXEDCASE', [ 'True' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_TRUE_UPPERCASE" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String 'TRUE'" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_TRUE_UPPERCASE', [ 'TRUE' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_FALSE_LOWERCASE" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String 'false'" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_FALSE_LOWERCASE', [ 'false' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_FALSE_MIXEDCASE" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String 'False'" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_FALSE_MIXEDCASE', [ 'False' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_FALSE_UPPERCASE" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String 'FALSE'" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_FALSE_UPPERCASE', [ 'FALSE' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_NAN" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String 'NaN'" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_NAN', [ 'NaN' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_ZERO" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String '0'" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_ZERO', [ '0' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_POSITIVE_INTEGER" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String rep of a typical positive integer" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_POSITIVE_INTEGER', [ '3' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_NEGATIVE_INTEGER" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String rep of a typical negative integer" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_NEGATIVE_INTEGER', [ '-3' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_FIXEDPOINT" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String rep of a typical fractional Number" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_FIXEDPOINT', [ '1.5' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_STRING_FLOATINGPOINT" description="Tests the getStringArray() method of ResourceManager for a resource value which is the String rep of a typical fractional Number in exponential notation" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('STRING_FLOATINGPOINT', [ '5.0e-1' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_NULL" description="Tests the getStringArray() method of ResourceManager for a resource value which is null" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('NULL', [ 'null' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_UNDEFINED" description="Tests the getStringArray() method of ResourceManager for a resource value which is undefined" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('UNDEFINED', [ 'undefined' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_TRUE" description="Tests the getStringArray() method of ResourceManager for a resource value which is true" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('TRUE', [ 'true' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_FALSE" description="Tests the getStringArray() method of ResourceManager for a resource value which is false" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('FALSE', [ 'false' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_NAN" description="Tests the getStringArray() method of ResourceManager for a resource value which is NaN" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('NAN', [ 'NaN' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_ZERO" description="Tests the getStringArray() method of ResourceManager for a resource value which is 0" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('ZERO', [ '0' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_POSITIVE_INTEGER" description="Tests the getStringArray() method of ResourceManager for a resource value which is a typical positive integer" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('POSITIVE_INTEGER', [ '3' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_NEGATIVE_INTEGER" description="Tests the getStringArray() method of ResourceManager for a resource value which is a typical negative integer" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('NEGATIVE_INTEGER', [ '-3' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_FIXEDPOINT" description="Tests the getStringArray() method of ResourceManager for a resource value which is a typical fractional Number" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('FIXEDPOINT', [ '1.5' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_FLOATINGPOINT" description="Tests the getStringArray() method of ResourceManager for a resource value which is a typical fractional Number in exponential notation" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('FLOATINGPOINT', [ '0.5' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_CLASS" description="Tests the getStringArray() method of ResourceManager for a resource value which is a Class reference" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('CLASS', [ '[class ResourceBundle]' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_ARRAY" description="Tests the getStringArray() method of ResourceManager for a resource value which is an Array of Strings" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('ARRAY', [ 'abc', 'def' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_OBJECT" description="Tests the getStringArray() method of ResourceManager for a resource value which is a plain Object" keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=testGetStringArray('OBJECT', [ '[object Object]' ])" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_localeParam_firstInLocaleChain_true" description="Tests the getStringArray() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+			    <RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetStringArray('ARRAY', ['fr', 'FR'], 'fr_FR')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_localeParam_notFirstInLocaleChain_true" description="Tests the getStringArray() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetStringArray('ARRAY', ['ja', 'JP'], 'ja_JP')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="ResourceManager_getStringArray_localeParam_localeMissing" description="Tests the getStringArray() method of ResourceManager for the ability to specify the locale." keywords="[resources,ResourceManager,getStringArray]">
+			<setup>
+				<RunCode code="application.setup()"/>
+			</setup>
+			<body>
+				<RunCode code="ResourceManager.getInstance().localeChain=['fr_FR','ja_JP']" />
+				<AssertMethodValue method="value=testGetStringArray('ARRAY', null, 'fu_BR')" value="true"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+
+</UnitTester>
+

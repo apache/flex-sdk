@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="resources/Locale/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="LocaleApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+		public static function init(o:DisplayObject):void{}
+	]]></mx:Script>
+
+	<mx:Metadata><![CDATA[
+		[Mixin]
+	]]></mx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script><![CDATA[
+	
+		import mx.resources.Locale;
+		
+		public var locale:Locale;
+	
+	]]></mx:Script>
+	
+	<testCases>
+
+		<TestCase frequency="all" testID="Locale_language_is_read_only" description="Confirm that 'language' property of Locale is read-only" keywords="[resources,Locale,language]">
+			<setup>
+				<RunCode code="locale = new Locale('fr_FR_WIN')"/>
+			</setup>
+			<body>
+				<SetProperty target="script:locale" propertyName="language" value="de"/>
+				<AssertError value="ReferenceError: Error #1074: Illegal write to read-only property language on mx.resources.Locale."/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="Locale_language_with_language_only" description="Confirm 'language' property of Locale when constructed with only language" keywords="[resources,Locale,language]">
+			<setup>
+				<RunCode code="locale = new Locale('fr')"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="script:locale" propertyName="language" value="fr"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="Locale_language_with_language_and_country" description="Confirm 'language' property of Locale when constructed with only language and country" keywords="[resources,Locale,language]">
+			<setup>
+				<RunCode code="locale = new Locale('fr_FR')"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="script:locale" propertyName="language" value="fr"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="Locale_language_with_language_country_and_variant" description="Confirm 'language' property of Locale when constructed with language, country, and variant" keywords="[resources,Locale,language]">
+			<setup>
+				<RunCode code="locale = new Locale('fr_FR_WIN')"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="script:locale" propertyName="language" value="fr"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase frequency="all" testID="Locale_language_with_language_country_and_extended_variant" description="Confirm 'language' property of Locale when constructed with language, country, and extended variant" keywords="[resources,Locale,language]">
+			<setup>
+				<RunCode code="locale = new Locale('fr_FR_WIN_XP')"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="script:locale" propertyName="language" value="fr"/>
+				<Pause timeout="1"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>
