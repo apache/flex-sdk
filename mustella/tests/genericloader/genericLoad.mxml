@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" 
+	paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0"
+	layout="absolute"  
+	height="375"
+	width="500"
+	applicationComplete="setAppEnd()" >
+
+
+	<mx:SWFLoader id="ldr" complete="subappLoaded(event)" init="show(event)" ioError="show(event)" securityError="show(event)"/>
+
+	<mx:Script>
+	<![CDATA[
+	/**
+		In conjunction with Runner, this loads test swfs. 
+		Runner is invoked with a shell_swf argument
+		(which should be mustella.dir + genericLoad.swf),
+		it launches this swf, which calls Runner, asking for the nextSwf to load.
+		
+		The response from Runner is a url with a swf, such as
+		file:///c|my.swf or
+		http://localhost/my.swf
+
+
+	**/
+
+
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+
+
+        private var urlLoader:URLLoader = null;
+        private var frontURL:String = null;
+        private var domain:String = null;
+
+
+        public function setAppEnd():void 
+        {
+
+                /// we call Runner for a swf to run. Call within the domain
+	        var tmp:String = root.loaderInfo.url;
+                frontURL = tmp.substring (0, tmp.indexOf (":"));
+                domain = tmp.substring (tmp.indexOf (":")+3);
+                domain = domain.substring (0, domain.indexOf ("/"));
+
+                var reqStr:String = "http://localhost:9999/nextSwf";
+
+		if (frontURL == "http")
+		{
+			reqStr = "http://" + domain + ":9999/nextSwf";
+		}
+
+
+
+		trace ("genericLoad request: "+ reqStr);
+
+                var req:URLRequest = new URLRequest(reqStr);
+                urlLoader = new URLLoader();
+                urlLoader.addEventListener("complete", completeHandler);
+                urlLoader.addEventListener("ioerror", ioerrorHandler);
+                urlLoader.addEventListener("securityError", ioerrorHandler);
+                urlLoader.load(req);
+		
+
+
+        }
+        private function show(event:Event):void
+	{
+		trace ("genericLoad: " + event);
+
+	}
+
+        private function completeHandler(event:Event):void
+        {
+                var data:String = urlLoader.data;
+		trace ("genericLoad: data to load: " + data);
+		ldr.source = data;
+
+
+        }
+
+        public function ioerrorHandler(event:Event):void 
+	{
+		// hosed
+		trace ("Error fetching the swf name to load: " +event);
+
+	}
+
+		public function subappLoaded(event:Event):void
+		{
+			show(event);
+			callLater(oneLater);
+		}
+
+		public function oneLater():void
+		{
+			trace("oneLater");
+			callLater(twoLater);
+		}
+
+		public function twoLater():void
+		{
+			trace("twoLater");
+			StyleManager.mx_internal::stylesRoot = null;
+			callLater(threeLater);
+		}
+
+		public function threeLater():void
+		{
+			trace("threeLater");
+			callLater(fourLater);
+		}
+
+		public function fourLater():void
+		{
+			trace("fourLater");
+		}
+	]]>
+	</mx:Script>
+		
+
+</mx:Application>
