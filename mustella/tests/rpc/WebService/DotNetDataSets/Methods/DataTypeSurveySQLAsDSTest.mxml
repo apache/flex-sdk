@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="rpc/WebService/DotNetDataSets/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="dataSetMain.mxml">
+    <mx:Script>
+	<![CDATA[
+
+       import mx.managers.PopUpManager;
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+    <mx:Script>
+        <![CDATA[
+            import mx.utils.ObjectUtil;
+            import mx.rpc.events.FaultEvent;
+            import mx.rpc.events.ResultEvent;
+            import mx.rpc.soap.LoadEvent;
+            import mx.rpc.soap.Operation;
+            import mx.rpc.AsyncToken;
+            import mx.collections.ArrayCollection;
+            import mx.rpc.soap.WebService;
+
+            private var rowsLength:int = 0;
+            private var nwCL:WebService = new WebService();
+            private var res:String = "";
+            private var tbl:Object;
+
+            public function exec(op:Operation):void
+            {
+                op.resultFormat="object";
+                op.send();
+            }
+            public function initApplication():void
+            {
+                nwCL.wsdl = "http://flexqa01.labs.corp.adobe.com/FlexWS/CustomerList.asmx?WSDL";
+                nwCL.addEventListener(ResultEvent.RESULT,onResult);
+                nwCL.addEventListener(FaultEvent.FAULT,onFault);
+                nwCL.addEventListener(LoadEvent.LOAD,onLoad);
+                nwCL.useProxy = false;
+                nwCL.loadWSDL();
+            }
+            private function onLoad(event:LoadEvent):void
+            {
+                //dump(event);
+            }
+
+            private function onResult(event:ResultEvent):void
+            {
+                var ds:Object = event.result;
+                if (event.result is ArrayCollection)
+                {
+                    ds = event.result[0];
+                }
+                //dump(ds.Tables);
+                var done:Boolean = false;
+                for each (var tbl:Object in ds.Tables)
+                {
+                    //dump(tbl);
+                    if (!done)
+                        displayTable(tbl);
+                    done = true;
+                    rowsLength = tbl["Rows"].length;
+                    dump("Number of rows: " + tbl["Rows"].length);
+                }
+
+            }
+            private function displayTable(tbl:Object):void
+            {
+                application.dg.dataProvider = tbl.Rows;
+            }
+
+            private function onFault(event:FaultEvent):void
+            {
+                dump(event.fault);
+            }
+
+            private function dump(obj:Object):void
+            {
+                //txt.text += "----------------------------------------\n";
+                application.txt.text += ObjectUtil.toString(obj);
+            }
+
+        ]]>
+    </mx:Script>
+	<testCases>
+        <TestCase testID="getDatTypeSurveyAsDS" description="test that value = 10 rows" keywords="[rpc]">
+            <setup>
+			    <ResetComponent target="dg" className="mx.controls.DataGrid" waitTarget="dg" waitEvent="updateComplete" />
+                <ResetComponent target="txt" className="mx.controls.TextArea" waitTarget="txt" waitEvent="updateComplete" />
+                <RunCode code="initApplication()" />
+                <RunCode code="exec(nwCL.getDatTypeSurveyAsDS)" />
+                <Pause timeout="2000"/>
+                <WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="dg" timeout="2000" />
+            </setup>
+			<body>
+			     <AssertPropertyValue propertyName="text" target="txt" value='"Number of rows: 10"' />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>
