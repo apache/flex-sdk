@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  xmlns:mx="http://www.adobe.com/2006/mxml" >
+
+<mx:Script>
+    <![CDATA[
+        
+        import mx.collections.*;
+        
+        [Bindable]
+	public var airportCodes_as:Array=[{abbreviation:"IAH",name:"Houston"}, {abbreviation:"BOS", name:"Boston"},
+	            {abbreviation:"MHT",name:"Manchester"}, {abbreviation:"JAX", name:"Jacksonville"},
+	            {abbreviation:"CVG", name:"Cincinatti"}, {abbreviation:"ATL", name:"Atlanta"},
+	            {abbreviation:"CDG", name:"Paris"}, {abbreviation:"JFK", name:"New York"},
+            	    {abbreviation:"LAX", name:"Los Angeles"}, {abbreviation:"HND", name:"Tokyo"}];
+        
+        [Bindable]
+        public var airportCol_as:ArrayCollection = new ArrayCollection(airportCodes_as);
+        
+        [Bindable]
+	public var airportListCollectionView:ListCollectionView = new ListCollectionView(airportCol_as);
+        
+        public var airportCodeCursor:IViewCursor = airportListCollectionView.createCursor();
+        
+	public function filterFunc(item:Object):Boolean
+	{
+		return item.name >= "Houston" && item.name <= "New York";
+	}
+	
+   	public var xmlData:XML =
+    	<root>
+            <!-- I am a comment above employee -->
+        	<employee id="1111-111-1111">
+        	    <!-- I am a nested comment -->
+        		<first-name>Bob</first-name>
+        		<last-name>PersonA</last-name>
+        		<age>25</age>
+                <address>
+                    <street>111 Main</street>
+                </address>
+        	</employee>
+        	<employee id="2222-222-2222">
+        		<first-name>Anders</first-name>
+        		<last-name>PersonB</last-name>
+        		<age>26</age>
+                <address>
+                    <street>222 Main</street>
+                </address>
+        	</employee>
+        	<employee id="3333-333-3333">
+        		<first-name>Cathy</first-name>
+        		<last-name>PersonC</last-name>
+        		<age>22</age>
+                <address>
+                    <street>333 Main</street>
+                </address>
+        	</employee>
+        	<employee id="3333-333-3333">
+        		<first-name>Smith</first-name>
+        		<last-name>PersonD</last-name>
+        		<age>32</age>
+                <address>
+                    <street>444 Main</street>
+                </address>
+        	</employee>
+        </root>;
+
+    	[Bindable]
+	public var players:Array =
+            [{jerseyNumber:"80",lastName:"PlayerA",firstName:"Troy"},
+            {jerseyNumber:"12", lastName:"PlayerB",firstName:"Tom"},
+            {jerseyNumber:"21",lastName:"PlayerC",firstName:"Randall"},
+            {jerseyNumber:"7", lastName:"PlayerD",firstName:"Doug"},
+            {jerseyNumber:"4", lastName:"PlayerE",firstName:"Adam"},
+            {jerseyNumber:"54", lastName:"PlayerF",firstName:"Tedy"},
+            {jerseyNumber:"93", lastName:"PlayerG",firstName:"Richard"},
+            {jerseyNumber:"50", lastName:"PlayerH",firstName:"Mike"},
+            {jerseyNumber:"7", lastName:"PlayerI",firstName:"Chris"},
+            {jerseyNumber:"55", lastName:"PlayerJ",firstName:"Willie"},
+            {jerseyNumber:"2", lastName:"PlayerD",firstName:"Doug"},
+            {jerseyNumber:"28", lastName:"PlayerK",firstName:"Corey"}];
+
+	    public var colXML_AS:XMLListCollection = new XMLListCollection(xmlData.employee);
+	    public var colArr_AS:ArrayCollection = new ArrayCollection(players);
+	    public var cursorXML_AS:IViewCursor;
+	    public var cursorArr_AS:IViewCursor;
+	    public var cursorArr_Airport:IViewCursor;
+	    public var cursorArr_Inline:IViewCursor ;
+	    
+	    public function initPlayers():void 
+	    {
+ 	                var sortArr:Sort = new Sort();
+	                var f:SortField = new SortField("jerseyNumber");
+	                f.descending = true;
+	                f.numeric = true;
+	                sortArr.fields = [f];
+	                colArr_AS.sort = sortArr;
+	                colArr_AS.refresh();
+	                cursorArr_AS = colArr_AS.createCursor();
+	    }
+	    
+	    public function initEmployees():void 
+	    {
+	                //apply the appropriate Sorts
+	                var sortXML:Sort = new Sort();
+	                sortXML.fields=[new SortField("last-name")];
+	                colXML_AS.sort=sortXML;
+	                colXML_AS.refresh();
+ 	                cursorXML_AS = colXML_AS.createCursor();
+ 	    }
+     ]]>
+</mx:Script>
+
+	<mx:ArrayCollection id="airportCollection">
+	  <mx:source>
+		<mx:Array>
+		    <mx:Object abbreviation="IAH" name="Houston" international="true"/>
+		    <mx:Object abbreviation="BOS" name="Boston" international="true"/>
+	            <mx:Object abbreviation="MHT" name="Manchester" international="false"/>
+	            <mx:Object abbreviation="JAX" name="Jacksonville" international="false"/>
+	            <mx:Object abbreviation="CVG" name="Cincinatti" international="false"/>
+	            <mx:Object abbreviation="ATL" name="Atlanta" international="true"/>
+	            <mx:Object abbreviation="CDG" name="Paris" international="true"/>
+	            <mx:Object abbreviation="JFK" name="New York" international="true"/>
+	            <mx:Object abbreviation="LAX" name="Los Angeles" international="true"/>
+	            <mx:Object abbreviation="HND" name="Tokyo" international="true"/>
+    		</mx:Array>
+	  </mx:source>
+	</mx:ArrayCollection>
+	
+	<mx:Array id="airportCodes">
+		<mx:Object abbreviation="IAH" name="Houston"/>
+		<mx:Object abbreviation="BOS" name="Boston"/>
+        	<mx:Object abbreviation="MHT" name="Manchester"/>
+        	<mx:Object abbreviation="JAX" name="Jacksonville"/>
+	</mx:Array>
+
+	<mx:ArrayCollection id="airportCollectionBound">
+		<mx:source>{airportCodes}</mx:source>
+	</mx:ArrayCollection>
+	
+	<mx:ArrayCollection id="airportCollectionSorted" filterFunction="filterFunc">
+	  <mx:source>
+		<mx:Array>
+		    <mx:Object abbreviation="IAH" name="Houston" international="true"/>
+		    <mx:Object abbreviation="BOS" name="Boston" international="true"/>
+	            <mx:Object abbreviation="MHT" name="Manchester" international="false"/>
+	            <mx:Object abbreviation="JAX" name="Jacksonville" international="false"/>
+	            <mx:Object abbreviation="CVG" name="Cincinatti" international="false"/>
+	            <mx:Object abbreviation="ATL" name="Atlanta" international="true"/>
+	            <mx:Object abbreviation="CDG" name="Paris" international="true"/>
+	            <mx:Object abbreviation="JFK" name="New York" international="true"/>
+	            <mx:Object abbreviation="LAX" name="Los Angeles" international="true"/>
+	            <mx:Object abbreviation="HND" name="Tokyo" international="true"/>
+    		</mx:Array>
+	  </mx:source>
+		<mx:sort>
+		    <mx:Sort>
+			<mx:fields>
+			    <mx:Array>
+				<mx:SortField name="name"/>
+			    </mx:Array>
+			</mx:fields>
+		    </mx:Sort>
+		</mx:sort>	  
+	</mx:ArrayCollection>
+	
+<mx:DataGrid id="dgac" dataProvider="{airportCollection}"/>
+<mx:DataGrid id="dg" dataProvider="{airportCollectionBound}"/>
+
+<mx:DataGrid id="dgArray" dataProvider="{airportCodes_as}" />
+
+<mx:ArrayCollection id="arrColInline">
+    <mx:source>{players}</mx:source>
+</mx:ArrayCollection>
+
+
+<mx:DataGrid id="dgACFullyInline">
+    <mx:dataProvider>
+        <mx:ArrayCollection id="airportCol" filterFunction="filterFunc">
+		<mx:source>
+			<mx:Array>
+			    <mx:Object abbreviation="IAH" name="Houston"/>
+			    <mx:Object abbreviation="BOS" name="Boston"/>
+			    <mx:Object abbreviation="MHT" name="Manchester"/>
+			    <mx:Object abbreviation="JAX" name="Jacksonville"/>
+			    <mx:Object abbreviation="CVG" name="Cincinatti"/>
+			    <mx:Object abbreviation="ATL" name="Atlanta"/>
+			    <mx:Object abbreviation="CDG" name="Paris"/>
+			    <mx:Object abbreviation="JFK" name="New York"/>
+			    <mx:Object abbreviation="LAX" name="Los Angeles"/>
+			    <mx:Object abbreviation="HND" name="Tokyo"/>
+			</mx:Array>
+		</mx:source>
+		<mx:sort>
+            <mx:Sort>
+                <mx:fields>
+                    <mx:Array>
+                         <mx:SortField name="name" />
+                    </mx:Array>
+                </mx:fields>
+            </mx:Sort>
+        </mx:sort>
+	    </mx:ArrayCollection>
+    </mx:dataProvider>
+</mx:DataGrid>
+
+</mx:Application>

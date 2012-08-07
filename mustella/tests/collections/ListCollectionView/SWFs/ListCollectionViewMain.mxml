@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  xmlns:mx="http://www.adobe.com/2006/mxml" >
+
+<mx:Script>
+    <![CDATA[
+
+        import mx.collections.*;
+        import mx.events.CollectionEvent;
+
+        [Bindable]
+        public var view:ListCollectionView;
+        public var col:ArrayCollection;
+
+        [Bindable]
+        public var arr:Array =   [
+           { Artist:'ArtistA', Price:1.99, Rating:'Excellent' },
+           { Artist:'ArtistB', Price:10.99, Rating:'Excellent' },
+           { Artist:'ArtistC', Price:12.97, Rating:'Excellent' },
+           { Artist:'ArtistD', Price:12.99, Rating:'Good' },
+           { Artist:'ArtistE', Price:11.99, Rating:'Good' },
+           { Artist:'ArtistF', Price:5.14, Rating:'Bad' },
+         ];
+
+        public var art:Array =   [
+           { Artist:'ArtistD', Price:12.99, Rating:'Good' },
+           { Artist:'ArtistE', Price:11.99, Rating:'Good' },
+           { Artist:'ArtistF', Price:5.14, Rating:'Bad' },
+         ];
+        public var artCol:ArrayCollection=new ArrayCollection();
+
+        public function createCollections():void
+        {
+            col = new ArrayCollection(arr);
+            view = new ListCollectionView(col);
+
+        }
+
+        public function filterFunc(item:Object):Boolean
+        {
+            return item.name >= "Paris" && item.name <= "San Jose";
+        }
+
+    public var players:Array =[{team:"Team A",jerseyNumber:80,lastName:"PlayerA",firstName:"Troy"},
+            {team:"Team A",jerseyNumber:12, lastName:"PlayerB",firstName:"Tom"},
+            {team:"Team A",jerseyNumber:21,lastName:"PlayerC",firstName:"Randall"},
+            {team:"Team A",jerseyNumber:4, lastName:"PlayerD",firstName:"Adam"},
+            {team:"Team A",jerseyNumber:54, lastName:"PlayerE",firstName:"Tedy"},
+            {team:"Team A",jerseyNumber:93, lastName:"PlayerF",firstName:"Richard"},
+            {team:"Team A",jerseyNumber:50, lastName:"PlayerG",firstName:"Mike"},
+            {team:"Team A",jerseyNumber:55, lastName:"PlayerH",firstName:"Willie"},
+            {team:"Team A",jerseyNumber:2, lastName:"PlayerI",firstName:"Doug"},
+            {team:"Team A",jerseyNumber:7, lastName:"PlayerI",firstName:"Doug"},
+            {team:"Team A",jerseyNumber:7, lastName:"PlayerJ",firstName:"Chris"},
+            {team:"Team A",jerseyNumber:28, lastName:"PlayerK",firstName:"Corey"},
+            {team:"Team B",jerseyNumber:7, lastName:"PlayerL",firstName:"Byron"},
+            {team:"Team B",jerseyNumber:84, lastName:"PlayerM",firstName:"Chad"},
+            {team:"Team B",jerseyNumber:54, lastName:"PlayerN",firstName:"Mike"},
+            {team:"Team B",jerseyNumber:28, lastName:"PlayerO",firstName:"Fred"},
+            {team:"Team C",jerseyNumber:49, lastName:"PlayerP",firstName:"Tim"},
+            {team:"Team C",jerseyNumber:18, lastName:"PlayerQ",firstName:"Johnny"},
+            {team:"Team C",jerseyNumber:7, lastName:"PlayerR",firstName:"Nixon"},
+            {team:"Team C",jerseyNumber:34, lastName:"PlayerS",firstName:"David"},
+            {team:"Team C",jerseyNumber:33, lastName:"PlayerT",firstName:"Jason"},
+            {team:"Team D",jerseyNumber:44, lastName:"PlayerU",firstName:"Toby"},
+            {team:"Team D",jerseyNumber:2, lastName:"PlayerV",firstName:"Alex"}
+        ];
+
+        public var playerArrayCollection:ArrayCollection = new ArrayCollection(players);
+        [Bindable]
+        public var playerView:ICollectionView = new ListCollectionView(playerArrayCollection);
+        public var xSort:Sort = new Sort();
+
+     ]]>
+</mx:Script>
+
+    <mx:ArrayCollection id="airportCollection">
+      <mx:source>
+        <mx:Array>
+            <mx:Object abbreviation="IAH" name="Houston" international="true"/>
+            <mx:Object abbreviation="BOS" name="Boston" international="true"/>
+                <mx:Object abbreviation="MHT" name="Manchester" international="false"/>
+                <mx:Object abbreviation="JAX" name="Jacksonville" international="false"/>
+                <mx:Object abbreviation="CVG" name="Cincinatti" international="false"/>
+                <mx:Object abbreviation="ATL" name="Atlanta" international="true"/>
+                <mx:Object abbreviation="CDG" name="Paris" international="true"/>
+                <mx:Object abbreviation="JFK" name="New York" international="true"/>
+                <mx:Object abbreviation="LAX" name="Los Angeles" international="true"/>
+                <mx:Object abbreviation="HND" name="Tokyo" international="true"/>
+                    <mx:Object abbreviation="SFO" name="San Francisco" international="true"/>
+                    <mx:Object abbreviation="SJO" name="San Jose" international="false"/>
+        </mx:Array>
+      </mx:source>
+    </mx:ArrayCollection>
+
+    <mx:ListCollectionView id="view1" list="{airportCollection}">
+        <mx:sort>
+                <mx:Sort>
+                    <mx:fields>
+                    <mx:Array>
+                        <mx:SortField name="international" />
+                    </mx:Array>
+                    </mx:fields>
+                </mx:Sort>
+        </mx:sort>
+    </mx:ListCollectionView>
+
+    <mx:ListCollectionView id="view2" list="{airportCollection}" filterFunction="filterFunc">
+        <mx:sort>
+                <mx:Sort>
+                    <mx:fields>
+                    <mx:Array>
+                        <mx:SortField name="name"/>
+                    </mx:Array>
+                    </mx:fields>
+                </mx:Sort>
+        </mx:sort>
+    </mx:ListCollectionView>
+
+    <mx:DataGrid id="grid1" dataProvider="{view1}">
+        <mx:columns>
+        <mx:Array>
+        <mx:DataGridColumn dataField="abbreviation" width="150"/>
+        <mx:DataGridColumn dataField="international" width="200"/>
+        </mx:Array>
+        </mx:columns>
+    </mx:DataGrid>
+
+    <mx:DataGrid id="grid2" dataProvider="{view2}">
+        <mx:columns>
+        <mx:Array>
+        <mx:DataGridColumn dataField="name" width="150"/>
+        <mx:DataGridColumn dataField="international" width="200"/>
+        </mx:Array>
+        </mx:columns>
+    </mx:DataGrid>
+
+       <mx:DataGrid id="playerDG" height="150" width="250" dataProvider= "{playerView}">
+        <mx:columns>
+              <mx:Array>
+                <mx:DataGridColumn headerText="#" dataField="jerseyNumber" width="30" />
+                <mx:DataGridColumn dataField="firstName" width="60" />
+                <mx:DataGridColumn dataField="lastName" />
+                <mx:DataGridColumn dataField="team" />
+              </mx:Array>
+            </mx:columns>
+    </mx:DataGrid>
+
+</mx:Application>

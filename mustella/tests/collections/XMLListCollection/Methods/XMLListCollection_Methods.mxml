@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="collections/XMLListCollection/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="XmlListCollection_creation.mxml">
+	<mx:Script>
+	<![CDATA[
+	
+	public static function init(o:DisplayObject):void
+	{
+
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+
+	
+
+	<mx:Script>
+	<![CDATA[
+	import mx.collections.*;
+	public var col:XMLListCollection;
+	public var colAS:XMLListCollection;
+	public var colXML:XMLListCollection;
+	public var foo:Namespace = new Namespace("http://foo/");
+	
+	
+	
+	]]>
+	</mx:Script>
+  
+    <testCases>
+                <TestCase testID="XMLListCollection_method_getItemAt"  keywords="[XMLListCollection,method,getItemAt]">
+                    <setup>
+ 			<RunCode code="col = new XMLListCollection(application.listAS);" />
+                        
+                    </setup>
+                    <body>
+                    	<AssertMethodValue method="value = (col.getItemAt(0)==application.listAS[0] )"   value="true" />  
+		        <AssertMethodValue method="value = (col.getItemAt(1)==application.listAS[1] )"   value="true" />  
+                    </body>
+        	</TestCase>
+                <TestCase testID="XMLListCollection_method_getItemAt_AS"  keywords="[XMLListCollection,method,getItemAt]">
+                    <setup>
+ 			<RunCode code="colAS = new XMLListCollection(application.listAS2.nodes);" />
+                        
+                    </setup>
+                    <body>
+                        <AssertMethodValue method="value = (colAS.getItemAt(0)==application.listAS2.nodes[0] )"  value="true" />  
+			<AssertMethodValue method="value = (colAS.getItemAt(1)==application.listAS2.nodes[1] )"  value="true" />  
+              
+                    </body>
+        	</TestCase>
+               <TestCase testID="XMLListCollection_method_getItemAt_XML"  keywords="[XMLListCollection,method,getItemAt]">
+                    <setup>
+ 			<RunCode code="colXML = new XMLListCollection(application.listMXML.nodes);" />
+                        
+                    </setup>
+                    <body>
+                  	 <AssertMethodValue method="value = (colXML.getItemAt(0)==application.listMXML.nodes[0] )" value="true" />  
+	      		 <AssertMethodValue method="value = (colXML.getItemAt(1)==application.listMXML.nodes[1] )" value="true" />  
+                  
+                    </body>
+        	</TestCase>  
+            <TestCase testID="XMLListCollection_method_getItemAt_ns"  keywords="[XMLListCollection,method,getItemAt]">
+                    <setup>
+ 			<RunCode code="col = new XMLListCollection(application.listAS_ns);" />
+                        
+                    </setup>
+                    <body>
+                    	<AssertMethodValue method="value = (col.getItemAt(0)==application.listAS_ns[0] )"   value="true" />  
+		        <AssertMethodValue method="value = (col.getItemAt(1)==application.listAS_ns[1] )"   value="true" />  
+                    </body>
+        	</TestCase>
+                <TestCase testID="XMLListCollection_method_getItemAtAS_ns"  keywords="[XMLListCollection,method,getItemAt]">
+                    <setup>
+ 			<RunCode code="colAS = new XMLListCollection(application.listAS2_ns.foo::nodes);" />
+                        
+                    </setup>
+                    <body>
+                        <AssertMethodValue method="value = (colAS.getItemAt(0)==application.listAS2_ns.foo::nodes[0] )"  value="true" />  
+			<AssertMethodValue method="value = (colAS.getItemAt(1)==application.listAS2_ns.foo::nodes[1] )"  value="true" />  
+              
+                    </body>
+        	</TestCase>
+               <TestCase testID="XMLListCollection_method_getItemAtXML_ns"  keywords="[XMLListCollection,method,getItemAt]">
+                    <setup>
+ 			<RunCode code="colXML = new XMLListCollection(application.listMXML_ns.foo::nodes);" />
+                        
+                    </setup>
+                    <body>
+                  	 <AssertMethodValue method="value = (colXML.getItemAt(0)==application.listMXML_ns.foo::nodes[0] )" value="true" />  
+	      		 <AssertMethodValue method="value = (colXML.getItemAt(1)==application.listMXML_ns.foo::nodes[1] )" value="true" />  
+                  
+                    </body>
+        	</TestCase>    
+         	<TestCase testID="XMLListCollection_method_removeAll"  keywords="[XMLListCollection,method,removeAll]">
+                    <setup>
+ 			<RunCode code="colXML = new XMLListCollection(application.listMXML_ns.foo::nodes);" />
+                        
+                    </setup>
+                    <body>
+                  	 <AssertMethodValue method="colXML.removeAll(); value = colXML.length" value="0" />  
+   		                  
+                    </body>
+        	</TestCase>             	
+   </testCases>
+</UnitTester>

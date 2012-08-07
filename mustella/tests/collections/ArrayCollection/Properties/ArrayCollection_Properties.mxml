@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="collections/ArrayCollection/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ArrayCollectionMain.mxml">
+	<mx:Script>
+	<![CDATA[
+	
+	public static function init(o:DisplayObject):void
+	{
+
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+
+	
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.collections.*;
+	
+	]]>
+	</mx:Script>
+  
+    <testCases>
+    
+      	<TestCase testID="ArrayCollection_Property_nested_dataGrid" keywords="[ArrayCollection, Property,dataGrid]">
+	   <body>
+	   	<AssertPropertyValue target="dg_nested.dataProvider" propertyName ="length" value="10"/> 
+           	<SetProperty  target="dg_nested" propertyName ="selectedIndex" value="4"/>
+           	<AssertPropertyValue target="dg_nested.selectedItem" propertyName ="name" value="Cincinatti"/>
+           	<AssertPropertyValue target="dg_nested.selectedItem" propertyName ="abbreviation" value="CVG"/>
+		<SetProperty  target="dg_nested" propertyName ="selectedIndex" value="0"/>
+           	<AssertPropertyValue target="dg_nested.selectedItem" propertyName ="name" value="Houston"/>
+           	<AssertPropertyValue target="dg_nested.selectedItem" propertyName ="abbreviation" value="IAH"/>
+	              	
+	   </body>
+        </TestCase> 
+
+      	<TestCase testID="ArrayCollection_Property_repeater" keywords="[ArrayCollection, Property,repeater]">
+	   <body>
+	   	<AssertPropertyValue target="playerId" propertyName ="length" value="6"/> 
+           	<AssertMethodValue target="playerId" method=" value =application.playerId[0].text " value="LastNameA, PersonA"/>      	
+           	<AssertMethodValue target="playerId" method=" value =application.playerId[5].text " value="LastNameD, PersonF"/>      	
+	  	<AssertMethodValue target="playerId" method=" value =application.playerId[3].text " value="LastNameB, PersonD"/>      	
+	  
+	   </body>
+        </TestCase>
+        
+      	<TestCase testID="ArrayCollection_Property_repeater_cursor" keywords="[ArrayCollection, Property,repeater]">
+      	   <setup>
+	    	   <RunCode code="application.cursor = application.matchingArray.createCursor(); " />
+    	   </setup>
+	   <body>
+	   	<AssertMethodValue method=" value =application.cursor.current.lastName + ', ' +application.cursor.current.firstName " value="LastNameA, PersonA"/>      	
+           	<AssertMethodValue method="application.cursor.moveNext();application.cursor.moveNext();
+           	value =application.cursor.current.lastName + ', ' +application.cursor.current.firstName" value="LastNameB, PersonC"/>      	
+	  	<AssertMethodValue method="application.cursor.moveNext();application.cursor.moveNext();application.cursor.moveNext();
+		value =application.cursor.current.lastName + ', ' +application.cursor.current.firstName" value="LastNameD, PersonF"/>      	
+	  	
+	   </body>
+        </TestCase>
+        
+	<TestCase testID="ArrayCollection_Property_view_cursor_sort" keywords="[ArrayCollection, Property,view,sort]">
+      	   <setup>
+	    	   <RunCode code="application.createView()" />
+	   </setup>
+	   <body>
+	   	<AssertMethodValue method=" value =application.cursor.current.firstName " value="PersonA"/>      	
+           	<AssertMethodValue method="application.cursor.moveNext();application.cursor.moveNext();
+           	value =application.cursor.current.firstName " value="PersonC"/> 
+           	<AssertMethodValue method="application.cursor.moveNext();application.cursor.moveNext();
+           	value =application.cursor.current.firstName " value="PersonE"/>
+	   </body>
+        </TestCase>  
+        
+    </testCases>
+</UnitTester>

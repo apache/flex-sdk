@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="collections/IViewCursor/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="IViewCursorMain.mxml">
+	<mx:Script>
+	<![CDATA[
+	
+	public static function init(o:DisplayObject):void
+	{
+
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+
+	
+
+	<mx:Script>
+	<![CDATA[
+	import mx.collections.*;
+	public var cursor:IViewCursor;
+        public var boundCursor:IViewCursor;
+ 
+	]]>
+	</mx:Script>
+  
+    <testCases>
+    
+    	<TestCase testID="IViewCursor_Property_current" keywords="[IViewCursor, Property, current">
+	   <setup>
+	   	<RunCode code="cursor = application.airportCollection.createCursor()" />
+
+	   </setup>
+ 	   <body>
+		<AssertPropertyValue target="script:cursor.current" propertyName="abbreviation" value="IAH"/>
+	   </body>
+        </TestCase>
+        
+    	<TestCase testID="IViewCursor_Property_cursor_current" keywords="[IViewCursor, Property, current, cursor">
+ 	   <body>
+ 	   	<AssertPropertyValue target="airportCodeCursor.current" propertyName="abbreviation" value="IAH"/>
+	   	<AssertPropertyValue target="dgArray.dataProvider" propertyName="length" valueExpression = "value=application.airportCodes_as.length"/>
+	   	<AssertPropertyValue target="dgArray.dataProvider" propertyName="length" valueExpression = "value=application.airportListCollectionView.length"/>
+	  
+	   </body>
+        </TestCase>
+        
+    	<TestCase testID="IViewCursor_Property_cursor_current_last" keywords="[IViewCursor, Property, current, cursor">
+	   <setup>
+	   	<RunCode code="application.airportCodeCursor.seek(CursorBookmark.LAST);" />
+	   </setup>
+ 	   <body>
+		<AssertPropertyValue target="airportCodeCursor.current" propertyName="abbreviation" value="HND"/>
+	   </body>
+        </TestCase>
+        
+	<TestCase testID="IViewCursor_Property_cursor_current_first" keywords="[IViewCursor, Property, current, cursor">
+	   <setup>
+	   	<RunCode code="application.airportCodeCursor.seek(CursorBookmark.FIRST);" />
+	   </setup>
+ 	   <body>
+		<AssertPropertyValue target="airportCodeCursor.current" propertyName="abbreviation" value="IAH"/>
+	   </body>
+        </TestCase> 
+	<TestCase testID="IViewCursor_Property_cursor_current_moveNext" keywords="[IViewCursor, Property, moveNext, cursor">
+	   <setup>
+	   	<RunCode code="application.airportCodeCursor.moveNext();application.airportCodeCursor.moveNext();" />
+	   </setup>
+ 	   <body>
+		<AssertPropertyValue target="airportCodeCursor.current" propertyName="abbreviation" value="MHT"/>
+	   </body>
+        </TestCase> 
+	<TestCase testID="IViewCursor_Property_cursor_current_movePrevious" keywords="[IViewCursor, Property, movePrevious, cursor">
+	   <setup>
+	   	<RunCode code="application.airportCodeCursor.movePrevious();" />
+	   </setup>
+ 	   <body>
+		<AssertPropertyValue target="airportCodeCursor.current" propertyName="abbreviation" value="BOS"/>
+	   </body>
+        </TestCase>         
+   </testCases>
+</UnitTester>

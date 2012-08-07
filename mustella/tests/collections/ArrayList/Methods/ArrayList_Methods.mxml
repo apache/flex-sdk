@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="collections/ArrayList/Methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="http://ns.adobe.com/mxml/2009" xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ArrayListMain.mxml">
+    <m:Script>
+    <![CDATA[
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    ]]>
+    </m:Script>
+    <m:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </m:Metadata>
+
+
+
+    <m:Script>
+    <![CDATA[
+
+        import mx.collections.ArrayList;
+        import mx.collections.IList;
+    public var obj1:Object = {abbreviation:"WIN", name:"Winnipeg", international:false};
+        public var obj2:Object = {abbreviation:"SAC", name:"Sacramento", international:true};
+        public var obj3:Object = {abbreviation:"SEA", name:"Seattle", international:true};
+    public var colLength:int;
+
+    ]]>
+    </m:Script>
+
+    <testCases>
+
+        <TestCase testID="ArrayList_Method_SetItemAtEnd" keywords="[ArrayList, Method, setItemAt]">
+       <body>
+        <AssertMethodValue method="value = 0; try
+        { application.airportCollection.setItemAt(obj1, application.airportCollection.length); }
+        catch (e:Error) { value = e.message }"
+        value="Index '12' specified is out of bounds." />
+       </body>
+        </TestCase>
+
+        <TestCase testID="ArrayList_Method_SetItemAtEndPastOne" keywords="[ArrayList, Method, setItemAt]">
+       <body>
+        <AssertMethodValue method="value = 0; try
+        { application.airportCollection.setItemAt(obj1, application.airportCollection.length+1); }
+        catch (e:Error) { value = e.message }"
+        value="Index '13' specified is out of bounds." />
+       </body>
+        </TestCase>
+
+        <TestCase testID="ArrayList_Method_SetItemBeforeEnd" keywords="[ArrayList, Method, setItemAt]">
+       <body>
+        <RunCode code="colLength = application.airportCollection.length;
+        application.airportCollection.setItemAt(obj1, colLength -1);" />
+        <AssertMethodValue method="value = (application.airportCollection.getItemAt(application.airportCollection.length-1).abbreviation ==
+        obj1.abbreviation )"   value="true" />
+
+       </body>
+        </TestCase>
+
+    <TestCase testID="ArrayList_Method_AddItemAtEnd" keywords="[ArrayList, Method, addItemAt]">
+       <body>
+        <RunCode code="colLength = application.airportCollection.length;
+        application.airportCollection.addItemAt(obj2, colLength);" />
+        <AssertMethodValue method="value = (application.airportCollection.getItemAt(colLength).abbreviation ==
+        obj2.abbreviation )"  value="true" />
+
+       </body>
+        </TestCase>
+
+        <TestCase testID="ArrayList_Method_AddItemAtEndPastOne" keywords="[ArrayList, Method, addItemAt]">
+       <body>
+        <AssertMethodValue method="value = 0; try
+        { application.airportCollection.addItemAt(obj1, application.airportCollection.length+1); }
+        catch (e:Error) { value = e.message }"
+        value="Index '14' specified is out of bounds." />
+       </body>
+        </TestCase>
+
+        <TestCase testID="ArrayList_Method_SetItemAt0" keywords="[ArrayList, Method, setItemAt]">
+       <body>
+        <RunCode code="application.airportCollection.setItemAt(obj1, 0);" />
+        <AssertMethodValue method="value = (application.airportCollection.getItemAt(0).abbreviation ==
+        obj1.abbreviation )"  value="true" />
+
+       </body>
+        </TestCase>
+
+    <TestCase testID="ArrayList_Method_SetItemAtBeforeBeginning" keywords="[ArrayList, Method, setItemAt]">
+       <body>
+        <AssertMethodValue method="value = 0; try
+        { application.airportCollection.setItemAt(obj2, -1); }
+        catch (e:Error) { value = e.message }"
+        value="Index '-1' specified is out of bounds." />
+       </body>
+        </TestCase>
+
+        <TestCase testID="ArrayList_Method_SetItemAt1" keywords="[ArrayList, Method, setItemAt]">
+       <body>
+        <RunCode code="application.airportCollection.setItemAt(obj3, 1);" />
+        <AssertMethodValue method="value = (application.airportCollection.getItemAt(1).abbreviation ==
+        obj3.abbreviation )"  value="true" />
+
+       </body>
+        </TestCase>
+
+        <TestCase testID="ArrayList_Method_AddItemAt0" keywords="[ArrayList, Method, addItemAt]">
+       <body>
+        <RunCode code="application.airportCollection.addItemAt(obj1, 0);" />
+        <AssertMethodValue method="value = (application.airportCollection.getItemAt(0).abbreviation ==
+        obj1.abbreviation )"  value="true" />
+
+       </body>
+        </TestCase>
+
+        <TestCase testID="ArrayList_Method_AddItemAt1" keywords="[ArrayList, Method, addItemAt]">
+       <body>
+        <RunCode code="application.airportCollection.addItemAt(obj2, 1);" />
+        <AssertMethodValue method="value = (application.airportCollection.getItemAt(1).abbreviation ==
+        obj2.abbreviation )"   value="true" />
+
+       </body>
+        </TestCase>
+
+    <TestCase testID="ArrayList_Method_AddItemAtBeforeBeginning" keywords="[ArrayList, Method, addItemAt]">
+       <body>
+        <AssertMethodValue method="value = 0; try
+        { application.airportCollection.addItemAt(obj2, -1); }
+        catch (e:Error) { value = e.message }"
+        value="Index '-1' specified is out of bounds." />
+       </body>
+        </TestCase>
+
+    <TestCase testID="ArrayList_Method_removeItemAt" keywords="[ArrayList, Method, removeItemAt]">
+       <body>
+        <AssertPropertyValue target="airportCollection" propertyName ="length" value="15"/>
+        <AssertMethodValue method="var obj:Object = application.airportCollection.getItemAt(3);
+        value = (application.airportCollection.removeItemAt(3).abbreviation ==
+        obj.abbreviation )"   value="true" />
+        <AssertPropertyValue target="airportCollection" propertyName ="length" value="14"/>
+       </body>
+        </TestCase>
+
+
+    <TestCase testID="ArrayList_Method_addAll" keywords="[ArrayList, Method, addAll]">
+       <body>
+        <AssertPropertyValue target="al" propertyName ="length" value="0"/>
+        <RunCode code="application.al.addAll(application.playerList)" />
+        <AssertPropertyValue target="al" propertyName ="length" value="7"/>
+       </body>
+   </TestCase>
+    <TestCase testID="ArrayList_Method_addAllAt" keywords="[ArrayList, Method, addAllAt]">
+       <body>
+        <RunCode code="application.al.removeAll()" />
+        <AssertPropertyValue target="al" propertyName ="length" value="0"/>
+        <RunCode code="application.al.addAllAt(application.playerList,0)" />
+        <AssertPropertyValue target="al" propertyName ="length" value="7"/>
+       </body>
+   </TestCase>
+    <TestCase testID="ArrayList_Method_addAllAt_end" keywords="[ArrayList, Method, addAllAt]">
+       <body>
+        <RunCode code="application.al.removeAll()" />
+        <AssertPropertyValue target="al" propertyName ="length" value="0"/>
+        <RunCode code="application.al.addAllAt(application.playerList,0)" />
+        <AssertPropertyValue target="al" propertyName ="length" value="7"/>
+        <RunCode code="application.al.addAllAt(application.playerList,7)" />
+        <AssertPropertyValue target="al" propertyName ="length" value="14"/>
+       </body>
+   </TestCase>
+    </testCases>
+</UnitTester>

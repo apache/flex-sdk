@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="collections/ListCollectionView/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ListCollectionViewMain.mxml">
+    <mx:Script>
+    <![CDATA[
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <mx:Script>
+    <![CDATA[
+    import mx.collections.*;
+    public var obj1:Object ;
+        public var obj2:Object ;
+
+    public function do_disableAutoUpdate():void
+    {
+                application.airportCollection.disableAutoUpdate();
+                application.view1.disableAutoUpdate();
+                application.view2.disableAutoUpdate();
+        }
+        public function testEditView1():void
+        {
+            obj1= application.view1.getItemAt(2);
+            obj1.international = true;
+            obj1.abbreviation = "SJXX"
+            application.view1.itemUpdated(obj1);
+
+            application.view1.enableAutoUpdate();
+            application.view1.refresh();
+
+            obj2 = IList(application.grid1.dataProvider).getItemAt(11);
+
+         }
+
+        //should cause a re-range - BUG 146748
+        public function testEditView2():void
+        {
+            obj1 = application.view2.getItemAt(2);
+            obj1.name = "Albequerque";
+            application.view2.itemUpdated(obj1);
+
+            application.view2.enableAutoUpdate();
+            application.view2.refresh();
+
+         }
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <TestCase testID="ArrayCollection_Method_disableAutoUpdate_bug_146748" keywords="[ArrayCollection, Method, disableAutoUpdate,bug_146748">
+            <setup>
+                <RunCode code="do_disableAutoUpdate()" />
+            </setup>
+       <body>
+        <RunCode code="testEditView1()" />
+        <AssertPropertyValue target="script:obj2" propertyName="abbreviation" value="SJXX"/>
+        <AssertPropertyValue target="script:obj2" propertyName="international" value="true"/>
+       </body>
+        </TestCase>
+
+        <TestCase testID="ArrayCollection_Method_disableAutoUpdate" keywords="[ArrayCollection, Method, disableAutoUpdate">
+            <setup>
+                <RunCode code="do_disableAutoUpdate()" />
+            </setup>
+       <body>
+        <RunCode code="testEditView2()" />
+        <AssertPropertyValue target="view2" propertyName="length" value="2"/>
+       </body>
+        </TestCase>
+
+        <TestCase testID="ListCollectionView_Method_contains" keywords="[ListCollectionView, Method, contains">
+            <setup>
+                <RunCode code="application.createCollections()" />
+            </setup>
+       <body>
+        <RunCode code="application.view.disableAutoUpdate(); application.col.getItemAt(0).Artist = 'ArtistZ';" />
+        <AssertMethodValue method="value = application.view.contains(application.col.getItemAt(0))" value="true" />
+        <AssertMethodValue method="value = application.view.contains(application.arr[0])" value="true" />
+        <AssertMethodValue method="application.view.enableAutoUpdate(); value = application.view.contains(application.col.getItemAt(0))" value="true" />
+        </body>
+        </TestCase>
+
+    <TestCase testID="ListCollectionView_Method_filterFunction" keywords="[ListCollectionView, Method, filter,getItemAt">
+            <setup>
+                <RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
+                    { return item.jerseyNumber == 7; };
+                    application.playerView.refresh(); " />
+            </setup>
+        <body>
+        <AssertMethodValue method="value = application.playerDG.dataProvider.length" value="4" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).jerseyNumber"  value="7" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(1).jerseyNumber" value="7" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(3).jerseyNumber"  value="7" />
+        </body>
+        </TestCase>
+
+    <TestCase testID="ListCollectionView_Method_filterFunction_getItemAt" keywords="[ListCollectionView, Method, filter,getItemAt">
+            <setup>
+                <RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
+                    { return item.team == 'Team A'; };
+                    application.playerView.refresh(); " />
+            </setup>
+        <body>
+        <AssertMethodValue method="value = application.playerDG.dataProvider.length" value="12" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).team"  value="Team A" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(11).team" value="Team A" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(6).team"  value="Team A" />
+        </body>
+        </TestCase>
+
+    <TestCase testID="ListCollectionView_Method_Sort_ASC" keywords="[ListCollectionView, Method, filter,getItemAt">
+            <setup>
+                <RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
+                    { return item.team == 'Team A'; };
+                    application.xSort.fields = [new SortField('jerseyNumber', false, false, true)];
+                    application.playerView.sort = application.xSort;
+                    application.playerView.refresh(); " />
+            </setup>
+        <body>
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).jerseyNumber"  value="2" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(3).jerseyNumber"  value="7" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(4).jerseyNumber"  value="12" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(11).jerseyNumber"  value="93" />
+        </body>
+        </TestCase>
+
+    <TestCase testID="ListCollectionView_Method_Sort_DescendingSort" keywords="[ListCollectionView, Method, filter,getItemAt">
+            <setup>
+                <RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
+                    { return item.team == 'Team A'; };
+                    application.xSort.fields = [new SortField('jerseyNumber', false, true, true)];
+                    application.playerView.sort = application.xSort;
+                    application.playerView.refresh(); " />
+            </setup>
+        <body>
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).jerseyNumber"  value="93" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(3).jerseyNumber"  value="54" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(4).jerseyNumber"  value="50" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(11).jerseyNumber"  value="2" />
+        </body>
+        </TestCase>
+
+    <TestCase testID="ListCollectionView_Method_Sort_twoFiels" keywords="[ListCollectionView, Method, filter,getItemAt,sort">
+            <setup>
+                <RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
+                    { return item.team == 'Team A'; };
+                    application.xSort.fields = [new SortField('jerseyNumber'), new SortField('lastName')];
+                    application.playerView.sort = application.xSort;
+                    application.playerView.refresh(); " />
+            </setup>
+        <body>
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).jerseyNumber"  value="2" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(2).jerseyNumber"  value="7" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(2).lastName"  value="PlayerI" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(3).jerseyNumber"  value="7" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(3).lastName"  value="PlayerJ" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(11).jerseyNumber"  value="93" />
+        </body>
+        </TestCase>
+
+    <TestCase testID="ListCollectionView_Method_Sort_twoFielsDesc" keywords="[ListCollectionView, Method, filter,getItemAt,sort">
+            <setup>
+                <RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
+                    { return item.team == 'Team A'; };
+                    application.xSort.fields = [new SortField('jerseyNumber', false, true, true), new SortField('lastName', false, false)];
+                    application.playerView.sort = application.xSort;
+                    application.playerView.refresh(); " />
+            </setup>
+        <body>
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(11).jerseyNumber"  value="2" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(11).lastName"  value="PlayerI" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(9).jerseyNumber"  value="7" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(9).lastName"  value="PlayerJ" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(8).jerseyNumber"  value="7" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(8).lastName"  value="PlayerI" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).jerseyNumber"  value="93" />
+        <AssertMethodValue method="value = application.playerDG.dataProvider.getItemAt(0).lastName"  value="PlayerF" />
+        </body>
+        </TestCase>
+
+        <TestCase testID="ListCollectionView_Method_addAll_end" keywords="[ListCollectionView, Method, addAll">
+            <setup>
+                <RunCode code="application.createCollections()" />
+            </setup>
+            <body>
+                <RunCode code="application.view.addAll(new ArrayCollection(application.arr)); " />
+                <AssertPropertyValue target="view" propertyName ="length" value="12"/>
+                <AssertMethodValue method="value = application.view.getItemAt(11).Artist"  value="ArtistF" />
+            </body>
+        </TestCase>
+        <TestCase testID="ListCollectionView_Method_addAllAt_empty" keywords="[ListCollectionView, Method, addAllAt">
+            <body>
+                <RunCode code="application.artCol.addAllAt(new ArrayCollection(application.art),0); " />
+                <AssertPropertyValue target="artCol" propertyName ="length" value="3"/>
+                <AssertMethodValue method="value = application.artCol.getItemAt(2).Artist"  value="ArtistF" />
+            </body>
+        </TestCase>
+        <TestCase testID="ListCollectionView_Method_addAllAt_home" keywords="[ListCollectionView, Method, addAllAt">
+            <body>
+                <RunCode code="application.artCol.addAllAt(new ArrayCollection(application.art),0); " />
+                <AssertPropertyValue target="artCol" propertyName ="length" value="6"/>
+                <AssertMethodValue method="value = application.artCol.getItemAt(2).Artist"  value="ArtistF" />
+            </body>
+        </TestCase>
+        <TestCase testID="ListCollectionView_Method_addAllAt_end" keywords="[ListCollectionView, Method, addAllAt">
+            <body>
+                <RunCode code="application.artCol.addAllAt(new ArrayCollection(application.art),6); " />
+                <AssertPropertyValue target="artCol" propertyName ="length" value="9"/>
+                <AssertMethodValue method="value = application.artCol.getItemAt(8).Artist"  value="ArtistF" />
+            </body>
+        </TestCase>
+        <TestCase testID="ListCollectionView_Method_addAllAt_middle" keywords="[ListCollectionView, Method, addAllAt">
+            <body>
+                <RunCode code="application.artCol.addAllAt(new ArrayCollection(application.art),1); " />
+                <AssertPropertyValue target="artCol" propertyName ="length" value="12"/>
+                <AssertMethodValue method="value = application.artCol.getItemAt(2).Artist"  value="ArtistE" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

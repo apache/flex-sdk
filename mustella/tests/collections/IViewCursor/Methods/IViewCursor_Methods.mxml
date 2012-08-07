@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="collections/IViewCursor/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="IViewCursorMain.mxml">
+	<mx:Script>
+	<![CDATA[
+	
+	public static function init(o:DisplayObject):void
+	{
+
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+
+	
+
+	<mx:Script>
+	<![CDATA[
+	import mx.collections.*;
+	public var cursor:IViewCursor;
+        public var boundCursor:IViewCursor;
+        
+     
+	]]>
+	</mx:Script>
+  
+    <testCases>
+    
+    	<TestCase testID="IViewCursor_Method_Seek_Last" keywords="[IViewCursor, Method, seek]">
+ 	   <setup>
+		<RunCode code="cursor = application.airportCollection.createCursor()" />
+	   </setup>
+	   <body>
+		<AssertMethodValue method=" script:cursor.seek(CursorBookmark.LAST);value=cursor.current.abbreviation "   value="HND" />
+	   </body>	   
+        </TestCase>
+        
+    	<TestCase testID="IViewCursor_Method_Seek_First" keywords="[IViewCursor, Method, seek]">
+ 	   <setup>
+		<RunCode code="cursor = application.airportCollection.createCursor()" />
+	   </setup>
+	   <body>
+		<AssertMethodValue method=" script:cursor.seek(CursorBookmark.FIRST);value=cursor.current.abbreviation "   value="IAH" />
+	   </body>	   
+        </TestCase> 
+        
+    	<TestCase testID="IViewCursor_Method_MoveNext" keywords="[IViewCursor, Method, moveNext]">
+ 	   <setup>
+		<RunCode code="cursor = application.airportCollection.createCursor();" />
+	   </setup>
+	   <body>
+		<AssertMethodValue method=" script:cursor.moveNext();value=cursor.current.abbreviation "   value="BOS" />
+	   </body>	   
+        </TestCase> 
+        
+   	<TestCase testID="IViewCursor_Method_MovePrevious" keywords="[IViewCursor, Method, movePrevious]">
+ 	   <setup>
+		<RunCode code="cursor = application.airportCollection.createCursor();script:cursor.moveNext();script:cursor.moveNext();" />
+	   </setup>
+	   <body>
+		<AssertMethodValue method=" script:cursor.movePrevious();value=cursor.current.abbreviation "   value="BOS" />
+	   </body>	   
+        </TestCase>
+        
+    	<TestCase testID="IViewCursor_Property_current_bound" keywords="[IViewCursor, Property, current">
+	   <setup>
+	   	<RunCode code="boundCursor = application.airportCollectionBound.createCursor()" />
+
+	   </setup>
+ 	   <body>
+		<AssertMethodValue method="script:boundCursor.seek(CursorBookmark.FIRST);value=boundCursor.current.abbreviation" value="IAH" />
+		
+	   </body>
+        </TestCase>  
+    	<TestCase testID="IViewCursor_Property_last_bound" keywords="[IViewCursor, Property, current">
+	   <setup>
+	   	<RunCode code="boundCursor = application.airportCollectionBound.createCursor()" />
+
+	   </setup>
+ 	   <body>
+		<AssertMethodValue method="script:boundCursor.seek(CursorBookmark.LAST);value=boundCursor.current.abbreviation" value="JAX" />
+		
+	   </body>
+        </TestCase>
+    	<TestCase testID="IViewCursor_Method_MoveNext_bound" keywords="[IViewCursor, Method, moveNext]">
+ 	   <setup>
+		<RunCode code="boundCursor = application.airportCollectionBound.createCursor();" />
+	   </setup>
+	   <body>
+		<AssertMethodValue method=" script:boundCursor.seek(CursorBookmark.FIRST);
+		script:boundCursor.moveNext();script:boundCursor.moveNext();
+		value=boundCursor.current.abbreviation "   value="MHT" />
+	   </body>	   
+        </TestCase>
+        
+    	<TestCase testID="IViewCursor_Method_MovePrevious_bound" keywords="[IViewCursor, Method, movePrevious]">
+ 	   <setup>
+ 	   	
+		<RunCode code="boundCursor = application.airportCollectionBound.createCursor();" />
+	   </setup>
+	   <body>
+		<AssertMethodValue method=" script:boundCursor.seek(CursorBookmark.FIRST);
+		script:boundCursor.moveNext();script:boundCursor.moveNext();script:boundCursor.movePrevious();
+		value=boundCursor.current.abbreviation "   value="BOS" />
+		<AssertPropertyValue target="dg.dataProvider" propertyName ="length" value="4"/>
+		<AssertPropertyValue target="dgac.dataProvider" propertyName ="length" value="10"/>
+	   </body>	   
+        </TestCase>
+        
+   	<TestCase testID="IViewCursor_Method_seek_sorted" keywords="[IViewCursor, Method, seek]">
+ 	   <setup>
+		<RunCode code="cursor = application.airportCollectionSorted.createCursor();" />
+	   </setup>
+	   <body>
+	   	<AssertMethodValue method=" script:cursor.seek(CursorBookmark.FIRST);value=cursor.current.abbreviation "   value="IAH" />
+	    	<AssertMethodValue method=" script:cursor.moveNext();value=cursor.current.abbreviation "   value="JAX" />
+	    	<AssertMethodValue method=" script:cursor.moveNext();value=cursor.current.abbreviation "   value="LAX" />
+	    	<AssertMethodValue method=" script:cursor.moveNext();value=cursor.current.abbreviation "   value="MHT" />
+	    	<AssertMethodValue method=" script:cursor.moveNext();value=cursor.current.abbreviation "   value="JFK" />
+	    	<AssertMethodValue method=" script:cursor.seek(CursorBookmark.LAST);value=cursor.current.abbreviation "   value="JFK" />
+	    	
+	     </body>	   
+        </TestCase>
+
+   	<TestCase testID="IViewCursor_Method_Move_as" keywords="[IViewCursor, Method, move]">
+ 	   <setup>
+		<RunCode code="cursor = application.airportCol_as.createCursor();" />
+	   </setup>
+	   <body>
+		<AssertMethodValue method=" script:cursor.seek(CursorBookmark.FIRST);value=cursor.current.abbreviation " value="IAH" />
+		<AssertMethodValue method=" script:cursor.moveNext(); script:cursor.moveNext();value=cursor.current.abbreviation " value="MHT" />
+		<AssertMethodValue method=" script:cursor.movePrevious();value=cursor.current.abbreviation " value="BOS" />
+		<AssertMethodValue method=" script:cursor.seek(CursorBookmark.LAST);value=cursor.current.abbreviation " value="HND" />
+		<AssertPropertyValue target="airportCol_as" propertyName ="length" value="10"/>
+	   </body>	   
+        </TestCase>
+
+    	<TestCase testID="IViewCursor_Method_XML_MoveNextPrevious" keywords="[IViewCursor, Method, moveNext, movePrevious]">
+ 	   <setup>
+		<RunCode code="application.initEmployees()" />
+	   </setup>
+	   <body>
+	   	<AssertPropertyValue target="colXML_AS" propertyName ="length" value="4"/>
+		<AssertMethodValue method=" application.cursorXML_AS.moveNext(); application.cursorXML_AS.moveNext();
+		value=application.cursorXML_AS.current['first-name'] "   value="Cathy" />
+		<AssertMethodValue method="application.cursorXML_AS.movePrevious();
+		value=application.cursorXML_AS.current['first-name'] "   value="Anders" />
+	   </body>	   
+        </TestCase>
+  
+  	<TestCase testID="IViewCursor_Method_XML_Sort" keywords="[IViewCursor, Method, sort]">
+   	   <setup>
+  		<RunCode code="application.initEmployees()" />
+  	   </setup>
+  	   <body>
+    		<AssertMethodValue method="value=application.cursorXML_AS.current['last-name'] " value="PersonA" />
+    		<AssertMethodValue method="application.cursorXML_AS.moveNext(); value=application.cursorXML_AS.current['last-name'] " value="PersonB" />
+    		<AssertMethodValue method="application.cursorXML_AS.moveNext(); value=application.cursorXML_AS.current['last-name'] " value="PersonC" />
+  	  	<AssertMethodValue method="application.cursorXML_AS.moveNext(); value=application.cursorXML_AS.current['last-name'] " value="PersonD" />
+  	  
+  	   </body>	   
+        </TestCase>
+
+  	<TestCase testID="IViewCursor_Method_XML_Cursor_Bookmark" keywords="[IViewCursor, Method, sort, bookmark]">
+   	   <setup>
+  		<RunCode code="application.initEmployees()" />
+  	   </setup>
+  	   <body>
+    		<AssertMethodValue method="application.cursorXML_AS.seek(CursorBookmark.CURRENT, 2);
+    		var bookmark:CursorBookmark = application.cursorXML_AS.bookmark;
+    		value=bookmark.value.@id " value="3333-333-3333" />
+   	   </body>	   
+        </TestCase>
+
+	<TestCase testID="IViewCursor_Method_XML_Sort_Cursor_Bookmark" keywords="[IViewCursor, Method, sort, bookmark]">
+   	   <setup>
+  		<RunCode code="application.initEmployees()" />
+  	   </setup>
+  	   <body>
+    		<AssertMethodValue method="application.cursorXML_AS.seek(CursorBookmark.CURRENT, 2);
+    		var bookmark:CursorBookmark = application.cursorXML_AS.bookmark;
+    		var s:Sort = new Sort();
+		s.fields = [new SortField('@id')];
+        	application.colXML_AS.sort = s;
+        	application.cursorXML_AS.seek(bookmark);
+    		value=application.cursorXML_AS.current.@id " value="3333-333-3333" />
+   	   </body>	   
+        </TestCase>
+        
+   	<TestCase testID="IViewCursor_Method_Array_MoveNextPrevious" keywords="[IViewCursor, Method, moveNext, movePrevious]">
+    	   <setup>
+   		<RunCode code="application.initPlayers()" />
+   	   </setup>
+   	   <body>
+   	   	<AssertPropertyValue target="colArr_AS" propertyName ="length" value="12"/>
+   		<AssertMethodValue method=" application.cursorArr_AS.moveNext(); application.cursorArr_AS.moveNext();
+   		value=application.cursorArr_AS.current.firstName "   value="Willie" />
+   		<AssertMethodValue method="application.cursorArr_AS.movePrevious();
+   		value=application.cursorArr_AS.current.firstName "   value="Troy" />
+   	   </body>	   
+        </TestCase>
+        
+   	
+        
+   	<TestCase testID="IViewCursor_Method_Array_UpdateSort" keywords="[IViewCursor, Method, sort,update]">
+    	   <setup>
+   		<RunCode code="application.initPlayers()" />
+   		<RunCode code=" var sort:Sort = new Sort();
+				sort.fields = [new SortField('lastName')];
+				application.colArr_AS.sort = sort;
+				application.colArr_AS.refresh();" />
+   	   </setup>
+   	   <body>
+   	 	<AssertMethodValue method="value =  application.colArr_AS.getItemAt(2).lastName;" value="PlayerC" />
+   		<AssertMethodValue method=" var oldLast:String = application.players[5].lastName;
+        					application.players[5].lastName = 'AAbleton';
+        				        application.colArr_AS.itemUpdated(application.players[5], 'lastName', oldLast, 'AAbleton');
+   		value=application.colArr_AS.getItemAt(2).lastName; "   value="PlayerB" />
+   		<AssertMethodValue method="value =  application.colArr_AS.getItemAt(0).lastName;" value="AAbleton" />
+   		<AssertPropertyValue target="colArr_AS" propertyName ="length" value="12"/>
+   	   </body>	   
+        </TestCase>  
+        
+   	<TestCase testID="IViewCursor_Method_Seek_Last_First_Current" keywords="[IViewCursor, Method, seek]">
+ 	   <setup>
+		<RunCode code="cursor = application.arrColInline.createCursor()" />
+	   </setup>
+	   <body>
+		<AssertMethodValue method=" script:cursor.seek(CursorBookmark.FIRST); value=cursor.current.lastName "   value="PlayerA" />
+		<AssertMethodValue method=" script:cursor.seek(CursorBookmark.LAST); value=cursor.current.lastName "   value="PlayerK" />
+		<AssertMethodValue method=" script:cursor.seek(CursorBookmark.FIRST, 1); value=cursor.current.lastName "   value="PlayerB" />
+		<AssertMethodValue method=" script:cursor.seek(CursorBookmark.CURRENT, 1); value=cursor.current.lastName "   value="PlayerC" />
+	
+	   </body>	   
+        </TestCase>
+        
+  	<TestCase testID="IViewCursor_Method_FindAny" keywords="[IViewCursor, Method, findAny]">
+ 	   <setup>
+ 	   	<RunCode code="application.initPlayers()" />
+		
+	   </setup>
+	   <body>
+		<AssertMethodValue method=" var test:Object = new Object();test.jerseyNumber = '12';
+		application.cursorArr_AS.findAny(test); 
+		value=application.cursorArr_AS.current.lastName "   value="PlayerB" />
+		
+	   </body>	   
+        </TestCase>       
+   </testCases>
+</UnitTester>
