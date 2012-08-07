@@ -1,0 +1,169 @@
+﻿<UnitTester 
+    testSWF="../SWFs/Parallel_main.mxml" 
+    testDir="mx/effects/Parallel/accessor/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import mx.effects.Parallel;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- compositeDuration -->
+        <TestCase testID="Parallel_compositeDuration_Default" keywords="[Parallel, accessor, compositeDuration]" description="Test the default value of the compositeDuration property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).compositeDuration" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_compositeDuration_nothing" keywords="[Parallel, accessor, compositeDuration]" description="Test the value of compositeDuration from a single child effect with nothing.">
+            <body>
+                <AssertPropertyValue target="p_compositeDuration0" propertyName="compositeDuration" value="500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_compositeDuration" keywords="[Parallel, accessor, compositeDuration]" description="Test the value of compositeDuration from a single child effect with duration.">
+            <body>
+                <AssertPropertyValue target="p_compositeDuration1" propertyName="compositeDuration" value="1000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_compositeDuration_D_SD" keywords="[Parallel, accessor, compositeDuration]" description="Test the value of compositeDuration with duration and startDelay.">
+            <body>
+                <AssertPropertyValue target="p_compositeDuration2" propertyName="compositeDuration" value="1500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_compositeDuration_D_SD_RC" keywords="[Parallel, accessor, compositeDuration]" description="Test the value of compositeDuration with duration, startDelay, repeatCount.">
+            <body>
+                <AssertPropertyValue target="p_compositeDuration3" propertyName="compositeDuration" value="2500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_compositeDuration_D_SD_RC_RD" keywords="[Parallel, accessor, compositeDuration]" description="Test the value of compositeDuration with duration, startDelay, repeatCount, repeatDelay.">
+            <body>
+                <AssertPropertyValue target="p_compositeDuration4" propertyName="compositeDuration" value="3000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_compositeDuration_multiChild" keywords="[Parallel, accessor, compositeDuration]" description="Test the value of compositeDuration with multiple child effects.">
+            <body>
+                <AssertPropertyValue target="p_compositeDuration5" propertyName="compositeDuration" value="5000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_compositeDuration_durationOnParallel" keywords="[Parallel, accessor, compositeDuration]" description="Test the value of compositeDuration with duration on the parallel.">
+            <body>
+                <AssertPropertyValue target="p_compositeDuration6" propertyName="compositeDuration" value="1000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_compositeDuration_durationOnParallel_SD" keywords="[Parallel, accessor, compositeDuration]" description="Test startDelays are added in compositeDuration when duration is set on parallel.">
+            <body>
+                <AssertPropertyValue target="p_compositeDuration7" propertyName="compositeDuration" value="1700"/>
+            </body>
+        </TestCase>
+
+        <!-- children -->
+        <TestCase testID="Parallel_children_Default" keywords="[Parallel, accessor, children]" description="Test the default value of the children property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).children" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- effectTargetHost -->
+        <TestCase testID="Parallel_effectTargetHost_Default" keywords="[Parallel, accessor, effectTargetHost]" description="Test the default value of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- className -->
+        <TestCase testID="Parallel_className_Default" keywords="[Parallel, accessor, className]" description="Test the default value of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).className" value="Parallel"/>
+            </body>
+        </TestCase>
+
+        <!-- hideFocusRing -->
+        <TestCase testID="Parallel_hideFocusRing_Default" keywords="[Parallel, accessor, hideFocusRing]" description="Test the default value of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- isPlaying -->
+        <TestCase testID="Parallel_isPlaying_Default" keywords="[Parallel, accessor, isPlaying]" description="Test the default value of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="Parallel_duration_Default" keywords="[Parallel, accessor, duration]" description="Test the default value of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).duration" value="500"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantProperties -->
+        <TestCase testID="Parallel_relevantProperties_Default" keywords="[Parallel, accessor, relevantProperties]" description="Test the default value of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).relevantProperties" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- target -->
+        <TestCase testID="Parallel_target_Default" keywords="[Parallel, accessor, target]" description="Test the default value of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).target" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- playheadTime -->
+        <TestCase testID="Parallel_playheadTime_Default" keywords="[Parallel, accessor, playheadTime]" description="Test the default value of the playheadTime property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).playheadTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantStyles -->
+        <TestCase testID="Parallel_relevantStyles_Default" keywords="[Parallel, accessor, relevantStyles]" description="Test the default value of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).relevantStyles" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- targets -->
+        <TestCase testID="Parallel_targets_Default" keywords="[Parallel, accessor, targets]" description="Test the default value of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).targets" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- perElementOffset -->
+        <TestCase testID="Parallel_perElementOffset_Default" keywords="[Parallel, accessor, perElementOffset]" description="Test the default value of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- triggerEvent -->
+        <TestCase testID="Parallel_triggerEvent_Default" keywords="[Parallel, accessor, triggerEvent]" description="Test the default value of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- customFilter -->
+        <TestCase testID="Parallel_customFilter_Default" keywords="[Parallel, accessor, customFilter]" description="Test the default value of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- filter -->
+        <TestCase testID="Parallel_filter_Default" keywords="[Parallel, accessor, filter]" description="Test the default value of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new Parallel()).filter" value="null"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

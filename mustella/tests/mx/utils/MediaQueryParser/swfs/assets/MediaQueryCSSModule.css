@@ -1,0 +1,67 @@
+/*
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+s|Button
+{
+	chromeColor: #999999;
+}
+
+.buttonStyle 
+{
+	chromeColor: #AAAAAA;
+}
+
+@media screen and (os-platform: "Windows")
+{
+	s|Button
+	{
+			chromeColor: #990000;
+	}
+	.buttonStyle
+	{
+		chromeColor: #999900;
+	}
+}
+
+@media all and (os-platform: "Macintosh")
+{
+	s|Button
+	{
+		chromeColor: #009900;
+	}
+	.buttonStyle
+	{
+		chromeColor: #009999;	
+	}
+}
+
+@media (os-platform: "Linux")
+{
+	s|Button
+	{
+		chromeColor: #000099;
+	}
+	.buttonStyle
+	{
+		chromeColor: #993300;
+	}
+}

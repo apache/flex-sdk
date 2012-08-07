@@ -1,0 +1,279 @@
+<UnitTester 
+    testDir="mx/effects/Zoom/Props/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="Zoom_Main.mxml">
+    
+  <!--Default Script-->
+  <mx:Script><![CDATA[
+public static function init(o:DisplayObject):void{}
+
+import mx.effects.Zoom;
+]]></mx:Script>
+    
+  <!--Default Metadata-->
+  <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+  <!--Test Cases-->
+  <testCases>
+    <!--Zoom_Properties_captureRollEvents_True-->
+    <TestCase testID="Zoom_Properties_captureRollEvents_True" keywords="[Zoom, Properties, captureRollEvents]" description="Test the setting of the Zoom.captureRollEvents property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="captureRollEvents" value="true" />
+        <AssertPropertyValue target="testEffect" propertyName="captureRollEvents" value="true" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_captureRollEvents_False-->
+    <TestCase testID="Zoom_Properties_captureRollEvents_False" keywords="[Zoom, Properties, captureRollEvents]" description="Test the setting of the Zoom.captureRollEvents property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="captureRollEvents" value="false" />
+        <AssertPropertyValue target="testEffect" propertyName="captureRollEvents" value="false" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_originX_Negative-->
+    <TestCase testID="Zoom_Properties_originX_Negative" keywords="[Zoom, Properties, originX]" description="Test the setting of the Zoom.originX property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="originX" value="-32768" />
+        <AssertPropertyValue target="testEffect" propertyName="originX" value="-32768" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_originX_Zero-->
+    <TestCase testID="Zoom_Properties_originX_Zero" keywords="[Zoom, Properties, originX]" description="Test the setting of the Zoom.originX property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="originX" value="0" />
+        <AssertPropertyValue target="testEffect" propertyName="originX" value="0" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_originX_Normal-->
+    <TestCase testID="Zoom_Properties_originX_Normal" keywords="[Zoom, Properties, originX]" description="Test the setting of the Zoom.originX property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="originX" value="77" />
+        <AssertPropertyValue target="testEffect" propertyName="originX" value="77" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_originX_Big-->
+    <TestCase testID="Zoom_Properties_originX_Big" keywords="[Zoom, Properties, originX]" description="Test the setting of the Zoom.originX property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="originX" value="32767" />
+        <AssertPropertyValue target="testEffect" propertyName="originX" value="32767" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_originY_Negative-->
+    <TestCase testID="Zoom_Properties_originY_Negative" keywords="[Zoom, Properties, originY]" description="Test the setting of the Zoom.originY property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="originY" value="-32768" />
+        <AssertPropertyValue target="testEffect" propertyName="originY" value="-32768" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_originY_Zero-->
+    <TestCase testID="Zoom_Properties_originY_Zero" keywords="[Zoom, Properties, originY]" description="Test the setting of the Zoom.originY property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="originY" value="0" />
+        <AssertPropertyValue target="testEffect" propertyName="originY" value="0" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_originY_Normal-->
+    <TestCase testID="Zoom_Properties_originY_Normal" keywords="[Zoom, Properties, originY]" description="Test the setting of the Zoom.originY property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="originY" value="77" />
+        <AssertPropertyValue target="testEffect" propertyName="originY" value="77" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_originY_Big-->
+    <TestCase testID="Zoom_Properties_originY_Big" keywords="[Zoom, Properties, originY]" description="Test the setting of the Zoom.originY property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="originY" value="32767" />
+        <AssertPropertyValue target="testEffect" propertyName="originY" value="32767" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomHeightFrom_Negative-->
+    <TestCase testID="Zoom_Properties_zoomHeightFrom_Negative" keywords="[Zoom, Properties, zoomHeightFrom]" description="Test the setting of the Zoom.zoomHeightFrom property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomHeightFrom" value="-32768" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomHeightFrom" value="-32768" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomHeightFrom_Zero-->
+    <TestCase testID="Zoom_Properties_zoomHeightFrom_Zero" keywords="[Zoom, Properties, zoomHeightFrom]" description="Test the setting of the Zoom.zoomHeightFrom property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomHeightFrom" value="0" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomHeightFrom" value="0" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomHeightFrom_Normal-->
+    <TestCase testID="Zoom_Properties_zoomHeightFrom_Normal" keywords="[Zoom, Properties, zoomHeightFrom]" description="Test the setting of the Zoom.zoomHeightFrom property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomHeightFrom" value="77" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomHeightFrom" value="77" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomHeightFrom_Big-->
+    <TestCase testID="Zoom_Properties_zoomHeightFrom_Big" keywords="[Zoom, Properties, zoomHeightFrom]" description="Test the setting of the Zoom.zoomHeightFrom property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomHeightFrom" value="32767" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomHeightFrom" value="32767" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomHeightTo_Negative-->
+    <TestCase testID="Zoom_Properties_zoomHeightTo_Negative" keywords="[Zoom, Properties, zoomHeightTo]" description="Test the setting of the Zoom.zoomHeightTo property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomHeightTo" value="-32768" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomHeightTo" value="-32768" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomHeightTo_Zero-->
+    <TestCase testID="Zoom_Properties_zoomHeightTo_Zero" keywords="[Zoom, Properties, zoomHeightTo]" description="Test the setting of the Zoom.zoomHeightTo property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomHeightTo" value="0" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomHeightTo" value="0" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomHeightTo_Normal-->
+    <TestCase testID="Zoom_Properties_zoomHeightTo_Normal" keywords="[Zoom, Properties, zoomHeightTo]" description="Test the setting of the Zoom.zoomHeightTo property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomHeightTo" value="77" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomHeightTo" value="77" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomHeightTo_Big-->
+    <TestCase testID="Zoom_Properties_zoomHeightTo_Big" keywords="[Zoom, Properties, zoomHeightTo]" description="Test the setting of the Zoom.zoomHeightTo property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomHeightTo" value="32767" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomHeightTo" value="32767" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomWidthFrom_Negative-->
+    <TestCase testID="Zoom_Properties_zoomWidthFrom_Negative" keywords="[Zoom, Properties, zoomWidthFrom]" description="Test the setting of the Zoom.zoomWidthFrom property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomWidthFrom" value="-32768" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomWidthFrom" value="-32768" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomWidthFrom_Zero-->
+    <TestCase testID="Zoom_Properties_zoomWidthFrom_Zero" keywords="[Zoom, Properties, zoomWidthFrom]" description="Test the setting of the Zoom.zoomWidthFrom property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomWidthFrom" value="0" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomWidthFrom" value="0" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomWidthFrom_Normal-->
+    <TestCase testID="Zoom_Properties_zoomWidthFrom_Normal" keywords="[Zoom, Properties, zoomWidthFrom]" description="Test the setting of the Zoom.zoomWidthFrom property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomWidthFrom" value="77" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomWidthFrom" value="77" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomWidthFrom_Big-->
+    <TestCase testID="Zoom_Properties_zoomWidthFrom_Big" keywords="[Zoom, Properties, zoomWidthFrom]" description="Test the setting of the Zoom.zoomWidthFrom property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomWidthFrom" value="32767" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomWidthFrom" value="32767" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomWidthTo_Negative-->
+    <TestCase testID="Zoom_Properties_zoomWidthTo_Negative" keywords="[Zoom, Properties, zoomWidthTo]" description="Test the setting of the Zoom.zoomWidthTo property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomWidthTo" value="-32768" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomWidthTo" value="-32768" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomWidthTo_Zero-->
+    <TestCase testID="Zoom_Properties_zoomWidthTo_Zero" keywords="[Zoom, Properties, zoomWidthTo]" description="Test the setting of the Zoom.zoomWidthTo property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomWidthTo" value="0" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomWidthTo" value="0" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomWidthTo_Normal-->
+    <TestCase testID="Zoom_Properties_zoomWidthTo_Normal" keywords="[Zoom, Properties, zoomWidthTo]" description="Test the setting of the Zoom.zoomWidthTo property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomWidthTo" value="77" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomWidthTo" value="77" />
+      </body>
+    </TestCase>
+    <!--Zoom_Properties_zoomWidthTo_Big-->
+    <TestCase testID="Zoom_Properties_zoomWidthTo_Big" keywords="[Zoom, Properties, zoomWidthTo]" description="Test the setting of the Zoom.zoomWidthTo property.">
+      <setup>
+        <RunCode code="application.testEffect = new Zoom();" />
+      </setup>
+      <body>
+        <SetProperty target="testEffect" propertyName="zoomWidthTo" value="32767" />
+        <AssertPropertyValue target="testEffect" propertyName="zoomWidthTo" value="32767" />
+      </body>
+    </TestCase>
+  </testCases>
+</UnitTester>

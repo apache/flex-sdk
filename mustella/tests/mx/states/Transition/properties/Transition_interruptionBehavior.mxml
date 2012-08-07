@@ -1,0 +1,669 @@
+<UnitTester
+    testSWF="../SWFs/Transition_Properties_main.mxml"
+    testDir="mx/states/Transition/properties/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import mx.states.Transition;
+        
+        public static function init(o:DisplayObject):void{}
+        
+        /* 
+            This function is used to verify that the point at which a Transition stopped is between its value in State1 and State2. 
+            For example, if you are moving from (0, 10) in State 1 to (35, 100) in State 2 and (45, 90) in State 3, you might use
+            this function to check the x value that should be between State 1 and State 2 by calling: verifyPoint(pointToCheck, 35, 0)
+        */
+        
+        public function verifyPoint(a:Number, b:Number, c:Number):String
+        {
+            var resultString:String = "";
+            if((a < b) && (c < a))
+               resultString = "value is between " + b + " and " + c;
+            else
+               resultString = a + " is not between " + b + " and " + c;
+               
+            return resultString;
+        }
+
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <testCases>  
+        <TestCase testID="Transition_move_interruptionBehavior_stop" keywords="[Transition, interruptionBehavior]"  
+        description="Verify that interruptionBehavior=stop works with a Move effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="1" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="moveComp" className="comps.MoveComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="moveComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="moveComp" waitEvent="effectStart" 
+                   waitTarget="moveComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="moveComp"  />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.moveComp.button1.x), 11, 0)" value="value is between 11 and 0" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.moveComp.button1.y), 100, 15)" value="value is between 100 and 15" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.moveComp.fxgType.x), 61, 10)" value="value is between 61 and 10" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.moveComp.fxgType.y), 200, 105)" value="value is between 200 and 105" />
+            </body>
+        </TestCase>      
+    <TestCase testID="Transition_move_interruptionBehavior_end" keywords="[Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Move effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="1" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="moveComp" className="comps.MoveComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="moveComp.mainTransition" />
+                <WaitForEffectsToEnd />
+                <SetProperty propertyName="currentState" value="State2" target="moveComp" waitEvent="effectStart" 
+                   waitTarget="moveComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="moveComp" />
+                <AssertMethodValue method="value=verifyPoint(application.moveComp.button1.x, 13, 9)" value="value is between 13 and 9" />
+                <AssertMethodValue method="value=verifyPoint(application.moveComp.button1.y, 102,98)" value="value is between 102 and 98" />
+                <AssertMethodValue method="value=verifyPoint(application.moveComp.fxgType.x, 63, 59)" value="value is between 63 and 59" />
+                <AssertMethodValue method="value=verifyPoint(application.moveComp.fxgType.y, 202, 198)" value="value is between 202 and 198" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_move3D_interruptionBehavior_stop" keywords="[Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Move3D effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="2" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="move3DComp" className="comps.Move3DComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="move3DComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="move3DComp" waitEvent="effectStart" 
+                   waitTarget="move3DComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="move3DComp" waitEvent="effectStart" 
+                   waitTarget="move3DComp.button1" />
+                
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.move3DComp.button1.y), 100, 15)" value="value is between 100 and 15" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.move3DComp.fxgType.x), 61, 10)" value="value is between 61 and 10" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.move3DComp.fxgType.y), 200, 105)" value="value is between 200 and 105" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.move3DComp.button1.z), 150,0)" value="value is between 150 and 0" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.move3DComp.fxgType.z), 150,0)" value="value is between 150 and 0" />
+            </body>
+        </TestCase> 
+        <TestCase testID="Transition_move3D_interruptionBehavior_end" keywords="[Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Move effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="2" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="move3DComp" className="comps.Move3DComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="move3DComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="move3DComp" waitEvent="effectStart" 
+                   waitTarget="move3DComp.button1" />
+                <Pause timeout="130"/>
+                <SetProperty propertyName="currentState" value="State3" target="move3DComp"  />
+                <AssertMethodValue method="value=verifyPoint(application.move3DComp.button1.x, 14, 9)" value="value is between 14 and 9" />
+                <AssertMethodValue method="value=verifyPoint(application.move3DComp.button1.y, 103, 98)" value="value is between 103 and 98" />
+                <AssertMethodValue method="value=verifyPoint(application.move3DComp.fxgType.x, 64,58)" value="value is between 64 and 58" />
+                <AssertMethodValue method="value=verifyPoint(application.move3DComp.fxgType.y, 203, 198)" value="value is between 203 and 198" />
+                <AssertMethodValue method="value=verifyPoint(application.move3DComp.button1.z, 3, -2)" value="value is between 3 and -2" />
+                <AssertMethodValue method="value=verifyPoint(application.move3DComp.fxgType.z, 3, -2)" value="value is between 3 and -2" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_Fade_interruptionBehavior_stop" keywords="[Fade,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Fade effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="3" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="fadeComp" className="comps.FadeComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="fadeComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="fadeComp" waitEvent="effectStart" 
+                   waitTarget="fadeComp.button1" />
+                <Pause timeout="150"/>
+                <SetProperty propertyName="currentState" value="State3" target="fadeComp" waitEvent="effectStart" 
+                   waitTarget="fadeComp.button1" />
+                <AssertMethodValue method="value=verifyPoint(application.fadeComp.button1.alpha, 0.5, 0)" value="value is between 0.5 and 0" />
+                <AssertMethodValue method="value=verifyPoint(application.fadeComp.fxgType.alpha, 1, 0.5)" value="value is between 1 and 0.5" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_Fade_interruptionBehavior_end" keywords="[Fade,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=end works with a Fade effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="3" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="fadeComp" className="comps.FadeComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="fadeComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="fadeComp" waitEvent="effectStart" 
+                   waitTarget="fadeComp.button1" />
+                <Pause timeout="150"/>
+                <SetProperty propertyName="currentState" value="State3" target="fadeComp" waitEvent="effectStart" 
+                   waitTarget="fadeComp.button1" />
+                <AssertMethodValue method="value=verifyPoint(application.fadeComp.button1.alpha, 0.55, 0.38)" value="value is between 0.55 and 0.38" />
+                <AssertMethodValue method="value=verifyPoint(application.fadeComp.fxgType.alpha, 0.55, 0.38)" value="value is between 0.55 and 0.38" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_Rotate_interruptionBehavior_stop" keywords="[Rotate,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Rotate effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="4" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="rotateComp" className="comps.RotateComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="rotateComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="rotateComp" waitEvent="effectStart" 
+                   waitTarget="rotateComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="rotateComp" waitEvent="effectStart" 
+                   waitTarget="rotateComp.button1" />
+                <AssertMethodValue method="value=verifyPoint(application.rotateComp.button1.rotation, 90, 45)" value="value is between 90 and 45" />
+                <AssertMethodValue method="value=verifyPoint(application.rotateComp.fxgType.rotation, 180, 75)" value="value is between 180 and 75" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_Rotate_interruptionBehavior_end" keywords="[Rotate,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Rotate effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="4" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="rotateComp" className="comps.RotateComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="rotateComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="rotateComp" waitEvent="effectStart" 
+                   waitTarget="rotateComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="rotateComp" waitEvent="effectStart" 
+                   waitTarget="rotateComp.button1" />
+                <AssertMethodValue method="value=Math.round(application.rotateComp.button1.rotation)" value="90" />
+                <AssertMethodValue method="value=Math.round(application.rotateComp.fxgType.rotation)" value="75" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_Rotate3D_interruptionBehavior_stop" keywords="[Rotate3D,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Rotate3D effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="5" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="rotate3DComp" className="comps.Rotate3DComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="rotate3DComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State3" target="rotate3DComp" waitEvent="effectStart" 
+                   waitTarget="rotate3DComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State2" target="rotate3DComp" waitEvent="effectStart" 
+                   waitTarget="rotate3DComp.button1" />
+                <AssertMethodValue method="value=verifyPoint(application.rotate3DComp.button1.rotationX, 180, 45)" value="value is between 180 and 45" />
+                <AssertMethodValue method="value=verifyPoint(application.rotate3DComp.fxgType.rotationY, 180, 45)" value="value is between 180 and 45" />
+                <AssertMethodValue method="value=verifyPoint(application.rotate3DComp.fxgType.rotationZ, 180, 45)" value="value is between 180 and 45" />
+            </body>
+        </TestCase>
+        <!--TestCase testID="Transition_Rotate3D_interruptionBehavior_end" keywords="[Rotate3D,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Rotate3D effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="5" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="rotate3DComp" className="comps.Rotate3DComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="rotate3DComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="rotate3DComp" waitEvent="effectStart" 
+                   waitTarget="rotate3DComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="rotate3DComp" waitEvent="effectStart" 
+                   waitTarget="rotate3DComp.button1" />
+                <AssertMethodValue method="value=Math.round(application.rotate3DComp.button1.rotationX)" value="180" />
+                <AssertMethodValue method="value=Math.round(application.rotate3DComp.fxgType.rotationY)" value="180" />
+                <AssertMethodValue method="value=Math.round(application.rotate3DComp.fxgType.rotationZ)" value="180" />
+            </body>
+        </TestCase-->
+        <TestCase testID="Transition_Scale_interruptionBehavior_stop" keywords="[Scale,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Scale effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="6" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="scaleComp" className="comps.ScaleComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="scaleComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="scaleComp" waitEvent="effectStart" 
+                   waitTarget="scaleComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="scaleComp" waitEvent="effectStart" 
+                   waitTarget="scaleComp.button1" />
+                <AssertMethodValue method="value=verifyPoint(application.scaleComp.button1.scaleX, 1, 0.5)" value="value is between 1 and 0.5" />
+                <AssertMethodValue method="value=verifyPoint(application.scaleComp.button1.scaleY, 1, 0.5)" value="value is between 1 and 0.5" />
+                <AssertMethodValue method="value=verifyPoint(application.scaleComp.fxgType.scaleX, 1, 0.5)" value="value is between 1 and 0.5" />
+                <AssertMethodValue method="value=verifyPoint(application.scaleComp.fxgType.scaleY, 1, 0.5)" value="value is between 1 and 0.5" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_Scale_interruptionBehavior_end" keywords="[Scale,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=end works with a Scale effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="6" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="scaleComp" className="comps.ScaleComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="scaleComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="scaleComp" waitEvent="effectStart" 
+                   waitTarget="scaleComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="scaleComp" waitEvent="effectStart" 
+                   waitTarget="scaleComp.button1" />
+                <AssertMethodValue method="value=int(application.scaleComp.button1.scaleX*10)/10" value="0.5" />
+                <AssertMethodValue method="value=int(application.scaleComp.button1.scaleY*10)/10" value="0.5" />
+                <AssertMethodValue method="value=int(application.scaleComp.fxgType.scaleX*10)/10" value="0.5" />
+                <AssertMethodValue method="value=int(application.scaleComp.fxgType.scaleY*10)/10" value="0.5" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_Scale3D_interruptionBehavior_stop" keywords="[Scale3D,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Scale3D effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="7" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="scale3DComp" className="comps.Scale3DComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="scale3DComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="scale3DComp" waitEvent="effectStart" 
+                   waitTarget="scale3DComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="scale3DComp" waitEvent="effectStart" 
+                   waitTarget="scale3DComp.button1" />
+                <AssertMethodValue method="value=verifyPoint(application.scale3DComp.button1.scaleX, 1, 0.5)" value="value is between 1 and 0.5" />
+                <AssertMethodValue method="value=verifyPoint(application.scale3DComp.button1.scaleY, 1, 0.5)" value="value is between 1 and 0.5" />
+                <AssertMethodValue method="value=verifyPoint(application.scale3DComp.button1.scaleZ, 1, 0.5)" value="value is between 1 and 0.5" />
+                <AssertMethodValue method="value=verifyPoint(application.scale3DComp.fxgType.scaleX, 1, 0.5)" value="value is between 1 and 0.5" />
+                <AssertMethodValue method="value=verifyPoint(application.scale3DComp.fxgType.scaleY, 1, 0.5)" value="value is between 1 and 0.5" />
+                <AssertMethodValue method="value=verifyPoint(application.scale3DComp.fxgType.scaleZ, 1, 0.5)" value="value is between 1 and 0.5" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_Scale3D_interruptionBehavior_end" keywords="[Scale3D,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=end works with a Scale3D effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="7" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="scale3DComp" className="comps.Scale3DComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="scale3DComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="scale3DComp" waitEvent="effectStart" 
+                   waitTarget="scale3DComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="scale3DComp" waitEvent="effectStart" 
+                   waitTarget="scale3DComp.button1" />
+                <AssertMethodValue method="value=int(application.scale3DComp.button1.scaleX*10)/10" value="0.5" />
+                <AssertMethodValue method="value=int(application.scale3DComp.button1.scaleY*10)/10" value="0.5" />
+                <AssertMethodValue method="value=int(application.scale3DComp.button1.scaleZ*10)/10" value="0.5" />
+                <AssertMethodValue method="value=int(application.scale3DComp.fxgType.scaleX*10)/10" value="0.5" />
+                <AssertMethodValue method="value=int(application.scale3DComp.fxgType.scaleY*10)/10" value="0.5" />
+                <AssertMethodValue method="value=int(application.scale3DComp.fxgType.scaleZ*10)/10" value="0.5" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_Resize_interruptionBehavior_stop" keywords="[Resize,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Resize effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="8" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="resizeComp" className="comps.ResizeComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="resizeComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="resizeComp" waitEvent="effectStart" 
+                   waitTarget="resizeComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="resizeComp" waitEvent="effectStart" 
+                   waitTarget="resizeComp.button1" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeComp.button1.width, 311, 75)" value="value is between 311 and 75" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeComp.button1.height, 100, 45)" value="value is between 100 and 45" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeComp.fxgType.width, 361, 200)" value="value is between 361 and 200" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeComp.fxgType.height, 200, 75)" value="value is between 200 and 75" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_Resize_interruptionBehavior_end" keywords="[Resize,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=end works with a Resize effect.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="8" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="resizeComp" className="comps.ResizeComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="resizeComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="resizeComp" waitEvent="effectStart" 
+                   waitTarget="resizeComp.button1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="resizeComp" waitEvent="effectStart" 
+                   waitTarget="resizeComp.button1" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeComp.button1.width, 313, 309)" value="value is between 313 and 309" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeComp.button1.height, 102, 98)" value="value is between 102 and 98" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeComp.fxgType.width, 362, 258)" value="value is between 362 and 258" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeComp.fxgType.height, 202, 198)" value="value is between 202 and 198" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_MoveFadeParallel_interruptionBehavior_stop" keywords="[Move, Fade, Parallel,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Parallel effect including a Move and Fade.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="13" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="moveFadeComp" className="comps.MoveFadeComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="moveFadeComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="moveFadeComp" waitEvent="effectStart" 
+                   waitTarget="moveFadeComp.fxgType" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="moveFadeComp" waitEvent="effectStart" 
+                   waitTarget="moveFadeComp.fxgType" />
+                <AssertMethodValue method="value=verifyPoint(application.moveFadeComp.fxgType.x, 61, 10)" value="value is between 61 and 10" />
+                <AssertMethodValue method="value=verifyPoint(application.moveFadeComp.fxgType.y, 215, 105)" value="value is between 215 and 105" />
+                <AssertMethodValue method="value=verifyPoint(application.moveFadeComp.fxgType.alpha, 1, 0)" value="value is between 1 and 0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_MoveFadeParallel_interruptionBehavior_end" keywords="[Move, Fade, Parallel,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=end works with a Parallel effect including a Move and Fade.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="13" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="moveFadeComp" className="comps.MoveFadeComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="moveFadeComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="moveFadeComp" waitEvent="effectStart" 
+                   waitTarget="moveFadeComp.fxgType" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="moveFadeComp" waitEvent="effectStart" 
+                   waitTarget="moveFadeComp.fxgType" />
+                <AssertMethodValue method="value=Math.round(application.moveFadeComp.fxgType.x)" value="61" />
+                <AssertMethodValue method="value=Math.round(application.moveFadeComp.fxgType.y)" value="200" />
+                <AssertMethodValue method="value=int(application.moveFadeComp.fxgType.alpha*10)/10" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_RotateScaleParallel_interruptionBehavior_stop" keywords="[Rotate, Scale, Parallel,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Parallel effect including a Scale and Rotate.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="14" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="rotateScaleComp" className="comps.RotateScaleComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="rotateScaleComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="rotateScaleComp" waitEvent="effectStart" 
+                   waitTarget="rotateScaleComp.list1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="rotateScaleComp" waitEvent="effectStart" 
+                   waitTarget="rotateScaleComp.list1" />
+                <AssertMethodValue method="value=verifyPoint(application.rotateScaleComp.list1.rotation, 90, 45)" value="value is between 90 and 45" />
+                <AssertMethodValue method="value=verifyPoint(application.rotateScaleComp.list1.scaleX, 2, 1)" value="value is between 2 and 1" />
+                <AssertMethodValue method="value=verifyPoint(application.rotateScaleComp.list1.scaleY, 2, 1)" value="value is between 2 and 1" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_RotateScaleParallel_interruptionBehavior_end" keywords="[Rotate, Scale, Parallel,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=end works with a Parallel effect including a Scale and Rotate.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="14" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="rotateScaleComp" className="comps.RotateScaleComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="rotateScaleComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="rotateScaleComp" waitEvent="effectStart" 
+                   waitTarget="rotateScaleComp.list1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="rotateScaleComp" waitEvent="effectStart" 
+                   waitTarget="rotateScaleComp.list1" />
+                <AssertMethodValue method="value=verifyPoint(application.rotateScaleComp.list1.rotation, 92, 88)" value="value is between 92 and 88" />
+                <AssertMethodValue method="value=verifyPoint(application.rotateScaleComp.list1.scaleX,2.2, 1.8)" value="value is between 2.2 and 1.8" />
+                <AssertMethodValue method="value=verifyPoint(application.rotateScaleComp.list1.scaleY, 2.2, 1.8)" value="value is between 2.2 and 1.8" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_ResizeAnimateSequence_interruptionBehavior_stop" keywords="[Resize, AnimateColor, Sequence,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Sequence effect including a Resize and AnimateColor.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="15" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="resizeAnimateComp" className="comps.ResizeAnimateComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="resizeAnimateComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="resizeAnimateComp" waitEvent="effectStart" 
+                   waitTarget="resizeAnimateComp.rect1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="resizeAnimateComp" waitEvent="effectStart" 
+                   waitTarget="resizeAnimateComp.rect1" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.width, 250, 50)" value="value is between 250 and 50" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.height, 250, 150)" value="value is between 250 and 150" />
+                <AssertPropertyValue target="resizeAnimateComp.sc" propertyName="color" value="0x000000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_ResizeAnimateSequence_interruptionBehavior_end" keywords="[Resize, AnimateColor, Sequence,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=end works with a Parallel effect including a Resize and AnimateColor.">
+           <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="15" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="resizeAnimateComp" className="comps.ResizeAnimateComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="resizeAnimateComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="resizeAnimateComp" waitEvent="effectStart" 
+                   waitTarget="resizeAnimateComp.rect1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="resizeAnimateComp" waitEvent="effectStart" 
+                   waitTarget="resizeAnimateComp.rect1" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.width,52,48)" value="value is between 52 and 48" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.height, 152, 148)" value="value is between 152 and 148" />
+                <AssertPropertyValue target="resizeAnimateComp.sc" propertyName="color" value="0xFF0000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_RotateFadeSequence_interruptionBehavior_stop" keywords="[Rotate, Fade, Sequence,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Sequence effect including a Rotate and Fade.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="16" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="rotate3DFadeComp" className="comps.Rotate3DFadeComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="rotate3DFadeComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="rotate3DFadeComp" waitEvent="effectStart" 
+                   waitTarget="rotate3DFadeComp.combo1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="rotate3DFadeComp" waitEvent="effectStart" 
+                   waitTarget="rotate3DFadeComp.combo1" />
+                <AssertMethodValue method="value=verifyPoint(application.rotate3DFadeComp.combo1.rotationX, 90, 45)" value="value is between 90 and 45" />
+                <AssertMethodValue method="value=verifyPoint(application.rotate3DFadeComp.combo1.rotationY, 90, 45)" value="value is between 90 and 45" />
+                <AssertMethodValue method="value=verifyPoint(application.rotate3DFadeComp.combo1.rotationZ, 90, 45)" value="value is between 90 and 45" />
+                <AssertPropertyValue target="rotate3DFadeComp.combo1" propertyName="alpha" value="0.5" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_RotateFadeSequence_interruptionBehavior_end" keywords="[Rotate, Fade, Sequence,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=end works with a Sequence effect including a Rotate and Fade.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="16" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="rotate3DFadeComp" className="comps.Rotate3DFadeComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="rotate3DFadeComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="rotate3DFadeComp" waitEvent="effectStart" 
+                   waitTarget="rotate3DFadeComp.combo1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="rotate3DFadeComp" waitEvent="effectStart" 
+                   waitTarget="rotate3DFadeComp.combo1" />
+                <AssertMethodValue method="value=Math.round(application.rotate3DFadeComp.combo1.rotationX)" value="90" />
+                <AssertMethodValue method="value=Math.round(application.rotate3DFadeComp.combo1.rotationY)" value="90" />
+                <AssertMethodValue method="value=Math.round(application.rotate3DFadeComp.combo1.rotationZ)" value="90" />
+                <AssertPropertyValue target="rotate3DFadeComp.combo1" propertyName="alpha" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_multipleTargets_interruptionBehavior_stop" keywords="[Resize, AnimateColor, Sequence,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Sequence effect and multiple targets.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="15" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="resizeAnimateComp" className="comps.ResizeAnimateComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="resizeAnimateComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="resizeAnimateComp" waitEvent="effectStart" 
+                   waitTarget="resizeAnimateComp.rect1" />
+                <Pause timeout="190"/>
+                <SetProperty propertyName="currentState" value="State3" target="resizeAnimateComp" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.width, 250, 50)" value="value is between 250 and 50" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.height, 250, 150)" value="value is between 250 and 150" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect2.width, 250, 50)" value="value is between 250 and 50" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect2.height, 250, 150)" value="value is between 250 and 150" />
+                <!--AssertPropertyValue target="resizeAnimateComp.sc" propertyName="color" value="0x000000" />
+                <AssertPropertyValue target="resizeAnimateComp.sc2" propertyName="color" value="0x00FF00" /-->
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_multipleTargets_interruptionBehavior_end" keywords="[Resize, AnimateColor, Sequence,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=end works with a Parallel effect  and multiple targets.">
+           <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="15" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="resizeAnimateComp" className="comps.ResizeAnimateComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="resizeAnimateComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="resizeAnimateComp" waitEvent="effectStart" 
+                   waitTarget="resizeAnimateComp.rect1" />
+                <Pause timeout="190"/>
+                <SetProperty propertyName="currentState" value="State3" target="resizeAnimateComp" waitEvent="effectStart" 
+                   waitTarget="resizeAnimateComp.rect1" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.width,53,48)" value="value is between 53 and 48" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect1.height,153,148)" value="value is between 153 and 148" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect2.width,53,48)" value="value is between 53 and 48" />
+                <AssertMethodValue method="value=verifyPoint(application.resizeAnimateComp.rect2.height,153,148)" value="value is between 153 and 148" />
+                <AssertPropertyValue target="resizeAnimateComp.sc" propertyName="color" value="0xFF0000" />
+                <AssertPropertyValue target="resizeAnimateComp.sc2" propertyName="color" value="0x00FF00" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_MXComp_interruptionBehavior_stop" keywords="[Resize,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a Resize effect and MX component.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="17" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="mxComp" className="comps.MXComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="mxComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="mxComp" waitEvent="effectStart" 
+                   waitTarget="mxComp.rect1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="mxComp" waitEvent="effectStart" 
+                   waitTarget="mxComp.rect1" />
+                <AssertMethodValue method="value=verifyPoint(application.mxComp.rect1.width, 250, 50)" value="value is between 250 and 50" />
+                <AssertMethodValue method="value=verifyPoint(application.mxComp.rect1.height, 250, 150)" value="value is between 250 and 150" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_MXComp_interruptionBehavior_end" keywords="[Resize,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=end works with a Resize effect and an MX target.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                  
+                <SetProperty propertyName="selectedIndex" value="17" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="mxComp" className="comps.MXComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="mxComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="mxComp" waitEvent="effectStart" 
+                   waitTarget="mxComp.rect1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="mxComp" waitEvent="effectStart" 
+                   waitTarget="mxComp.rect1" />
+                <AssertMethodValue method="value=Math.round(application.mxComp.rect1.width)" value="50" />
+                <AssertMethodValue method="value=Math.round(application.mxComp.rect1.height)" value="150" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ADV_localStyle_TypeSelector_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.styleTest.*;
+			
+			public static function init(o:DisplayObject):void 
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>		
+		<!--test local style setting: Type Selector-->
+		<TestCase testID="ADV_localStyle_type_selector_test1" 
+				  description="test local style setting: Type Selector" 
+				  keywords="[ADVStyleTestClass, local, Type Selector]">
+			<setup>
+				<ChangeState toState="heavy" waitEvent="changeEventDone" />
+			</setup>
+			<body>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_1_string_noinh" value="typeString"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_2_number_noinh" valueExpression="value=111"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_3_uint_inh" valueExpression="value=0"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_4_date_inh" valueExpression="value=application.localDate"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x556677"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_8_format_arrayType_noinh" valueExpression="value=application.localArray"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_9_date_arrayCol_inh" valueExpression="value=application.localList"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_10_xml_arrayCol_noinh" valueExpression="value=application.localXmlList"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_11_boolean_noinh" valueExpression="value=false"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_12_enum_string_inh" value="secondType"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_13_enum_int_noinh" valueExpression="value=99"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_14_object_noinh" valueExpression="value=application.localVo"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_15_state_string_noinh" value="localStateString"/>
+			</body>
+		</TestCase>
+		
+		<!--test local style setting: pseudo Selector-->
+		<TestCase testID="ADV_extStyle_pseudo_selector_test2" 
+				  description="test local style setting: pseudo Selector" 
+				  keywords="[ADVStyleTestClass, local, Type Selector, pseudo selector]">
+			<setup>
+				<ChangeState toState="medium" waitEvent="changeEventDone" />
+			</setup>
+			<body>
+				<!--state doesn't set-->
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_2_number_noinh" valueExpression="value=111"/>
+				
+				<!--state set-->
+				<!-- Notice that AdvancedStyleClient don't support state, so value will not changed! -->
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_1_string_noinh" value="typeString"/>
+				<AssertStyleValue target="advStyleTest_Local_Type" styleName="teststyle_15_state_string_noinh" value="localStateString"/>		
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

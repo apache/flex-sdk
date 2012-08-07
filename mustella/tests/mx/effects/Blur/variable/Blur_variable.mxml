@@ -1,0 +1,58 @@
+<UnitTester 
+    testSWF="../SWFs/Blur_main.mxml" 
+    testDir="mx/effects/Blur/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Blur;
+        
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[
+
+[Mixin]
+
+]]></mx:Metadata>
+    <testCases>
+
+        <!-- suspendBackgroundProcessing -->
+        <TestCase testID="Blur_suspendBackgroundProcessing_Default" keywords="[Blur, variable, suspendBackgroundProcessing]" description="Test the default value  of the suspendBackgroundProcessing variable.">
+            <body>
+                <AssertMethodValue method="value=(new Blur()).suspendBackgroundProcessing" value="false"/>
+            </body>
+        </TestCase>
+
+
+        <!-- instanceClass -->
+        <TestCase testID="Blur_instanceClass_Default" keywords="[Blur, variable, instanceClass]" description="Test the default value  of the instanceClass variable.">
+            <body>
+                <AssertMethodValue method="value=(new Blur()).instanceClass.toString().replace('[class ', '').replace(']','')" value="BlurInstance"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatDelay -->
+        <TestCase testID="Blur_repeatDelay_Default" keywords="[Blur, variable, repeatDelay]" description="Test the default value  of the repeatDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new Blur()).repeatDelay" value="0"/>
+            </body>
+        </TestCase>
+
+
+        <!-- startDelay -->
+        <TestCase testID="Blur_startDelay_Default" keywords="[Blur, variable, startDelay]" description="Test the default value  of the startDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new Blur()).startDelay" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatCount -->
+        <TestCase testID="Blur_repeatCount_Default" keywords="[Blur, variable, repeatCount]" description="Test the default value  of the repeatCount variable.">
+            <body>
+                <AssertMethodValue method="value=(new Blur()).repeatCount" value="1"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

@@ -1,0 +1,380 @@
+<UnitTester
+    testDir="mx/graphics/BitmapFill/Properties/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/BitmapFill_Main.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoDisplay;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+        <TestCase testID="BitmapFill_Properties_fillMode_default" keywords="[BitmapFill, fillMode]"
+            description="Test the default value of the fillMode property.">
+            <body>
+                <AssertPropertyValue target="rectComp.rectFill" propertyName="fillMode" value="scale" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="BitmapFill_Properties_fillMode_repeat" keywords="[BitmapFill, fillMode]"
+            description="Test setting the fillMode value to repeat">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="repeat"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_fillMode_clip" keywords="[BitmapFill, fillMode]"
+            description="Test setting the fillMode value to false">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_offsetX_default" keywords="[BitmapFill, offsetX]"
+            description="Test the default value of the offsetX property.">
+            <body>
+                <AssertPropertyValue target="rectComp.rectFill" propertyName="offsetX" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_offsetX_int" keywords="[BitmapFill, offsetX]"
+            description="Test setting the offsetX to a positive number.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="offsetX" value="20"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_offsetX_neg" keywords="[BitmapFill, offsetX]"
+            description="Test setting the offsetX to a negative number.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="offsetX" value="-20"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_offsetY_default" keywords="[BitmapFill, offsetY]"
+            description="Test the default value of the offsetY property.">
+            <body>
+                <AssertPropertyValue target="rectComp.rectFill" propertyName="offsetY" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_offsetY_int" keywords="[BitmapFill, offsetY]"
+            description="Test setting the offsetY to a positive number.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="offsetY" value="20"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_offsetY_neg" keywords="[BitmapFill, offsetY]"
+            description="Test setting the offsetY to a negative number.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="offsetY" value="-20"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_rotation_int" keywords="[BitmapFill, rotation]"
+            description="Test setting the rotation to a positive number.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="rotation" value="45"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_rotation_and_repeat" keywords="[BitmapFill, rotation]"
+            description="Test setting the rotation to a positive number.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="repeat"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="rotation" value="-45"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_scaleY_2" keywords="[BitmapFill, scaleY]"
+            description="Test setting the scaleY to a positive number.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="scaleY" value="2"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_scaleY_05" keywords="[BitmapFill, scaleY]"
+            description="Test setting the scaleY to a negative number.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="scaleY" value="0.5"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_scaleX_2" keywords="[BitmapFill, scaleX]"
+            description="Test setting the scaleX to a positive number.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="scaleX" value="2"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_scaleX_05" keywords="[BitmapFill, scaleX]"
+            description="Test setting the scaleX to a negative number.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="scaleX" value="0.5"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_originX_default" keywords="[BitmapFill, originX]"
+            description="Test the default value of the originX property.">
+            <body>
+                <AssertPropertyValue target="rectComp.rectFill" propertyName="originX" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_originX_right" keywords="[BitmapFill, originX]"
+            description="Test setting the originX to a positive number.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="originX" value="54"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="rotation" value="15"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_originY_default" keywords="[BitmapFill, originY]"
+            description="Test the default value of the originY property.">
+            <body>
+                <AssertPropertyValue target="rectComp.rectFill" propertyName="originY" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_originY_right" keywords="[BitmapFill, originY]"
+            description="Test setting the originY to the right most point.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="originY" value="53"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="rotation" value="-15"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_transformX_default" keywords="[BitmapFill, transformX]"
+            description="Test the default value of the transformX property.">
+            <body>
+                <AssertPropertyValue target="rectComp.rectFill" propertyName="transformX" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_transformY_default" keywords="[BitmapFill, transformY]"
+            description="Test the default value of the transformY property.">
+            <body>
+                <AssertPropertyValue target="rectComp.rectFill" propertyName="transformY" value="53" />
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_transformY_right" keywords="[BitmapFill, transformY]"
+            description="Test setting the transformY to the right most point.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="transformY" value="40"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="rotation" value="-15"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_transformX_right" keywords="[BitmapFill, transformX]"
+            description="Test setting the transformX to the right most point.">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="clip"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="transformX" value="53"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="rotation" value="-15"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_smooth_default" keywords="[BitmapFill, smooth]"
+            description="Test the default value of the smooth property.">
+            <body>
+                <AssertPropertyValue target="rectComp.rectFill" propertyName="smooth" value="false" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="BitmapFill_Properties_smooth_false" keywords="[BitmapFill, smooth]"
+            description="Test setting the smooth value to false">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="repeat"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="smooth" value="true"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="smooth" value="false"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_smooth_true" keywords="[BitmapFill, smooth]"
+            description="Test setting the smooth value to true">
+            <setup>
+                <ResetComponent target="rectComp" className="comps.RectComp" waitEvent="updateComplete" waitTarget="rectComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectComp.rectFill" propertyName="fillMode" value="repeat"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectComp.rectFill" propertyName="smooth" value="true"
+                    waitTarget="rectComp.getElementAt(0)" waitEvent="updateComplete" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_matrix_mxml" keywords="[BitmapFill, matrix]"
+            description="Test setting the matrix in mxml to move to fill to 20,10">
+            <setup>
+                <ResetComponent target="rectFilterComp" className="comps.RectFilterComp" waitEvent="updateComplete" waitTarget="rectFilterComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectFilterComp.rectFill" propertyName="fillMode" value="repeat"
+                    waitTarget="rectFilterComp.getElementAt(0)" waitEvent="updateComplete" />
+                <AssertPropertyValue target="rectFilterComp.rectFill" propertyName="x" value="20" />
+                <AssertPropertyValue target="rectFilterComp.rectFill" propertyName="y" value="10" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectFilterComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_matrix_as" keywords="[BitmapFill, matrix]"
+            description="Test setting the matrix in as to move to rotate by -20.">
+            <setup>
+                <ResetComponent target="rectFilterComp" className="comps.RectFilterComp" waitEvent="updateComplete" waitTarget="rectFilterComp" />
+            </setup>
+            <body>
+                <SetProperty target="rectFilterComp.rectFill" propertyName="fillMode" value="repeat"
+                    waitTarget="rectFilterComp.getElementAt(0)" waitEvent="updateComplete" />
+                <SetProperty target="rectFilterComp.rectFill" propertyName="matrix" valueExpression="value=application.transform_move_rotate1"
+                    waitTarget="rectFilterComp.getElementAt(0)" waitEvent="updateComplete" />
+                <AssertPropertyValue target="rectFilterComp.rectFill" propertyName="rotation" value="-20" />
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_alpha_mxml" keywords="[BitmapFill, matrix]"
+            description="Test setting the matrix in as to move to rotate by -20.">
+            <setup>
+                <ResetComponent target="rectAlphaComp" className="comps.RectCompAlpha" waitEvent="updateComplete" waitTarget="rectAlphaComp" />
+            </setup>
+            <body>
+               <CompareBitmap url="../Properties/baselines/$testID.png" target="rectAlphaComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_alpha_AS" keywords="[BitmapFill, matrix]"
+            description="Test setting the matrix in as to move to rotate by -20.">
+            <setup>
+                <ResetComponent target="rectAlphaComp" className="comps.RectCompAlpha" waitEvent="updateComplete" waitTarget="rectAlphaComp" />
+            </setup>
+            <body>
+               <SetProperty target="rectAlphaComp.rectFill" propertyName="alpha" value="0.9" waitTarget="rectAlphaComp" waitEvent="updateComplete" />
+               <CompareBitmap url="../Properties/baselines/$testID.png" target="rectAlphaComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_alpha_zero" keywords="[BitmapFill, matrix]"
+            description="Test setting the matrix in as to move to rotate by -20.">
+            <setup>
+                <ResetComponent target="rectAlphaComp" className="comps.RectCompAlpha" waitEvent="updateComplete" waitTarget="rectAlphaComp" />
+            </setup>
+            <body>
+               <SetProperty target="rectAlphaComp.rectFill" propertyName="alpha" value="0" waitTarget="rectAlphaComp" waitEvent="updateComplete" />
+               <CompareBitmap url="../Properties/baselines/$testID.png" target="rectAlphaComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BitmapFill_Properties_source_null" keywords="[BitmapFill, source]"
+            description="Test setting the source of a BitmapFill to null.">
+            <!--bugs>
+                <Bug bugID="SDK-24142" />
+            </bugs-->
+            <setup>
+                <ResetComponent target="rectAlphaComp" className="comps.RectCompAlpha" waitEvent="updateComplete" waitTarget="rectAlphaComp" />
+            </setup>
+            <body>
+               <SetProperty target="rectAlphaComp.rectFill" propertyName="source" valueExpression="value=null"  waitEvent="updateComplete" waitTarget="rectAlphaComp"/>
+               <CompareBitmap url="../Properties/baselines/$testID.png" target="rectAlphaComp" timeout="2000"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+	testDir="mx/collections/AsyncListView/properties/"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns="*"
+	xmlns:assets="assets.*"
+	testSWF="AsyncListView_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+		import assets.*;
+		import mx.core.FlexGlobals;
+
+		public var savedItem:Object;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+A reminder:
+
+public function setup( responseDelay:int = 500,
+						numItems:int = 100,
+						numPreloadedPages:int = 0,
+						pageSize:int = 1,
+						mode:String = 'manual',
+						failureProbability:int = 0,
+						createPendingItemFunction:Boolean = true,
+						createFailedItemFunction:Boolean = true):void{
+-->
+
+<TestCase testID="createFailedItemFunction_test1" keywords="[AsyncListView,createFailedItemFunction]" description="Default function, which returns a null object." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(1,10,0,1,'manual',1,true,false)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" />
+		<AssertEvent target="obj1.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(0)" value="null" />
+	</body>
+</TestCase>
+
+
+
+<TestCase testID="createFailedItemFunction_test3" keywords="[AsyncListView,createFailedItemFunction]" description="Set the createFailedItemFunction, then get failed items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(1,10,0,1,'manual',1,true,true)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" waitEvent="updateComplete" waitTarget="obj1.theList.dataGroup" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" waitEvent="updateComplete" waitTarget="obj1.theList.dataGroup" />
+		<AssertEvent target="obj1.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(0).info + FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(0).status" value="item 0 failedfailed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 failed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(1).info + FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(1).status" value="item 1 failedfailed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 failed" />
+	</body>
+</TestCase>
+
+<TestCase testID="createFailedItemFunction_test4" keywords="[AsyncListView,createFailedItemFunction]" description="Set the createFailedItemFunction, get failed items, change the createFailedItemFunction, then get more items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(1,10,0,1,'manual',1,true,true)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" waitEvent="updateComplete" waitTarget="obj1.theList.dataGroup" />
+		<SetProperty target="obj1.alv" propertyName="createFailedItemFunction" valueExpression="value = FlexGlobals.topLevelApplication.obj1.errorFunction2" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" waitEvent="updateComplete" waitTarget="obj1.theList.dataGroup" />
+		<AssertEvent target="obj1.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(0).info + FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(0).status" value="item 0 failedfailed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 failed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(1).info + FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(1).status" value="item 1 totally failedfailed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 totally failed" />
+	</body>
+</TestCase>
+
+<TestCase testID="createFailedItemFunction_test5" keywords="[AsyncListView,createFailedItemFunction]" description="Set a createFailedItemFunction which has no parameters." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(1,10,0,1,'manual',1,true,false)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="obj1.alv" propertyName="createFailedItemFunction" valueExpression="value = FlexGlobals.topLevelApplication.obj1.errorFunction3" />
+		<AssertMethodValue method="try{ FlexGlobals.topLevelApplication.obj1.items.failPage(); } catch(e:Error) { value = e.message; }" value="Error #1063: Argument count mismatch on assets::PagedDataComp1/errorFunction3(). Expected 0, got 2." />
+	</body>
+</TestCase>
+
+<TestCase testID="createFailedItemFunction_test6" keywords="[AsyncListView,createFailedItemFunction]" description="Set a createFailedItemFunction which has one parameter." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(1,10,0,1,'manual',1,true,false)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="obj1.alv" propertyName="createFailedItemFunction" valueExpression="value = FlexGlobals.topLevelApplication.obj1.errorFunction4" />
+		<AssertMethodValue method="try{ FlexGlobals.topLevelApplication.obj1.items.failPage(); } catch(e:Error) { value = e.message; }" value="Error #1063: Argument count mismatch on assets::PagedDataComp1/errorFunction4(). Expected 1, got 2." />
+	</body>
+</TestCase>
+
+<TestCase testID="createFailedItemFunction_test7" keywords="[AsyncListView,createFailedItemFunction]" description="Set a createFailedItemFunction which has two mismatched parameters." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(1,10,0,1,'manual',1,true,false)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="obj1.alv" propertyName="createFailedItemFunction" valueExpression="value = FlexGlobals.topLevelApplication.obj1.errorFunction5" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" waitEvent="updateComplete" waitTarget="obj1.theList.dataGroup" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="0 null" />
+	</body>
+</TestCase>
+
+<!-- Non-usecase
+<TestCase testID="createFailedItemFunction_test8" keywords="[AsyncListView,createFailedItemFunction]" description="Set a createFailedItemFunction which has no return value." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(1,10,0,1,'manual',1,true,false)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="obj1.alv" propertyName="createFailedItemFunction" valueExpression="value = FlexGlobals.topLevelApplication.obj1.errorFunction6" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" waitEvent="updateComplete" waitTarget="obj1.theList.dataGroup" />
+		<Pause timeout="2000" />
+	</body>
+</TestCase>
+ -->
+</testCases>
+</UnitTester>

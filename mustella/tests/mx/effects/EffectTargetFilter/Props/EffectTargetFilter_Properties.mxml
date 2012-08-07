@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="mx/effects/EffectTargetFilter/Props/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/EffectTargetFilter_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+
+        public static function init(o:DisplayObject):void{}
+        
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <!-- 
+    Test Plan
+    ############################################
+    
+    filterFunction
+		- get - set
+		- no set (default is called)
+		- valid func (func is called)
+		
+	filterProperties
+		- get - set
+		- set valid (filter works)
+		- set invalid (filter does not work)
+		
+	filterStyles
+		- get - set
+		- set valid (filter works)
+		- set invalid (filter does not work)
+	
+	requiredSemantics
+		- get - set
+		- set invalid semantics (effect not played)
+		- set valid semantics (effect played)
+
+    ############################################
+    -->
+
+    <testCases>
+
+        <!-- filterFunction -->
+        <TestCase testID="EffectTargetFilter_FilterFunction_Custom"  keywords="[EffectTargetFilter, Properties, FilterFunction]" description="Verify setting the 'filterFunction' property invokes the custom function.">
+            <setup>
+				<ResetComponent target="testButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="{application}" propertyName="wasInvoked" value="false"/>
+                <SetProperty target="{application}" propertyName="currentState" value="stateTwo" waitTarget="toStateTwo" waitEvent="effectEnd" />
+                <AssertPropertyValue target="{application}" propertyName="wasInvoked" value="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTargetFilter_FilterFunction_Null"  keywords="[EffectTargetFilter, Properties, FilterFunction]" description="Verify not setting the 'filterFunction' invokes the default filter func.">
+            <setup>
+				<ResetComponent target="testButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty target="{application}" propertyName="currentState" value="stateTwo" waitTarget="toStateTwo" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testButton" propertyName="alpha" value=".5"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTargetFilter_FilterFunction"  keywords="[EffectTargetFilter, Properties, FilterFunction]" description="Verify get = set for the 'filterFunction' property.">
+            <setup>
+				<ResetComponent target="testButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+                <SetProperty target="filterToTwo" propertyName="filterFunction" value="{application.FilterA}"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="filterToTwo" propertyName="filterFunction" value="{application.FilterA}"/>
+            </body>
+        </TestCase>        
+
+        <!-- filterProperties -->
+        <TestCase testID="EffectTargetFilter_FilterProperties"  keywords="[EffectTargetFilter, Properties, FilterProperties]" description="Verify get = set for the 'filterProperties' property.">
+            <setup>
+				<ResetComponent target="testButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+                <SetProperty target="filterToTwo" propertyName="filterProperties" value="['height']"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.filterToTwo.filterProperties.toString()" value="height"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTargetFilter_FilterProperties_Valid"  keywords="[EffectTargetFilter, Properties, FilterProperties]" description="Verify the effect is played when filterProperties is set to a changing value.">
+            <setup>
+				<ResetComponent target="testButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty target="{application}" propertyName="currentState" value="stateThree" waitTarget="toStateThree" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testButton" propertyName="alpha" value=".5"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="EffectTargetFilter_FilterProperties_Invalid"  keywords="[EffectTargetFilter, Properties, FilterProperties]" description="Verify the effect is NOT played when filterProperties is set to an unchanging value.">
+            <setup>
+				<ResetComponent target="testButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty target="{application}" propertyName="currentState" value="stateFour" waitTarget="toStateFour" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testButton" propertyName="alpha" value="1"/>
+            </body>
+        </TestCase>
+
+        <!-- filterStyles -->
+        <TestCase testID="EffectTargetFilter_FilterStyles"  keywords="[EffectTargetFilter, Properties, FilterStyles]" description="Verify get = set for the 'filterStyles' property.">
+            <setup>
+				<ResetComponent target="testButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+                <SetProperty target="filterToTwo" propertyName="filterStyles" value="['fontFamily']"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=application.filterToTwo.filterStyles.toString()" value="fontFamily"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="EffectTargetFilter_FilterStyles_Valid"  keywords="[EffectTargetFilter, Properties, FilterStyles]" description="Verify the effect is played when filterStyles is set to a changing value.">
+            <setup>
+				<ResetComponent target="testButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty target="{application}" propertyName="currentState" value="stateFive" waitTarget="toStateFive" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testButton" propertyName="alpha" value=".5"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="EffectTargetFilter_FilterStyles_Invalid"  keywords="[EffectTargetFilter, Properties, FilterStyles]" description="Verify the effect is NOT played when filterStyles is set to an unchanging value.">
+            <setup>
+				<ResetComponent target="testButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty target="{application}" propertyName="currentState" value="stateSix" waitTarget="toStateSix" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testButton" propertyName="alpha" value="1"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns="*"
+			   xmlns:c="comps.*"
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="500" height="300"
+			   preinitialize="forceLoad()" xmlns:modules="comps.modules.*">
+	<fx:Script>
+		<![CDATA[
+			import comps.AddRemoveTemplate;
+			import comps.AnimateColorTemplate;
+			import comps.DelayStartTemplate;
+			import comps.FadeTemplate;
+			import comps.Move3DScale3DTemplate;
+			import comps.Move3DTemplate;
+			import comps.MoveRotateTemplate;
+			import comps.MoveTemplate;
+			import comps.RepeatCountTemplate;
+			import comps.ResizeAnimateColorTemplate;
+			import comps.ResizeTemplate;
+			import comps.Rotate3DFadeTemplate;
+			import comps.Rotate3DTemplate;
+			import comps.RotateTemplate;
+			import comps.Scale3DTemplate;
+			import comps.ScaleTemplate;
+			import comps.ScaleWipeTemplate;
+			import comps.TransitionTemplate;
+			import comps.WipeTemplate;
+			import comps.modules.AddRemoveMonitor;
+			import comps.modules.AutoReverseFalseChecker;
+			import comps.modules.ExplicitReturnChecker;
+			import comps.modules.Monitor;
+			import comps.modules.RepeatChecker;
+			import comps.modules.SymmetryChecker;
+			
+			import spark.effects.Move3D;
+			
+			private var surroTemplate:TransitionTemplate;
+			private var surroMonitor:Monitor;
+			
+			protected function forceLoad() : void {
+				surroTemplate = new MoveTemplate();
+				surroTemplate = new Move3DTemplate();
+				surroTemplate = new RotateTemplate();
+				surroTemplate = new Rotate3DTemplate();
+				surroTemplate = new ScaleTemplate();
+				surroTemplate = new Scale3DTemplate();
+				surroTemplate = new FadeTemplate();
+				surroTemplate = new ResizeTemplate();
+				surroTemplate = new WipeTemplate();
+				surroTemplate = new AnimateColorTemplate();
+				surroTemplate = new MoveRotateTemplate();
+				surroTemplate = new Move3DScale3DTemplate();
+				surroTemplate = new Rotate3DFadeTemplate();
+				surroTemplate = new ScaleWipeTemplate();
+				surroTemplate = new ResizeAnimateColorTemplate();
+				surroTemplate = new AddRemoveTemplate();
+				surroTemplate = new DelayStartTemplate();
+				surroTemplate = new RepeatCountTemplate();
+				
+				surroMonitor = new SymmetryChecker();
+				surroMonitor = new ExplicitReturnChecker();
+				surroMonitor = new AutoReverseFalseChecker();
+				surroMonitor = new AddRemoveMonitor();
+				surroMonitor = new RepeatChecker();
+			}
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="One"/>
+		<s:State name="Two"/>
+	</s:states>
+	<c:TransitionTemplate id="transTemplate"/>
+	<s:Group visible="false">
+		<modules:Monitor id="monitor"/>
+	</s:Group>
+</s:Application>

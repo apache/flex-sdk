@@ -1,0 +1,619 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:assets="assets.*"
+	width="1200" height="600" backgroundColor="0xFFFFFF" backgroundGradientColors="[0xFFFFFF, 0xFFFFFF]"
+	creationComplete="Reset()">
+
+    <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF:true;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        global
+        {
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+        }
+    </fx:Style>
+
+    <fx:Script>
+        <![CDATA[
+		import assets.ObjectTabs;
+		import mx.effects.Effect;
+		import mx.events.EffectEvent;
+		import mx.events.TweenEvent;
+        import mx.containers.Canvas;
+        import mx.containers.TabNavigator;
+        import flash.events.TimerEvent;
+        import mx.controls.Alert;
+        import mx.events.StateChangeEvent;
+		
+		//Privies
+		public var currentTabNavigator:TabNavigator;
+        public var currentAccordion:Accordion;
+        public var currentCanvas:Canvas;
+		public var currentEffect:Effect;
+		public var timer:Timer = new Timer(500, 1);
+            
+
+
+		
+		private function ResetEffectAndGauges(effect:Effect):void
+		{
+			if(effect.hasEventListener(EffectEvent.EFFECT_START))
+				effect.removeEventListener(EffectEvent.EFFECT_START, this.HandleEffectStart);
+
+			if(effect.hasEventListener(TweenEvent.TWEEN_START))
+				effect.removeEventListener(TweenEvent.TWEEN_START, this.HandleTweenStart);
+
+			if(effect.hasEventListener(TweenEvent.TWEEN_UPDATE))
+				effect.removeEventListener(TweenEvent.TWEEN_UPDATE, this.HandleTweenUpdate);
+
+			if(effect.hasEventListener(TweenEvent.TWEEN_END))
+				effect.removeEventListener(TweenEvent.TWEEN_END, this.HandleTweenEnd);
+
+			if(effect.hasEventListener(EffectEvent.EFFECT_END))
+				effect.removeEventListener(EffectEvent.EFFECT_END, this.HandleEffectEnd);
+
+
+			//Reattach listeners
+			effect.addEventListener(EffectEvent.EFFECT_START, HandleEffectStart);
+
+			effect.addEventListener(TweenEvent.TWEEN_START, HandleTweenStart);
+			effect.addEventListener(TweenEvent.TWEEN_UPDATE, HandleTweenUpdate);
+			effect.addEventListener(TweenEvent.TWEEN_END, HandleTweenEnd);
+			
+			effect.addEventListener(EffectEvent.EFFECT_END, HandleEffectEnd);
+
+			//Reset labels
+			this.ResetEventLabels();			
+		}
+		
+		private function HandleEffectStart(event:EffectEvent):void
+		{
+			this.lbl_EffectStart.setStyle("color", "0x00FF00");
+		}		
+
+		private function HandleTweenStart(event:TweenEvent):void
+		{
+			this.lbl_TweenStart.setStyle("color", "0x00FF00");
+		}		
+
+		private function HandleTweenUpdate(event:TweenEvent):void
+		{
+			this.lbl_TweenUpdate.setStyle("color", "0x00FF00");
+		}		
+
+		private function HandleTweenEnd(event:TweenEvent):void
+		{
+			this.lbl_TweenEnd.setStyle("color", "0x00FF00");
+		}		
+
+		private function HandleEffectEnd(event:EffectEvent):void
+		{
+			this.lbl_EffectEnd.setStyle("color", "0x00FF00");
+		}		
+		
+		//Init and reset
+		public function Reset():void
+		{
+			//Remove the object tab
+			if(this.mainBox.getChildren().length == 3)
+			{
+				this.mainBox.removeChildAt(2);
+			}
+			
+		    this.currentTabNavigator = new ObjectTabs();
+			this.currentTabNavigator.addEventListener("updateComplete", this.HandleTabUpdate);
+
+			//Reset labels
+			this.ResetEventLabels();	
+						
+			//Readd a new one
+			this.mainBox.addChildAt(this.currentTabNavigator, 2); 
+		}
+		
+		private function HandleTabUpdate(event:Event):void
+		{
+			this.dispatchEvent(new Event("tabUpdate", true));
+		}
+		
+		private function ResetEventLabels():void
+		{
+			//Reset styles
+			this.lbl_EffectStart.setStyle("color", "0x00000");
+			this.lbl_TweenStart.setStyle("color", "0x00000");
+			this.lbl_TweenUpdate.setStyle("color", "0x00000");
+			this.lbl_TweenEnd.setStyle("color", "0x00000");
+			this.lbl_AnimationStart.setStyle("color", "0x00000");
+			this.lbl_AnimationUpdate.setStyle("color", "0x00000");
+			this.lbl_AnimationRepeat.setStyle("color", "0x00000");
+			this.lbl_AnimationEnd.setStyle("color", "0x00000");
+			this.lbl_EffectEnd.setStyle("color", "0x00000");
+		}
+			
+		public function SelectCanvas(controlName:String):void
+		{
+			if(this.currentTabNavigator)
+			{
+				var accordions:Array = this.currentTabNavigator.getChildren();
+				
+				for(var i:int = 0; i < accordions.length; i++)
+				{
+					var canvases:Array = (accordions[i] as Accordion).getChildren();
+	
+					for(var j:int = 0; j < canvases.length; j++)
+					{
+						if(canvases[j].label == controlName)
+						{
+                            this.currentTabNavigator.selectedIndex = i;
+							accordions[i].selectedIndex = j;
+                            this.currentAccordion = accordions[i];
+                            this.currentCanvas = accordions[i].getChildAt(j) as Canvas;
+						}
+					}
+				}
+			}
+            
+            this.currentTabNavigator.dispatchEvent(new Event("selectEvent", true, false));
+		}
+		
+		private function GetTarget():Object
+		{
+			if(this.currentTabNavigator)
+			{
+				var accord:Accordion = this.currentTabNavigator.getChildAt(this.currentTabNavigator.selectedIndex) as Accordion;
+				var canvas:mx.containers.Canvas = accord.selectedChild as mx.containers.Canvas;
+				var target:Object = canvas.getChildAt(0);		
+	
+				return(target);
+			}
+			
+			return(null);
+		}
+		
+		private function GetTargets():Array
+		{
+			if(this.currentTabNavigator)
+			{
+				var accord:Accordion = this.currentTabNavigator.getChildAt(this.currentTabNavigator.selectedIndex) as Accordion;
+				var canvases:Array = accord.getChildren();
+				var targets:Array = new Array();
+				
+				for(var i:int = 0; i < canvases.length; i++)
+				{
+					var canvas:mx.containers.Canvas = canvases[i];
+					
+					if(canvas)
+					{
+						var target:Object = canvas.getChildAt(0);
+						
+						if(target)
+						{
+							targets.push(target);
+						}
+					}
+				}
+	
+				return(targets);
+			}
+			
+			return(null);
+		}
+				
+		public function PlayEffectTarget(effect:Effect, duration:int, startDelay:int, repeatCount:int, repeatDelay:int, playReversed:Boolean = false):void
+		{
+			effect.resume();
+			effect.stop();
+			
+			this.currentEffect = effect;
+			
+			ResetEffectAndGauges(effect);
+			
+			effect.target = this.GetTarget();
+			effect.duration = duration;
+			effect.startDelay = startDelay;
+			effect.repeatCount = repeatCount;
+			effect.repeatDelay = repeatDelay;
+			effect.play(null, playReversed);
+		}
+
+		public function PlayEffectTargets(effect:Effect, duration:int, startDelay:int, repeatCount:int, repeatDelay:int):void
+		{
+			effect.resume();
+			effect.stop();
+			
+			this.currentEffect = effect;
+			
+			ResetEffectAndGauges(effect);
+			
+			effect.targets = this.GetTargets();
+			effect.duration = duration;
+			effect.startDelay = startDelay;
+			effect.repeatCount = repeatCount;
+			effect.repeatDelay = repeatDelay;
+			effect.play();
+		}
+
+		public function SeekEffectTarget(effect:Effect, duration:int, startDelay:int, repeatCount:int, repeatDelay:int, seekTo:Number):void
+		{
+			effect.resume();
+			effect.stop();
+			
+			this.currentEffect = effect; 
+			
+			effect.target = this.GetTarget();
+			effect.duration = duration;
+			effect.startDelay = startDelay;
+			effect.repeatCount = repeatCount;
+			effect.repeatDelay = repeatDelay;
+			effect.play();
+			
+			effect.playheadTime = seekTo;
+			effect.pause();
+            timer.start();
+		}
+		
+		public function SeekEffectTargets(effect:Effect, duration:int, startDelay:int, repeatCount:int, repeatDelay:int, seekTo:Number):void
+		{
+			effect.resume();
+			effect.stop();
+			
+			this.currentEffect = effect; 
+			
+			effect.targets = this.GetTargets();
+			effect.duration = duration;
+			effect.startDelay = startDelay;
+			effect.repeatCount = repeatCount;
+			effect.repeatDelay = repeatDelay;
+			effect.play();
+			
+			effect.playheadTime = seekTo;
+			effect.pause();
+            timer.start();
+		}		
+		
+		public function SeekControl(control:String, effect:Effect, duration:int, startDelay:int, repeatCount:int, repeatDelay:int, seekTo:Number):void
+		{
+			this.SelectCanvas(control);
+			this.SeekEffectTarget(effect, duration, startDelay, repeatCount, repeatDelay, seekTo);
+		}
+
+		public function SeekControls(control:String, effect:Effect, duration:int, startDelay:int, repeatCount:int, repeatDelay:int, seekTo:Number):void
+		{
+			this.SelectCanvas(control);
+			this.SeekEffectTargets(effect, duration, startDelay, repeatCount, repeatDelay, seekTo);
+		}
+
+		public function PlayEffectControl(control:String, effect:Effect, duration:int, startDelay:int, repeatCount:int, repeatDelay:int, playReversed:Boolean = false):void
+		{
+			this.SelectCanvas(control);
+			this.PlayEffectTarget(effect, duration, startDelay, repeatCount, repeatDelay, playReversed);
+		}
+
+		public function PlayEffectControls(control:String, effect:Effect, duration:int, startDelay:int, repeatCount:int, repeatDelay:int):void
+		{
+			this.SelectCanvas(control);
+			this.PlayEffectTargets(effect, duration, startDelay, repeatCount, repeatDelay);
+		}
+		]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        <!-- Simple blur x,y effects -->
+        <mx:Blur id="eff_Blur_X" blurXFrom="0" blurXTo="5"/>
+        <mx:Blur id="eff_Blur_Y" blurYFrom="0" blurYTo="5"/>
+
+        <!-- Simple x+y effect -->
+        <mx:Blur id="eff_Blur_XY" blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+
+        <!-- Simple parallels -->
+        <mx:Parallel id="p_Blur_X">
+            <mx:Blur blurXFrom="0" blurXTo="5"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="p_Blur_Y">
+            <mx:Blur blurYFrom="0" blurYTo="5"/>
+        </mx:Parallel>
+
+        <!-- Complex parallel -->
+        <mx:Parallel id="p_Blur_XY">
+            <mx:Blur blurXFrom="0" blurXTo="5"/>
+            <mx:Blur blurYFrom="0" blurYTo="5"/>
+        </mx:Parallel>
+
+        <!-- Complex parallel with Thermo-Style Delays -->
+        <mx:Parallel id="p_Blur_XY_Thermo">
+            <mx:Blur blurXFrom="0" blurXTo="5" startDelay="0" duration="500"/>
+            <mx:Blur blurYFrom="0" blurYTo="5" startDelay="500" duration="500"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="p_Blur_XY_Thermo_Overlap">
+            <mx:Blur blurXFrom="0" blurXTo="5" startDelay="0" duration="1000"/>
+            <mx:Blur blurYFrom="0" blurYTo="5" startDelay="500" duration="1000"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="p_Blur_Dissolve">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Dissolve alphaFrom="1" alphaTo=".2"/>
+        </mx:Parallel>
+        <mx:Parallel id="p_Blur_Fade">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Fade alphaFrom="1" alphaTo=".3"/>
+        </mx:Parallel>
+        <mx:Parallel id="p_Blur_Glow">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Glow alphaFrom="0.3" alphaTo="1.0" blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5" color="0x0000FF"/>
+        </mx:Parallel>
+        <mx:Parallel id="p_Blur_Iris">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Iris showTarget="true"/>
+        </mx:Parallel>
+        <mx:Parallel id="p_Blur_MaskEffect">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:MaskEffect scaleXFrom="0" scaleXTo="1" scaleYFrom="0" scaleYTo="1"/>
+        </mx:Parallel>
+        <mx:Parallel id="p_Blur_Move">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Move xBy="100"/>
+        </mx:Parallel>
+        <mx:Parallel id="p_Blur_Resize">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Resize widthBy="30" heightBy="30"/>
+        </mx:Parallel>
+        <mx:Parallel id="p_Blur_WipeDown">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:WipeDown/>
+        </mx:Parallel>
+        <mx:Parallel id="p_Blur_WipeLeft">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:WipeLeft/>
+        </mx:Parallel>
+        <mx:Parallel id="p_Blur_WipeRight">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:WipeRight/>
+        </mx:Parallel>
+        <mx:Parallel id="p_Blur_WipeUp">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:WipeUp/>
+        </mx:Parallel>
+        <mx:Parallel id="p_Blur_Zoom">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Zoom zoomWidthFrom="0" zoomWidthTo="1" zoomHeightFrom="0" zoomHeightTo="1"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="p_Blur_SetAction">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <s:SetAction property="x" value="200"/>
+        </mx:Parallel>
+
+        <!-- Simple sequences -->
+        <mx:Sequence id="s_Blur_X">
+            <mx:Blur blurXFrom="0" blurXTo="5"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="s_Blur_Y">
+            <mx:Blur blurYFrom="0" blurYTo="5"/>
+        </mx:Sequence>
+
+        <!-- Complex sequence -->
+        <mx:Sequence id="s_Blur_XY">
+            <mx:Blur blurXFrom="0" blurXTo="5"/>
+            <mx:Blur blurYFrom="0" blurYTo="5"/>
+        </mx:Sequence>
+
+        <!-- Complex sequence with Thermo-Style Delays -->
+        <mx:Sequence id="s_Blur_XY_Thermo">
+            <mx:Blur blurXFrom="0" blurXTo="5" startDelay="0" duration="500"/>
+            <mx:Blur blurYFrom="0" blurYTo="5" startDelay="500" duration="500"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="s_Blur_XY_Thermo_Overlap">
+            <mx:Blur blurXFrom="0" blurXTo="5" startDelay="0" duration="1000"/>
+            <mx:Blur blurYFrom="0" blurYTo="5" startDelay="500" duration="1000"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="s_Blur_Dissolve">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Dissolve alphaFrom="1" alphaTo=".2"/>
+        </mx:Sequence>
+        <mx:Sequence id="s_Blur_Fade">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Fade alphaFrom="1" alphaTo=".3"/>
+        </mx:Sequence>
+        <mx:Sequence id="s_Blur_Glow">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Glow alphaFrom="0.3" alphaTo="1.0" blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5" color="0x0000FF"/>
+        </mx:Sequence>
+        <mx:Sequence id="s_Blur_Iris">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Iris showTarget="true"/>
+        </mx:Sequence>
+        <mx:Sequence id="s_Blur_MaskEffect">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:MaskEffect scaleXFrom="0" scaleXTo="1" scaleYFrom="0" scaleYTo="1"/>
+        </mx:Sequence>
+        <mx:Sequence id="s_Blur_Move">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Move xBy="100"/>
+        </mx:Sequence>
+        <mx:Sequence id="s_Blur_Resize">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Resize widthBy="30" heightBy="30"/>
+        </mx:Sequence>
+        <mx:Sequence id="s_Blur_WipeDown">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:WipeDown/>
+        </mx:Sequence>
+        <mx:Sequence id="s_Blur_WipeLeft">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:WipeLeft/>
+        </mx:Sequence>
+        <mx:Sequence id="s_Blur_WipeRight">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:WipeRight/>
+        </mx:Sequence>
+        <mx:Sequence id="s_Blur_WipeUp">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:WipeUp/>
+        </mx:Sequence>
+        <mx:Sequence id="s_Blur_Zoom">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <mx:Zoom zoomWidthFrom="0" zoomWidthTo="1" zoomHeightFrom="0" zoomHeightTo="1"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="s_Blur_SetAction">
+            <mx:Blur blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+            <s:SetAction property="x" value="200"/>
+        </mx:Sequence>
+
+    </fx:Declarations>
+
+
+    <mx:HBox id="mainBox">
+        <mx:VBox width="170" height="540" verticalScrollPolicy="off" creationPolicy="all">
+            <mx:Label width="100%" text="Properties"/>
+            <mx:HRule width="100%"/>
+            <s:Button id="btn_Reset" label="Reset" width="100%" click="Reset()"/>
+            <s:Button id="btn_Pause" label="Pause" width="100%" click="currentEffect.pause()"/>
+            <s:Button id="btn_Resume" label="Resume" width="100%" click="currentEffect.resume()"/>
+            <s:Button id="btn_Stop" label="Stop" width="100%" click="currentEffect.stop()"/>
+            <mx:Spacer/>
+            <mx:Label width="100%" text="Events"/>
+            <mx:HRule width="100%"/>
+            <mx:VBox id="eventBox">
+                <mx:Label id="lbl_EffectStart" width="100%" text="EffectStart" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_TweenStart" width="100%" text="TweenStart" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_TweenUpdate" width="100%" text="TweenUpdate" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_TweenEnd" width="100%" text="TweenEnd" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_AnimationStart" width="100%" text="AnimationStart" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_AnimationUpdate" width="100%" text="AnimationUpdate" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_AnimationRepeat" width="100%" text="AnimationRepeat" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_AnimationEnd" width="100%" text="AnimationEnd" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_EffectEnd" width="100%" text="EffectEnd" color="0x000000" fontWeight="bold"/>
+            </mx:VBox>
+        </mx:VBox>
+        <mx:VBox width="250" height="540" verticalScrollPolicy="off" creationPolicy="all">
+            <mx:Label width="100%" text="Effects"/>
+            <mx:HRule width="100%"/>
+            <mx:Accordion width="100%" height="467" creationPolicy="all" verticalScrollPolicy="off">
+
+                <mx:VBox width="100%" height="100%" label="Blur Objects">
+                    <mx:LinkButton label="Button" width="100%" click="SeekControl('Button', eff_Blur_X, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="ButtonBar" width="100%" click="SeekControl('ButtonBar', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="CheckBox" width="100%" click="SeekControl('CheckBox', eff_Blur_XY, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="ColorPicker" width="100%" click="SeekControl('ColorPicker', eff_Blur_X, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="ComboBox" width="100%" click="SeekControl('ComboBox', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="DataGrid" width="100%" click="SeekControl('DataGrid', eff_Blur_XY, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="DateChooser" width="100%" click="SeekControl('DateChooser', eff_Blur_X, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="DateField" width="100%" click="SeekControl('DateField', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="HorizontalList" width="100%" click="SeekControl('HorizontalList', eff_Blur_XY, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="HRule" width="100%" click="SeekControl('HRule', eff_Blur_X, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="HScrollBar" width="100%" click="SeekControl('HScrollBar', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="HSlider" width="100%" click="SeekControl('HSlider', eff_Blur_XY, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="Image" width="100%" click="SeekControl('Image', eff_Blur_X, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="Label" width="100%" click="SeekControl('Label', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="LinkBar" width="100%" click="SeekControl('LinkBar', eff_Blur_XY, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="LinkButton" width="100%" click="SeekControl('LinkButton', eff_Blur_X, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="List" width="100%" click="SeekControl('List', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="MenuBar" width="100%" click="SeekControl('MenuBar', eff_Blur_XY, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="NumericStepper" width="100%" click="SeekControl('NumericStepper', eff_Blur_X, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="PopUpButton" width="100%" click="SeekControl('PopUpButton', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="PopUpMenuButton" width="100%" click="SeekControl('PopUpMenuButton', eff_Blur_XY, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="ProgressBar" width="100%" click="SeekControl('ProgressBar', eff_Blur_X, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="RadioButton" width="100%" click="SeekControl('RadioButton', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="RichTextEditor" width="100%" click="SeekControl('RichTextEditor', eff_Blur_XY, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="TabBar" width="100%" click="SeekControl('TabBar', eff_Blur_X, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="Text" width="100%" click="SeekControl('Text', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="TextArea" width="100%" click="SeekControl('TextArea', eff_Blur_XY, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="TextInput" width="100%" click="SeekControl('TextInput', eff_Blur_X, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="TileList" width="100%" click="SeekControl('TileList', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="ToggleButtonBar" width="100%" click="SeekControl('ToggleButtonBar', eff_Blur_XY, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="Tree" width="100%" click="SeekControl('Tree', eff_Blur_X, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="VRule" width="100%" click="SeekControl('VRule', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="VScrollBar" width="100%" click="SeekControl('VScrollBar', eff_Blur_XY, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="VSlider" width="100%" click="SeekControl('VSlider', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton label="Triangle" width="100%" click="SeekControl('Triangle', eff_Blur_Y, 1000, 0, 1, 0, 500)"/>
+                </mx:VBox>
+
+                <mx:VBox width="100%" height="100%" label="Blur Functionality">
+                    <mx:LinkButton label="Just X" width="100%" click="PlayEffectControl('Button', eff_Blur_X, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Just Y" width="100%" click="PlayEffectControl('Button', eff_Blur_Y, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="XY" width="100%" click="PlayEffectControl('Button', eff_Blur_XY, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="XY+SD" width="100%" click="PlayEffectControl('Button', eff_Blur_XY, 1000, 500, 1, 0)"/>
+                    <mx:LinkButton label="XY+RC+RD" width="100%" click="PlayEffectControl('Button', eff_Blur_XY, 1000, 0, 2, 500)"/>
+                    <mx:LinkButton label="XY+SD+RC+RD" width="100%" click="PlayEffectControl('Button', eff_Blur_XY, 1000, 500, 2, 500)"/>
+                    <mx:LinkButton label="Play Reversed" width="100%" click="eff_Blur_XY.play([this.GetTarget()], true)"/>
+                </mx:VBox>
+
+                <mx:VBox width="100%" height="100%" label="Blur Parallel">
+                    <mx:LinkButton label="Parallel Just X" width="100%" click="PlayEffectControl('Button', p_Blur_X, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Just Y" width="100%" click="PlayEffectControl('Button', p_Blur_Y, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel XY" width="100%" click="PlayEffectControl('Button', p_Blur_XY, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel XY+Thermo" width="100%" click="PlayEffectControl('Button', p_Blur_XY_Thermo, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel XY+Thermo Overlap" width="100%" click="PlayEffectControl('Button', p_Blur_XY_Thermo_Overlap, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+Dissolve" width="100%" click="PlayEffectControl('Button', p_Blur_Dissolve, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+Fade" width="100%" click="PlayEffectControl('Button', p_Blur_Fade, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+Glow" width="100%" click="PlayEffectControl('Button', p_Blur_Glow, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+Iris" width="100%" click="PlayEffectControl('Button', p_Blur_Iris, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+MaskEffect" width="100%" click="PlayEffectControl('Button', p_Blur_MaskEffect, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+Move" width="100%" click="PlayEffectControl('Button', p_Blur_Move, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+Resize" width="100%" click="PlayEffectControl('Button', p_Blur_Resize, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+SetAction" width="100%" click="PlayEffectControl('Button', p_Blur_SetAction, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+WipeDown" width="100%" click="PlayEffectControl('Button', p_Blur_WipeDown, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+WipeLeft" width="100%" click="PlayEffectControl('Button', p_Blur_WipeLeft, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+WipeRight" width="100%" click="PlayEffectControl('Button', p_Blur_WipeRight, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+WipeUp" width="100%" click="PlayEffectControl('Button', p_Blur_WipeUp, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel Blur+Zoom" width="100%" click="PlayEffectControl('Button', p_Blur_Zoom, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Parallel XY Multi Targets" width="100%" click="PlayEffectControls('Button', p_Blur_XY, 1000, 0, 1, 0)"/>
+                </mx:VBox>
+
+                <mx:VBox width="100%" height="100%" label="Blur Sequence">
+                    <mx:LinkButton label="Sequence Just X" width="100%" click="PlayEffectControl('Button', s_Blur_X, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Just Y" width="100%" click="PlayEffectControl('Button', s_Blur_Y, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence XY" width="100%" click="PlayEffectControl('Button', s_Blur_XY, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence XY+Thermo" width="100%" click="PlayEffectControl('Button', s_Blur_XY_Thermo, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence XY+Thermo Overlap" width="100%" click="PlayEffectControl('Button', s_Blur_XY_Thermo_Overlap, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+Dissolve" width="100%" click="PlayEffectControl('Button', s_Blur_Dissolve, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+Fade" width="100%" click="PlayEffectControl('Button', s_Blur_Fade, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+Glow" width="100%" click="PlayEffectControl('Button', s_Blur_Glow, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+Iris" width="100%" click="PlayEffectControl('Button', s_Blur_Iris, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+MaskEffect" width="100%" click="PlayEffectControl('Button', s_Blur_MaskEffect, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+Move" width="100%" click="PlayEffectControl('Button', s_Blur_Move, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+Resize" width="100%" click="PlayEffectControl('Button', s_Blur_Resize, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+SetAction" width="100%" click="PlayEffectControl('Button', s_Blur_SetAction, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+WipeDown" width="100%" click="PlayEffectControl('Button', s_Blur_WipeDown, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+WipeLeft" width="100%" click="PlayEffectControl('Button', s_Blur_WipeLeft, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+WipeRight" width="100%" click="PlayEffectControl('Button', s_Blur_WipeRight, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+WipeUp" width="100%" click="PlayEffectControl('Button', s_Blur_WipeUp, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence Blur+Zoom" width="100%" click="PlayEffectControl('Button', s_Blur_Zoom, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton label="Sequence XY Multi Targets" width="100%" click="PlayEffectControls('Button', s_Blur_XY, 1000, 0, 1, 0)"/>
+                </mx:VBox>
+
+            </mx:Accordion>
+        </mx:VBox>
+        <assets:ObjectTabs/>
+    </mx:HBox>
+</mx:Application>

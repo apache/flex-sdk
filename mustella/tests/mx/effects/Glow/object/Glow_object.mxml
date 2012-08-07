@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testSWF="../SWFs/Glow_main.mxml" 
+    testDir="mx/effects/Glow/object/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase testID="Glow_Button" keywords="[Glow, object, Button]" description="Test Glow on a Button.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Button', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_ButtonBar" keywords="[Glow, object, ButtonBar]" description="Test Glow on a ButtonBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ButtonBar', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_CheckBox" keywords="[Glow, object, CheckBox]" description="Test Glow on a CheckBox.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('CheckBox', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_ColorPicker" keywords="[Glow, object, ColorPicker]" description="Test Glow on a ColorPicker.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ColorPicker', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_ComboBox" keywords="[Glow, object, ComboBox]" description="Test Glow on a ComboBox.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ComboBox', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_DataGrid" keywords="[Glow, object, DataGrid]" description="Test Glow on a DataGrid.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('DataGrid', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_DateChooser" keywords="[Glow, object, DateChooser]" description="Test Glow on a DateChooser.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('DateChooser', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_DateField" keywords="[Glow, object, DateField]" description="Test Glow on a DateField.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('DateField', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_HorizontalList" keywords="[Glow, object, HorizontalList]" description="Test Glow on a HorizontalList.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HorizontalList', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_HRule" keywords="[Glow, object, HRule]" description="Test Glow on a HRule.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HRule', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_HScrollBar" keywords="[Glow, object, HScrollBar]" description="Test Glow on a HScrollBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HScrollBar', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_HSlider" keywords="[Glow, object, HSlider]" description="Test Glow on a HSlider.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HSlider', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_Image" keywords="[Glow, object, Image]" description="Test Glow on a Image.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Image', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_Label" keywords="[Glow, object, Label]" description="Test Glow on a Label.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Label', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_List" keywords="[Glow, object, List]" description="Test Glow on a List.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('List', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_MenuBar" keywords="[Glow, object, MenuBar]" description="Test Glow on a MenuBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('MenuBar', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_NumericStepper" keywords="[Glow, object, NumericStepper]" description="Test Glow on a NumericStepper.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('NumericStepper', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_PopUpButton" keywords="[Glow, object, PopUpButton]" description="Test Glow on a PopUpButton.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('PopUpButton', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_PopUpMenuButton" keywords="[Glow, object, PopUpMenuButton]" description="Test Glow on a PopUpMenuButton.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('PopUpMenuButton', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_ProgressBar" keywords="[Glow, object, ProgressBar]" description="Test Glow on a ProgressBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ProgressBar', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_RadioButton" keywords="[Glow, object, RadioButton]" description="Test Glow on a RadioButton.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('RadioButton', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_RichTextEditor" keywords="[Glow, object, RichTextEditor]" description="Test Glow on a RichTextEditor.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('RichTextEditor', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_TabBar" keywords="[Glow, object, TabBar]" description="Test Glow on a TabBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TabBar', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_Text" keywords="[Glow, object, Text]" description="Test Glow on a Text.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Text', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_TextArea" keywords="[Glow, object, TextArea]" description="Test Glow on a TextArea.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TextArea', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_TextInput" keywords="[Glow, object, TextInput]" description="Test Glow on a TextInput.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TextInput', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_TileList" keywords="[Glow, object, TileList]" description="Test Glow on a TileList.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TileList', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_ToggleButtonBar" keywords="[Glow, object, ToggleButtonBar]" description="Test Glow on a ToggleButtonBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ToggleButtonBar', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_Tree" keywords="[Glow, object, Tree]" description="Test Glow on a Tree.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Tree', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_VRule" keywords="[Glow, object, VRule]" description="Test Glow on a VRule.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('VRule', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_VScrollBar" keywords="[Glow, object, VScrollBar]" description="Test Glow on a VScrollBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('VScrollBar', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Glow_VSlider" keywords="[Glow, object, VSlider]" description="Test Glow on a VSlider.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('VSlider', application.eff_Glow_AXY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

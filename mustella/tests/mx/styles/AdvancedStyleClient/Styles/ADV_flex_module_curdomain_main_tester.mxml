@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ADV_flex_module_curdomain_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.styleTest.ADVStyleTestEvent;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<!--This test case is to test styles using ApplicationDomain class with application's domain-->
+		<TestCase testID="ADV_module_application_domain_test1" 
+				  description="This test case is to test styles using ApplicationDomain class with application's domain" 
+				  keywords="[ADVStyleTestClass, Flex Module, Application Domain]" >
+			<setup>
+				<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="application.setListeners()" waitEvent="setModuleListenersDone" />
+				
+				<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+				<RunCode code="application.loadAppCurDomain()" waitEvent="testStylesLoadComplete" />
+			</setup>
+			<body>	
+				<!--test style only defined in module but compound with loaded CSS style-->
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_3_uint_inh')" valueExpression="value=34"/>
+				
+				<!--test style only defined in application but compound with loaded CSS style-->
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_6_format_time_noinh')" valueExpression="value=12000"/>
+				
+				<!--test the compound styles defined between application and module and compound with loaded CSS style-->
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_1_string_noinh')" value="moduleString"/>
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_5_format_length_noinh')" valueExpression="value=100"/>
+				
+				<!--test style only defined in loaded CSS -->
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_2_number_noinh')" valueExpression="value=111"/>
+				
+				<!--test un-setting style using default value-->
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_11_boolean_noinh')" valueExpression="value=false"/>
+			</body>
+			<cleanup>
+				<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+			</cleanup>
+		</TestCase>
+	</testCases>
+</UnitTester>

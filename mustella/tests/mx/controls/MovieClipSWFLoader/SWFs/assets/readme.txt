@@ -1,0 +1,1 @@
+All of the flash assets in this folder were created and compiled with Flash Pro CS5.

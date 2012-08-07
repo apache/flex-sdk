@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="400" height="300" 
+		 xmlns:styleTest="assets.styleTest.*">
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace styleTest "assets.styleTest.*";
+		/* Class Selector */
+		.styleInComponent{
+			teststyle_1_string_noinh : "componentString";
+			teststyle_3_uint_inh : 34;
+		}
+		
+		.styleInComponentDiff{
+			teststyle_1_string_noinh : "componentString";
+			teststyle_3_uint_inh : 34;
+		}
+		
+		/* ID Selector */
+		#componentADV{
+			teststyle_1_string_noinh : "idCompString";
+			teststyle_2_number_noinh : 12;
+			teststyle_3_uint_inh : 56;
+		}
+		
+		#componentADVDiff{
+			teststyle_1_string_noinh : "idCompString";
+			teststyle_2_number_noinh : 12;
+			teststyle_3_uint_inh : 56;
+		}
+		
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			public function getAdvStyle(styleName:String):*
+			{
+				return componentADV.getStyle(styleName);
+			}
+			
+			public function getAdvCompStyle(styleName:String):*
+			{
+				return componentADVStyle.getStyle(styleName);
+			}
+			 
+			public function setCompStyle():void
+			{
+				componentADV.setStyle("teststyle_1_string_noinh","testsetStr");
+				componentADV.setStyle("teststyle_3_uint_inh",56);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<styleTest:ADVStyleTestClass id="componentADV" />	
+		<styleTest:ADVStyleTestClass id="componentADVStyle" styleName="styleInComponent" />
+		
+		<styleTest:ADVStyleTestClass id="componentADVDiff"/>
+		<styleTest:ADVStyleTestClass id="componentADVStyleDiff" styleName="styleInComponentDiff" />
+	</fx:Declarations>
+	
+	
+</s:Group>

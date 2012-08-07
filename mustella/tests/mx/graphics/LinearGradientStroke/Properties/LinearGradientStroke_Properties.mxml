@@ -1,0 +1,157 @@
+<UnitTester
+    testDir="mx/graphics/LinearGradientStroke/Properties/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/LinearGradientStroke_Main.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoDisplay;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+    <!-- Note, no event triggers when you update a filter at runtime -->
+
+        <TestCase testID="LinearGradientStroke_Properties_angle_mxml" keywords="[LinearGradientStroke, angle]"
+            description="Test using angle in mxml">
+            <body>
+                <CompareBitmap numColorVariances="4" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="rect_angle" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinearGradientStroke_Properties_angle_as_int" keywords="[LinearGradientStroke, angle]"
+            description="Test the default value of the alpha property.">
+            <setup>
+                <ResetComponent target="rectComp1" className="comps.RectComp" waitEvent="updateComplete"
+                    waitTarget="rectComp1" />
+            </setup>
+            <body>
+                <SetProperty propertyName="angle" value="40" target="rectComp1.gradient1" waitEvent="updateComplete"
+                    waitTarget="rectComp1" />
+                <CompareBitmap numColorVariances="4" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="rectComp1" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinearGradientStroke_Properties_angle_as_neg" keywords="[LinearGradientStroke, angle]"
+            description="Test the default value of the alpha property.">
+            <setup>
+                <ResetComponent target="rectComp1" className="comps.RectComp" waitEvent="updateComplete"
+                    waitTarget="rectComp1" />
+            </setup>
+            <body>
+                <SetProperty propertyName="angle" value="-40" target="rectComp1.gradient1" waitEvent="updateComplete"
+                    waitTarget="rectComp1" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp1" />
+            </body>
+        </TestCase>
+        <TestCase testID="LinearGradientStroke_Properties_rotation_mxml" keywords="[LinearGradientStroke, rotation]"
+              description="Test using rotation in mxml">
+              <body>
+                  <SetProperty target="rect_rotation.getElementAt(0)" propertyName="stroke" valueExpression="value=application.gradient1"
+                      waitTarget="rect_rotation.getElementAt(0)" waitEvent="updateComplete" />
+                  <CompareBitmap numColorVariances="4" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="rect_rotation" />
+              </body>
+          </TestCase>
+          <TestCase testID="LinearGradientStroke_Properties_rotation_as_int" keywords="[LinearGradientStroke, rotation]"
+              description="Test the default value of the alpha property.">
+              <setup>
+                  <ResetComponent target="rectComp1" className="comps.RectComp" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+              </setup>
+              <body>
+                  <SetProperty propertyName="rotation" value="40" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <CompareBitmap numColorVariances="4" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="rectComp1" />
+              </body>
+          </TestCase>
+          <TestCase testID="LinearGradientStroke_Properties_rotation_as_neg" keywords="[LinearGradientStroke, rotation]"
+              description="Test the default value of the alpha property.">
+              <setup>
+                  <ResetComponent target="rectComp1" className="comps.RectComp" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+              </setup>
+              <body>
+                  <SetProperty propertyName="rotation" value="-40" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp1" />
+              </body>
+        </TestCase>
+        <TestCase testID="LinearGradientStroke_Properties_spreadMethod_reflect" keywords="[LinearGradientStroke, spreadMethod]"
+              description="Test the default value of the alpha property.">
+              <setup>
+                  <ResetComponent target="rectComp1" className="comps.RectComp" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+              </setup>
+              <body>
+                  <SetProperty propertyName="scaleX" value="20" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <SetProperty propertyName="spreadMethod" value="reflect" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp1" />
+              </body>
+          </TestCase>
+        <TestCase testID="LinearGradientStroke_Properties_spreadMethod_repeat" keywords="[LinearGradientStroke, spreadMethod]"
+              description="Test the default value of the alpha property.">
+              <setup>
+                  <ResetComponent target="rectComp1" className="comps.RectComp" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+              </setup>
+              <body>
+                  <SetProperty propertyName="scaleX" value="20" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <SetProperty propertyName="spreadMethod" value="repeat" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp1" />
+              </body>
+          </TestCase>
+        <TestCase testID="LinearGradientStroke_Properties_spreadMethod_default" keywords="[LinearGradientStroke, spreadMethod]"
+              description="Test the default value of the alpha property.">
+              <setup>
+                  <ResetComponent target="rectComp1" className="comps.RectComp" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+              </setup>
+              <body>
+                  <SetProperty propertyName="scaleX" value="20" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <AssertPropertyValue propertyName="spreadMethod" value="pad" target="rectComp1.gradient1" />
+                  <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp1" />
+              </body>
+          </TestCase>
+        <TestCase testID="LinearGradientStroke_Properties_interpolationMethod_default" keywords="[LinearGradientStroke, interpolationMethod]"
+              description="Test the default value of the alpha property.">
+              <setup>
+                  <ResetComponent target="rectComp1" className="comps.RectComp" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+              </setup>
+              <body>
+                  <SetProperty propertyName="scaleX" value="20" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <SetProperty propertyName="spreadMethod" value="reflect" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <AssertPropertyValue propertyName="interpolationMethod" value="rgb" target="rectComp1.gradient1" />
+              </body>
+          </TestCase>
+        <TestCase testID="LinearGradientStroke_Properties_interpolationMethod_linearRGB" keywords="[LinearGradientStroke, interpolationMethod]"
+              description="Test the default value of the alpha property.">
+              <setup>
+                  <ResetComponent target="rectComp1" className="comps.RectComp" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+              </setup>
+              <body>
+                  <SetProperty propertyName="scaleX" value="20" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <SetProperty propertyName="spreadMethod" value="reflect" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <SetProperty propertyName="interpolationMethod" value="linearRGB" target="rectComp1.gradient1" waitEvent="updateComplete"
+                      waitTarget="rectComp1" />
+                  <CompareBitmap url="../Properties/baselines/$testID.png" target="rectComp1" />
+              </body>
+          </TestCase>
+    </testCases>
+</UnitTester>

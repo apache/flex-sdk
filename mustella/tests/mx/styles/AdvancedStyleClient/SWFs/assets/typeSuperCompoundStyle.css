@@ -1,0 +1,51 @@
+/*
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace styleTest "assets.styleTest.*";
+
+
+/*super Type Selector*/
+styleTest|ADVStyleTestClass{
+	teststyle_1_string_noinh : "classString";
+	
+	teststyle_5_format_length_noinh : 50px;
+	teststyle_6_format_time_noinh : 12000;
+	
+	teststyle_11_boolean_noinh : false;
+	teststyle_12_enum_string_inh : "secondType";
+	
+	testextstyle_1_string_noinh : "childString";
+	testextstyle_2_number_noinh : -2;
+} 
+
+/*child Type Selector*/
+styleTest|ADVStyleTestExtendClass{
+	teststyle_11_boolean_noinh : true;
+	teststyle_12_enum_string_inh : "firstType";
+	
+	teststyle_15_state_string_noinh : "localStringHeavy";
+	teststyle_17_skin_state_noinh : ClassReference("assets.styleTest.ADVStyleTestSkin"); 
+	
+	testextstyle_2_number_noinh: -1;
+	testextstyle_3_uint_inh : 2;
+} 	
+
+

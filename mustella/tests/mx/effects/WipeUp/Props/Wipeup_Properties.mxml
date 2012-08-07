@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="mx/effects/WipeUp/Props/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/WipeUp_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <TestCase testID="WipeUp_showTarget_Default" keywords="[WipeUp, Properties, showTarget]" description="Test the default value of the showTarget property.">
+            <setup>
+                <RunCode code="application.ResetEffectDefault()"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="showTarget" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeUp_showTarget" keywords="[WipeUp, Properties, showTarget]" description="Test setting the showTarget property.">
+            <setup>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <SetProperty target="testEffect" propertyName="showTarget" value="false"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="showTarget" value="false"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeUp_showTarget_True" keywords="[WipeUp, Properties, showTarget]" description="Test WipeUp when showTarget is true.">
+            <setup>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <SetProperty target="testEffect" propertyName="showTarget" value="true"/>
+                <SetProperty target="testEffect" propertyName="duration" value="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play()"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.testEffect.pause()"/>
+                <AssertPixelValue target="testImage" x="100" y="50" value="0"/>
+                <AssertPixelValue target="testImage" x="100" y="250" value="0"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeUp_showTarget_False" keywords="[WipeUp, Properties, showTarget]" description="Test WipeUp when showTarget is false.">
+            <setup>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <SetProperty target="testEffect" propertyName="showTarget" value="false"/>
+                <SetProperty target="testEffect" propertyName="duration" value="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play()"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.testEffect.pause()"/>
+                <AssertPixelValue target="testImage" x="100" y="50" value="0"/>
+                <AssertPixelValue target="testImage" x="100" y="250" value="0"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="mx/effects/Move/Events/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*"
+    testSWF="../SWFs/Move_Main.mxml">
+    
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    
+    <testCases>
+        <TestCase testID="Move_Events_EffectStart" keywords="[Effects, Move, Events, EffectStart]" description="Verify EffectStart is raised.">
+            <setup>
+                <ResetComponent target="testVBox" className="Assets.TrixVBox" waitTarget="testVBox" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testVBox], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertEvent target="testEffect" eventName="effectStart" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="Move_Events_EffectEnd" keywords="[Effects, Move, Events, EffectEnd]" description="Verify EffectEnd is raised.">
+            <setup>
+                <ResetComponent target="testVBox" className="Assets.TrixVBox" waitTarget="testVBox" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testVBox], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertEvent target="testEffect" eventName="effectEnd" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Events_TweenStart" keywords="[Effects, Move, Events, TweenStart]" description="Verify TweenStart is raised.">
+            <setup>
+                <ResetComponent target="testVBox" className="Assets.TrixVBox" waitTarget="testVBox" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testVBox], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertEvent target="testEffect" eventName="tweenStart" eventClass="mx.events::TweenEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="Move_Events_TweenUpdate" keywords="[Effects, Move, Events, TweenUpdate]" description="Verify TweenUpdate is raised.">
+            <setup>
+                <ResetComponent target="testVBox" className="Assets.TrixVBox" waitTarget="testVBox" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testVBox], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertEvent target="testEffect" eventName="tweenUpdate" eventClass="mx.events::TweenEvent" numExpectedEvents="-1" />
+            </body>
+        </TestCase>
+        <TestCase testID="Move_Events_TweenEnd" keywords="[Effects, Move, Events, TweenEnd]" description="Verify TweenEnd is raised.">
+            <setup>
+                <ResetComponent target="testVBox" className="Assets.TrixVBox" waitTarget="testVBox" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="20"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testVBox], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertEvent target="testEffect" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>

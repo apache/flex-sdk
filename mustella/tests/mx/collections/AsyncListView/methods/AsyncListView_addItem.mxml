@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	testDir="mx/collections/AsyncListView/methods/"
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns="*" 
+	xmlns:assets="assets.*"
+	testSWF="AsyncListView_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+		import assets.*;
+		import mx.collections.*;
+		import mx.core.FlexGlobals;
+		
+		public var savedObject:Object;
+		
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+public function setup( responseDelay:int = 500,
+						numItems:int = 100,
+						numPreloadedPages:int = 0,
+						pageSize:int = 1,
+						mode:String = 'manual',
+						failureProbability:int = 0,
+						createPendingItemFunction:Boolean = true,
+						createFailedItemFunction:Boolean = true):void{
+-->
+
+<TestCase testID="addItem_vlist_test1" keywords="[AsyncListView,addItem]" description="Add when there are no items, dataProvider is a local ArrayCollection." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,0)" />
+		<RunCode code="FlexGlobals.topLevelApplication.storedItem = new ArrayCollection()" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.list = FlexGlobals.topLevelApplication.storedItem" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.addItem({info: 'added item', status: 'present'})" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.storedItem.getItemAt(0).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="added item" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="1" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_vlist_test2" keywords="[AsyncListView,addItem]" description="Add when there are no items, dataProvider is the simulator." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,0)" />
+		<RunCode code="savedObject = {info: 'added item', status: 'present'}" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.addItem(savedObject)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.items.source[0].info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(savedObject)" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="added item" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="1" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_vlist_test3" keywords="[AsyncListView,addItem]" description="Add when there are items, dataProvider is a local ArrayCollection." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,0)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.list = FlexGlobals.topLevelApplication.obj1.ac" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.addItem({info: 'added item', status: 'present'})" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0).info" value="thing 0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(1).info" value="thing 1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(2).info" value="thing 2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(3).info" value="thing 3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(4).info" value="thing 4" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(5).info" value="added item" />
+		
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.ac.getItemAt(0).info" value="thing 0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.ac.getItemAt(1).info" value="thing 1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.ac.getItemAt(2).info" value="thing 2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.ac.getItemAt(3).info" value="thing 3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.ac.getItemAt(4).info" value="thing 4" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.ac.getItemAt(5).info" value="added item" />
+		
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.ac.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.ac.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.ac.getItemAt(2))" value="2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.ac.getItemAt(3))" value="3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.ac.getItemAt(4))" value="4" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.ac.getItemAt(5))" value="5" />
+
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="thing 0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1).nameLabel.text" value="thing 1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(2).nameLabel.text" value="thing 2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(3).nameLabel.text" value="thing 3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(4).nameLabel.text" value="thing 4" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(5).nameLabel.text" value="added item" />
+		
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="6" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_vlist_test4" keywords="[AsyncListView,addItem]" description="Add when there are items, dataProvider is the simulator." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(1,2)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="savedObject = {info: 'added item', status: 'present'}" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.addItem(savedObject)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0).info" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(1).info" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(2).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(savedObject)" value="2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(2).nameLabel.text" value="added item" />
+
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.items.source[0].info" value="item 0 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.items.source[1].info" value="item 1 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.items.source[2].info" value="added item" />
+
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="3" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_vlist_test5" keywords="[AsyncListView,addItem]" description="Add when new item won't be in view, all items pending." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="savedObject = {info: 'added item', status: 'present'}" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.addItem(savedObject)" />	
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'pending', FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(savedObject)" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(11).nameLabel.text" value="item 11 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifySimulatorItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj1.items)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.items.source[30].info" value="added item" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="31" />
+		
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(12)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(13)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(20)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'pending', FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyDataGroupItems(19, 29, 'pending', FlexGlobals.topLevelApplication.obj1.theList.dataGroup)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(30).nameLabel.text" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(savedObject)" value="30" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="31" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_vlist_test6" keywords="[AsyncListView,addItem]" description="Add when new item won't be in view, all items are present." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30,0,30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receivePage()" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="savedObject = {info: 'added item', status: 'present'}" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.addItem(savedObject)" />	
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(savedObject)" value="30" />
+
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifySimulatorItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj1.items)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.items.source[30].info" value="added item" />
+
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="31" />
+		
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(12)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(13)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(20)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyDataGroupItems(19, 29, 'present', FlexGlobals.topLevelApplication.obj1.theList.dataGroup)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(30).nameLabel.text" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(savedObject)" value="30" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="31" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_vlist_test7" keywords="[AsyncListView,addItem]" description="Add when new item won't be in view, all items failed." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30,0,30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj1.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="savedObject = {info: 'added item', status: 'present'}" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.addItem(savedObject)" />	
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'failed', FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(savedObject)" value="30" />
+
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifySimulatorItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj1.items)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.items.source[30].info" value="added item" />
+
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="31" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(12)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(15)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(20)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.theList.ensureIndexIsVisible(30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'failed', FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(FlexGlobals.topLevelApplication.obj1.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.getItemIndex(savedObject)" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyDataGroupItems(19, 29, 'failed', FlexGlobals.topLevelApplication.obj1.theList.dataGroup)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(30).nameLabel.text" value="added item" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="31" />
+	</body>
+</TestCase>
+
+
+
+
+
+<TestCase testID="addItem_nonvlist_test1" keywords="[AsyncListView,addItem]" description="Add when there are no items, dataProvider is a local ArrayCollection." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,0)" />
+		<RunCode code="FlexGlobals.topLevelApplication.storedItem = new ArrayCollection()" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.list = FlexGlobals.topLevelApplication.storedItem" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.addItem({info: 'added item', status: 'present'})" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.storedItem.getItemAt(0).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="added item" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="1" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_nonvlist_test2" keywords="[AsyncListView,addItem]" description="Add when there are no items, dataProvider is the simulator." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,0)" />
+		<RunCode code="savedObject = {info: 'added item', status: 'present'}" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.addItem(savedObject)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theSimulator.source[0].info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(savedObject)" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="added item" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="1" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_nonvlist_test3" keywords="[AsyncListView,addItem]" description="Add when there are items, dataProvider is a local ArrayCollection." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,0)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.list = FlexGlobals.topLevelApplication.obj8.ac" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.addItem({info: 'added item', status: 'present'})" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0).info" value="thing 0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(1).info" value="thing 1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(2).info" value="thing 2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(3).info" value="thing 3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(4).info" value="thing 4" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(5).info" value="added item" />
+		
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.ac.getItemAt(0).info" value="thing 0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.ac.getItemAt(1).info" value="thing 1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.ac.getItemAt(2).info" value="thing 2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.ac.getItemAt(3).info" value="thing 3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.ac.getItemAt(4).info" value="thing 4" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.ac.getItemAt(5).info" value="added item" />
+		
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.ac.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.ac.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.ac.getItemAt(2))" value="2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.ac.getItemAt(3))" value="3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.ac.getItemAt(4))" value="4" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.ac.getItemAt(5))" value="5" />
+
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="thing 0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(1).nameLabel.text" value="thing 1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(2).nameLabel.text" value="thing 2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(3).nameLabel.text" value="thing 3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(4).nameLabel.text" value="thing 4" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(5).nameLabel.text" value="added item" />
+		
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="6" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_nonvlist_test4" keywords="[AsyncListView,addItem]" description="Add when there are items, dataProvider is the simulator." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(1,2)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="savedObject = {info: 'added item', status: 'present'}" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.addItem(savedObject)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />	
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0).info" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(1).info" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(2).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(savedObject)" value="2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(2).nameLabel.text" value="added item" />
+
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theSimulator.source[0].info" value="item 0 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theSimulator.source[1].info" value="item 1 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theSimulator.source[2].info" value="added item" />
+
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="3" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_nonvlist_test5" keywords="[AsyncListView,addItem]" description="Add when new item won't be in view, all items pending." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,30)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="savedObject = {info: 'added item', status: 'present'}" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.addItem(savedObject)" />	
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'pending', FlexGlobals.topLevelApplication.obj8.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(savedObject)" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(11).nameLabel.text" value="item 11 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifySimulatorItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj8.theSimulator)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theSimulator.source[30].info" value="added item" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="31" />
+		
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(12)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(13)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(20)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(30)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'pending', FlexGlobals.topLevelApplication.obj8.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyDataGroupItems(19, 29, 'pending', FlexGlobals.topLevelApplication.obj8.theList.dataGroup)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(30).nameLabel.text" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(savedObject)" value="30" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="31" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_nonvlist_test6" keywords="[AsyncListView,addItem]" description="Add when new item won't be in view, all items are present." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,30,0,30)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receivePage()" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="savedObject = {info: 'added item', status: 'present'}" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.addItem(savedObject)" />	
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj8.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(savedObject)" value="30" />
+
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifySimulatorItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj8.theSimulator)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theSimulator.source[30].info" value="added item" />
+
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="31" />
+		
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(12)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(13)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(20)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(30)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj8.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyDataGroupItems(19, 29, 'present', FlexGlobals.topLevelApplication.obj8.theList.dataGroup)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(30).nameLabel.text" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(savedObject)" value="30" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="31" />
+	</body>
+</TestCase>
+
+<TestCase testID="addItem_nonvlist_test7" keywords="[AsyncListView,addItem]" description="Add when new item won't be in view, all items failed." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,30,0,30)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj8.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failPage()" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="savedObject = {info: 'added item', status: 'present'}" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.addItem(savedObject)" />	
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'failed', FlexGlobals.topLevelApplication.obj8.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(savedObject)" value="30" />
+
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifySimulatorItems(0, 29, 'present', FlexGlobals.topLevelApplication.obj8.theSimulator)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theSimulator.source[30].info" value="added item" />
+
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="31" />
+
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(12)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(15)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(20)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theList.ensureIndexIsVisible(30)" waitTarget="obj8.theList.dataGroup" waitEvent="propertyChange" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyALVItems(0, 29, 'failed', FlexGlobals.topLevelApplication.obj8.alv)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30).info" value="added item" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0))" value="0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(1))" value="1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(29))" value="29" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(FlexGlobals.topLevelApplication.obj8.alv.getItemAt(30))" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.getItemIndex(savedObject)" value="30" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyDataGroupItems(19, 29, 'failed', FlexGlobals.topLevelApplication.obj8.theList.dataGroup)" value="pass" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(30).nameLabel.text" value="added item" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="31" />
+	</body>
+</TestCase>
+
+
+</testCases>
+</UnitTester>

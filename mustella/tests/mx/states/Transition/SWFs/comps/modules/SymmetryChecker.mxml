@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<m:Monitor xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:m="comps.modules.*"
+		   xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Script>
+		<![CDATA[
+			protected var threshold:Number;
+			[Bindable]
+			public var fractionDiff:Number = 0.11;
+			/*
+			 * Human reaction time is 190 milliseconds to detect a visual stimulus. Frames update every 20 milliseconds.
+			 * So, in order for someone to notice a difference, something has to be "off" for 10 frames. This method
+			 * goes through and collects 200 milliseconds of frames, then makes sure they're not off by more than 
+			 * ~11% of the total range of action, which is the experimentally determined max difference between two 
+			 * occurances of the same transition.
+			 */
+			override public function check():void {
+				super.check();
+				if(!passed) return;
+				
+				if(isNaN(threshold)){
+					threshold = Math.abs((initialValues[initialValues.length - 1] - initialValues[0])*fractionDiff);
+				}
+				
+				returnValues = returnValues.reverse();
+				returnUpdates = returnUpdates.reverse();
+				
+				if(Math.abs(returnValues[0] - initialValues[0]) > Math.abs(returnValues[returnValues.length -1] - initialValues[0])){
+					passed = false;
+					error = "SymmetryChecker: Values indicate return path was identical to initial path!";
+					trace(error);
+					return;
+				}
+				
+				for(var i:int = 0; i < initialValues.length || i < returnValues.length; i++){
+					var iSlice:int = 0;
+					for(var ii:Number = 0; ii < 200; iSlice++, ii = initialUpdates[i + iSlice] - initialUpdates[i]){
+						if((i + iSlice + 1) >= initialValues.length){
+							return;
+						}
+					}
+					
+					var rSlice:int = 0;
+					for(var ri:Number = 0; ri < 200; rSlice++, ri = returnUpdates[i] - returnUpdates[i + rSlice]){
+						if((i + rSlice + 1) >= returnValues.length){
+							return;
+						}
+					}
+					
+					var iValues:Vector.<Number> = initialValues.slice(i,i+iSlice);
+					var rValues:Vector.<Number> = returnValues.slice(i,i+rSlice);
+					
+					var iStart:Number = iValues.shift();
+					var iSum:Number = 0;
+					for(var iN:Number=0; iN < iValues.length; iN++){
+						//trace("Slice " + i + ", init value " + iN + " = " + (iValues[iN] - iStart) + ".");
+						iSum = iSum + (iValues[iN] - iStart);
+					}
+					
+					var rStart:Number = rValues.shift();
+					var rSum:Number = 0;
+					for(var rN:Number = 0; rN < rValues.length; rN++){
+						//trace("Slice " + i + ", return value " + rN + " = " + (rValues[rN] - rStart) + ".");
+						rSum = rSum + (rValues[rN] - rStart);
+					}
+					
+					iSum = iSum / (iValues.length + 1);
+					rSum = rSum / (rValues.length + 1);
+					
+					if(Math.abs(iSum - rSum) > threshold){
+						passed = false;
+						trace("SymmetryChecker: FAILED! Value " + Math.abs(iSum - rSum) + " is greater than " + threshold + " at time " + (i*20));
+						return;
+					}else{
+						//trace("-> Slice " + i + " difference of " + Math.abs(iSum - rSum) + ".");
+					}
+				}
+				
+				passed = true;
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</m:Monitor>

@@ -1,0 +1,339 @@
+<UnitTester 
+    testSWF="../SWFs/Blur_main.mxml" 
+    testDir="mx/effects/Blur/object/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase testID="Blur_Button" keywords="[Blur, object, Button]" description="Test Blur on a Button.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Button', application.eff_Blur_X, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_ButtonBar" keywords="[Blur, object, ButtonBar]" description="Test Blur on a ButtonBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ButtonBar', application.eff_Blur_Y, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_CheckBox" keywords="[Blur, object, CheckBox]" description="Test Blur on a CheckBox.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('CheckBox', application.eff_Blur_XY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_ColorPicker" keywords="[Blur, object, ColorPicker]" description="Test Blur on a ColorPicker.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ColorPicker', application.eff_Blur_X, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_ComboBox" keywords="[Blur, object, ComboBox]" description="Test Blur on a ComboBox.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ComboBox', application.eff_Blur_Y, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_DataGrid" keywords="[Blur, object, DataGrid]" description="Test Blur on a DataGrid.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('DataGrid', application.eff_Blur_XY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_DateChooser" keywords="[Blur, object, DateChooser]" description="Test Blur on a DateChooser.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('DateChooser', application.eff_Blur_X, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_DateField" keywords="[Blur, object, DateField]" description="Test Blur on a DateField.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('DateField', application.eff_Blur_Y, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_HorizontalList" keywords="[Blur, object, HorizontalList]" description="Test Blur on a HorizontalList.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HorizontalList', application.eff_Blur_XY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_HRule" keywords="[Blur, object, HRule]" description="Test Blur on a HRule.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HRule', application.eff_Blur_X, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_HScrollBar" keywords="[Blur, object, HScrollBar]" description="Test Blur on a HScrollBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HScrollBar', application.eff_Blur_Y, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_HSlider" keywords="[Blur, object, HSlider]" description="Test Blur on a HSlider.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HSlider', application.eff_Blur_XY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_Image" keywords="[Blur, object, Image]" description="Test Blur on a Image.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Image', application.eff_Blur_X, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_Label" keywords="[Blur, object, Label]" description="Test Blur on a Label.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Label', application.eff_Blur_Y, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_List" keywords="[Blur, object, List]" description="Test Blur on a List.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('List', application.eff_Blur_XY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_MenuBar" keywords="[Blur, object, MenuBar]" description="Test Blur on a MenuBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('MenuBar', application.eff_Blur_X, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_NumericStepper" keywords="[Blur, object, NumericStepper]" description="Test Blur on a NumericStepper.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('NumericStepper', application.eff_Blur_Y, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_PopUpButton" keywords="[Blur, object, PopUpButton]" description="Test Blur on a PopUpButton.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('PopUpButton', application.eff_Blur_XY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_PopUpMenuButton" keywords="[Blur, object, PopUpMenuButton]" description="Test Blur on a PopUpMenuButton.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('PopUpMenuButton', application.eff_Blur_X, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_ProgressBar" keywords="[Blur, object, ProgressBar]" description="Test Blur on a ProgressBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ProgressBar', application.eff_Blur_Y, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_RadioButton" keywords="[Blur, object, RadioButton]" description="Test Blur on a RadioButton.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('RadioButton', application.eff_Blur_XY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_RichTextEditor" keywords="[Blur, object, RichTextEditor]" description="Test Blur on a RichTextEditor.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('RichTextEditor', application.eff_Blur_X, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_TabBar" keywords="[Blur, object, TabBar]" description="Test Blur on a TabBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TabBar', application.eff_Blur_Y, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_Text" keywords="[Blur, object, Text]" description="Test Blur on a Text.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Text', application.eff_Blur_XY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_TextArea" keywords="[Blur, object, TextArea]" description="Test Blur on a TextArea.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TextArea', application.eff_Blur_X, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_TextInput" keywords="[Blur, object, TextInput]" description="Test Blur on a TextInput.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TextInput', application.eff_Blur_Y, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_TileList" keywords="[Blur, object, TileList]" description="Test Blur on a TileList.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TileList', application.eff_Blur_XY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_ToggleButtonBar" keywords="[Blur, object, ToggleButtonBar]" description="Test Blur on a ToggleButtonBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ToggleButtonBar', application.eff_Blur_X, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_Tree" keywords="[Blur, object, Tree]" description="Test Blur on a Tree.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Tree', application.eff_Blur_Y, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_VRule" keywords="[Blur, object, VRule]" description="Test Blur on a VRule.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('VRule', application.eff_Blur_XY, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_VScrollBar" keywords="[Blur, object, VScrollBar]" description="Test Blur on a VScrollBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('VScrollBar', application.eff_Blur_X, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Blur_VSlider" keywords="[Blur, object, VSlider]" description="Test Blur on a VSlider.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('VSlider', application.eff_Blur_Y, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+       
+    </testCases>
+</UnitTester>

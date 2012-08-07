@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+	width="100%"
+	height="100%"
+    backgroundColor="0xFFFFFF">
+
+    <fx:Script>
+        <![CDATA[
+        ]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        <mx:Pause id="testPause" />
+
+        <mx:Pause id="eventPauseEffect" duration="500" target="{new Object()}"/>
+
+        <mx:Pause id="varPause" />
+
+        <mx:Sequence id="tp1">
+            <s:AnimateColor id="tp1_TintA" colorFrom="0x00000" colorTo="0xFF0000" target="{testFill}" duration="500"/>
+            <mx:Pause id="tp1_Pause" duration="1000"/>
+            <s:AnimateColor id="tp1_TintB" colorFrom="0xFF0000" colorTo="0x000000" target="{testFill}" duration="500"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp2">
+            <s:AnimateColor id="tp2_TintA" colorFrom="0x00000" colorTo="0xFF0000" target="{testFill}" duration="500"/>
+            <mx:Pause id="tp2_Pause" target="{haloButton}" eventName="click" duration="-1"/>
+            <s:AnimateColor id="tp2_TintB" colorFrom="0xFF0000" colorTo="0x000000" target="{testFill}" duration="500"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp3">
+            <s:AnimateColor id="tp3_TintA" colorFrom="0x00000" colorTo="0xFF0000" target="{testFill}" duration="300"/>
+            <mx:Pause id="tp3_Pause" duration="300" target="{haloButton}" eventName="click"/>
+            <s:AnimateColor id="tp3_TintB" colorFrom="0xFF0000" colorTo="0x000000" target="{testFill}" duration="300"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp4">
+            <s:AnimateColor id="tp4_TintA" colorFrom="0x00000" colorTo="0xFF0000" target="{testFill}" duration="300"/>
+            <mx:Pause id="tp4_Pause" duration="1500" target="{haloButton}" eventName="click"/>
+            <s:AnimateColor id="tp4_TintB" colorFrom="0xFF0000" colorTo="0x000000" target="{testFill}" duration="300"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp5" target="{testFill}">
+            <mx:Pause duration="-1" target="{haloButton}" eventName="click"/>
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x00FFFF"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp6">
+            <mx:Pause duration="-1"/>
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x00FFFF" target="{testFill}"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp7" target="{testFill}">
+            <mx:Pause duration="0"/>
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x00FFFF" />
+        </mx:Sequence>
+
+        <mx:Sequence id="tp8" target="{testFill}">
+            <mx:Pause duration="250" repeatCount="4"/>
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x00FFFF" duration="250"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp9" target="{testFill}">
+            <mx:Pause duration="250" startDelay="1000"/>
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x00FFFF" duration="250"/>
+        </mx:Sequence>
+
+        <mx:Sequence id="tp10" target="{testFill}">
+            <mx:Pause id="tp10_Pause" duration="1000" />
+            <s:AnimateColor colorFrom="0xFF0000" colorTo="0x00FFFF" duration="250"/>
+        </mx:Sequence>
+
+    </fx:Declarations>
+
+    <s:states>
+        <s:State name="State1"/>
+        <s:State name="State2"/>
+    </s:states>
+
+    <s:transitions>
+        <mx:Transition fromState="State1" toState="State2" effect="{eventPauseEffect}"/>
+    </s:transitions>
+
+    <s:Group id="testGroup"
+    	left="10"
+    	top="10"
+    	height="50"
+    	width="50">
+
+        <s:Path
+        	top="0"
+        	left="0"
+        	bottom="0"
+        	right="0"
+        	data="M 50 50 L 0 0 50 0 Z" >
+
+            <s:fill>
+                <mx:SolidColor id="testFill" color="0x0eed9b"/>
+            </s:fill>
+            <s:stroke>
+                <mx:SolidColorStroke id="testStroke" color="0x666666" weight="5"/>
+            </s:stroke>
+        </s:Path>
+    </s:Group>
+
+    <mx:Button id="haloButton"
+    	left="80"
+    	top="10"
+    	width="100"
+    	color="0xFF"
+    	label="Halo Button"/>
+
+    <s:Button id="gumboButton"
+    	left="200"
+    	top="10"
+    	width="100"
+    	label="Gumbo Button"/>
+
+</s:Application>

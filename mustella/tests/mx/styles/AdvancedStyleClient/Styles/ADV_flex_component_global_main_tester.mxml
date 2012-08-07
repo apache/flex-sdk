@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ADV_flex_component_global_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import assets.styleTest.ADVStyleTestClass;
+			import assets.styleTest.ADVStyleTestVo;
+			import assets.styleTest.ADVStyleTestConstants;
+			import assets.styleTest.ADVStyleTestEvent;
+			import assets.styleTest.ADVStyleTestClassUIComp;
+			import mx.core.FlexGlobals;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<!--This test case is to test the descendant Selector in component-->
+		<TestCase testID="ADV_component_global_selector_BorderContainer_test1" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, BorderContainer]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexBorderContainerComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexBorderContainerComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexBorderContainerComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexBorderContainerComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexBorderContainerComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_DataGroup_test2" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, DataGroup]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexDataGroupComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexDataGroupComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexDataGroupComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexDataGroupComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexDataGroupComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_Group_test3" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, Group]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexGroupComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexGroupComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexGroupComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexGroupComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<!--AssertPropertyValue target="advStyleTest_FlexGroupComponent.styleLabel" propertyName="text" value="defaultString:21:345" /-->
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.advStyleTest_FlexGroupComponent.componentADV.getMyStyleLabel()" value="defaultString:21:345"/>								 
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_mx_Accordion_test4" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx Accordion]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxAccordionComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexMxAccordionComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxAccordionComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxAccordionComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexMxAccordionComponent.styleLabel" propertyName="label" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_mx_ApplicationControlBar_test5" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxApplicationControlBarComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexMxApplicationControlBarComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxApplicationControlBarComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxApplicationControlBarComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexMxApplicationControlBarComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_mx_Box_test6" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx Box]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxBoxComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexMxBoxComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxBoxComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxBoxComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexMxBoxComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_mx_Canvas_test7" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx Canvas]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxCanvasComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexMxCanvasComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxCanvasComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxCanvasComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexMxCanvasComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_mx_ControlBar_test8" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx ControlBar]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxControlBarComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexMxControlBarComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxControlBarComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxControlBarComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexMxControlBarComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_mx_DividedBox_test9" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx DividedBox]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxDividedBoxComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexMxDividedBoxComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxDividedBoxComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxDividedBoxComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexMxDividedBoxComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_mx_Form_test10" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx Form]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxFormComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexMxFormComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxFormComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxFormComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexMxFormComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_mx_Grid_test11" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx Grid]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxGridComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexMxGridComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxGridComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxGridComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexMxGridComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_Panel_test12" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx Panel]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxPanelComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexMxPanelComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxPanelComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxPanelComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexMxPanelComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_mx_TabNavigator_test13" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx TabNavigator]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxTabNavigatorComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexMxTabNavigatorComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxTabNavigatorComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxTabNavigatorComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexMxTabNavigatorComponent.styleLabel" propertyName="label" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_mx_Tile_test14" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx Tile]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxTileComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexMxTileComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxTileComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxTileComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexMxTileComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_mx_ViewStack_NavigatorContent_test15" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, mx ViewStack, NavigatorContent]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexNavigatorContentMxVSComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexNavigatorContentMxVSComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexNavigatorContentMxVSComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexNavigatorContentMxVSComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexNavigatorContentMxVSComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_Panel_test16" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, spark Panel]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexPanelComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexPanelComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexPanelComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexPanelComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexPanelComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_component_global_selector_SkinnableDataContainer_test17" 
+				  description="This test case is to test the global Selector in component" 
+				  keywords="[ADVStyleTestClass, FlexComponent, global Selector, spark SkinnableDataContainer]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexSkinnableDataContainerComponent.componentADV"
+								  value="defaultString"/>
+				<AssertStyleValue styleName="teststyle_2_number_noinh" target="advStyleTest_FlexSkinnableDataContainerComponent.componentADV"
+								  valueExpression="value=21"/>
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexSkinnableDataContainerComponent.componentADV"
+								  valueExpression="value=345"/>
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexSkinnableDataContainerComponent.componentADV"
+								  valueExpression="value=5000"/>
+				<AssertPropertyValue target="advStyleTest_FlexSkinnableDataContainerComponent.styleLabel" propertyName="text" value="defaultString:21:345" />
+				
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

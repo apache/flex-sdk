@@ -1,0 +1,121 @@
+<UnitTester
+    testSWF="../SWFs/Transition_main.mxml"
+    testDir="mx/states/Transition/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import mx.states.Transition;
+        
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <testCases>
+
+        <!-- fromState -->
+        <TestCase testID="Transition_fromState_Default" keywords="[Transition, variable, fromState]" description="Test the default value of the fromState variable.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_fromState_Default'"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=(new Transition()).fromState" value="*"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_fromState" keywords="[Transition, variable, fromState]" description="Test the value of the fromState variable for an mxml initialized transition.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_fromState'"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="t_s1s2" propertyName="fromState" value="State1"/>
+            </body>
+        </TestCase>
+
+        <!-- autoReverse -->
+        <TestCase testID="Transition_autoReverse_Default" keywords="[Transition, variable, autoReverse]" description="Test the default value of the autoReverse variable.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_autoReverse_Default'"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=(new Transition()).autoReverse" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_autoReverse_true" keywords="[Transition, variable, autoReverse]" description="Test that autoReverse works.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_autoReverse_true'"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State2'"/>
+                <Pause timeout="1000"/>
+                <RunCode code="application.currentState='State1'" waitTarget="p_s2s1" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="btn" propertyName="x" value="0"/>
+            </body>
+        </TestCase>
+
+
+        <!-- effect -->
+        <TestCase testID="Transition_effect_Default" keywords="[Transition, variable, effect]" description="Test the default value of the effect variable.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_effect_Default'"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=(new Transition()).effect" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_effect" keywords="[Transition, variable, effect]" description="Test the value of the effect variable for an mxml initialized transition.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_effect'"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=(application.t_s1s2.effect == application.p_s1s2)" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_effect_play" keywords="[Transition, variable, effect]" description="Test that the transition effect plays when changing fromState toState.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_effect_play'"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State2'" waitTarget="p_s1s2" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_effect_none" keywords="[Transition, variable, effect]" description="Test that the transition works with no effect.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_effect_none'"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State3'"/>
+                <AssertPropertyValue target="btn" propertyName="x" value="200"/>
+            </body>
+        </TestCase>
+
+
+        <!-- toState -->
+        <TestCase testID="Transition_toState_Default" keywords="[Transition, variable, toState]" description="Test the default value of the toState variable.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_toState_Default'"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=(new Transition()).toState" value="*"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_toState" keywords="[Transition, variable, toState]" description="Test the value of the toState variable for an mxml initialized transition.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_toState'"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="t_s1s2" propertyName="toState" value="State2"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:assets="assets.*"
+    layout="absolute"
+	width="1200" height="600"
+    backgroundColor="0xFFFFFF" >
+
+
+
+    <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF:true;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        global
+        {
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+        }
+    </fx:Style>
+
+    <fx:Script>
+        <![CDATA[
+        import flash.utils.*;
+        
+        
+        private var startTime:int;
+        private var stopTime:int;
+        public var elapsed:int;
+        
+        
+        public function StartTimer():void
+        {
+            this.startTime = flash.utils.getTimer();
+        }
+        
+        public function StopTimer():void
+        {
+            this.stopTime = flash.utils.getTimer();
+            this.elapsed = this.stopTime - this.startTime;
+        }
+        
+        public function IsElapsedLess(value:int):Boolean
+        {
+            this.elapsed = this.stopTime - this.startTime;
+            
+            return (elapsed < value);
+        }
+
+        public function IsElapsedGreater(value:int):Boolean
+        {
+            this.elapsed = this.stopTime - this.startTime;
+            
+            return (elapsed > value);
+        }
+
+        public function IsElapsedIn(low:int, high:int):Boolean
+        {
+            this.elapsed = this.stopTime - this.startTime;
+            
+            return (((this.elapsed >= low) && (this.elapsed <= high)));
+        }
+        ]]>
+    </fx:Script>
+
+    <mx:states>
+        <!-- Parallel states -->
+        <s:State name="State1"/>
+        <s:State name="State2"/>
+        <s:State name="State3"/>
+        <s:State name="State4"/>
+        <s:State name="State5"/>
+        <s:State name="State6"/>
+        <s:State name="State7"/>
+
+        <!-- Sequence states -->
+        <s:State name="State8"/>
+
+        <!-- Transitive state -->
+        <s:State name="Empty"/>
+    </mx:states>
+
+    <mx:transitions>
+        <!-- Parallel transitions -->
+        <mx:Transition id="t_s1s2" fromState="State1" toState="State2" effect="{p_s1s2}" autoReverse="true"/>
+        <mx:Transition id="t_s2s1" fromState="State2" toState="State1" effect="{p_s2s1}"/>
+
+        <mx:Transition id="t_s1s3" fromState="State1" toState="State3"/>
+
+        <mx:Transition id="t_s1s4" fromState="State1" toState="State4" effect="{s1s4}" autoReverse="true"/>
+        <mx:Transition id="t_s4s1" fromState="State4" toState="State1" effect="{s4s1}"/>
+
+        <mx:Transition id="t_s1s5" fromState="State1" toState="State5" effect="{p_s1s5}" autoReverse="true"/>
+        <mx:Transition id="t_s5s1" fromState="State5" toState="State1" effect="{p_s5s1}"/>
+
+        <mx:Transition id="t_s1s6" fromState="State1" toState="State6" effect="{p_s1s6}" autoReverse="true"/>
+        <mx:Transition id="t_s6s1" fromState="State6" toState="State1" effect="{p_s6s1}"/>
+
+        <mx:Transition id="t_s1s7" fromState="State1" toState="State7" effect="{p_s1s7}" autoReverse="true"/>
+        <mx:Transition id="t_s7s1" fromState="State7" toState="State1" effect="{p_s7s1}"/>
+
+        <!-- Sequence transitions -->
+        <mx:Transition id="t_s1s8" fromState="State1" toState="State8" effect="{s_s1s8}" autoReverse="true"/>
+        <mx:Transition id="t_s8s1" fromState="State8" toState="State1" effect="{s_s8s1}"/>
+    </mx:transitions>
+
+    <fx:Declarations>
+        <mx:Parallel id="p_s1s2" target="{btn}" duration="2000">
+            <s:Move/>
+        </mx:Parallel>
+        <mx:Parallel id="p_s2s1" target="{btn}" duration="2000">
+            <s:Move/>
+        </mx:Parallel>
+
+        <s:Move id="s1s4" target="{btn}" duration="1000" startDelay="500"/>
+        <s:Move id="s4s1" target="{btn}" duration="1000"/>
+
+        <mx:Parallel id="p_s1s5" target="{fxbtn}">
+            <s:Move/>
+            <s:Fade startDelay="1000" duration="1000"/>
+        </mx:Parallel>
+        <mx:Parallel id="p_s5s1" target="{fxbtn}">
+            <s:Fade id="s5s1_FxFade" duration="1000"/>
+            <s:Move startDelay="1500"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="p_s1s6" target="{fxbtn}">
+            <s:Move/>
+            <s:Fade startDelay="1000" duration="1000" repeatCount="3" repeatBehavior="reverse"/>
+        </mx:Parallel>
+        <mx:Parallel id="p_s6s1" target="{fxbtn}">
+            <s:Fade duration="1000" repeatCount="3" repeatBehavior="reverse"/>
+            <s:Move startDelay="3500"/>
+        </mx:Parallel>
+
+        <mx:Parallel id="p_s1s7" target="{btn2}">
+            <s:Move startDelay="500" duration="1000"/>
+            <s:Resize startDelay="1000" duration="1000"/>
+            <s:Fade startDelay="2000" duration="1000"/>
+        </mx:Parallel>
+        <mx:Parallel id="p_s7s1" target="{btn2}">
+            <s:Fade duration="1000"/>
+            <s:Resize startDelay="1000" duration="1000"/>
+            <s:Move startDelay="1500" duration="1000"/>
+        </mx:Parallel>
+
+        
+        <mx:Sequence id="s_s1s8" target="{btn3}">
+            <s:Move startDelay="500" duration="1000"/>
+            <s:Resize startDelay="500" duration="1000"/>
+            <s:Fade startDelay="500" duration="1000"/>
+        </mx:Sequence>
+        <mx:Sequence id="s_s8s1" target="{btn3}">
+            <s:Fade duration="1000"/>
+            <s:Resize startDelay="500" duration="1000"/>
+            <s:Move startDelay="500" duration="1000"/>
+            <mx:Pause duration="500"/>
+        </mx:Sequence>
+    </fx:Declarations>
+
+    <mx:Label id="lbl"
+        x="0"
+        y="0"
+        text="Launching..."/>
+
+    <mx:Button id="btn"
+        y="20"
+        x="0" x.State2="100" x.State3="200" x.State4="100"
+        width="100"
+        label="Button"/>
+
+    <s:Button id="fxbtn"
+        y="50"
+        x="0" x.State5="100"
+        alpha="1" alpha.State5="0" alpha.State6="0"
+        width="100"
+        label="Button"/>
+
+    <mx:Button id="btn2"
+        y="80"
+        x="0" x.State7="100"
+        width="100" width.State7="200"
+        alpha="1" alpha.State7="0"
+        click="{this.currentState == 'State1'? this.currentState='State7' : this.currentState='State1';}"
+        label="Button"/>
+
+    <s:Button id="btn3"
+        y="110"
+        x="0" x.State8="100"
+        width="100" width.State8="200"
+        alpha="1" alpha.State8="0"
+        click="{this.currentState == 'State1'? this.currentState='State8' : this.currentState='State1';}"
+        label="Button"/>
+</mx:Application>

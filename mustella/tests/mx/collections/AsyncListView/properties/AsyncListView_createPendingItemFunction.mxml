@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	testDir="mx/collections/AsyncListView/properties/"
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns="*" 
+	xmlns:assets="assets.*"
+	testSWF="AsyncListView_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+		import assets.*;
+		import mx.core.FlexGlobals;
+
+		public var savedItem:Object;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+A reminder:
+
+public function setup( responseDelay:int = 500,
+						numItems:int = 100,
+						numPreloadedPages:int = 0,
+						pageSize:int = 1,
+						mode:String = 'manual',
+						failureProbability:int = 0,
+						createPendingItemFunction:Boolean = true,
+						createFailedItemFunction:Boolean = true):void{
+
+setup2: Replaces the booleans with functions.
+-->
+
+<TestCase testID="createPendingItemFunction_test1" keywords="[AsyncListView,createPendingItemFunction]" description="Verify properties of the ipe param.  This is sent by the server...in this case, the simulator" >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup2(1,10,0,1,'manual',1,FlexGlobals.topLevelApplication.obj1.pendingFunctionWhichSavesTheIPE)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.ipe" value="Error: Items: 9 through 9 must be resolved by calling receivePage" />
+	</body>
+</TestCase>
+
+<TestCase testID="createPendingItemFunction_test2" keywords="[AsyncListView,createPendingItemFunction]" description="Default function, which returns a null object." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(1,10,0,1,'manual',1,false,false)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(0)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="null" />
+	</body>
+</TestCase>
+
+<TestCase testID="createPendingItemFunction_test3" keywords="[AsyncListView,createPendingItemFunction]" description="Set the function to null." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup2(1,10,0,1,'manual',1,null)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(0)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="null" />
+	</body>
+</TestCase>
+
+<TestCase testID="createPendingItemFunction_test4" keywords="[AsyncListView,createPendingItemFunction]" description="Change the function after it has been used for some items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(1,30)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="obj1.alv" propertyName="createPendingItemFunction" valueExpression="value = FlexGlobals.topLevelApplication.obj1.pendingFunction2" />
+		<RunCode code="trace(FlexGlobals.topLevelApplication.obj1)" />
+		<RunCode code="trace(FlexGlobals.topLevelApplication.obj1.theList)" />
+		<RunCode code="trace(FlexGlobals.topLevelApplication.obj1.theList.scroller)" />
+		<RunCode code="trace(FlexGlobals.topLevelApplication.obj1.theList.scroller.viewport)" />
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="30" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(12).info" value="item 12 really pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(12).status" value="pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(12).nameLabel.text" value="item 12 really pending" />
+	</body>
+</TestCase>
+
+<!--
+	It's impossible to catch these in Mustella.
+
+<TestCase testID="createPendingItemFunction_test5" keywords="[AsyncListView,createPendingItemFunction]" description="Set a createPendingItemFunction which has no parameters." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="try{ FlexGlobals.topLevelApplication.obj1.setup2(1,10,0,1,'manual',1,FlexGlobals.topLevelApplication.obj1.pendingFunction3) } catch(e:Error) { value = e.message; }" value="Error #1063: Argument count mismatch on assets::PagedDataComp1/pendingFunction3(). Expected 0, got 2." />
+	</body>
+</TestCase>
+
+<TestCase testID="createPendingItemFunction_test6" keywords="[AsyncListView,createPendingItemFunction]" description="Set a createPendingItemFunction which has one parameter." >
+
+-->
+
+<TestCase testID="createPendingItemFunction_test7" keywords="[AsyncListView,createPendingItemFunction]" description="Set a createPendingItemFunction which has two mismatched parameters." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup2(1,10,0,1,'manual',1,FlexGlobals.topLevelApplication.obj1.pendingFunction5)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(0).info" value="0 Error: Items: 0 through 0 must be resolved by calling receivePage" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(0).status" value="pending" />
+	</body>
+</TestCase>
+
+<TestCase testID="createPendingItemFunction_test8" keywords="[AsyncListView,createPendingItemFunction]" description="Set a createPendingItemFunction which has no return value." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup2(1,10,0,1,'manual',1,FlexGlobals.topLevelApplication.obj1.pendingFunction6)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataProvider.getItemAt(0)" value="null" />
+	</body>
+</TestCase>
+
+</testCases>
+</UnitTester>

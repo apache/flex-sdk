@@ -1,0 +1,469 @@
+<UnitTester 
+    testSWF="../SWFs/Parallel_main.mxml" 
+    testDir="mx/effects/Parallel/seek/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- Blur -->
+        <TestCase testID="Parallel_seek_Blur" keywords="[Parallel, Seek, Blur]" description="Seek the Blur effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_Blur')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_Blur.png" />
+            </body>
+        </TestCase>
+        <!-- Dissolve -->
+        <TestCase testID="Parallel_seek_Dissolve" keywords="[Parallel, Seek, Dissolve]" description="Seek the Dissolve effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_Dissolve')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_Dissolve.png" />
+            </body>
+        </TestCase>
+        <!-- Fade -->
+        <TestCase testID="Parallel_seek_Fade" keywords="[Parallel, Seek, Fade]" description="Seek the Fade effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_Fade')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_Fade.png" />
+            </body>
+        </TestCase>
+        <!-- Glow -->
+        <TestCase testID="Parallel_seek_Glow" keywords="[Parallel, Seek, Glow]" description="Seek the Glow effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_Glow')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_Glow.png" />
+            </body>
+        </TestCase>
+        <!-- Iris -->
+        <TestCase testID="Parallel_seek_Iris" keywords="[Parallel, Seek, Iris]" description="Seek the Iris effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_Iris')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_Iris.png" />
+            </body>
+        </TestCase>
+        <!-- MaskEffect -->
+        <TestCase testID="Parallel_seek_MaskEffect" keywords="[Parallel, Seek, MaskEffect]" description="Seek the MaskEffect effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_MaskEffect')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_MaskEffect.png" />
+            </body>
+        </TestCase>
+        <!-- Move -->
+        <TestCase testID="Parallel_seek_Move" keywords="[Parallel, Seek, Move]" description="Seek the Move effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_Move')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_Move.png" />
+            </body>
+        </TestCase>
+        <!-- Resize -->
+        <TestCase testID="Parallel_seek_Resize" keywords="[Parallel, Seek, Resize]" description="Seek the Resize effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_Resize')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_Resize.png" />
+            </body>
+        </TestCase>
+        <!-- Rotate -->
+        <TestCase testID="Parallel_seek_Rotate" keywords="[Parallel, Seek, Rotate]" description="Seek the Rotate effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_Rotate')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_Rotate.png" />
+            </body>
+        </TestCase>
+        <!-- WipeDown -->
+        <TestCase testID="Parallel_seek_WipeDown" keywords="[Parallel, Seek, WipeDown]" description="Seek the WipeDown effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_WipeDown')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_WipeDown.png" />
+            </body>
+        </TestCase>
+        <!-- WipeLeft -->
+        <TestCase testID="Parallel_seek_WipeLeft" keywords="[Parallel, Seek, WipeLeft]" description="Seek the WipeLeft effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_WipeLeft')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_WipeLeft.png" />
+            </body>
+        </TestCase>
+        <!-- WipeRight -->
+        <TestCase testID="Parallel_seek_WipeRight" keywords="[Parallel, Seek, WipeRight]" description="Seek the WipeRight effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_WipeRight')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_WipeRight.png" />
+            </body>
+        </TestCase>
+        <!-- WipeUp -->
+        <TestCase testID="Parallel_seek_WipeUp" keywords="[Parallel, Seek, WipeUp]" description="Seek the WipeUp effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_WipeUp')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_WipeUp.png" />
+            </body>
+        </TestCase>
+        <!-- Zoom -->
+        <TestCase testID="Parallel_seek_Zoom" keywords="[Parallel, Seek, Zoom]" description="Seek the Zoom effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_Zoom')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_Zoom.png" />
+            </body>
+        </TestCase>
+        <!-- FxAnimate -->
+        <TestCase testID="Parallel_seek_FxAnimate" keywords="[Parallel, Seek, FxAnimate]" description="Seek the FxAnimate effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxAnimate')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxAnimate.png" />
+            </body>
+        </TestCase>
+        <!-- FxAnimateColor -->
+        <TestCase testID="Parallel_seek_FxAnimateColor" keywords="[Parallel, Seek, FxAnimateColor]" description="Seek the FxAnimateColor effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxAnimateColor')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxAnimateColor.png" />
+            </body>
+        </TestCase>
+        <!-- FxFade -->
+        <TestCase testID="Parallel_seek_FxFade" keywords="[Parallel, Seek, FxFade]" description="Seek the FxFade effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxFade')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxFade.png" />
+            </body>
+        </TestCase>
+        <!-- FxMove -->
+        <TestCase testID="Parallel_seek_FxMove" keywords="[Parallel, Seek, FxMove]" description="Seek the FxMove effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxMove')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxMove.png" />
+            </body>
+        </TestCase>
+        <!-- FxResize -->
+        <TestCase testID="Parallel_seek_FxResize" keywords="[Parallel, Seek, FxResize]" description="Seek the FxResize effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxResize')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxResize.png" />
+            </body>
+        </TestCase>
+        <!-- FxRotate -->
+        <TestCase testID="Parallel_seek_FxRotate" keywords="[Parallel, Seek, FxRotate]" description="Seek the FxRotate effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxRotate')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxRotate.png" />
+            </body>
+        </TestCase>
+        <!-- FxRotate3D -->
+        <TestCase testID="Parallel_seek_FxRotate3D" keywords="[Parallel, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxRotate3D')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxRotate3D.png" numColorVariances="5" maxColorVariance="10" />
+            </body>
+        </TestCase>
+
+
+
+        <!-- MoveRotate -->
+        <TestCase testID="Parallel_seek_MoveRotate" keywords="[Parallel, Seek, MoveRotate]" description="Seek the MoveRotate parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_MoveRotate')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_MoveRotate.png" />
+            </body>
+        </TestCase>
+        <!-- MoveResize -->
+        <TestCase testID="Parallel_seek_MoveResize" keywords="[Parallel, Seek, MoveResize]" description="Seek the MoveResize parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_MoveResize')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_MoveResize.png" />
+            </body>
+        </TestCase>
+        <!-- ResizeRotate -->
+        <TestCase testID="Parallel_seek_ResizeRotate" keywords="[Parallel, Seek, ResizeRotate]" description="Seek the ResizeRotate parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_ResizeRotate')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_ResizeRotate.png" />
+            </body>
+        </TestCase>
+        <!-- RotateMaskEffect -->
+        <TestCase testID="Parallel_seek_RotateMaskEffect" keywords="[Parallel, Seek, RotateMaskEffect]" description="Seek the RotateMaskEffect parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_RotateMaskEffect')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_RotateMaskEffect.png" />
+            </body>
+        </TestCase>
+        <!-- RotateWipeLeft -->
+        <TestCase testID="Parallel_seek_RotateWipeLeft" keywords="[Parallel, Seek, RotateWipeLeft]" description="Seek the RotateWipeLeft parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_RotateWipeLeft')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_RotateWipeLeft.png" />
+            </body>
+        </TestCase>
+        <!-- RotateZoom -->
+        <TestCase testID="Parallel_seek_RotateZoom" keywords="[Parallel, Seek, RotateZoom]" description="Seek the RotateZoom parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_RotateZoom')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_RotateZoom.png" />
+            </body>
+        </TestCase>
+        <!-- MoveZoom -->
+        <TestCase testID="Parallel_seek_MoveZoom" keywords="[Parallel, Seek, MoveZoom]" description="Seek the MoveZoom parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_MoveZoom')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_MoveZoom.png" />
+            </body>
+        </TestCase>
+        <!-- Plethora -->
+        <TestCase testID="Parallel_seek_Plethora" keywords="[Parallel, Seek, Plethora]" description="Seek the Plethora parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_Plethora')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_Plethora.png" />
+            </body>
+        </TestCase>
+        <!-- FxMoveFxRotate -->
+        <TestCase testID="Parallel_seek_FxMoveFxRotate" keywords="[Parallel, Seek, FxMoveFxRotate]" description="Seek the FxMoveFxRotate parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxMoveFxRotate')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxMoveFxRotate.png" />
+            </body>
+        </TestCase>
+        <!-- FxMoveResize -->
+        <TestCase testID="Parallel_seek_FxMoveResize" keywords="[Parallel, Seek, FxMoveResize]" description="Seek the FxMoveResize parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxMoveResize')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxMoveResize.png" />
+            </body>
+        </TestCase>
+        <!-- ResizeFxRotate -->
+        <TestCase testID="Parallel_seek_ResizeFxRotate" keywords="[Parallel, Seek, ResizeFxRotate]" description="Seek the ResizeFxRotate parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_ResizeFxRotate')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_ResizeFxRotate.png" />
+            </body>
+        </TestCase>
+        <!-- FxRotateMaskEffect -->
+        <TestCase testID="Parallel_seek_FxRotateMaskEffect" keywords="[Parallel, Seek, FxRotateMaskEffect]" description="Seek the FxRotateMaskEffect parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxRotateMaskEffect')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxRotateMaskEffect.png" />
+            </body>
+        </TestCase>
+        <!-- FxRotateWipeLeft -->
+        <TestCase testID="Parallel_seek_FxRotateWipeLeft" keywords="[Parallel, Seek, FxRotateWipeLeft]" description="Seek the FxRotateWipeLeft parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxRotateWipeLeft')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxRotateWipeLeft.png" />
+            </body>
+        </TestCase>
+        <!-- FxRotateZoom -->
+        <TestCase testID="Parallel_seek_FxRotateZoom" keywords="[Parallel, Seek, FxRotateZoom]" description="Seek the FxRotateZoom parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxRotateZoom')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxRotateZoom.png" />
+            </body>
+        </TestCase>
+        <!-- FxMoveZoom -->
+        <TestCase testID="Parallel_seek_FxMoveZoom" keywords="[Parallel, Seek, FxMoveZoom]" description="Seek the FxMoveZoom parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxMoveZoom')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxMoveZoom.png" />
+            </body>
+        </TestCase>
+        <!-- FxRotate3DMove -->
+        <TestCase testID="Parallel_seek_FxRotate3DMove" keywords="[Parallel, Seek, FxRotate3DMove]" description="Seek the FxRotate3DMove parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxRotate3DMove')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxRotate3DMove.png" numColorVariances="6" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        <!-- FxRotate3DZoom -->
+        <TestCase testID="Parallel_seek_FxRotate3DZoom" keywords="[Parallel, Seek, FxRotate3DZoom]" description="Seek the FxRotate3DZoom parallel effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_FxRotate3DZoom')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_FxRotate3DZoom.png" numColorVariances="5" maxColorVariance="10" />
+            </body>
+        </TestCase>
+
+
+
+        <!-- Functionality -->
+        <TestCase testID="Parallel_seek_IntoSD" keywords="[Parallel, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <RunCode code="application.SelectCanvas('Button')" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_IntoSD')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_IntoSD.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_seek_IntoRC1" keywords="[Parallel, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_IntoRC1')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_IntoRC1.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_seek_IntoRC2" keywords="[Parallel, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_IntoRC2')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_IntoRC2.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_seek_IntoRC2SD" keywords="[Parallel, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_IntoRC2SD')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_IntoRC2SD.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_seek_IntoRD" keywords="[Parallel, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_IntoRD')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_IntoRD.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_seek_IntoRCLoop" keywords="[Parallel, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_IntoRCLoop')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_IntoRCLoop.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Parallel_seek_IntoRCReverse" keywords="[Parallel, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Parallel_seek_IntoRCReverse')" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/Parallel_seek_IntoRCReverse.png" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

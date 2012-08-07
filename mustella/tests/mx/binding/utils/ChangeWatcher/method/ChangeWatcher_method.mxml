@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="mx/binding/utils/ChangeWatcher/method/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/ChangeWatcher_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import mx.binding.utils.*;
+        import mx.controls.TextInput;
+        import assets.*;
+
+        public var setterArg:Object;
+        public var otherSetterArg:Object;
+        public var changer:ChangeWatcher;
+        public var bounder:BoundObject;
+        
+        public static function init(o:DisplayObject):void{}
+        
+        private function nullHost():Boolean
+        {
+            try{ChangeWatcher.canWatch(null, 'text');}
+            catch(error:Error){return(true);}
+            return(false);
+        }        
+        
+        private function nullName():Boolean
+        {
+            try{ChangeWatcher.canWatch(new TextInput(), null);}
+            catch(error:Error){return(true);}
+            return(false);
+        }        
+
+        public function TargetSetter(object:Object):void
+        {
+            this.setterArg = object;
+        }
+        
+        public function OtherTargetSetter(object:Object):void
+        {
+            this.otherSetterArg = object;
+        }
+
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- canWatch/static -->
+        <TestCase testID="ChangeWatcher_canWatch_true"  keywords="[ChangeWatcher, method, canWatch]" description="Verify canWatch returns true when interrogating a bindable property.">
+            <body>
+                <AssertMethodValue method="value=ChangeWatcher.canWatch(new TextInput(), 'text')" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="ChangeWatcher_canWatch_false"  keywords="[ChangeWatcher, method, canWatch]" description="Verify canWatch returns false when interrogating a non-bindable property.">
+            <body>
+                <AssertMethodValue method="value=ChangeWatcher.canWatch(new String(), 'id')" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="ChangeWatcher_canWatch_nullHost"  keywords="[ChangeWatcher, method, canWatch]" description="Verify canWatch doesn't err when passed a null host.">
+            <body>
+                <AssertMethodValue method="value=this.nullHost()" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="ChangeWatcher_canWatch_nullName"  keywords="[ChangeWatcher, method, canWatch]" description="Verify canWatch doesn't err when passed a null name.">
+            <body>
+                <AssertMethodValue method="value=this.nullName()" value="false" />
+            </body>
+        </TestCase>
+
+        <!-- getEvents/static -->
+        <TestCase testID="ChangeWatcher_getEvents_true"  keywords="[ChangeWatcher, method, getEvents]" description="Verify getEvents returns propertyChange true when interrogating a bindable property.">
+            <body>
+                <AssertMethodValue method="value=ChangeWatcher.getEvents(new TextInput(), 'text').textChanged.toString();" value="true" />
+                <AssertMethodValue method="value=ChangeWatcher.getEvents(new TextInput(), 'text').change.toString();" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="ChangeWatcher_getEvents_false"  keywords="[ChangeWatcher, method, getEvents]" description="Verify getEvents returns nothing for a non-binding property.">
+            <body>
+                <AssertMethodValue method="value=ChangeWatcher.getEvents(new UnboundObject(), 'prop1').propertyChange" value="null" />
+            </body>
+        </TestCase>
+
+        <!-- getValue -->
+        <TestCase testID="ChangeWatcher_getValue"  keywords="[ChangeWatcher, method, getValue]" description="Verify getValue returns the host and property it is watching.">
+            <body>
+                <AssertMethodValue method="value=ChangeWatcher.watch(new BoundObject(), 'prop1', this.TargetSetter).getValue();" value="N/A" />
+            </body>
+        </TestCase>
+
+        <!-- isWatching -->
+        <TestCase testID="ChangeWatcher_isWatching"  keywords="[ChangeWatcher, method, isWatching]" description="Verify isWatching returns true when a prop is being watched.">
+            <body>
+                <AssertMethodValue method="value=ChangeWatcher.watch(new BoundObject(), 'prop1', this.TargetSetter).isWatching();" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="ChangeWatcher_isWatching_false"  keywords="[ChangeWatcher, method, isWatching]" description="Verify isWatching returns false when a prop is not being watched.">
+            <body>
+                <AssertMethodValue method="value=ChangeWatcher.watch(new UnboundObject(), 'prop1', this.TargetSetter).isWatching();" value="false" />
+            </body>
+        </TestCase>
+
+        <!-- reset -->
+        <TestCase testID="ChangeWatcher_reset"  keywords="[ChangeWatcher, method, reset]" description="Verify reset rewires the changeWatcher.">
+            <setup>
+                <RunCode code="this.changer = ChangeWatcher.watch(new BoundObject(), 'prop1', this.TargetSetter);"/>
+                <AssertMethodValue method="value=this.changer.isWatching();" value="true" />
+            </setup>
+            <body>
+                <RunCode code="this.changer.reset(new UnboundObject());"/>
+                <AssertMethodValue method="value=this.changer.isWatching();" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="ChangeWatcher_reset_toGood"  keywords="[ChangeWatcher, method, reset]" description="Verify reset rewires the changeWatcher.">
+            <setup>
+                <RunCode code="this.changer = ChangeWatcher.watch(new BoundObject(), 'prop1', this.TargetSetter);"/>
+                <AssertMethodValue method="value=this.changer.isWatching();" value="true" />
+            </setup>
+            <body>
+                <RunCode code="this.changer.reset(new BoundObject());"/>
+                <AssertMethodValue method="value=this.changer.isWatching();" value="true" />
+            </body>
+        </TestCase>
+
+        <!-- setHandler -->
+        <TestCase testID="ChangeWatcher_setHandler"  keywords="[ChangeWatcher, method, setHandler]" description="Verify setHandler rewires the changeWatcher target setter.">
+            <setup>
+                <RunCode code="this.setterArg = null;"/>
+                <RunCode code="this.otherSetterArg = null;"/>
+                <RunCode code="this.changer = BindingUtils.bindSetter(this.TargetSetter, application.ti, 'text', false)" />
+            </setup>
+            <body>
+                <RunCode code="this.changer.setHandler(this.OtherTargetSetter);"/>
+                <AssertMethodValue method="value=this.otherSetterArg;" value="null" />
+                <RunCode code="application.ti.text = 'WoW';"/>
+                <AssertMethodValue method="value=this.otherSetterArg;" value="WoW" />
+            </body>
+        </TestCase>
+
+        <!-- unwatch -->
+        <TestCase testID="ChangeWatcher_unwatch"  keywords="[ChangeWatcher, method, unwatch]" description="Verify unwatch unwires the databinding.">
+            <setup>
+                <RunCode code="this.setterArg = null;"/>
+                <RunCode code="this.otherSetterArg = null;"/>
+                <RunCode code="this.changer = BindingUtils.bindSetter(this.TargetSetter, application.ti, 'text', false)" />
+                <RunCode code="application.ti.text = 'WoW';"/>
+                <AssertMethodValue method="value=this.setterArg;" value="WoW" />
+            </setup>
+            <body>
+                <RunCode code="this.changer.unwatch();"/>
+                <RunCode code="application.ti.text = 'WoW2';"/>
+                <AssertMethodValue method="value=this.setterArg;" value="WoW" />
+            </body>
+        </TestCase>
+
+        <!-- watch/static -->
+        <TestCase testID="ChangeWatcher_watch"  keywords="[ChangeWatcher, method, watch]" description="Verify watch returns true when a prop is being watched.">
+            <setup>
+                <RunCode code="this.setterArg = '-';"/>
+            </setup>
+            <body>
+                <RunCode code="ChangeWatcher.watch(application.ti, 'text', this.TargetSetter);"/>
+                <RunCode code="application.ti.text = 'WoW';"/>
+                <AssertMethodValue method="value=this.setterArg;" value="WoW" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,110 @@
+<UnitTester 
+    testSWF="../SWFs/Fade_main.mxml" 
+    testDir="mx/effects/Fade/accessor/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Fade;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+    <testCases>
+
+        <!-- triggerEvent -->
+        <TestCase testID="Fade_triggerEvent_Default" keywords="[Fade, accessor, triggerEvent]" description="Test the default value of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantStyles -->
+        <TestCase testID="Fade_relevantStyles_Default" keywords="[Fade, accessor, relevantStyles]" description="Test the default value of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).relevantStyles" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- relevantProperties -->
+        <TestCase testID="Fade_relevantProperties_Default" keywords="[Fade, accessor, relevantProperties]" description="Test the default value of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).relevantProperties" value="alpha,visible"/>
+            </body>
+        </TestCase>
+
+        <!-- target -->
+        <TestCase testID="Fade_target_Default" keywords="[Fade, accessor, target]" description="Test the default value of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).target" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- filter -->
+        <TestCase testID="Fade_filter_Default" keywords="[Fade, accessor, filter]" description="Test the default value of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).filter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- isPlaying -->
+        <TestCase testID="Fade_isPlaying_Default" keywords="[Fade, accessor, isPlaying]" description="Test the default value of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- hideFocusRing -->
+        <TestCase testID="Fade_hideFocusRing_Default" keywords="[Fade, accessor, hideFocusRing]" description="Test the default value of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- customFilter -->
+        <TestCase testID="Fade_customFilter_Default" keywords="[Fade, accessor, customFilter]" description="Test the default value of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- FadeTargetHost -->
+        <TestCase testID="Fade_effectTargetHost_Default" keywords="[Fade, accessor, effectTargetHost]" description="Test the default value of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- targets -->
+        <TestCase testID="Fade_targets_Default" keywords="[Fade, accessor, targets]" description="Test the default value of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).targets" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="Fade_duration_Default" keywords="[Fade, accessor, duration]" description="Test the default value of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).duration" value="500"/>
+            </body>
+        </TestCase>
+
+        <!-- perElementOffset -->
+        <TestCase testID="Fade_perElementOffset_Default" keywords="[Fade, accessor, perElementOffset]" description="Test the default value of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- className -->
+        <TestCase testID="Fade_className_Default" keywords="[Fade, accessor, className]" description="Test the default value of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new Fade()).className" value="Fade"/>
+            </body>
+        </TestCase>        
+        
+    </testCases>
+</UnitTester>

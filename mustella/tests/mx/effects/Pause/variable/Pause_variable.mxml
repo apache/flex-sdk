@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="mx/effects/Pause/variable/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/Pause_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Pause;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- eventName -->
+        <TestCase testID="Pause_eventName_Default" keywords="[Pause, variable, eventName]" description="Test the setting of the eventName variable.">
+            <body>
+                <AssertPropertyValue target="varPause" propertyName="eventName" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="Pause_duration_Default" keywords="[Pause, variable, duration]" description="Test the setting of the duration variable.">
+            <body>
+                <AssertPropertyValue target="varPause" propertyName="duration" value="500"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatCount -->
+        <TestCase testID="Pause_repeatCount_Default" keywords="[Pause, variable, repeatCount]" description="Test the setting of the repeatCount variable.">
+            <body>
+                <AssertPropertyValue target="varPause" propertyName="repeatCount" value="1"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatDelay -->
+        <TestCase testID="Pause_repeatDelay_Default" keywords="[Pause, variable, repeatDelay]" description="Test the setting of the repeatDelay variable.">
+            <body>
+                <AssertPropertyValue target="varPause" propertyName="repeatDelay" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- suspendBackgroundProcessing -->
+        <TestCase testID="Pause_suspendBackgroundProcessing_Default" keywords="[Pause, variable, suspendBackgroundProcessing]" description="Test the setting of the suspendBackgroundProcessing variable.">
+            <body>
+                <AssertPropertyValue target="varPause" propertyName="suspendBackgroundProcessing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- startDelay -->
+        <TestCase testID="Pause_startDelay_Default" keywords="[Pause, variable, startDelay]" description="Test the setting of the startDelay variable.">
+            <body>
+                <AssertPropertyValue target="varPause" propertyName="startDelay" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- instanceClass -->
+        <TestCase testID="Pause_instanceClass_Default" keywords="[Pause, variable, instanceClass]" description="Test the setting of the instanceClass variable.">
+            <body>
+                <AssertMethodValue method="value=application.varPause.instanceClass.toString().replace('[class ','').replace(']','')" value="PauseInstance"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

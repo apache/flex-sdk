@@ -1,0 +1,56 @@
+<UnitTester 
+    testSWF="../SWFs/Glow_main.mxml" 
+    testDir="mx/effects/Glow/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Glow;
+        
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[
+
+[Mixin]
+
+]]></mx:Metadata>
+    <testCases>
+
+        <!-- suspendBackgroundProcessing -->
+        <TestCase testID="Glow_suspendBackgroundProcessing_Default" keywords="[Glow, variable, suspendBackgroundProcessing]" description="Test the default value  of the suspendBackgroundProcessing variable.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).suspendBackgroundProcessing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- instanceClass -->
+        <TestCase testID="Glow_instanceClass_Default" keywords="[Glow, variable, instanceClass]" description="Test the default value  of the instanceClass variable.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).instanceClass.toString().replace('[class ', '').replace(']','')" value="GlowInstance"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatDelay -->
+        <TestCase testID="Glow_repeatDelay_Default" keywords="[Glow, variable, repeatDelay]" description="Test the default value  of the repeatDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).repeatDelay" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- startDelay -->
+        <TestCase testID="Glow_startDelay_Default" keywords="[Glow, variable, startDelay]" description="Test the default value  of the startDelay variable.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).startDelay" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- repeatCount -->
+        <TestCase testID="Glow_repeatCount_Default" keywords="[Glow, variable, repeatCount]" description="Test the default value  of the repeatCount variable.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).repeatCount" value="1"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

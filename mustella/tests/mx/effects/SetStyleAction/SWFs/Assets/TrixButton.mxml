@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Button 
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="300" 
+	height="30"
+    x="100"
+    y="10"
+    label="Effects">
+</mx:Button>

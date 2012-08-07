@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/mx" xmlns="*" 
+			testSWF="ADV_styleManager_createClassStyle_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;		
+			import assets.styleTest.ADVStyleTestConstants;
+			import assets.styleTest.ADVStyleTestEvent;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>		
+		<!--testcases for testing create style CSS declaration using styleManager API, and apply it to Class selector-->
+		<TestCase testID="ADV_styleManager_creatStyle_class_selector_test1" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Class selector" 
+				  keywords="[AdvancedStyleClient, StyleManager, create CSS declaration, class selector]">
+			<setup>
+				<RunCode code="application.testClassStyle()" />
+				<Pause timeout="{ADVStyleTestConstants.pauseTime}" />
+			</setup>
+			<body>
+				<!--Verify style compound with inline style and created Class Selector style using inline css value. -->
+				<AssertMethodValue method="value=application.createClassStyleTest.getStyle('teststyle_1_string_noinh')" value="testString" />
+				
+				<!--Verify inline style using inline value.-->
+				<AssertMethodValue method="value=application.createClassStyleTest.getStyle('teststyle_7_format_color_noinh')" 
+								   valueExpression="value=0x334455" />
+				
+				<!--Verify style compound with local class style and created Class Selector style using new set css value. -->
+				<AssertMethodValue method="value=application.createClassStyleTest.getStyle('teststyle_6_format_time_noinh')" 
+								   valueExpression="value=2014"/>
+				
+				<!--Verify style only created by styleManager API using this value.-->
+				<AssertMethodValue method="value=application.createClassStyleTest.getStyle('teststyle_2_number_noinh')" 
+								   valueExpression="value=222.333"/>	
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertMethodValue method="value=application.createClassStyleTest.getStyle('teststyle_3_uint_inh')" 
+								   valueExpression="value=undefined" />
+				<AssertMethodValue method="value=application.createClassStyleTest.getStyle('teststyle_5_format_length_noinh')" 
+								   valueExpression="value=30" />
+				
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

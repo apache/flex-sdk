@@ -1,0 +1,159 @@
+<UnitTester
+    testSWF="../SWFs/MovieClipSWFLoader_Main.mxml"
+    testDir="mx/controls/MovieClipSWFLoader/properties/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        
+        public function isPlaying(movie:Object): Boolean
+        {
+            if(movie.movieClip.currentFrame > 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        ]]>
+    </mx:Script>
+    
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+    <testCases>
+<!-- no op tests when the source has no MovieClip. -->
+        <TestCase testID="MovieClipSWFLoader_autoStop_default" keywords="[autoStop, MovieClipSWFLoader]" 
+            description="Test that the default value of autoStop is true">
+            <body>
+                <AssertPropertyValue target="myMovie" propertyName="autoStop" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_autoStop_true_externalSource" keywords="[autoStop, MovieClipSWFLoader]" 
+            description="Test that a movie is not playing when autoStop=true and the source is external.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_autoStop_false_mxml" keywords="[autoStop, MovieClipSWFLoader]" 
+            description="Test that a movie is playing when autoStop=false in mxml.">
+           <body>
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie2a)" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_autoStop_false_externalSource" keywords="[autoStop, MovieClipSWFLoader]" 
+            description="Test that a movie is not playing when autoStop=true and the source is external.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie)" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_autoStop_true_mxml" keywords="[autoStop, MovieClipSWFLoader]" 
+            description="Test that a movie is not playing when autoStop=true in mxml.">
+           <body>
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie1a)" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_autoStop_false_MCInstance" keywords="[autoStop, MovieClipSWFLoader]" 
+            description="Test that a movie is not playing when autoStop=true and the source is external.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" valueExpression="value=application.mc" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_autoStop_true_MCInstance" keywords="[autoStop, MovieClipSWFLoader]" 
+            description="Test that a movie is not playing when autoStop=true and the source is external.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" valueExpression="value=application.mc" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_noOp_autoStop" keywords="[autoStop, MovieClipSWFLoader]" 
+            description="Test that nothing happens when setting autoStop=false when source is a JPEG.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallredrect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_noOp_movieClip" keywords="[movieClip, MovieClipSWFLoader]" 
+            description="Test that movieClip is null when source is a JPEG.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallredrect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_FlexApp_movieClip" keywords="[movieClip, MovieClipSWFLoader]" 
+            description="Test that movieClip is null when source is a Flex app.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/LittleFlexApp.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>
+

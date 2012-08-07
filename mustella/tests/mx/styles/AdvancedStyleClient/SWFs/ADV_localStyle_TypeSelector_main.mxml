@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" 
+			   xmlns:styleTest="assets.styleTest.*">
+	<s:states> 
+		<s:State name="heavy" enterState="state1_enterStateHandler(event)"/> 
+		<s:State name="medium" enterState="state2_enterStateHandler(event)"/> 
+		<s:State name="light" enterState="state3_enterStateHandler(event)"/> 
+	</s:states>
+	
+	<fx:Script>
+		<![CDATA[
+			import assets.styleTest.ADVStyleTestConstants;
+			import assets.styleTest.ADVStyleTestVo;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.XMLListCollection;
+			import mx.events.FlexEvent;
+
+			protected function state1_enterStateHandler(event:FlexEvent):void
+			{
+				dispatchEvent(new Event("changeEventDone"));
+			}
+
+
+			protected function state2_enterStateHandler(event:FlexEvent):void
+			{
+				dispatchEvent(new Event("changeEventDone"));
+			}
+
+
+			protected function state3_enterStateHandler(event:FlexEvent):void
+			{
+				dispatchEvent(new Event("changeEventDone"));
+			}
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>	
+		<fx:Date id="localDate" fullYear="2098" month="7" date="19" />
+		<fx:Array id="localArray">
+			<fx:uint>
+				{0xEEBBAA}
+			</fx:uint>
+			<fx:uint>
+				{0xAACCDD}
+			</fx:uint>
+			<fx:uint >
+				{0x332266}
+			</fx:uint>
+		</fx:Array>
+		<s:ArrayCollection id="localList">
+			<fx:Date fullYear="1985" month="11" date="6" />
+			<fx:Date fullYear="2985" month="11" date="6" />
+			<fx:Date fullYear="3985" month="11" date="6" />
+		</s:ArrayCollection>
+		<s:XMLListCollection id="localXmlList">
+			<fx:XMLList xmlns="">
+				<localXml/>
+				<localXml2/>
+				<localXml3/>
+			</fx:XMLList>
+		</s:XMLListCollection>
+		<styleTest:ADVStyleTestVo id="localVo" name="localVOName" />
+
+
+		<styleTest:ADVStyleTestClass id="advStyleTest_Local_Type" />
+
+	</fx:Declarations>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace styleTest "assets.styleTest.*";
+		
+		/* Type Selector */
+		styleTest|ADVStyleTestClass {
+			teststyle_1_string_noinh : "typeString";	
+			teststyle_2_number_noinh : 111;		
+			teststyle_3_uint_inh : 0;
+			teststyle_4_date_inh: PropertyReference("localDate");
+			teststyle_5_format_length_noinh : 50px;
+			teststyle_6_format_time_noinh : 12000;
+			teststyle_7_format_color_noinh : #556677;
+			teststyle_8_format_arrayType_noinh : PropertyReference("localArray");
+			teststyle_9_date_arrayCol_inh : PropertyReference("localList");
+			teststyle_10_xml_arrayCol_noinh : PropertyReference("localXmlList");
+			teststyle_11_boolean_noinh : false;
+			teststyle_12_enum_string_inh : "secondType";
+			teststyle_13_enum_int_noinh : 99;
+			teststyle_14_object_noinh : PropertyReference("localVo");
+			teststyle_15_state_string_noinh : "localStateString";
+			
+		}
+		
+		styleTest|ADVStyleTestClass:medium{
+			teststyle_1_string_noinh : "mediumString";
+			
+			teststyle_15_state_string_noinh: "mediumStateString";	
+		}
+		
+	</fx:Style>
+	
+	<s:Label id="label" text="{getStyle('teststyle_12_enum_string_inh')}" />
+	
+</s:Application>

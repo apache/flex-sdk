@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="mx/effects/SetPropertyAction/Events/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*"
+    testSWF="../SWFs/SetPropertyAction_Main.mxml">
+    
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    
+    <testCases>
+
+        <TestCase testID="SetPropertyAction_Events_EffectStart" keywords="[SetPropertyAction, Events, EffectStart]" description="Verify effectStart is raised during the play() of an effect.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.SetPropertyAction"/>
+                <SetProperty target="testEffect" propertyName="name" value="width"/>
+                <SetProperty target="testEffect" propertyName="value" value="38"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectStart" />
+                <AssertEvent target="testEffect" eventName="effectStart" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetPropertyAction_Events_TweenStart" keywords="[SetPropertyAction, Events, TweenStart]" description="Verify tweenStart is NOT raised during the play() of an effect.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.SetPropertyAction"/>
+                <SetProperty target="testEffect" propertyName="name" value="width"/>
+                <SetProperty target="testEffect" propertyName="value" value="38"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertNoEvent target="testEffect" eventName="tweenStart" eventClass="mx.events::TweenEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetPropertyAction_Events_TweenUpdate" keywords="[SetPropertyAction, Events, TweenUpdate]" description="Verify tweenUpdate is NOT raised during the play() of an effect.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.SetPropertyAction"/>
+                <SetProperty target="testEffect" propertyName="name" value="width"/>
+                <SetProperty target="testEffect" propertyName="value" value="38"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertNoEvent target="testEffect" eventName="tweenUpdate" eventClass="mx.events::TweenEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetPropertyAction_Events_TweenEnd" keywords="[SetPropertyAction, Events, TweenEnd]" description="Verify tweenEnd is NOT raised during the play() of an effect.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.SetPropertyAction"/>
+                <SetProperty target="testEffect" propertyName="name" value="width"/>
+                <SetProperty target="testEffect" propertyName="value" value="38"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertNoEvent target="testEffect" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetPropertyAction_Events_EffectEnd" keywords="[SetPropertyAction, Events, EffectEndt]" description="Verify effectEnd is raised during the play() of an effect.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.SetPropertyAction"/>
+                <SetProperty target="testEffect" propertyName="name" value="width"/>
+                <SetProperty target="testEffect" propertyName="value" value="38"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertEvent target="testEffect" eventName="effectEnd" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+    
+</UnitTester>

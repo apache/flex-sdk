@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="mx/effects/AnimateProperty/Props/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/AnimateProperty_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.AnimateProperty;
+        ]]>
+    </mx:Script>
+    
+    <!-- 
+    Property Test Plan
+    ############################################
+    
+    fromValue
+        value is property - set = get
+        value is style - set = get
+        value is property - effectStart value = fromValue
+        value is style - effectStart value = fromValue
+        
+    isStyle
+        set isStyle true, property to a property - error
+        set isStyle false, property to property - success
+        set isStyle true, property to style = success
+        set isStyle fals, property to property = error
+        
+    property
+        set = get
+        
+    roundValue
+        ???
+        
+    toValue
+        value is property - set = get
+        value is style - set = get
+        value is property - effectEnd value = fromValue
+        value is style - effectEnd value = fromValue
+
+    ############################################
+    -->
+
+    <testCases>
+
+        <!-- fromValue -->
+        <TestCase testID="AnimateProperty_FromValue_PropertySimple"  keywords="[Effects, AnimateProperty, fromValue]" description="Verify get = set for the fromValue property when it applies to a property.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton"/>
+                <ResetComponent target="testEffect" className="mx.effects.AnimateProperty"/>
+                <SetProperty target="testEffect" propertyName="property" value="width"/>
+                <SetProperty target="testEffect" propertyName="fromValue" value="50"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="fromValue" value="50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateProperty_FromValue_StyleSimple"  keywords="[Effects, AnimateProperty, fromValue]" description="Verify get = set for the fromValue property when it applies to a property.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton"/>
+                <ResetComponent target="testEffect" className="mx.effects.AnimateProperty"/>
+                <SetProperty target="testEffect" propertyName="property" value="cornerRadius"/>
+                <SetProperty target="testEffect" propertyName="isStyle" value="true"/>
+                <SetProperty target="testEffect" propertyName="fromValue" value="7"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="fromValue" value="7"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateProperty_FromValue_PropertyEffectStart"  keywords="[Effects, AnimateProperty, fromValue, EffectStart]" description="Verify fromValue property is accurate at effect start for a property">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton"/>
+                <ResetComponent target="testEffect" className="mx.effects.AnimateProperty"/>
+                <SetProperty target="testEffect" propertyName="property" value="width"/>
+                <SetProperty target="testEffect" propertyName="fromValue" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectStart" />
+                <AssertPropertyValue target="testEffect" propertyName="fromValue" value="50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateProperty_FromValue_StyleEffectStart"  keywords="[Effects, AnimateProperty, fromValue, EffectStart]" description="Verify fromValue property is accurate at effect start for a style">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton"/>
+                <ResetComponent target="testEffect" className="mx.effects.AnimateProperty"/>
+                <SetProperty target="testEffect" propertyName="property" value="cornerRadius"/>
+                <SetProperty target="testEffect" propertyName="isStyle" value="true"/>
+                <SetProperty target="testEffect" propertyName="fromValue" value="0"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectStart" />
+                <AssertPropertyValue target="testEffect" propertyName="fromValue" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- toValue -->
+        <TestCase testID="AnimateProperty_ToValue_PropertySimple"  keywords="[Effects, AnimateProperty, toValue]" description="Verify get = set for the toValue property when it applies to a property.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton"/>
+                <ResetComponent target="testEffect" className="mx.effects.AnimateProperty"/>
+                <SetProperty target="testEffect" propertyName="property" value="width"/>
+                <SetProperty target="testEffect" propertyName="toValue" value="150"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="toValue" value="150"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateProperty_ToValue_StyleSimple"  keywords="[Effects, AnimateProperty, toValue]" description="Verify get = set for the toValue property when it applies to a property.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton"/>
+                <ResetComponent target="testEffect" className="mx.effects.AnimateProperty"/>
+                <SetProperty target="testEffect" propertyName="property" value="cornerRadius"/>
+                <SetProperty target="testEffect" propertyName="isStyle" value="true"/>
+                <SetProperty target="testEffect" propertyName="toValue" value="15"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="toValue" value="15"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateProperty_ToValue_PropertyEffectEnd"  keywords="[Effects, AnimateProperty, toValue, EffectEnd]" description="Verify toValue property is accurate at effect end for a property">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton"/>
+                <ResetComponent target="testEffect" className="mx.effects.AnimateProperty"/>
+                <SetProperty target="testEffect" propertyName="property" value="width"/>
+                <SetProperty target="testEffect" propertyName="toValue" value="150"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testEffect" propertyName="toValue" value="150"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="AnimateProperty_ToValue_StyleEffectEnd"  keywords="[Effects, AnimateProperty, toValue, EffectEnd]" description="Verify toValue property is accurate at effect end for a style">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton"/>
+                <ResetComponent target="testEffect" className="mx.effects.AnimateProperty"/>
+                <SetProperty target="testEffect" propertyName="property" value="cornerRadius"/>
+                <SetProperty target="testEffect" propertyName="isStyle" value="true"/>
+                <SetProperty target="testEffect" propertyName="toValue" value="15"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertPropertyValue target="testEffect" propertyName="toValue" value="15"/>
+            </body>
+        </TestCase>
+
+        <!-- isStyle -->
+        <TestCase testID="AnimateProperty_IsStyle"  keywords="[Effects, AnimateProperty, IsStyle]" description="Verify get = set for the isStyle property.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton"/>
+                <ResetComponent target="testEffect" className="mx.effects.AnimateProperty"/>
+                <SetProperty target="testEffect" propertyName="isStyle" value="true"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="isStyle" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- property -->
+        <TestCase testID="AnimateProperty_Property"  keywords="[Effects, AnimateProperty, Property]" description="Verify get = set for the 'property' property.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton"/>
+                <ResetComponent target="testEffect" className="mx.effects.AnimateProperty"/>
+                <SetProperty target="testEffect" propertyName="property" value="width"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="property" value="width"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+
+</UnitTester>

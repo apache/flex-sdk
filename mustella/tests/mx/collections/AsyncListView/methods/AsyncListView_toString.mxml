@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	testDir="mx/collections/AsyncListView/methods/"
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns="*" 
+	xmlns:assets="assets.*"
+	testSWF="AsyncListView_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+		import assets.*;
+		import mx.collections.*;
+		import mx.core.FlexGlobals;
+
+		public var theString:String;
+		
+		// Verify that there are numItems items with the correct status.
+		public function verifyString(length:int, pendingReqs:int):String{
+			var ret:String = "pass";
+			var expectedString:String = "mx.collections::AsyncListView length=" + length.toString() + ", " + pendingReqs.toString() + " pending requests";
+
+			if( expectedString != theString ){
+				ret = "expected: " + expectedString + " got: " + theString;
+			}
+
+			return ret;
+		}
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+Reminder:
+public function setup( responseDelay:int = 500,
+						numItems:int = 100,
+						numPreloadedPages:int = 0,
+						pageSize:int = 1,
+						mode:String = 'manual',
+						failureProbability:int = 0,
+						createPendingItemFunction:Boolean = true,
+						createFailedItemFunction:Boolean = true,
+						assignToList:Boolean = true):void{
+-->
+
+<TestCase testID="toString_noList" keywords="[AsyncListView,toString]" description="No list." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value = new AsyncListView().toString()" value="mx.collections::AsyncListView no list" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_headless_test1" keywords="[AsyncListView,toString]" description="Pending items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30,0,30,'manual',0,true,true,false)" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj1.alv)" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj1.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 30)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_headless_test2" keywords="[AsyncListView,toString]" description="Failed items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30,0,30,'manual',0,true,true,false)" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj1.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj1.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 0)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_headless_test3" keywords="[AsyncListView,toString]" description="Received items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30,0,30,'manual',0,true,true,false)" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj1.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receivePage()" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj1.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 0)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_headless_test4" keywords="[AsyncListView,toString]" description="No items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,0,0,0,'manual',0,true,true,false)" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj1.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(0, 0)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_headless_test5" keywords="[AsyncListView,toString]" description="Mixed items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30,0,5,'manual',0,true,true,false)" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj1.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receivePage()" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj1.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 20)" value="pass" />
+	</body>
+</TestCase>
+
+
+
+
+<TestCase testID="toString_vlist_test1" keywords="[AsyncListView,toString]" description="Pending items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30,0,30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj1.alv)" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj1.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 30)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_vlist_test2" keywords="[AsyncListView,toString]" description="Failed items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30,0,30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj1.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj1.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 0)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_vlist_test3" keywords="[AsyncListView,toString]" description="Received items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30,0,30)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj1.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receivePage()" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj1.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 0)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_vlist_test4" keywords="[AsyncListView,toString]" description="No items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,0)" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj1.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(0, 0)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_vlist_test5" keywords="[AsyncListView,toString]" description="Mixed items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30,0,5)" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj1.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receivePage()" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj1.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 20)" value="pass" />
+	</body>
+</TestCase>
+
+
+
+<TestCase testID="toString_nonvlist_test1" keywords="[AsyncListView,toString]" description="Pending items." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,30,0,30)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj8.alv)" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj8.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 30)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_nonvlist_test2" keywords="[AsyncListView,toString]" description="Failed items." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,30,0,30)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj8.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failPage()" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj8.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 0)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_nonvlist_test3" keywords="[AsyncListView,toString]" description="Received items." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,30,0,30)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj8.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receivePage()" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj8.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 0)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_nonvlist_test4" keywords="[AsyncListView,toString]" description="No items." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,0)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj8.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(0, 0)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="toString_nonvlist_test5" keywords="[AsyncListView,toString]" description="Mixed items." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,30,0,5)" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 29, FlexGlobals.topLevelApplication.obj8.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receivePage()" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failPage()" />
+		<RunCode code="theString = FlexGlobals.topLevelApplication.obj8.alv.toString()" />
+		<AssertMethodValue method="value = verifyString(30, 20)" value="pass" />
+	</body>
+</TestCase>
+
+
+</testCases>
+</UnitTester>

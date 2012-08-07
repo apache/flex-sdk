@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ADV_inlineStyle_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.styleTest.*;
+			
+			public static function init(o:DisplayObject):void 
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<!-- test with default style setting-->
+		<TestCase testID="ADV_inline_default_test1" 
+				  description="test with default style setting" 
+				  keywords="ADVStyleTestClass, inline, default">
+			<setup>
+				<ChangeState toState="heavy" waitEvent="changeEventDone"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_1_string_noinh" value="defaultString"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_2_number_noinh" valueExpression="value=undefined"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_3_uint_inh" valueExpression="value=undefined"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_4_date_inh" valueExpression="value=application.defaultDate"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_5_format_length_noinh" valueExpression="value=30"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_6_format_time_noinh" valueExpression="value=5000"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x112233"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_8_format_arrayType_noinh" valueExpression="value=application.defaultColorArray"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_9_date_arrayCol_inh" valueExpression="value=application.defaultDateList"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_10_xml_arrayCol_noinh" valueExpression="value=application.defaultXmlList"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_11_boolean_noinh" valueExpression="value=false"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_12_enum_string_inh" value="defaultType"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_13_enum_int_noinh" valueExpression="value=15"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_14_object_noinh" valueExpression="value=ADVStyleTestConstants.defaultAdvVo"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_15_state_string_noinh" value="defaultStateString"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls_heavy"/>			
+			</body>
+		</TestCase>
+		
+		<!--test state style with default style setting-->
+		<TestCase testID="ADV_inline_default_state_test2" 
+				  description="test state style with default style setting" 
+				  keywords="ADVStyleTestClass, inline, default, state">
+			<setup>
+				<ChangeState toState="medium" waitEvent="changeEventDone" />
+			</setup>
+			<body>
+				<!--styles which have state property-->
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_15_state_string_noinh" value="defaultStateString"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls_heavy"/>
+				
+				<!--styles which don't have state property-->
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_1_string_noinh" value="defaultString"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_2_number_noinh" valueExpression="value=undefined"/>
+			</body>
+		</TestCase>
+		
+		<!--test with inline style setting-->
+		<TestCase testID="ADV_inline_value_test3" 
+				  description="test with inline style setting" 
+				  keywords="ADVStyleTestClass, inline">
+			<setup>
+				<ChangeState toState="heavy" waitEvent="changeEventDone" />
+			</setup>
+			<body>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_1_string_noinh" value="testString"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_2_number_noinh" valueExpression="value=12345.678"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_3_uint_inh" valueExpression="value=675"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_4_date_inh" valueExpression="value=application.date_heavy"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_5_format_length_noinh" valueExpression="value=20"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_6_format_time_noinh" valueExpression="value=2000"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_7_format_color_noinh" valueExpression="value=0xFF99FF"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_8_format_arrayType_noinh" valueExpression="value=application.colorArray"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_9_date_arrayCol_inh" valueExpression="value=application.dateList"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_10_xml_arrayCol_noinh" valueExpression="value=application.xmlList"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_11_boolean_noinh" valueExpression="value=true"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_12_enum_string_inh" value="firstType"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_13_enum_int_noinh" valueExpression="value=66"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_14_object_noinh" valueExpression="value=application.myVo_heavy"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_15_state_string_noinh" value="inlineStringHeavy"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.imgCls"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.imgCls"/>			
+			</body>
+		</TestCase>
+		
+		<!--test state style with inline style setting-->
+		<TestCase testID="ADV_inline_state_value_test4" 
+				  description="test state style with inline style setting" 
+				  keywords="ADVStyleTestClass, inline, state">
+			<setup>
+				<ChangeState toState="light" waitEvent="changeEventDone" />
+			</setup>
+			<body>
+				<!--styles which have state property-->
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_15_state_string_noinh" value="inlineStringLight"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.img3Cls"/>			
+				
+				<!--styles which don't have state property-->
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_3_uint_inh" valueExpression="value=675"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_4_date_inh" valueExpression="value=application.date_light"/>
+			</body>
+		</TestCase>
+		
+		<!--test by using setStyle() method-->
+		<TestCase testID="ADV_inline_setStyle_method_test5" 
+				  description="test by using setStyle() method" 
+				  keywords="ADVStyleTestClass, inline, setStyle method">
+			<setup>
+				<ChangeState toState="heavy" waitEvent="changeEventDone" />
+				<RunCode code="application.setAdvStyleAll()"/>
+				<Pause timeout="{ADVStyleTestConstants.pauseTime}" />
+			</setup>
+			<body>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_1_string_noinh" value="setString"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_2_number_noinh" valueExpression="value=12345"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_3_uint_inh" valueExpression="value=675"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_4_date_inh" valueExpression="value=application.localDate"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_7_format_color_noinh" valueExpression="value=0xFF99FF"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_8_format_arrayType_noinh" valueExpression="value=application.colorArray"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_9_date_arrayCol_inh" valueExpression="value=application.dateList"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_10_xml_arrayCol_noinh" valueExpression="value=application.localXmlList"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_11_boolean_noinh" valueExpression="value=true"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_12_enum_string_inh" value="secondType"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_13_enum_int_noinh" valueExpression="value=66"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_14_object_noinh" valueExpression="value=application.myVo_heavy"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_15_state_string_noinh" value="testStringHeavy"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.imgCls"/>
+				<AssertStyleValue target="setStyleTest" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.imgCls"/>			
+			</body>
+		</TestCase>
+		
+		<!-- test style compound/overwrite between default and inline styles-->
+		<TestCase testID="ADV_inline_compound_default_inline_test6" 
+				  description="test style compound/overwrite between default and inline styles" 
+				  keywords="ADVStyleTestClass, inline, compound, default">
+			<setup>
+				<ChangeState toState="heavy" waitEvent="changeEventDone" />
+			</setup>
+			<body>
+				<!--verify those inline styles using inline value-->
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_5_format_length_noinh" valueExpression="value=20"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_6_format_time_noinh" valueExpression="value=2000"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_7_format_color_noinh" valueExpression="value=0xFF99FF"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_8_format_arrayType_noinh" valueExpression="value=application.colorArray"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_9_date_arrayCol_inh" valueExpression="value=application.dateList"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_10_xml_arrayCol_noinh" valueExpression="value=application.xmlList"/>
+				
+				<!--verify those un-setting styles using default value-->
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_1_string_noinh" value="defaultString"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_2_number_noinh" valueExpression="value=undefined"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_3_uint_inh" valueExpression="value=undefined"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_4_date_inh" valueExpression="value=application.defaultDate"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_11_boolean_noinh" valueExpression="value=false"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_12_enum_string_inh" value="defaultType"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_13_enum_int_noinh" valueExpression="value=15"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_14_object_noinh" valueExpression="value=ADVStyleTestConstants.defaultAdvVo"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_15_state_string_noinh" value="defaultStateString"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls"/>
+				<AssertStyleValue target="compoundStyleTest1" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls_heavy"/>			
+			</body>
+		</TestCase>
+		
+		<!--test style compound/overwrite between inline styles and setStyle() method-->
+		<TestCase testID="ADV_inline_compound_inline_setStyle_method_test7" 
+				  description="test style compound/overwrite between inline styles and setStyle() method" 
+				  keywords="ADVStyleTestClass, inline, compound, setStyle method">
+			<setup>
+				<ChangeState toState="heavy" waitEvent="changeEventDone" />
+				<RunCode code="application.setAdvStyle(application.compoundStyleTest2)"/>
+				<Pause timeout="{ADVStyleTestConstants.pauseTime}" />
+			</setup>
+			<body>
+				<!--SetStyle method-->
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_1_string_noinh" value="setString"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_4_date_inh" valueExpression="value=application.localDate"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>		
+				
+				<!--inline setting-->
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_14_object_noinh" valueExpression="value=application.myVo_heavy"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_15_state_string_noinh" value="inlineStringHeavy"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.imgCls"/>		
+				
+				<!--compound style between inline and setStyle() method using method value-->
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_10_xml_arrayCol_noinh" valueExpression="value=application.localXmlList"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_11_boolean_noinh" valueExpression="value=false"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_12_enum_string_inh" value="secondType"/>			
+				
+				<!--default setting-->
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_2_number_noinh" valueExpression="value=undefined"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_3_uint_inh" valueExpression="value=undefined"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x112233"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_8_format_arrayType_noinh" valueExpression="value=application.defaultColorArray"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_9_date_arrayCol_inh" valueExpression="value=application.defaultDateList"/>	
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_13_enum_int_noinh" valueExpression="value=15"/>
+				<AssertStyleValue target="compoundStyleTest2" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls"/>
+			</body>
+		</TestCase>	
+		
+		<!--test state style compound/overwrite between inline styles and setStyle() method-->
+		<TestCase testID="ADV_inline_compound_inline_setStyle_method_state_test8" 
+				  description="test state style compound/overwrite between inline styles and setStyle() method" 
+				  keywords="ADVStyleTestClass, inline, compound, setStyle method, state">
+			<setup>
+				<ChangeState toState="light" waitEvent="changeEventDone" />
+				<RunCode code="application.setAdvStyle(application.compoundStyleTest3)"/>
+				<Pause timeout="{ADVStyleTestConstants.pauseTime}" />
+			</setup>
+			<body>
+				<!--SetStyle method-->
+				<AssertStyleValue target="compoundStyleTest3" styleName="teststyle_1_string_noinh" value="setString"/>
+				
+				<!--inline setting-->
+				<AssertStyleValue target="compoundStyleTest3" styleName="teststyle_14_object_noinh" valueExpression="value=application.myVo_heavy"/>
+				<AssertStyleValue target="compoundStyleTest3" styleName="teststyle_15_state_string_noinh" value="inlineStringLight"/>
+				<AssertStyleValue target="compoundStyleTest3" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.img3Cls"/>		
+				
+				<!--compound style between inline and setStyle() method using method value-->
+				<AssertStyleValue target="compoundStyleTest3" styleName="teststyle_12_enum_string_inh" value="secondType"/>		
+				
+				<!--default setting-->
+				<AssertStyleValue target="compoundStyleTest3" styleName="teststyle_2_number_noinh" valueExpression="value=undefined"/>
+			</body>
+		</TestCase>
+		
+		<!--Negative testing: change currentState to a nonsupported state, test default style--> 
+		<TestCase testID="ADV_inline_default_unsupported_state_test9" 
+				  description="Negative testing: change currentState to a nonsupported state, test default style" 
+				  keywords="ADVStyleTestClass, default, unsupported state">
+			<setup>
+				<ChangeState toState="notAstate" waitEvent="changeEventDone" />
+			</setup>
+			<body>
+				<!--styles which have state property-->
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_15_state_string_noinh" value="defaultStateString"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls_heavy"/>
+				
+				<!--styles which don't have state property-->
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_1_string_noinh" value="defaultString"/>
+				<AssertStyleValue target="defaultStyleTest" styleName="teststyle_2_number_noinh" valueExpression="value=undefined"/>
+			</body>
+		</TestCase>
+		
+		<!--Negative testing: change currentState to a nonsupported state, test inline style--> 
+		<TestCase testID="ADV_inline_inline_unsupported_state_test9" 
+				  description="Negative testing: change currentState to a nonsupported state, test inline style" 
+				  keywords="ADVStyleTestClass, inline, unsupported state">
+			<setup>
+				<ChangeState toState="notAstate" waitEvent="changeEventDone" />
+			</setup>
+			<body>
+				<!--styles which have state property-->
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_15_state_string_noinh" value="defaultStateString"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls_heavy"/>			
+				
+				<!--styles which don't have state property-->
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_1_string_noinh" value="notastate"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_2_number_noinh" valueExpression="value=444.7777"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_5_format_length_noinh" valueExpression="value=20"/>
+				<AssertStyleValue target="inlineStyleTest" styleName="teststyle_6_format_time_noinh" valueExpression="value=2000"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

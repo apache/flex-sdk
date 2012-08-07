@@ -1,0 +1,348 @@
+<UnitTester 
+    testSWF="../SWFs/Fade_main.mxml" 
+    testDir="mx/effects/Fade/object/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase testID="Fade_Button" keywords="[Fade, object, Button]" description="Test Fade on a Button.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Button', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_ButtonBar" keywords="[Fade, object, ButtonBar]" description="Test Fade on a ButtonBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="5000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ButtonBar', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_CheckBox" keywords="[Fade, object, CheckBox]" description="Test Fade on a CheckBox.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('CheckBox', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_ColorPicker" keywords="[Fade, object, ColorPicker]" description="Test Fade on a ColorPicker.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ColorPicker', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_ComboBox" keywords="[Fade, object, ComboBox]" description="Test Fade on a ComboBox.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ComboBox', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_DataGrid" keywords="[Fade, object, DataGrid]" description="Test Fade on a DataGrid.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('DataGrid', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_DateChooser" keywords="[Fade, object, DateChooser]" description="Test Fade on a DateChooser.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('DateChooser', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_DateField" keywords="[Fade, object, DateField]" description="Test Fade on a DateField.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('DateField', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_HorizontalList" keywords="[Fade, object, HorizontalList]" description="Test Fade on a HorizontalList.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HorizontalList', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_HRule" keywords="[Fade, object, HRule]" description="Test Fade on a HRule.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HRule', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_HScrollBar" keywords="[Fade, object, HScrollBar]" description="Test Fade on a HScrollBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HScrollBar', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_HSlider" keywords="[Fade, object, HSlider]" description="Test Fade on a HSlider.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('HSlider', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_Image" keywords="[Fade, object, Image]" description="Test Fade on a Image.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Image', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_Label" keywords="[Fade, object, Label]" description="Test Fade on a Label.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Label', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_LinkBar" keywords="[Fade, object, LinkBar]" description="Test Fade on a LinkBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('LinkBar', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_List" keywords="[Fade, object, List]" description="Test Fade on a List.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('List', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_MenuBar" keywords="[Fade, object, MenuBar]" description="Test Fade on a MenuBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('MenuBar', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_NumericStepper" keywords="[Fade, object, NumericStepper]" description="Test Fade on a NumericStepper.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('NumericStepper', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_PopUpButton" keywords="[Fade, object, PopUpButton]" description="Test Fade on a PopUpButton.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('PopUpButton', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_PopUpMenuButton" keywords="[Fade, object, PopUpMenuButton]" description="Test Fade on a PopUpMenuButton.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('PopUpMenuButton', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_ProgressBar" keywords="[Fade, object, ProgressBar]" description="Test Fade on a ProgressBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ProgressBar', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_RadioButton" keywords="[Fade, object, RadioButton]" description="Test Fade on a RadioButton.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('RadioButton', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_RichTextEditor" keywords="[Fade, object, RichTextEditor]" description="Test Fade on a RichTextEditor.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('RichTextEditor', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_TabBar" keywords="[Fade, object, TabBar]" description="Test Fade on a TabBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="3000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TabBar', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_Text" keywords="[Fade, object, Text]" description="Test Fade on a Text.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Text', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_TextArea" keywords="[Fade, object, TextArea]" description="Test Fade on a TextArea.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TextArea', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_TextInput" keywords="[Fade, object, TextInput]" description="Test Fade on a TextInput.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TextInput', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_TileList" keywords="[Fade, object, TileList]" description="Test Fade on a TileList.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('TileList', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_ToggleButtonBar" keywords="[Fade, object, ToggleButtonBar]" description="Test Fade on a ToggleButtonBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('ToggleButtonBar', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_Tree" keywords="[Fade, object, Tree]" description="Test Fade on a Tree.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('Tree', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_VRule" keywords="[Fade, object, VRule]" description="Test Fade on a VRule.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('VRule', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_VScrollBar" keywords="[Fade, object, VScrollBar]" description="Test Fade on a VScrollBar.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('VScrollBar', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Fade_VSlider" keywords="[Fade, object, VSlider]" description="Test Fade on a VSlider.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="2000"/>
+            </setup>
+            <body>
+                <RunCode code="application.SeekControl('VSlider', application.eff_Fade, 1000, 0, 1, 0, 500)" waitTarget="timer" waitEvent="timerComplete" />
+                <CompareBitmap target="currentCanvas" url="../object/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

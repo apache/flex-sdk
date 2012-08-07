@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application height="500" width="500"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    backgroundColor="0xFFFFFF"
+    
+    layout="absolute">
+
+    <mx:states>
+        <mx:State name="stateOne"/>
+        <mx:State name="stateTwo"/>
+    </mx:states>
+
+    <mx:transitions>
+        <mx:Transition effect="{toStateTwo}" fromState="stateOne" toState="stateTwo" />
+        <mx:Transition effect="{toStateOne}" fromState="stateTwo" toState="stateOne" />
+    </mx:transitions>
+
+    <!-- Simple Effects -->
+    <mx:Move id="testEffect" duration="250"/>
+
+    <!-- Effects for transitions -->
+    <mx:Parallel id="toStateTwo">
+        <mx:Move targets="{[testButton, testList]}" xBy="0" yBy="30" duration="1000" effectStart="testList.setStyle('backgroundColor', '#FF0000');" effectEnd="testList.setStyle('backgroundColor', '#FFFFFF');"/>
+    </mx:Parallel>
+    <mx:Parallel id="toStateOne">
+        <mx:Move targets="{[testButton, testList]}" xBy="0" yBy="-30" duration="1000" effectStart="testList.setStyle('backgroundColor', '#0000FF');" effectEnd="testList.setStyle('backgroundColor', '#FFFFFF');"/>
+    </mx:Parallel>
+
+    <mx:Script>
+        <![CDATA[
+        import mx.events.StateChangeEvent;
+            
+        public function doManualReset():void
+        {
+            if(currentState == "stateOne")
+            {
+                dispatchEvent(new Event("manualResetComplete"));
+            }
+            else
+            {
+                addEventListener("currentStateChange", handleCurrentStateChange);
+                currentState = "stateOne";   
+            }
+        }
+
+        private function handleCurrentStateChange(e:StateChangeEvent):void
+        {
+            dispatchEvent(new Event("manualResetComplete"));
+        }
+        ]]>
+    </mx:Script>
+
+    <mx:Button id="testButton" 
+            x="150"
+            y="10"
+            width="200"
+            height="30"
+            label="Test Button"/>
+
+    <mx:List id="testList" 
+        x="150" 
+        y="50" 
+        width="200"
+        height="300">
+
+        <mx:Button id="btn0" label="0" width="100%" height="30"/>
+        <mx:Button id="btn1" label="1" width="100%" height="30"/>
+        <mx:Button id="btn2" label="2" width="100%" height="30"/>
+        <mx:Button id="btn3" label="3" width="100%" height="30"/>
+        <mx:Button id="btn4" label="4" width="100%" height="30"/>
+    </mx:List>
+
+</mx:Application>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<c:TransitionTemplate xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   xmlns:c="comps.*"
+					   width="500" height="300" initialize="onInit()">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			protected function onInit():void
+			{
+				this.valueFunction = getNumber;
+				this.initTrans = initMove;
+				this.returnTrans = returnMove;
+			}
+			
+			protected function getNumber() : Number {
+				return (target.alpha*180) + target.rotationY
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Transition id="initMove" fromState="One" toState="Two" autoReverse="true">
+			<s:Sequence>
+				<s:children>
+					<s:Rotate3D target="{target}" duration="500"  
+							  effectStart="effectStart(event)"
+							  effectEnd="effectEnd(event)"
+							  effectUpdate="effectUpdate(event)"
+							  effectStop="effectStop(event)"
+							  effectRepeat="effectRepeat(event)"
+							  />
+					<s:Fade target="{target}" duration="500"
+							   effectStart="effectStart(event)"
+							   effectEnd="effectEnd(event)"
+							   effectUpdate="effectUpdate(event)"
+							   effectStop="effectStop(event)"
+							   effectRepeat="effectRepeat(event)"
+							   />					
+				</s:children>
+			</s:Sequence>
+		</s:Transition>
+		<s:Transition id="returnMove" fromState="Two" toState="One" autoReverse="true">
+			<s:Sequence>
+				<s:Rotate3D target="{target}" duration="1000"  
+						effectStart="effectStart(event)"
+						effectEnd="effectEnd(event)"
+						effectUpdate="effectUpdate(event)"
+						effectStop="effectStop(event)"
+						effectRepeat="effectRepeat(event)"
+						/>
+				<s:Fade target="{target}" duration="1000"  
+						  effectStart="effectStart(event)"
+						  effectEnd="effectEnd(event)"
+						  effectUpdate="effectUpdate(event)"
+						  effectStop="effectStop(event)"
+						  effectRepeat="effectRepeat(event)"
+						  />
+			</s:Sequence>
+		</s:Transition>
+	</fx:Declarations>
+	<c:states>
+		<s:State name="One"/>
+		<s:State name="Two"/>		
+	</c:states>
+	<s:Rect id="target" y="50" x="50" width="50" height="50" depth="50" rotationY.One="0" rotationY.Two="180" alpha.One="0.1" alpha.Two="1">
+		<s:fill>
+			<s:SolidColor color="#0000FF"/>
+		</s:fill>
+	</s:Rect>
+</c:TransitionTemplate>

@@ -1,0 +1,169 @@
+﻿<UnitTester 
+    testSWF="../SWFs/Sequence_main.mxml" 
+    testDir="mx/effects/Sequence/accessor/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import mx.effects.Sequence;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- compositeDuration -->
+        <TestCase testID="Sequence_compositeDuration_Default" keywords="[Sequence, accessor, compositeDuration]" description="Test the default value of the compositeDuration property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).compositeDuration" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sequence_compositeDuration_nothing" keywords="[Sequence, accessor, compositeDuration]" description="Test the value of compositeDuration from a single child effect with nothing.">
+            <body>
+                <AssertPropertyValue target="s_compositeDuration0" propertyName="compositeDuration" value="500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sequence_compositeDuration" keywords="[Sequence, accessor, compositeDuration]" description="Test the value of compositeDuration from a single child effect with duration.">
+            <body>
+                <AssertPropertyValue target="s_compositeDuration1" propertyName="compositeDuration" value="1000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sequence_compositeDuration_D_SD" keywords="[Sequence, accessor, compositeDuration]" description="Test the value of compositeDuration with duration and startDelay.">
+            <body>
+                <AssertPropertyValue target="s_compositeDuration2" propertyName="compositeDuration" value="1500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sequence_compositeDuration_D_SD_RC" keywords="[Sequence, accessor, compositeDuration]" description="Test the value of compositeDuration with duration, startDelay, repeatCount.">
+            <body>
+                <AssertPropertyValue target="s_compositeDuration3" propertyName="compositeDuration" value="2500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sequence_compositeDuration_D_SD_RC_RD" keywords="[Sequence, accessor, compositeDuration]" description="Test the value of compositeDuration with duration, startDelay, repeatCount, repeatDelay.">
+            <body>
+                <AssertPropertyValue target="s_compositeDuration4" propertyName="compositeDuration" value="3000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sequence_compositeDuration_multiChild" keywords="[Sequence, accessor, compositeDuration]" description="Test the value of compositeDuration with multiple child effects.">
+            <body>
+                <AssertPropertyValue target="s_compositeDuration5" propertyName="compositeDuration" value="9500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sequence_compositeDuration_durationOnSequence" keywords="[Sequence, accessor, compositeDuration]" description="Test the value of compositeDuration with duration on the sequence.">
+            <body>
+                <AssertPropertyValue target="s_compositeDuration6" propertyName="compositeDuration" value="3000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Sequence_compositeDuration_durationOnSequence_SD" keywords="[Sequence, accessor, compositeDuration]" description="Test startValues are added in compositeDuration when duration is set on sequence.">
+            <body>
+                <AssertPropertyValue target="s_compositeDuration7" propertyName="compositeDuration" value="4200"/>
+            </body>
+        </TestCase>
+
+        <!-- children -->
+        <TestCase testID="Sequence_children_Default" keywords="[Sequence, accessor, children]" description="Test the default value of the children property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).children" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- effectTargetHost -->
+        <TestCase testID="Sequence_effectTargetHost_Default" keywords="[Sequence, accessor, effectTargetHost]" description="Test the default value of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- className -->
+        <TestCase testID="Sequence_className_Default" keywords="[Sequence, accessor, className]" description="Test the default value of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).className" value="Sequence"/>
+            </body>
+        </TestCase>
+
+        <!-- hideFocusRing -->
+        <TestCase testID="Sequence_hideFocusRing_Default" keywords="[Sequence, accessor, hideFocusRing]" description="Test the default value of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- isPlaying -->
+        <TestCase testID="Sequence_isPlaying_Default" keywords="[Sequence, accessor, isPlaying]" description="Test the default value of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="Sequence_duration_Default" keywords="[Sequence, accessor, duration]" description="Test the default value of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).duration" value="500"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantProperties -->
+        <TestCase testID="Sequence_relevantProperties_Default" keywords="[Sequence, accessor, relevantProperties]" description="Test the default value of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).relevantProperties" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- target -->
+        <TestCase testID="Sequence_target_Default" keywords="[Sequence, accessor, target]" description="Test the default value of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).target" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- playheadTime -->
+        <TestCase testID="Sequence_playheadTime_Default" keywords="[Sequence, accessor, playheadTime]" description="Test the default value of the playheadTime property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).playheadTime" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantStyles -->
+        <TestCase testID="Sequence_relevantStyles_Default" keywords="[Sequence, accessor, relevantStyles]" description="Test the default value of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).relevantStyles" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- targets -->
+        <TestCase testID="Sequence_targets_Default" keywords="[Sequence, accessor, targets]" description="Test the default value of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).targets" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- perElementOffset -->
+        <TestCase testID="Sequence_perElementOffset_Default" keywords="[Sequence, accessor, perElementOffset]" description="Test the default value of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- triggerEvent -->
+        <TestCase testID="Sequence_triggerEvent_Default" keywords="[Sequence, accessor, triggerEvent]" description="Test the default value of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- customFilter -->
+        <TestCase testID="Sequence_customFilter_Default" keywords="[Sequence, accessor, customFilter]" description="Test the default value of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- filter -->
+        <TestCase testID="Sequence_filter_Default" keywords="[Sequence, accessor, filter]" description="Test the default value of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new Sequence()).filter" value="null"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

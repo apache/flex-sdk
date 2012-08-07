@@ -1,0 +1,78 @@
+<UnitTester 
+    testSWF="../SWFs/Dissolve_main.mxml" 
+    testDir="mx/effects/Dissolve/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Dissolve;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+    <testCases>
+
+        <!-- effectStart -->
+        <TestCase testID="Dissolve_effectStart" keywords="[Dissolve, event, effectStart]" description="Verify effectStart is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Dissolve, 500, 0, 1, 0)" waitTarget="eff_Dissolve" waitEvent="tweenUpdate" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- tweenStart -->
+        <TestCase testID="Dissolve_tweenStart" keywords="[Dissolve, event, tweenStart]" description="Verify tweenStart is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Dissolve, 500, 0, 1, 0)" waitTarget="eff_Dissolve" waitEvent="tweenStart" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- tweenUpdate -->
+        <TestCase testID="Dissolve_tweenUpdate" keywords="[Dissolve, event, tweenUpdate]" description="Verify tweenUpdate is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Dissolve, 500, 0, 1, 0)" waitTarget="eff_Dissolve" waitEvent="tweenUpdate" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- tweenEnd -->
+        <TestCase testID="Dissolve_tweenEnd" keywords="[Dissolve, event, tweenEnd]" description="Verify tweenEnd is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Dissolve, 500, 0, 1, 0)" waitTarget="eff_Dissolve" waitEvent="tweenEnd" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- effectEnd -->
+        <TestCase testID="Dissolve_effectEnd" keywords="[Dissolve, event, effectEnd]" description="Verify effectEnd is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Dissolve, 500, 0, 1, 0)" waitTarget="eff_Dissolve" waitEvent="effectEnd" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

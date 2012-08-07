@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="mx/effects/WipeUp/Methods/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/WipeUp_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.WipeUp;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- Construtor -->
+        <TestCase testID="WipeUp_Constructor_Empty"  keywords="[WipeUp, method, constructor]" description="Try to initialize the constructor with an empty arg.">
+            <body>
+                <RunCode code="application.testEffect = new WipeUp();"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeUp_Constructor_Null"  keywords="[WipeUp, method, constructor]" description="Try to initialize the constructor with the null arg.">
+            <body>
+                <RunCode code="application.testEffect = new WipeUp(null);"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeUp_Constructor_Object"  keywords="[WipeUp, method, constructor]" description="Try to initialize the constructor with an object.">
+            <body>
+                <RunCode code="application.testEffect = new WipeUp(application.testImage);" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeUp_resume" keywords="[WipeUp, Methods, resume]" description="Test the resume() method.">
+            <setup>
+                <RunCode code="application.ResetImage()"/>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <SetProperty target="testEffect" propertyName="duration" value="1000"/>
+                <RunCode code="application.testEffect.play()"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.testEffect.pause()"/>
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.resume()" waitTarget="testEffect" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeUp_pause" keywords="[WipeUp, Methods, pause]" description="Test the pause() method.">
+            <setup>
+                <RunCode code="application.ResetImage()"/>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <SetProperty target="testEffect" propertyName="duration" value="1000"/>
+                <RunCode code="application.testEffect.play()"/>
+                <Pause timeout="500"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.pause()"/>
+                <AssertPixelValue x="100" y="50" value="0xFFFFFF"/>
+                <AssertPixelValue x="100" y="200" value="0xFFFFFF"/>
+                <Pause timeout="700"/>
+                <AssertNoEvent target="testEffect" eventName="effectEnd" eventClass="mx.effects.EffectEvent"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeUp_play" keywords="[WipeUp, Methods, play]" description="Test the play() method.">
+            <setup>
+                <RunCode code="application.ResetImage()"/>
+                <RunCode code="application.ResetEffectDefault()"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play()" waitTarget="testEffect" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeUp_stop" keywords="[WipeUp, Methods, stop]" description="Test the stop() method. Start, wait 500ms, then stop in mid-effect. Verify effectEnd">
+            <setup>
+                <RunCode code="application.ResetImage()"/>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <SetProperty target="testEffect" propertyName="duration" value="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play()"/>
+                <Pause timeout="500"/>
+                <RunCode code="application.testEffect.stop()" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPixelValue x="100" y="50" value="0xFFFFFF"/>
+                <AssertPixelValue x="100" y="200" value="0xFFFFFF"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeUp_reverse" keywords="[WipeUp, Methods, reverse]" description="Test the reverse() method. Start, wait 500ms, then reverse in mid-effect.">
+            <setup>
+                <RunCode code="application.ResetImage()"/>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <SetProperty target="testEffect" propertyName="duration" value="1000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play()"/>
+                <Pause timeout="500"/>
+                <AssertPixelValue x="100" y="50" value="0xFFFFFF"/>
+                <RunCode code="application.testEffect.reverse()" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPixelValue x="100" y="50" value="0xFFFFFF"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

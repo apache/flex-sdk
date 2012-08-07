@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="mx/effects/Pause/usability/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*"
+    testSWF="../SWFs/Pause_Main.mxml">
+    
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.Application;
+        
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+
+    <testCases>
+
+    <!-- wait works with only a duration -->
+        <TestCase testID="Pause_TimeoutOnly" keywords="[Pause, usability, duration]" description="Verify pause works with only a duration.">
+            <body>
+                <RunCode code="application.tp1.play()"/>
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="testFill" propertyName="color" value="0xFF0000"/>
+                <RunCode code="application.tp1.stop()"/>
+            </body>
+        </TestCase>
+
+        <!-- wait works with a target and an eventName -->
+        <TestCase testID="Pause_TargetAndEvent" keywords="[Pause, usability, target, eventName]" description="Verify pause works with a target and an eventName.">
+            <body>
+                <RunCode code="application.tp2.play()"/>
+                <!-- wait (500 + 500 + 200) ms to assure that if wait did NOT occur, both tints would be finished -->
+                <Pause timeout="1200"/>
+                <!-- assure we have only done the first-->
+                <AssertPropertyValue target="testFill" propertyName="color" value="0xFF0000"/>
+                <!-- now send an event (click haloButton to raise it's click event) to end the wait and trigger the last tint -->
+                <DispatchMouseClickEvent target="haloButton" localX="5" localY="5"/>
+                <Pause timeout="1000"/>
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x000000"/>
+            </body>
+        </TestCase>
+
+        <!-- wait triggers off duration before event -->
+        <TestCase testID="Pause_TimeoutBeforeEvent" keywords="[Pause, usability, duration, target, eventName]" description="Verify pause triggers from duration before event.">
+            <body>
+                <RunCode code="application.tp3.play()"/>
+                <!-- wait (300 + 300 + 300) ms to assure that both tints and wait would be finished -->
+                <Pause timeout="1000"/>
+                <!-- assure we have done both tints-->
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x000000"/>
+            </body>
+        </TestCase>
+
+        <!-- wait triggers off eventName before duration -->
+        <TestCase testID="Pause_EventBeforeTimeout" keywords="[Pause, usability, target, eventName]" description="Verify pause triggers off eventName before duration.">
+            <body>
+                <RunCode code="application.tp4.play()"/>
+                <!-- wait (300 + 400) ms to we are in the wait-->
+                <Pause timeout="700"/>
+                <!-- assure we have only done the first tint -->
+                <AssertPropertyValue target="testFill" propertyName="color" value="0xFF0000"/>
+                <!-- now send an event to end the wait BEFORE the duration occurs -->
+                <DispatchMouseClickEvent target="haloButton" localX="5" localY="5"/>
+                <!-- now wait for the second tint to finish -->
+                <Pause timeout="600"/>
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x000000"/>
+            </body>
+        </TestCase>
+
+        <!-- timout -1 + target = INDEFINITE -->
+        <TestCase testID="Pause_TimeoutIndefinite" keywords="[Pause, usability, target, eventName]" description="Verify pause indefinite with a duration of -1.">
+            <setup>
+                <SetProperty target="testFill" propertyName="color" value="0xF0F0F0"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp5.play()"/>
+                <!-- wait (2000) ms to assure that the wait did not release -->
+                <Pause timeout="2000"/>
+                <AssertPropertyValue target="testFill" propertyName="color" value="0xF0F0F0"/>
+            </body>
+        </TestCase>
+
+        <!-- timout -1 - target = IMMEDIATE -->
+        <TestCase testID="Pause_TimeoutImmediate" keywords="[Pause, usability, target, eventName]" description="Verify pause with a duration of -1 is ignored if no event is declared.">
+            <setup>
+                <SetProperty target="testFill" propertyName="color" value="0xF0F0F0"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp6.play()"/>
+                <!-- wait (700) ms to assure the wait released and the tint occurred -->
+                <Pause timeout="700"/>
+                <AssertPropertyValue target="testFill" propertyName="color" value="0xF0F0F0"/>
+                <RunCode code="application.tp6.stop()"/>
+            </body>
+        </TestCase>
+
+        <!-- timout 0 = IMMEDIATE -->
+        <TestCase testID="Pause_TimeoutZeroImmediate" keywords="[Pause, usability, target, eventName]" description="Verify pause with a duration of 0 finishes immediately.">
+            <setup>
+                <SetProperty target="testFill" propertyName="color" value="0xF0F0F0"/>
+            </setup>
+            <body>
+                <RunCode code="application.tp7.play()"/>
+                <!-- wait (700) ms to assure the wait released and the tint occurred -->
+                <Pause timeout="700"/>
+                <AssertPropertyValue target="testFill" propertyName="color" value="0x00FFFF"/>
+            </body>
+        </TestCase>
+
+
+
+    </testCases>
+</UnitTester>

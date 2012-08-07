@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="mx/effects/Move/Dimensions/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/Move_Main.mxml">
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Move;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    
+    <testCases>
+
+        <!-- X Tests -->
+        <TestCase testID="Move_Dimensions_Nothing_X"  keywords="[Move, Dimensions]" description="Reset component, test that nothing happens on a non-initialized Move effect.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="x" value="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_NaNAll_X"  keywords="[Move, Dimensions]" description="Test Move with all x dimensions cleared.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xFrom" value="NaN"/>
+                <SetProperty target="testEffect" propertyName="xTo" value="NaN"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="NaN"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="x" value="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_xFromStart"  keywords="[Move, Dimensions]" description="Verfiy the object snaps to xFrom at effectStart.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="duration" value="20000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.testButton.x)" value="50"/>
+                <RunCode code="application.testEffect.stop()" waitTarget="testEffect" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_xFromOnly"  keywords="[Move, Dimensions]" description="Test Move by only setting xFrom.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xFrom" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <SetProperty target="testEffect" propertyName="xFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="xTo" value="100"/>
+                <AssertPropertyValue target="testButton" propertyName="x" value="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_xFromToSame"  keywords="[Move, Dimensions]" description="Test Move by setting xFrom AND xTo.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="xTo" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="x" value="50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_xFromTo"  keywords="[Move, Dimensions]" description="Test Move by setting xFrom AND xTo.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="xTo" value="90"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="x" value="90"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_xToOnly"  keywords="[Move, Dimensions]" description="Test Move by only setting xTo.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xTo" value="300"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="x" value="300"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_xToxBy"  keywords="[Move, Dimensions]" description="Test Move by setting xTo AND xBy. Verify xFrom">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xTo" value="200"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="40"/>
+                <SetProperty target="testEffect" propertyName="duration" value="20000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.testButton.x)" value="160"/>
+                <RunCode code="application.testEffect.stop()" waitTarget="testEffect" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_xToxByInverted"  keywords="[Move, Dimensions]" description="Test Move by setting xTo AND xBy where xBy > xTo. Verify xFrom">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xTo" value="40"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="200"/>
+                <SetProperty target="testEffect" propertyName="duration" value="20000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.testButton.x)" value="-160"/>
+                <RunCode code="application.testEffect.stop()" waitTarget="testEffect" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_xBy"  keywords="[Move, Dimensions]" description="Test Move by only setting xBy. Verify final x">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="x" value="150"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_xByNegative"  keywords="[Move, Dimensions]" description="Test Move by setting xBy to a negative value.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="-50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="x" value="50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_xByNegativeBeyondZero"  keywords="[Move, Dimensions]" description="Test Move by setting xBy to a negative value to go past 0.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="-250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="x" value="-150"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_xFromBy"  keywords="[Move, Dimensions]" description="Test Move by settingxFrom AND xBy.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="xFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="xBy" value="200"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="x" value="250"/>
+            </body>
+        </TestCase>
+
+        <!-- Y Tests -->
+        <TestCase testID="Move_Dimensions_Nothing_Y"  keywords="[Move, Dimensions]" description="Reset component, test that nothing happens on a non-initialized Move effect.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="110"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_NaNAll_Y"  keywords="[Move, Dimensions]" description="Test Move with all x dimensions cleared.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yFrom" value="NaN"/>
+                <SetProperty target="testEffect" propertyName="yTo" value="NaN"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="NaN"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="110"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_yFromStart"  keywords="[Move, Dimensions]" description="Verfiy the object snaps to yFrom at effectStart.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="duration" value="20000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.testButton.y)" value="50"/>
+                <RunCode code="application.testEffect.stop()" waitTarget="testEffect" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_yFromOnly"  keywords="[Move, Dimensions]" description="Test Move by only setting yFrom.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yFrom" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <SetProperty target="testEffect" propertyName="yFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="yTo" value="110"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="110"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_yFromToSame"  keywords="[Move, Dimensions]" description="Test Move by setting yFrom AND yTo to the same value.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="yTo" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_yFromTo"  keywords="[Move, Dimensions]" description="Test Move by setting yFrom AND yTo.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="yTo" value="90"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="90"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_yToOnly"  keywords="[Move, Dimensions]" description="Test Move by only setting yTo.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yTo" value="300"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="300"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_yToyBy"  keywords="[Move, Dimensions]" description="Test Move by setting yTo AND yBy. Verify yFrom">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yTo" value="200"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="40"/>
+                <SetProperty target="testEffect" propertyName="duration" value="20000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.testButton.y)" value="160"/>
+                <RunCode code="application.testEffect.stop()" waitTarget="testEffect" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_yToyByInverted"  keywords="[Move, Dimensions]" description="Test Move by setting yTo AND yBy where yBy > yTo. Verify yFrom at effectStart">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yTo" value="40"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="200"/>
+                <SetProperty target="testEffect" propertyName="duration" value="20000"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectStart"/>
+                <AssertMethodValue method="value=Math.round(application.testButton.y)" value="-160"/>
+                <RunCode code="application.testEffect.stop()" waitTarget="testEffect" waitEvent="effectEnd"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_yBy"  keywords="[Move, Dimensions]" description="Test Move by only setting yBy. Verify final y">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="160"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_yByNegative"  keywords="[Move, Dimensions]" description="Test Move by setting yBy to a negative value.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="-50"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="60"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_yByNegativeBeyondZero"  keywords="[Move, Dimensions]" description="Test Move by setting yBy to a negative value to go past 0.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="-250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="-140"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Move_Dimensions_yFromBy"  keywords="[Move, Dimensions]" description="Test Move by setting yFrom AND yBy.">
+            <setup>
+                <ResetComponent target="testButton" className="Assets.TrixButton" waitTarget="testButton" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.Move"/>
+                <SetProperty target="testEffect" propertyName="yFrom" value="50"/>
+                <SetProperty target="testEffect" propertyName="yBy" value="200"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testButton], false)" waitTarget="testEffect" waitEvent="effectEnd"/>
+                <AssertPropertyValue target="testButton" propertyName="y" value="250"/>
+            </body>
+        </TestCase>
+        
+    </testCases>
+
+</UnitTester>

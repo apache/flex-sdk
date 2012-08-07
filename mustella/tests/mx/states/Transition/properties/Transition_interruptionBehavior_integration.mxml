@@ -1,0 +1,217 @@
+<UnitTester
+    testSWF="../SWFs/Transition_Properties_main.mxml"
+    testDir="mx/states/Transition/properties/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import mx.states.Transition;
+        import mx.managers.*;
+        import flash.utils.*;
+        import comps.TitleWindowComp;
+        
+        public static function init(o:DisplayObject):void{}
+        
+        /* 
+            This function is used to verify that the point at which a Transition stopped is between its value in State1 and State2. 
+            For example, if you are moving from (0, 10) in State 1 to (35, 100) in State 2 and (45, 90) in State 3, you might use
+            this function to check the x value that should be between State 1 and State 2 by calling: verifyPoint(pointToCheck, 35, 0)
+        */
+        
+        public function verifyPoint(a:Number, b:Number, c:Number):Boolean
+        {
+            if((a < b) && (c < a))
+               return true;
+            else
+               return false;
+        }
+        
+         public function closeAllPopUps():void{
+                //if(application.systemManager.popUpChildren.numChildren > 0){
+                    PopUpManager.removePopUp(application.newPopUp);
+                //}
+            } 
+
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <testCases>  
+        <TestCase testID="Transition_PopUp_interruptionBehavior_stop" keywords="[PopUpManager,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a popped up component.">
+            <setup>                   
+                <RunCode code="application.openPopUp()" waitTarget="newPopUp" waitEvent="creationComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="newPopUp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="newPopUp" waitEvent="effectStart" 
+                   waitTarget="newPopUp.group1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="newPopUp" waitEvent="effectStart" 
+                   waitTarget="newPopUp.group1" />
+                <AssertMethodValue method="value=verifyPoint(application.newPopUp.group1.width, 400, 100)" value="true" />
+                <AssertMethodValue method="value=verifyPoint(application.newPopUp.group1.height, 300, 250)" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_PopUp_interruptionBehavior_end" keywords="[PopUpManager,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with a popped up component.">
+            <setup>  
+                <RunCode code="application.closePopUp()" />
+                <Pause timeout="200" />
+                <RunCode code="application.openPopUp()" />
+                <Pause timeout="200" />
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="newPopUp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="newPopUp" waitEvent="effectStart" 
+                   waitTarget="newPopUp.group1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="newPopUp" waitEvent="effectStart" 
+                   waitTarget="newPopUp.group1" />
+                <AssertMethodValue method="value=verifyPoint(application.newPopUp.group1.width, 102, 98)" value="true" />
+                <AssertMethodValue method="value=verifyPoint(application.newPopUp.group1.height, 252, 248)" value="true" />
+                <RunCode code="application.closePopUp()" />
+                <Pause timeout="200" /> 
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_repeatCount_interruptionBehavior_stop" keywords="[Transition, interruptionBehavior]"  
+        description="Verify that interruptionBehavior=stop works with a Move effect playing multiple times.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="1" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="moveComp" className="comps.MoveComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="moveComp.mainTransition" />
+                <SetProperty propertyName="duration" value="150" target="moveComp.move1" />
+                <SetProperty propertyName="startDelay" value="50" target="moveComp.move1" />
+                <SetProperty propertyName="repeatCount" value="3" target="moveComp.move1" />
+                <SetProperty propertyName="currentState" value="State2" target="moveComp" waitEvent="effectStart" 
+                   waitTarget="moveComp.button1" />
+                <Pause timeout="250"/>
+                <SetProperty propertyName="currentState" value="State3" target="moveComp" waitEvent="effectStart" 
+                   waitTarget="moveComp.button1" />
+                <Pause timeout="20" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.moveComp.button1.x), 11, 0)" value="true" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.moveComp.button1.y), 100, 15)" value="false" />
+            </body>
+        </TestCase> 
+        <TestCase testID="Transition_repeatCount_interruptionBehavior_end" keywords="[Transition, interruptionBehavior]"  
+        description="Verify that interruptionBehavior=end works with a Move effect playing multiple times.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="12" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                   
+                <SetProperty propertyName="selectedIndex" value="1" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="moveComp" className="comps.MoveComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="moveComp.mainTransition" />
+                <SetProperty propertyName="duration" value="150" target="moveComp.move1" />
+                <SetProperty propertyName="startDelay" value="50" target="moveComp.move1" />
+                <SetProperty propertyName="repeatCount" value="3" target="moveComp.move1" />
+                <SetProperty propertyName="currentState" value="State2" target="moveComp" waitEvent="effectStart" 
+                   waitTarget="moveComp.button1" />
+                <Pause timeout="250"/>
+                <SetProperty propertyName="currentState" value="State3" target="moveComp" waitEvent="effectStart" 
+                   waitTarget="moveComp.button1" />
+                <AssertMethodValue method="value=Math.round(application.moveComp.button1.x)" value="11" />
+                <AssertMethodValue method="value=Math.round(application.moveComp.button1.y)" value="100" />
+                <AssertMethodValue method="value=verifyPoint(application.moveComp.button1.x,13,9)" value="true" />
+                <AssertMethodValue method="value=verifyPoint(application.moveComp.button1.y, 102, 98)" value="true" />
+            </body>
+        </TestCase> 
+       <TestCase testID="Transition_stateGroups_interruptionBehavior_stop" keywords="[Transition, interruptionBehavior]"  
+        description="Verify that interruptionBehavior=stop works with components that don't exist in some states and use state groups.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="3" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                   
+                <SetProperty propertyName="selectedIndex" value="18" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="groupsComp" className="comps.AddComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="groupsComp.mainTransition" />
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="groupsComp.mainTransition2" />
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="groupsComp.mainTransition3" />
+                <SetProperty propertyName="currentState" value="State2" target="groupsComp" waitEvent="effectStart" 
+                   waitTarget="groupsComp.rect1" />
+                <Pause timeout="250"/>
+                <SetProperty propertyName="currentState" value="State3" target="groupsComp" waitEvent="effectStart" 
+                   waitTarget="groupsComp.rect1" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.groupsComp.rect1.width), 250, 100)" value="true" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.groupsComp.rect1.height), 250, 150)" value="true" />
+            </body>
+        </TestCase>  
+       <TestCase testID="Transition_stateGroups_interruptionBehavior_end" keywords="[Transition, interruptionBehavior]"  
+        description="Verify that interruptionBehavior=end works with components that don't exist in some states and use state groups.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="1" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                   
+                <SetProperty propertyName="selectedIndex" value="18" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="groupsComp" className="comps.AddComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="groupsComp.mainTransition" />
+                <SetProperty propertyName="interruptionBehavior" value="end" target="groupsComp.mainTransition2" />
+                <SetProperty propertyName="interruptionBehavior" value="end" target="groupsComp.mainTransition3" />
+                <SetProperty propertyName="currentState" value="State2" target="groupsComp" waitEvent="effectStart" 
+                   waitTarget="groupsComp.rect1" />
+                <Pause timeout="250"/>
+                <SetProperty propertyName="currentState" value="State3" target="groupsComp" waitEvent="effectStart" 
+                   waitTarget="groupsComp.rect1" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.groupsComp.rect1.width), 102, 98)" value="true" />
+                <AssertMethodValue method="value=verifyPoint(Math.round(application.groupsComp.rect1.height), 152, 148)" value="true" />
+            </body>
+        </TestCase>   
+        <TestCase testID="Transition_EasingEffect_interruptionBehavior_stop" keywords="[EasingFunction,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=stop works with an effect that uses an easer.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="1" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                   
+                <SetProperty propertyName="selectedIndex" value="19" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="easingComp" className="comps.EasingComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="easingComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="easingComp" waitEvent="effectStart" 
+                   waitTarget="easingComp.button1" />
+                <Pause timeout="250"/>
+                <SetProperty propertyName="currentState" value="State3" target="easingComp" waitEvent="effectStart" 
+                   waitTarget="easingComp.button1" />
+                <AssertMethodValue method="value=verifyPoint(application.easingComp.button1.width, 250, 50)" value="true" />
+                <AssertMethodValue method="value=verifyPoint(application.easingComp.button1.height, 90, 50)" value="true" />
+            </body>
+        </TestCase>  
+        <TestCase testID="Transition_EasingEffect_interruptionBehavior_end" keywords="[EasingFunction,Transition, interruptionBehavior]" 
+           description="Verify that interruptionBehavior=end works with an effect that uses an easer.">
+            <setup>                   
+                <SetProperty propertyName="selectedIndex" value="1" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />                   
+                <SetProperty propertyName="selectedIndex" value="19" target="myAccordion" waitEvent="updateComplete"
+                    waitTarget="myAccordion" />
+                <ResetComponent target="easingComp" className="comps.EasingComponents" waitEvent="updateComplete"
+                    waitTarget="myAccordion" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="end" target="easingComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="easingComp" waitEvent="effectStart" 
+                   waitTarget="easingComp.button1" />
+                <Pause timeout="250"/>
+                <SetProperty propertyName="currentState" value="State3" target="easingComp" waitEvent="effectStart" 
+                   waitTarget="easingComp.button1" />
+                <AssertMethodValue method="value=Math.round(application.easingComp.button1.width)" value="250" />
+                <AssertMethodValue method="value=Math.round(application.easingComp.button1.height)" value="90" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="mx/utils/ColorUtil/method/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/ColorUtil_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import mx.utils.ColorUtil;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- adjustBrightness -->
+        <TestCase testID="ColorUtil_adjustBrightness_uberNegative"  keywords="[ColorUtil, method, adjustBrightness]" description="Test the adjustBrightness method with a number less than -255.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.adjustBrightness(0xFF0077, -1*0x000FFF)" value="0x000000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_adjustBrightness_negative"  keywords="[ColorUtil, method, adjustBrightness]" description="Test the adjustBrightness method with a number between color and 0.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.adjustBrightness(0xFF5577, -1*0x000033)" value="0xCC2244"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_adjustBrightness_zero"  keywords="[ColorUtil, method, adjustBrightness]" description="Test the adjustBrightness method when adding 0.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.adjustBrightness(0xFF5577, 0x000000)" value="0xFF5577"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_adjustBrightness_positive"  keywords="[ColorUtil, method, adjustBrightness]" description="Test the adjustBrightness method with a number between color and 255.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.adjustBrightness(0x333333, 0x000044)" value="0x777777"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_adjustBrightness_uberPositive"  keywords="[ColorUtil, method, adjustBrightness]" description="Test the adjustBrightness method with a number greater than 255.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.adjustBrightness(0xFF5577, 0x000FFF)" value="0xFFFFFF"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_adjustBrightness_bleed"  keywords="[ColorUtil, method, adjustBrightness]" description="Test the adjustBrightness method with a number that may cause bleeding into higher channels.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.adjustBrightness(0x0000AA, 0x000077)" value="0x7777FF"/>
+            </body>
+        </TestCase>
+
+        <!-- adjustBrightness2 -->
+        <TestCase testID="ColorUtil_adjustBrightness2_min"  keywords="[ColorUtil, method, adjustBrightness2]" description="Test the adjustBrightness2 method with a number less than -255.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.adjustBrightness2(0xFF0077, -100)" value="0x000000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_adjustBrightness2_negative"  keywords="[ColorUtil, method, adjustBrightness2]" description="Test the adjustBrightness2 method with a number between color and 0.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.adjustBrightness2(0xFFFFFF, -50)" value="0x7F7F7F"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_adjustBrightness2_zero"  keywords="[ColorUtil, method, adjustBrightness2]" description="Test the adjustBrightness2 method when adding 0.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.adjustBrightness2(0xFF5577, 0x000000)" value="0xFF5577"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_adjustBrightness2_positive"  keywords="[ColorUtil, method, adjustBrightness2]" description="Test the adjustBrightness2 method with a number between color and 255.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.adjustBrightness2(0x000000, 50)" value="0x7F7F7F"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_adjustBrightness2_max"  keywords="[ColorUtil, method, adjustBrightness2]" description="Test the adjustBrightness2 method with a number greater than 255.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.adjustBrightness2(0xFF0077, 100)" value="0xFFFFFF"/>
+            </body>
+        </TestCase>
+
+        <!-- rgbMultiply -->
+        <TestCase testID="ColorUtil_rgbMultiply_white"  keywords="[ColorUtil, method, rgbMultiply]" description="Test the rgbMultiply method with white changes nothing.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.rgbMultiply(0xFF0077, 0xFFFFFF)" value="0xFF0077"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_rgbMultiply_multiChannel"  keywords="[ColorUtil, method, rgbMultiply]" description="Test the rgbMultiply method with across individual channels.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.rgbMultiply(0xFF0077, 0x335522)" value="0x33000F"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_rgbMultiply_black"  keywords="[ColorUtil, method, rgbMultiply]" description="Test the rgbMultiply method with white changes nothing.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.rgbMultiply(0xFF0077, 0x000000)" value="0x000000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ColorUtil_rgbMultiply_blackMultiChannel"  keywords="[ColorUtil, method, rgbMultiply]" description="Test the rgbMultiply method with across individual channels.">
+            <body>
+                <AssertMethodValue method="value=ColorUtil.rgbMultiply(0xFF0077, 0x00FF00)" value="0x000000"/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,123 @@
+<UnitTester
+    testDir="mx/graphics/SolidColorStroke/Properties/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/SolidColorStroke_Main.mxml">
+
+    <!--Default Script-->
+    <mx:Script>
+        <![CDATA[
+        import spark.components.VideoDisplay;
+
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <!--Default Metadata-->
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <!--Test Cases-->
+    <testCases>
+    <!-- Note, no event triggers when you update a filter at runtime -->
+
+        <TestCase testID="SolidColorStroke_Properties_color_default" keywords="[SolidColorStroke, color]"
+            description="Test the default value of the color property.">
+            <body>
+                <AssertPropertyValue target="lineComp.getElementAt(0).stroke" propertyName="color" value="0x000000" />
+            </body>
+        </TestCase>
+        <TestCase testID="SolidColorStroke_Properties_alpha_default" keywords="[SolidColorStroke, alpha]"
+            description="Test the default value of the alpha property.">
+            <body>
+                <AssertPropertyValue target="lineComp.getElementAt(0).stroke" propertyName="alpha" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="SolidColorStroke_Properties_caps_default" keywords="[SolidColorStroke, caps]"
+            description="Test the default value of the caps property.">
+            <!--bugs>
+                <Bug bugID="SDK-18373" />
+            </bugs-->
+            <body>
+                <AssertPropertyValue target="lineComp.getElementAt(0).stroke" propertyName="caps" value="round" />
+            </body>
+        </TestCase>
+        <!-- SDK-21785 -->
+        <!--TestCase testID="SolidColorStroke_Properties_weight_default" keywords="[SolidColorStroke, weight]"
+            description="Test the default value of the weight property.">
+            <body>
+                <AssertPropertyValue target="lineComp.getElementAt(0).stroke" propertyName="weight" value="0" />
+            </body>
+        </TestCase-->
+        <TestCase testID="SolidColorStroke_Properties_joints_default" keywords="[SolidColorStroke, joints]"
+            description="Test the default value of the joints property.">
+            <body>
+                <AssertPropertyValue target="lineComp.getElementAt(0).stroke" propertyName="joints" value="round" />
+            </body>
+        </TestCase>
+        <TestCase testID="SolidColorStroke_Properties_miterLimit_default" keywords="[SolidColorStroke, miterLimit]"
+            description="Test the default value of the miterLimit property.">
+            <body>
+                <AssertPropertyValue target="lineComp.getElementAt(0).stroke" propertyName="miterLimit" value="3" />
+            </body>
+        </TestCase>
+        <TestCase testID="SolidColorStroke_Properties_pixelHinting_default" keywords="[SolidColorStroke, pixelHinting]" description="Test the default value of the pixelHinting property.">
+            <body>
+                <AssertPropertyValue target="lineComp.getElementAt(0).stroke" propertyName="pixelHinting" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="SolidColorStroke_Properties_joints_miter" keywords="[SolidColorStroke, joints]"
+            description="Test the value miter for the joints property.">
+            <setup>
+                <ResetComponent target="pathComp" className="comps.PathComp" waitEvent="updateComplete" waitTarget="pathComp" />
+            </setup>
+            <body>
+                <SetProperty target="pathComp.path1.stroke" propertyName="color" value="0xFF0000"/>
+                <SetProperty target="pathComp.path1.stroke" propertyName="weight" value="7"/>
+                <SetProperty target="pathComp.path1.stroke" propertyName="joints" value="miter" />
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="pathComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SolidColorStroke_Properties_joints_bevel" keywords="[SolidColorStroke, joints]"
+            description="Test the value miter for the joints property.">
+            <setup>
+                <ResetComponent target="pathComp" className="comps.PathComp" waitEvent="updateComplete" waitTarget="pathComp" />
+            </setup>
+            <body>
+                <SetProperty target="pathComp.getElementAt(0).stroke" propertyName="color" value="0xFF0000"/>
+                <SetProperty target="pathComp.getElementAt(0).stroke" propertyName="weight" value="7"/>
+                <SetProperty target="pathComp.getElementAt(0).stroke" propertyName="joints" value="bevel"/>
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="pathComp" timeout="2000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SolidColorStroke_Properties_miterLimit_0" keywords="[SolidColorStroke, miterLimit]"
+            description="Test the value 0 for the miterLimit property.">
+            <setup>
+                <ResetComponent target="pathComp" className="comps.PathComp" waitEvent="updateComplete" waitTarget="pathComp" />
+            </setup>
+            <body>
+                <SetProperty target="pathComp.getElementAt(0).stroke" propertyName="color" value="0x00FF00"/>
+                <SetProperty target="pathComp.getElementAt(0).stroke" propertyName="weight" value="7"/>
+                <SetProperty target="pathComp.getElementAt(0).stroke" propertyName="joints" value="miter"/>
+                <SetProperty target="pathComp.getElementAt(0).stroke" propertyName="miterLimit" value="0"  />
+                <Pause timeout="300" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="pathComp" timeout="2000"/>
+            </body>
+        </TestCase>
+         <TestCase testID="SolidColorStroke_Properties_miterLimit_10" keywords="[SolidColorStroke, miterLimit]"
+             description="Test the value 10 for the miterLimit property.">
+             <setup>
+                 <ResetComponent target="pathComp" className="comps.PathComp" waitEvent="updateComplete" waitTarget="pathComp" />
+             </setup>
+             <body>
+                 <SetProperty target="pathComp.getElementAt(0).stroke" propertyName="color" value="0x00FF00"/>
+                <SetProperty target="pathComp.getElementAt(0).stroke" propertyName="weight" value="7"/>
+                <SetProperty target="pathComp.getElementAt(0).stroke" propertyName="joints" value="miter"/>
+                <SetProperty target="pathComp.getElementAt(0).stroke" propertyName="miterLimit" value="10"  />
+                <Pause timeout="300" />
+                 <CompareBitmap url="../Properties/baselines/$testID.png" target="pathComp" timeout="2000"/>
+             </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

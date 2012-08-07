@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Accordion xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx" 
+         xmlns:comps="comps.*" width="100%"  height="100%" >
+         
+        <s:NavigatorContent label="AnimateColor" id="animateColorNav" width="400" height="300">
+            <comps:AnimateColorComponents id="animateColorComp" x="5" y="15" />
+        </s:NavigatorContent>   
+        <s:NavigatorContent label="Move" id="moveNav" width="400" height="300">
+            <comps:MoveComponents id="moveComp" x="5" y="15" />
+        </s:NavigatorContent>   
+        <s:NavigatorContent label="Move3D" id="move3DNav" width="400" height="300">
+            <comps:Move3DComponents id="move3DComp" x="5" y="15" />
+        </s:NavigatorContent>       
+        <s:NavigatorContent label="Fade" id="fadeNav" width="400" height="300">
+            <comps:FadeComponents id="fadeComp" x="5" y="15" />
+        </s:NavigatorContent>       
+        <s:NavigatorContent label="Rotate" id="rotateNav" width="400" height="300">
+            <comps:RotateComponents id="rotateComp" x="5" y="15" />
+        </s:NavigatorContent>       
+        <s:NavigatorContent label="Rotate3D" id="rotate3DNav" width="400" height="300">
+            <comps:Rotate3DComponents id="rotate3DComp" x="5" y="15" />
+        </s:NavigatorContent>           
+        <s:NavigatorContent label="Scale" id="scaleNav" width="400" height="300">
+            <comps:ScaleComponents id="scaleComp" x="5" y="15" />
+        </s:NavigatorContent>       
+        <s:NavigatorContent label="Scale3D" id="scale3DNav" width="400" height="300">
+            <comps:Scale3DComponents id="scale3DComp" x="5" y="15" />
+        </s:NavigatorContent>       
+        <s:NavigatorContent label="CrossFade" id="crossFadeNav" width="400" height="300">
+            <comps:CrossFadeComponents id="crossFadeComp" x="5" y="15" />
+        </s:NavigatorContent>       
+        <s:NavigatorContent label="AnimateTransitionShader" id="shaderNav" width="400" height="300">
+            <comps:ShaderComponents id="shaderComp" x="5" y="15" />
+        </s:NavigatorContent>       
+        <s:NavigatorContent label="Wipe" id="wipeNav" width="400" height="300">
+            <comps:WipeComponents id="wipeComp" x="5" y="15" />
+        </s:NavigatorContent>
+        <s:NavigatorContent label="Resize" id="resizeNav" width="400" height="300">
+            <comps:ResizeComponents id="resizeComp" x="5" y="15" />
+        </s:NavigatorContent>
+        
+</mx:Accordion>

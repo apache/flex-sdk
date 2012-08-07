@@ -1,0 +1,193 @@
+<UnitTester
+    testSWF="../SWFs/Transition_main.mxml"
+    testDir="mx/states/Transition/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import mx.states.Transition;
+        
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <testCases>
+
+        <!-- startDelay -->
+        <TestCase testID="Transition_parallel_startDelay_ignored" keywords="[Transition, variable, autoReverse, startDelay]" description="Verify any initial startDelay is ignored at end of reverse.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_parallel_startDelay_ignored'"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State4'"/>
+                <Pause timeout="1000"/>
+                <RunCode code="application.currentState='State1'"/>
+                <RunCode code="application.StartTimer()" waitTarget="s4s1" waitEvent="effectEnd"/>
+                <RunCode code="application.StopTimer()"/>
+                <AssertMethodValue method="value=application.IsElapsedLess(900)" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_parallel_startDelay_interim" keywords="[Transition, variable, autoReverse, startDelay]" description="Verify interim startDelays occur in reverse.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_parallel_startDelay_interim'"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State5'"/>
+                <Pause timeout="1500"/>
+                <RunCode code="application.StartTimer()" />
+                <RunCode code="application.currentState='State1'" waitTarget="p_s5s1" waitEvent="effectEnd"/>
+                <RunCode code="application.StopTimer()"/>
+                <AssertMethodValue method="value=application.IsElapsedGreater(1250)" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_parallel_repeatCount" keywords="[Transition, variable, autoReverse]" description="Verify repeatCount occurs in reverse.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_parallel_repeatCount'"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State6'"/>
+                <Pause timeout="3500"/>
+                <RunCode code="application.StartTimer()" />
+                <RunCode code="application.currentState='State1'" waitTarget="p_s6s1" waitEvent="effectEnd" timeout="5000"/>
+                <RunCode code="application.StopTimer()"/>
+                <AssertMethodValue method="value=application.IsElapsedGreater(3500)" value="true"/>
+                <AssertMethodValue method="value=application.IsElapsedLess(4000)" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- Parallel reversals at time (V) -->
+        <TestCase testID="Transition_parallel_reverseDuringStartDelay" keywords="[Transition, variable, autoReverse]" description="Reverse during a start delay.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_parallel_reverseDuringStartDelay'"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State7'"/>
+                <Pause timeout="250"/>
+                <RunCode code="application.currentState='State1'" />
+                <AssertNoEvent target="p_s7s1" eventName="effectEnd" eventClass="mx.event::EffectEvent"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_parallel_reverseDuringFirstEffect" keywords="[Transition, variable, autoReverse]" description="Reverse during the first effect of a triple parallel.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_parallel_reverseDuringFirstEffect'"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State7'"/>
+                <Pause timeout="750"/>
+                <RunCode code="application.currentState='State1'" waitTarget="p_s7s1" waitEvent="effectEnd" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_parallel_reverseDuringEffectOverlap" keywords="[Transition, variable, autoReverse]" description="Reverse during overlapping effects of a triple parallel.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_parallel_reverseDuringEffectOverlap'"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State7'"/>
+                <Pause timeout="1250"/>
+                <RunCode code="application.currentState='State1'" waitTarget="p_s7s1" waitEvent="effectEnd" />
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_parallel_reverseDuringSecondEffect" keywords="[Transition, variable, autoReverse]" description="Reverse during the second effect of a triple parallel.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_parallel_reverseDuringSecondEffect'"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State7'"/>
+                <Pause timeout="1750"/>
+                <RunCode code="application.StartTimer()" />
+                <RunCode code="application.currentState='State1'" waitTarget="p_s7s1" waitEvent="effectEnd" timeout="10000"/>
+                <RunCode code="application.StopTimer()" />
+                <AssertMethodValue method="value=application.IsElapsedIn(1250, 1750)" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_parallel_reverseDuringThirdEffect" keywords="[Transition, variable, autoReverse]" description="Reverse during the third effect of a triple parallel.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_parallel_reverseDuringThirdEffect'"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State7'"/>
+                <Pause timeout="2500"/>
+                <RunCode code="application.StartTimer()" />
+                <RunCode code="application.currentState='State1'" waitTarget="p_s7s1" waitEvent="effectEnd" timeout="10000"/>
+                <RunCode code="application.StopTimer()" />
+                <AssertMethodValue method="value=application.IsElapsedIn(2000, 2500)" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- Sequence tests -->
+        <TestCase testID="Transition_sequence_autoReverse" keywords="[Transition, variable, autoReverse]" description="Reverse a triple sequence.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_sequence_autoReverse'"/>
+                <AssertMethodValue method="value=application.currentState" value="State1"/>
+                <ChangeState toState="Empty"/>
+                <ChangeState toState="State1"/>
+            </setup>
+            <body>
+                <ChangeState toState="State8"/>
+                <Pause timeout="2500"/>
+                <RunCode code="application.currentState='State1'" waitTarget="s_s8s1" waitEvent="effectEnd" timeout="10000"/>
+                <AssertPropertyValue target="btn3" propertyName="x" value="0"/>
+                <AssertPropertyValue target="btn3" propertyName="alpha" value="1"/>
+                <AssertPropertyValue target="btn3" propertyName="width" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Transition_sequence_reverseDuringFirstEffect" keywords="[Transition, variable, autoReverse]" description="Reverse a sequence during the first effect.">
+            <setup>
+                <RunCode code="application.lbl.text='Transition_sequence_reverseDuringFirstEffect'"/>
+                <ChangeState toState="Empty"/>
+                <ChangeState toState="State1"/>
+            </setup>
+            <body>
+                <ChangeState toState="State8"/>
+                <Pause timeout="1000"/>
+                <RunCode code="application.StartTimer()" />
+                <RunCode code="application.currentState='State1'" waitTarget="s_s8s1" waitEvent="effectEnd"/>
+                <RunCode code="application.StopTimer()" />
+                <AssertMethodValue method="value=application.IsElapsedIn(1000, 1500)" value="true"/>
+                <AssertPropertyValue target="btn3" propertyName="x" value="0"/>
+                <AssertPropertyValue target="btn3" propertyName="alpha" value="1"/>
+                <AssertPropertyValue target="btn3" propertyName="width" value="100"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Transition_sequence_reverseDuringStartDelay" keywords="[Transition, variable, autoReverse]" description="Reverse a sequence during a start delay.">
+            <!--bugs>
+                <bug id="SDK-21068"/>
+            </bugs-->
+            <setup>
+                <RunCode code="application.lbl.text='Transition_sequence_reverseDuringStartDelay'"/>
+                <AssertMethodValue method="value=application.states.length" value="9"/>
+                <RunCode code="application.currentState='Empty'"/>
+                <RunCode code="application.currentState='State1'"/>
+            </setup>
+            <body>
+                <RunCode code="application.currentState='State8'"/>
+                <Pause timeout="250"/>
+                <RunCode code="application.currentState='State1'" />
+                <AssertNoEvent target="s_s8s1" eventName="effectEnd" eventClass="mx.event::EffectEvent"/>
+            </body>
+        </TestCase>
+        
+
+    </testCases>
+</UnitTester>

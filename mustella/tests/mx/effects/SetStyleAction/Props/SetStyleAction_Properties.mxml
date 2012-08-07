@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="mx/effects/SetStyleAction/Props/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/SetStyleAction_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <!-- 
+    Test Plan
+    ############################################
+    
+    name
+        set name of style, verify name.
+        set name of property, verify no error (GIGO).
+        
+    value
+        set value, verify
+        value with no style name, verify no error (GIGO)
+    
+    relevantStyles
+        - create a unitialized instance. verify style == null.
+        - set a style name, verify style == name.
+
+    ############################################
+    -->
+
+    <testCases>
+
+        <!-- name -->
+        <TestCase testID="SetStyleAction_Name"  keywords="[SetStyleAction, Name]" description="Verify get = set for the 'name' property.">
+            <setup>
+                <ResetComponent target="testEffect" className="mx.effects.SetStyleAction"/>
+                <SetProperty target="testEffect" propertyName="name" value="fontSize"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="name" value="fontSize"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetStyleAction_Name_NotStyle"  keywords="[SetStyleAction, Name]" description="Verify setting name to a property value does not err. GIGO :(">
+            <setup>
+                <ResetComponent target="testEffect" className="mx.effects.SetStyleAction"/>
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="name" value="width"/>
+            </body>
+        </TestCase>
+
+        <!-- value -->
+        <TestCase testID="SetStyleAction_Value"  keywords="[SetStyleAction, Value]" description="Verify get = set for the 'value' property.">
+            <setup>
+                <ResetComponent target="testEffect" className="mx.effects.SetStyleAction"/>
+                <SetProperty target="testEffect" propertyName="value" value="48"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="value" value="48"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetStyleAction_Value_NoStyle"  keywords="[SetStyleAction, Value]" description="Verify setting value with no style name does not err. GIGO :(">
+            <setup>
+                <ResetComponent target="testEffect" className="mx.effects.SetStyleAction"/>
+            </setup>
+            <body>
+                <SetProperty target="testEffect" propertyName="value" value="48"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantStyles -->
+        <TestCase testID="SetStyleAction_RelevantStyles_Null"  keywords="[SetStyleAction, RelevantStyles]" description="Verify relevantStyles returns the style currently set to modify.">
+            <setup>
+                <ResetComponent target="testEffect" className="mx.effects.SetStyleAction"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="relevantStyles" value=""/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="SetStyleAction_RelevantStyles"  keywords="[SetStyleAction, RelevantStyles]" description="Verify relevantStyles returns the style currently set to modify.">
+            <setup>
+                <ResetComponent target="testEffect" className="mx.effects.SetStyleAction"/>
+                <SetProperty target="testEffect" propertyName="name" value="fontSize"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testEffect" propertyName="relevantStyles" value="fontSize"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

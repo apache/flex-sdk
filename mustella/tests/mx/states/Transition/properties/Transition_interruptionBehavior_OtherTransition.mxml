@@ -1,0 +1,174 @@
+<UnitTester
+    testSWF="../SWFs/Transition_Properties_main2.mxml"
+    testDir="mx/states/Transition/properties/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import mx.states.Transition;
+        import mx.managers.*;
+        import flash.utils.*;
+        import comps.TitleWindowComp;
+        
+        public static function init(o:DisplayObject):void{}
+        
+        /* 
+            This function is used to verify that the point at which a Transition stopped is between its value in State1 and State2. 
+            For example, if you are moving from (0, 10) in State 1 to (35, 100) in State 2 and (45, 90) in State 3, you might use
+            this function to check the x value that should be between State 1 and State 2 by calling: verifyPoint(pointToCheck, 35, 0)
+        */
+        
+        public function verifyPoint(a:Number, b:Number, c:Number):Boolean
+        {
+            if((a < b) && (c < a))
+               return true;
+            else
+               return false;
+        }
+        
+
+
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+
+    <testCases>  
+        <TestCase testID="Transition_ResizeToMove_interruptionBehavior_stop" keywords="[Transition, interruptionBehavior]" 
+           description="Verify the behavior when a Resize transition is interrupted by a Move transition.">
+            <setup>                   
+                <SetProperty target="myAccordion" propertyName="selectedIndex" value="2" waitTarget="myAccordion" waitEvent="updateComplete" />
+                <ResetComponent target="resizeToMoveComp" className="comps.ResizeToMoveComponents" waitEvent="updateComplete"
+                    waitTarget="resizeToMoveComp" /> 
+            </setup>
+            <body>
+                <SetProperty propertyName="interruptionBehavior" value="stop" target="resizeToMoveComp.mainTransition" />
+                <SetProperty propertyName="currentState" value="State2" target="resizeToMoveComp" waitEvent="effectStart" 
+                   waitTarget="resizeToMoveComp.rect1" />
+                <Pause timeout="100"/>
+                <SetProperty propertyName="currentState" value="State3" target="resizeToMoveComp" waitEvent="effectStart" 
+                   waitTarget="resizeToMoveComp.rect1" />
+                <AssertMethodValue method="value=Math.round(application.resizeToMoveComp.rect1.width)" value="190" />
+                <AssertMethodValue method="value=Math.round(application.resizeToMoveComp.rect1.height)" value="330" />
+            </body>
+        </TestCase>
+         <TestCase testID="Transition_ResizeToMove_interruptionBehavior_end" keywords="[Transition, interruptionBehavior]" 
+            description="Verify the behavior when a Resize transition is interrupted by a Move transition.">
+             <setup>                   
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="0" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="2" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <ResetComponent target="resizeToMoveComp" className="comps.ResizeToMoveComponents" waitEvent="updateComplete"
+                     waitTarget="resizeToMoveComp" /> 
+             </setup>
+             <body>
+                 <SetProperty propertyName="interruptionBehavior" value="end" target="resizeToMoveComp.mainTransition" />
+                 <SetProperty propertyName="currentState" value="State2" target="resizeToMoveComp" waitEvent="effectStart" 
+                    waitTarget="resizeToMoveComp.rect1" />
+                 <Pause timeout="100"/>
+                 <SetProperty propertyName="currentState" value="State3" target="resizeToMoveComp" waitEvent="effectStart" 
+                    waitTarget="resizeToMoveComp.rect1" />
+                 <AssertMethodValue method="value=Math.round(application.resizeToMoveComp.rect1.width)" value="190" />
+                 <AssertMethodValue method="value=Math.round(application.resizeToMoveComp.rect1.height)" value="330" />
+             </body>
+        </TestCase>
+         <TestCase testID="Transition_FadetoComposite_interruptionBehavior_end" keywords="[Transition, interruptionBehavior]" 
+            description="Verify the behavior when a Fade transition is interrupted by a Composite transition.">
+             <setup>                   
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="0" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="4" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <ResetComponent target="fadeToCompositeComp" className="comps.FadeToCompositeComponents" waitEvent="updateComplete"
+                     waitTarget="fadeToCompositeComp" /> 
+             </setup>
+             <body>
+                 <SetProperty propertyName="interruptionBehavior" value="end" target="fadeToCompositeComp.mainTransition" />
+                 <SetProperty propertyName="currentState" value="State2" target="fadeToCompositeComp" waitEvent="effectStart" 
+                    waitTarget="fadeToCompositeComp.rect1" />
+                 <Pause timeout="100"/>
+                 <SetProperty propertyName="currentState" value="State3" target="fadeToCompositeComp" />
+                 <Pause timeout="20" />
+                 <!--AssertMethodValue method="value=Math.round(application.fadeToCompositeComp.rect1.alpha)" value=".5" /-->
+                 <AssertMethodValue method="value=verifyPoint(application.fadeToCompositeComp.rect1.alpha, .6, 0.4)" value="true" />
+             </body>
+        </TestCase>
+         <TestCase testID="Transition_FadetoComposite_interruptionBehavior_stop" keywords="[Transition, interruptionBehavior]" 
+            description="Verify the behavior when a Fade transition is interrupted by a Composite transition.">
+             <setup>                   
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="0" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="4" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <ResetComponent target="fadeToCompositeComp" className="comps.FadeToCompositeComponents" waitEvent="updateComplete"
+                     waitTarget="fadeToCompositeComp" /> 
+             </setup>
+             <body>
+                 <SetProperty propertyName="interruptionBehavior" value="stop" target="fadeToCompositeComp.mainTransition" />
+                 <SetProperty propertyName="currentState" value="State2" target="fadeToCompositeComp" waitEvent="effectStart" 
+                    waitTarget="fadeToCompositeComp.rect1" />
+                 <Pause timeout="100"/>
+                 <SetProperty propertyName="currentState" value="State3" target="fadeToCompositeComp" waitEvent="effectStart" 
+                    waitTarget="fadeToCompositeComp.rect1" />
+                 <AssertMethodValue method="value=verifyPoint(application.fadeToCompositeComp.rect1.alpha, 1, 0.5)" value="true" />
+             </body>
+        </TestCase>
+         <TestCase testID="Transition_CompositeToResize_interruptionBehavior_stop" keywords="[Transition, interruptionBehavior]" 
+            description="Verify the behavior when a Fade/Move composite transition is interrupted by a Resize transition.">
+             <setup>                   
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="0" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="5" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <ResetComponent target="compositeToResizeComp" className="comps.CompositeToResizeComponents" waitEvent="updateComplete"
+                     waitTarget="compositeToResizeComp" /> 
+             </setup>
+             <body>
+                 <SetProperty propertyName="interruptionBehavior" value="stop" target="compositeToResizeComp.mainTransition" />
+                 <SetProperty propertyName="currentState" value="State2" target="compositeToResizeComp" waitEvent="effectStart" 
+                    waitTarget="compositeToResizeComp.rect1" />
+                 <Pause timeout="100"/>
+                 <SetProperty propertyName="currentState" value="State3" target="compositeToResizeComp" waitEvent="effectEnd" 
+                    waitTarget="compositeToResizeComp.rect1" />
+                 <Pause timeout="20" />
+                 <AssertPropertyValue target="compositeToResizeComp.rect1" propertyName="x" value="90" />
+                 <AssertPropertyValue target="compositeToResizeComp.rect1" propertyName="y" value="300" />
+                 <AssertMethodValue method="value=int(application.compositeToResizeComp.rect1.alpha*10)/10" value="0.5" />
+             </body>
+        </TestCase>
+         <TestCase testID="Transition_ScaleToEmpty_interruptionBehavior_stop" keywords="[Transition, interruptionBehavior]" 
+            description="Verify the behavior when a Scale transition is interrupted by a undefined transition.">
+             <setup>                   
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="0" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="1" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <ResetComponent target="scaleToEmptyComp" className="comps.ScaleToEmptyComponents" waitEvent="updateComplete"
+                     waitTarget="scaleToEmptyComp" /> 
+             </setup>
+             <body>
+                 <SetProperty propertyName="interruptionBehavior" value="stop" target="scaleToEmptyComp.mainTransition" />
+                 <SetProperty propertyName="currentState" value="State2" target="scaleToEmptyComp" waitEvent="effectStart" 
+                    waitTarget="scaleToEmptyComp.button1" />
+                 <Pause timeout="100"/>
+                 <SetProperty propertyName="currentState" value="State3" target="scaleToEmptyComp" waitEvent="effectEnd" 
+                    waitTarget="scaleToEmptyComp.button1" />
+                 <Pause timeout="20" />
+                 <AssertPropertyValue target="scaleToEmptyComp.button1" propertyName="scaleX" value="2" />
+                 <AssertPropertyValue target="scaleToEmptyComp.fxgType" propertyName="scaleY" value="2" />
+             </body>
+        </TestCase>
+         <TestCase testID="Transition_ScaleToEmpty_interruptionBehavior_end" keywords="[Transition, interruptionBehavior]" 
+            description="Verify the behavior when a Scale transition is interrupted by a undefined transition.">
+             <setup>                   
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="0" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <SetProperty target="myAccordion" propertyName="selectedIndex" value="1" waitTarget="myAccordion" waitEvent="updateComplete" />
+                 <ResetComponent target="scaleToEmptyComp" className="comps.ScaleToEmptyComponents" waitEvent="updateComplete"
+                     waitTarget="scaleToEmptyComp" /> 
+             </setup>
+             <body>
+                 <SetProperty propertyName="interruptionBehavior" value="end" target="scaleToEmptyComp.mainTransition" />
+                 <SetProperty propertyName="currentState" value="State2" target="scaleToEmptyComp" waitEvent="effectStart" 
+                    waitTarget="scaleToEmptyComp.button1" />
+                 <Pause timeout="100"/>
+                 <SetProperty propertyName="currentState" value="State3" target="scaleToEmptyComp" waitEvent="effectEnd" 
+                    waitTarget="scaleToEmptyComp.button1" />
+                 <Pause timeout="20" />
+                 <AssertPropertyValue target="scaleToEmptyComp.button1" propertyName="scaleX" value="2" />
+                 <AssertPropertyValue target="scaleToEmptyComp.fxgType" propertyName="scaleY" value="2" />
+             </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

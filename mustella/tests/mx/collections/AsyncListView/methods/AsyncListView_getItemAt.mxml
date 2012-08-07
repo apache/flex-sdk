@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	testDir="mx/collections/AsyncListView/methods/"
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns="*" 
+	xmlns:assets="assets.*"
+	testSWF="AsyncListView_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+		import assets.*;
+		import mx.collections.*;
+		import mx.core.FlexGlobals;
+		
+		public var storedItem:Object;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+getItemAt() is called in the AssertMethodValue step of lots of other test cases, so this file only covers what
+has not been done in those.  e.g. Passing in an index out of range and use of the prefetch parameter.  
+
+The prefetch parameter simply gets passed to the server.  There is nothing else for AsyncListView to actually 
+*do*.  So I've added an event to the simulator to indicate that it received a prefetch parameter.
+
+This is just a reminder.
+public function setup( responseDelay:int = 500,
+						numItems:int = 100,
+						numPreloadedPages:int = 0,
+						pageSize:int = 1,
+						mode:String = 'manual',
+						failureProbability:int = 0,
+						createPendingItemFunction:Boolean = true,
+						createFailedItemFunction:Boolean = true):void{
+-->
+
+<TestCase testID="getItemAt_range_test1" keywords="[AsyncListView,getItemAt]" description="index less than 0." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv = new AsyncListView(FlexGlobals.topLevelApplication.obj1.ac)" />
+	</setup>
+	<body>
+		<AssertMethodValue method="try{ FlexGlobals.topLevelApplication.obj1.alv.getItemAt(-1); } catch ( e:Error ) { value = e.message; }" value="Index '-1' specified is out of bounds." />
+	</body>
+</TestCase>
+
+<TestCase testID="getItemAt_range_test2" keywords="[AsyncListView,getItemAt]" description="index > length." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv = new AsyncListView(FlexGlobals.topLevelApplication.obj1.ac)" />
+	</setup>
+	<body>
+		<AssertMethodValue method="try{ FlexGlobals.topLevelApplication.obj1.alv.getItemAt(5); } catch ( e:Error ) { value = e.message; }" value="Index '5' specified is out of bounds." />
+	</body>
+</TestCase>
+
+<TestCase testID="getItemAt_prefetch_test1" keywords="[AsyncListView,prefetch]" description="Prefetch goes below 0. (All items are pending.)" >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,2)" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0,3)" />
+		<AssertEvent target="obj1.items" eventClass="flash.events::Event" eventName="simulatorPrefetchEvent_3" />
+	</body>
+</TestCase>
+
+<TestCase testID="getItemAt_multipleCalls_test1" keywords="[AsyncListView,getItemAt]" description="Call it several times for a pending item and be sure it's the same item." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,2)" />
+	</setup>
+	<body>
+		<RunCode code="storedItem = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0)" />
+		<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0) === storedItem)" value="true" />
+		<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0) === storedItem)" value="true" />
+	</body>
+</TestCase>
+
+<TestCase testID="getItemAt_multipleCalls_test2" keywords="[AsyncListView,getItemAt]" description="Call it several times for a failed item and be sure it's the same item." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,2)" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(0)" />
+		<RunCode code="storedItem = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0)" />
+		<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0) === storedItem)" value="true" />
+		<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0) === storedItem)" value="true" />
+	</body>
+</TestCase>
+
+<TestCase testID="getItemAt_multipleCalls_test3" keywords="[AsyncListView,getItemAt]" description="Call it several times for a present item and be sure it's the same item." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,2)" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(0)" />
+		<RunCode code="storedItem = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0)" />
+		<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0) === storedItem)" value="true" />
+		<AssertMethodValue method="value = (FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0) === storedItem)" value="true" />
+	</body>
+</TestCase>
+
+<TestCase testID="getItemAt_nolist_test1" keywords="[AsyncListView,getItemAt]" description="Call it when the AsyncListView has no list." >
+	<body>
+		<Pause timeout="1" />
+		<AssertMethodValue method="value = new AsyncListView().getItemAt(0)" value="null" />
+		<Pause timeout="1" />
+	</body>
+</TestCase>
+
+
+</testCases>
+</UnitTester>

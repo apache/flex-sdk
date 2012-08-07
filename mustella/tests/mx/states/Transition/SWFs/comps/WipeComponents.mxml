@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx" 
+         xmlns:d="assets.*" width="400" height="300"
+         currentState="State1">
+    <s:states>
+        <s:State name="State1"/>
+        <s:State name="State2"/>
+        <s:State name="State3"/>
+    </s:states>
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+    <s:Group>
+        <s:CheckBox id="autoReverse_check" x="5" y="5" label="autoReverse"/>
+        <s:ComboBox id="IB_check" selectedIndex="0" x="120"  y="5">
+            <s:dataProvider>
+                <s:ArrayList>
+                    <fx:String>stop</fx:String>
+                    <fx:String>end</fx:String>
+                </s:ArrayList>
+            </s:dataProvider>
+        </s:ComboBox>
+    </s:Group>
+    <s:Group width="500" height="600" id="group1">
+        <s:BitmapImage
+            source="@Embed('../../../../../../Assets/Images/redrect.jpg')"
+            visible.State1="true" visible.State2="false" visible.State3="false"/>
+        <s:BitmapImage
+            source="@Embed('../../../../../../Assets/Images/greenrect.jpg')"
+            visible.State1="false" visible.State2="true" visible.State3="false"/>
+        <s:BitmapImage
+            source="@Embed('../../../../../../Assets/Images/bluerect.jpg')"
+            visible.State1="false" visible.State2="false" visible.State3="true"/>
+        
+    </s:Group>
+    
+    <s:transitions>
+        <s:Transition id="mainTransition" fromState="*" toState="*" autoReverse="{autoReverse_check.selected}" 
+                      interruptionBehavior="{IB_check.selectedItem}">
+            <s:Parallel>
+                <s:Wipe duration="3500" target="{group1}" direction="down" />
+            </s:Parallel>
+        </s:Transition>
+    </s:transitions>
+</s:Group>

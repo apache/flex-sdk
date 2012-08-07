@@ -1,0 +1,233 @@
+<UnitTester
+    testSWF="../SWFs/MovieClipSWFLoader_Effects_Main.mxml"
+    testDir="mx/controls/MovieClipSWFLoader/effects/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.controls.MovieClipSWFLoader;
+        
+        public static function init(o:DisplayObject):void{}
+
+        
+        public function isPlaying(movie:MovieClipSWFLoader): Boolean
+        {
+            if(movie.movieClip.currentFrame > application.lastCurrentFrame)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        ]]>
+    </mx:Script>
+    
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+    <testCases>
+        <TestCase testID="MovieClipSWFLoader_CallAction_stop" keywords="[CallAction, stop, MovieClipSWFLoader]" 
+            description="Test that calling stop() in a CallAction works.">
+           <setup>
+                <RunCode code="application.myMovie5.stop()" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie5" propertyName="source" value="assets/test3.swf" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" waitTarget="myMovie5" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <SetProperty propertyName="lastCurrentFrame" target="" valueExpression="value=application.myMovie5.movieClip.currentFrame" />
+                <RunCode code="application.mc_stopEffect.play()" />
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie5)" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_CallAction_play" keywords="[CallAction, play, MovieClipSWFLoader]" 
+            description="Test that calling play() in a CallAction works.">
+           <setup>
+                <RunCode code="application.myMovie5.stop()" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie5" propertyName="autoStop" value="true" waitTarget="myMovie5" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie5" propertyName="source" value="assets/test3.swf" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" waitTarget="myMovie5" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <SetProperty propertyName="lastCurrentFrame" target="" valueExpression="value=application.myMovie5.movieClip.currentFrame" />
+                <RunCode code="application.mc_playEffect.play()" />
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie5)" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_CallAction_gotoAndPlay" keywords="[CallAction, gotoAndPlay, MovieClipSWFLoader]" 
+            description="Test that calling gotoAndPlay() in a CallAction works.">
+           <setup>
+                <RunCode code="application.myMovie5.stop()" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie5" propertyName="autoStop" value="true" waitTarget="myMovie5" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie5" propertyName="source" value="assets/test3.swf" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" waitTarget="myMovie5" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <SetProperty propertyName="lastCurrentFrame" target="" value="5" />
+                <RunCode code="application.mc_gotoAndPlayEffect.play()" />
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie5)" value="true" />
+                <AssertPropertyValue propertyName="name" target="myMovie5.movieClip.currentScene" value="Scene 2" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_CallAction_gotoAndStop" keywords="[CallAction, gotoAndStop, MovieClipSWFLoader]" 
+            description="Test that calling gotoAndStop() in a CallAction works.">
+           <setup>
+                <RunCode code="application.myMovie5.stop()" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie5" propertyName="autoStop" value="true" waitTarget="myMovie5" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie5" propertyName="source" value="assets/test3.swf" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" waitTarget="myMovie5" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <SetProperty propertyName="lastCurrentFrame" target="" value="7" />
+                <RunCode code="application.mc_gotoAndStopEffect.play()" />
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie5)" value="false" />
+                <AssertPropertyValue propertyName="name" target="myMovie5.movieClip.currentScene" value="Scene 1" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie5.movieClip" value="7" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_CallAction_gotoFirstFrameAndStop" keywords="[CallAction, gotoFirstFrameAndStop, MovieClipSWFLoader]" 
+            description="Test that calling gotoFirstFrameAndStop() in a CallAction works.">
+           <setup>
+                <RunCode code="application.myMovie5.stop()" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie5" propertyName="source" value="assets/test3.swf" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" waitTarget="myMovie5" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <SetProperty propertyName="lastCurrentFrame" target="" value="1" />
+                <RunCode code="application.mc_gotoFirstEffect.play()" />
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie5)" value="false" />
+                <AssertPropertyValue propertyName="name" target="myMovie5.movieClip.currentScene" value="Scene 1" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie5.movieClip" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_CallAction_nextFrame" keywords="[CallAction, nextFrame, MovieClipSWFLoader]" 
+            description="Test that calling nextFrame() in a CallAction works.">
+           <setup>
+                <RunCode code="application.myMovie5.stop()" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie5" propertyName="source" value="assets/test3.swf" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" waitTarget="myMovie5" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <RunCode code="application.myMovie5.gotoAndStop(8, 'Scene 2')" />
+                <RunCode code="application.mc_nextFrameEffect.play()" />
+                <Pause timeout="50" />
+                <AssertPropertyValue propertyName="name" target="myMovie5.movieClip.currentScene" value="Scene 2" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie5.movieClip" value="9" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_CallAction_prevFrame" keywords="[CallAction, prevFrame, MovieClipSWFLoader]" 
+            description="Test that calling prevFrame() in a CallAction works.">
+           <setup>
+                <RunCode code="application.myMovie5.stop()" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie5" propertyName="source" value="assets/test3.swf" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" waitTarget="myMovie5" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <RunCode code="application.myMovie5.gotoAndStop(8, 'Scene 2')" />
+                <RunCode code="application.mc_prevFrameEffect.play()" />
+                <Pause timeout="50" />
+                <AssertPropertyValue propertyName="name" target="myMovie5.movieClip.currentScene" value="Scene 2" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie5.movieClip" value="7" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_CallAction_nextScene" keywords="[CallAction, nextScene, MovieClipSWFLoader]" 
+            description="Test that calling nextScene() in a CallAction works.">
+           <setup>
+                <RunCode code="application.myMovie5.stop()" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie5" propertyName="source" value="assets/test3.swf" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" waitTarget="myMovie5" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <RunCode code="application.myMovie5.gotoAndStop(8, 'Scene 2')" />
+                <RunCode code="application.mc_nextSceneEffect.play()" />
+                <Pause timeout="50" />
+                <AssertPropertyValue propertyName="name" target="myMovie5.movieClip.currentScene" value="Scene 3" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_CallAction_prevScene" keywords="[CallAction, prevScene, MovieClipSWFLoader]" 
+            description="Test that calling prevScene() in a CallAction works.">
+           <setup>
+                <RunCode code="application.myMovie5.stop()" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie5" propertyName="autoStop" value="false" waitTarget="myMovie5" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie5" propertyName="source" value="assets/test3.swf" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" waitTarget="myMovie5" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <RunCode code="application.myMovie5.gotoAndStop(8, 'Scene 2')" />
+                <RunCode code="application.mc_prevSceneEffect.play()" />
+                <Pause timeout="50" />
+                <AssertPropertyValue propertyName="name" target="myMovie5.movieClip.currentScene" value="Scene 1" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_CallAction_startDelay" keywords="[CallAction, gotoAndStop, startDelay, MovieClipSWFLoader]" 
+            description="Test that calling gotoAndStop() with a startDelay in a CallAction works.">
+           <setup>
+                <RunCode code="application.myMovie5.stop()" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie5" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie5" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie5" propertyName="autoStop" value="true" waitTarget="myMovie5" />
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie5" propertyName="source" value="assets/test3.swf" waitTarget="myMovie5" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie5" propertyName="autoLoad" value="true" waitTarget="myMovie5" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <SetProperty propertyName="lastCurrentFrame" target="" value="1" />
+                <RunCode code="application.mc_stopWithStartDelay.play()" />
+                <Pause timeout="50" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie5.movieClip" value="1" />
+                <Pause timeout="200" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie5.movieClip" value="20" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>
+

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	width="800" height="600"
+	xmlns:assets="assets.*">
+
+<fx:Script>
+<![CDATA[
+
+	import assets.*;
+	import mx.collections.*;
+	import spark.components.*;
+
+	public var storedItem:Object;
+
+	// I've created so many verify methods that I'm confused calling one of them just "verifyItems()", but I
+	// don't want to to go rewrite hundreds of tests.  I guess I'm lazy.  So verifyALVItems() just calls verifyItems().
+	public function verifyALVItems(startIndex:int, endIndex:int, status:String, alv:AsyncListView, offset:int = 0):String{
+		return verifyItems(startIndex, endIndex, status, alv, offset);
+	}
+
+	// Verify the startIndex to endIndex items with the given status with getItemAt().	
+	public function verifyItems(startIndex:int, endIndex:int, status:String, alv:AsyncListView, offset:int = 0):String{
+		var ret:String = "pass";
+		var expectedString:String;
+		var actualString:String;
+		var i:int;
+		
+		for(i = startIndex; i <= endIndex; ++i){
+			
+			expectedString = "item " + (i+offset).toString() + " " + status;
+			actualString = alv.getItemAt(i).info;
+			
+			//trace("i=" + i + ", expected=" + expectedString + ", actual=" + actualString);
+			
+			if( expectedString != actualString ){
+				if(ret == "pass")
+					ret = "";
+					
+				ret += "  expected: " + expectedString + " got: " + actualString;
+			}
+		}
+		
+		return ret;
+	}
+	
+	// Call getItemAt on the AsyncListView's list.  This will cause RTEs if the items are pending.
+	public function verifyGetItemRTEs(startIndex:int, endIndex:int, alv:AsyncListView):String{
+		var ret:String = "pass";
+		var expectedSubString:String;
+		var actualString:String;
+		var i:int;
+		
+		for(i = startIndex; i <= endIndex; ++i){
+			
+			expectedSubString = "Items: " + i.toString() + " through " + i.toString();
+			
+			try{ 
+				alv.list.getItemAt(i);
+			}catch(e:Error){
+				actualString = e.message;
+			}
+
+			if( actualString.indexOf(expectedSubString) == -1 ){
+				if(ret == "pass")
+					ret = "";
+					
+				ret += expectedSubString + " not in " + actualString + ".  ";
+			}
+		}
+		
+		return ret;		
+	}
+
+	// Verify the startIndex to endIndex items in the List's dataGroup elements.
+	public function verifyDataGroupItems(startIndex:int, endIndex:int, status:String, dataGroup:DataGroup, offset:int = 0):String{
+		var ret:String = "pass";
+		var expectedString:String;
+		var actualString:String;
+		var i:int;
+		
+		//trace("numElements: " + dataGroup.numElements);
+		
+		for(i = startIndex; i <= endIndex; ++i){
+			
+			//trace("i: " + i);
+			
+			expectedString = "item " + (i+offset).toString() + " " + status;
+			actualString = Object(dataGroup.getElementAt(i)).nameLabel.text;
+			
+			if( expectedString != actualString ){
+				if(ret == "pass")
+					ret = "";
+					
+				ret += "  expected: " + expectedString + " got: " + actualString;
+			}
+		}
+		
+		return ret;
+	}
+
+	public function verifySimulatorItems(startIndex:int, endIndex:int, status:String, sim:ItemPendingErrorSimulator, offset:int = 0):String{
+		var ret:String = "pass";
+		var expectedString:String;
+		var actualString:String;
+		var i:int;
+		
+		for(i = startIndex; i <= endIndex; ++i){
+			
+			expectedString = "item " + (i+offset).toString() + " " + status;
+			actualString = sim.source[i].info;
+			
+			// trace("i=" + i + ", expected=" + expectedString + ", actual=" + actualString);
+			
+			if( expectedString != actualString ){
+				if(ret == "pass")
+					ret = "";
+					
+				ret += "  expected: " + expectedString + " got: " + actualString;
+			}
+		}
+		
+		return ret;
+	}
+	
+	// Tests already verify getItemAt().  So now we just check that getItemIndex() calls work for all items.
+	public function verifyALVIndices(startIndex:int, endIndex:int, alv:AsyncListView):String{
+		var ret:String = "pass";
+		var i:int;
+		var actual:int;
+		
+		for(i = startIndex; i <= endIndex; ++i){
+			actual = alv.getItemIndex(alv.getItemAt(i));
+			
+			if( actual != i){
+				if(ret == "pass")
+					ret = "";
+					
+				ret += "  expected: " + i.toString() + " got: " + actual.toString();
+			}
+		}
+		
+		return ret;
+	}
+
+	// Call getItemAt() for startIndex to endIndex.
+	public function callGetItemAtFor(startIndex:int, endIndex:int, alv:AsyncListView):void{
+		var i:int;
+		
+		for(i = startIndex; i <= endIndex; ++i){
+			alv.getItemAt(i);
+		}
+	}
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+
+    /**********************
+    * Flex 4 embedding
+    **********************/
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVeraCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVeraCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVeraCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+        fontWeight: bold;
+        fontStyle: italic;
+        fontFamily: EmbeddedVeraCFF;
+        embedAsCFF: true;
+    }
+
+    /**********************
+    * Pre-Flex 4 embedding
+    **********************/
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVera;
+        embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+        fontWeight: bold;
+        fontStyle: italic;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: false;
+    }
+
+	s|List{
+		fontFamily: EmbeddedVeraCFF;
+		fontAntiAliasType: normal;
+	}
+
+	s|Label{
+		fontFamily: EmbeddedVeraCFF;
+		fontAntiAliasType: normal;
+	}
+
+</fx:Style>
+
+<s:HGroup>
+	<s:VGroup>
+		<assets:PagedDataComp1 id="obj1" />
+		<assets:PagedDataComp2 id="obj2" />
+		<assets:PagedDataComp3 id="obj3" />
+	</s:VGroup>
+	<s:VGroup>
+		<assets:PagedDataComp4 id="obj4" />
+		<assets:PagedDataComp5 id="obj5" />
+		<assets:PagedDataComp6 id="obj6" />
+	</s:VGroup>
+	<s:VGroup>
+		<assets:PagedDataComp7 id="obj7" />
+		<assets:PagedDataComp8 id="obj8" />
+		<assets:PagedDataComp9 id="obj9" />
+	</s:VGroup>
+	<s:VGroup>
+		<assets:PagedDataComp10 id="obj10" />
+	</s:VGroup>
+</s:HGroup>
+
+</s:Application> 

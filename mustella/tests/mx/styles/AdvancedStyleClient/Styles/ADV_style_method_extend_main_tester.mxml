@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ADV_style_method_extend_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.styleTest.ADVStyleTestClass;
+			import assets.styleTest.ADVStyleTestVo;
+			import assets.styleTest.ADVStyleTestConstants;
+			import assets.styleTest.ADVStyleTestEvent;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<!--This test case is to test ADVStyleTestExtendClass-->
+		<TestCase testID="ADV_method_super_class_test1" 
+				  description="This test case is to test ADVStyleTestExtendClass" 
+				  keywords="[ADVStyleTestExtendClass, method, super class]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<!--super type setting-->
+				<AssertMethodValue method="value=application.advExtStyleTest.getStyle('testextstyle_2_number_noinh')" valueExpression="value=22.22" />
+				<AssertMethodValue method="value=application.advExtStyleTest.getStyle('testextstyle_4_boolean_inh')" valueExpression="value=true"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

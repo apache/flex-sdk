@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:assets="assets.*"
+	width="1200" height="600" 
+    backgroundColor="0xFFFFFF" backgroundGradientColors="[0xFFFFFF, 0xFFFFFF]"
+	layout="horizontal">
+
+    <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF:true;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        global
+        {
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+        }
+    </fx:Style>
+
+    <fx:Script>
+        <![CDATA[
+		import assets.ObjectTabs;
+		import mx.effects.Effect;
+		import mx.events.EffectEvent;
+		import mx.events.TweenEvent;
+        import mx.containers.Canvas;
+        import mx.containers.TabNavigator;
+        import flash.events.EventDispatcher;
+        import flash.events.TimerEvent;
+        import mx.controls.Alert;
+        import mx.events.StateChangeEvent;
+		
+		//Pubs
+		public var timer:Timer = new Timer(1000, 1);
+		public var dispatcher:EventDispatcher = new EventDispatcher();
+		public var currentEffect:Effect;
+
+		//I hate mustella
+		public function get currentTabNavigator():TabNavigator
+		{
+			return(this.getChildAt(1) as TabNavigator);
+		}
+		public function get currentAccordion():Accordion
+		{
+			return(this.currentTabNavigator.getChildAt(this.currentTabNavigator.selectedIndex) as Accordion);
+		}
+		public function get currentCanvas():Canvas
+		{
+			return(this.currentAccordion.getChildAt(this.currentAccordion.selectedIndex) as Canvas);
+		}
+		
+		//Prives 
+		private var updateCounter:uint = 0;
+		
+		public function Reset():void
+		{
+			this.ResetEventLabels();
+			this.ReloadTabNavigator();
+		}
+
+		public function ReloadTabNavigator():void
+		{
+			//Remove the object tab
+			this.addEventListener("updateComplete", HandleTabNavigatorRemoval);
+			this.removeChildAt(1);
+		}
+		
+		public function HandleTabNavigatorRemoval(event:Event):void
+		{
+			//Readd a new one
+			this.removeEventListener("updateComplete", HandleTabNavigatorRemoval);
+			this.addEventListener("updateComplete", HandleTabNavigatorAddition);
+			this.addChildAt(new ObjectTabs(), 1); 
+		}
+		
+		public function HandleTabNavigatorAddition(event:Event):void
+		{
+			//Signal we're all done
+			this.removeEventListener("updateComplete", HandleTabNavigatorAddition);
+			this.dispatcher.dispatchEvent(new Event("refreshComplete"));
+		}
+
+		public function ResetEventLabels():void
+		{
+			//Reset styles
+			this.lbl_EffectStart.setStyle("color", "0x00000");
+			this.lbl_TweenStart.setStyle("color", "0x00000");
+			this.lbl_TweenUpdate.setStyle("color", "0x00000");
+			this.lbl_TweenEnd.setStyle("color", "0x00000");
+			this.lbl_AnimationStart.setStyle("color", "0x00000");
+			this.lbl_AnimationUpdate.setStyle("color", "0x00000");
+			this.lbl_AnimationRepeat.setStyle("color", "0x00000");
+			this.lbl_AnimationEnd.setStyle("color", "0x00000");
+			this.lbl_EffectEnd.setStyle("color", "0x00000");
+		}
+			
+		public function SelectCanvas(controlName:String):void
+		{
+			if(this.currentTabNavigator)
+			{
+				var accordions:Array = this.currentTabNavigator.getChildren();
+				
+				for(var i:int = 0; i < accordions.length; i++)
+				{
+					var canvases:Array = (accordions[i] as Accordion).getChildren();
+	
+					for(var j:int = 0; j < canvases.length; j++)
+					{
+						if(canvases[j].label == controlName)
+						{
+                            this.currentTabNavigator.selectedIndex = i;
+						}
+					}
+				}
+			}
+		}
+		
+		private function GetTarget():Object
+		{
+			if(this.currentTabNavigator)
+			{
+				var accord:Accordion = this.currentTabNavigator.getChildAt(this.currentTabNavigator.selectedIndex) as Accordion;
+				var canvas:mx.containers.Canvas = accord.selectedChild as mx.containers.Canvas;
+				var target:Object = canvas.getChildAt(0);		
+	
+				return(target);
+			}
+			
+			return(null);
+		}
+		
+		public function ClickButton(buttonID:String):void
+		{
+			var vboxes:Array = this.testAccordion.getChildren();
+			
+			if(vboxes != null)
+			{
+				for(var i:uint = 0; i < vboxes.length; i++)
+				{
+					var buttons:Array = vboxes[i].getChildren();
+					
+					if(buttons != null)
+					{
+						for(var j:uint = 0; j < buttons.length; j++)
+						{
+							 if(buttons[j].id == buttonID)
+							 {
+							 	buttons[j].dispatchEvent(new MouseEvent("click", true));
+							 }
+						}
+					}
+				}
+			} 
+		}
+		
+		private function HandleUpdateComplete(event:Event):void
+		{
+			this.updateCounter++;
+			
+			if(this.updateCounter > 1)
+			{ 
+				this.dispatcher.dispatchEvent(new Event("selectionComplete"));
+			}
+		}
+				
+		public function PlayEffectTarget(effect:Effect, duration:int, startDelay:int, repeatCount:int, repeatDelay:int, playReversed:Boolean = false):void
+		{
+			effect.resume();
+			effect.stop();
+			
+			this.currentEffect = effect;
+			
+			ResetEffectAndGauges(effect);
+			
+			effect.target = this.GetTarget();
+			effect.duration = duration;
+			effect.startDelay = startDelay;
+			effect.repeatCount = repeatCount;
+			effect.repeatDelay = repeatDelay;
+			effect.play(null, playReversed);
+		}
+
+		public function SeekEffectTarget(effect:Effect, duration:int, startDelay:int, repeatCount:int, repeatDelay:int, seekTo:Number):void
+		{
+			effect.resume();
+			effect.stop();
+			
+			this.currentEffect = effect; 
+			
+			effect.target = this.GetTarget();
+			effect.duration = duration;
+			effect.startDelay = startDelay;
+			effect.repeatCount = repeatCount;
+			effect.repeatDelay = repeatDelay;
+			
+			effect.playheadTime = seekTo;
+            timer.start();
+		}
+
+		private function ResetEffectAndGauges(effect:Effect):void
+		{
+			if(effect.hasEventListener(EffectEvent.EFFECT_START))
+				effect.removeEventListener(EffectEvent.EFFECT_START, this.HandleEffectStart);
+
+			if(effect.hasEventListener(TweenEvent.TWEEN_START))
+				effect.removeEventListener(TweenEvent.TWEEN_START, this.HandleTweenStart);
+
+			if(effect.hasEventListener(TweenEvent.TWEEN_UPDATE))
+				effect.removeEventListener(TweenEvent.TWEEN_UPDATE, this.HandleTweenUpdate);
+
+			if(effect.hasEventListener(TweenEvent.TWEEN_END))
+				effect.removeEventListener(TweenEvent.TWEEN_END, this.HandleTweenEnd);
+
+			if(effect.hasEventListener(EffectEvent.EFFECT_END))
+				effect.removeEventListener(EffectEvent.EFFECT_END, this.HandleEffectEnd);
+
+
+			//Reattach listeners
+			effect.addEventListener(EffectEvent.EFFECT_START, HandleEffectStart);
+
+			effect.addEventListener(TweenEvent.TWEEN_START, HandleTweenStart);
+			effect.addEventListener(TweenEvent.TWEEN_UPDATE, HandleTweenUpdate);
+			effect.addEventListener(TweenEvent.TWEEN_END, HandleTweenEnd);
+			
+			effect.addEventListener(EffectEvent.EFFECT_END, HandleEffectEnd);
+
+			//Reset labels
+			this.ResetEventLabels();			
+		}
+		
+		private function HandleEffectStart(event:EffectEvent):void
+		{
+			this.lbl_EffectStart.setStyle("color", "0x00FF00");
+		}		
+
+		private function HandleTweenStart(event:TweenEvent):void
+		{
+			this.lbl_TweenStart.setStyle("color", "0x00FF00");
+		}		
+
+		private function HandleTweenUpdate(event:TweenEvent):void
+		{
+			this.lbl_TweenUpdate.setStyle("color", "0x00FF00");
+		}		
+
+		private function HandleTweenEnd(event:TweenEvent):void
+		{
+			this.lbl_TweenEnd.setStyle("color", "0x00FF00");
+		}		
+
+		private function HandleEffectEnd(event:EffectEvent):void
+		{
+			this.lbl_EffectEnd.setStyle("color", "0x00FF00");
+		}		
+		]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        <mx:Blur id="e_Blur" blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5"/>
+
+        <mx:Dissolve id="e_Dissolve" alphaFrom="1" alphaTo=".2"/>
+
+        <mx:Fade id="e_Fade" alphaFrom="1" alphaTo=".3"/>
+
+        <mx:Glow id="e_Glow" alphaFrom="0.3" alphaTo="1.0" blurXFrom="0" blurXTo="5" blurYFrom="0" blurYTo="5" color="0x0000FF"/>
+
+        <mx:Iris id="e_Iris" showTarget="true"/>
+
+        <mx:MaskEffect id="e_MaskEffect" scaleXFrom="0" scaleXTo=".7" scaleYFrom="0" scaleYTo=".7"/>
+
+        <mx:Move id="e_Move" xFrom="20" xTo="40" yFrom="20" yTo="40"/>
+
+        <mx:Resize id="e_Resize" widthBy="30" heightBy="30"/>
+
+        <mx:Rotate id="e_Rotate" angleFrom="0" angleTo="360"/>
+
+        <mx:WipeDown id="e_WipeDown"/>
+
+        <mx:WipeLeft id="e_WipeLeft"/>
+
+        <mx:WipeRight id="e_WipeRight"/>
+
+        <mx:WipeUp id="e_WipeUp"/>
+
+        <mx:Zoom id="e_Zoom" zoomWidthFrom="0" zoomWidthTo=".8" zoomHeightFrom="0" zoomHeightTo=".6"/>
+
+        <s:Animate id="e_FxAnimate">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="x" valueFrom="0" valueTo="40"/>
+                <s:SimpleMotionPath property="y" valueFrom="0" valueTo="5"/>
+                <s:SimpleMotionPath property="alpha" valueFrom="0" valueTo=".7"/>
+            </s:motionPaths>
+        </s:Animate>
+
+        <s:AnimateColor id="e_FxAnimateColor" colorFrom="0x00000" colorTo="0x0000FF"/>
+
+        <s:Fade id="e_FxFade" alphaFrom="0" alphaTo=".7"/>
+
+        <s:Move id="e_FxMove" xFrom="0" xTo="20" yFrom="0" yTo="40"/>
+
+        <s:Resize id="e_FxResize" widthBy="30" heightBy="30"/>
+
+        <s:Rotate id="e_FxRotate" angleFrom="0" angleTo="360"/>
+
+        <s:Rotate3D id="e_FxRotate3D" angleXFrom="0" angleXTo="225"/>
+
+        <s:Rotate id="e_FxRotate_Loop" angleFrom="0" angleTo="360" repeatBehavior="loop"/>
+
+        <s:Rotate id="e_FxRotate_Reverse" angleFrom="0" angleTo="360" repeatBehavior="reverse"/>
+    </fx:Declarations>
+
+
+    <mx:HBox id="mainBox">
+        <mx:VBox width="170" height="540" verticalScrollPolicy="off" creationPolicy="all">
+            <mx:Label width="100%" text="Properties"/>
+            <mx:HRule width="100%"/>
+            <s:Button id="btn_Reset" label="Reset" width="100%" click="Reset()"/>
+            <s:Button id="btn_Pause" label="Pause" width="100%" click="currentEffect.pause()"/>
+            <s:Button id="btn_Resume" label="Resume" width="100%" click="currentEffect.resume()"/>
+            <s:Button id="btn_Stop" label="Stop" width="100%" click="currentEffect.stop()"/>
+            <mx:Spacer/>
+            <mx:Label width="100%" text="Events"/>
+            <mx:HRule width="100%"/>
+            <mx:VBox id="eventBox">
+                <mx:Label id="lbl_EffectStart" width="100%" text="EffectStart" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_TweenStart" width="100%" text="TweenStart" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_TweenUpdate" width="100%" text="TweenUpdate" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_TweenEnd" width="100%" text="TweenEnd" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_AnimationStart" width="100%" text="AnimationStart" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_AnimationUpdate" width="100%" text="AnimationUpdate" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_AnimationRepeat" width="100%" text="AnimationRepeat" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_AnimationEnd" width="100%" text="AnimationEnd" color="0x000000" fontWeight="bold"/>
+                <mx:Label id="lbl_EffectEnd" width="100%" text="EffectEnd" color="0x000000" fontWeight="bold"/>
+            </mx:VBox>
+        </mx:VBox>
+        <mx:VBox width="250" height="540" verticalScrollPolicy="off" creationPolicy="all">
+            <mx:Label width="100%" text="Effects"/>
+            <mx:HRule width="100%"/>
+            <mx:Accordion id="testAccordion" width="100%" height="467" creationPolicy="all" verticalScrollPolicy="off">
+
+                <mx:VBox width="100%" height="100%" label="Play Effect">
+                    <mx:LinkButton id="Effect_play_Blur" label="Blur" width="100%" click="PlayEffectTarget(e_Blur, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_Dissolve" label="Dissolve" width="100%" click="PlayEffectTarget(e_Dissolve, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_Fade" label="Fade" width="100%" click="PlayEffectTarget(e_Fade, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_Glow" label="Glow" width="100%" click="PlayEffectTarget(e_Glow, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_Iris" label="Iris" width="100%" click="PlayEffectTarget(e_Iris, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_MaskEffect" label="MaskEffect" width="100%" click="PlayEffectTarget(e_MaskEffect, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_Move" label="Move" width="100%" click="PlayEffectTarget(e_Move, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_Resize" label="Resize" width="100%" click="PlayEffectTarget(e_Resize, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_Rotate" label="Rotate" width="100%" click="PlayEffectTarget(e_Rotate, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_WipeDown" label="WipeDown" width="100%" click="PlayEffectTarget(e_WipeDown, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_WipeLeft" label="WipeLeft" width="100%" click="PlayEffectTarget(e_WipeLeft, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_WipeRight" label="WipeRight" width="100%" click="PlayEffectTarget(e_WipeRight, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_WipeUp" label="WipeUp" width="100%" click="PlayEffectTarget(e_WipeUp, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_Zoom" label="Zoom" width="100%" click="PlayEffectTarget(e_Zoom, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_FxAnimate" label="FxAnimate" width="100%" click="PlayEffectTarget(e_FxAnimate, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_FxAnimateColor" label="FxAnimateColor" width="100%" click="PlayEffectTarget(e_FxAnimateColor, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_FxFade" label="FxFade" width="100%" click="PlayEffectTarget(e_FxFade, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_FxMove" label="FxMove" width="100%" click="PlayEffectTarget(e_FxMove, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_FxResize" label="FxResize" width="100%" click="PlayEffectTarget(e_FxResize, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_FxRotate" label="FxRotate" width="100%" click="PlayEffectTarget(e_FxRotate, 1000, 0, 1, 0)"/>
+                    <mx:LinkButton id="Effect_play_FxRotate3D" label="FxRotate3D" width="100%" click="PlayEffectTarget(e_FxRotate3D, 1000, 0, 1, 0)"/>
+                </mx:VBox>
+
+                <mx:VBox width="100%" height="100%" label="Seek Effect">
+                    <mx:LinkButton id="Effect_seek_Blur" label="Blur" width="100%" click="SeekEffectTarget(e_Blur, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_Dissolve" label="Dissolve" width="100%" click="SeekEffectTarget(e_Dissolve, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_Fade" label="Fade" width="100%" click="SeekEffectTarget(e_Fade, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_Glow" label="Glow" width="100%" click="SeekEffectTarget(e_Glow, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_Iris" label="Iris" width="100%" click="SeekEffectTarget(e_Iris, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_MaskEffect" label="MaskEffect" width="100%" click="SeekEffectTarget(e_MaskEffect, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_Move" label="Move" width="100%" click="SeekEffectTarget(e_Move, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_Resize" label="Resize" width="100%" click="SeekEffectTarget(e_Resize, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_Rotate" label="Rotate" width="100%" click="SeekEffectTarget(e_Rotate, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_WipeDown" label="WipeDown" width="100%" click="SeekEffectTarget(e_WipeDown, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_WipeLeft" label="WipeLeft" width="100%" click="SeekEffectTarget(e_WipeLeft, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_WipeRight" label="WipeRight" width="100%" click="SeekEffectTarget(e_WipeRight, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_WipeUp" label="WipeUp" width="100%" click="SeekEffectTarget(e_WipeUp, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_Zoom" label="Zoom" width="100%" click="SeekEffectTarget(e_Zoom, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_FxAnimate" label="FxAnimate" width="100%" click="SeekEffectTarget(e_FxAnimate, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_FxAnimateColor" label="FxAnimateColor" width="100%" click="SeekEffectTarget(e_FxAnimateColor, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_FxFade" label="FxFade" width="100%" click="SeekEffectTarget(e_FxFade, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_FxMove" label="FxMove" width="100%" click="SeekEffectTarget(e_FxMove, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_FxResize" label="FxResize" width="100%" click="SeekEffectTarget(e_FxResize, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_FxRotate" label="FxRotate" width="100%" click="SeekEffectTarget(e_FxRotate, 1000, 0, 1, 0, 500)"/>
+                    <mx:LinkButton id="Effect_seek_FxRotate3D" label="FxRotate3D" width="100%" click="SeekEffectTarget(e_FxRotate3D, 1000, 0, 1, 0, 500)"/>
+                </mx:VBox>
+
+                <mx:VBox width="100%" height="100%" label="Seek Functionality">
+                    <mx:LinkButton id="Effect_seek_IntoSD" label="Seek Into SD" width="100%" click="SeekEffectTarget(e_FxRotate, 1000, 500, 1, 0, 250)"/>
+                    <mx:LinkButton id="Effect_seek_IntoRC1" label="Seek Into RC 1" width="100%" click="SeekEffectTarget(e_FxRotate, 1000, 0, 2, 0, 333)"/>
+                    <mx:LinkButton id="Effect_seek_IntoRC2" label="Seek Into RC 2" width="100%" click="SeekEffectTarget(e_FxRotate, 1000, 0, 2, 0, 1333)"/>
+                    <mx:LinkButton id="Effect_seek_IntoRC2SD" label="Seek Into RC 2 + SD" width="100%" click="SeekEffectTarget(e_FxRotate, 1000, 0, 2, 300, 1633)"/>
+                    <mx:LinkButton id="Effect_seek_IntoRD" label="Seek Into RD" width="100%" click="SeekEffectTarget(e_FxRotate, 1000, 0, 2, 500, 1250)"/>
+                    <mx:LinkButton id="Effect_seek_IntoRCLoop" label="Seek Into RC Loop" width="100%" click="SeekEffectTarget(e_FxRotate_Loop, 1000, 0, 2, 0, 1333)"/>
+                    <mx:LinkButton id="Effect_seek_IntoRCReverse" label="Seek Into RC Reverse" width="100%" click="SeekEffectTarget(e_FxRotate_Reverse, 1000, 0, 2, 0, 1333)"/>
+                </mx:VBox>
+
+            </mx:Accordion>
+        </mx:VBox>
+    </mx:HBox>
+    <assets:ObjectTabs id="objectTabNavigator"/>
+</mx:Application>

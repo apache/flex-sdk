@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="mx/effects/Zoom/Controls/"  
+    testSWF="Zoom_Main.mxml" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import Containers.TrixPanel;
+        import Controls.*;
+        
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <testCases>
+        <TestCase testID="Effects_Zoom_Controls_Button" keywords="[Effects, Zoom, Controls, Button]" description="Zoom a Button control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(17, 15, 0.40, 0.93, 0.25, 0.87, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.93" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.87" />
+                <AssertPixelValue target="uiComponent" x="43" y="15" value="0xF1F1F1" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_CheckBox" keywords="[Effects, Zoom, Controls, CheckBox]" description="Zoom a CheckBox control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixCheckBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(7, 4, 0.20, 0.54, 0.36, 0.66, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.54" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.66" />
+                <CompareBitmap target="testPanel" url="../Controls/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_ColorPicker" keywords="[Effects, Zoom, Controls, ColorPicker]" description="Zoom a ColorPicker control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixColorPicker();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(10, 16, 0.40, 0.69, 0.14, 0.93, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.69" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.93" />
+                <AssertPixelValue target="uiComponent" x="30" y="42" value="6579301" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_ComboBox" keywords="[Effects, Zoom, Controls, ComboBox]" description="Zoom a ComboBox control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixComboBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(9, 9, 0.10, 0.60, 0.33, 0.55, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.60" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.55" />
+                <AssertPixelValue target="uiComponent" x="18" y="7" value="0xF1F1F1" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_DataGrid" keywords="[Effects, Zoom, Controls, DataGrid]" description="Zoom a DataGrid control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixDataGrid();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(14, 6, 0.40, 0.86, 0.43, 0.83, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.86" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.83" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_DateChooser" keywords="[Effects, Zoom, Controls, DateChooser]" description="Zoom a DateChooser control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixDateChooser();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(4, 15, 0.20, 0.75, 0.23, 0.50, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.75" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.50" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_DateField" keywords="[Effects, Zoom, Controls, DateField]" description="Zoom a DateField control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixDateField();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(5, 5, 0.20, 0.94, 0.19, 0.73, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.94" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.73" />
+                <AssertPixelValue target="uiComponent" x="139" y="4" value="10462116" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_HorizontalList" keywords="[Effects, Zoom, Controls, HorizontalList]" description="Zoom a HorizontalList control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHorizontalList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(16, 5, 0.10, 0.57, 0.36, 0.60, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.57" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.60" />
+                <AssertPixelValue target="uiComponent" x="6" y="8" value="0x85999D" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_HRule" keywords="[Effects, Zoom, Controls, HRule]" description="Zoom a HRule control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHRule();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(1, 13, 0.20, 0.82, 0.20, 0.92, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.82" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.92" />
+                <AssertPixelValue target="uiComponent" x="1" y="0" value="255" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_HScrollBar" keywords="[Effects, Zoom, Controls, HScrollBar]" description="Zoom a HScrollBar control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHScrollBar();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(7, 13, 0.10, 0.84, 0.15, 0.53, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.84" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.53" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_HSlider" keywords="[Effects, Zoom, Controls, HSlider]" description="Zoom a HSlider control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHSlider();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(17, 13, 0.20, 0.83, 0.44, 0.93, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.83" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.93" />
+                <AssertPixelValue target="uiComponent" x="57" y="13" value="8290946" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_Image" keywords="[Effects, Zoom, Controls, Image]" description="Zoom a Image control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixImage();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(17, 19, 0.20, 0.89, 0.14, 0.92, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.89" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.92" />
+                <AssertPixelValue target="uiComponent" x="0" y="0" value="16777215" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_Label" keywords="[Effects, Zoom, Controls, Label]" description="Zoom a Label control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixLabel();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(8, 11, 0.10, 0.84, 0.25, 0.63, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.84" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.63" />
+                <AssertPixelValue target="uiComponent" x="4" y="3" value="0x85999D" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_LinkButton" keywords="[Effects, Zoom, Controls, LinkButton]" description="Zoom a LinkButton control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixLinkButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(19, 11, 0.30, 0.81, 0.36, 0.57, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.81" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.57" />
+                <AssertPixelValue target="uiComponent" x="14" y="6" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_List" keywords="[Effects, Zoom, Controls, List]" description="Zoom a List control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixList();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(6, 11, 0.30, 0.80, 0.15, 0.83, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.80" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.83" />
+                <AssertPixelValue target="uiComponent" x="6" y="12" value="0xB2BFC2" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_PopUpButton" keywords="[Effects, Zoom, Controls, PopUpButton]" description="Zoom a PopUpButton control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixPopUpButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(1, 2, 0.20, 0.62, 0.20, 0.82, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.62" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.82" />
+                <AssertPixelValue target="uiComponent" x="18" y="8" value="0x193F47" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_ProgressBar" keywords="[Effects, Zoom, Controls, ProgressBar]" description="Zoom a ProgressBar control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixProgressBar();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(14, 5, 0.30, 0.74, 0.18, 0.83, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.74" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.83" />
+                <AssertPixelValue target="uiComponent" x="42" y="5" value="0xEEEEEE" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_RadioButton" keywords="[Effects, Zoom, Controls, RadioButton]" description="Zoom a RadioButton control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixRadioButton();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(12, 13, 0.20, 0.97, 0.37, 0.76, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.97" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.76" />
+                <CompareBitmap target="testPanel" url="../Controls/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_RichTextEditor" keywords="[Effects, Zoom, Controls, RichTextEditor]" description="Zoom a RichTextEditor control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixRichTextEditor();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(7, 5, 0.10, 0.62, 0.23, 0.64, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.62" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.64" />
+                <AssertPixelValue target="uiComponent" x="43" y="92" value="0x349DDF" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_Text" keywords="[Effects, Zoom, Controls, Text]" description="Zoom a Text control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixText();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(6, 5, 0.40, 0.90, 0.49, 0.75, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.90" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.75" />
+                <AssertPixelValue target="uiComponent" x="13" y="5" value="0xE0E5E6" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_TextArea" keywords="[Effects, Zoom, Controls, TextArea]" description="Zoom a TextArea control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTextArea();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(14, 1, 0.30, 0.83, 0.34, 0.62, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.83" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.62" />
+                <AssertPixelValue target="uiComponent" x="8" y="16" value="0xFFFFFF" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_TextInput" keywords="[Effects, Zoom, Controls, TextInput]" description="Zoom a TextInput control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTextInput();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(16, 15, 0.20, 0.50, 0.45, 0.69, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.50" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.69" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_Tree" keywords="[Effects, Zoom, Controls, Tree]" description="Zoom a Tree control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTree();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(11, 16, 0.20, 0.92, 0.49, 0.72, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.92" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.72" />
+                <AssertPixelValue target="uiComponent" x="28" y="42" value="0x656565" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_VideoDisplay" keywords="[Effects, Zoom, Controls, VideoDisplay]" description="Zoom a VideoDisplay control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixVideoDisplay();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(8, 16, 0.40, 0.79, 0.48, 0.86, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.79" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.86" />
+                <AssertPixelValue target="uiComponent" x="3" y="3" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_VRule" keywords="[Effects, Zoom, Controls, VRule]" description="Zoom a VRule control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixVRule();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(11, 16, 0.40, 0.56, 0.46, 0.99, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.56" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.99" />
+                <AssertPixelValue target="uiComponent" x="0" y="0" value="4194111" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_VScrollBar" keywords="[Effects, Zoom, Controls, VScrollBar]" description="Zoom a VScrollBar control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixVScrollBar();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(16, 18, 0.20, 0.53, 0.41, 0.56, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.53" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.56" />
+                <AssertPixelValue target="uiComponent" x="4" y="34" value="0xB1B4B5" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Controls_VSlider" keywords="[Effects, Zoom, Controls, VSlider]" description="Zoom a VSlider control.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixVSlider();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent);" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(1, 19, 0.10, 0.50, 0.14, 0.97, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleX" value="0.50" />
+                <AssertPropertyValue target="uiComponent" propertyName="scaleY" value="0.97" />
+                <AssertPixelValue target="uiComponent" x="5" y="89" value="6843500" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

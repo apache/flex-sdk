@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application height="500" width="500"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:trix="Containers.*"
+    xmlns="*"
+    backgroundColor="0xFFFFFF"
+    backgroundImage="" 
+    creationComplete="Init()">
+
+    <mx:Style>
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        global
+        {
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+        }
+    </mx:Style>
+
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Resize;
+        import mx.core.UIComponent;
+        
+        //The global current test object
+        public var uiComponent:UIComponent = new UIComponent();
+        
+        //Init (do nothing)
+        private function Init():void
+        {
+        }
+        
+        //Reset effect resets the resize parameters of the resize effect
+        //prior to each case running.
+        public function ResetEffect():void
+        {
+            this.testEffect.widthBy = NaN;
+            this.testEffect.widthFrom = NaN;
+            this.testEffect.widthTo = NaN;
+            this.testEffect.heightBy = NaN;
+            this.testEffect.heightFrom = NaN;
+            this.testEffect.heightTo = NaN;
+            this.testEffect.duration = NaN;
+        }
+        
+        public function AddComponentToTestPanel(uiComponent:UIComponent):void
+        {
+            this.uiComponent = uiComponent;
+            this.testPanel.addChild(uiComponent);
+        }
+        
+        //Apply a Resize-From-To effect.
+        public function ApplyEffect_FromTo(uiComponent:UIComponent, widthFrom:Number, widthTo:Number, heightFrom:Number, heightTo:Number, duration:Number):void
+        {
+            this.ResetEffect();
+            
+            this.testEffect.widthFrom = widthFrom;
+            this.testEffect.widthTo = widthTo;
+            this.testEffect.heightFrom = heightFrom;
+            this.testEffect.heightTo = heightTo;
+            this.testEffect.duration = duration;
+            
+            this.testEffect.play(new Array(uiComponent), false);
+        }
+        
+        //Apply a Resize-By effect.
+        public function ApplyEffect_By(uiComponent:UIComponent, widthBy:Number, heightBy:Number, duration:Number):void
+        {
+            this.ResetEffect();
+            
+            this.testEffect.widthBy = widthBy;
+            this.testEffect.heightBy = heightBy;
+            this.testEffect.duration = duration;
+            
+            this.testEffect.play(new Array(uiComponent), false);
+        }
+        ]]>
+    </mx:Script>
+
+    <mx:Resize id="testEffect" />
+    
+    <trix:TrixPanel id="testPanel" />
+
+</mx:Application>

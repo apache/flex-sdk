@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="mx/binding/utils/BindingUtils/method/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/BindingUtils_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        import mx.binding.utils.BindingUtils;
+        import assets.*;
+        public static function init(o:DisplayObject):void{}
+        
+        public var setterArg:Object;
+        public var lo:LayeredObject = new LayeredObject();
+        
+        
+        private function nullSite():Boolean
+        {
+            try{BindingUtils.bindProperty(null, 'text', application.ti, 'text', false);}
+            catch(error:Error){return(true);}
+            return(false);
+        }
+        
+        private function nullProp():Boolean
+        {
+            try{BindingUtils.bindProperty(application.lbl, null, application.ti, 'text', false);}
+            catch(error:Error){return(true);}
+            return(false);
+        }
+
+        private function nullHost():Boolean
+        {
+            try{BindingUtils.bindProperty(application.lbl, 'text', null, 'text', false);}
+            catch(error:Error){return(true);}
+            return(false);
+        }
+
+        private function nullChain():Boolean
+        {
+            try{BindingUtils.bindProperty(application.lbl, 'text', application.ti, null, false);}
+            catch(error:Error){return(true);}
+            return(false);
+        }
+        
+        private function bindSetterNullHost():Boolean
+        {
+            try{BindingUtils.bindSetter(this.TargetSetter, null, 'text', false);}
+            catch(error:Error){return(true);}
+            return(false);
+        }
+
+        private function bindSetterNullChain():Boolean
+        {
+            try{BindingUtils.bindSetter(this.TargetSetter, application.ti, null, false);}
+            catch(error:Error){return(true);}
+            return(false);
+        }
+        
+        private function bindSetterBadChain():Boolean
+        {
+            try{BindingUtils.bindSetter(this.TargetSetter, new LayeredObject(), ['embeddedObject', 'embeddedString2']);}
+            catch(error:Error){return(true);}
+            return(false);
+        }
+        
+        public function TargetSetter(object:Object):void
+        {
+            this.setterArg = object;
+        }
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- bindSetter -->
+        <TestCase testID="BindingUtils_bindSetter"  keywords="[BindingUtils, method, bindSetter]" description="Test the bindSetter method.">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <ResetComponent target="lbl" className="mx.controls.Label" waitEvent="updateComplete" />
+                <RunCode code="application.Reset()" />
+                <RunCode code="this.setterArg = null;" />
+            </setup>
+            <body>
+                <RunCode code="BindingUtils.bindSetter(this.TargetSetter, application.ti, 'text', false);" />
+                <SetProperty target="ti" propertyName="text" value="Woot!"/>
+                <AssertMethodValue method="value=this.setterArg" value="Woot!" />
+            </body>
+        </TestCase>
+        <TestCase testID="BindingUtils_bindSetter_nullHost"  keywords="[BindingUtils, method, bindSetter]" description="Verify bindSetter doesn't err when passed a null host.">
+            <body>
+                <AssertMethodValue method="value=this.bindSetterNullHost()" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="BindingUtils_bindSetter_nullChain"  keywords="[BindingUtils, method, bindSetter]" description="Verify bindSetter errs when passed a null chain.">
+            <body>
+                <AssertMethodValue method="value=this.bindSetterNullChain()" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="BindingUtils_bindSetter_deepChainArray"  keywords="[BindingUtils, method, bindSetter]" description="Verify bindSetter works with a deep chain array.">
+            <body>
+                <AssertMethodValue method="value=(BindingUtils.bindSetter(this.TargetSetter, new LayeredObject(), ['embeddedObject', 'embeddedString']) != null)" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="BindingUtils_bindSetter_deepChainBad"  keywords="[BindingUtils, method, bindSetter]" description="Verify bindSetter errs with an incorrect deep chain array.">
+            <body>
+                <AssertMethodValue method="value=this.bindSetterBadChain()" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="BindingUtils_bindSetter_changeWatcher"  keywords="[BindingUtils, method, bindSetter]" description="Test the bindSetter method returns a valid changeWatcher.">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <ResetComponent target="lbl" className="mx.controls.Label" waitEvent="updateComplete" />
+                <RunCode code="application.Reset()"/>
+                <RunCode code="this.setterArg = null;" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=(BindingUtils.bindSetter(this.TargetSetter, application.ti, 'text', false)).getValue()" value="Hello"/>
+            </body>
+        </TestCase>
+
+
+        <!-- bindProperty -->
+        <TestCase testID="BindingUtils_bindProperty"  keywords="[BindingUtils, method, bindProperty]" description="Test the bindProperty method.">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <ResetComponent target="lbl" className="mx.controls.Label" waitEvent="updateComplete" />
+                <RunCode code="application.Reset()" />
+            </setup>
+            <body>
+                <RunCode code="BindingUtils.bindProperty(application.lbl, 'text', application.ti, 'text', false);"/>
+                <SetProperty target="ti" propertyName="text" value="Woot!"/>
+                <AssertPropertyValue target="lbl" propertyName="text" value="Woot!"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BindingUtils_bindProperty_nullSite"  keywords="[BindingUtils, method, bindProperty]" description="Verify bindProperty errs when passed a null site.">
+            <body>
+                <AssertMethodValue method="value=this.nullSite()" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="BindingUtils_bindProperty_nullProp"  keywords="[BindingUtils, method, bindProperty]" description="Verify bindProperty errs when passed a null prop.">
+            <body>
+                <AssertMethodValue method="value=this.nullProp()" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="BindingUtils_bindProperty_nullHost"  keywords="[BindingUtils, method, bindProperty]" description="Verify bindProperty doesn't err when passed a null host.">
+            <body>
+                <AssertMethodValue method="value=this.nullHost()" value="false" />
+            </body>
+        </TestCase>
+        <TestCase testID="BindingUtils_bindProperty_nullChain"  keywords="[BindingUtils, method, bindProperty]" description="Verify bindProperty errs when passed a null chain.">
+            <body>
+                <AssertMethodValue method="value=this.nullChain()" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="BindingUtils_bindProperty_changeWatcher"  keywords="[BindingUtils, method, bindProperty]" description="Test the bindProperty method returns a valid changeWatcher.">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <ResetComponent target="lbl" className="mx.controls.Label" waitEvent="updateComplete" />
+                <RunCode code="application.Reset()"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=(BindingUtils.bindProperty(application.lbl, 'text', application.ti, 'text', false)).getValue()" value="Hello"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BindingUtils_bindProperty_deepChain"  keywords="[BindingUtils, method, bindProperty]" description="Test the bindProperty method with a deep chain.">
+            <setup>
+                <ResetComponent target="ti" className="mx.controls.TextInput" waitEvent="updateComplete" />
+                <ResetComponent target="lbl" className="mx.controls.Label" waitEvent="updateComplete" />
+                <RunCode code="application.Reset()" />
+            </setup>
+            <body>
+                <RunCode code="BindingUtils.bindProperty(application.lbl, 'text', lo, ['embeddedObject', 'embeddedString'], false);"/>
+                <RunCode code="this.lo.embeddedObject.embeddedString = 'Woof!'"/>
+                <AssertPropertyValue target="lbl" propertyName="text" value="Woof!"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

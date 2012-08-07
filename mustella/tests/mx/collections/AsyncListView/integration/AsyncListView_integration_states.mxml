@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	testDir="mx/collections/AsyncListView/integration/"
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns="*" 
+	xmlns:assets="assets.*"
+	testSWF="AsyncListView_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+		import assets.*;
+		import mx.collections.*;
+		import mx.core.FlexGlobals;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<TestCase testID="states_test1" keywords="[AsyncListView,states]" description="Confirm defaults in state1." >
+	<setup>
+		<SetProperty target="obj2" propertyName="currentState" value="state1" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj2.items1.reset()" waitTarget="obj2.theList.dataGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj2.theView.getItemAt(0).info" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj2.theView.getItemAt(1).info" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj2.theView.getItemAt(2).info" value="item 2 pending" />
+		<AssertPropertyValue target="obj2.theView" propertyName="length" value="20" />
+	</body>
+</TestCase>
+
+<TestCase testID="states_test2" keywords="[AsyncListView,states]" description="dataProvider property with stateGroup." >
+	<setup>
+		<ResetComponent target="obj2" className="assets.PagedDataComp2" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="obj2" propertyName="currentState" value="state2" waitTarget="obj2.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj2.theList.dataGroup.getElementAt(0).nameLabel" propertyName="text" value="state2 item" />
+		<SetProperty target="obj2" propertyName="currentState" value="state1" waitTarget="obj2.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj2.theList.dataGroup.getElementAt(0).nameLabel" propertyName="text" value="item 0 pending" />
+	</body>
+</TestCase>
+
+<TestCase testID="states_test3" keywords="[AsyncListView,states]" description="Different pending and fail function properties in state3." >
+	<setup>
+		<SetProperty target="obj2" propertyName="currentState" value="state3" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj2.items1.reset()" waitTarget="obj2.theList.dataGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj2.items1.receivePage()" waitTarget="obj2.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj2.items1.failPage()" waitTarget="obj2.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj2.theView.getItemAt(0).info" value="item 0 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj2.theView.getItemAt(1).info" value="7: item 1 failed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj2.theView.getItemAt(2).info" value="7: item 2 pending" />
+	</body>
+</TestCase>
+
+<TestCase testID="states_test4" keywords="[AsyncListView,states]" description="Different list property in state4." >
+	<setup>
+		<SetProperty target="obj2" propertyName="currentState" value="state4" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj2.items2.reset()" waitTarget="obj2.theList.dataGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj2.items2.receivePage()" waitTarget="obj2.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj2.items2.failPage()" waitTarget="obj2.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj2.theView.getItemAt(0).info" value="item 0 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj2.theView.getItemAt(1).info" value="item 1 failed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj2.theView.getItemAt(2).info" value="item 2 pending" />
+		<AssertPropertyValue target="obj2.theView" propertyName="length" value="25" />
+		<AssertPropertyValue target="obj2.theList.dataGroup" propertyName="numElements" value="25" />
+	</body>
+</TestCase>
+
+
+</testCases>
+</UnitTester>

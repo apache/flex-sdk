@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="mx/effects/Zoom/Events/"  
+    testSWF="Zoom_Main.mxml" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import Containers.TrixPanel;
+        
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <testCases>
+        <TestCase testID="Effects_Zoom_Events_EffectStart" keywords="[Effects, Zoom, Events, EffectStart]" description="Verify EffectStart is raised.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(0, 0, 0.1, 1.0, 0.1, 1.0, 250);" waitEvent="effectStart" waitTarget="testEffect" />
+                <AssertEvent target="testEffect" eventName="effectStart" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Events_EffectEnd" keywords="[Effects, Zoom, Events, EffectEnd]" description="Verify EffectEnd is raised.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(0, 0, 0.1, 1.0, 0.1, 1.0, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertEvent target="testEffect" eventName="effectEnd" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Effects_Zoom_Events_TweenStart" keywords="[Effects, Zoom, Events, TweenStart]" description="Verify TweenStart is raised.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(0, 0, 0.1, 1.0, 0.1, 1.0, 250);" waitEvent="tweenStart" waitTarget="testEffect" />
+                <AssertEvent target="testEffect" eventName="tweenStart" eventClass="mx.events::TweenEvent" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Events_TweenUpdate" keywords="[Effects, Zoom, Events, TweenUpdate]" description="Verify TweenUpdate is raised.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(0, 0, 0.1, 1.0, 0.1, 1.0, 250);" waitEvent="tweenUpdate" waitTarget="testEffect" />
+                <AssertEvent target="testEffect" eventName="tweenUpdate" eventClass="mx.events::TweenEvent" numExpectedEvents="-1" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Zoom_Events_TweenEnd" keywords="[Effects, Zoom, Events, TweenEnd]" description="Verify TweenEnd is raised.">
+            <setup>
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect(0, 0, 0.1, 1.0, 0.1, 1.0, 250);" waitEvent="tweenEnd" waitTarget="testEffect" />
+                <AssertEvent target="testEffect" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>

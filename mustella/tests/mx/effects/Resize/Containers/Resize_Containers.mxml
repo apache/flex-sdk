@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="mx/effects/Resize/Containers/"  
+    testSWF="Resize_Main.mxml" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import Containers.*;
+        
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <testCases>
+        <TestCase testID="Effects_Resize_Containers_Accordion_FromTo" keywords="[Effects, Resize, Containers, Accordion]" description="Resize a Accordion container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixAccordion();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 53, 118, 86, 159, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="118" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="159" />
+                <AssertPixelValue target="uiComponent" x="9" y="124" value="0x436167" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_Accordion_By" keywords="[Effects, Resize, Containers, Accordion]" description="Resize a Accordion container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixAccordion();" />
+                <SetProperty target="uiComponent" propertyName="width" value="53" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="86" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 65, 73, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="118" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="159" />
+                <AssertPixelValue target="uiComponent" x="53" y="9" value="0xF6F6F6" />
+            </body>
+        </TestCase>
+       
+        <TestCase testID="Effects_Resize_Containers_Box_FromTo" keywords="[Effects, Resize, Containers, Box]" description="Resize a Box container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 67, 132, 92, 191, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="132" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="191" />
+                <CompareBitmap url="../Containers/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_Box_By" keywords="[Effects, Resize, Containers, Box]" description="Resize a Box container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixBox();" />
+                <SetProperty target="uiComponent" propertyName="width" value="67" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="92" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 65, 99, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="132" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="191" />
+                <CompareBitmap url="../Containers/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_Canvas_FromTo" keywords="[Effects, Resize, Containers, Canvas]" description="Resize a Canvas container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixCanvas();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 77, 137, 64, 163, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="137" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="163" />
+                <AssertPixelValue target="uiComponent" x="92" y="147" value="7632247" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_Canvas_By" keywords="[Effects, Resize, Containers, Canvas]" description="Resize a Canvas container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixCanvas();" />
+                <SetProperty target="uiComponent" propertyName="width" value="77" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="64" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 60, 99, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="137" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="163" />
+                <AssertPixelValue target="uiComponent" x="112" y="147" value="7171953" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_ControlBar_FromTo" keywords="[Effects, Resize, Containers, ControlBar]" description="Resize a ControlBar container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixControlBar();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 53, 113, 98, 177, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="400" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="177" />
+            	<CompareBitmap url="../Containers/baseline/$testID.png" target="testPanel"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_ControlBar_By" keywords="[Effects, Resize, Containers, ControlBar]" description="Resize a ControlBar container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixControlBar();" />
+                <SetProperty target="uiComponent" propertyName="width" value="53" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="98" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 60, 79, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="400" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="177" />
+                <CompareBitmap url="../Containers/baseline/$testID.png" target="testPanel"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_DividedBox_FromTo" keywords="[Effects, Resize, Containers, DividedBox]" description="Resize a DividedBox container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixDividedBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 79, 151, 53, 127, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="151" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="127" />
+                <AssertPixelValue target="uiComponent" x="40" y="47" value="0x555555" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_DividedBox_By" keywords="[Effects, Resize, Containers, DividedBox]" description="Resize a DividedBox container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixDividedBox();" />
+                <SetProperty target="uiComponent" propertyName="width" value="79" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="53" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 72, 74, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="151" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="127" />
+                <AssertPixelValue target="uiComponent" x="44" y="88" value="0x747678" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_Form_FromTo" keywords="[Effects, Resize, Containers, Form]" description="Resize a Form container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixForm();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 67, 158, 62, 159, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="158" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="159" />
+                <AssertPixelValue target="uiComponent" x="137" y="143" value="7040367" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_Form_By" keywords="[Effects, Resize, Containers, Form]" description="Resize a Form container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixForm();" />
+                <SetProperty target="uiComponent" propertyName="width" value="67" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="62" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 91, 97, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="158" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="159" />
+                <AssertPixelValue target="uiComponent" x="120" y="143" value="7369075" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_FormHeading_FromTo" keywords="[Effects, Resize, Containers, FormHeading]" description="Resize a FormHeading container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixFormHeading();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 67, 143, 75, 129, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="143" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="129" />
+                <AssertPixelValue target="uiComponent" x="27" y="8" value="0x48666C" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_FormHeading_By" keywords="[Effects, Resize, Containers, FormHeading]" description="Resize a FormHeading container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixFormHeading();" />
+                <SetProperty target="uiComponent" propertyName="width" value="67" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="75" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 76, 54, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="143" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="129" />
+                <AssertPixelValue target="uiComponent" x="17" y="6" value="0x48666C" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_Grid_FromTo" keywords="[Effects, Resize, Containers, Grid]" description="Resize a Grid container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixGrid();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 76, 130, 90, 140, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="130" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="140" />
+                <AssertPixelValue target="uiComponent" x="67" y="59" value="0x193F47" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_Grid_By" keywords="[Effects, Resize, Containers, Grid]" description="Resize a Grid container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixGrid();" />
+                <SetProperty target="uiComponent" propertyName="width" value="76" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="90" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 54, 50, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="130" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="140" />
+                <AssertPixelValue target="uiComponent" x="102" y="124" value="7303282" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_HBox_FromTo" keywords="[Effects, Resize, Containers, HBox]" description="Resize a HBox container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 88, 174, 59, 130, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="174" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="130" />
+                <AssertPixelValue target="uiComponent" x="25" y="18" value="0x81959A" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_HBox_By" keywords="[Effects, Resize, Containers, HBox]" description="Resize a HBox container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHBox();" />
+                <SetProperty target="uiComponent" propertyName="width" value="88" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="59" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 86, 71, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="174" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="130" />
+                <AssertPixelValue target="uiComponent" x="1" y="125" value="6711401" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_HDividedBox_FromTo" keywords="[Effects, Resize, Containers, HDividedBox]" description="Resize a HDividedBox container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHDividedBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 71, 170, 63, 160, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="170" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="160" />
+                <AssertPixelValue target="uiComponent" x="12" y="8" value="0x85999D" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_HDividedBox_By" keywords="[Effects, Resize, Containers, HDividedBox]" description="Resize a HDividedBox container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixHDividedBox();" />
+                <SetProperty target="uiComponent" propertyName="width" value="71" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="63" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 99, 97, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="170" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="160" />
+                <AssertPixelValue target="uiComponent" x="3" y="5" value="0x85999D" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_TabNavigator_FromTo" keywords="[Effects, Resize, Containers, TabNavigator]" description="Resize a TabNavigator container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTabNavigator();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 59, 143, 87, 177, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="143" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="177" />
+                <CompareBitmap target="testPanel" url="../Containers/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_TabNavigator_By" keywords="[Effects, Resize, Containers, TabNavigator]" description="Resize a TabNavigator container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTabNavigator();" />
+                <SetProperty target="uiComponent" propertyName="width" value="59" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="87" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 84, 90, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="143" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="177" />
+                <CompareBitmap target="testPanel" url="../Containers/baseline/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_Tile_FromTo" keywords="[Effects, Resize, Containers, Tile]" description="Resize a Tile container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTile();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 67, 118, 92, 172, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="118" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="172" />
+                <AssertPixelValue target="uiComponent" x="102" y="130" value="7369075" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_Tile_By" keywords="[Effects, Resize, Containers, Tile]" description="Resize a Tile container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTile();" />
+                <SetProperty target="uiComponent" propertyName="width" value="67" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="92" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 51, 80, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="118" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="172" />
+                <AssertPixelValue target="uiComponent" x="102" y="111" value="7698040" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_TitleWindow_FromTo" keywords="[Effects, Resize, Containers, TitleWindow]" description="Resize a TitleWindow container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTitleWindow();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 84, 136, 71, 121, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="136" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="121" />
+                <AssertPixelValue target="uiComponent" x="16" y="55" value="0x385960" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_TitleWindow_By" keywords="[Effects, Resize, Containers, TitleWindow]" description="Resize a TitleWindow container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixTitleWindow();" />
+                <SetProperty target="uiComponent" propertyName="width" value="84" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="71" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 52, 50, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="136" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="121" />
+                <AssertPixelValue target="uiComponent" x="13" y="55" value="0x577278" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_VBox_FromTo" keywords="[Effects, Resize, Containers, VBox]" description="Resize a VBox container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixVBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 63, 118, 90, 165, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="118" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="165" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_VBox_By" keywords="[Effects, Resize, Containers, VBox]" description="Resize a VBox container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixVBox();" />
+                <SetProperty target="uiComponent" propertyName="width" value="63" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="90" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 55, 75, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="118" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="165" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_VDividedBox_FromTo" keywords="[Effects, Resize, Containers, VDividedBox]" description="Resize a VDividedBox container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixVDividedBox();" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_FromTo(application.uiComponent, 74, 133, 86, 178, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="133" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="178" />
+                <AssertPixelValue target="uiComponent" x="3" y="10" value="0xB333C" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effects_Resize_Containers_VDividedBox_By" keywords="[Effects, Resize, Containers, VDividedBox]" description="Resize a VDividedBox container.">
+            <setup>
+                <RunCode code="application.uiComponent = new TrixVDividedBox();" />
+                <SetProperty target="uiComponent" propertyName="width" value="74" expectError="False" />
+                <SetProperty target="uiComponent" propertyName="height" value="86" expectError="False" />
+                <ResetComponent target="testPanel" className="Containers.TrixPanel" waitEvent="updateComplete" waitTarget="testPanel" />
+                <RunCode code="application.testPanel.addChild(application.uiComponent)" waitEvent="updateComplete" waitTarget="testPanel" />
+            </setup>
+            <body>
+                <RunCode code="application.ApplyEffect_By(application.uiComponent, 59, 92, 250);" waitEvent="effectEnd" waitTarget="testEffect" />
+                <AssertPropertyValue target="uiComponent" propertyName="width" value="133" />
+                <AssertPropertyValue target="uiComponent" propertyName="height" value="178" />
+                <AssertPixelValue target="uiComponent" x="9" y="9" value="0x85999D" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

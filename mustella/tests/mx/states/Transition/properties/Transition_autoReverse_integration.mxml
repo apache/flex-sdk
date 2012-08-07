@@ -1,0 +1,97 @@
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			testSWF="../SWFs/Transition_AutoReverse_Integration.mxml"
+			testDir="mx/states/Transition/properties/"
+			xmlns="*"
+			xmlns:c="comps.*"
+			xmlns:m="comps.modules.*">
+	
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void{}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+	</fx:Declarations>
+	
+	<fx:Metadata><![CDATA[[Mixin]]]></fx:Metadata>
+	
+	<testCases>
+		<!-- ####################################################################################################### -->
+		<!-- ########## MultiState Transition ###################################################################### -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_integration_multistate" keywords="[Transition, autoReverse, multistate, move]"  
+				  description="Verify that transitions can figure out that they need to use a reversed transition even when they're not just switching back.">
+			<setup>
+				<ResetComponent target="integrationTemplate" className="comps.MultiStateTemplate" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="application.integrationTemplate.start()" waitEvent="effectStart" waitTarget="integrationTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="-1" target="integrationTemplate"/>
+				<RunCode code="application.integrationTemplate.currentState = 'Three'" waitEvent="effectStart" waitTarget="integrationTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="-1" target="integrationTemplate"/>
+				<RunCode code="application.integrationTemplate.currentState = 'Four'" waitEvent="effectStart" waitTarget="integrationTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="-1" target="integrationTemplate"/>
+				<RunCode code="application.integrationTemplate.currentState = 'One'" waitEvent="effectStart" waitTarget="integrationTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="integrationTemplate"/>
+				<AssertPropertyValue target="integrationTemplate" propertyName="passed" value="true" />
+				<AssertPropertyValue target="integrationTemplate" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Interrupted AutoReverse Transition ######################################################### -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_integration_interrupted" keywords="[Transition, autoReverse, interrupted, move]"  
+				  description="Verify that an interrupted transition in autoReverse responds correctly to another state change with a transition.">
+			<setup>
+				<ResetComponent target="integrationTemplate" className="comps.InterruptedARTemplate" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="application.integrationTemplate.start()" waitEvent="effectStart" waitTarget="integrationTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="-1" target="integrationTemplate"/>
+				<RunCode code="application.integrationTemplate.performTest()" waitEvent="effectStart" waitTarget="integrationTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="integrationTemplate"/>
+				<AssertPropertyValue target="integrationTemplate" propertyName="passed" value="true" />
+				<AssertPropertyValue target="integrationTemplate" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Absent in States AutoReverse ############################################################### -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_integration_absent" keywords="[Transition, autoReverse, absent, move]"  
+				  description="Verify that an transition in autoReverse works correctly when the item in motion doesn't exist in some states.">
+			<setup>
+				<ResetComponent target="integrationTemplate" className="comps.AbsentInStateTemplate" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="application.integrationTemplate.start()" waitEvent="effectStart" waitTarget="integrationTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="-1" target="integrationTemplate"/>
+				<RunCode code="application.integrationTemplate.currentState = 'Three'" waitEvent="effectStart" waitTarget="integrationTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="-1" target="integrationTemplate"/>
+				<RunCode code="application.integrationTemplate.currentState = 'Four'" waitEvent="effectStart" waitTarget="integrationTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="-1" target="integrationTemplate"/>
+				<RunCode code="application.integrationTemplate.currentState = 'One'" waitEvent="effectStart" waitTarget="integrationTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="integrationTemplate"/>
+				<AssertPropertyValue target="integrationTemplate" propertyName="passed" value="true" />
+				<AssertPropertyValue target="integrationTemplate" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

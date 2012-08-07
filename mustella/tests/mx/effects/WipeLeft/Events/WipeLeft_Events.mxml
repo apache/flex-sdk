@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="mx/effects/WipeLeft/Events/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*"
+    testSWF="../SWFs/WipeLeft_Main.mxml">
+    
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    
+    <testCases>
+
+        <TestCase testID="WipeLeft_Events_EffectStart" keywords="[WipeLeft, Events, EffectStart]" description="Verify effectStart is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <RunCode code="application.ResetImage()"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testImage], false)" waitTarget="testEffect" waitEvent="effectStart" />
+                <AssertEvent target="testEffect" eventName="effectStart" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeLeft_Events_TweenStart" keywords="[WipeLeft, Events, TweenStart]" description="Verify tweenStart is NOT raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <RunCode code="application.ResetImage()"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testImage], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertEvent target="testEffect" eventName="tweenStart" eventClass="mx.events::TweenEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeLeft_Events_TweenUpdate" keywords="[WipeLeft, Events, TweenUpdate]" description="Verify tweenUpdate is NOT raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <RunCode code="application.ResetImage()"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testImage], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertEvent target="testEffect" eventName="tweenUpdate" eventClass="mx.events::TweenEvent" numExpectedEvents="-1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeLeft_Events_TweenEnd" keywords="[WipeLeft, Events, TweenEnd]" description="Verify tweenEnd is NOT raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <RunCode code="application.ResetImage()"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testImage], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertEvent target="testEffect" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="WipeLeft_Events_EffectEnd" keywords="[WipeLeft, Events, EffectEnd]" description="Verify effectEnd is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.ResetEffectDefault()"/>
+                <RunCode code="application.ResetImage()"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testImage], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertEvent target="testEffect" eventName="effectEnd" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+    
+</UnitTester>

@@ -1,0 +1,24 @@
+﻿<UnitTester 
+    testSWF="../SWFs/Effect_other.mxml" 
+    testDir="mx/effects/Effect/event/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.FlexGlobals;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- Stop -->
+        <TestCase testID="Effect_event_stop" keywords="[Effect, event, stop]" description="Verify an effect raises the STOP event on stop().">
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.e_Fade.play();"/>
+                <Pause timeout="500" waitTarget="e_Fade" waitEvent="effectStop"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

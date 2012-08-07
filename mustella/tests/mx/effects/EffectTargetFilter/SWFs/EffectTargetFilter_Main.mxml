@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application height="500" width="500"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:trix="Assets.*"
+    xmlns="*"
+    backgroundColor="0xFFFFFF"
+    
+    creationComplete="currentState='stateOne'"
+    layout="absolute">
+
+	<mx:Script>
+		<![CDATA[
+		import mx.effects.effectClasses.PropertyChanges;
+        import mx.events.StateChangeEvent;
+
+
+		//Toggle bools
+		public var wasInvoked:Boolean = false;
+		
+		
+		//Custom filter function
+		private function FilterA(propChanges:Array, instanceTarget:Object):Boolean
+		{
+			this.wasInvoked = true;
+			
+			return(true);
+		}
+			
+		//State toggling functions
+        public function doManualReset():void
+        {
+			this.wasInvoked = false;
+
+            if(currentState == "stateOne")
+            {
+                dispatchEvent(new Event("manualResetComplete"));
+            }
+            else
+            {
+                addEventListener("currentStateChange", handleCurrentStateChange);
+                currentState = "stateOne";   
+            }
+        }
+
+        private function handleCurrentStateChange(e:StateChangeEvent):void
+        {
+            dispatchEvent(new Event("manualResetComplete"));
+        }			
+		]]>
+	</mx:Script>
+	
+	<mx:states>
+		<mx:State name="stateOne">
+			<mx:SetProperty target="{testButton}" name="x" value="100"/>
+			<mx:SetProperty target="{testButton}" name="y" value="10"/>
+			<mx:SetProperty target="{testButton}" name="width" value="100"/>
+			<mx:SetProperty target="{testButton}" name="height" value="30"/>
+			<mx:SetProperty target="{testButton}" name="alpha" value="1"/>
+		</mx:State>
+		<mx:State name="stateTwo">
+			<mx:SetProperty target="{testButton}" name="x" value="300"/>
+		</mx:State>
+		<mx:State name="stateThree">
+			<mx:SetProperty target="{testButton}" name="x" value="300"/>
+		</mx:State>
+		<mx:State name="stateFour">
+			<mx:SetProperty target="{testButton}" name="width" value="100"/>
+			<mx:SetProperty target="{testButton}" name="height" value="30"/>
+			<mx:SetProperty target="{testButton}" name="x" value="300"/>
+		</mx:State>
+		<mx:State name="stateFive">
+			<mx:SetProperty target="{testButton}" name="height" value="60"/>
+			<mx:SetStyle target="{testButton}" name="fontSize" value="24"/>
+		</mx:State>
+		<mx:State name="stateSix">
+			<mx:SetProperty target="{testButton}" name="width" value="100"/>
+			<mx:SetProperty target="{testButton}" name="height" value="60"/>
+			<mx:SetStyle target="{testButton}" name="fontSize" value="24"/>
+		</mx:State>
+	</mx:states>
+	
+	<mx:transitions>
+        <mx:Transition effect="{toStateTwo}" fromState="stateOne" toState="stateTwo" />
+        <mx:Transition effect="{toStateThree}" fromState="stateOne" toState="stateThree" />
+        <mx:Transition effect="{toStateFour}" fromState="stateOne" toState="stateFour" />
+        <mx:Transition effect="{toStateFive}" fromState="stateOne" toState="stateFive" />
+        <mx:Transition effect="{toStateSix}" fromState="stateOne" toState="stateSix" />
+    </mx:transitions>
+	
+	<mx:Parallel id="toStateTwo">
+		<mx:Move targets="{[this.testButton]}" duration="500"/>
+		<mx:Fade targets="{[this.testButton]}" alphaFrom="1" alphaTo=".5" duration="500">
+			<mx:customFilter>
+				<mx:EffectTargetFilter id="filterToTwo" filterProperties="x" filterFunction="FilterA" />
+			</mx:customFilter>
+		</mx:Fade>
+	</mx:Parallel>
+   
+    <mx:Parallel id="toStateThree">
+		<mx:Move targets="{[this.testButton]}" duration="500"/>
+		<mx:Fade targets="{[this.testButton]}" alphaFrom="1" alphaTo=".5" duration="500">
+			<mx:customFilter>
+				<mx:EffectTargetFilter id="filterToThree" filterProperties="x" />
+			</mx:customFilter>
+		</mx:Fade>
+    </mx:Parallel>
+    
+    <mx:Parallel id="toStateFour">
+		<mx:Move targets="{[this.testButton]}" duration="500"/>
+		<mx:Fade targets="{[this.testButton]}" alphaFrom="1" alphaTo=".5" duration="500">
+			<mx:customFilter>
+				<mx:EffectTargetFilter id="filterToFour" filterProperties="width" />
+			</mx:customFilter>
+		</mx:Fade>
+    </mx:Parallel>
+    
+    <mx:Parallel id="toStateFive">
+		<mx:Resize targets="{[this.testButton]}" duration="500"/>
+		<mx:Fade targets="{[this.testButton]}" alphaFrom="1" alphaTo=".5" duration="500">
+			<mx:customFilter>
+				<mx:EffectTargetFilter id="filterToFive" filterStyles="fontSize" />
+			</mx:customFilter>
+		</mx:Fade>
+    </mx:Parallel>
+    
+    <mx:Parallel id="toStateSix">
+		<mx:Resize targets="{[this.testButton]}" duration="500"/>
+		<mx:Fade targets="{[this.testButton]}" alphaFrom="1" alphaTo=".5" duration="500">
+			<mx:customFilter>
+				<mx:EffectTargetFilter id="filterToSix" filterStyles="fontFamily" />
+			</mx:customFilter>
+		</mx:Fade>
+    </mx:Parallel>
+    
+    	
+	<!-- UI Components -->
+    <trix:TrixButton id="testButton"/>
+
+</mx:Application>

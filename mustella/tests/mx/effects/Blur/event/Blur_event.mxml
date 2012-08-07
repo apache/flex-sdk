@@ -1,0 +1,73 @@
+<UnitTester 
+    testSWF="../SWFs/Blur_main.mxml" 
+    testDir="mx/effects/Blur/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Blur;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+    <testCases>
+
+        <!-- effectStart -->
+        <TestCase testID="Blur_effectStart" keywords="[Blur, event, effectStart]" description="Verify effectStart is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Blur_XY, 500, 0, 1, 0)" waitTarget="eff_Blur_XY" waitEvent="tweenUpdate" />
+            </body>
+        </TestCase>
+
+        <!-- tweenStart -->
+        <TestCase testID="Blur_tweenStart" keywords="[Blur, event, tweenStart]" description="Verify tweenStart is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Blur_XY, 500, 0, 1, 0)" waitTarget="eff_Blur_XY" waitEvent="tweenStart" />
+            </body>
+        </TestCase>
+
+        <!-- tweenUpdate -->
+        <TestCase testID="Blur_tweenUpdate" keywords="[Blur, event, tweenUpdate]" description="Verify tweenUpdate is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Blur_XY, 500, 0, 1, 0)" waitTarget="eff_Blur_XY" waitEvent="tweenUpdate" />
+            </body>
+        </TestCase>
+
+        <!-- tweenEnd -->
+        <TestCase testID="Blur_tweenEnd" keywords="[Blur, event, tweenEnd]" description="Verify tweenEnd is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Blur_XY, 500, 0, 1, 0)" waitTarget="eff_Blur_XY" waitEvent="tweenEnd" />
+            </body>
+        </TestCase>
+
+        <!-- effectEnd -->
+        <TestCase testID="Blur_effectEnd" keywords="[Blur, event, effectEnd]" description="Verify effectEnd is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()"/>
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Blur_XY, 500, 0, 1, 0)" waitTarget="eff_Blur_XY" waitEvent="effectEnd" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

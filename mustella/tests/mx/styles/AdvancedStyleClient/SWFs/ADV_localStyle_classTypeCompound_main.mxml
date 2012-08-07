@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" 
+			   xmlns:styleTest="assets.styleTest.*">
+	<s:states> 
+		<s:State name="heavy"/> 
+		<s:State name="medium"/> 
+		<s:State name="light"/> 
+	</s:states>
+	
+	<fx:Script>
+		<![CDATA[
+			import assets.styleTest.ADVStyleTestConstants;
+			import assets.styleTest.ADVStyleTestVo;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.XMLListCollection;
+			
+			[Bindable]
+			public var xmlList:XMLListCollection = new XMLListCollection(new XMLList(
+				'<test1>test1</test1>' +
+				'<test2>test2</test2>' +
+				'<test3>test3</test3>'));
+			
+			[Bindable]
+			public var myVo_heavy:ADVStyleTestVo = new ADVStyleTestVo("heavy");
+			
+			[Bindable]
+			public var defaultColorArray:Array = [0xFFCC33, 0xCC33FF, 0x33FFCC];
+			
+			[Bindable]
+			public var defaultDateList:ArrayCollection = new ArrayCollection([
+				new Date(1910, 1, 5), 
+				new Date(1950, 5, 5), 
+				new Date(1990, 10, 5)]);
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>	
+		<fx:Date id="localDate" fullYear="2098" month="7" date="19" />
+		<fx:Array id="localArray">
+			<fx:uint>
+				{0xEEBBAA}
+			</fx:uint>
+			<fx:uint>
+				{0xAACCDD}
+			</fx:uint>
+			<fx:uint >
+				{0x332266}
+			</fx:uint>
+		</fx:Array>
+		<s:ArrayCollection id="localList">
+			<fx:Date fullYear="1985" month="11" date="6" />
+			<fx:Date fullYear="2985" month="11" date="6" />
+			<fx:Date fullYear="3985" month="11" date="6" />
+		</s:ArrayCollection>
+		<s:XMLListCollection id="localXmlList">
+			<fx:XMLList xmlns="">
+				<localXml/>
+				<localXml2/>
+				<localXml3/>
+			</fx:XMLList>
+		</s:XMLListCollection>
+		<styleTest:ADVStyleTestVo id="localVo" name="localVOName" />
+		
+		
+		
+		
+		<styleTest:ADVStyleTestClass id="advStyleTest_Local1" 
+									 styleName="addStyle"/>
+	</fx:Declarations>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace styleTest "assets.styleTest.*";
+		
+		/* Type Selector */
+		styleTest|ADVStyleTestClass {
+			teststyle_10_xml_arrayCol_noinh : PropertyReference("xmlList");
+			teststyle_11_boolean_noinh : true;
+			teststyle_12_enum_string_inh : "firstType";
+			
+			teststyle_14_object_noinh : PropertyReference("myVo_heavy");
+			teststyle_15_state_string_noinh : "inlineStringHeavy";
+			
+			teststyle_17_skin_state_noinh: ClassReference("assets.styleTest.ADVStyleTestSkin")
+				
+		}
+		
+		
+		/* Class Selector */
+		.addStyle {
+			teststyle_1_string_noinh : "classString";	
+			teststyle_4_date_inh: PropertyReference("localDate");
+			teststyle_5_format_length_noinh : 50px;
+			teststyle_6_format_time_noinh : 12000;
+			teststyle_10_xml_arrayCol_noinh : PropertyReference("localXmlList");
+			teststyle_11_boolean_noinh : false;
+			teststyle_12_enum_string_inh : "secondType";
+			
+		} 
+		
+	</fx:Style>
+	
+	<s:Label id="label" text="{getStyle('teststyle_12_enum_string_inh')}" />
+	
+</s:Application>

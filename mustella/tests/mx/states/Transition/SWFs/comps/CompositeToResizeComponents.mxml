@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx" 
+         xmlns:d="assets.*" width="400" height="300"
+         currentState="State1">
+    <s:states>
+        <s:State name="State1"/>
+        <s:State name="State2"/>
+        <s:State name="State3"/>
+    </s:states>
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+
+ <s:Group id="group1" clipAndEnableScrolling="true" >
+        <s:Rect id="rect1" width="250" height="250" x="250" y="50" x.State2="110" y.State2="265" x.State3="90" y.State3="300"
+                width.State2="75" height.State2="75" width.State3="390" height.State3="365" 
+                alpha.State1="1" alpha.State2="0" alpha.State3=".5" >
+            <s:fill>
+                <s:SolidColor id="sc" color="0x00FF00"/>
+            </s:fill>
+        </s:Rect>       
+        
+    </s:Group>
+    
+    
+    
+    <s:transitions>
+        <s:Transition id="mainTransition" fromState="State1" toState="State2" interruptionBehavior="end">
+            <s:Sequence startDelay="50">
+                <s:Move target="{rect1}" duration="1200" />
+                <s:Fade id="moveEffect" duration="1300" targets="{[rect1]}" />
+            </s:Sequence>
+        </s:Transition>   
+        <s:Transition id="transition2" fromState="State2" toState="State3" interruptionBehavior="end">
+            <s:Resize target="{rect1}" startDelay="100" duration="1000" />
+        </s:Transition>
+    </s:transitions>
+</s:Group>

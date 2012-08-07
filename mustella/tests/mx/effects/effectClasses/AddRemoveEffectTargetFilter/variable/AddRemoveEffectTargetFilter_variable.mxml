@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+    testDir="mx/effects/effectClasses/AddRemoveEffectTargetFilter/variable/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="../SWFs/AddRemoveEffectTargetFilter_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.effectClasses.AddRemoveEffectTargetFilter;
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!-- add -->
+        <TestCase testID="AddRemoveEffectTargetFilter_add_Default" keywords="[AddRemoveEffectTargetFilter, variable, add]" description="Test the default value of the add variable.">
+            <body>
+                <AssertMethodValue method="value=(new AddRemoveEffectTargetFilter()).add" value="true"/>
+            </body>
+        </TestCase>
+
+        <!-- filterProperties -->
+        <TestCase testID="AddRemoveEffectTargetFilter_filterProperties_Default" keywords="[AddRemoveEffectTargetFilter, variable, filterProperties]" description="Test the default value of the filterProperties variable.">
+            <body>
+                <AssertMethodValue method="value=(new AddRemoveEffectTargetFilter()).filterProperties" value="parent"/>
+            </body>
+        </TestCase>
+
+        <!-- filterFunction -->
+        <TestCase testID="AddRemoveEffectTargetFilter_filterFunction_Default" keywords="[AddRemoveEffectTargetFilter, variable, filterFunction]" description="Test the default value of the filterFunction variable.">
+            <body>
+                <AssertMethodValue method="value=(new AddRemoveEffectTargetFilter()).filterFunction" value="{function():void{}}"/>
+            </body>
+        </TestCase>
+        
+        <!-- requiredSemantics -->
+        <TestCase testID="AddRemoveEffectTargetFilter_requiredSemantics_Default" keywords="[AddRemoveEffectTargetFilter, variable, requiredSemantics]" description="Test the default value of the requiredSemantics variable.">
+            <body>
+                <AssertMethodValue method="value=(new AddRemoveEffectTargetFilter()).requiredSemantics" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- filterStyles -->
+        <TestCase testID="AddRemoveEffectTargetFilter_filterStyles_Default" keywords="[AddRemoveEffectTargetFilter, variable, filterStyles]" description="Test the default value of the filterStyles variable.">
+            <body>
+                <AssertMethodValue method="value=(new AddRemoveEffectTargetFilter()).filterStyles" value=""/>
+            </body>
+        </TestCase>
+
+
+    </testCases>
+
+</UnitTester>

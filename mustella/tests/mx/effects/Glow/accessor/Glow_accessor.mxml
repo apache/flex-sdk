@@ -1,0 +1,110 @@
+<UnitTester 
+    testSWF="../SWFs/Glow_main.mxml" 
+    testDir="mx/effects/Glow/accessor/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Glow;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+    <testCases>
+
+        <!-- triggerEvent -->
+        <TestCase testID="Glow_triggerEvent_Default" keywords="[Glow, accessor, triggerEvent]" description="Test the default value of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- relevantStyles -->
+        <TestCase testID="Glow_relevantStyles_Default" keywords="[Glow, accessor, relevantStyles]" description="Test the default value of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).relevantStyles" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- relevantProperties -->
+        <TestCase testID="Glow_relevantProperties_Default" keywords="[Glow, accessor, relevantProperties]" description="Test the default value of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).relevantProperties" value="filters"/>
+            </body>
+        </TestCase>
+
+        <!-- target -->
+        <TestCase testID="Glow_target_Default" keywords="[Glow, accessor, target]" description="Test the default value of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).target" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- filter -->
+        <TestCase testID="Glow_filter_Default" keywords="[Glow, accessor, filter]" description="Test the default value of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).filter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- isPlaying -->
+        <TestCase testID="Glow_isPlaying_Default" keywords="[Glow, accessor, isPlaying]" description="Test the default value of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- hideFocusRing -->
+        <TestCase testID="Glow_hideFocusRing_Default" keywords="[Glow, accessor, hideFocusRing]" description="Test the default value of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+
+        <!-- customFilter -->
+        <TestCase testID="Glow_customFilter_Default" keywords="[Glow, accessor, customFilter]" description="Test the default value of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- GlowTargetHost -->
+        <TestCase testID="Glow_effectTargetHost_Default" keywords="[Glow, accessor, effectTargetHost]" description="Test the default value of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+
+        <!-- targets -->
+        <TestCase testID="Glow_targets_Default" keywords="[Glow, accessor, targets]" description="Test the default value of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).targets" value=""/>
+            </body>
+        </TestCase>
+
+        <!-- duration -->
+        <TestCase testID="Glow_duration_Default" keywords="[Glow, accessor, duration]" description="Test the default value of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).duration" value="500"/>
+            </body>
+        </TestCase>
+
+        <!-- perElementOffset -->
+        <TestCase testID="Glow_perElementOffset_Default" keywords="[Glow, accessor, perElementOffset]" description="Test the default value of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+
+        <!-- className -->
+        <TestCase testID="Glow_className_Default" keywords="[Glow, accessor, className]" description="Test the default value of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new Glow()).className" value="Glow"/>
+            </body>
+        </TestCase>        
+        
+    </testCases>
+</UnitTester>

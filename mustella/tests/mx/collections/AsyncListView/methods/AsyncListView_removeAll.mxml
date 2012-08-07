@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	testDir="mx/collections/AsyncListView/methods/"
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns="*" 
+	xmlns:assets="assets.*"
+	testSWF="AsyncListView_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+		import assets.*;
+		import mx.collections.*;
+		import mx.core.FlexGlobals;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+public function setup( responseDelay:int = 500,
+						numItems:int = 100,
+						numPreloadedPages:int = 0,
+						pageSize:int = 1,
+						mode:String = 'manual',
+						failureProbability:int = 0,
+						createPendingItemFunction:Boolean = true,
+						createFailedItemFunction:Boolean = true):void{
+-->
+
+<TestCase testID="removeAll_vlist_test1" keywords="[AsyncListView,removeAll]" description="All pending." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,3)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeAll()" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj1.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj1.items.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_vlist_test2" keywords="[AsyncListView,removeAll]" description="All failures." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,3,0,3)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeAll()" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj1.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj1.items.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_vlist_test3" keywords="[AsyncListView,removeAll]" description="All present." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,3,0,3)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receivePage()" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeAll()" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj1.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj1.items.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_vlist_test4" keywords="[AsyncListView,removeAll]" description="Pending and present mix." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,4,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(0)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(2)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeAll()" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj1.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj1.items.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_vlist_test5" keywords="[AsyncListView,removeAll]" description="Fail and present mix." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,4,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(0)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(2)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(3)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeAll()" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj1.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj1.items.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_vlist_test6" keywords="[AsyncListView,removeAll]" description="No items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv = new AsyncListView(new ArrayList())" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeAll()" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj1.theList.dataGroup" propertyName="numElements" value="0" />
+	</body>
+</TestCase>
+
+<!-- Here are tests for items which are in the nonvisible part of the list. -->
+<TestCase testID="removeAll_vlist_test7" keywords="[AsyncListView,removeAll]" description="All pending, some items not in view." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeAll()" waitTarget="obj1.theList" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj1.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj1.items.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_vlist_test8" keywords="[AsyncListView,removeAll]" description="All pending, some items not in view, call getItemAt() for all items first." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 19, FlexGlobals.topLevelApplication.obj1.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeAll()" waitTarget="obj1.theList" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj1.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj1.items.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_vlist_test9" keywords="[AsyncListView,removeAll]" description="All fail, some items not in view." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,20)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeAll()" waitTarget="obj1.theList" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj1.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj1.items.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_vlist_test10" keywords="[AsyncListView,removeAll]" description="All present, some items not in view." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,20)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receivePage()" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeAll()" waitTarget="obj1.theList" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj1.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj1.items.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_vlist_test11" keywords="[AsyncListView,removeAll]" description="Mix, some items not in view." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(2)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(3)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(5)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(6)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(8)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(9)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(11)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(12)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(14)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(15)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(17)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(18)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeAll()" waitTarget="obj1.theList" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj1.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj1.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj1.items.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_nonvlist_test1" keywords="[AsyncListView,removeAll]" description="All pending." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,3)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeAll()" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj8.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj8.theSimulator.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_nonvlist_test2" keywords="[AsyncListView,removeAll]" description="All failures." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,3,0,3)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failPage()" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />		
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeAll()" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj8.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj8.theSimulator.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_nonvlist_test3" keywords="[AsyncListView,removeAll]" description="All present." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+        <RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,3,0,3)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receivePage()" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeAll()" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj8.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj8.theSimulator.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_nonvlist_test4" keywords="[AsyncListView,removeAll]" description="Pending and present mix." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+        <RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,4,0,1)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(0)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(2)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeAll()" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj8.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj8.theSimulator.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_nonvlist_test5" keywords="[AsyncListView,removeAll]" description="Fail and present mix." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+        <RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,4,0,1)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(0)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(2)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(1)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(3)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeAll()" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj8.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj8.theSimulator.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_nonvlist_test6" keywords="[AsyncListView,removeAll]" description="No items." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv = new AsyncListView(new ArrayList())" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeAll()" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj8.theList.dataGroup" propertyName="numElements" value="0" />
+	</body>
+</TestCase>
+
+<!-- Here are tests for items which are in the nonvisible part of the list. -->
+<TestCase testID="removeAll_nonvlist_test7" keywords="[AsyncListView,removeAll]" description="All pending, some items not in view." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeAll()" waitTarget="obj8.theList" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj8.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj8.theSimulator.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_nonvlist_test8" keywords="[AsyncListView,removeAll]" description="All pending, some items not in view, call getItemAt() for all items first." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.callGetItemAtFor(0, 19, FlexGlobals.topLevelApplication.obj8.alv)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeAll()" waitTarget="obj8.theList" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj8.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj8.theSimulator.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_nonvlist_test9" keywords="[AsyncListView,removeAll]" description="All fail, some items not in view." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20,0,20)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failPage()" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeAll()" waitTarget="obj8.theList" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj8.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj8.theSimulator.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_nonvlist_test10" keywords="[AsyncListView,removeAll]" description="All present, some items not in view." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20,0,20)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receivePage()" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeAll()" waitTarget="obj8.theList" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj8.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj8.theSimulator.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="removeAll_nonvlist_test11" keywords="[AsyncListView,removeAll]" description="Mix, some items not in view." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(2)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(3)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(5)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(6)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(8)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(9)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(11)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(12)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(14)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(15)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(17)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(18)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeAll()" waitTarget="obj8.theList" waitEvent="updateComplete" />
+		<AssertPropertyValue target="obj8.alv" propertyName="length" value="0" />
+		<AssertPropertyValue target="obj8.theList.dataGroup" propertyName="numElements" value="0" />
+		<AssertPropertyValue target="obj8.theSimulator.source" propertyName="length" value="0" />
+	</body>
+</TestCase>
+</testCases>
+</UnitTester>

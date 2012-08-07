@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application height="500" width="500"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:trix="Assets.*"
+    xmlns="*"
+    backgroundColor="0xFFFFFF"
+    
+    layout="absolute">
+
+
+    <mx:Script>
+        <![CDATA[
+        import mx.events.StateChangeEvent;
+            
+        public function doManualReset():void
+        {
+            if(currentState == "stateOne")
+            {
+                dispatchEvent(new Event("manualResetComplete"));
+            }
+            else
+            {
+                addEventListener("currentStateChange", handleCurrentStateChange);
+                currentState = "stateOne";   
+            }
+        }
+
+        private function handleCurrentStateChange(e:StateChangeEvent):void
+        {
+            dispatchEvent(new Event("manualResetComplete"));
+        }
+        ]]>
+    </mx:Script>
+
+    
+    
+    <mx:states>
+        <mx:State name="stateOne"/>
+        <mx:State name="stateTwo"/>
+    </mx:states>
+
+    <mx:transitions>
+        <mx:Transition effect="{toStateTwo}" fromState="stateOne" toState="stateTwo" />
+        <mx:Transition effect="{toStateOne}" fromState="stateTwo" toState="stateOne" />
+    </mx:transitions>
+
+    <!-- Simple Effects -->
+    <mx:AnimateProperty id="testEffect" duration="250"/>
+
+    <!-- Effects for transitions -->
+    <mx:Parallel id="toStateTwo">
+        <mx:AnimateProperty  targets="{[testButton]}" property="width" isStyle="false" fromValue="100" toValue="150" duration="500" />
+        <mx:AnimateProperty targets="{[testButton]}" property="cornerRadius" isStyle="true" fromValue="0" toValue="15" duration="500" />
+    </mx:Parallel>
+    <mx:Parallel id="toStateOne">
+        <mx:AnimateProperty targets="{[testButton]}" property="width" isStyle="false" fromValue="150" toValue="100" duration="500" />
+        <mx:AnimateProperty targets="{[testButton]}" property="cornerRadius" isStyle="true" fromValue="15" toValue="0" duration="500" />
+    </mx:Parallel>
+    
+
+    <!-- UI Components -->
+    <trix:TrixButton id="testButton"/>
+    <trix:TrixVBox id="testVBox"/>
+
+</mx:Application>

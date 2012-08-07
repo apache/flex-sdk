@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" 
+			   xmlns:styleTest="assets.styleTest.*"
+			   xmlns:SWFs="SWFs.*" 
+			   xmlns:assets="SWFs.assets.*" 
+			   xmlns:styleComp1="SWFs.styleComp.*">
+	<s:states> 
+		<s:State name="heavy" enterState="state1_enterStateHandler(event)"/> 
+		<s:State name="medium" enterState="state2_enterStateHandler(event)"/> 
+		<s:State name="light" enterState="state3_enterStateHandler(event)"/> 
+		<s:State name="notAstate" enterState="state4_enterStateHandler(event)"/> 
+	</s:states>
+	
+	<fx:Script>
+		<![CDATA[
+			import assets.styleTest.ADVStyleTestClass;
+			import assets.styleTest.ADVStyleTestConstants;
+			import assets.styleTest.ADVStyleTestVo;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.XMLListCollection;
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			public var defaultDate:Date = new Date(2010, 5, 4);
+			[Bindable]
+			public var date_heavy:Date = new Date(2098, 7, 16);
+			[Bindable]
+			public var date_medium:Date = new Date(1998, 6, 13);
+			[Bindable]
+			public var date_light:Date = new Date(1798, 10, 30);
+			
+			[Bindable]
+			public var defaultColorArray:Array = [0xFFCC33, 0xCC33FF, 0x33FFCC];
+			[Bindable]
+			public var colorArray:Array = [0xFFCC33, 0xFFCC33, 0xFFCC33];
+
+			[Bindable]
+			public var defaultDateList:ArrayCollection = new ArrayCollection([
+								new Date(1910, 1, 5), 
+								new Date(1950, 5, 5), 
+								new Date(1990, 10, 5)]);
+			[Bindable]
+			public var dateList:ArrayCollection = new ArrayCollection([
+									date_heavy, 
+									date_medium, 
+									date_light]);
+			
+			[Bindable]
+			public var defaultXmlList:XMLListCollection = new XMLListCollection(new XMLList(
+				'<defaultXml1>defaultXml1</defaultXml1>' +
+				'<defaultXml2>defaultXml2</defaultXml2>' +
+				'<defaultXml3>defaultXml3</defaultXml3>'));
+			[Bindable]
+			public var xmlList:XMLListCollection = new XMLListCollection(new XMLList(
+				'<test1>test1</test1>' +
+				'<test2>test2</test2>' +
+				'<test3>test3</test3>'));
+			
+			[Bindable]
+			public var myVo_heavy:ADVStyleTestVo = new ADVStyleTestVo("heavy");
+			[Bindable]
+			public var myVo_medium:ADVStyleTestVo = new ADVStyleTestVo("medium");
+			[Bindable]
+			public var myVo_light:ADVStyleTestVo = new ADVStyleTestVo("light");
+			
+			
+			public function setAdvStyle(advStyleTest:ADVStyleTestClass):void
+			{
+				advStyleTest.setStyle('teststyle_1_string_noinh','setString');
+				advStyleTest.setStyle('teststyle_4_date_inh',localDate);
+				advStyleTest.setStyle('teststyle_5_format_length_noinh',50);
+				advStyleTest.setStyle('teststyle_6_format_time_noinh',12000);
+				
+				advStyleTest.setStyle('teststyle_10_xml_arrayCol_noinh',localXmlList);
+				advStyleTest.setStyle('teststyle_11_boolean_noinh',false);
+				advStyleTest.setStyle('teststyle_12_enum_string_inh','secondType');
+			}
+			
+			public function setAdvStyleAll():void
+			{
+				setStyleTest.setStyle('teststyle_1_string_noinh','setString');
+				setStyleTest.setStyle('teststyle_2_number_noinh',12345);
+				setStyleTest.setStyle('teststyle_3_uint_inh',675);
+				setStyleTest.setStyle('teststyle_4_date_inh',localDate);
+				setStyleTest.setStyle('teststyle_5_format_length_noinh',50);
+				setStyleTest.setStyle('teststyle_6_format_time_noinh',12000);	
+				setStyleTest.setStyle('teststyle_7_format_color_noinh',0xFF99FF);
+				setStyleTest.setStyle('teststyle_8_format_arrayType_noinh',colorArray);
+				setStyleTest.setStyle('teststyle_9_date_arrayCol_inh',dateList);		
+				setStyleTest.setStyle('teststyle_10_xml_arrayCol_noinh',localXmlList);
+				setStyleTest.setStyle('teststyle_11_boolean_noinh',true);
+				setStyleTest.setStyle('teststyle_12_enum_string_inh','secondType');	
+				setStyleTest.setStyle('teststyle_13_enum_int_noinh',66);
+				setStyleTest.setStyle('teststyle_14_object_noinh',myVo_heavy);
+				setStyleTest.setStyle('teststyle_15_state_string_noinh','testStringHeavy');
+				setStyleTest.setStyle('teststyle_16_skin_noinh',ADVStyleTestConstants.imgCls);
+				setStyleTest.setStyle('teststyle_17_skin_state_noinh',ADVStyleTestConstants.imgCls);
+				
+			}
+
+			protected function state1_enterStateHandler(event:FlexEvent):void
+			{
+				dispatchEvent(new Event("changeEventDone"));
+			}
+
+
+			protected function state2_enterStateHandler(event:FlexEvent):void
+			{
+				dispatchEvent(new Event("changeEventDone"));
+			}
+
+
+			protected function state3_enterStateHandler(event:FlexEvent):void
+			{
+				dispatchEvent(new Event("changeEventDone"));
+			}
+
+
+			protected function state4_enterStateHandler(event:FlexEvent):void
+			{
+				dispatchEvent(new Event("changeEventDone"));
+			}
+
+		]]>
+	</fx:Script>
+			
+	<fx:Declarations>
+		<fx:Date id="localDate" fullYear="2098" month="7" date="19" />
+		
+		<s:XMLListCollection id="localXmlList">
+			<fx:XMLList xmlns="">
+				<localXml/>
+				<localXml2/>
+				<localXml3/>
+			</fx:XMLList>
+		</s:XMLListCollection>
+		
+		<styleTest:ADVStyleTestClass id="defaultStyleTest" />
+		
+		<styleTest:ADVStyleTestClass id="inlineStyleTest"
+									 teststyle_1_string_noinh.heavy="testString"
+									 teststyle_1_string_noinh.medium="medium"
+									 teststyle_1_string_noinh.light="light"
+									 teststyle_1_string_noinh.notAstate="notastate"
+									 
+									 teststyle_2_number_noinh="12345.678"
+									 teststyle_2_number_noinh.medium="33333.5"
+									 teststyle_2_number_noinh.notAstate="444.7777"
+									 
+									 teststyle_3_uint_inh="675"
+									 
+									 teststyle_4_date_inh="{date_heavy}"
+									 teststyle_4_date_inh.medium="{date_medium}"
+									 teststyle_4_date_inh.light="{date_light}"
+									 
+									 teststyle_5_format_length_noinh="20"
+									 teststyle_6_format_time_noinh="2000"
+									 teststyle_7_format_color_noinh="0xFF99FF"
+									 teststyle_8_format_arrayType_noinh="{colorArray}"
+									 teststyle_9_date_arrayCol_inh="{dateList}"
+									 teststyle_10_xml_arrayCol_noinh="{xmlList}"
+									 
+									 teststyle_11_boolean_noinh="true"
+									 teststyle_12_enum_string_inh="{'firstType'}"
+									 teststyle_13_enum_int_noinh="{66}"
+									 
+									 teststyle_14_object_noinh="{myVo_heavy}"
+									 teststyle_14_object_noinh.medium="{myVo_medium}"
+									 teststyle_14_object_noinh.light="{myVo_light}"
+									 
+									 teststyle_15_state_string_noinh.heavy="inlineStringHeavy"
+									 teststyle_15_state_string_noinh.medium="inlineStringMedium"
+									 teststyle_15_state_string_noinh.light="inlineStringLight"
+									 
+									 teststyle_16_skin_noinh="{ADVStyleTestConstants.imgCls}"
+									 
+									 teststyle_17_skin_state_noinh.heavy="{ADVStyleTestConstants.imgCls}"
+									 teststyle_17_skin_state_noinh.medium="{ADVStyleTestConstants.img2Cls}"
+									 teststyle_17_skin_state_noinh.light="{ADVStyleTestConstants.img3Cls}"
+									 />
+		
+		<styleTest:ADVStyleTestClass id="setStyleTest" />
+		
+		<styleTest:ADVStyleTestClass id="compoundStyleTest1"
+									 teststyle_5_format_length_noinh="20"
+									 teststyle_6_format_time_noinh="2000"
+									 teststyle_7_format_color_noinh="0xFF99FF"
+									 teststyle_8_format_arrayType_noinh="{colorArray}"
+									 teststyle_9_date_arrayCol_inh="{dateList}"
+									 teststyle_10_xml_arrayCol_noinh="{xmlList}"								 
+									 />
+		
+		
+		<styleTest:ADVStyleTestClass id="compoundStyleTest2"
+									 styleName="addStyle"
+									 
+									 teststyle_10_xml_arrayCol_noinh="{xmlList}"				
+									 teststyle_11_boolean_noinh="true"
+									 teststyle_12_enum_string_inh="{'firstType'}"
+									 
+									 teststyle_14_object_noinh="{myVo_heavy}"
+									 
+									 teststyle_15_state_string_noinh.heavy="inlineStringHeavy"
+									 teststyle_15_state_string_noinh.medium="inlineStringMedium"
+									 teststyle_15_state_string_noinh.light="inlineStringLight"
+									 
+									 teststyle_17_skin_state_noinh.heavy="{ADVStyleTestConstants.imgCls}"
+									 teststyle_17_skin_state_noinh.medium="{ADVStyleTestConstants.img2Cls}"
+									 teststyle_17_skin_state_noinh.light="{ADVStyleTestConstants.img3Cls}"
+									 />
+		
+		<styleTest:ADVStyleTestClass id="compoundStyleTest3"
+									 styleName="addStyle"
+									 
+									 teststyle_10_xml_arrayCol_noinh="{xmlList}"				
+									 teststyle_11_boolean_noinh="true"
+									 teststyle_12_enum_string_inh="{'firstType'}"
+									 
+									 teststyle_14_object_noinh="{myVo_heavy}"
+									 
+									 teststyle_15_state_string_noinh.heavy="inlineStringHeavy"
+									 teststyle_15_state_string_noinh.medium="inlineStringMedium"
+									 teststyle_15_state_string_noinh.light="inlineStringLight"
+									 
+									 teststyle_17_skin_state_noinh.heavy="{ADVStyleTestConstants.imgCls}"
+									 teststyle_17_skin_state_noinh.medium="{ADVStyleTestConstants.img2Cls}"
+									 teststyle_17_skin_state_noinh.light="{ADVStyleTestConstants.img3Cls}"
+									 />	
+	</fx:Declarations>
+	
+	<s:Label id="label" text="{getStyle('teststyle_12_enum_string_inh')}" />
+
+</s:Application>

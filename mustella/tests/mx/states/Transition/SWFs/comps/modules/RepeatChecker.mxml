@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<m:Monitor xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:m="comps.modules.*"
+		   xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.EffectEvent;
+			
+			protected var threshold:Number;
+			[Bindable]
+			public var fractionDiff:Number = 0.11;
+			
+			public var initialRepTime:Number;
+			public var returnRepTime:Number;
+			
+			override public function check():void {
+				super.check();
+				if(!passed) return;
+				
+				if(isNaN(threshold)){
+					threshold = Math.abs((initialUpdates[initialUpdates.length - 1] - initialUpdates[0])*fractionDiff);
+				}
+				
+				if(returnRepTime > initialRepTime){
+					if(returnRepTime > initialRepTime + threshold){
+						passed = false;
+						error = "RepeatChecker: FAILED! Time at return repeat point is greater than time at initial repeat point. " + returnRepTime + " vs. " + initialRepTime;
+						trace(error);
+						return;
+					}
+				}else{
+					if(returnRepTime < initialRepTime - threshold){
+						passed = false;
+						error = "RepeatChecker: FAILED! Time at return repeat point is less than time at initial repeat point. " + returnRepTime + " vs. " + initialRepTime;
+						trace(error);
+						return;
+					}
+				}
+			}
+			
+			override public function effectRepeat(event:EffectEvent):void{
+				if(isReturn){
+					returnRepTime = (timer.currentCount * 20) - start;
+				}else{
+					initialRepTime = (timer.currentCount * 20) - start;
+				}
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</m:Monitor>

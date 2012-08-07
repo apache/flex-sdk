@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" 
+			   xmlns:styleTest="assets.styleTest.*">
+
+	<fx:Declarations>
+		<!--test current style-->
+		<styleTest:ADVStyleTestClass id="currentStyleTest" styleName="myStyle"/>
+		
+		<!--for case'1',test unload Class Selector style CSS declaration using styleManager  API-->
+		<styleTest:ADVStyleTestClass id="unloadStyleTest" styleName="myStyle"/>
+		
+		<!--for case'2',test load a same name Class Selector style CSS declaration using styleManager API-->
+		<styleTest:ADVStyleTestClass id="loadSameClassStyleTest" styleName="myStyle"/>
+		
+		<!--for case'3',test load a different name Class Selector style CSS declaration using styleManager API-->
+		<styleTest:ADVStyleTestClass id="loadDiferClassStyleTest" styleName="myStyle"/>
+		
+	</fx:Declarations>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace styleTest "assets.styleTest.*";
+		
+		.myStyle {
+			teststyle_1_string_noinh : "cssString";
+			teststyle_3_uint_inh : 34;
+			teststyle_5_format_length_noinh : 50;
+		}
+		
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			import assets.styleTest.ADVStyleTestConstants;
+			import assets.styleTest.ADVStyleTestEvent;
+			
+			import mx.effects.Effect;
+			import mx.effects.EffectInstance;
+			import mx.events.StyleEvent;
+			import mx.styles.IStyleManager2;
+			
+			import spark.events.TextOperationEvent;
+			
+			private var myStyleManager:IStyleManager2 ;
+
+			public function loadStyle():void {
+				//test load same name/different name Class Selector style CSS declaration using styleManager API
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);			
+				var loadEvent:IEventDispatcher = myStyleManager.loadStyleDeclarations("assets/testStyleManager.swf", true);
+				
+				loadEvent.addEventListener(StyleEvent.COMPLETE, loadComplete);
+			}
+			
+			private function loadComplete(event:StyleEvent):void {
+				loadDiferClassStyleTest.styleName = "extStyle";
+				
+				this.dispatchEvent(new ADVStyleTestEvent(ADVStyleTestEvent.TEST_STYLE_LOAD_COMPLETE));
+			} 
+			
+			//this function is used to unload external class style with styleManager
+			public function unloadStyle():void  {
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+				myStyleManager.unloadStyleDeclarations("assets/testStyleManager.swf", true);
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:Label id="label" text="{getStyle('teststyle_12_enum_string_inh')}" />
+	
+</s:Application>

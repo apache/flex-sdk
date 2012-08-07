@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	testDir="mx/collections/AsyncListView/events/"
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns="*" 
+	xmlns:assets="assets.*"
+	testSWF="AsyncListView_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+		import assets.*;
+		import mx.core.FlexGlobals;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+A reminder:
+
+public function setup( responseDelay:int = 500,
+						numItems:int = 100,
+						numPreloadedPages:int = 0,
+						pageSize:int = 1,
+						mode:String = 'manual',
+						failureProbability:int = 0):void{						
+-->
+
+<TestCase testID="collectionChange_vlist_test1" keywords="[AsyncListView,collectionChange]" description="A pending item fails." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,10,0,1,'manual',1)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failPage()" />
+		<AssertEvent target="obj1.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="replace" />
+		<AssertEventPropertyValue propertyName="location" value="0" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_vlist_test2" keywords="[AsyncListView,collectionChange]" description="A pending item succeeds." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,10,0,1,'manual',0)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receivePage()" />
+		<AssertEvent target="obj1.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="replace" />
+		<AssertEventPropertyValue propertyName="location" value="0" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_vlist_test3" keywords="[AsyncListView,collectionChange]" description="AsyncListView adds an item." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup()" waitTarget="obj1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.addItemAt({info: 'new item', status: 'present'},0)" />
+		<AssertEvent target="obj1.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="add" />
+		<AssertEventPropertyValue propertyName="location" value="0" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_vlist_test4" keywords="[AsyncListView,collectionChange]" description="AsyncListView removes an item." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup()" waitTarget="obj1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeItemAt(0)" />
+		<AssertEvent target="obj1.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="remove" />
+		<AssertEventPropertyValue propertyName="location" value="0" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+	</body>
+</TestCase>
+
+<!-- These add items to the part of a virtualized list which is not in view. -->
+<TestCase testID="collectionChange_vlist_test5" keywords="[AsyncListView,collectionChange]" description="A pending item out of view fails." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.getItemAt(20)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(20)" />
+		<AssertEvent target="obj1.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="replace" />
+		<AssertEventPropertyValue propertyName="location" value="20" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_vlist_test6" keywords="[AsyncListView,collectionChange]" description="A pending item out of view succeeds." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.getItemAt(20)" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(20)" />
+		<AssertEvent target="obj1.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="replace" />
+		<AssertEventPropertyValue propertyName="location" value="20" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_vlist_test7" keywords="[AsyncListView,collectionChange]" description="AsyncListView adds an item out of view." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30)" waitTarget="obj1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.addItemAt({info: 'new item', status: 'present'},20)" />
+		<AssertEvent target="obj1.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="add" />
+		<AssertEventPropertyValue propertyName="location" value="20" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_vlist_test8" keywords="[AsyncListView,collectionChange]" description="AsyncListView removes an item out of view." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,30)" waitTarget="obj1" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.alv.removeItemAt(20)" />
+		<AssertEvent target="obj1.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="remove" />
+		<AssertEventPropertyValue propertyName="location" value="20" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj1.alv" />
+	</body>
+</TestCase>
+
+
+
+
+<!--
+=========
+nonvlist
+=========
+-->
+
+
+<TestCase testID="collectionChange_nonvlist_test1" keywords="[AsyncListView,collectionChange]" description="A pending item fails." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,10,0,1,'manual',1)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failPage()" />
+		<AssertEvent target="obj8.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="replace" />
+		<AssertEventPropertyValue propertyName="location" value="0" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_nonvlist_test2" keywords="[AsyncListView,collectionChange]" description="A pending item succeeds." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,10,0,1,'manual',0)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receivePage()" />
+		<AssertEvent target="obj8.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="replace" />
+		<AssertEventPropertyValue propertyName="location" value="0" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_nonvlist_test3" keywords="[AsyncListView,collectionChange]" description="AsyncListView adds an item." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup()" waitTarget="obj8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.addItemAt({info: 'new item', status: 'present'},0)" />
+		<AssertEvent target="obj8.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="add" />
+		<AssertEventPropertyValue propertyName="location" value="0" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_nonvlist_test4" keywords="[AsyncListView,collectionChange]" description="AsyncListView removes an item." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup()" waitTarget="obj8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeItemAt(0)" />
+		<AssertEvent target="obj8.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="remove" />
+		<AssertEventPropertyValue propertyName="location" value="0" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_nonvlist_test5" keywords="[AsyncListView,collectionChange]" description="A pending item out of view fails." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,30)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(20)" />
+		<AssertEvent target="obj8.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="replace" />
+		<AssertEventPropertyValue propertyName="location" value="20" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_nonvlist_test6" keywords="[AsyncListView,collectionChange]" description="A pending item out of view succeeds." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,30)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(20)" />
+		<AssertEvent target="obj8.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="replace" />
+		<AssertEventPropertyValue propertyName="location" value="20" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_nonvlist_test7" keywords="[AsyncListView,collectionChange]" description="AsyncListView adds an item out of view." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,30)" waitTarget="obj8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.addItemAt({info: 'new item', status: 'present'},20)" />
+		<AssertEvent target="obj8.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="add" />
+		<AssertEventPropertyValue propertyName="location" value="20" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+	</body>
+</TestCase>
+
+<TestCase testID="collectionChange_nonvlist_test8" keywords="[AsyncListView,collectionChange]" description="AsyncListView removes an item out of view." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,30)" waitTarget="obj8" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.alv.removeItemAt(20)" />
+		<AssertEvent target="obj8.alv" eventName="collectionChange" eventClass="mx.events::CollectionEvent" />
+		<AssertEventPropertyValue propertyName="kind" value="remove" />
+		<AssertEventPropertyValue propertyName="location" value="20" />
+		<AssertEventPropertyValue propertyName="currentTarget" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+		<AssertEventPropertyValue propertyName="target" valueExpression="value = FlexGlobals.topLevelApplication.obj8.alv" />
+	</body>
+</TestCase>
+
+</testCases>
+</UnitTester>

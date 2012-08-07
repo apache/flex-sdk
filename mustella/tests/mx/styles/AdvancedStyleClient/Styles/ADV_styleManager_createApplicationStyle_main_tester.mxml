@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/mx" xmlns="*" 
+			testSWF="ADV_styleManager_createApplicationStyle_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;		
+			import assets.styleTest.ADVStyleTestConstants;
+			import assets.styleTest.ADVStyleTestEvent;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>		
+		<!--testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector-->
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_test1" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[AdvancedStyleClient, StyleManager, create CSS declaration, application selector]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="createApplicationStyleTest"
+								  value="testString"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="createApplicationStyleTest"
+								  value="2000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="createApplicationStyleTest"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="createApplicationStyleTest"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="createApplicationStyleTest"
+								  value="0x112233"/>
+				
+				<!--<AssertPropertyValue target="styleLabel" propertyName="text" 
+									 value="testString:undefined:8888" />-->
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_BorderContainer_test1" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, BorderContainer]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexBorderContainerComponent" className="assets.comp.FlexBorderContainerComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexBorderContainerComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexBorderContainerComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexBorderContainerComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexBorderContainerComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexBorderContainerComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexBorderContainerComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_DataGroup_test2" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, DataGroup]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexDataGroupComponent" className="assets.comp.FlexDataGroupComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexDataGroupComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexDataGroupComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexDataGroupComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexDataGroupComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexDataGroupComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexDataGroupComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_Group_test3" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, Group]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexGroupComponent" className="assets.comp.FlexGroupComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexGroupComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexGroupComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexGroupComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexGroupComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexGroupComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexGroupComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_mx_Accordion_test4" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx Accordion]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexMxAccordionComponent" className="assets.comp.FlexMxAccordionComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxAccordionComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxAccordionComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexMxAccordionComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxAccordionComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexMxAccordionComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexMxAccordionComponent.styleLabel" propertyName="label" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_mx_ApplicationControlBar_test5" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexMxApplicationControlBarComponent" className="assets.comp.FlexMxApplicationControlBarComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxApplicationControlBarComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxApplicationControlBarComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexMxApplicationControlBarComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxApplicationControlBarComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexMxApplicationControlBarComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexMxApplicationControlBarComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_mx_Box_test6" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx Box]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexMxBoxComponent" className="assets.comp.FlexMxBoxComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxBoxComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxBoxComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexMxBoxComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxBoxComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexMxBoxComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexMxBoxComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_mx_Canvas_test7" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx Canvas]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexMxCanvasComponent" className="assets.comp.FlexMxCanvasComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxCanvasComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxCanvasComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexMxCanvasComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxCanvasComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexMxCanvasComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexMxCanvasComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_mx_ControlBar_test8" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx ControlBar]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexMxControlBarComponent" className="assets.comp.FlexMxControlBarComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxControlBarComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxControlBarComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexMxControlBarComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxControlBarComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexMxControlBarComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexMxControlBarComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_mx_DividedBox_test9" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx DividedBox]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexMxDividedBoxComponent" className="assets.comp.FlexMxDividedBoxComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxDividedBoxComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxDividedBoxComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexMxDividedBoxComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxDividedBoxComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexMxDividedBoxComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexMxDividedBoxComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_mx_Form_test10" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx Form]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexMxFormComponent" className="assets.comp.FlexMxFormComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxFormComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxFormComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexMxFormComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxFormComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexMxFormComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexMxFormComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_mx_Grid_test11" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx Grid]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexMxGridComponent" className="assets.comp.FlexMxGridComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxGridComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxGridComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexMxGridComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxGridComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexMxGridComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexMxGridComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_Panel_test12" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx Panel]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexMxPanelComponent" className="assets.comp.FlexMxPanelComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxPanelComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxPanelComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexMxPanelComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxPanelComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexMxPanelComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexMxPanelComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_mx_TabNavigator_test13" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx TabNavigator]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexMxTabNavigatorComponent" className="assets.comp.FlexMxTabNavigatorComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxTabNavigatorComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxTabNavigatorComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexMxTabNavigatorComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxTabNavigatorComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexMxTabNavigatorComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexMxTabNavigatorComponent.styleLabel" propertyName="label" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_mx_Tile_test14" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx Tile]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexMxTileComponent" className="assets.comp.FlexMxTileComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexMxTileComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexMxTileComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexMxTileComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexMxTileComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexMxTileComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexMxTileComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_mx_ViewStack_NavigatorContent_test15" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, mx ViewStack, NavigatorContent]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexNavigatorContentMxVSComponent" className="assets.comp.FlexNavigatorContentMxVSComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexNavigatorContentMxVSComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexNavigatorContentMxVSComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexNavigatorContentMxVSComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexNavigatorContentMxVSComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexNavigatorContentMxVSComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexNavigatorContentMxVSComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_Panel_test16" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, spark Panel]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexPanelComponent" className="assets.comp.FlexPanelComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexPanelComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexPanelComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexPanelComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexPanelComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexPanelComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexPanelComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_styleManager_creatStyle_application_selector_SkinnableDataContainer_test17" 
+				  description="testcases for testing create style CSS declaration using styleManager API, and apply it to Application selector" 
+				  keywords="[ADVStyleTestClass, FlexComponent, create CSS declaration, application selector, spark SkinnableDataContainer]">
+			<setup>
+				<ResetComponent target="advStyleTest_FlexSkinnableDataContainerComponent" className="assets.comp.FlexSkinnableDataContainerComponent" waitEvent="updateComplete" />
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				<!--Verify those inline style using inline value. -->
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advStyleTest_FlexSkinnableDataContainerComponent"
+								  value="null"/>
+				
+				<!--Verify those styles compound with inline style and created Application Selector style using inline css value. -->
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advStyleTest_FlexSkinnableDataContainerComponent.componentADV"
+								  value="5000"/>
+				
+				<!--Verify style defaulted not null and only created by styleManager API using default value.-->
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advStyleTest_FlexSkinnableDataContainerComponent.componentADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<!--Verify style defaulted null and set by local Application style using this value.-->
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advStyleTest_FlexSkinnableDataContainerComponent"
+								  value="8888"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advStyleTest_FlexSkinnableDataContainerComponent"
+								  value="null"/>
+				
+				<AssertPropertyValue target="advStyleTest_FlexSkinnableDataContainerComponent.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+				
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

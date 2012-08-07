@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<!--
+Simple test harness for the DataGroup ItemPendingError handler.
+
+Depends on ItemPendingErrorSimulator.
+
+-->
+
+<s:Application initialize="reset()"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <fx:Script>
+        <![CDATA[
+
+        import mx.collections.*;
+		import mx.events.CollectionEvent;
+        
+        private var alv:AsyncListView; 
+		private var items:ItemPendingErrorSimulator;
+		private var addedItems:int = 0;
+
+        private function reset():void
+        {
+
+	        items = new ItemPendingErrorSimulator(); 
+
+            items.responseDelay = responseDelay.value;
+            items.numItems = numItems.value;
+            items.numPreloadedPages = initialPages.value;
+            items.pageSize = pageSize.value;
+            items.mode = mode.selectedItem as String;
+            items.objectFactory = theObjectFactory;
+            items.failureProbability = fp.value;
+            items.reset();
+
+	        alv = new AsyncListView(items);
+	        alv.createPendingItemFunction = pendingFunction;
+	        alv.createFailedItemFunction = errorFunction;        
+
+			listenForCollectionChange();
+
+	        list1.dataProvider = alv;
+	        
+	        addedItems = 0;
+        }
+
+		private function listenForCollectionChange():void{
+			if(ckTraceCollectionChange.selected){
+				alv.addEventListener(mx.events.CollectionEvent.COLLECTION_CHANGE, traceCollectionChange);
+				trace("now tracing collectionChange events");
+			}else{
+				alv.removeEventListener(mx.events.CollectionEvent.COLLECTION_CHANGE, traceCollectionChange);
+			}
+		}
+		
+		private function traceCollectionChange(e:CollectionEvent):void{
+			trace("alv collectionChange:");
+			trace("currentTarget: " + e.currentTarget);
+			trace("items: " + e.items);
+			trace("kind: " + e.kind);
+			trace("type: " + e.type);
+			trace("location: " + e.location);
+			trace("oldLocation: " + e.oldLocation);
+			trace("target: " + e.target);
+		}
+
+		public function pendingFunction(i:int, obj:Object):Object{
+			return {info: "item " + i.toString() + " pending", status: "pending"};
+		}
+		
+		public function errorFunction(i:int, obj:Object):Object{
+			return {info: "item " + i.toString() + " failed", status: "failed"};
+		}
+		
+		public function theObjectFactory(i:int):Object{
+			return {info: "item " + i.toString() + " present", status: "present"};
+		}
+        
+        ]]>
+    </fx:Script>
+    
+    <s:HGroup left="10" right="10">
+        <s:List id="list1" useVirtualLayout="true" height="200">
+		    <s:itemRenderer>
+		        <fx:Component>
+		            <s:ItemRenderer>
+		                <fx:Script>
+		                <![CDATA[
+		                    private function getColor(obj:Object):uint{
+		                        if(obj.status == "pending")
+		                            return 0xeeffee;
+		                        else if(obj.status == "failed")
+		                            return 0xffeeee;
+		                        else
+		                            return 0xffffff;
+		                    }
+		                    
+		                    override public function set data(obj:Object):void{
+								super.data = obj;
+								
+								if(data){
+			                    	nameLabel.text = data.info;
+								}
+		                    }
+		                ]]>
+		                </fx:Script>
+		                <s:states>
+		                    <s:State name="normal" />
+		                    <s:State name="hovered" />
+		                    <s:State name="selected" />
+		                </s:states>
+		                <s:Rect left="0" right="0" top="0" bottom="0">
+		                    <s:fill>
+		                        <s:SolidColor color="{getColor(data)}" />
+		                    </s:fill>
+		                </s:Rect>
+		                <!--s:Label id="nameLabel" text="{data.info}" top="5" left="5" right="5" /-->
+		                <s:Label id="nameLabel" top="5" left="5" right="5" />
+		            </s:ItemRenderer>
+		        </fx:Component>
+		    </s:itemRenderer>
+		</s:List>
+		<s:VGroup>	
+	        <s:HGroup>
+	            <mx:Button label="reset" click="reset()" />
+	            <mx:Button label="receive page" click="items.receivePage()" enabled="{mode.selectedItem == 'manual'}" />
+	            <mx:Button label="fail page" click="items.failPage()" enabled="{mode.selectedItem == 'manual'}" />
+	        </s:HGroup>
+	        
+	        <s:HGroup>
+	            <mx:Label text="response mode" />
+	            <mx:ComboBox id="mode" dataProvider="['fixed', 'random', 'manual']" />
+	        </s:HGroup>
+	        
+	        <s:HGroup>
+	            <mx:Label text="response delay" />
+	            <s:NumericStepper id="responseDelay" value="1" maximum="10000" enabled="{mode.selectedItem == 'fixed'}" />
+	        </s:HGroup>
+	        <s:HGroup>
+	            <mx:Label text="failure probability" />
+	            <s:NumericStepper id="fp" value="0.0" maximum="1.0" snapInterval="0.01" stepSize="0.01" valueCommit="(alv.list as ItemPendingErrorSimulator).failureProbability = fp.value" />
+	        </s:HGroup>
+	        <s:HGroup>
+	            <mx:Label text="number of items" />
+	            <s:NumericStepper id="numItems" value="100" maximum="1000" />
+	        </s:HGroup>
+	        <s:HGroup>
+	            <mx:Label text="number of preloaded pages" />
+	            <s:NumericStepper id="initialPages" value="0" maximum="100" />
+	        </s:HGroup>
+	        <s:HGroup>
+	            <mx:Label text="items per page" />
+	            <s:NumericStepper id="pageSize" value="2" maximum="100" minimum="1" />
+	        </s:HGroup>
+	        <s:CheckBox id="tracing" label="trace output enabled" selected="true" change="items.tracing = tracing.selected" />
+			<s:CheckBox id="ckTraceCollectionChange" label="trace collectionChange" selected="false" change="listenForCollectionChange()" />
+			<s:HGroup>
+				<s:Label text="Add item at:" />
+				<s:TextInput id="tiAdd" text="0" />
+				<s:Button label="Add" click="items.addItemAt(theObjectFactory(addedItems++),new Number(tiAdd.text))" />
+			</s:HGroup>
+			<s:HGroup>
+				<s:Label text="Add pending item at:" />
+				<s:TextInput id="tiAddPending" text="0" />
+				<s:Button label="Add Pending" click="items.addPendingItemAt(theObjectFactory(addedItems++),new Number(tiAddPending.text))" />
+			</s:HGroup>
+			<s:HGroup>
+				<s:Label text="Remove item at:" />
+				<s:TextInput id="tiRemove" text="0" />
+				<s:Button label="Remove" click="items.removeItemAt(new Number(tiRemove.text))" />
+			</s:HGroup>
+		</s:VGroup>
+
+    </s:HGroup>
+
+</s:Application>

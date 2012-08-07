@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:comps="comps.*" xmlns="*"
+    width="1200" height="600" >
+
+
+
+    <fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+        }
+
+        @font-face
+        {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+        }
+
+        global
+        {
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+        }
+    </fx:Style>
+
+<mx:Accordion id="myAccordion" width="100%"  height="100%" selectedIndex="12">
+                
+        <s:NavigatorContent label="Blank" id="blankNav" width="400" height="300">
+            <s:Group>
+               <s:Button />
+            </s:Group>
+        </s:NavigatorContent> 
+        <s:NavigatorContent id="scaleToEmptyNav" width="400" height="300">
+            <comps:ScaleToEmptyComponents id="scaleToEmptyComp" x="5" y="15" />
+        </s:NavigatorContent>   
+        <s:NavigatorContent id="resizeToMoveNav" width="400" height="300">
+            <comps:ResizeToMoveComponents id="resizeToMoveComp" x="5" y="15" />
+        </s:NavigatorContent>
+        <s:NavigatorContent id="resizeToFadeNav" width="400" height="300">
+            <comps:ResizeToFadeComponents id="resizeToFadeComp" x="5" y="15" />
+        </s:NavigatorContent>
+        <s:NavigatorContent id="fadeToCompositeNav" width="400" height="300">
+            <comps:FadeToCompositeComponents id="fadeToCompositeComp" x="5" y="15" />
+        </s:NavigatorContent>
+        <s:NavigatorContent id="compositeToResizeNav" width="400" height="300">
+            <comps:CompositeToResizeComponents id="compositeToResizeComp" x="5" y="15" />
+        </s:NavigatorContent>        
+
+        
+</mx:Accordion>
+
+</s:Application>

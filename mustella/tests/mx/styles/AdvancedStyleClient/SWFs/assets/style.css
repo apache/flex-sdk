@@ -1,0 +1,116 @@
+/*
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace styleTest "assets.styleTest.*";
+
+/* ID Selector */
+#advStyleTest_External_ID {
+	teststyle_1_string_noinh : "idString";	
+	teststyle_2_number_noinh : 6666666;		
+	teststyle_3_uint_inh : 43;
+	teststyle_5_format_length_noinh : 50px;
+	teststyle_6_format_time_noinh : 12000;
+	teststyle_7_format_color_noinh : #556677;
+	teststyle_11_boolean_noinh : true;
+	teststyle_12_enum_string_inh : "secondType";
+	teststyle_13_enum_int_noinh : 99;
+	teststyle_15_state_string_noinh : "idStateString";	
+}  
+
+#advStyleTest_External3 {
+	
+	teststyle_2_number_noinh : 1111;
+	teststyle_11_boolean_noinh : true;
+	teststyle_12_enum_string_inh : "firstType";
+} 
+	
+/* Class Selector */
+.ExternalClassStyle {
+	teststyle_1_string_noinh : "ExternalString";
+	/*
+	this will be using external style
+	teststyle_2_number_noinh : 6666789.54321;
+	*/
+	
+	teststyle_2_number_noinh : 6666789;
+	
+	teststyle_3_uint_inh : 34;
+	teststyle_5_format_length_noinh : 50px;
+	teststyle_6_format_time_noinh : 12000;
+	teststyle_7_format_color_noinh : #776655;
+	teststyle_11_boolean_noinh : false;
+	teststyle_12_enum_string_inh : "secondType";
+	teststyle_13_enum_int_noinh : 99;
+	/*
+	this will be using external style
+	teststyle_15_state_string_noinh : "localStateString";
+	*/
+	teststyle_15_state_string_noinh : "ExternalStateString";
+	
+	/* teststyle_16_skin_noinh, teststyle_17_skin_state_noinh cannot be used
+	in css*/
+ 	/* 		teststyle_16_skin_noinh : Embed("../../../../../../Assets/Images/next.JPG");
+	teststyle_17_skin_state_noinh : Embed("../../../../../../Assets/Images/next.JPG");  */
+/*	teststyle_17_skin_state_noinh : ClassReference("assets.styleTest.ADVStyleTestSkin"); */
+} 
+	
+/* Partly Class Selector */
+.addStyle1 {
+	teststyle_1_string_noinh : "classString";	
+	teststyle_5_format_length_noinh : 50px;
+	teststyle_6_format_time_noinh : 12000;
+	teststyle_11_boolean_noinh : false;
+	teststyle_12_enum_string_inh : "secondType";
+
+} 
+
+.addStyle2 {
+	teststyle_1_string_noinh : "classString";	
+	
+	teststyle_5_format_length_noinh : 50px;
+	teststyle_6_format_time_noinh : 12000;
+	
+	teststyle_11_boolean_noinh : false;
+	teststyle_12_enum_string_inh : "secondType";
+} 
+
+#advStyleTest_External_Measure1 {
+	teststyle_5_format_length_noinh : 1in;
+	teststyle_7_format_color_noinh : rgb(100%, 0%, 0%);
+}  	
+#advStyleTest_External_Measure2 {
+	teststyle_5_format_length_noinh : 1cm;
+	teststyle_7_format_color_noinh : Red;	
+} 		
+#advStyleTest_External_Measure3 {
+	teststyle_5_format_length_noinh : 1pt;
+	teststyle_7_format_color_noinh : 255,0,0;	
+} 
+#advStyleTest_External_Measure4 {
+	teststyle_5_format_length_noinh : 1pc;
+	teststyle_7_format_color_noinh : #ff0000;	
+} 
+#advStyleTest_External_Measure5 {
+	teststyle_5_format_length_noinh : 1mm;	
+} 
+#advStyleTest_External_Measure6 {
+	teststyle_5_format_length_noinh : 1px;
+} 

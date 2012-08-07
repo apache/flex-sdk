@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="mx/effects/Pause/method/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/Pause_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Pause;
+        import mx.controls.Button;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+
+        <!--constructor-->
+        <TestCase testID="PauseInstance_constructorNull" keywords="[PauseInstance, Methods, constructor]" description="Test the PauseInstance constructor with null parameters.">
+            <body>
+                <RunCode code="new mx.effects.Pause(null)"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="PauseInstance_constructorValid" keywords="[PauseInstance, Methods, constructor]" description="Test the PauseInstance constructor with a valid object.">
+            <body>
+                <RunCode code="new mx.effects.Pause(application.haloButton)"/>
+            </body>
+        </TestCase>
+
+        <!-- getAffectedProperties -->
+        <TestCase testID="Pause_GetAffectedProperties" keywords="[Pause, Methods, GetAffectedProperties]" description="Test the Pause.GetAffectedProperties method.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).getAffectedProperties()" value="" />
+            </body>
+        </TestCase>
+        
+        
+    </testCases>
+</UnitTester>

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	testDir="mx/collections/AsyncListView/integration/"
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns="*" 
+	xmlns:assets="assets.*"
+	testSWF="AsyncListView_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+		import assets.*;
+		import mx.collections.*;
+		import mx.core.FlexGlobals;
+
+	]]>
+	</mx:Script>
+
+<!--
+Given the way AsyncListView was implemented, scrolling shouldn't have
+any mysterious behaviors.  But you never know.
+
+Reminder:
+	public function setup( responseDelay:int = 500,
+		numItems:int = 100,
+		numPreloadedPages:int = 0,
+		pageSize:int = 1,
+		mode:String = 'manual',
+		failureProbability:int = 0,
+		createPendingItemFunction:Boolean = true,
+		createFailedItemFunction:Boolean = true):void{
+-->
+
+	<testCases>
+
+<TestCase testID="scrolling_test1" keywords="[AsyncListView]" description="Scroll down and view pending items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
+		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(2)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(6).nameLabel.text" value="item 6 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(7)" value="null" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_test2" keywords="[AsyncListView]" description="Scroll down and view a pending item, then watch it arrive." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
+		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(4)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(2)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(6).nameLabel.text" value="item 6 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(7)" value="null" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_test3" keywords="[AsyncListView]" description="Scroll down and view a pending item, then watch it fail." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
+		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(4)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(2)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 failed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(6).nameLabel.text" value="item 6 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(7)" value="null" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_test4" keywords="[AsyncListView]" description="Scroll down and view a pending item, scroll up, have it arrive, then scroll down and view it." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
+		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitEvent="updateComplete" />
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="0" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(4)" />
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(2)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(6).nameLabel.text" value="item 6 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(7)" value="null" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_test5" keywords="[AsyncListView]" description="Scroll down and view a pending item, scroll up, have it fail, then scroll down and view it." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
+		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitEvent="updateComplete" />
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="0" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(4)" />
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(2)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 failed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(6).nameLabel.text" value="item 6 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(7)" value="null" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_test6" keywords="[AsyncListView]" description="Scroll down, receive an item at the beginning, then scroll up to view." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
+		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receiveItem(0)" />
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="0" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(2).nameLabel.text" value="item 2 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(3)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(4)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(5)" value="null" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_test7" keywords="[AsyncListView]" description="Scroll down, fail an item at the beginning, then scroll up to view." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" />
+		<SetProperty target="obj1.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0,20,0,1)" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.failItem(0)" />
+		<SetProperty target="obj1.theList.scroller.viewport" propertyName="verticalScrollPosition" value="0" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 failed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(2).nameLabel.text" value="item 2 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(3)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(4)" value="null" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(5)" value="null" />
+	</body>
+</TestCase>
+
+
+<TestCase testID="scrolling_virtualLayoutFalse_test1" keywords="[AsyncListView]" description="Scroll down and view pending items." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" />
+		<SetProperty target="obj8.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20,0,1)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(2).nameLabel.text" value="item 2 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(6).nameLabel.text" value="item 6 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(7).nameLabel.text" value="item 7 pending" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_virtualLayoutFalse_test2" keywords="[AsyncListView]" description="Scroll down and view a pending item, then watch it arrive." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" />
+		<SetProperty target="obj8.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20,0,1)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(4)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(2).nameLabel.text" value="item 2 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(6).nameLabel.text" value="item 6 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(7).nameLabel.text" value="item 7 pending" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_virtualLayoutFalse_test3" keywords="[AsyncListView]" description="Scroll down and view a pending item, then watch it fail." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" />
+		<SetProperty target="obj8.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20,0,1)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(4)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(2).nameLabel.text" value="item 2 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 failed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(6).nameLabel.text" value="item 6 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(7).nameLabel.text" value="item 7 pending" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_virtualLayoutFalse_test4" keywords="[AsyncListView]" description="Scroll down and view a pending item, scroll up, have it arrive, then scroll down and view it." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" />
+		<SetProperty target="obj8.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20,0,1)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="0" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(4)" />
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(2).nameLabel.text" value="item 2 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(6).nameLabel.text" value="item 6 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(7).nameLabel.text" value="item 7 pending" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_virtualLayoutFalse_test5" keywords="[AsyncListView]" description="Scroll down and view a pending item, scroll up, have it fail, then scroll down and view it." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" />
+		<SetProperty target="obj8.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20,0,1)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="0" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(4)" />
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(2).nameLabel.text" value="item 2 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 failed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(6).nameLabel.text" value="item 6 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(7).nameLabel.text" value="item 7 pending" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_virtualLayoutFalse_test6" keywords="[AsyncListView]" description="Scroll down, receive an item at the beginning, then scroll up to view." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" />
+		<SetProperty target="obj8.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20,0,1)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receiveItem(0)" />
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="0" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 present" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(2).nameLabel.text" value="item 2 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+	</body>
+</TestCase>
+
+<TestCase testID="scrolling_virtualLayoutFalse_test7" keywords="[AsyncListView]" description="Scroll down, fail an item at the beginning, then scroll up to view." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" />
+		<SetProperty target="obj8.theList" propertyName="height" value="50" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0,20,0,1)" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />	
+	</setup>
+	<body>
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="60" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.failItem(0)" />
+		<SetProperty target="obj8.theList.scroller.viewport" propertyName="verticalScrollPosition" value="0" waitTarget="obj8.theList.scroller.verticalScrollBar" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="item 0 failed" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(1).nameLabel.text" value="item 1 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(2).nameLabel.text" value="item 2 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(3).nameLabel.text" value="item 3 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(4).nameLabel.text" value="item 4 pending" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(5).nameLabel.text" value="item 5 pending" />
+	</body>
+</TestCase>
+</testCases>
+</UnitTester>

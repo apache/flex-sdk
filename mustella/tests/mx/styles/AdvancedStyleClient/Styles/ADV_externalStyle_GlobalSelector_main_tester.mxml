@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ADV_externalStyle_GlobalSelector_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.styleTest.*;
+			
+			public static function init(o:DisplayObject):void 
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>			
+		<!--test with external style setting: Global Selector-->
+		<TestCase testID="ADV_extStyle_global_selector_test1" 
+				  description="test with external style setting: Global Selector" 
+				  keywords="[ADVStyleTestClass, external, Global Selector]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>				
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_2_number_noinh" valueExpression="value=111"/>
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_3_uint_inh" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_extStyle_global_selector_component_test2" 
+				  description="test component with external style setting: Global Selector" 
+				  keywords="[ADVStyleTestClass, external, Global Selector, component]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>				
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_2_number_noinh" valueExpression="value=111"/>
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_3_uint_inh" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_extStyle_global_selector_module_load_test4" 
+				  description="test module using moduleLoader with external style setting: Global Selector" 
+				  keywords="[ADVStyleTestClass, external, Global Selector]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>				
+				<AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_2_number_noinh" valueExpression="value=111"/>
+				<AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_3_uint_inh" valueExpression="value=0"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

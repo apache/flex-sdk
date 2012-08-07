@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ADV_flex_module_application_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.styleTest.ADVStyleTestConstants;
+			import assets.styleTest.ADVStyleTestEvent;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<TestCase testID="ADV_module_custom_method_test1" 
+				  description="This test case is to test the style inheritance of module" 
+				  keywords="[ADVStyleTestClass, Flex Module, custom method]">
+			<setup>
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+			</setup>
+			<body>
+				
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="advModuleDomain"
+								  value="defaultString"/>
+				
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="advModuleDomain"
+								  value="5000"/>
+				
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="advModuleDomain"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="advModuleDomain"
+								  value="8888"/>
+				
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="advModuleDomain"
+								  value="0x112233"/>
+				
+				<AssertPropertyValue target="styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+			</body>
+			<cleanup>
+			</cleanup>
+		</TestCase>
+		
+		<TestCase testID="ADV_module_custom_method_test2" 
+				  description="This test case is to test the style inheritance of module" 
+				  keywords="[ADVStyleTestClass, Flex Module, custom method]">
+			<setup>
+				<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="application.setListeners()" waitEvent="setModuleListenersDone" />
+				
+				<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+				<RunCode code="application.testCreateStyle()" waitTarget="" waitEvent="myMainAppStyleChanged"/>
+				<Pause timeout="200"/>
+			</setup>
+			<body>
+				
+				<AssertStyleValue styleName="teststyle_1_string_noinh" target="moduleLoad.child.moduleADV"
+								  value="defaultString"/>
+				
+				<AssertStyleValue styleName="teststyle_6_format_time_noinh" target="moduleLoad.child.moduleADV"
+								  value="5000"/>
+				
+				<AssertStyleValue styleName="teststyle_4_date_inh" target="moduleLoad.child.moduleADV"
+								  valueExpression="value=ADVStyleTestConstants.defaultDate"/>
+				
+				<AssertStyleValue styleName="teststyle_3_uint_inh" target="moduleLoad.child.moduleADV"
+								  value="8888"/>
+				
+				<AssertStyleValue styleName="teststyle_7_format_color_noinh" target="moduleLoad.child.moduleADV"
+								  value="0x112233"/>
+				
+				<AssertPropertyValue target="moduleLoad.child.styleLabel" propertyName="text" 
+									 value="defaultString:undefined:8888" />
+			</body>
+			<cleanup>
+				<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+			</cleanup>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

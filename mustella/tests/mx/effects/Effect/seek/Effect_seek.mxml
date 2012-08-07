@@ -1,0 +1,286 @@
+<UnitTester 
+    testSWF="../SWFs/Effect_main.mxml" 
+    testDir="mx/effects/Effect/seek/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.core.Application;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <!-- Blur -->
+        <TestCase testID="Effect_seek_Blur" keywords="[Effect, Seek, Blur]" description="Seek the Blur effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_Blur')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- Dissolve -->
+        <TestCase testID="Effect_seek_Dissolve" keywords="[Effect, Seek, Dissolve]" description="Seek the Dissolve effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_Dissolve')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- Fade -->
+        <TestCase testID="Effect_seek_Fade" keywords="[Effect, Seek, Fade]" description="Seek the Fade effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_Fade')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- Glow -->
+        <TestCase testID="Effect_seek_Glow" keywords="[Effect, Seek, Glow]" description="Seek the Glow effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_Glow')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- Iris -->
+        <TestCase testID="Effect_seek_Iris" keywords="[Effect, Seek, Iris]" description="Seek the Iris effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_Iris')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- MaskEffect -->
+        <TestCase testID="Effect_seek_MaskEffect" keywords="[Effect, Seek, MaskEffect]" description="Seek the MaskEffect effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_MaskEffect')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- Move -->
+        <TestCase testID="Effect_seek_Move" keywords="[Effect, Seek, Move]" description="Seek the Move effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_Move')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- Resize -->
+        <TestCase testID="Effect_seek_Resize" keywords="[Effect, Seek, Resize]" description="Seek the Resize effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_Resize')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- Rotate -->
+        <TestCase testID="Effect_seek_Rotate" keywords="[Effect, Seek, Rotate]" description="Seek the Rotate effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_Rotate')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- WipeDown -->
+        <TestCase testID="Effect_seek_WipeDown" keywords="[Effect, Seek, WipeDown]" description="Seek the WipeDown effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_WipeDown')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- WipeLeft -->
+        <TestCase testID="Effect_seek_WipeLeft" keywords="[Effect, Seek, WipeLeft]" description="Seek the WipeLeft effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_WipeLeft')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- WipeRight -->
+        <TestCase testID="Effect_seek_WipeRight" keywords="[Effect, Seek, WipeRight]" description="Seek the WipeRight effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_WipeRight')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- WipeUp -->
+        <TestCase testID="Effect_seek_WipeUp" keywords="[Effect, Seek, WipeUp]" description="Seek the WipeUp effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_WipeUp')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- Zoom -->
+        <TestCase testID="Effect_seek_Zoom" keywords="[Effect, Seek, Zoom]" description="Seek the Zoom effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_Zoom')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- FxAnimate -->
+        <TestCase testID="Effect_seek_FxAnimate" keywords="[Effect, Seek, FxAnimate]" description="Seek the FxAnimate effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_FxAnimate')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- FxAnimateColor -->
+        <TestCase testID="Effect_seek_FxAnimateColor" keywords="[Effect, Seek, FxAnimateColor]" description="Seek the FxAnimateColor effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_FxAnimateColor')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- FxFade -->
+        <TestCase testID="Effect_seek_FxFade" keywords="[Effect, Seek, FxFade]" description="Seek the FxFade effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_FxFade')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- FxMove -->
+        <TestCase testID="Effect_seek_FxMove" keywords="[Effect, Seek, FxMove]" description="Seek the FxMove effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_FxMove')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- FxResize -->
+        <TestCase testID="Effect_seek_FxResize" keywords="[Effect, Seek, FxResize]" description="Seek the FxResize effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_FxResize')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- FxRotate -->
+        <TestCase testID="Effect_seek_FxRotate" keywords="[Effect, Seek, FxRotate]" description="Seek the FxRotate effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_FxRotate')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <!-- FxRotate3D -->
+        <TestCase testID="Effect_seek_FxRotate3D" keywords="[Effect, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_FxRotate3D')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+
+        <!-- Functionality -->
+        
+        <TestCase testID="Effect_seek_IntoRC1" keywords="[Effect, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_IntoRC1')" waitTarget="timer" waitEvent="timerComplete" timeout="5000"/>
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effect_seek_IntoRC2" keywords="[Effect, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_IntoRC2')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effect_seek_IntoRC2SD" keywords="[Effect, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_IntoRC2SD')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effect_seek_IntoRD" keywords="[Effect, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_IntoRD')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effect_seek_IntoRCLoop" keywords="[Effect, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_IntoRCLoop')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Effect_seek_IntoRCReverse" keywords="[Effect, Seek, FxRotate3D]" description="Seek the FxRotate3D effect.">
+            <setup>
+                <RunCode code="application.Reset()" waitTarget="dispatcher" waitEvent="refreshComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ClickButton('Effect_seek_IntoRCReverse')" waitTarget="timer" waitEvent="timerComplete" timeout="5000" />
+                <CompareBitmap target="currentCanvas" url="../seek/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

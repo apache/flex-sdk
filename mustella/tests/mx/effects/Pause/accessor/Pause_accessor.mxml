@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="mx/effects/Pause/accessor/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="../SWFs/Pause_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Pause;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+        
+        <!-- gen'd default crud -->
+        <TestCase testID="Pause_targets_Default" keywords="[Pause, accessor, targets]" description="Test the setting of the targets property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).targets.toString().replace('[','').replace(']','')" value="object Object"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_targets_SetGet" keywords="[Pause, accessor, targets]" description="Test the setting of the targets property.">
+            <setup>
+                <RunCode code="application.testPause = new mx.effects.Pause()"/>
+                <SetProperty target="testPause" propertyName="targets" value="[A, B, C]"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPause" propertyName="targets" value="[A, B, C]"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_target_Default" keywords="[Pause, accessor, target]" description="Test the setting of the target property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).target.toString().replace('[','').replace(']','')" value="object Object"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_target_SetGet" keywords="[Pause, accessor, target]" description="Test the setting of the target property.">
+            <setup>
+                <RunCode code="application.testPause = new mx.effects.Pause()"/>
+                <SetProperty target="testPause" propertyName="target" value="[A]"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPause" propertyName="target" value="[A]"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_hideFocusRing_Default" keywords="[Pause, accessor, hideFocusRing]" description="Test the setting of the hideFocusRing property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).hideFocusRing" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_hideFocusRing_SetGet" keywords="[Pause, accessor, hideFocusRing]" description="Test the setting of the hideFocusRing property.">
+            <setup>
+                <RunCode code="application.testPause = new mx.effects.Pause()"/>
+                <SetProperty target="testPause" propertyName="hideFocusRing" value="true"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPause" propertyName="hideFocusRing" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_relevantProperties_Default" keywords="[Pause, accessor, relevantProperties]" description="Test the setting of the relevantProperties property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).relevantProperties" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_relevantProperties_SetGet" keywords="[Pause, accessor, relevantProperties]" description="Test the setting of the relevantProperties property.">
+            <setup>
+                <RunCode code="application.testPause = new mx.effects.Pause()"/>
+                <SetProperty target="testPause" propertyName="relevantProperties" value="[A, B, C]"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPause" propertyName="relevantProperties" value="[A, B, C]"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_className_Default" keywords="[Pause, accessor, className]" description="Test the setting of the className property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).className" value="Pause"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_relevantStyles_Default" keywords="[Pause, accessor, relevantStyles]" description="Test the setting of the relevantStyles property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).relevantStyles" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_relevantStyles_SetGet" keywords="[Pause, accessor, relevantStyles]" description="Test the setting of the relevantStyles property.">
+            <setup>
+                <RunCode code="application.testPause = new mx.effects.Pause()"/>
+                <SetProperty target="testPause" propertyName="relevantStyles" value="[A, B, C]"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPause" propertyName="relevantStyles" value="[A, B, C]"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_triggerEvent_Default" keywords="[Pause, accessor, triggerEvent]" description="Test the setting of the triggerEvent property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).triggerEvent" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_effectTargetHost_Default" keywords="[Pause, accessor, effectTargetHost]" description="Test the setting of the effectTargetHost property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).effectTargetHost" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_filter_Default" keywords="[Pause, accessor, filter]" description="Test the setting of the filter property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).filter" value="null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_filter_SetGet" keywords="[Pause, accessor, filter]" description="Test the setting of the filter property.">
+            <setup>
+                <RunCode code="application.testPause = new mx.effects.Pause()"/>
+                <SetProperty target="testPause" propertyName="filter" value="TestGenString"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPause" propertyName="filter" value="TestGenString"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_perElementOffset_Default" keywords="[Pause, accessor, perElementOffset]" description="Test the setting of the perElementOffset property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).perElementOffset" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_perElementOffset_SetGet" keywords="[Pause, accessor, perElementOffset]" description="Test the setting of the perElementOffset property.">
+            <setup>
+                <RunCode code="application.testPause = new mx.effects.Pause()"/>
+                <SetProperty target="testPause" propertyName="perElementOffset" value="38"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPause" propertyName="perElementOffset" value="38"/>
+            </body>
+        </TestCase>
+
+        <!-- isPlaying -->
+        <TestCase testID="Pause_isPlaying_Default" keywords="[Pause, accessor, isPlaying]" description="Test the setting of the isPlaying property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).isPlaying" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_isPlayingDuringPause" keywords="[Pause, accessor, isPlaying]" description="Verify isPlaying while waiting.">
+            <body>
+                <RunCode code="application.tp10.play()"/>
+                <!-- wait (500) ms to assure the wait is running -->
+                <AssertPropertyValue target="tp10_Pause" propertyName="isPlaying" value="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Pause_duration_Default" keywords="[Pause, accessor, duration]" description="Test the setting of the duration property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).duration" value="500"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_duration_SetGet" keywords="[Pause, accessor, duration]" description="Test the setting of the duration property.">
+            <setup>
+                <RunCode code="application.testPause = new mx.effects.Pause()"/>
+                <SetProperty target="testPause" propertyName="duration" value="38"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="testPause" propertyName="duration" value="38"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Pause_customFilter_Default" keywords="[Pause, accessor, customFilter]" description="Test the setting of the customFilter property.">
+            <body>
+                <AssertMethodValue method="value=(new mx.effects.Pause()).customFilter" value="null"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

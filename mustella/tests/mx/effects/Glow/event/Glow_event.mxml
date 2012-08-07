@@ -1,0 +1,78 @@
+<UnitTester 
+    testSWF="../SWFs/Glow_main.mxml" 
+    testDir="mx/effects/Glow/event/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Script>
+        <![CDATA[
+        import mx.effects.Glow;
+        
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+    <testCases>
+
+        <!-- effectStart -->
+        <TestCase testID="Glow_effectStart" keywords="[Glow, event, effectStart]" description="Verify effectStart is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Glow_AXY, 1000, 0, 1, 0)" waitTarget="eff_Glow_AXY" waitEvent="tweenUpdate" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- tweenStart -->
+        <TestCase testID="Glow_tweenStart" keywords="[Glow, event, tweenStart]" description="Verify tweenStart is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Glow_AXY, 1000, 0, 1, 0)" waitTarget="eff_Glow_AXY" waitEvent="tweenUpdate" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- tweenUpdate -->
+        <TestCase testID="Glow_tweenUpdate" keywords="[Glow, event, tweenUpdate]" description="Verify tweenUpdate is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Glow_AXY, 1000, 0, 1, 0)" waitTarget="eff_Glow_AXY" waitEvent="tweenUpdate" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- tweenEnd -->
+        <TestCase testID="Glow_tweenEnd" keywords="[Glow, event, tweenEnd]" description="Verify tweenEnd is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Glow_AXY, 1000, 0, 1, 0)" waitTarget="eff_Glow_AXY" waitEvent="tweenEnd" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+        <!-- effectEnd -->
+        <TestCase testID="Glow_effectEnd" keywords="[Glow, event, effectEnd]" description="Verify effectEnd is raised during the play() of an effect.">
+            <setup>
+                <RunCode code="application.Reset()" />
+                <Pause timeout="1500"/>
+            </setup>
+            <body>
+                <RunCode code="application.PlayEffectControl('Button', application.eff_Glow_AXY, 1000, 0, 1, 0)" waitTarget="eff_Glow_AXY" waitEvent="effectEnd" />
+                <CompareBitmap target="eventBox" url="../event/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

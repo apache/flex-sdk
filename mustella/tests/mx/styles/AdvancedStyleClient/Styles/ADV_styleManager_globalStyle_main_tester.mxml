@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/mx" xmlns="*" 
+			testSWF="ADV_styleManager_globalStyle_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;		
+			import assets.styleTest.ADVStyleTestConstants;
+			import assets.styleTest.ADVStyleTestEvent;
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<!--testcases style for initial value-->
+		<TestCase testID="ADV_styleManager_globalStyle_test1" 
+				  description="testcases style for initial value" 
+				  keywords="[AdvancedStyleClient, StyleManager, global selector]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<!--Verify style compound with default Type style and loaded at runtime global Selector style using Type value. -->
+				<AssertMethodValue method="value=application.currentStyleTest.getStyle('teststyle_1_string_noinh')" value="defaultString" />
+				
+				<!--Verify style default is undefined and set by using local global Selector using global value. -->
+				<AssertMethodValue method="value=application.currentStyleTest.getStyle('teststyle_2_number_noinh')" 
+								   valueExpression="value=123456"/>
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertMethodValue method="value=application.globalStyleTest.getStyle('teststyle_3_uint_inh')" 
+								   valueExpression="undefined"/>	
+				<AssertMethodValue method="value=application.globalStyleTest.getStyle('teststyle_5_format_length_noinh')" 
+								   valueExpression="value=30"/>	
+				
+			</body>
+		</TestCase>
+		
+		<!--testcases for setting global style using style manager-->
+		<TestCase testID="ADV_styleManager_globalStyle_test2" 
+				  description="testcases for setting global style using style manager" 
+				  keywords="[AdvancedStyleClient, StyleManager, global selector, set style]">
+			<setup>
+				<RunCode code="application.testADVStyle()"  />
+				<Pause timeout="{ADVStyleTestConstants.pauseTime}" />
+			</setup>
+			<body>
+				<!--Verify style compound with inline style and loaded at runtime global Selector style using inline css value. -->
+				<AssertMethodValue method="value=application.globalStyleTest.getStyle('teststyle_1_string_noinh')" value="testString" />
+				
+				<!--Verify style default is undefined and set by using local global Selector using global value. -->
+				<AssertMethodValue method="value=application.currentStyleTest.getStyle('teststyle_2_number_noinh')" 
+								   valueExpression="value=123456"/>			
+				
+				<!--Verify style compound with set by using local global Selector and set by styleManager API using new set value.-->
+				<AssertMethodValue method="value=application.currentStyleTest.getStyle('teststyle_3_uint_inh')" valueExpression="value=333" />
+				
+				<!--Verify those un-setting styles using default value.-->
+				<AssertMethodValue method="value=application.globalStyleTest.getStyle('teststyle_5_format_length_noinh')" 
+								   valueExpression="value=30"/>	
+				
+			</body>
+		</TestCase>
+		
+		<!--testcases for clearing global style using style manager-->
+		<TestCase testID="ADV_styleManager_globalStyle_test3" 
+				  description="testcases for clearing global style using style manager" 
+				  keywords="[AdvancedStyleClient, StyleManager, global selector, clear style]">
+			<setup>
+				<RunCode code="application.testADVStyle()"  />
+				<Pause timeout="{ADVStyleTestConstants.pauseTime}" />
+				<RunCode code="application.ClearStyle()"  />
+				<Pause timeout="{ADVStyleTestConstants.pauseTime}" />
+			</setup>
+			<body>
+				<!--Verify inline style using inline value after clearing. -->
+				<AssertMethodValue method="value=application.clearStyleTest.getStyle('teststyle_1_string_noinh')" value="testString" />
+				
+				<!--Verify un-inline style using default value after clearing. -->
+				<AssertMethodValue method="value=application.clearStyleTest.getStyle('teststyle_3_uint_inh')" valueExpression="value=undefined" />
+				<AssertMethodValue method="value=application.clearStyleTest.getStyle('teststyle_5_format_length_noinh')" 
+								   valueExpression="value=30" />
+			</body>
+		</TestCase>			
+	</testCases>
+</UnitTester>

@@ -1,0 +1,1398 @@
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	testSWF="../SWFs/Transition_AutoReverse.mxml"
+	testDir="mx/states/Transition/properties/"
+	xmlns="*"
+	xmlns:c="comps.*"
+	xmlns:m="comps.modules.*">
+	
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void{}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+	</fx:Declarations>
+	
+	<fx:Metadata><![CDATA[[Mixin]]]></fx:Metadata>
+	
+	<testCases>
+		<!-- ####################################################################################################### -->
+		<!-- ########## Move Transition ############################################################################ -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_Move_Full" keywords="[Transition, autoReverse, Move]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Move effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.MoveTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Move_Interrupted" keywords="[Transition, autoReverse, Move, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Move effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.MoveTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Move_Explicit_Return" keywords="[Transition, autoReverse, Move, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Move effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.MoveTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Move_No_Reverse" keywords="[Transition, autoReverse, Move]"  
+				  description="Verify autoReverse=false with Move effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.MoveTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Move3D Transition ########################################################################## -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_Move3D_Full" keywords="[Transition, autoReverse, Move3D]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Move3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Move3DTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Move3D_Interrupted" keywords="[Transition, autoReverse, Move3D, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Move3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Move3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Move3D_Explicit_Return" keywords="[Transition, autoReverse, Move3D, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Move3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Move3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Move3D_No_Reverse" keywords="[Transition, autoReverse, Move3D]"  
+				  description="Verify autoReverse=false with Move3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Move3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Rotate Transition ########################################################################## -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_Rotate_Full" keywords="[Transition, autoReverse, Rotate]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Rotate effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.RotateTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Rotate_Interrupted" keywords="[Transition, autoReverse, Rotate, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Rotate effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.RotateTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Rotate_Explicit_Return" keywords="[Transition, autoReverse, Rotate, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Rotate effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.RotateTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Rotate_No_Reverse" keywords="[Transition, autoReverse, Rotate]"  
+				  description="Verify autoReverse=false with Rotate effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.RotateTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Rotate3D Transition ######################################################################## -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_Rotate3D_Full" keywords="[Transition, autoReverse, Rotate3D]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Rotate3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Rotate3DTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Rotate3D_Interrupted" keywords="[Transition, autoReverse, Rotate3D, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Rotate3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Rotate3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Rotate3D_Explicit_Return" keywords="[Transition, autoReverse, Rotate3D, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Rotate3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Rotate3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Rotate3D_No_Reverse" keywords="[Transition, autoReverse, Rotate3D]"  
+				  description="Verify autoReverse=false with Rotate3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Rotate3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Scale Transition ########################################################################### -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_Scale_Full" keywords="[Transition, autoReverse, Scale]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Scale effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ScaleTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Scale_Interrupted" keywords="[Transition, autoReverse, Scale, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Scale effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ScaleTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Scale_Explicit_Return" keywords="[Transition, autoReverse, Scale, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Scale effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ScaleTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Scale_No_Reverse" keywords="[Transition, autoReverse, Scale]"  
+				  description="Verify autoReverse=false with Scale effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ScaleTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Scale3D Transition ######################################################################### -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_Scale3D_Full" keywords="[Transition, autoReverse, Scale3D]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Scale3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Scale3DTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Scale3D_Interrupted" keywords="[Transition, autoReverse, Scale3D, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Scale3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Scale3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<Pause timeout="1000"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Scale3D_Explicit_Return" keywords="[Transition, autoReverse, Scale3D, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Scale3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Scale3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Scale3D_No_Reverse" keywords="[Transition, autoReverse, Scale3D]"  
+				  description="Verify autoReverse=false with Scale effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Scale3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Fade Transition ############################################################################ -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_Fade_Full" keywords="[Transition, autoReverse, Fade]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Fade effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.FadeTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<Pause timeout="3000"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Fade_Interrupted" keywords="[Transition, autoReverse, Fade, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Fade effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.FadeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Fade_Explicit_Return" keywords="[Transition, autoReverse, Fade, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Fade effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.FadeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Fade_No_Reverse" keywords="[Transition, autoReverse, Fade]"  
+				  description="Verify autoReverse=false with Scale effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.FadeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Resize Transition ########################################################################## -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_Resize_Full" keywords="[Transition, autoReverse, Resize]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Resize effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ResizeTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Resize_Interrupted" keywords="[Transition, autoReverse, Resize, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Resize effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ResizeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Resize_Explicit_Return" keywords="[Transition, autoReverse, Resize, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Resize effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ResizeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Resize_No_Reverse" keywords="[Transition, autoReverse, Resize]"  
+				  description="Verify autoReverse=false with Resize effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ResizeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Wipe Transition ############################################################################ -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_Wipe_Full" keywords="[Transition, autoReverse, Wipe]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Wipe effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.WipeTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Wipe_Interrupted" keywords="[Transition, autoReverse, Wipe, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Wipe effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.WipeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Wipe_Explicit_Return" keywords="[Transition, autoReverse, Wipe, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Wipe effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.WipeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Wipe_No_Reverse" keywords="[Transition, autoReverse, Wipe]"  
+				  description="Verify autoReverse=false with Wipe effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.WipeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## AnimateColor Transition #################################################################### -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_AnimateColor_Full" keywords="[Transition, autoReverse, AnimateColor]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a AnimateColor effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.AnimateColorTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_AnimateColor_Interrupted" keywords="[Transition, autoReverse, AnimateColor, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted AnimateColor effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.AnimateColorTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_AnimateColor_Explicit_Return" keywords="[Transition, autoReverse, AnimateColor, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a AnimateColor effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.AnimateColorTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_AnimateColor_No_Reverse" keywords="[Transition, autoReverse, AnimateColor]"  
+				  description="Verify autoReverse=false with AnimateColor effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.AnimateColorTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<Pause timeout="200"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Move+Rotate(parallel) Transition ########################################################### -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_MoveRotate_Full" keywords="[Transition, autoReverse, Move, Rotate, parallel]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Parallel Move-Rotate effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.MoveRotateTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<!--<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.1"/>-->
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_MoveRotate_Interrupted" keywords="[Transition, autoReverse, Move, Rotate, parallel, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Parallel Move-Rotate effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.MoveRotateTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<!--<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.1"/>-->
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_MoveRotate_Explicit_Return" keywords="[Transition, autoReverse, Move, Rotate, parallel, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Parallel Move-Rotate effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.MoveRotateTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_MoveRotate_No_Reverse" keywords="[Transition, autoReverse, Move, Rotate, parallel]"  
+				  description="Verify autoReverse=false with Parallel Move-Rotate effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.MoveRotateTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<Pause timeout="200"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Move3D+Scale3D(sequence) Transition ######################################################## -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_Move3DScale3D_Full" keywords="[Transition, autoReverse, Move3D, Scale3D, sequence]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Sequence Move3D-Scale3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Move3DScale3DTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<!--<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.1"/>-->
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Move3DScale3D_Interrupted" keywords="[Transition, autoReverse, Move3D, Scale3D, sequence, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Sequence Move3D-Scale3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Move3DScale3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<!--<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.1"/>-->
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Move3DScale3D_Explicit_Return" keywords="[Transition, autoReverse, Move3D, Scale3D, sequence, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Sequence Move3D-Scale3D effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Move3DScale3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Move3DScale3D_No_Reverse" keywords="[Transition, autoReverse, Move3D, Scale3D, sequence]"  
+				  description="Verify autoReverse=false with Parallel Move3D-Scale effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Move3DScale3DTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<Pause timeout="200"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Rotate3D+Fade(sequence) Transition ######################################################### -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_Rotate3DFade_Full" keywords="[Transition, autoReverse, Rotate3D, Fade, sequence]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Sequence Rotate3D-Fade effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Rotate3DFadeTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.12"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Rotate3DFade_Interrupted" keywords="[Transition, autoReverse, Rotate3D, Fade, sequence, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Sequence Rotate3D-Fade effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Rotate3DFadeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<!--<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.1"/>-->
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Rotate3DFade_Explicit_Return" keywords="[Transition, autoReverse, Rotate3D, Fade, sequence, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Sequence Rotate3D-Fade effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Rotate3DFadeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_Rotate3DFade_No_Reverse" keywords="[Transition, autoReverse, Rotate3D, Fade, sequence]"  
+				  description="Verify autoReverse=false with Parallel Rotate3D-Fade effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.Rotate3DFadeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<Pause timeout="200"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Scale+Wipe(parallel) Transition ############################################################ -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_ScaleWipe_Full" keywords="[Transition, autoReverse, Scale, Wipe, parallel]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Parallel Scale-Wipe effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ScaleWipeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.14"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_ScaleWipe_Interrupted" keywords="[Transition, autoReverse, Scale, Wipe, parallel, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Parallel Scale-Wipe effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ScaleWipeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.14"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_ScaleWipe_Explicit_Return" keywords="[Transition, autoReverse, Scale, Wipe, parallel, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Parallel Scale-Wipe effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ScaleWipeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_ScaleWipe_No_Reverse" keywords="[Transition, autoReverse, Scale, Wipe, parallel]"  
+				  description="Verify autoReverse=false with Parallel Scale-Wipe effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ScaleWipeTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<Pause timeout="200"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Resize+AnimateColor(parallel) Transition ################################################### -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_ResizeAnimateColor_Full" keywords="[Transition, autoReverse, Resize, AnimateColor, parallel]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Parallel Resize-AnimateColor effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ResizeAnimateColorTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<!--<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.1"/>-->
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_ResizeAnimateColor_Interrupted" keywords="[Transition, autoReverse, Resize, AnimateColor, parallel, interrupt]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Parallel Resize-AnimateColor effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ResizeAnimateColorTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<!--<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.1"/>-->
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_ResizeAnimateColor_Explicit_Return" keywords="[Transition, autoReverse, Resize, AnimateColor, parallel, explicit]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Parallel Resize-AnimateColor effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ResizeAnimateColorTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_ResizeAnimateColor_No_Reverse" keywords="[Transition, autoReverse, Resize, AnimateColor, parallel]"  
+				  description="Verify autoReverse=false with Parallel Resize-AnimateColor effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.ResizeAnimateColorTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<Pause timeout="200"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Add+Remove(parallel) Transition ################################################### -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_AddRemove_Full" keywords="[Transition, autoReverse, AddAction, RemoveAction, parallel]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Parallel Add-Remove effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AddRemoveMonitor" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.AddRemoveTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<!--<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.1"/>-->
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_AddRemove_Interrupted" keywords="[Transition, autoReverse, AddAction, RemoveAction, parallel]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Parallel Add-Remove effect.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AddRemoveMonitor" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.AddRemoveTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="endsPerPath" value="2"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="20"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<!--<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.1"/>-->
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="4" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Delay Start ################################################################################ -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_startDelay_Full" keywords="[Transition, autoReverse, startDelay, integration]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Move effect with a startDelay.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.DelayStartTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_startDelay_Interrupted" keywords="[Transition, autoReverse, startDelay, interrupt, integration]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Move effect with a startDelay.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.SymmetryChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.DelayStartTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_startDelay_Explicit_Return" keywords="[Transition, autoReverse, startDelay, explicit, integration]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Move effect with a startDelay.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.DelayStartTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_startDelay_No_Reverse" keywords="[Transition, autoReverse, startDelay, integration]"  
+				  description="Verify autoReverse=false with Move effect with a startDelay.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.DelayStartTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<!-- ####################################################################################################### -->
+		<!-- ########## Repeat Count ############################################################################### -->
+		<!-- ####################################################################################################### -->
+		
+		
+		
+		<TestCase testID="Transition_autoReverse_repeatCount_Full" keywords="[Transition, autoReverse, repeatCount, integration]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of a Move effect with a repeatCount.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.RepeatChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.RepeatCountTemplate" waitEvent="updateComplete"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+				<SetProperty target="transTemplate.monitor" propertyName="fractionDiff" value="0.11"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_repeatCount_Interrupted" keywords="[Transition, autoReverse, repeatCount, interrupt, integration]"  
+				  description="Verify symmetric behavior for the auto-reversed motion of an interrupted Move effect with a repeatCount.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.RepeatChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.RepeatCountTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="interruptTime" value="800"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="false" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="Transition_autoReverse_repeatCount_Explicit_Return" keywords="[Transition, autoReverse, repeatCount, explicit, integration]"  
+				  description="Verify non-symmetric behavior for the explicitly reversed motion of a Move effect with a repeatCount.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.ExplicitReturnChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.RepeatCountTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="returnTransTime" value="2000"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="2" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Transition_autoReverse_repeatCount_No_Reverse" keywords="[Transition, autoReverse, repeatCount, integration]"  
+				  description="Verify autoReverse=false with Move effect with a repeatCount.">
+			<setup>
+				<ResetComponent target="monitor" className="comps.modules.AutoReverseFalseChecker" waitEvent="updateComplete"/>
+				<ResetComponent target="transTemplate" className="comps.RepeatCountTemplate" waitEvent="updateComplete"/>
+				<SetProperty target="transTemplate" propertyName="autoreverse" value="false"/>
+				<RunCode code="application.transTemplate.monitor = application.monitor" waitEvent="monitorRegistered" waitTarget="transTemplate"/>
+			</setup>
+			<body>
+				<RunCode code="application.transTemplate.start()" waitEvent="effectStart" waitTarget="transTemplate"/>
+				<AssertEvent eventName="effectEnd" eventClass="mx.events::EffectEvent" numExpectedEvents="1" target="transTemplate"/>
+				<RunCode code="application.transTemplate.check()"/>
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="passed" value="true" />
+				<AssertPropertyValue target="transTemplate.monitor" propertyName="error" value="null" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

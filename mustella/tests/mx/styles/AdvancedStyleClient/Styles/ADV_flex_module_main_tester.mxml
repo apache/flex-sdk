@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ADV_flex_module_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>
+		<!--This test case is to test the API defined in module-->
+		<TestCase testID="ADV_module_custom_method_test1" 
+				  description="This test case is to test the API defined in module" 
+				  keywords="[ADVStyleTestClass, Flex Module, custom method]">
+			<setup>
+				<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="application.setListeners()" waitEvent="setModuleListenersDone" />
+				
+				<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+				<RunCode code="application.ichild.setADVStyle()"/>
+				<Pause timeout="200"/>
+			</setup>
+			<body>
+				<!--test the style defined in ActionScript code-->
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_2_number_noinh')" valueExpression="value=12345"/>
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_3_uint_inh')" valueExpression="value=12"/>
+				
+				<!--test the un-setting style with default value-->
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_7_format_color_noinh')" valueExpression="value=0x112233"/>
+			</body>
+			<cleanup>
+				<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+			</cleanup>
+		</TestCase>
+		
+		<!--This test case is to test styles defined in Type Selector both in application and module-->
+		<TestCase testID="ADV_module_compound_type_selector_test2" 
+				  description="This test case is to test styles defined in Type Selector both in application and module" 
+				  keywords="[ADVStyleTestClass, Flex Module, compound, type selector]">
+			<setup>
+				<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="application.setListeners()" waitEvent="setModuleListenersDone" />
+				
+				<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+			</setup>
+			<body>
+				<!--test the style only defined in module-->
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_3_uint_inh')" valueExpression="value=34"/>
+				
+				<!--test the style only defined in application-->
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_6_format_time_noinh')" valueExpression="value=10000"/>
+				
+				<!--test the compound style defined between main application and module-->
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_1_string_noinh')" value="moduleString"/>
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_5_format_length_noinh')" valueExpression="value=100"/>
+				
+				<!--test unsetting style-->
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_11_boolean_noinh')" valueExpression="value=false"/>
+			</body>
+			<cleanup>
+				<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+			</cleanup>
+		</TestCase>
+		
+		<!--This test case is to test using styleManager API to change styles-->
+		<TestCase testID="ADV_module_styeManager_method_test3" 
+				  description="This test case is to test using styleManager API to change styles" 
+				  keywords="[ADVStyleTestClass, Flex Module, styleManager]" >
+			<setup>
+				<ResetComponent target="moduleLoad" className="mx.modules.ModuleLoader" waitEvent="updateComplete"/>
+				<RunCode code="application.setListeners()" waitEvent="setModuleListenersDone" />
+				
+				<DispatchMouseClickEvent target="loadModuleBT" waitTarget="moduleLoad" waitEvent="ready"/>
+				<RunCode code="application.testAdvStyleInSM()"/>
+				<Pause timeout="100"/>
+			</setup>
+			<body>			
+				<AssertMethodValue method="value=application.ichild.getADVStyle('teststyle_6_format_time_noinh')" valueExpression="value=20000"/>
+			</body>
+			<cleanup>
+				<DispatchMouseClickEvent target="unloadBT" waitTarget="moduleLoad" waitEvent="unload"/>
+			</cleanup>
+		</TestCase>
+	</testCases>
+</UnitTester>

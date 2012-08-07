@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark">
+	
+	<fx:Script>
+		<![CDATA[
+
+		import flash.events.Event;
+		import mx.collections.*;
+		import mx.collections.errors.*;
+		import mx.events.CollectionEvent;
+		
+		// Public so we can access it, e.g., to be sure it dispatches events.
+		public var alv:AsyncListView; 
+
+		// The ever famous simulator.
+		public var items:ItemPendingErrorSimulator;
+		
+		// Added items start at 5000 so we can tell which ones those are.
+		public var addedItems:int = 5000;
+
+		// Save an ItemPendingError for examination.
+		public var ipe:ItemPendingError;
+
+		// To use as a local data provider.
+		public var ac:ArrayCollection = new ArrayCollection([{info:'thing 0'},{info:'thing 1'},{info:'thing 2'},{info:'thing 3'},{info:'thing 4'}]);
+
+		/**
+		*	This allows you to set a bunch of parameters.
+		**/
+		public function setup( responseDelay:int = 500,
+								numItems:int = 100,
+								numPreloadedPages:int = 0,
+								pageSize:int = 1,
+								mode:String = 'manual',
+								failureProbability:int = 0,
+								createPendingItemFunction:Boolean = true,
+								createFailedItemFunction:Boolean = true,
+								assignToList:Boolean = true):void{
+
+			items = new ItemPendingErrorSimulator(); 
+
+			items.responseDelay = responseDelay;
+			items.numItems = numItems;
+			items.numPreloadedPages = numPreloadedPages;
+			items.pageSize = pageSize;
+			items.mode = mode;
+			items.failureProbability = failureProbability;
+			items.objectFactory = theObjectFactory;
+			items.reset();
+
+			alv = new AsyncListView(items);
+			
+			if(createPendingItemFunction)
+				alv.createPendingItemFunction = pendingFunction;
+	
+			if(createFailedItemFunction)
+				alv.createFailedItemFunction = errorFunction;		
+
+			// Sometimes we want to run without a UI.  For example, List calls getItemAt() for each item,
+			// and perhaps we don't want to do that immediately.
+			if(assignToList)
+				theList.dataProvider = alv;
+		}
+
+		/**
+		*	This allows you to set a bunch of parameters and
+		*	specify the pending and error functions.
+		**/
+		public function setup2( responseDelay:int = 500,
+								numItems:int = 100,
+								numPreloadedPages:int = 0,
+								pageSize:int = 1,
+								mode:String = 'manual',
+								failureProbability:int = 0,
+								createPendingItemFunction:Function = null,
+								createFailedItemFunction:Function = null):void{
+
+			items = new ItemPendingErrorSimulator(); 
+
+			items.responseDelay = responseDelay;
+			items.numItems = numItems;
+			items.numPreloadedPages = numPreloadedPages;
+			items.pageSize = pageSize;
+			items.mode = mode;
+			items.failureProbability = failureProbability;
+			items.objectFactory = theObjectFactory;
+			items.reset();
+
+			alv = new AsyncListView(items);
+			
+			if(createPendingItemFunction != null)
+				alv.createPendingItemFunction = createPendingItemFunction;
+	
+			if(createFailedItemFunction != null)
+				alv.createFailedItemFunction = createFailedItemFunction;		
+
+			theList.dataProvider = alv;
+		}
+
+		/**
+		*	This setup updates the original AsyncListView object
+		*	instead of replacing it.
+		**/
+		public function setup3( responseDelay:int = 500,
+								numItems:int = 100,
+								numPreloadedPages:int = 0,
+								pageSize:int = 1,
+								mode:String = 'manual',
+								failureProbability:int = 0,
+								createPendingItemFunction:Boolean = true,
+								createFailedItemFunction:Boolean = true):void{
+
+			items = new ItemPendingErrorSimulator(); 
+
+			items.responseDelay = responseDelay;
+			items.numItems = numItems;
+			items.numPreloadedPages = numPreloadedPages;
+			items.pageSize = pageSize;
+			items.mode = mode;
+			items.failureProbability = failureProbability;
+			items.objectFactory = theObjectFactory;
+			items.reset();
+
+			alv.list = items;
+			
+			if(createPendingItemFunction)
+				alv.createPendingItemFunction = pendingFunction;
+	
+			if(createFailedItemFunction)
+				alv.createFailedItemFunction = errorFunction;		
+
+			theList.dataProvider = alv;
+		}
+
+		public function pendingFunction(i:int, obj:Object):Object{
+			return {info: "item " + i.toString() + " pending", status: "pending"};
+		}
+
+		public function pendingFunction2(i:int, obj:Object):Object{
+			return {info: "item " + i.toString() + " really pending", status: "pending"};
+		}
+
+		public function pendingFunction3():Object{
+			return {info: "No params", status: "pending"};
+		}
+
+		public function pendingFunction4(i:int):Object{
+			return {info: "One param", status: "pending"};
+		}
+
+		public function pendingFunction5(s1:String, s2:String):Object{
+			return {info: s1 + " " + s2, status: "pending"};
+		}
+
+		public function pendingFunction6(i:int, obj:Object):void{
+			// No return value
+		}
+
+		public function pendingFunctionWhichSavesTheIPE(i:int, obj:Object):Object{
+			ipe = obj as ItemPendingError;
+			return {info: "item " + i.toString() + " pending", status: "pending"};
+		}
+		
+		public function errorFunction(i:int, obj:Object):Object{
+			return {info: "item " + i.toString() + " failed", status: "failed"};
+		}
+
+		public function errorFunction2(i:int, obj:Object):Object{
+			return {info: "item " + i.toString() + " totally failed", status: "failed"};
+		}
+
+		public function errorFunction3():Object{
+			return {info: "No params", status: "failed"};
+		}
+
+		public function errorFunction4(i:int):Object{
+			return {info: "One param", status: "failed"};
+		}
+
+		public function errorFunction5(s1:String, s2:String):Object{
+			return {info: s1 + " " + s2, status: "failed"};
+		}
+
+		public function errorFunction6(s1:String, s2:String):void{
+			// No return value
+		}
+		
+		public function theObjectFactory(i:int):Object{
+			return {info: "item " + i.toString() + " present", status: "present"};
+		}
+
+		public function theObjectFactory2(i:int):Object{
+			return {info: "theObjectFactory2 item " + i.toString() + " present", status: "present"};
+		}
+		
+		]]>
+	</fx:Script>
+
+	<s:List id="theList" useVirtualLayout="true" height="200" allowMultipleSelection="true">
+		<s:itemRenderer>
+			<fx:Component>
+					<s:ItemRenderer>
+						<fx:Script>
+						<![CDATA[
+							private function getColor(obj:Object):uint{
+								if(obj == null)
+									return 0x888888;
+								else if(obj.status == "pending")
+									return 0xeeffee;
+								else if(obj.status == "failed")
+									return 0xffeeee;
+								else
+									return 0xffffff;
+							}
+							
+							override public function set data(obj:Object):void{
+								super.data = obj;
+								
+								if(data == null)
+									nameLabel.text = "null";
+								else
+									nameLabel.text = data.info;
+							}
+						]]>
+						</fx:Script>
+						<s:states>
+							<s:State name="normal" />
+							<s:State name="hovered" />
+							<s:State name="selected" />
+						</s:states>
+						<s:Rect left="0" right="0" top="0" bottom="0" id="theRect" >
+							<s:fill>
+								<s:SolidColor color="{getColor(data)}" color.selected="0x88ffff" id="theSolidColor" />
+							</s:fill>
+						</s:Rect>
+						<s:Label id="nameLabel" top="5" left="5" right="5" />
+					</s:ItemRenderer>
+			</fx:Component>
+		</s:itemRenderer>
+	</s:List>
+</s:Group>

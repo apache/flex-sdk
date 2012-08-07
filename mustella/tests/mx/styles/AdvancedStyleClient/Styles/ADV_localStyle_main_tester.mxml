@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ADV_localStyle_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.styleTest.*;
+			
+			public static function init(o:DisplayObject):void 
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>		
+		<!--test with local style setting: Class Selector-->
+		<TestCase testID="ADV_localStyle_class_selector_test1" 
+				  description="test with local style setting: Class Selector" 
+				  keywords="[ADVStyleTestClass, local, Class Selector]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_1_string_noinh" value="localString"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_2_number_noinh" valueExpression="value=6666789"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_3_uint_inh" valueExpression="value=34"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_4_date_inh" valueExpression="value=application.localDate"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x776655"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_8_format_arrayType_noinh" valueExpression="value=application.localArray"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_9_date_arrayCol_inh" valueExpression="value=application.localList"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_10_xml_arrayCol_noinh" valueExpression="value=application.localXmlList"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_11_boolean_noinh" valueExpression="value=false"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_12_enum_string_inh" value="secondType"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_13_enum_int_noinh" valueExpression="value=99"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_14_object_noinh" valueExpression="value=application.localVo"/>
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_15_state_string_noinh" value="localStateString"/>
+				
+				<AssertStyleValue target="advStyleTest_Local_Class" styleName="teststyle_17_skin_state_noinh" valueExpression="value=assets.styleTest.ADVStyleTestSkin"/>			
+			</body>
+		</TestCase>
+		
+		<!--test with local style setting: ID Selector-->	
+		<TestCase testID="ADV_localStyle_id_selector_test2" 
+				  description="test with local style setting: ID Selector" 
+				  keywords="[ADVStyleTestClass, local, ID Selector]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_1_string_noinh" value="idString"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_2_number_noinh" valueExpression="value=6666666"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_3_uint_inh" valueExpression="value=43"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_4_date_inh" valueExpression="value=application.idDate"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x556677"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_8_format_arrayType_noinh" valueExpression="value=application.localArray"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_9_date_arrayCol_inh" valueExpression="value=application.localList"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_10_xml_arrayCol_noinh" valueExpression="value=application.localXmlList"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_11_boolean_noinh" valueExpression="value=true"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_12_enum_string_inh" value="secondType"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_13_enum_int_noinh" valueExpression="value=99"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_14_object_noinh" valueExpression="value=application.idVo"/>
+				<AssertStyleValue target="advStyleTest_Local_ID" styleName="teststyle_15_state_string_noinh" value="idStateString"/>
+			</body>
+		</TestCase>
+		
+		<!--test style compound/overwrite between inline and local styles-->
+		<TestCase testID="ADV_localStyle_compound_inline_class_test3" 
+				  description="test style compound/overwrite between inline and local styles" 
+				  keywords="[ADVStyleTestClass, local, compound, inline, class selector]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<!--class selector setting-->
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_1_string_noinh" value="classString"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_4_date_inh" valueExpression="value=application.localDate"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+				
+				<!--inline setting-->
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_15_state_string_noinh" value="inlineStringHeavy"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.imgCls"/>			
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_14_object_noinh" valueExpression="value=application.myVo_heavy"/>
+				
+				<!--compound style between inline and local using inline style value-->
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_10_xml_arrayCol_noinh" valueExpression="value=application.xmlList"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_11_boolean_noinh" valueExpression="value=true"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_12_enum_string_inh" value="firstType"/>
+				
+				<!--default setting-->
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_2_number_noinh" valueExpression="value=undefined"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_3_uint_inh" valueExpression="value=undefined"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x112233"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_8_format_arrayType_noinh" valueExpression="value=application.defaultColorArray"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_9_date_arrayCol_inh" valueExpression="value=application.defaultDateList"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_13_enum_int_noinh" valueExpression="value=15"/>
+				<AssertStyleValue target="advStyleTest_Local1" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls"/>
+			</body>
+		</TestCase>
+		
+		<!--test local varied measure setting for style5 and style7-->
+		<TestCase testID="ADV_localStyle_style_format_test4" 
+				  description="test local varied measure setting for style5 and style7" 
+				  keywords="[ADVStyleTestClass, local, style definition, format property]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="advStyleTest_Local_Measure1" styleName="teststyle_5_format_length_noinh" valueExpression="value=72"/>
+				<AssertStyleValue target="advStyleTest_Local_Measure1" styleName="teststyle_7_format_color_noinh" valueExpression="value=16711680"/>
+				
+				<AssertStyleValue target="advStyleTest_Local_Measure2" styleName="teststyle_5_format_length_noinh" valueExpression="value=28"/>
+				<AssertStyleValue target="advStyleTest_Local_Measure2" styleName="teststyle_7_format_color_noinh" valueExpression="value=16711680"/>
+				
+				<AssertStyleValue target="advStyleTest_Local_Measure3" styleName="teststyle_5_format_length_noinh" valueExpression="value=1"/>
+				<AssertStyleValue target="advStyleTest_Local_Measure3" styleName="teststyle_7_format_color_noinh" valueExpression="value='255,0,0'"/>
+				
+				<AssertStyleValue target="advStyleTest_Local_Measure4" styleName="teststyle_5_format_length_noinh" valueExpression="value=12"/>
+				<AssertStyleValue target="advStyleTest_Local_Measure4" styleName="teststyle_7_format_color_noinh" valueExpression="value=16711680"/>
+				
+				<AssertStyleValue target="advStyleTest_Local_Measure5" styleName="teststyle_5_format_length_noinh" valueExpression="value=2"/>
+				
+				<AssertStyleValue target="advStyleTest_Local_Measure6" styleName="teststyle_5_format_length_noinh" valueExpression="value=1"/>
+			</body>
+		</TestCase>
+		
+		<!--test style compound/overwrite between id selector and class selector-->
+		<TestCase testID="ADV_extStyle_compound_id_class_test5" 
+				  description="test style compound/overwrite between id selector and class selector" 
+				  keywords="[ADVStyleTestClass, local, compound, id selector, class selector]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<!--class selector setting-->
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_1_string_noinh" value="classString"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_4_date_inh" valueExpression="value=application.localDate"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+				
+				<!--id selector setting-->
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_14_object_noinh" valueExpression="value=application.myVo_heavy"/>
+				
+				<!--compound style between id selector and class selector using id selector value-->
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_10_xml_arrayCol_noinh" valueExpression="value=application.xmlList"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_11_boolean_noinh" valueExpression="value=true"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_12_enum_string_inh" value="firstType"/>
+				
+				<!--default setting-->
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_2_number_noinh" valueExpression="value=undefined"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_3_uint_inh" valueExpression="value=undefined"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x112233"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_8_format_arrayType_noinh" valueExpression="value=application.defaultColorArray"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_9_date_arrayCol_inh" valueExpression="value=application.defaultDateList"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_13_enum_int_noinh" valueExpression="value=15"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_15_state_string_noinh" value="defaultStateString"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls"/>
+				<AssertStyleValue target="advStyleTest_Local2" styleName="teststyle_17_skin_state_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls_heavy"/>			
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

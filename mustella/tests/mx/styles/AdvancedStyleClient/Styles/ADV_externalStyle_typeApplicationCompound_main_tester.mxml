@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/"  
+			xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns="*" 
+			testSWF="ADV_externalStyle_typeApplicationCompound_main.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import assets.styleTest.*;
+			
+			public static function init(o:DisplayObject):void 
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<testCases>			
+		<!--test external style compound/overwrite between type selector and application selector-->
+		<TestCase testID="ADV_extStyle_compound_type_application_test1" 
+				  description="test external style compound/overwrite between type selector and application selector" 
+				  keywords="[ADVStyleTestClass, external, compound, type selector, application selector]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<!--type selector setting-->
+				<AssertStyleValue target="advStyleTest_External1" styleName="teststyle_11_boolean_noinh" valueExpression="value=true"/>
+				<AssertStyleValue target="advStyleTest_External1" styleName="teststyle_12_enum_string_inh" value="firstType"/>
+				<AssertStyleValue target="advStyleTest_External1" styleName="teststyle_15_state_string_noinh" value="inlineStringHeavy"/>
+				<AssertStyleValue target="advStyleTest_External1" styleName="teststyle_17_skin_state_noinh" valueExpression="value=assets.styleTest.ADVStyleTestSkin"/>			
+				
+				<!--compound style between type and application selector using type style value-->
+				<AssertStyleValue target="advStyleTest_External1" styleName="teststyle_2_number_noinh" valueExpression="value=11"/>
+				
+				<!--default setting-->
+				<AssertStyleValue target="advStyleTest_External1" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x112233"/>
+				<AssertStyleValue target="advStyleTest_External1" styleName="teststyle_13_enum_int_noinh" valueExpression="value=15"/>
+				<AssertStyleValue target="advStyleTest_External1" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls"/>
+				
+				<!--application selector setting for inherited style-->
+				
+				<!--application selector setting for herited style-->
+				<AssertStyleValue target="advStyleTest_External1" styleName="teststyle_3_uint_inh" valueExpression="value=0"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_extStyle_compound_type_application_component_test2" 
+				  description="test external style compound/overwrite between type selector and application selector in component" 
+				  keywords="[ADVStyleTestClass, external, compound, type selector, application selector, component]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<!--type selector setting-->
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_11_boolean_noinh" valueExpression="value=true"/>
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_12_enum_string_inh" value="firstType"/>
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_15_state_string_noinh" value="inlineStringHeavy"/>
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_17_skin_state_noinh" valueExpression="value=assets.styleTest.ADVStyleTestSkin"/>			
+				
+				<!--compound style between type and application selector using type style value-->
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_2_number_noinh" valueExpression="value=11"/>
+				
+				<!--default setting-->
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x112233"/>
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_13_enum_int_noinh" valueExpression="value=15"/>
+				<AssertStyleValue target="mycomp.componentADV" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls"/>
+				
+				<!--application selector setting for inherited style-->
+				
+				<!--application selector setting for herited style-->
+				<AssertStyleValue target="advStyleTest_External1" styleName="teststyle_3_uint_inh" valueExpression="value=0"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ADV_extStyle_compound_type_application_module_loader_test3" 
+				  description="test external style compound/overwrite between type selector and application selector in module with moduleLoader" 
+				  keywords="[ADVStyleTestClass, external, compound, type selector, application selector, module, moduleLoader]">
+			<setup>
+				<ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<!--type selector setting-->
+				<AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_11_boolean_noinh" valueExpression="value=true"/>
+				<AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_12_enum_string_inh" value="firstType"/>
+				<AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_15_state_string_noinh" value="inlineStringHeavy"/>
+				<AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_17_skin_state_noinh" valueExpression="value=assets.styleTest.ADVStyleTestSkin"/>			
+				
+				<!--compound style between type and application selector using type style value-->
+				<AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_2_number_noinh" valueExpression="value=11"/>
+				
+				<!--default setting-->
+				<AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x112233"/>
+				<AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_13_enum_int_noinh" valueExpression="value=15"/>
+				<AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls"/>
+				
+				<!--application selector setting for inherited style-->
+				
+				<!--application selector setting for herited style-->
+				<AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_3_uint_inh" valueExpression="value=0"/>				
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

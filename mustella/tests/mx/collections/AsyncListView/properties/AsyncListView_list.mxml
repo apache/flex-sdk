@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+	testDir="mx/collections/AsyncListView/properties/"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns="*"
+	xmlns:assets="assets.*"
+	testSWF="AsyncListView_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+		import assets.*;
+		import mx.core.FlexGlobals;
+		import mx.collections.*;
+
+		public var storedItem:Object;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+A reminder:
+
+public function setup( responseDelay:int = 500,
+						numItems:int = 100,
+						numPreloadedPages:int = 0,
+						pageSize:int = 1,
+						mode:String = 'manual',
+						failureProbability:int = 0,
+						createPendingItemFunction:Boolean = true,
+						createFailedItemFunction:Boolean = true):void{
+-->
+
+<TestCase testID="list_vlist_test1" keywords="[AsyncListView,list]" description="Get pending items in the AsyncListView's list (in other words, get the IPEs)." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0, 20)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyGetItemRTEs(0, 19, FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="list_vlist_test2" keywords="[AsyncListView,list]" description="Get pending items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0, 20)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyItems(0, 19, 'pending', FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="list_vlist_test3" keywords="[AsyncListView,list]" description="Get successful items." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0, 20, 0, 20)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.items.receivePage()" waitTarget="obj1.alv" waitEvent="collectionChange" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyItems(0, 19, 'present', FlexGlobals.topLevelApplication.obj1.alv)" value="pass" />
+	</body>
+</TestCase>
+
+
+
+<!-- SDK-23587 (fixed) -->
+<TestCase testID="list_vlist_test5" keywords="[AsyncListView,list]" description="Replace the list with one that's been populated locally." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0, 20)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="obj1.alv" propertyName="list" valueExpression="value = new ArrayCollection([{info:'new 0'},{info:'new 1'},{info:'new 2'},{info:'new 3'},{info:'new 4'}])" waitTarget="obj1.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.list.getItemAt(0).info" value="new 0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.list.getItemAt(1).info" value="new 1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.list.getItemAt(2).info" value="new 2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.list.getItemAt(3).info" value="new 3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.alv.list.getItemAt(4).info" value="new 4" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(0).nameLabel.text" value="new 0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(1).nameLabel.text" value="new 1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(2).nameLabel.text" value="new 2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(3).nameLabel.text" value="new 3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj1.theList.dataGroup.getElementAt(4).nameLabel.text" value="new 4" />
+	</body>
+</TestCase>
+
+<TestCase testID="list_vlist_test6" keywords="[AsyncListView,list]" description="Replace the list with another list of pending items.  Be sure new pending items are generated." >
+	<setup>
+		<ResetComponent target="obj1" className="assets.PagedDataComp1" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup(0, 20)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="storedItem = FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0)" />
+		<AssertMethodValue method="value = (storedItem === FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="true" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj1.setup3(1,5)" waitTarget="obj1.theList" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = (storedItem === FlexGlobals.topLevelApplication.obj1.alv.getItemAt(0))" value="false" />
+	</body>
+</TestCase>
+
+
+
+
+<TestCase testID="list_nonvlist_test1" keywords="[AsyncListView,list]" description="Get pending items in the AsyncListView's list (in other words, get the IPEs)." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0, 20)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyGetItemRTEs(0, 19, FlexGlobals.topLevelApplication.obj8.alv)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="list_nonvlist_test2" keywords="[AsyncListView,list]" description="Get pending items." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0, 20)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyItems(0, 19, 'pending', FlexGlobals.topLevelApplication.obj8.alv)" value="pass" />
+	</body>
+</TestCase>
+
+<TestCase testID="list_nonvlist_test3" keywords="[AsyncListView,list]" description="Get successful items." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0, 20, 0, 20)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.theSimulator.receivePage()" waitTarget="obj8.alv" waitEvent="collectionChange" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.verifyItems(0, 19, 'present', FlexGlobals.topLevelApplication.obj8.alv)" value="pass" />
+	</body>
+</TestCase>
+
+
+
+<!-- SDK-23587 (fixed) -->
+<TestCase testID="list_nonvlist_test5" keywords="[AsyncListView,list]" description="Replace the list with one that's been populated locally." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0, 20)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="obj8.alv" propertyName="list" valueExpression="value = new ArrayCollection([{info:'new 0'},{info:'new 1'},{info:'new 2'},{info:'new 3'},{info:'new 4'}])" waitTarget="obj8.theList.dataGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.list.getItemAt(0).info" value="new 0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.list.getItemAt(1).info" value="new 1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.list.getItemAt(2).info" value="new 2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.list.getItemAt(3).info" value="new 3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.alv.list.getItemAt(4).info" value="new 4" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(0).nameLabel.text" value="new 0" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(1).nameLabel.text" value="new 1" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(2).nameLabel.text" value="new 2" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(3).nameLabel.text" value="new 3" />
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.obj8.theList.dataGroup.getElementAt(4).nameLabel.text" value="new 4" />
+	</body>
+</TestCase>
+
+<TestCase testID="list_nonvlist_test6" keywords="[AsyncListView,list]" description="Replace the list with another list of pending items.  Be sure new pending items are generated." >
+	<setup>
+		<ResetComponent target="obj8" className="assets.PagedDataComp8" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup(0, 20)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<RunCode code="storedItem = FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0)" />
+		<AssertMethodValue method="value = (storedItem === FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0))" value="true" />
+		<RunCode code="FlexGlobals.topLevelApplication.obj8.setup3(1,5)" waitTarget="obj8.theList" waitEvent="updateComplete" />
+		<AssertMethodValue method="value = (storedItem === FlexGlobals.topLevelApplication.obj8.alv.getItemAt(0))" value="false" />
+	</body>
+</TestCase>
+
+</testCases>
+</UnitTester>

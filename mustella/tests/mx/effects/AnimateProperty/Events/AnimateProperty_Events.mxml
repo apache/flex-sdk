@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester 
+    testDir="mx/effects/AnimateProperty/Events/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*"
+    testSWF="../SWFs/AnimateProperty_Main.mxml">
+    
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </mx:Script>
+    <mx:Metadata>
+        <![CDATA[
+        [Mixin]
+        ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    
+    <testCases>
+
+        <TestCase testID="AnimateProperty_Events_CompoundEventTest" keywords="[Effects, AnimateProperty, Events]" description="Verify EffectStart, EffectEnd is raised.">
+            <setup>
+                <ResetComponent target="testVBox" className="Assets.TrixVBox" waitTarget="testVBox" waitEvent="updateComplete"/>
+                <ResetComponent target="testEffect" className="mx.effects.AnimateProperty"/>
+                <SetProperty target="testEffect" propertyName="property" value="height"/>
+                <SetProperty target="testEffect" propertyName="fromValue" value="30"/>
+                <SetProperty target="testEffect" propertyName="toValue" value="50"/>
+                <SetProperty target="testEffect" propertyName="isStyle" value="false"/>
+                <SetProperty target="testEffect" propertyName="duration" value="250"/>
+            </setup>
+            <body>
+                <RunCode code="application.testEffect.play([application.testVBox], false)" waitTarget="testEffect" waitEvent="effectEnd" />
+                <AssertEvent target="testEffect" eventName="effectStart" eventClass="mx.events::EffectEvent" />
+                <AssertEvent target="testEffect" eventName="tweenStart" eventClass="mx.events::TweenEvent" />
+                <AssertEvent target="testEffect" eventName="tweenUpdate" eventClass="mx.events::TweenEvent" numExpectedEvents="-1" />
+                <AssertEvent target="testEffect" eventName="tweenEnd" eventClass="mx.events::TweenEvent" />
+                <AssertEvent target="testEffect" eventName="effectEnd" eventClass="mx.events::EffectEvent" />
+            </body>
+        </TestCase>
+        
+    </testCases>
+
+</UnitTester>

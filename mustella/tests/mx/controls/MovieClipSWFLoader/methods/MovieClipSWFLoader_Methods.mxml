@@ -1,0 +1,883 @@
+<UnitTester
+    testSWF="../SWFs/MovieClipSWFLoader_Main.mxml"
+    testDir="mx/controls/MovieClipSWFLoader/methods/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        
+        import mx.controls.MovieClipSWFLoader;
+        
+        public static function init(o:DisplayObject):void{}
+
+        
+        public function isPlaying(movie:MovieClipSWFLoader): Boolean
+        {
+            if(movie.movieClip.currentFrame > application.lastCurrentFrame)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        
+        
+        ]]>
+    </mx:Script>
+    
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    
+    <testCases>
+<!-- no op tests when the source has no MovieClip. -->
+
+        <TestCase testID="MovieClipSWFLoader_play_externalSource" keywords="[play, MovieClipSWFLoader]" 
+            description="Test that calling play() works when source is an external swf.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test3.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <RunCode code="application.myMovie.play()" />
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie)" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_play_afterStop" keywords="[play, MovieClipSWFLoader]" 
+            description="Call play() on a movie and have it play to the end. Call play() again.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/quickMovie.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <RunCode code="application.myMovie.play()" />
+                <Pause timeout="350" />
+                <RunCode code="application.myMovie.play()" />
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie)" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_play_embeddedSource" keywords="[play, MovieClipSWFLoader]" 
+            description="Test that play() works when the source is an embedded swf. Test that stopping and calling
+               play() again also works.">
+            <setup>
+                <!--RunCode code="application.myMovie1.stop()" /-->
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+            </setup>
+            <body>
+                <RunCode code="application.myMovie1.play()" />
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie1)" value="true" />
+                <SetProperty target="" propertyName="lastCurrentFrame" valueExpression="application.myMovie.movieClip.currentFrame" />
+                <RunCode code="application.myMovie1.stop()" />
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie1.play()" />
+                <Pause timeout="50" />
+                <AssertMethodValue method="value=isPlaying(application.myMovie1)" value="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_stop_externalSource" keywords="[stop, MovieClipSWFLoader]" 
+            description="Test that calling stop() works when source is an external swf.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <RunCode code="application.myMovie.play()" />
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" valueExpression="value=application.myMovie.movieClip.currentFrame" />
+                <Pause timeout="50" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie.movieClip" valueExpression="value=application.lastCurrentFrame"  />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_stop_autoStopFalse" keywords="[stop, MovieClipSWFLoader]" 
+            description="Test that calling stop() works when source is an external swf with autoStop=false.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" valueExpression="value=application.myMovie.movieClip.currentFrame" />
+                <Pause timeout="50" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie.movieClip" valueExpression="value=application.lastCurrentFrame"  />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_stop_afterStop" keywords="[stop, MovieClipSWFLoader]" 
+            description="Test that calling stop() after a movie is not playing works fine.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="150" />
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" valueExpression="value=application.myMovie.movieClip.currentFrame" />
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.stop()" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie.movieClip" valueExpression="value=application.lastCurrentFrame"  />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_gotoAndPlay" keywords="[gotoAndPlay, MovieClipSWFLoader]" 
+            description="Test that calling gotoAndPlay() when a movie is not playing works fine.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="10" />
+                <RunCode code="application.myMovie.gotoAndPlay(10, 'Scene 2')" />
+                <Pause timeout="50" /> 
+                <AssertMethodValue method="value=isPlaying(application.myMovie)" value="true" />
+                <AssertPropertyValue propertyName="name" target="myMovie.movieClip.currentScene" value="Scene 2"  />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_gotoAndPlay_frameOnly" keywords="[gotoAndPlay, MovieClipSWFLoader]" 
+            description="Test that calling gotoAndPlay() with only a frame works fine.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test3.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="20" />
+                <RunCode code="application.myMovie.gotoAndPlay(20)" />
+                <Pause timeout="50" /> 
+                <AssertMethodValue method="value=isPlaying(application.myMovie)" value="true" />
+                <AssertPropertyValue propertyName="name" target="myMovie.movieClip.currentScene" value="Scene 1"  />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_gotoAndPlay_playingMovie" keywords="[gotoAndPlay, MovieClipSWFLoader]" 
+            description="Test that calling gotoAndPlay() after a movie is playing works fine.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="10" />
+                <RunCode code="application.myMovie.gotoAndPlay(10, 'Scene 2')" />
+                <Pause timeout="50" /> 
+                <AssertMethodValue method="value=isPlaying(application.myMovie)" value="true" />
+                <AssertPropertyValue propertyName="name" target="myMovie.movieClip.currentScene" value="Scene 2"  />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_gotoAndPlay_embeddedSource" keywords="[gotoAndPlay, MovieClipSWFLoader]" 
+            description="Test that calling gotoAndPlay() on a source with an embedded asset works fine.">
+            <body>
+                <RunCode code="application.myMovie1.gotoFirstFrameAndStop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="20" />
+                <RunCode code="application.myMovie1.gotoAndPlay(20, 'Scene 2')" />
+                <Pause timeout="50" /> 
+                <AssertMethodValue method="value=isPlaying(application.myMovie1)" value="true" />
+                <AssertPropertyValue propertyName="name" target="myMovie1.movieClip.currentScene" value="Scene 2"  />
+            </body>
+        </TestCase>
+        
+        
+        <TestCase testID="MovieClipSWFLoader_gotoAndStop" keywords="[gotoAndStop, MovieClipSWFLoader]" 
+            description="Test that calling gotoAndStop() when a movie is not playing works fine.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="10" />
+                <RunCode code="application.myMovie.gotoAndStop(10, 'Scene 2')" />
+                <Pause timeout="50" /> 
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie.movieClip" value="10" />
+                <AssertPropertyValue propertyName="name" target="myMovie.movieClip.currentScene" value="Scene 2"  />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_gotoAndStop_frameOnly" keywords="[gotoAndStop, MovieClipSWFLoader]" 
+            description="Test that calling gotoAndStop() with only a frame works fine.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test3.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="20" />
+                <RunCode code="application.myMovie.gotoAndStop(20)" />
+                <Pause timeout="50" /> 
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie.movieClip" value="20" />
+                <AssertPropertyValue propertyName="name" target="myMovie.movieClip.currentScene" value="Scene 1"  />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_gotoAndStop_playingMovie" keywords="[gotoAndStop, MovieClipSWFLoader]" 
+            description="Test that calling gotoAndStop() after a movie is playing works fine.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="12" />
+                <RunCode code="application.myMovie.gotoAndStop(12, 'Scene 2')" />
+                <Pause timeout="50" /> 
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie.movieClip" value="12" />
+                <AssertPropertyValue propertyName="name" target="myMovie.movieClip.currentScene" value="Scene 2"  />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_gotoAndStop_embeddedSource" keywords="[gotoAndStop, MovieClipSWFLoader]" 
+            description="Test that calling gotoAndStop() on a source with an embedded asset works fine.">
+            <body>
+                <RunCode code="application.myMovie1.gotoFirstFrameAndStop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="16" />
+                <RunCode code="application.myMovie1.gotoAndStop(16, 'Scene 2')" />
+                <Pause timeout="50" /> 
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie1.movieClip" value="16" />
+                <AssertPropertyValue propertyName="name" target="myMovie1.movieClip.currentScene" value="Scene 2"  />
+            </body>
+        </TestCase> 
+        <TestCase testID="MovieClipSWFLoader_gotoFirstFrameAndStop_playingMovie" keywords="[gotoFirstFrameAndStop, MovieClipSWFLoader]" 
+            description="Test that calling gotoFirstFrameAndStop() after a movie is playing works fine.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <RunCode code="application.myMovie.play()" />
+                <Pause timeout="50" /> 
+                <RunCode code="application.myMovie.gotoFirstFrameAndStop()" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie.movieClip" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_gotoFirstFrameAndStop_autoStopTrue" keywords="[gotoFirstFrameAndStop, MovieClipSWFLoader]" 
+            description="Test that calling gotoFirstFrameAndStop() after a movie is not playing works fine.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <RunCode code="application.myMovie.gotoFirstFrameAndStop()" />
+                <Pause timeout="50" /> 
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie.movieClip" value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_gotoFirstFrameAndStop_afterForward" keywords="[gotoFirstFrameAndStop, MovieClipSWFLoader]" 
+            description="Test that calling gotoFirstFrameAndStop after calling gotoAndStop() with only a frame works fine.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="1" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test3.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <SetProperty target="" propertyName="lastCurrentFrame" value="20" />
+                <RunCode code="application.myMovie.gotoAndStop(20)" />
+                <Pause timeout="50" /> 
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie.movieClip" value="20" />
+                <RunCode code="application.myMovie.gotoFirstFrameAndStop()" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie.movieClip" value="1" />
+            </body>
+        </TestCase>
+        <!-- SDK-27922-->
+        <TestCase testID="MovieClipSWFLoader_gotoFirstFrameAndStop_embeddedSource" keywords="[gotoFirstAndStop, MovieClipSWFLoader]" 
+            description="Test that calling gotoFirstAndStop() on a source with an embedded asset works fine.">
+            <body>
+                <RunCode code="application.myMovie2.gotoFirstFrameAndStop()" />
+                <Pause timeout="50" /> 
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie2.movieClip" value="1" />
+            </body>
+        </TestCase> 
+
+        <TestCase testID="MClipSWFLoader_gotoFirstFrameAndStop_MCInstance" keywords="[gotoFirstFrameAndStop, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling gotoFirstFrameAndStop when your movieClip has no Scenes and 1 frame.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" valueExpression="value=application.mc" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.gotoFirstFrameAndStop()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_play_MCInstance" keywords="[play, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling play when your movieClip has no Scenes and 1 frame.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" valueExpression="value=application.mc" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.play()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_stop_MCInstance" keywords="[stop, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling stop when your movieClip has no Scenes and 1 frame.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" valueExpression="value=application.mc" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.stop()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_nextFrame_MCInstance" keywords="[nextFrame, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling nextFrame when your movieClip has no Scenes and 1 frame.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" valueExpression="value=application.mc" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.nextFrame()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_prevFrame_MCInstance" keywords="[prevFrame, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling prevFrame when your movieClip has no Scenes and 1 frame.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" valueExpression="value=application.mc" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.prevFrame()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_nextScene_MCInstance" keywords="[nextScene, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling nextScene when your movieClip has no Scenes and 1 frame.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" valueExpression="value=application.mc" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.nextScene()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="MClipSWFLoader_prevScene_MCInstance" keywords="[prevScene, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling prevScene when your movieClip has no Scenes and 1 frame.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" waitTarget="myMovie" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" valueExpression="value=application.mc" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.prevScene()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_nextFrame_beginning" keywords="[nextFrame, MovieClipSWFLoader]" 
+            description="Test that calling nextFrame() when you are at the start of a doc moves to frame 2.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.nextFrame()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="2" />
+                <AssertPropertyValue target="myMovie.movieClip.currentScene" propertyName="name" value="Scene 1" />
+            </body>
+        </TestCase>  
+        <TestCase testID="MovieClipSWFLoader_prevFrame_beginning" keywords="[prevFrame, MovieClipSWFLoader]" 
+            description="Test that calling prevFrame() when you are at the start of a doc stays on frame 1.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.prevFrame()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="1" />
+                <AssertPropertyValue target="myMovie.movieClip.currentScene" propertyName="name" value="Scene 1" />
+            </body>
+        </TestCase> 
+        <TestCase testID="MovieClipSWFLoader_nextFrame_end" keywords="[nextFrame, MovieClipSWFLoader]" 
+            description="Test that calling nextFrame() when you are at the end of a doc should do nothing.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/quickMovie.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <RunCode code="application.myMovie.gotoAndStop(5, 'Scene 2')" />
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.nextFrame()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="5" />
+                <AssertPropertyValue target="myMovie.movieClip.currentScene" propertyName="name" value="Scene 2" />
+            </body>
+        </TestCase>  
+        <TestCase testID="MovieClipSWFLoader_prevFrame_end" keywords="[prevFrame, MovieClipSWFLoader]" 
+            description="Test that calling prevFrame() when you are at the end of a doc stays on frame 4.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/quickMovie.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="100" />
+                <RunCode code="application.myMovie.gotoAndStop(5, 'Scene 2')" />
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.prevFrame()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" value="4" />
+                <AssertPropertyValue target="myMovie.movieClip.currentScene" propertyName="name" value="Scene 2" />
+            </body>
+        </TestCase>  
+        <TestCase testID="MovieClipSWFLoader_nextFrame_playing" keywords="[nextFrame, MovieClipSWFLoader]" 
+            description="Test that calling nextFrame() when a movie is playing.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test3.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.play()" />
+                <Pause timeout="50" />
+                <SetProperty propertyName="lastCurrentFrame" valueExpression="value=application.myMovie.movieClip.currentFrame" target="" />
+                <RunCode code="application.myMovie.nextFrame()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" valueExpression="value=application.lastCurrentFrame+1" />
+            </body>
+        </TestCase>   
+        <TestCase testID="MovieClipSWFLoader_prevFrame_playing" keywords="[prevFrame, MovieClipSWFLoader]" 
+            description="Test that calling prevFrame() when a movie is playing.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test3.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <SetProperty propertyName="lastCurrentFrame" valueExpression="value=application.myMovie.movieClip.currentFrame" target="" />
+                <RunCode code="application.myMovie.prevFrame()" />
+                <AssertPropertyValue target="myMovie.movieClip" propertyName="currentFrame" valueExpression="value=application.lastCurrentFrame-1" />
+            </body>
+        </TestCase> 
+        <TestCase testID="MovieClipSWFLoader_nextFrame_embeddedSource" keywords="[nextFrame, MovieClipSWFLoader]" 
+            description="Test that calling nextFrame() on a source with an embedded asset works fine.">
+            <body>
+                <RunCode code="application.myMovie2.gotoAndStop(1, 'Scene 1')" />
+                <Pause timeout="150" /> 
+                <RunCode code="application.myMovie2.nextFrame()" />
+                <Pause timeout="150" /> 
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie2.movieClip" value="2" />
+            </body>
+        </TestCase> 
+        <TestCase testID="MovieClipSWFLoader_prevFrame_embeddedSource" keywords="[prevFrame, MovieClipSWFLoader]" 
+            description="Test that calling prevFrame() on a source with an embedded asset works fine.">
+            <body>
+                <RunCode code="application.myMovie2.gotoAndStop(12)" />
+                <Pause timeout="50" /> 
+                <RunCode code="application.myMovie2.prevFrame()" />
+                <AssertPropertyValue propertyName="currentFrame" target="myMovie2.movieClip" value="11" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="MovieClipSWFLoader_nextScene_beginning" keywords="[nextScene, MovieClipSWFLoader]" 
+            description="Test that calling nextScene() when you are at the start of a doc moves to frame 2.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.nextScene()" />
+                <AssertPropertyValue target="myMovie.movieClip.currentScene" propertyName="name" value="Scene 2" />
+            </body>
+        </TestCase>  
+        <TestCase testID="MovieClipSWFLoader_prevScene_beginning" keywords="[prevScene, MovieClipSWFLoader]" 
+            description="Test that calling prevScene() when you are at the start of a doc stays on frame 1.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.prevScene()" />
+                <AssertPropertyValue target="myMovie.movieClip.currentScene" propertyName="name" value="Scene 1" />
+            </body>
+        </TestCase> 
+        <TestCase testID="MovieClipSWFLoader_nextScene_end" keywords="[nextScene, MovieClipSWFLoader]" 
+            description="Test that calling nextScene() when you are at the end of a doc should do nothing.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/quickMovie.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="200" />
+                <RunCode code="application.myMovie.nextScene()" />
+                <AssertPropertyValue target="myMovie.movieClip.currentScene" propertyName="name" value="Scene 2"/>
+            </body>
+        </TestCase>  
+        <TestCase testID="MovieClipSWFLoader_prevScene_end" keywords="[prevScene, MovieClipSWFLoader]" 
+            description="Test that calling prevScene() when you are at the end of a doc stays on frame 4.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/quickMovie.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="200" />
+                <RunCode code="application.myMovie.prevScene()" />
+                <AssertPropertyValue target="myMovie.movieClip.currentScene" propertyName="name" value="Scene 1" />
+            </body>
+        </TestCase>  
+        <TestCase testID="MovieClipSWFLoader_nextScene_playing" keywords="[nextScene, MovieClipSWFLoader]" 
+            description="Test that calling nextScene() when a movie is playing.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test3.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.play()" />
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.nextScene()" />
+                <Pause timeout="10" />
+                <RunCode code="application.myMovie.nextScene()" />
+                <AssertPropertyValue target="myMovie.movieClip.currentScene" propertyName="name" value="Scene 3" />
+            </body>
+        </TestCase>   
+        <TestCase testID="MovieClipSWFLoader_prevScene_playing" keywords="[prevScene, MovieClipSWFLoader]" 
+            description="Test that calling prevScene() when a movie is playing.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="autoStop" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="assets/test3.swf" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.gotoAndPlay(13, 'Scene 3')" />
+                <Pause timeout="50" />
+                <RunCode code="application.myMovie.prevScene()" />
+                <AssertPropertyValue target="myMovie.movieClip.currentScene" propertyName="name" value="Scene 2" />
+            </body>
+        </TestCase> 
+        <TestCase testID="MovieClipSWFLoader_nextScene_embeddedSource" keywords="[nextScene, MovieClipSWFLoader]" 
+            description="Test that calling nextScene() on a source with an embedded asset works fine.">
+            <body>
+                <RunCode code="application.myMovie2.gotoFirstFrameAndStop()" />
+                <Pause timeout="50" /> 
+                <RunCode code="application.myMovie2.nextScene()" />
+                <AssertPropertyValue propertyName="name" target="myMovie2.movieClip.currentScene" value="Scene 2" />
+            </body>
+        </TestCase> 
+        <TestCase testID="MovieClipSWFLoader_prevScene_embeddedSource" keywords="[prevScene, MovieClipSWFLoader]" 
+            description="Test that calling prevScene() on a source with an embedded asset works fine.">
+            <body>
+                <RunCode code="application.myMovie2.gotoAndStop(12, 'Scene 2')" />
+                <Pause timeout="50" /> 
+                <RunCode code="application.myMovie2.prevScene()" />
+                <AssertPropertyValue propertyName="name" target="myMovie2.movieClip.currentScene" value="Scene 1" />
+            </body>
+        </TestCase> 
+        <TestCase testID="MovieClipSWFLoader_noOp_stop" keywords="[autoStop, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling stop() when source is a JPEG.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallredrect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" waitTarget="myMovie" waitEvent="complete"/>
+                <RunCode code="application.myMovie.stop()" />
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_noOp_play" keywords="[autoStop, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling play() when source is a JPEG.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallredrect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <RunCode code="application.myMovie.play()" />
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_noOp_gotoAndStop" keywords="[autoStop, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling gotoAndStop() when source is a JPEG.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallredrect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <RunCode code="application.myMovie.gotoAndStop(3)" />
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_noOp_gotoAndPlay" keywords="[gotoAndPlay, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling gotoAndPlay() when source is a JPEG.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallredrect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <RunCode code="application.myMovie.gotoAndPlay(43)" />
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_noOp_gotoFirstFrameAndStop" keywords="[gotoFirstFrameAndStop, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling gotoFirstFrameAndStop() when source is a JPEG.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallredrect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <RunCode code="application.myMovie.gotoFirstFrameAndStop()" />
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_noOp_nextFrame" keywords="[nextFrame, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling nextFrame() when source is a JPEG.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallredrect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <RunCode code="application.myMovie.nextFrame()" />
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_noOp_prevFrame" keywords="[prevFrame, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling prevFrame() when source is a JPEG.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallredrect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <RunCode code="application.myMovie.prevFrame()" />
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_noOp_nextScene" keywords="[nextScene, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling nextScene() when source is a JPEG.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallredrect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <RunCode code="application.myMovie.nextScene()" />
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+        <TestCase testID="MovieClipSWFLoader_noOp_prevScene" keywords="[prevScene, MovieClipSWFLoader]" 
+            description="Test that nothing happens when calling prevScene() when source is a JPEG.">
+            <setup>
+                <RunCode code="application.myMovie.stop()" />
+                <SetProperty target="myMovie" propertyName="autoLoad" value="true" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallbluerect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+           </setup>
+            <body>
+                <SetProperty target="myMovie" propertyName="autoLoad" value="false" />
+                <SetProperty target="myMovie" propertyName="source" value="../../../../Assets/Images/smallredrect.jpg" waitTarget="myMovie" waitEvent="updateComplete"/>
+                <RunCode code="application.myMovie.prevScene()" />
+                <AssertPropertyValue target="myMovie" propertyName="movieClip" value="null" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>
+

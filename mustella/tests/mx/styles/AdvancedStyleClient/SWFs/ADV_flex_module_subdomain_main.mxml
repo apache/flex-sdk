@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" 
+			   xmlns:styleTest="assets.styleTest.*" 
+			   xmlns:assets="assets.*">
+	<s:states> 
+		<s:State name="heavy"/> 
+		<s:State name="medium"/> 
+		<s:State name="light"/> 
+	</s:states>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace styleTest "assets.styleTest.*";
+		
+		styleTest|ADVStyleTestClass {
+			teststyle_1_string_noinh : "mainString";
+			teststyle_5_format_length_noinh : 50; 
+			teststyle_6_format_time_noinh: 10000;
+		}
+		
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			import assets.styleTest.ADVStyleTestConstants;
+			import assets.styleTest.ADVStyleTestEvent;
+			import assets.styleTest.ADVStyleTestVo;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.XMLListCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.events.ModuleEvent;
+			import mx.events.StyleEvent;
+			import mx.styles.IStyleManager2;
+			
+			public var ichild:*; 
+			
+			public function loadModule(url:String):void{
+				moduleLoad.url=url;
+				moduleLoad.loadModule();
+			}
+			
+			private function unloadModule():void{
+				moduleLoad.unloadModule();
+			}
+			
+			public function setListeners():void {
+				if (moduleLoad) {
+					moduleLoad.addEventListener(ModuleEvent.READY, moduleLoad_readyHandler);
+					moduleLoad.addEventListener(ModuleEvent.UNLOAD, moduleLoad_unloadHandler);
+					moduleLoad.addEventListener(ModuleEvent.ERROR, moduleLoad_errorHandler);
+				}
+				
+				this.dispatchEvent(new Event("setModuleListenersDone"));
+			}
+			
+			private function moduleLoad_unloadHandler(event:ModuleEvent):void
+			{
+				moduleLoad.removeEventListener(ModuleEvent.UNLOAD, moduleLoad_unloadHandler);
+			}
+			
+			
+			protected function moduleLoad_readyHandler(event:ModuleEvent):void
+			{
+				ichild = moduleLoad.child;
+				moduleLoad.removeEventListener(ModuleEvent.READY, moduleLoad_readyHandler);
+				moduleLoad.removeEventListener(ModuleEvent.ERROR, moduleLoad_errorHandler);
+			}
+			
+			protected function moduleLoad_errorHandler(event:ModuleEvent):void {
+				moduleLoad.removeEventListener(ModuleEvent.READY, moduleLoad_readyHandler);
+				moduleLoad.removeEventListener(ModuleEvent.ERROR, moduleLoad_errorHandler);
+			}
+			
+			private var myStyleManager:IStyleManager2;
+			public function testAdvStyleInSM():void
+			{
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+				myStyleManager.getStyleDeclaration("assets.styleTest.ADVStyleTestClass").setStyle("teststyle_6_format_time_noinh",20000);
+			}
+			
+			public function loadAppSubDomain():void
+			{
+				myStyleManager = StyleManager.getStyleManager(this.moduleFactory);
+				var loadEvent:IEventDispatcher = myStyleManager.loadStyleDeclarations("assets/moduleStyle.swf",true,false);
+				
+				loadEvent.addEventListener(StyleEvent.COMPLETE, loadComplete);
+			}
+			
+			private function loadComplete(event:StyleEvent):void 
+			{
+				this.dispatchEvent(new ADVStyleTestEvent(ADVStyleTestEvent.TEST_STYLE_LOAD_COMPLETE));
+			} 
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<styleTest:ADVStyleTestClass id="advModuleDomain"/>
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" gap="20"/>
+	</s:layout>
+	
+	<s:VGroup>
+		<s:Label text="AdvancedStyleClass Test Case - Define Styles in Flex Module" fontSize="15" fontWeight="bold"/>
+		<s:HGroup>
+			<s:Panel title="Enter Choice" height="100%">
+				<mx:Form>
+					<s:HGroup>
+						<s:Button id="loadModuleBT" label="Load module" click="loadModule('assets/FlexModule.swf')"/>
+						<s:Button id="unloadBT" label="Unload module" click="unloadModule()"/>
+					</s:HGroup>
+				</mx:Form>
+			</s:Panel>
+			
+			<s:Panel title="Flex Result" height="100%">
+				<mx:Form>
+					<mx:ModuleLoader id="moduleLoad" />
+				</mx:Form>
+			</s:Panel>
+			
+		</s:HGroup>
+	</s:VGroup>
+	
+	
+</s:Application>

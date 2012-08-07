@@ -1,0 +1,120 @@
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/" testSWF="ADV_externalStyle_TypeSelector_main.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.styleTest.*;
+			
+			public static function init(o:DisplayObject):void 
+			{
+				
+			}
+			
+			
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="ADV_extStyle_type_selector_test_1" description="test with external style setting: Type Selector" keywords="[ADVStyleTestClass, external, Type Selector]">
+            <setup>
+                <ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+                <ChangeState toState="heavy" waitEvent="changeEventDone"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_1_string_noinh" value="typeString"/>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_2_number_noinh" valueExpression="value=111"/>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_3_uint_inh" valueExpression="value=0"/>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x556677"/>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_11_boolean_noinh" valueExpression="value=false"/>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_12_enum_string_inh" value="secondType"/>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_13_enum_int_noinh" valueExpression="value=99"/>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_15_state_string_noinh" value="externalStateString"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ADV_extStyle_pseudo_selector_test_2" description="test with external style setting: pseudo Selector" keywords="[ADVStyleTestClass, external, Type Selector, pseudo selector]">
+            <setup>
+                <ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+                <ChangeState toState="medium" waitEvent="changeEventDone"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_1_string_noinh" value="typeString"/>
+                <AssertStyleValue target="advStyleTest_External_Type" styleName="teststyle_15_state_string_noinh" value="externalStateString"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ADV_extStyle_type_selector_super_class_test_3" description="test with external style setting: child class ADVStyleTestExtendClass that extend test class ADVStyleTestClass with Type Selector" keywords="[ADVStyleTestClass, external, Type Selector]">
+            <setup>
+                <ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+                <ChangeState toState="light" waitEvent="changeEventDone"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_1_string_noinh" value="typeString"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_2_number_noinh" valueExpression="value=111"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_3_uint_inh" valueExpression="value=0"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x556677"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_11_boolean_noinh" valueExpression="value=false"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_12_enum_string_inh" value="secondType"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_13_enum_int_noinh" valueExpression="value=99"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_15_state_string_noinh" value="externalStateString"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ADV_extStyle_type_selector_component_test_4" description="test with external style setting: Type Selector in component" keywords="[ADVStyleTestClass, external, Type Selector, component]">
+            <setup>
+                <ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+                <ChangeState toState="heavy" waitEvent="changeEventDone"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_1_string_noinh" value="typeString"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_2_number_noinh" valueExpression="value=111"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_3_uint_inh" valueExpression="value=0"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x556677"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_11_boolean_noinh" valueExpression="value=false"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_12_enum_string_inh" value="secondType"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_13_enum_int_noinh" valueExpression="value=99"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_15_state_string_noinh" value="externalStateString"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ADV_extStyle_pseudo_selector_component_test_5" description="test component with external style setting: pseudo Selector in component" keywords="[ADVStyleTestClass, external, Type Selector, pseudo selector, component]">
+            <setup>
+                <ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+                <ChangeState toState="medium" waitEvent="changeEventDone"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_1_string_noinh" value="typeString"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_15_state_string_noinh" value="externalStateString"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ADV_extStyle_type_selector_module_loader_test_8" description="test with external style setting: Type Selector in module with moduleLoader" keywords="[ADVStyleTestClass, external, Type Selector, module, moduleLoader]">
+            <setup>
+                <ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+                <ChangeState toState="heavy" waitEvent="changeEventDone"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_1_string_noinh" value="typeString"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_2_number_noinh" valueExpression="value=111"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_3_uint_inh" valueExpression="value=0"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x556677"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_11_boolean_noinh" valueExpression="value=false"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_12_enum_string_inh" value="secondType"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_13_enum_int_noinh" valueExpression="value=99"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_15_state_string_noinh" value="externalStateString"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ADV_extStyle_pseudo_selector_module_loader_test_9" description="test with external style setting: pseudo Selector in module with moduleLoader" keywords="[ADVStyleTestClass, external, Type Selector, pseudo selector, module, moduleLoader]">
+            <setup>
+                <ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+                <ChangeState toState="medium" waitEvent="changeEventDone"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_1_string_noinh" value="typeString"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_15_state_string_noinh" value="externalStateString"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

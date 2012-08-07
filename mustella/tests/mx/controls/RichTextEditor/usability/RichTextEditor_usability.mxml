@@ -1,0 +1,30 @@
+﻿<UnitTester
+    testSWF="../SWFs/RichTextEditor_main.mxml"
+    testDir="mx/controls/RichTextEditor/usability/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    <mx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+        ]]>
+    </mx:Script>
+    <mx:Metadata><![CDATA[[Mixin]]]></mx:Metadata>
+    <testCases>
+
+        <TestCase testID="RichTextEditor_dropDownability" keywords="[RichTextEditor, usability]" description="SDK-20195: Assure that opening a second drop-down doesn't close both.">
+            <setup>
+                <ResetComponent target="rt" className="mx.controls.RichTextEditor" waitEvent="updateComplete" waitTarget="rt" />
+                <DispatchMouseClickEvent localX="150" localY="250" />
+                <Pause timeout="1000"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent localX="205" localY="250"/>
+                <Pause timeout="1000"/>
+                <CompareBitmap target="rt" url="../usability/baseline/$testID.png" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>
+

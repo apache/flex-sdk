@@ -1,0 +1,87 @@
+<UnitTester testDir="mx/styles/AdvancedStyleClient/Styles/" testSWF="ADV_externalStyle_typeSuperCompound_main.mxml" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*">
+    <mx:Script><![CDATA[
+			import assets.styleTest.*;
+			
+			public static function init(o:DisplayObject):void 
+			{
+				
+			}
+			
+			
+		]]></mx:Script>
+    <mx:Metadata><![CDATA[
+		[Mixin]
+		]]></mx:Metadata>
+    <testCases>
+        <TestCase testID="ADV_extStyle_compound_type_super_test_1" description="test style compound/overwrite between type selector and super type selector" keywords="[ADVStyleTestClass, external, compound, super class, type selector]">
+            <setup>
+                <ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_15_state_string_noinh" value="localStringHeavy"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_17_skin_state_noinh" valueExpression="value=assets.styleTest.ADVStyleTestSkin"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_1_string_noinh" value="classString"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_11_boolean_noinh" valueExpression="value=true"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_12_enum_string_inh" value="firstType"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_2_number_noinh" valueExpression="value=undefined"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_3_uint_inh" valueExpression="value=undefined"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x112233"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_13_enum_int_noinh" valueExpression="value=15"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="testextstyle_1_string_noinh" valueExpression="value='childString'"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="testextstyle_2_number_noinh" valueExpression="value=-1"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="testextstyle_3_uint_inh" valueExpression="value=2"/>
+                <AssertStyleValue target="advStyleTest_ExternalChild_Type" styleName="testextstyle_4_boolean_inh" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ADV_extStyle_compound_type_super_component_test_2" description="test style compound/overwrite between type selector and super type selector in component" keywords="[ADVStyleTestClass, external, compound, super class, type selector, component]">
+            <setup>
+                <ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_15_state_string_noinh" value="localStringHeavy"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_17_skin_state_noinh" valueExpression="value=assets.styleTest.ADVStyleTestSkin"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_1_string_noinh" value="classString"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_11_boolean_noinh" valueExpression="value=true"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_12_enum_string_inh" value="firstType"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_2_number_noinh" valueExpression="value=undefined"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_3_uint_inh" valueExpression="value=undefined"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x112233"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_13_enum_int_noinh" valueExpression="value=15"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="testextstyle_1_string_noinh" valueExpression="value='childString'"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="testextstyle_2_number_noinh" valueExpression="value=-1"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="testextstyle_3_uint_inh" valueExpression="value=2"/>
+                <AssertStyleValue target="mycomp.componentADV" styleName="testextstyle_4_boolean_inh" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ADV_extStyle_compound_type_super_module_loader_test_4" description="test style compound/overwrite between type selector and super type selector in module with moduleLoader" keywords="[ADVStyleTestClass, external, compound, super class, type selector, module, moduleLoader]">
+            <setup>
+                <ResetComponent target="label" className="spark.components.Label" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_15_state_string_noinh" value="localStringHeavy"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_17_skin_state_noinh" valueExpression="value=assets.styleTest.ADVStyleTestSkin"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_1_string_noinh" value="classString"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_5_format_length_noinh" valueExpression="value=50"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_6_format_time_noinh" valueExpression="value=12000"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_11_boolean_noinh" valueExpression="value=true"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_12_enum_string_inh" value="firstType"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_2_number_noinh" valueExpression="value=undefined"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_3_uint_inh" valueExpression="value=undefined"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_7_format_color_noinh" valueExpression="value=0x112233"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_13_enum_int_noinh" valueExpression="value=15"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="teststyle_16_skin_noinh" valueExpression="value=ADVStyleTestConstants.defaultCls"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="testextstyle_1_string_noinh" valueExpression="value='childString'"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="testextstyle_2_number_noinh" valueExpression="value=-1"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="testextstyle_3_uint_inh" valueExpression="value=2"/>
+                <AssertStyleValue target="myLoadedModule.child.moduleADV" styleName="testextstyle_4_boolean_inh" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

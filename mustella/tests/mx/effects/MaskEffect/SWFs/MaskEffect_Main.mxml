@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application height="500" width="500"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:trix="Assets.*"
+    xmlns="*"
+    backgroundColor="0xFFFFFF"
+    
+    creationComplete="Init()"
+    layout="absolute">
+
+    <mx:Script>
+        <![CDATA[
+        import mx.controls.Image;
+        import mx.effects.MaskEffect;
+        import mx.events.StateChangeEvent;
+        import mx.effects.effectClasses.MaskEffectInstance;
+        import mx.core.mx_internal;
+        import mx.events.TweenEvent;
+        
+        //Vars
+        public var myMaskEffectInstance:MaskEffectInstance = new MaskEffectInstance(null);
+        public var tweenCounter:int = 0;
+
+        //Init
+        public function Init():void
+        {
+            this.internalEffect.mx_internal::persistAfterEnd = true;
+        }
+        
+        //Methods
+        public function ResetImage():void
+        {
+        }
+        
+        //Various effect resets
+        public function ResetEffectDefault():void
+        {
+            this.testEffect.stop();
+            this.testImage.filters = null;
+			this.testEffect = new MaskEffect();
+            
+            //Extra init
+            this.WireUpExtras();
+        }
+
+        public function ResetEffect():void
+        {
+			this.testEffect = new MaskEffect();
+            
+            this.testEffect.scaleXFrom = 0;
+            this.testEffect.scaleXTo = 1;
+            this.testEffect.scaleYFrom = 0;
+            this.testEffect.scaleYTo = 1;
+
+            //Extra init
+            this.WireUpExtras();
+        }
+        
+        public function ResetEffectScale(scaleXFrom:Number, scaleXTo:Number, scaleYFrom:Number, scaleYTo:Number):void
+        {
+			this.testEffect = new MaskEffect();
+            
+            this.testEffect.scaleXFrom = scaleXFrom;
+            this.testEffect.scaleXTo = scaleXTo;
+            this.testEffect.scaleYFrom = scaleYFrom;
+            this.testEffect.scaleYTo = scaleYTo;
+
+            //Extra init
+            this.WireUpExtras();
+        }
+        
+        public function ResetEffectSize(xFrom:Number, xTo:Number, yFrom:Number, yTo:Number):void
+        {
+			this.testEffect = new MaskEffect();
+            
+            this.testEffect.xFrom = xFrom;
+            this.testEffect.xTo = xTo;
+            this.testEffect.yFrom = yFrom;
+            this.testEffect.yTo = yTo;
+
+            //Extra init
+            this.WireUpExtras();
+        }     
+        
+        public function WireUpExtras():void
+        {
+            //Reset the tween counter and attach the effect end handler
+            this.tweenCounter = 0;
+			this.testEffect.addEventListener(TweenEvent.TWEEN_START, function():void{application.tweenCounter++});
+        
+            //Attach the target
+            this.testEffect.target = this.testImage;
+
+            //Keep the mask at effect end
+            this.testEffect.mx_internal::persistAfterEnd = true;
+        }
+        
+        //Temp functions
+        public function MyScaleEasing():void
+        {
+        }
+        
+        public function MyMoveEasing():void
+        {
+        }
+        
+        public function MyMaskFunction():void
+        {
+        }
+
+        //State change helpers
+        public function doManualReset():void
+        {
+            if(currentState == "stateOne")
+            {
+                dispatchEvent(new Event("manualResetComplete"));
+            }
+            else
+            {
+                addEventListener("currentStateChange", handleCurrentStateChange);
+                currentState = "stateOne";   
+            }
+        }
+
+        private function handleCurrentStateChange(e:StateChangeEvent):void
+        {
+            dispatchEvent(new Event("manualResetComplete"));
+        }
+        
+        ]]>
+    </mx:Script>
+   
+    <mx:states>
+        <mx:State name="stateOne"/>
+        <mx:State name="stateTwo"/>
+    </mx:states>
+
+    <mx:transitions>
+        <mx:Transition fromState="stateOne" toState="stateTwo">
+			<mx:Sequence id="toStateTwo">
+                <mx:MaskEffect id="internalEffect" targets="{[testImage]}" scaleXFrom="0" scaleXTo=".7" scaleYFrom="0" scaleYTo=".7" duration="500"/>
+			</mx:Sequence>
+	    </mx:Transition>
+    </mx:transitions>
+
+    <!-- Simple Effects -->
+    <mx:MaskEffect id="testEffect" />
+
+    <!-- UI Components -->
+    <mx:Image id="testImage" source="Assets/../../../../../../Assets/Images/bluerect.jpg"/>
+
+</mx:Application>
