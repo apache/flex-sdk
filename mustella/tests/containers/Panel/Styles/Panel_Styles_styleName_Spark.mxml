@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Panel/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Panel_Basic_Spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.*
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+ 	]]>
+	</mx:Script>
+
+	<mx:Style>
+	     .customPadding {
+	         paddingTop: 20;
+	     }
+
+	     .customColor {
+	         color: #ff0000;
+	      }
+
+	     .fontClass1 {
+	         fontSize: 14;
+	         textDecoration: "underline";
+	      }
+
+	      .fontClass2 {
+	         fontSize: 18;
+	         color: #00dd66;
+	      }
+
+	</mx:Style>
+
+	<testCases>
+	<!-- 	Styles 	-->
+ 		<TestCase testID="Spark_Panel_Styles_controlBarStyleName" keywords="[controlBarStyleName, Panel]">
+			<setup>
+				<!-- Properties tests bleed into these (depending on where you run things)
+				     so we reset a component that positioned badly. If this case is
+				     excluded, subsequent tests will require this Reset -->
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+				<ResetComponent target="mainPanel2" className="CustomPanel2"  waitEvent="updateComplete" waitTarget="mainPanel2"/>
+ 				</setup>
+			<body>
+			    <SetStyle target="mainPanel2" styleName="controlBarStyleName" value="fontClass2" waitEvent="updateComplete" waitTarget="mainPanel2" />
+			    <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="mainPanel2" url="../Styles/baselines/controlBarStyleName_single_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="Spark_Panel_Styles_controlBarStyleName_multiple" keywords="[controlBarStyleName, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel2" className="CustomPanel2"  waitEvent="updateComplete" waitTarget="mainPanel2"/>
+ 				</setup>
+			<body>
+			    <SetStyle target="mainPanel2" styleName="controlBarStyleName" value="customPadding fontClass2" waitEvent="updateComplete" waitTarget="mainPanel2" />
+			    <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="mainPanel2" url="../Styles/baselines/controlBarStyleName_multiple_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="Spark_Panel_Styles_controlBarStyleName_precedence" keywords="[controlBarStyleName, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel2" className="CustomPanel2"  waitEvent="updateComplete" waitTarget="mainPanel2"/>
+ 				</setup>
+			<body>
+			    <SetStyle target="mainPanel2" styleName="controlBarStyleName" value="customPadding fontClass2 fontClass1" waitEvent="updateComplete" waitTarget="mainPanel2" />
+			    <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="mainPanel2" url="../Styles/baselines/controlBarStyleName_multiple_precedence_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Spark_Panel_Styles_titleStyleName" keywords="[titleStyleName, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel2" className="CustomPanel2"  waitEvent="updateComplete" waitTarget="mainPanel2"/>
+ 				</setup>
+			<body>
+			    <SetStyle target="mainPanel2" styleName="titleStyleName" value="fontClass2" waitEvent="updateComplete" waitTarget="mainPanel2" />
+			    <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="mainPanel2" url="../Styles/baselines/titleStyleName_single_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="Spark_Panel_Styles_titleStyleName_multiple" keywords="[titleStyleName, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel2" className="CustomPanel2"  waitEvent="updateComplete" waitTarget="mainPanel2"/>
+ 				</setup>
+			<body>
+			    <SetStyle target="mainPanel2" styleName="titleStyleName" value="customColor fontClass1" waitEvent="updateComplete" waitTarget="mainPanel2" />
+			    <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="mainPanel2" url="../Styles/baselines/titleStyleName_multiple_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="Spark_Panel_Styles_titleStyleName_precedence" keywords="[titleStyleName, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel2" className="CustomPanel2"  waitEvent="updateComplete" waitTarget="mainPanel2"/>
+ 				</setup>
+			<body>
+			    <SetStyle target="mainPanel2" styleName="titleStyleName" value="customColor fontClass2 fontClass1" waitEvent="updateComplete" waitTarget="mainPanel2" />
+			    <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="mainPanel2" url="../Styles/baselines/titleStyleName_multiple_precedence_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Spark_Panel_Styles_statusStyleName" keywords="[statusStyleName, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel2" className="CustomPanel2"  waitEvent="updateComplete" waitTarget="mainPanel2"/>
+ 				</setup>
+			<body>
+			    <SetStyle target="mainPanel2" styleName="statusStyleName" value="fontClass2" waitEvent="updateComplete" waitTarget="mainPanel2" />
+			    <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="mainPanel2" url="../Styles/baselines/statusStyleName_single_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="Spark_Panel_Styles_statusStyleName_multiple" keywords="[statusStyleName, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel2" className="CustomPanel2"  waitEvent="updateComplete" waitTarget="mainPanel2"/>
+ 				</setup>
+			<body>
+			    <SetStyle target="mainPanel2" styleName="statusStyleName" value="customColor fontClass1" waitEvent="updateComplete" waitTarget="mainPanel2" />
+			    <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="mainPanel2" url="../Styles/baselines/statusStyleName_multiple_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="Spark_Panel_Styles_statusStyleName_precedence" keywords="[statusStyleName, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel2" className="CustomPanel2"  waitEvent="updateComplete" waitTarget="mainPanel2"/>
+ 				</setup>
+			<body>
+			    <SetStyle target="mainPanel2" styleName="statusStyleName" value="customColor fontClass2 fontClass1" waitEvent="updateComplete" waitTarget="mainPanel2" />
+			    <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="mainPanel2" url="../Styles/baselines/statusStyleName_multiple_precedence_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

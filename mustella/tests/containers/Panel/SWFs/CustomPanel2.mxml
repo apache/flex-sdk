@@ -1,0 +1,6 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" title="The Panel" status="Status" >
+	<mx:Button label="Button in main area" />
+	<mx:ControlBar>
+		<mx:Button label="Button in Control Bar" />
+	</mx:ControlBar>
+</mx:Panel>

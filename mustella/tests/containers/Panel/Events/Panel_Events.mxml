@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="containers/Panel/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Panel_Basic.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<mx:Script>
+
+	<![CDATA[
+
+	public static function init(o:DisplayObject):void
+
+	{
+
+	}					
+
+	]]>
+
+	</mx:Script>
+
+	<mx:Metadata>
+
+	<![CDATA[
+
+		[Mixin]
+
+	]]>
+
+	</mx:Metadata>	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	
+
+	<mx:Script>
+
+	<![CDATA[
+
+	
+
+	import mx.containers.Panel;
+
+	import mx.core.IFlexDisplayObject;
+
+	
+
+	]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+
+
+
+		<TestCase testID="Panel_Event_mouseMove" description="Panel Move event." keywords="[event, mouseMove, Panel]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomPanel" className="CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+			    	
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseOver" localX="12" localY="5" />
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseMove" localX="22" localY="5" />
+
+				<AssertEvent target="myCustomPanel" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Panel_Event_mouseUp" description="Panel mouseUp event." keywords="[event, mouseUp, Panel]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomPanel" className="CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel" />
+
+			    	
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseOver" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseDown" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseUp" localX="22" localY="5" />
+
+				<AssertEvent target="myCustomPanel" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="Panel_Event_mouseOver" description="Panel mouseUp event." keywords="[event, mouseOver, Panel]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomPanel" className="CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel" />
+
+			    	
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseOver" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseDown" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseUp" localX="22" localY="5" />
+
+				<AssertEvent target="myCustomPanel" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+
+			</body>
+
+		</TestCase>		
+
+
+
+		<TestCase testID="Panel_Event_showToolTip" description="Panel mouseDown event." keywords="[event, showToolTip, Panel]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomPanel" className="CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel" />
+
+			    	<SetProperty target="myCustomPanel.myPanel" propertyName="toolTip" value="I am a Panel" />
+
+			    	<WaitForEffectsToEnd />
+
+			</setup>
+
+			<body>
+
+				
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseOver" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseMove" localX="22" localY="5" />
+
+				<AssertEvent target="myCustomPanel.myPanel" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" timeout="15000" />
+
+				<WaitForEffectsToEnd />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Panel_Event_mouseDown" description="Panel mouseDown event." keywords="[event, mouseUp, Panel]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomPanel" className="CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel" />
+
+			    	
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseDown" localX="22" localY="5" />
+
+				<AssertEvent target="myCustomPanel" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+
+			</body>
+
+		</TestCase>	
+
+		
+
+		<TestCase testID="Panel_Event_hideToolTip" description="Panel mouseDown event." keywords="[event, hideToolTip, Panel]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomPanel" className="CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel" />
+
+			    	<SetProperty target="myCustomPanel.myPanel" propertyName="toolTip" value="I am a Panel" />
+
+			    	<WaitForEffectsToEnd />
+
+			</setup>
+
+			<body>
+
+				
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseOver" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomPanel" type="mouseMove" localX="22" localY="5"/>
+
+				<AssertEvent target="myCustomPanel.myPanel" eventName="toolTipHide" eventClass="mx.events::ToolTipEvent" timeout="15000" />
+
+				<WaitForEffectsToEnd />
+
+			</body>
+
+		</TestCase> 
+
+
+
+					
+
+	</testCases>
+
+</UnitTester>
+

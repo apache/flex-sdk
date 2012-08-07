@@ -1,0 +1,13 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Form id="myForm" borderStyle="solid" mouseUp="{ti.text='Kishan'}" >
+	  <mx:FormItem id="formitem1">
+	  <mx:Button id="myButton1"/>
+	  <mx:Text text="text"/>
+	  </mx:FormItem>
+	  <mx:FormItem>
+	    <mx:Button />
+	    <mx:Text text="text"/>
+	  </mx:FormItem>
+     </mx:Form> 
+     <mx:TextInput id="ti"/>
+</mx:VBox>

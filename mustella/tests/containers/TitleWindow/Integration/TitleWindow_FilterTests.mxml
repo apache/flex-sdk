@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/TitleWindow/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TitleWindow_Filters.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.TitleWindow;
+
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+		<TestCase testID="TitleWindow_DropShadowFilter"  description="TitleWindow with a DropShadow filter." keywords="[DropShadowFilter, TitleWindow]" >
+			<body>
+				<AssertPixelValue x="294" y="45" target="" value="0xF39696" />
+				<AssertPixelValue x="24" y="149" target="TitleWindow1" value="0xFFFFFF" />
+			</body>
+		</TestCase>
+		<TestCase testID="BevelFilter"  description="TitleWindow with a BevelFilter." keywords="[BevelFilter, TitleWindow]" >
+			<body>
+				<AssertPixelValue x="25" y="90" target="TitleWindow2" value="0xFF9E9E" />
+				<AssertPixelValue x="186" y="17" target="TitleWindow2" value="0xF7D4D4" />
+			</body>
+		</TestCase>
+		<TestCase testID="TitleWindow_BlurFilter"  description="TitleWindow with a BlurFilter." keywords="[BlurFilter, TitleWindow]" >
+			<body>
+				<CompareBitmap url="../Integration/baselines/TitleWindow_blurFilter.png" target="TitleWindow3" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="TitleWindow_ColorMatrixFilter"  description="TitleWindow with a ColorMatrixFilter." keywords="[ColorMatrixFilter, TitleWindow]" >
+			<body>
+				<AssertPixelValue x="134" y="45" target="TitleWindow4" value="0x00FF00" />
+				<AssertPixelValue x="182" y="147" target="TitleWindow4" value="0x99F399" />
+			</body>
+		</TestCase>
+		<TestCase testID="TitleWindow_ConvolutionFilter"  description="TitleWindow with a ConvolutionFilter." keywords="[ConvolutionFilter, TitleWindow]" >
+			<body>
+				<AssertPixelValue x="139" y="0" target="TitleWindow5" value="0x6C6C6C" />
+				<AssertPixelValue x="147" y="50" target="TitleWindow5" value="0x000000" />
+			</body>
+		</TestCase>
+		<TestCase testID="TitleWindow_GlowFilter"  description="TitleWindow with a GlowFilter." keywords="[GlowFilter, TitleWindow]" >
+			<body>
+				<AssertPixelValue x="29" y="16" target="TitleWindow7" value="0x79F379" />
+				<AssertPixelValue x="85" y="95" target="TitleWindow7" value="0x5AD25A" />
+			</body>
+		</TestCase>
+		<TestCase testID="TitleWindow_GradientBevelFilter"  description="TitleWindow with a GradientBevelFilter." keywords="[GradientBevelFilter, TitleWindow]" >
+			<body>
+				<CompareBitmap url="../Integration/baselines/TitleWindow_gradientBevelFilter.png" target="TitleWindow8" timeout="2000" />
+			</body>
+		</TestCase>
+		<TestCase testID="TitleWindow_GradientGlowFilter"  description="TitleWindow with a GradientGlowFilter." keywords="[GradientGlowFilter, TitleWindow]" >
+			<body>
+				<AssertPixelValue x="144" y="116" target="TitleWindow9" value="0xFFFF00" />
+				<AssertPixelValue x="184" y="25" target="TitleWindow9" value="0xD50067" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

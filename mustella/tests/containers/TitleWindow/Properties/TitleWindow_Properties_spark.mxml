@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/TitleWindow/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TitleWindow_Basic_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.managers.SystemManager;
+    import mx.events.CloseEvent;
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+        <!-- showCloseButton -->
+        <TestCase testID="Spark_showCloseButton_mxml" description="TitleWindow showCloseButton=true" keywords="[TitleWindow, MenuBar]">
+            <body>
+                <DispatchMouseEvent type="mouseOver" target="tw2.mx_internal:closeButton" localX="5" localY="5" />
+                <DispatchMouseEvent type="mouseDown" target="tw2.mx_internal:closeButton" localX="5" localY="5" />
+                <DispatchMouseEvent type="mouseUp" target="tw2.mx_internal:closeButton" localX="5" localY="5" />
+                <DispatchMouseEvent type="click" target="tw2.mx_internal:closeButton" localX="5" localY="5" waitEvent="close" waitTarget="tw2" />
+                <AssertEvent eventName="close" eventClass="mx.events::CloseEvent" target="tw2" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_showCloseButton_trueAS" description="TitleWindow showCloseButton=true" keywords="[TitleWindow, MenuBar]">
+            <setup>
+                <ResetComponent target="tw" className="mx.containers.TitleWindow" waitEvent="updateComplete" waitTarget="tw" />
+                <SetProperty propertyName="title" value="My Title" target="tw" />
+                <SetProperty propertyName="showCloseButton" value="true" target="tw" waitEvent="updateComplete" waitTarget="tw"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseOver" target="tw.mx_internal:closeButton" localX="5" localY="5" />
+                <DispatchMouseEvent type="mouseDown" target="tw.mx_internal:closeButton" localX="5" localY="5" />
+                <DispatchMouseEvent type="mouseUp" target="tw.mx_internal:closeButton" localX="5" localY="5" />
+                <DispatchMouseEvent type="click" target="tw.mx_internal:closeButton" localX="5" localY="5" waitEvent="close" waitTarget="tw" />
+                <AssertEvent eventName="close" eventClass="mx.events::CloseEvent" target="tw" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

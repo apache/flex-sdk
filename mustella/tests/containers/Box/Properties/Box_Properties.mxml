@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Box/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Box_Basic.mxml">
+
+	<!-- this set of lines Box a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Style>
+
+	    .myStyle{
+		color: #FF0000
+	    }
+	    .myStyle2{
+		color: #0000FF
+	    }
+
+
+
+	</mx:Style>
+	
+	
+	<mx:Script>
+	<![CDATA[	
+	import mx.containers.Box;
+	import mx.core.IFlexDisplayObject;
+		
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+		<TestCase testID="Box_Property_direction_horizontal" keywords="[direction, Box, horizontal]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox"  waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetProperty target="myCustomBox.myBox" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomBox.myBox" propertyName="direction" value="horizontal"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="myCustomBox.myBox" url="../Properties/baselines/direction_horizontal.png" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="Box_Property_direction_vertical" keywords="[direction, Box, vertical]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox"  waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetProperty target="myCustomBox.myBox" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCustomBox.myBox" propertyName="direction" value="vertical"/>
+				<WaitForEffectsToEnd />
+				<CompareBitmap target="myCustomBox.myBox" url="../Properties/baselines/direction_vertical.png" timeout="5000" />
+			</body>
+		</TestCase>		
+	</testCases>
+</UnitTester>

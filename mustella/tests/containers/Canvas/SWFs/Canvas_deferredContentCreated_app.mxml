@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  height="375" width="500" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" >
+
+	<mx:Script>
+	<![CDATA[
+
+	]]>
+	</mx:Script>
+
+	<!-- No bitmap compares occcur, so no font is embedded. -->
+
+	<mx:Accordion id="acc1" creationPolicy="auto" >
+		<mx:Canvas id="canvas1" creationPolicy="auto" >
+			<mx:Button />
+		</mx:Canvas>
+		<mx:Canvas id="canvas2" creationPolicy="auto" >
+			<mx:Button />
+		</mx:Canvas>
+	</mx:Accordion>
+
+	<mx:Accordion id="acc2" creationPolicy="auto" width="300" height="300" >
+		<mx:Canvas width="100%" height="100%">
+			<mx:Button />
+		</mx:Canvas>
+		<mx:Canvas id="canvas3" width="100%" height="100%">
+   			<mx:Button />
+	    </mx:Canvas>
+	</mx:Accordion>
+
+</mx:Application>

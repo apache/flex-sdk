@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/ApplicationControlBar/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ApplicationControlBar_Basic.mxml">
+
+    <!-- this set of lines ApplicationControlBar a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <mx:Style>
+
+        .myStyle{
+        color: #FF0000
+        }
+        .myStyle2{
+        color: #0000FF
+        }
+
+    </mx:Style>
+    <mx:Script>
+    <![CDATA[   
+    import mx.containers.ApplicationControlBar;
+    import mx.core.IFlexDisplayObject;
+
+    public function setSize():void  //For Validating Dock property
+    {
+        application.width=600;
+        application.height=600;
+    }
+        
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <TestCase testID="ApplicationControlBar_Inherited_Property_autoLayout1" keywords="[autoLayout, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="autoLayout" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_autoLayout2"  keywords="[autoLayout, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetProperty target="myCustomACB.myACB" propertyName="autoLayout" value="true" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+        <body>
+            <AssertPropertyValue target="myCustomACB.myACB" propertyName="autoLayout" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_autoLayout3" keywords="[autoLayout, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetProperty target="myCustomACB.myACB" propertyName="autoLayout" value="false" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="autoLayout" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_clipContent1" keywords="[clipContent, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="clipContent" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_clipContent2" keywords="[clipContent, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="clipContent" value="false" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="clipContent" value="false"/>
+            </body>
+        </TestCase>     
+        <TestCase testID="ApplicationControlBar_Inherited_Property_clipContent3" keywords="[clipContent, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="clipContent" value="true" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="clipContent" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_creationPolicy1" keywords="[creationPolicy, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="creationPolicy" valueExpression="value='auto'"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_creationPolicy2" keywords="[creationPolicy, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="creationPolicy" value="all"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="creationPolicy" value="all"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_creationPolicy3" keywords="[creationPolicy, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="creationPolicy" value="none" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="creationPolicy" value="none"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_defaultButton1" keywords="[defaultButton, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="defaultButton" valueExpression="value=null"/>
+            </body>
+        </TestCase>  
+        <TestCase testID="ApplicationControlBar_Inherited_Property_height1" keywords="[height, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="height" value="35"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_height2" keywords="[height, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="height" value="100" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="height" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_height3" keywords="[height, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="height" value="100.5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="height" value="100.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_horizontalLineScrollSize1" keywords="[Scroll, size, Line, Horizontal, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="horizontalLineScrollSize" value="5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_horizontalLineScrollSize2" keywords="[Scroll, Size, Line, Horizontal, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="horizontalLineScrollSize" value="10" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="horizontalLineScrollSize" value="10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_horizontalLineScrollSize3" keywords="[Scroll, size, Line, Horizontal, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="horizontalLineScrollSize" value="-10" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="horizontalLineScrollSize" value="-10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_horizontalPageScrollSize1" keywords="[Scroll, Size, Page, Horizontal, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="horizontalPageScrollSize" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_horizontalPageScrollSize2" keywords="[Scroll, Size, Page, Horizontal, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="horizontalPageScrollSize" value="10" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="horizontalPageScrollSize" value="10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_horizontalPageScrollSize3" keywords="[Scroll, Size, Page, Horizontal, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="horizontalPageScrollSize" value="-10" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="horizontalPageScrollSize" value="-10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_horizontalScrollPosition1" keywords="[Scroll, Position, Horizontal, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="horizontalScrollPosition" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_horizontalScrollPosition2" keywords="[Scroll, Position, Horizontal, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="horizontalScrollPosition" value="10"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="horizontalScrollPosition" value="10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_horizontalScrollPosition3" keywords="[Scroll, Position, Horizontal, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="horizontalScrollPosition" value="0"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="horizontalScrollPosition" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_includeInLayout1" keywords="[includeInLayout, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="includeInLayout" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_includeInLayout2" keywords="[includeInLayout, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="includeInLayout" value="true" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="includeInLayout" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_includeInLayout3" keywords="[includeInLayout, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="includeInLayout" value="false"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="includeInLayout" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_label1" keywords="[label, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="label" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_label2" keywords="[label, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="label" value="ApplicationControlBar Label" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="label" value="ApplicationControlBar Label"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_maxHeight1" keywords="[maxHeight, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="maxHeight" value="10000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_maxHeight2" keywords="[maxHeight, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="maxHeight" value="100" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="maxHeight" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_maxHeight3" keywords="[maxHeight, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="maxHeight" value="126.5" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="maxHeight" value="126.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_maxHorizontalScrollPosition1" keywords="[maxHorizontalScrollPosition, horizontal, scroll, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="maxHorizontalScrollPosition" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_maxVerticalScrollPosition1" keywords="[maxVerticalScrollPosition, horizontal, scroll, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="maxVerticalScrollPosition" value="0"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ApplicationControlBar_Inherited_Property_maxWidth1" keywords="[maxWidth, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="maxWidth" value="10000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_maxWidth2" keywords="[maxWidth, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="maxWidth" value="100" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="maxWidth" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_maxWidth3"  keywords="[maxWidth, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="maxWidth" value="126.5" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="maxWidth" value="126.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_minHeight1" keywords="[maxHeight, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="minHeight" value="35"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_minHeight2" keywords="[maxHeight, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="minHeight" value="100" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="minHeight" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_minHeight3" keywords="[minHeight, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="minHeight" value="126.5" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="minHeight" value="126.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_minWidth1" keywords="[minWidth, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="minWidth" value="1429"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_minWidth2" keywords="[minWidth, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="minWidth" value="100" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="minWidth" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_minWidth3" keywords="[minWidth, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="minWidth" value="126.5" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="minWidth" value="126.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_numChildren1" keywords="[numChildren, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="numChildren" value="12"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="ApplicationControlBar_Inherited_Property_percentHeight1" keywords="[percentHeight, unset, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="percentHeight" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_percentHeight2" keywords="[percentHeight, whole, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="percentHeight" value="80" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="percentHeight" value="80"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_percentHeight3" keywords="[percentHeight, decimal,  ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="percentHeight" value="50.5" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="percentHeight" value="50.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_percentWidth1" keywords="[percentWidth, unset, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="percentWidth" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_percentWidth2" keywords="[percentWidth, whole, ApplicationControlBar]" >
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="percentWidth" value="80" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="percentWidth" value="80"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_percentWidth3" keywords="[percentWidth, decimal, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="percentWidth" value="50.5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="percentWidth" value="50.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_scaleX1" keywords="[scaleX, unset, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="scaleX" value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_scaleX2" keywords="[scaleX, zero, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="scaleX" value="0" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="scaleX" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_scaleX3" keywords="[scaleX, 2, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="scaleX" value="2" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="scaleX" value="2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_scaleY1" keywords="[scaleY, unset, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="scaleY" value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_scaleY2" keywords="[scaleY, zero, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="scaleY" value="0" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="scaleY" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_scaleY3" keywords="[scaleY, 2, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="scaleY" value="2" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="scaleY" value="2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_styleName1" keywords="[styleName, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="styleName" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_styleName2" keywords="[styleName, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="styleName" value="myStyle" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="styleName" value="myStyle"/>
+            </body>
+        </TestCase>
+         <TestCase testID="ApplicationControlBar_Inherited_Property_toolTip1" keywords="[toolTip, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="myCustomACB.myACB" type="mouseOver" localX="10" localY="10"/>
+                <AssertNoEvent target="myCustomACB.myACB" eventName="toolTipShow"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_visible1" keywords="[visible, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="visible" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_visible2" keywords="[visible, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="visible" value="true"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="visible" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_visible3" keywords="[visible, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="visible" value="false"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="visible" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_verticalLineScrollSize1" keywords="[vertical, Line, Scroll, Size, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="verticalLineScrollSize" value="5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_verticalLineScrollSize2" keywords="[vertical, Line, Scroll, Size, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="verticalLineScrollSize" value="20" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="verticalLineScrollSize" value="20"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_verticalScrollPosition1" keywords="[vertical, Scroll, Position, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="verticalScrollPosition" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_width1" keywords="[width, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="width" value="1429"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_width2" keywords="[width, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="width" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_width3" keywords="[width, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="width" value="126.5" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="width" value="126"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_x1" keywords="[x, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="x" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_x2" keywords="[x, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="x" value="100" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="x" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_x3" keywords="[x, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="x" value="-5.6" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="x" value="-5.6000000000000005"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_y1" keywords="[y, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="y" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_y2" keywords="[y, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="y" value="100" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="y" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ApplicationControlBar_Inherited_Property_y3" keywords="[y, ApplicationControlBar]">
+            <setup>
+                <ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+                <SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetStyle target="myCustomACB.myACB" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+                <SetProperty target="myCustomACB.myACB" propertyName="y" value="-5.6" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomACB.myACB" propertyName="y" value="-5.6000000000000005"/>
+            </body>
+        </TestCase>  
+                
+    </testCases>
+</UnitTester>

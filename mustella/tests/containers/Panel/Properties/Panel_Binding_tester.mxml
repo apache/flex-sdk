@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Panel/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Panel_Binding.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+    
+			     			
+			[Bindable]
+			public var theTitleIconClosed:Class;
+			
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+<testCases>
+	 <TestCase testID="Panel_Binding_layout" description="Test Panel layout property for binding" keywords="[Panel, Layout, Binding]">
+		<body>
+		    <SetProperty propertyName="layout" value="horizontal" target="panel2" />
+		    <AssertPropertyValue propertyName="layout" value="horizontal" target="panel1"/>
+	    </body>
+	  </TestCase>
+	 <TestCase testID="Panel_Binding_status" description="Test Panel status property for binding" keywords="[Panel, status, Binding]">
+		<body>
+		    <SetProperty propertyName="status" value="I'm the status, dude" target="panel2" />
+		    <AssertPropertyValue propertyName="status" value="I'm the status, dude" target="panel1"/>
+	    </body>
+	  </TestCase>
+	 <TestCase testID="Panel_Binding_title" description="Test Panel title property for binding" keywords="[Panel, title, Binding]">
+		<body>
+		    <SetProperty propertyName="title" value="I'm the Title, really" target="panel2" />
+		    <AssertPropertyValue propertyName="title" value="I'm the Title, really" target="panel1"/>
+	    </body>
+	  </TestCase>
+	  <TestCase testID="Panel_Binding_titleIcon" description="Test Panel titleIcon property for binding" keywords="[Panel, titleIcon, Binding]">
+		<body>
+		    <SetProperty propertyName="titleIcon" value="{theTitleIconClosed}" target="panel2" />
+		    <AssertPropertyValue propertyName="titleIcon" value="{theTitleIconClosed}" target="panel1"/>
+	    </body>
+	  </TestCase>
+</testCases>
+
+
+
+</UnitTester>

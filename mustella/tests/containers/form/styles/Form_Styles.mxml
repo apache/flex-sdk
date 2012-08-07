@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/form/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Form_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.* 
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+    
+ 	 
+ 	]]>
+	</mx:Script>
+	<testCases>
+	<!-- 	styles 	-->
+ 				<TestCase testID="Form_styles_backgroundAlpha" keywords="[backgroundAlpha, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+ 				<SetStyle target="myCustomForm.myForm" styleName="backgroundAlpha" value="0.5" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="backgroundAlpha" value="0.5" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/backgroundAlpha.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+		
+		<TestCase testID="Form_styles_backgroundcolor" keywords="[backgroundColor, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+ 				<SetStyle target="myCustomForm.myForm" styleName="backgroundColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="backgroundColor" value="0xFF0000" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/backgroundColor.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+
+		<TestCase testID="Form_styles_backgroundImage" keywords="[backgroundImage, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+ 				<SetStyle target="myCustomForm.myForm" styleName="backgroundImage" value="hotelview2.jpg" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="backgroundImage" value="hotelview2.jpg" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/backgroundImage.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Form_styles_borderColor" keywords="[borderColor, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+ 				<SetStyle target="myCustomForm.myForm" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="borderColor" value="0xFF0000" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/borderColor.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Form_styles_indicatorGap1" keywords="[indicatorGap, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+				<SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid"  />
+ 				<SetStyle target="myCustomForm.myForm" styleName="indicatorGap" value="300" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="indicatorGap" value="300" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/indicatorGap_1.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+		<TestCase testID="Form_styles_indicatorGap2" keywords="[indicatorGap, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+				<SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid"  />
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="indicatorGap" value="14" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/indicatorGap_2.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+		<TestCase testID="Form_styles_indicatorGap3" keywords="[indicatorGap, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+				<SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid"  />
+ 				<SetStyle target="myCustomForm.myForm" styleName="indicatorGap" value="0" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />				
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="indicatorGap" value="0" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/indicatorGap_3.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Form_styles_borderThickness" keywords="[borderThickness, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+				<SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid"  />
+ 				<SetStyle target="myCustomForm.myForm" styleName="borderThickness" value="4"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="borderThickness" value="4" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/borderThickness.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Form_styles_color" keywords="[color, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+  				<SetStyle target="myCustomForm.myForm" styleName="color"  value="0x0000ff"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="color"  value="0x0000ff" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/color.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+ 
+		<TestCase testID="Form_styles_cornerRadius" keywords="[cornerRadius, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+  				<SetStyle target="myCustomForm.myForm" styleName="cornerRadius"  value="6"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="cornerRadius"  value="6" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/cornerRadius.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Form_styles_disabledColor" keywords="[disabledColor, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+				<SetProperty target="myCustomForm.myForm" propertyName="enabled" value="false" />
+  				<SetStyle target="myCustomForm.myForm" styleName="disabledColor"  value="0x00ff00"   />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="disabledColor" value="0x00ff00"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/disabledColor.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Form_styles_fontfamily" keywords="[fontFamily, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+   				<SetStyle target="myCustomForm.myForm" styleName="fontFamily"  value="EmbeddedGeorgia"   />
+   				<SetStyle target="myCustomForm.myForm" styleName="fontSize" value="30" waitTarget="myCustomForm" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="fontFamily" value="EmbeddedGeorgia"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/fontFamily.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Form_styles_fontsize" keywords="[fontSize, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+   				<SetStyle target="myCustomForm.myForm" styleName="fontSize"  value="14"   />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="fontSize" value="14"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/fonrSize.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+			<TestCase testID="Form_styles_fontweight" keywords="[fontWeight, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+   				<SetStyle target="myCustomForm.myForm" styleName="fontWeight"  value="bold"   />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="fontWeight" value="bold"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/fontWeight.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+			<TestCase testID="Form_styles_horizontalGap" keywords="[horizontalGap, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+   				<SetStyle target="myCustomForm.myForm" styleName="horizontalGap"  value="20"   />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="horizontalGap" value="20"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/horizontalGap.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+
+			<TestCase testID="Form_styles_paddingBottom" keywords="[paddingBottom, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+   				<SetStyle target="myCustomForm.myForm" styleName="paddingBottom"  value="20"   />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="paddingBottom" value="20"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/paddingBottom.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Form_styles_paddingLeft" keywords="[paddingLeft, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+   				<SetStyle target="myCustomForm.myForm" styleName="paddingLeft"  value="20"   />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="paddingLeft" value="20"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/paddingLeft.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+	
+		<TestCase testID="Form_styles_paddingRight" keywords="[paddingRight, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+   				<SetStyle target="myCustomForm.myForm" styleName="paddingRight"  value="20"   />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="paddingRight" value="20"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/paddingRight.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+	
+		<TestCase testID="Form_styles_paddingTop" keywords="[paddingTop, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+   				<SetStyle target="myCustomForm.myForm" styleName="paddingTop"  value="20"   />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="paddingTop" value="20"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/paddingTop.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Form_styles_labelWidth" keywords="[labelWidth , Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+   				<SetProperty target="myCustomForm.myForm" propertyName="label" value="Form Style Testing" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="labelWidth" valueExpression="value=null"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/labelWidth.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+		<TestCase testID="Form_styles_verticalGap" keywords="[verticalGap, Form]">
+			<setup>
+				<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomForm.myForm" styleName="verticalGap" value="6"/>
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomForm.myForm" url="../styles/baselines/verticalGap.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

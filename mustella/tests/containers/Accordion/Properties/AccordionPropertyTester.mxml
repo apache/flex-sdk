@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Accordion/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AccordionMain.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script>
+		<![CDATA[
+		import mx.containers.*;
+		import mx.controls.Button;
+		import mx.styles.StyleManager;
+		import mx.managers.SystemManager;
+		import mx.core.IFactory;
+		
+		public var styleDecl:Object;
+		public var styleObj:Object;
+		
+		public function addContainer():void
+		{
+			var btn2:Button = new Button();
+			btn2.label="button 2";
+			var box2:VBox = new VBox();
+			box2.label="View 2"; 
+			box2.width=box2.height=300;
+			box2.addChild(btn2);
+			application.mybox.myAcc.addChild(box2);
+		}
+		
+		public function setHeaderRenderer():void{
+			application.mybox.myAcc.headerRenderer = new ClassFactory(MyHeaderRenderer);
+		}
+		
+
+		]]>
+	</mx:Script>
+	
+	
+	<testCases>
+		<TestCase testID="Accordion_properties_selectedIndex_default" description="selectedIndex set in default" keywords="[selectedIndex, properties, Accordion, default]">
+			  <setup>
+				  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+			   </setup>
+			<body>
+				<AssertPropertyValue target="mybox.myAcc" propertyName ="selectedIndex" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Accordion_properties_selectedIndex_AS" description="selectedIndex set in AS" keywords="[selectedIndex, properties, Accordion, AS]">
+			  <setup>
+				  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+				 <SetProperty target="mybox.myAcc" propertyName="selectedIndex" value= "1" waitEvent="updateComplete" waitTarget="mybox.myAcc"/>
+			   </setup>
+			<body>
+				<AssertPropertyValue target="mybox.myAcc" propertyName ="selectedIndex" value="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Accordion_properties_selectedIndex_keyboard" keywords="[Accordion, properties, selectedIndex, keyboard]">
+		     <setup>
+			   <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+		     </setup>
+		    <body>
+			 <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.myAcc"/>
+			 <DispatchKeyEvent key="DOWN" ctrlKey="true" />
+			 <DispatchKeyEvent key="ENTER" ctrlKey="true" waitEvent="change" waitTarget="mybox.myAcc"/>
+			 <AssertPropertyValue target="mybox.myAcc" propertyName ="selectedIndex" value="1"/>
+		     </body>
+ 	     </TestCase>
+ 	     
+ 	     <TestCase testID="Accordion_properties_selectedIndex_mouse" keywords="[Accordion, properties, selectedIndex, mouse]">
+	     	      <setup>
+	     		  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>			  			       
+	     	     </setup>
+	     	    <body>
+	     		<DispatchMouseClickEvent target="mybox.myAcc" stageX="250" stageY="333" waitEvent="change" waitTarget="mybox.myAcc"/>
+	     		<AssertPropertyValue target="mybox.myAcc" propertyName ="selectedIndex" value="1" />
+	     	     </body>
+	     </TestCase>
+	     
+	    <TestCase testID="Accordion_properties_selectedChild_default" keywords="[Accordion, properties, selectedChild, default]">
+	     <setup>
+	 	 <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>			  			       
+	    </setup>
+	     <body>
+	      <AssertPropertyValue target="mybox.myAcc" propertyName ="selectedChild" valueExpression="value=application.mybox.myAcc.getChildAt(0)" />
+	     </body>
+	     </TestCase>
+	     
+	     <TestCase testID="Accordion_properties_selectedChild_AS" description="seletedChild set in AS" keywords="[seletedChild, properties, Accordion, AS]">
+	     <setup>
+		  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+		 <SetProperty target="mybox.myAcc" propertyName="selectedIndex" value= "1" waitEvent="updateComplete" waitTarget="mybox.myAcc"/>
+	      </setup>
+	    <body>
+		<AssertPropertyValue target="mybox.myAcc" propertyName ="selectedChild" valueExpression="value=application.mybox.myAcc.getChildAt(1)"/>
+	    </body>
+	  </TestCase>
+	  
+	<TestCase testID="Accordion_properties_selectedChild_keyboard" keywords="[Accordion, properties, seletedChild, keyboard]">
+	     <setup>
+		   <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+	     </setup>
+	    <body>
+		 <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.myAcc"/>
+		 <DispatchKeyEvent key="DOWN" />
+		 <DispatchKeyEvent key="ENTER"  waitEvent="change" waitTarget="mybox.myAcc"/>
+		 <AssertPropertyValue target="mybox.myAcc" propertyName ="selectedChild" valueExpression="value=application.mybox.myAcc.getChildAt(1)"/>
+	     </body>
+    	 </TestCase>
+    	 
+	     <TestCase testID="Accordion_properties_selectedChild_mouse" keywords="[Accordion, properties, seletedChild, mouse]">
+	      <setup>
+		  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>			  			       
+	     </setup>
+	    <body>
+		<DispatchMouseClickEvent target="mybox.myAcc" stageX="250" stageY="333" waitEvent="change" waitTarget="mybox.myAcc"/>
+		<AssertPropertyValue target="mybox.myAcc" propertyName ="selectedChild" valueExpression="value=application.mybox.myAcc.getChildAt(1)"/>
+	     </body>
+	     </TestCase>
+	     
+	      <TestCase testID="Accordion_properties_resizeToContent_default" keywords="[Accordion, properties, resizeToContent, default]">
+	      <setup>
+		  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>			  			       
+	     </setup>
+	    <body>
+		<AssertPropertyValue target="mybox.myAcc" propertyName ="resizeToContent" value="false"/>
+	     </body>
+	     </TestCase>
+	     
+	     <TestCase testID="Accordion_properties_resizeToContent_false" keywords="[Accordion, properties, resizeToContent, false]">
+	      <setup>
+		  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		   <SetProperty target="mybox.myAcc" propertyName="resizeToContent" value= "false"/>
+		   <AssertPropertyValue target="mybox.myAcc" propertyName ="width" value="162"/>
+		   <AssertPropertyValue target="mybox.myAcc" propertyName ="resizeToContent" value="false"/>
+	     </setup>
+	    <body>
+		<RunCode code="addContainer()" waitEvent="updateComplete" waitTarget="mybox.myAcc"/>
+		<SetProperty target="mybox.myAcc" propertyName="selectedIndex" value= "2" waitEvent="updateComplete" waitTarget="mybox.myAcc"/>
+		 <AssertPropertyValue target="mybox.myAcc" propertyName ="width" value="162"/>
+	     </body>
+	     </TestCase>
+	     
+	     <TestCase testID="Accordion_properties_resizeToContent_true" keywords="[Accordion, properties, resizeToContent, true]">
+	     	      <setup>
+	     		  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     		   <SetProperty target="mybox.myAcc" propertyName="resizeToContent" value= "true"/>
+	     		   <AssertPropertyValue target="mybox.myAcc" propertyName ="width" value="162"/>
+	     		   <AssertPropertyValue target="mybox.myAcc" propertyName ="height" value="98"/>
+	     		   <AssertPropertyValue target="mybox.myAcc" propertyName ="resizeToContent" value="true"/>
+	     	     </setup>
+	     	    <body>
+	     		<RunCode code="addContainer()" waitEvent="updateComplete" waitTarget="mybox.myAcc" />
+	     		 <SetProperty target="mybox.myAcc" propertyName="selectedIndex" value= "2" waitEvent="updateComplete" waitTarget="mybox"/>
+	     		 <AssertPropertyValue target="mybox.myAcc" propertyName ="width" value="302"/>
+	     		  <AssertPropertyValue target="mybox.myAcc" propertyName ="height" value="366"/>
+	     	     </body>
+	     </TestCase>
+
+             <TestCase testID="Accordion_properties_historyManagementEnabled" keywords="[Accordion, properties, historyManagementEnabled, default]">
+	     	     <setup>
+	     		   <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>
+	     	     </setup>
+	             <body>
+	     		   <AssertPropertyValue target="mybox.myAcc" propertyName ="historyManagementEnabled" value="true"/>
+	     	     </body>
+	     </TestCase>		     
+	</testCases>
+</UnitTester>

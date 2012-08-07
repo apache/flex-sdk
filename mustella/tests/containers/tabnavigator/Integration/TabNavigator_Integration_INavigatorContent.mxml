@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester 
+
+    testDir="containers/tabnavigator/Integration/"
+
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+
+    xmlns="*" 
+
+    testSWF="TabNavigator_Integration.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<mx:Script>
+
+	<![CDATA[
+
+	public static function init(o:DisplayObject):void
+
+	{
+
+	}
+
+	]]>
+
+	</mx:Script>
+
+	<mx:Metadata>
+
+	<![CDATA[
+
+		[Mixin]
+
+	]]>
+
+	</mx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+	<![CDATA[
+
+
+
+        import comps.*;
+
+        import mx.core.*;           // Includes INavigatorContent, Container, FlexGlobals.
+		
+        import mx.containers.*;     // Includes Panel, Accordion, etc...
+
+		import spark.components.NavigatorContent;
+		
+        import mx.containers.FormItem;
+
+        import mx.containers.Form;
+
+        public var theNC:NavigatorContent;
+
+	]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test1" keywords="[TabNavigator,INavigatorContent]" description="Check value returned by selectedChild when it is an Accordion." >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(0)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is INavigatorContent" value="true" />
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is Accordion" value="true" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test2" keywords="[TabNavigator,INavigatorContent]" description="Set selectedChild to an Accordion." >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(9)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <SetProperty target="tn1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.tn1.acc1" />
+
+        <AssertPropertyValue target="tn1.selectedChild" propertyName="label" value="Accordion One" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test3" keywords="[TabNavigator,INavigatorContent]" description="Check value returned by selectedChild when it is a NavigatorContent" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(1)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is INavigatorContent" value="true" />
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is NavigatorContent" value="true" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test4" keywords="[TabNavigator,INavigatorContent]" description="Set selectedChild to a NavigatorContent" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(1)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <SetProperty target="tn1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.tn1.nc4" />
+
+        <AssertPropertyValue target="tn1.selectedChild" propertyName="label" value="NavigatorContent Four" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test5" keywords="[TabNavigator,INavigatorContent]" description="Check value returned by selectedChild when it is a Box" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(2)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is INavigatorContent" value="true" />
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is Box" value="true" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test6" keywords="[TabNavigator,INavigatorContent]" description="Set selectedChild to a Box" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(2)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <SetProperty target="tn1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.tn1.box1" />
+
+        <AssertPropertyValue target="tn1.selectedChild" propertyName="label" value="Box One" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test7" keywords="[TabNavigator,INavigatorContent]" description="Check value returned by selectedChild when it is a Canvas" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(3)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is INavigatorContent" value="true" />
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is Canvas" value="true" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test8" keywords="[TabNavigator,INavigatorContent]" description="Set selectedChild to a Canvas" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(3)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <SetProperty target="tn1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.tn1.canvas1" />
+
+        <AssertPropertyValue target="tn1.selectedChild" propertyName="label" value="Canvas One" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test9" keywords="[TabNavigator,INavigatorContent]" description="Check value returned by selectedChild when it is a Form" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(4)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is INavigatorContent" value="true" />
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is mx.containers.Form" value="true" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test10" keywords="[TabNavigator,INavigatorContent]" description="Set selectedChild to a Form" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(4)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <SetProperty target="tn1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.tn1.form1" />
+
+        <AssertPropertyValue target="tn1.selectedChild" propertyName="label" value="Form One" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test11" keywords="[TabNavigator,INavigatorContent]" description="Check value returned by selectedChild when it is a FormItem" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(5)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is INavigatorContent" value="true" />
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is mx.containers.FormItem" value="true" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test12" keywords="[TabNavigator,INavigatorContent]" description="Set selectedChild to a FormItem" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(5)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <SetProperty target="tn1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.tn1.formItem1" />
+
+        <AssertPropertyValue target="tn1.selectedChild" propertyName="label" value="FormItem One" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test13" keywords="[TabNavigator,INavigatorContent]" description="Check value returned by selectedChild when it is a Panel" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(6)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is INavigatorContent" value="true" />
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is mx.containers.Panel" value="true" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test14" keywords="[TabNavigator,INavigatorContent]" description="Set selectedChild to a Panel" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(6)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <SetProperty target="tn1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.tn1.pnl1" />
+
+        <AssertPropertyValue target="tn1.selectedChild" propertyName="label" value="Panel One" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test15" keywords="[TabNavigator,INavigatorContent]" description="Check value returned by selectedChild when it is a Tile" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(7)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is INavigatorContent" value="true" />
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is Tile" value="true" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test16" keywords="[TabNavigator,INavigatorContent]" description="Set selectedChild to a Tile" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(7)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <SetProperty target="tn1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.tn1.tile1" />
+
+        <AssertPropertyValue target="tn1.selectedChild" propertyName="label" value="Tile One" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test17" keywords="[TabNavigator,INavigatorContent]" description="Check value returned by selectedChild when it is a ViewStack" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(8)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is INavigatorContent" value="true" />
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is ViewStack" value="true" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test18" keywords="[TabNavigator,INavigatorContent]" description="Set selectedChild to a ViewStack" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(8)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <SetProperty target="tn1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.tn1.vs1" />
+
+        <AssertPropertyValue target="tn1.selectedChild" propertyName="label" value="ViewStack One" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test19" keywords="[TabNavigator,INavigatorContent]" description="Check value returned by selectedChild when it is a TabNavigator" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(9)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is INavigatorContent" value="true" />
+
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.tn1.selectedChild is TabNavigator" value="true" />
+
+    </body>
+
+</TestCase>
+
+
+
+<TestCase testID="INavigatorContent_selectedChild_test20" keywords="[TabNavigator,INavigatorContent]" description="Set selectedChild to a TabNavigator" >
+
+    <setup>
+
+        <ResetComponent target="tn1" className="comps.CustomTabNav4" waitEvent="updateComplete" />
+
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(9)" waitTarget="tn1" waitEvent="ensureSelectedIndexComplete" />
+
+    </setup>
+
+    <body>
+
+        <SetProperty target="tn1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.tn1.tn2" />
+
+        <AssertPropertyValue target="tn1.selectedChild" propertyName="label" value="TabNavigator Two" />
+
+    </body>
+
+</TestCase>
+
+
+
+</testCases>
+
+</UnitTester>
+

@@ -1,0 +1,17 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" width="600" height="800">
+    <mx:ControlBar id="myCB" >
+	<mx:Label text="Control Bar testing"/>
+	<mx:Button/>
+	<mx:TextInput/>
+	<mx:Button/>
+	<mx:TextInput/>
+	<mx:NumericStepper/>
+	<mx:TextInput/>
+	<mx:TextInput/>
+	<mx:Button/>
+	<mx:TextInput/>
+	<mx:Button/>
+	<mx:TextInput/>
+     </mx:ControlBar>
+     <mx:TextInput id="ti"/>
+</mx:VBox>

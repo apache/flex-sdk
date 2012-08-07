@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Grid/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Grid_Basic.mxml">
+
+	<!-- this set of lines Grid a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.* 
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+    
+ 	 
+ 	]]>
+	</mx:Script>
+	<testCases>
+	<!-- 	Styles 	-->
+	
+
+		<TestCase testID="Grid_Styles_horizontalAlign_default" keywords="[horizontalAlign, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="horizontalAlign" value="left"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/horizontalAlign_default.png" timeout="5000" />
+ 			</body>
+		</TestCase> 	
+		<TestCase testID="Grid_Styles_horizontalAlign_right" keywords="[horizontalAlign, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetStyle target="myCustomGrid.myGrid" styleName="horizontalAlign"  value="right"  waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="horizontalAlign" value="right"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/horizontalAlign_right.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Grid_Styles_horizontalAlign_center" keywords="[horizontalAlign, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetStyle target="myCustomGrid.myGrid" styleName="horizontalAlign"  value="center"  waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="horizontalAlign" value="center"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/horizontalAlign_center.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Grid_Styles_horizontalGap_default" keywords="[horizontalGap, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetProperty target="myCustomGrid.myGrid" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="horizontalGap" value="8"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/horizontalGap_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Grid_Styles_horizontalGap_large" keywords="[horizontalGap, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetProperty target="myCustomGrid.myGrid" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="horizontalGap"  value="50" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="horizontalGap" value="50"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/horizontalGap_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Grid_Styles_horizontalGap_small" keywords="[horizontalGap, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetProperty target="myCustomGrid.myGrid" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="horizontalGap"  value="2" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="horizontalGap" value="2"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/horizontalGap_small.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Grid_Styles_paddingBottom_default" keywords="[paddingBottom, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="paddingBottom" value="0"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/paddingBottom_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Grid_Styles_paddingBottom_large" keywords="[paddingBottom, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="paddingBottom"  value="80"  waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+   				<SetStyle target="myCustomGrid.myGrid" styleName="paddingRight"  value="20" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="paddingBottom" value="80"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/paddingBottom_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Grid_Styles_paddingBottom_small" keywords="[paddingBottom, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="paddingBottom"  value="2" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+   				<SetStyle target="myCustomGrid.myGrid" styleName="paddingRight"  value="20" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="paddingBottom" value="2"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/paddingBottom_small.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Grid_Styles_paddingTop_default" keywords="[paddingTop, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="paddingTop" value="0"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/paddingGapP_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Grid_Styles_paddingTop_large" keywords="[paddingTop, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="paddingTop"  value="80"  waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="paddingTop" value="80"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/paddingGap_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Grid_Styles_paddingTop_small" keywords="[paddingTop, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="paddingTop"  value="2" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="paddingTop" value="2"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/paddingGap_small.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="Grid_Styles_verticalAlign_default" keywords="[verticalAlign, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="verticalAlign" value="top"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/verticalAlign_default.png" timeout="5000" />
+ 			</body>
+		</TestCase> 	
+		<TestCase testID="Grid_Styles_verticalAlign_middle" keywords="[verticalAlign, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetStyle target="myCustomGrid.myGrid" styleName="verticalAlign"  value="middle"  waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="verticalAlign" value="middle"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/verticalAlign_middle.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Grid_Styles_verticalAlign_bottom" keywords="[verticalAlign, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetStyle target="myCustomGrid.myGrid" styleName="verticalAlign"  value="bottom"  waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="verticalAlign" value="bottom"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/verticalAlign_center.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Grid_Styles_verticalGap_default" keywords="[verticalGap, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="verticalGap" value="6"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/verticalGap_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Grid_Styles_verticalGap_large" keywords="[verticalGap, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="verticalGap"  value="80" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="verticalGap" value="80"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/verticalGap_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Grid_Styles_verticalGap_small" keywords="[verticalGap, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="verticalGap"  value="2" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="verticalGap" value="2"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/verticalGap_small.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+
+
+
+
+
+ 		<TestCase testID="Grid_Styles_backgroundAlpha_large" keywords="[backgroundAlpha, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="backgroundAlpha" value="0.9" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="backgroundColor" value="red" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="backgroundAlpha" value="0.9" />
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="backgroundColor" value="0xFF0000" />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/backgroundAlpha_large.png" timeout="5000" />
+ 			</body>
+		</TestCase> 
+		
+ 		<TestCase testID="Grid_Styles_backgroundAlpha_default" keywords="[backgroundAlpha, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="backgroundColor" value="red" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="backgroundAlpha" value="1" />
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="backgroundColor" value="0xFF0000" />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/backgroundAlpha_default.png" timeout="5000" />
+ 			</body>
+		</TestCase> 		
+ 		<TestCase testID="Grid_Styles_backgroundAlpha_small" keywords="[backgroundAlpha, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="backgroundAlpha" value="0.1" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="backgroundColor" value="blue" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="backgroundAlpha" value="0.1" />
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="backgroundColor" value="0x0000FF" />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/backgroundAlpha_small.png" timeout="5000" />
+ 			</body>
+		</TestCase> 		
+		
+		
+		
+
+
+		<TestCase testID="Grid_Styles_borderColor_default" keywords="[borderColor, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="borderColor" value="12040892" />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/borderColor_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>		
+		<TestCase testID="Grid_Styles_borderColor_red" keywords="[borderColor, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="borderColor" value="0xFF0000" />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/borderColor_red.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+
+
+
+
+		<TestCase testID="Grid_Styles_borderThickness_default" keywords="[borderThickness, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid"  waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="borderThickness" value="1" />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/borderThickness.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="Grid_Styles_borderThickness_large" keywords="[borderThickness, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid"  waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="10"  waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="borderThickness" value="10" />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/borderThickness_large.png" timeout="5000" />
+ 			</body>
+		</TestCase> 
+
+
+
+
+
+
+
+
+
+		<TestCase testID="Grid_Styles_color_default" keywords="[color, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="color"  value="734012" />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/color_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+ 
+		<TestCase testID="Grid_Styles_cornerRadius_default" keywords="[cornerRadius, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="cornerRadius"  value="0" />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/cornerRadius_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+		<TestCase testID="Grid_Styles_cornerRadius_large" keywords="[cornerRadius, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+  				<SetStyle target="myCustomGrid.myGrid" styleName="cornerRadius"  value="10" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+   				<SetStyle target="myCustomGrid.myGrid" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="cornerRadius"  value="10" />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/cornerRadius_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+
+
+
+
+		<TestCase testID="Grid_Styles_disabledColor_default" keywords="[disabledColor, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetProperty target="myCustomGrid.myGrid" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="disabledColor" value="11187123"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/disabledColor.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Grid_Styles_disabledColor_green" keywords="[disabledColor, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetProperty target="myCustomGrid.myGrid" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+  				<SetStyle target="myCustomGrid.myGrid" styleName="disabledColor"  value="0x00ff00"   waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="disabledColor" value="0x00ff00"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/disabledColor.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+		
+		
+		
+		<TestCase testID="Grid_Styles_fontfamily_default" keywords="[fontFamily, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="fontFamily" value="EmbeddedVerdana"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/fontFamily_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Grid_Styles_fontfamily" keywords="[fontFamily, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="fontFamily"  value="EmbeddedGeorgia"  waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="fontFamily" value="EmbeddedGeorgia"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/fontFamily_Georgia.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="Grid_Styles_fontfamily_airOnly" keywords="[fontFamily, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetStyle target="myCustomGrid.myGrid" styleName="fontFamily"  value="EmbeddedGeorgia"  waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+			</setup>
+			<body>
+				<AssertStyleValue target="myCustomGrid.myGrid" styleName="fontFamily" value="EmbeddedGeorgia"  />
+				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/$testID.png" numColorVariances="30" maxColorVariance="20"/>
+			</body>
+		</TestCase>  
+	
+		<TestCase testID="Grid_Styles_fontsize_default" keywords="[fontSize, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="fontSize" value="10"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/fontSize_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>  	
+		<TestCase testID="Grid_Styles_fontsize_large" keywords="[fontSize, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="fontSize" value="20"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/fontSize_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+
+		<TestCase testID="Grid_Styles_fontweight_default" keywords="[fontWeight, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+				<SetStyle target="myCustomGrid.myGrid" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="fontWeight" value="normal"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/fontWeight_default.png" timeout="5000" />
+ 			</body>
+		</TestCase> 
+		<TestCase testID="Grid_Styles_fontweight" keywords="[fontWeight, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+   				<SetStyle target="myCustomGrid.myGrid" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="fontWeight" value="bold"  />
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="fontSize" value="20"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/fontWeight.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="Grid_Styles_paddingLeft_large" keywords="[paddingLeft, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetProperty target="myCustomGrid.myGrid" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+   				<SetStyle target="myCustomGrid.myGrid" styleName="paddingLeft"  value="20" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="paddingLeft" value="20"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/paddingLeft.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+		<TestCase testID="Grid_Styles_paddingRight_default" keywords="[paddingRight, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetProperty target="myCustomGrid.myGrid" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="paddingRight" value="0"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/paddingRight_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+		<TestCase testID="Grid_Styles_paddingRight_large" keywords="[paddingRight, Grid]">
+			<setup>
+				<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>
+   				<SetProperty target="myCustomGrid.myGrid" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"/>
+   				<SetStyle target="myCustomGrid.myGrid" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+				<SetStyle target="myCustomGrid.myGrid" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+ 				<SetStyle target="myCustomGrid.myGrid" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid" />
+   				<SetStyle target="myCustomGrid.myGrid" styleName="paddingRight"  value="20" waitEvent="updateComplete" waitTarget="myCustomGrid.myGrid"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomGrid.myGrid" styleName="paddingRight" value="20"  />
+ 				<CompareBitmap target="myCustomGrid.myGrid" url="../Styles/baselines/paddingRight_Right.png" timeout="5000" />
+ 			</body>
+		</TestCase> 	
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="containers/form/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Form_Basic.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<mx:Script>
+
+	<![CDATA[
+
+	public static function init(o:DisplayObject):void
+
+	{
+
+	}					
+
+	]]>
+
+	</mx:Script>
+
+	<mx:Metadata>
+
+	<![CDATA[
+
+		[Mixin]
+
+	]]>
+
+	</mx:Metadata>	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	
+
+	
+
+	<mx:Script>
+
+	<![CDATA[
+
+	import mx.containers.Form;
+
+	import mx.core.IFlexDisplayObject;
+
+	import mx.managers.ToolTipManager;
+
+	
+
+	public function decreaseHide():void
+
+	{
+
+		ToolTipManager.hideDelay = 2000;
+
+	}
+
+	
+
+	
+
+	]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+
+		<TestCase testID="Form_Event_mouseMove" description="Form Move event." keywords="[event, mouseMove, Form]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm"/>
+
+			    	
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseOver" localX="12" localY="5" />
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseMove" localX="22" localY="5" />
+
+				<AssertEvent target="myCustomForm" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Form_Event_mouseUp" description="Form mouseUp event." keywords="[event, mouseUp, Form]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm" />
+
+			    	
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseOver" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseDown" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseUp" localX="22" localY="5" />
+
+				<AssertEvent target="myCustomForm" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+
+			</body>
+
+		</TestCase>
+
+		
+
+		<TestCase testID="Form_Event_mouseOver" description="Form mouseUp event." keywords="[event, mouseOver, Form]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm" />
+
+			    	
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseOver" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseDown" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseUp" localX="22" localY="5" />
+
+				<AssertEvent target="myCustomForm" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+
+			</body>
+
+		</TestCase>		
+
+
+
+		<TestCase testID="Form_Event_mouseDown" description="Form mouseDown event." keywords="[event, mouseUp, Form]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm" />
+
+			    	
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseDown" localX="22" localY="5" />
+
+				<AssertEvent target="myCustomForm" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+
+			</body>
+
+		</TestCase>	
+
+		<TestCase testID="Form_Event_showToolTip" description="Form mouseDown event." keywords="[event, showToolTip, Form]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm" />
+
+			    	<SetProperty target="myCustomForm.myForm" propertyName="toolTip" value="I am a Form" />
+
+			    	<WaitForEffectsToEnd />
+
+			</setup>
+
+			<body>
+
+				
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseOver" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseMove" localX="22" localY="5" waitEvent="toolTipShow" waitTarget="myCustomForm.myForm" />
+
+				<WaitForEffectsToEnd />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="Form_Event_hideToolTip" description="Form mouseDown event." keywords="[event, hideToolTip, Form]">
+
+			<setup>
+
+			    	<ResetComponent target="myCustomForm" className="CustomForm" waitEvent="updateComplete" waitTarget="myCustomForm" />
+
+				<RunCode code="decreaseHide()"/>
+
+			    	<SetProperty target="myCustomForm.myForm" propertyName="toolTip" value="I am a Form" />
+
+			    	<WaitForEffectsToEnd />
+
+			</setup>
+
+			<body>
+
+				
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseOver" localX="22" localY="5" />
+
+				<DispatchMouseEvent target="myCustomForm" type="mouseMove" localX="22" localY="5" waitEvent="toolTipHide" waitTarget="myCustomForm.getChildAt(0)"/>
+
+				<WaitForEffectsToEnd />
+
+			</body>
+
+		</TestCase> 
+
+		
+
+		
+
+	</testCases>
+
+</UnitTester>
+

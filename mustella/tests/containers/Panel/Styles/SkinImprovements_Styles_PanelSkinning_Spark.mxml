@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Panel/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SkinImprovements_Panel_Basic_Spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    import mx.managers.SystemManager;
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+        <TestCase testID="Spark_Test_Panel_BorderSkin_ControlBar" description="Skinning Improvements phase I being validated." keywords="[SkinImprovement, Panel, BorderSkin, ControlBar]">
+            <setup>
+                <SetProperty target="skinningVS" propertyName="selectedIndex" valueExpression="value=application.skinningVS.numChildren-1"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <SetProperty target="skinningVS" propertyName="selectedIndex" value="11"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <ResetComponent target="componentpanelSkinning" className="component_panelSkinning" waitEvent="updateComplete" waitTarget="componentpanelSkinning"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="componentpanelSkinning.myPanel" url="../Styles/Baselines/Panel_BorderSkin_ControlBar_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_Test_Panel_BorderSkin_ControlBar1" description="Skinning Improvements phase I being validated." keywords="[SkinImprovement, Panel, BorderSkin, ControlBar]">
+            <setup>
+                <SetProperty target="skinningVS" propertyName="selectedIndex" valueExpression="value=application.skinningVS.numChildren-1"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <SetProperty target="skinningVS" propertyName="selectedIndex" value="11"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <ResetComponent target="componentpanelSkinning" className="component_panelSkinning" waitEvent="updateComplete"  waitTarget="componentpanelSkinning"/>
+                <DispatchMouseClickEvent localX="10" localY="10" target="componentpanelSkinning.toggleCB" timeout="2000" waitTarget="componentpanelSkinning.ctrlBar1" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="componentpanelSkinning.myPanel" url="../Styles/Baselines/Panel_BorderSkin_ControlBar1_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_Test_Panel_BorderSkin_HeaderHeight" description="Skinning Improvements phase I being validated." keywords="[SkinImprovement, Panel, BorderSkin, HeaderHeight]">
+            <setup>
+                <SetProperty target="skinningVS" propertyName="selectedIndex" valueExpression="value=application.skinningVS.numChildren-1"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <SetProperty target="skinningVS" propertyName="selectedIndex" value="11"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <ResetComponent target="componentpanelSkinning" className="component_panelSkinning" waitEvent="updateComplete"  waitTarget="componentpanelSkinning"/>
+                <DispatchMouseClickEvent localX="10" localY="10" target="componentpanelSkinning.toggleHeader" timeout="2000" waitTarget="componentpanelSkinning.myPanelS" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="componentpanelSkinning.myPanel" url="../Styles/Baselines/Panel_BorderSkin_HeaderHeight_Spark.png" />
+                <CompareBitmap target="componentpanelSkinning.myPanelS" url="../Styles/Baselines/Panel_BorderSkin_HeaderHeight_b_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_Test_Panel_BorderSkin_HeaderHeight1" description="Skinning Improvements phase I being validated." keywords="[SkinImprovement, Panel, BorderSkin, ControlBar]">
+            <setup>
+                <SetProperty target="skinningVS" propertyName="selectedIndex" valueExpression="value=application.skinningVS.numChildren-1"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <SetProperty target="skinningVS" propertyName="selectedIndex" value="11"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <ResetComponent target="componentpanelSkinning" className="component_panelSkinning" waitEvent="updateComplete"  waitTarget="componentpanelSkinning"/>
+                <DispatchMouseClickEvent localX="10" localY="10" target="componentpanelSkinning.toggleHeader" timeout="2000" waitTarget="componentpanelSkinning.myPanelS" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="componentpanelSkinning.myPanel" url="../Styles/Baselines/Panel_BorderSkin_HeaderHeight1_Spark.png" />
+                <CompareBitmap target="componentpanelSkinning.myPanelS" url="../Styles/Baselines/Panel_BorderSkin_HeaderHeight1_b_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_Test_Panel_BorderSkin_ControlBar2" description="Skinning Improvements phase I being validated." keywords="[SkinImprovement, Panel, BorderSkin, ControlBar]">
+            <setup>
+                <SetProperty target="skinningVS" propertyName="selectedIndex" valueExpression="value=application.skinningVS.numChildren-1"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <SetProperty target="skinningVS" propertyName="selectedIndex" value="11"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <ResetComponent target="componentpanelSkinning" className="component_panelSkinning" waitEvent="updateComplete"  waitTarget="componentpanelSkinning"/>
+                <DispatchMouseClickEvent localX="10" localY="10" target="componentpanelSkinning.toggleCB" timeout="2000" waitTarget="componentpanelSkinning.ctrlBar1" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="componentpanelSkinning.myPanel" url="../Styles/Baselines/Panel_BorderSkin_ControlBar2_Spark.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_Test_Panel_BorderSkin_HeaderHeight2" description="Skinning Improvements phase I being validated." keywords="[SkinImprovement, Panel, BorderSkin, ControlBar]">
+            <setup>
+                <SetProperty target="skinningVS" propertyName="selectedIndex" valueExpression="value=application.skinningVS.numChildren-1"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <SetProperty target="skinningVS" propertyName="selectedIndex" value="11"
+                    waitTarget="skinningVS" waitEvent="change" />
+                <ResetComponent target="componentpanelSkinning" className="component_panelSkinning" waitEvent="updateComplete"  waitTarget="componentpanelSkinning"/>
+                <DispatchMouseClickEvent localX="10" localY="10" target="componentpanelSkinning.toggleHeader" timeout="2000" waitTarget="componentpanelSkinning.myPanelS" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="componentpanelSkinning.myPanel" url="../Styles/Baselines/Panel_BorderSkin_HeaderHeight2_Spark.png" />
+                <CompareBitmap target="componentpanelSkinning.myPanelS" url="../Styles/Baselines/Panel_BorderSkin_HeaderHeight2_b_Spark.png" />
+           </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

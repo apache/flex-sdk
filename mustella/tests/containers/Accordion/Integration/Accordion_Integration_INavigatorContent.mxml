@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="containers/Accordion/Integration/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="Accordion_Integration_INavigatorContentApp.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import comps.*;
+        import mx.core.*;           // Includes INavigatorContent, Container, FlexGlobals.
+        import mx.containers.*;     // Includes Panel, Accordion, etc...
+        import spark.components.*;  // Includes NavigatorContent.
+        
+        public var theNC:NavigatorContent;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<TestCase testID="INavigatorContent_selectedChild_test1" keywords="[ViewStack,INavigatorContent]" description="Check value returned by selectedChild when it is a NavigatorContent" >
+    <setup>
+        <ResetComponent target="acc1" className="comps.CustomAcc1" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(0)" waitTarget="acc1" waitEvent="ensureSelectedIndexComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.acc1.selectedChild is INavigatorContent" value="true" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.acc1.selectedChild is NavigatorContent" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="INavigatorContent_selectedChild_test2" keywords="[ViewStack,INavigatorContent]" description="Set selectedChild to a NavigatorContent" >
+    <setup>
+        <ResetComponent target="acc1" className="comps.CustomAcc1" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(0)" waitTarget="acc1" waitEvent="ensureSelectedIndexComplete" />
+    </setup>
+    <body>
+        <SetProperty target="acc1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.acc1.nc1" />
+        <AssertPropertyValue target="acc1.selectedChild" propertyName="label" value="NavigatorContent One" />
+    </body>
+</TestCase>
+
+<TestCase testID="INavigatorContent_selectedChild_test3" keywords="[ViewStack,INavigatorContent]" description="Check value returned by selectedChild when it is a Canvas" >
+    <setup>
+        <ResetComponent target="acc1" className="comps.CustomAcc1" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(1)" waitTarget="acc1" waitEvent="ensureSelectedIndexComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.acc1.selectedChild is INavigatorContent" value="true" />
+        <AssertMethodValue method="value = FlexGlobals.topLevelApplication.acc1.selectedChild is mx.containers.Panel" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="INavigatorContent_selectedChild_test4" keywords="[ViewStack,INavigatorContent]" description="Set selectedChild to a Canvas" >
+    <setup>
+        <ResetComponent target="acc1" className="comps.CustomAcc1" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.ensureSelectedIndex(1)" waitTarget="acc1" waitEvent="ensureSelectedIndexComplete" />
+    </setup>
+    <body>
+        <SetProperty target="acc1" propertyName="selectedChild" valueExpression="value = FlexGlobals.topLevelApplication.acc1.panel1" />
+        <AssertPropertyValue target="acc1.selectedChild" propertyName="label" value="Panel One" />
+    </body>
+</TestCase>
+
+</testCases>
+</UnitTester>

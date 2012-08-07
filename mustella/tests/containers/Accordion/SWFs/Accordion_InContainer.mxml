@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" backgroundImage="" height="555" width="500" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" >
+<mx:Script>
+<![CDATA[
+
+        [Embed(source="../../../../Assets/Images/redrect.jpg")]
+        public var blueback:Class;
+]]>
+</mx:Script>
+<mx:Style source="Assets/myStyles.css" />
+
+<mx:Style>
+
+	@namespace "library://ns.adobe.com/flex/mx";
+    .myStyle {
+        paddingTop: 10;
+    }
+    .myBackground {
+        backgroundColor: #CCDD22;
+    }
+    .disabledOverlayAlphaStyle {
+        disabledOverlayAlpha: 0.8;
+        disabledColor: #FF0000;
+    }
+
+    .dropShadowColorStyle {
+        dropShadowEnabled: true;
+        dropShadowColor: #FF0000;
+    }
+
+    .fillAlphasDefault {
+        fillAlphas: 0.0, 0.0;
+    }
+
+    .fillAlphas1 {
+        fillAlphas: 1.0, 0.5;
+    }
+
+    .fillColorsDefault {
+       fillColors: #FFFFFF, #FFFFFF;
+    }
+
+    .fillAlphas1 {
+       fillColors: #FFFFFF, #CCCCCC;
+    }
+
+	@font-face {
+	    src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+	}
+
+	@font-face {
+		src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+		fontWeight: bold;
+		fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+	}
+
+	@font-face {
+		src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+		fontStyle: italic;
+		fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+	}
+
+	@font-face {
+		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+	}
+
+	@font-face {
+	    src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		fontWeight: bold;
+		fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+	}
+
+	@font-face {
+		src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		fontStyle: italic;
+		fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+	}
+
+    Accordion{
+      	fontFamily: EmbeddedVerdana;
+       	fontAntiAliasType: normal;
+    }
+
+        .myAccordionJPG
+        {
+            skin: ClassReference("comps.button_jpg_embeded");
+        }
+        .myAccordionGIF
+        {
+            skin: ClassReference("comps.button_gif_embeded");
+        }
+        .myAccordionPNG
+        {
+            skin: ClassReference("comps.button_png_embeded");
+        }
+        .myAccordionSWF
+        {
+            skin: ClassReference("comps.button_swf_embeded");
+        }
+
+        .myAccordionJPGRunTime
+        {
+            skin: ClassReference("comps.button_jpg_runtime");
+        }
+        .myAccordionGIFRunTime
+        {
+            skin: ClassReference("comps.button_gif_runtime");
+        }
+        .myAccordionPNGRunTime
+        {
+            skin: ClassReference("comps.button_png_runtime");
+        }
+        .myAccordionSWFRunTime
+        {
+            skin: ClassReference("comps.button_swf_runtime");
+        }
+
+        .myAccordionJPGIcon
+        {
+            skin: ClassReference("comps.icon_jpg_embeded");
+        }
+        .myAccordionGIFIcon
+        {
+            skin: ClassReference("comps.icon_gif_embeded");
+        }
+        .myAccordionPNGIcon
+        {
+            skin: ClassReference("comps.icon_png_embeded");
+        }
+        .myAccordionSWFIcon
+        {
+            skin: ClassReference("comps.icon_swf_embeded");
+        }
+
+        .myAccordionJPGIconRunTime
+        {
+            skin: ClassReference("comps.icon_jpg_runtime");
+        }
+        .myAccordionGIFIconRunTime
+        {
+            skin: ClassReference("comps.icon_gif_runtime");
+        }
+        .myAccordionPNGIconRunTime
+        {
+            skin: ClassReference("comps.icon_png_runtime");
+        }
+        .myAccordionSWFIconRunTime
+        {
+            skin: ClassReference("comps.icon_swf_runtime");
+        }
+   	 </mx:Style>
+	<mx:Canvas id="canvas1" width="200" height="200">
+        <AccordionComp2 id="accordion_1" />
+    </mx:Canvas>
+    <mx:TextInput />
+    <mx:HBox>
+		<mx:Accordion width="200" height="120" id="accordion_2" paddingTop="12">
+			<mx:VBox label="view 1" />
+			<mx:VBox label="view 2" />
+		</mx:Accordion>
+		<mx:Accordion width="200" height="120" id="accordion_3" styleName="myStyle">
+			<mx:VBox label="view 1" />
+			<mx:VBox label="view 2" />
+		</mx:Accordion>
+    </mx:HBox>
+    <MyAccordion id="accordion_4" width="200" height="120" styleName="myStyle">
+			<mx:VBox label="view 1" />
+			<mx:VBox label="view 2" />
+	</MyAccordion>
+</mx:Application>

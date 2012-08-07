@@ -1,0 +1,15 @@
+<mx:VBox xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="left" width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+		
+			[Bindable]
+			[Embed(source="../../../../Assets/Images/smallredrect.jpg")]
+			private var picon:Class;
+			
+		]]>  
+	</mx:Script>     
+	<mx:Spacer height="150" />
+	<mx:Panel id="panelTitleIcon" width="100%" height="100%" title="Panel for TEST" status="Panel Status" headerHeight="{PHheight.value}" highlightAlphas="[.3, 0]" titleIcon="{picon}" >
+		<mx:HSlider id="PHheight" minimum="-100" maximum="200"  value="30" snapInterval="1" width="100%"/>
+	</mx:Panel>
+</mx:VBox>

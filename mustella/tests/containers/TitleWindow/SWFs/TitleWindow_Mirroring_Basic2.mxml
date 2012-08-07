@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"
+width="800" height="700" >
+
+	<mx:Script>
+	<![CDATA[
+	//backgroundImage=""
+        [Embed(source="../../../../Assets/Images/redrect.jpg")]
+        public var blueback:Class;
+
+	    [Embed(source="../../../../Assets/Images/ButtonImages/arrowBDown.jpg")]
+	    public var arrowBDown:Class;
+
+	    [Embed(source="../../../../Assets/Images/ButtonImages/arrowBOver.jpg")]
+	    public var arrowBOver:Class;
+
+	    [Embed(source="../../../../Assets/Images/ButtonImages/arrowBUp.jpg")]
+	    public var arrowBUp:Class;
+
+	    [Embed(source="../../../../Assets/Images/ButtonImages/arrowTDown.jpg")]
+	    public var arrowTDown:Class;
+
+	    [Embed(source="../../../../Assets/Images/ButtonImages/arrowTOver.jpg")]
+	    public var arrowTOver:Class;
+
+	]]>
+	</mx:Script>
+
+<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+    .myStyle {
+        paddingTop: 10;
+    }
+    .myBackground {
+        backgroundColor: #CCDD22;
+    }
+    .disabledOverlayAlphaStyle {
+        disabledOverlayAlpha: 0.8;
+        backgroundDisabledColor: #FF0000;
+    }
+    .myDisabledColor {
+      backgroundDisabledColor: #CCDD99;
+    }
+
+   .dropShadowColorStyle {
+        dropShadowEnabled: true;
+        dropShadowColor: #FF0000;
+   }
+   .ltrStyle{
+      layoutDirection: "ltr";
+      direction:"ltr";
+      }
+      
+         .rtlStyle{
+         layoutDirection: "rtl";
+         direction:"rtl";
+   }
+</mx:Style>
+
+<mx:Style source="assets/myStyles.css" />
+
+
+<mx:TitleWindow id="tw" showCloseButton="true" close="ta.text='close'" >
+    <mx:TextInput id="ta" />
+    <mx:Button id="btn" label="click" />
+</mx:TitleWindow>
+<mx:HBox>
+    <mx:TitleWindow id="tw2" showCloseButton="true" close="ta.text='close'" >
+    	<mx:TextInput id="ta2" />
+        <mx:CheckBox id="chk1" label="test checkBox"/>
+    </mx:TitleWindow>
+
+    <mx:TitleWindow id="tw3" showCloseButton="true"  >
+    	<mx:CheckBox id="chk31" label="outter checkBox"/>
+    	<mx:VBox id="vbox1" styleName="ltrStyle">
+    	    <mx:TextInput id="ti1" text="this is a test"/>
+            <mx:CheckBox id="chk2" label="inner checkBox"/>
+        </mx:VBox>
+    </mx:TitleWindow>
+
+    <MyLayoutTestTW id="tw4" />	
+    
+    <mx:Canvas id="canvas1" width="175" height="165" >
+        	<MyTw2 id="tw_empty" />
+    </mx:Canvas>
+</mx:HBox>
+
+</mx:Application>

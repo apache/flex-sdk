@@ -1,0 +1,32 @@
+<mx:VBox xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="left"  width="100%" height="100%" backgroundImage="" backgroundColor="#FFFFFF">
+	<mx:Script>
+		<![CDATA[
+		
+			[Embed(source="../../../../Assets/Images/PanelImages/ControlBarVersion.png", scaleGridTop="67", scaleGridBottom="353", scaleGridLeft="15", scaleGridRight="502"  )]
+			public var panelSkin:Class;
+
+			[Embed(source="../../../../Assets/Images/PanelImages/PanelSkinVersion.gif", scaleGridTop="67", scaleGridBottom="424", scaleGridLeft="15", scaleGridRight="500"  )]
+			public var panelSkin1:Class;
+		]]>
+	</mx:Script>
+	<mx:Style> 
+	@namespace "library://ns.adobe.com/flex/mx";
+		.myPanel
+		{   
+			borderSkin: ClassReference("component_Panel_with_scroll_panelSkin");
+		} 
+		.myPanel1
+		{   
+			borderSkin: ClassReference("component_Panel_with_scroll_panelSkin1");
+		} 
+	</mx:Style>
+	<mx:Panel id="myPanelScroll" width="100%" height="100%" title="Title" status="{String(myBtnPWS.width)}" styleName="myPanel" borderThicknessBottom="25" color="red" headerHeight="67">
+	<mx:Canvas width="100%" height="100%" borderStyle="solid" borderColor="red">
+	<mx:Button id="myBtnPWS" width="{myhs.value}" label="My Button" />
+	</mx:Canvas>
+	<mx:ControlBar>
+		<mx:HSlider id="myhs" minimum="0" maximum="800" width="100%" snapInterval="2" value="150" />
+	</mx:ControlBar>
+	</mx:Panel>
+	<mx:Button id="myBtnPWS1" label="Change Panel skin" click="myPanelScroll.setStyle('styleName', 'myPanel1')" />
+</mx:VBox>

@@ -1,0 +1,85 @@
+<mx:TabNavigator 
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    width="800" height="200" >
+
+    <!-- index 0 -->
+    <mx:Accordion id="acc1" width="100%" height="100%" label="Accordion One" >
+        <s:NavigatorContent id="nc" width="100%" height="100%" label="NavigatorContent One" >
+            <mx:Label id="lbl1" text="relish" />
+        </s:NavigatorContent >
+        <mx:Accordion id="acc2" width="100%" height="100%" label="Accordion Two" >
+            <s:NavigatorContent id="nc2" width="100%" height="100%" label="NavigatorContent Two" >
+                <mx:Label id="lbl3" text="ketchup" />
+            </s:NavigatorContent>
+            <mx:Accordion id="acc3" width="100%" height="100%" label="Accordion Three" >
+                <s:NavigatorContent id="nc3" width="100%" height="100%" label="NavigatorContent Three" >
+                    <mx:Label id="lbl4" text="mayo" />
+                </s:NavigatorContent>
+            </mx:Accordion>
+        </mx:Accordion>
+    </mx:Accordion>
+    
+    <!-- index 1 -->
+    <s:NavigatorContent id="nc4" width="100%" height="100%" label="NavigatorContent Four" >
+        <mx:Label id="lbl5" text="hollandaise sauce" />
+    </s:NavigatorContent>
+    
+    <!-- index 2 -->
+    <mx:Box id="box1" width="100%" height="100%" label="Box One" >
+        <mx:Label id="lbl6" text="soy sauce" />
+    </mx:Box>
+    
+    <!-- index 3 -->
+    <mx:Canvas id="canvas1" width="100%" height="100%" label="Canvas One" >
+        <mx:Label id="lbl7" text="wasabe" />
+    </mx:Canvas>
+    
+    <!-- index 4 -->
+    <mx:Form id="form1" width="100%" height="100%" label="Form One" >
+        <mx:FormItem>
+            <mx:Label id="lbl8" text="hoisin sauce" />
+        </mx:FormItem>
+    </mx:Form>
+    
+    <!-- index 5 -->
+    <mx:FormItem id="formItem1" width="100%" height="100%" label="FormItem One" >
+        <mx:Label id="lbl9" text="salsa" />
+    </mx:FormItem>
+    
+    <!-- index 6 -->
+    <mx:Panel id="pnl1" width="100%" height="100%" label="Panel One" >
+        <mx:Label id="lbl10" text="spaghetti sauce" />
+    </mx:Panel>
+    
+    <!-- index 7 -->
+    <mx:Tile id="tile1" width="100%" height="100%" label="Tile One" >
+        <mx:Label id="lbl12" text="fish sauce" />
+    </mx:Tile>
+    
+    <!-- index 8 -->
+    <mx:ViewStack id="vs1" width="100%" height="100%" label="ViewStack One" >
+        <s:NavigatorContent id="nc5" width="100%" height="100%" label="NavigatorContent Five" >
+            <mx:Label id="lbl13" text="pizza sauce" />
+        </s:NavigatorContent >
+    </mx:ViewStack>
+    
+    <!-- index 9 -->
+    <mx:TabNavigator id="tn2" width="100%" height="100%" label="TabNavigator Two" >
+        <s:NavigatorContent id="nc6" width="100%" height="100%" label="NavigatorContent Six" >
+            <mx:Label id="lbl14" text="pesto" />
+        </s:NavigatorContent>
+        <mx:TabNavigator id="tn3" width="100%" height="100%" label="TabNavigator Three" >
+            <s:NavigatorContent id="nc7" width="100%" height="100%" label="NavigatorContent Seven" >
+                <mx:Label id="lbl15" text="malt vinegar" />
+            </s:NavigatorContent>
+            <mx:TabNavigator id="tn4" width="100%" height="100%" label="TabNavigator Four" >
+                <s:NavigatorContent id="nc8" width="100%" height="100%" label="NavigatorContent Eight" >
+                    <mx:Label id="lbl16" text="melted cheese" />
+                </s:NavigatorContent>
+            </mx:TabNavigator>
+        </mx:TabNavigator>
+    </mx:TabNavigator>
+
+</mx:TabNavigator>

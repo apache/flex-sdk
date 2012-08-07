@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Canvas/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="PercentageCanvas.mxml">
+       <mx:Script>
+        <![CDATA[
+        import comps.PercentageCanvasComp;
+        import mx.containers.utilityClasses.ConstraintColumn;
+        import mx.containers.utilityClasses.ConstraintRow;
+        import mx.containers.Canvas;
+        import mx.controls.Button;
+
+        public static function init(o:DisplayObject):void
+        {
+        }
+
+        public function addConstraintColumns():void
+        {
+            var arr:Array = [];
+            var col3:ConstraintColumn = new ConstraintColumn();
+            col3.id = "col3";
+            col3.width = 100;
+            arr.push(col3);
+            var col4:ConstraintColumn = new ConstraintColumn();
+            col4.id = "col4";
+            col4.width = 100;
+            arr.push(col4);
+            application.mainCanvas.constraintColumns = arr;
+        }
+
+        public function addConstraintRows():void
+        {
+            var arr:Array = [];
+            var row3:ConstraintRow = new ConstraintRow();
+            row3.id = 'row3';
+            row3.height = 100;
+            arr.push(row3);
+            var row4:ConstraintRow = new ConstraintRow();
+            row4.id = 'row4';
+            row4.height = 100;
+            arr.push(row4);
+            application.mainCanvas.constraintRows = arr;
+        }
+
+        ]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+    <testCases>
+
+    <!-- Percentage Size Canvas Tests (with fixed size columns and rows) -->
+
+    <TestCase testID="constraintColumnsRows_initially_null_percCanvas" keywords="[constraintColumns, constraintRows, initial, property, percentage size canvas]" description="Verify the constraintColumns
+    and constraintRows properties are null when unset">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+            <RunCode code="application.mainCanvas.removeAllChildren()" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetProperty target="mainCanvas" propertyName="constraintColumns" valueExpression="value=[]" waitEvent="updateComplete" waitTarget="mainCanvas" />
+            <SetProperty target="mainCanvas" propertyName="constraintRows" valueExpression="value=[]" waitEvent="updateComplete" waitTarget="mainCanvas" />
+            <AssertPropertyValue target="mainCanvas" propertyName="width" value="300" />
+            <AssertPropertyValue target="mainCanvas" propertyName="height" value="300" />
+            <AssertPropertyValue target="mainCanvas.constraintColumns" propertyName="length" value="0" />
+            <AssertPropertyValue target="mainCanvas.constraintRows" propertyName="length" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="constraintColumns_set_validValues_percCanvas" keywords="[constraintColumns, Property, valid, percentage size Canvas]" description="Verify the constraintColumns
+    property is correct">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+            <RunCode code="addConstraintColumns();" waitTarget="mainCanvas" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+            <AssertPropertyValue target="mainCanvas.constraintColumns" propertyName="length" value="2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="constrainButtonToCol1HorizontalCenter_percCanvas" keywords="[Button, constraint, horizontalCenter, constraintColumn, percentage size Canvas]" description="Verify the button
+    obeys its horizontalCenter style affixing it to the center of col1">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="horizontalCenter" value="col1:0" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="horizontalCenter" value="col1:0" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="width" value="40" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="x" value="30" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="constrainButtonToParentHorizontalCenter_percCanvas" keywords="[Button, constraint, horizontalCenter, parent, percentage size Canvas]" description="Verify the button
+    is constrained to the center of the parent Canvas">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="horizontalCenter" value="0" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="width" value="40" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="x" value="130" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="constrainButtonToParentLeftRight_percCanvas" keywords="[Button, constraint, left, right, parent, percentage size Canvas]" description="Verify the button
+    is constrained on the right and left to the parent edges">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="left" value="10" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="right" value="10" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="left" value="10" />
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="right" value="10" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="x" value="10" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="width" value="280" />
+        </body>
+    </TestCase>
+
+
+    <TestCase testID="constrainButtonToParentRegionsTopBottom_percCanvas" keywords="[Button, constraint, top, bottom, parent, percentage size Canvas]" description="Verify the button added
+    is constrained on the top and bottom to the parent edges">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+        <SetStyle target="mainCanvas.getChildAt(0)" styleName="top" value="5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+        <SetStyle target="mainCanvas.getChildAt(0)" styleName="bottom" value="5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+        <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="top" value="5" />
+        <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="bottom" value="5" />
+        <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="y" value="5" />
+        <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="height" value="290" />
+    </body>
+    </TestCase>
+
+    <TestCase testID="addButtonConstrainedToSingleColumnWithOffset_percCanvas" keywords="[Button, constraint, left, right, single column, percentage size Canvas]" description="Verify the button added
+    is constrained on the left and right to a single column">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="left" value="col1:10" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="right" value="col1:10" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="left" value="col1:10" />
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="right" value="col1:10" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="x" value="10" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="width" value="80" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="addButtonConstrainedToMultipleColumnsWithOffset_percCanvas" keywords="[Button, constraint, left, right, multiple columns, percentage size Canvas]" description="Verify the button added
+    is constrained on the left and right to multiple columns">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="left" value="col1:5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="right" value="col2:5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="left" value="col1:5" />
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="right" value="col2:5" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="x" value="5" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="width" value="190" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="constraintRows_set_validValues_percCanvas" keywords="[constraintRows, Property, valid value, percentage size Canvas]" description="Verify that constraintRows have been
+    added">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+            <RunCode code="application.mainCanvas.removeAllChildren()" waitEvent="updateComplete" waitTarget="mainCanvas" />
+            <RunCode code="addConstraintRows()"/>
+        </setup>
+        <body>
+            <AssertPropertyValue target="mainCanvas.constraintRows" propertyName="length" value="2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="constrainButtonToRow1VerticalCenter_percCanvas" keywords="[Button, constraint, verticalCenter, constraintRow, percentage size Canvas]" description="Verify the button
+    obeys its verticalCenter style affixing it to the center of row1">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.btn" styleName="verticalCenter" value="row1:0" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertStyleValue target="mainCanvas.btn" styleName="verticalCenter" value="row1:0" />
+            <AssertPropertyValue target="mainCanvas.btn" propertyName="height" value="22" />
+            <AssertPropertyValue target="mainCanvas.btn" propertyName="y" value="39" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="constrainButtonToParentVerticalCenter_percCanvas" keywords="[Button, constraint, verticalCenter, parent, percentage size Canvas]" description="Verify the button
+    is constrained to the center of the parent Canvas">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="verticalCenter" value="0" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="height" value="22" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="y" value="139" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="addButtonConstrainedToSingleRowWithOffset_percCanvas" keywords="[Button, constraint, top, bottom, single row, percentage size Canvas]" description="Verify the button added
+    is constrained on the top and bottom to a single row">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="top" value="row1:10" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="bottom" value="row1:10" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="top" value="row1:10" />
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="bottom" value="row1:10" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="y" value="10" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="height" value="80" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="addButtonConstrainedToMultipleRowsWithOffset_percCanvas" keywords="[Button, constraint, top, bottom, multiple rows, percentage size Canvas]" description="Verify the button added
+    is constrained on the top and bottom to multiple rows" >
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="top" value="row1:5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="bottom" value="row2:10" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="top" value="row1:5" />
+            <AssertStyleValue target="mainCanvas.getChildAt(0)" styleName="bottom" value="row2:10" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="y" value="5" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="height" value="185" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="makeButtonFixedSized" keywords="[Button, fixed sized]">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="width" value="150" />
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="height" value="100" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="setLeftRightConstraintsOnFixedButton" keywords="[Button, fixed sized, left, right, constraints]">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="left" value="col1:5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="right" value="col2:5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="width" value="190" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="setTopBottomConstraintsOnFixedButton" keywords="[Button, fixed sized, top, bottom, constraints]">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="top" value="row1:5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="bottom" value="row2:5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="height" value="190" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="makeButtonPercentageSized" keywords="[Button, percentage sized]">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="percentWidth" value="80" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="percentWidth" value="80" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="width" value="240" />
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="percentHeight" value="80" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="percentHeight" value="80" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="height" value="240" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="setLeftRightConstraintsOnPercentageButton" keywords="[Button, percentage sized, left, right, constraints]">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="percentWidth" value="80" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="percentHeight" value="80" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="left" value="col1:5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="right" value="col2:5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="width" value="190" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="setTopBottomConstraintsOnPercentageButton" keywords="[Button, percentage sized, top, bottom, constraints]">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="percentWidth" value="80" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="percentHeight" value="80" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+        </setup>
+        <body>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="top" value="row1:5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="bottom" value="row2:5" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="height" value="190" />
+        </body>
+    </TestCase>
+<!-- horizontalCenter and verticalCenter tests -->
+    <TestCase testID="fixedColumns_PercentCanvas_horizontalCenter_positive" keywords="[horizontalCenter, percentage sized]">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitTarget="mainCanvas" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="width" value="60" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="horizontalCenter" valueExpression="value='col1:10'" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="x" value="30" />
+        </body>
+    </TestCase>
+    <TestCase testID="fixedColumns_PercentCanvas_horizontalCenter_zero" keywords="[horizontalCenter, percentage sized]">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitTarget="mainCanvas" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="width" value="60" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="horizontalCenter" valueExpression="value='col1:0'" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="x" value="20" />
+        </body>
+    </TestCase>
+    <TestCase testID="fixedColumns_PercentCanvas_verticalCenter_positive" keywords="[verticalCenter, percentage sized]">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitTarget="mainCanvas" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="height" value="60" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="verticalCenter" valueExpression="value='row1:10'" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="y" value="30" />
+        </body>
+    </TestCase>
+    <TestCase testID="fixedColumns_PercentCanvas_verticalCenter_zero" keywords="[verticalCenter, percentage sized]">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitTarget="mainCanvas" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty target="mainCanvas.getChildAt(0)" propertyName="height" value="60" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <SetStyle target="mainCanvas.getChildAt(0)" styleName="verticalCenter" valueExpression="value='row1:0'" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+            <AssertPropertyValue target="mainCanvas.getChildAt(0)" propertyName="y" value="20" />
+        </body>
+    </TestCase>
+<!-- baseline -->
+
+    <TestCase testID="fixedColumns_baseline_Button_mxml" keywords="[baseline, constraintRows, MXML, property, percentage size canvas]"
+     description="Verify the baseline for a component works when set in mxml">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="mainCanvas.getChildAt(1)" propertyName="y" value="6" />
+        </body>
+    </TestCase>
+    <TestCase testID="fixedColumns_baseline_Label_mxml" keywords="[baseline, constraintRows, MXML, property, percentage size canvas]"
+     description="Verify the baseline for a component works when set in mxml">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="mainCanvas.getChildAt(2)" propertyName="y" value="8" />
+        </body>
+    </TestCase>
+    <TestCase testID="fixedColumns_baseline_LinkButton_mxml" keywords="[baseline, constraintRows, MXML, property, percentage size canvas]"
+     description="Verify the baseline for a component works when set in mxml">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="mainCanvas.getChildAt(3)" propertyName="y" value="106" />
+        </body>
+    </TestCase>
+    <TestCase testID="fixedColumns_baseline_MenuBar_mxml" keywords="[baseline, constraintRows, MXML, property, percentage size canvas]"
+     description="Verify the baseline for a component works when set in mxml">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="mainCanvas.getChildAt(4)" propertyName="y" value="106" />
+        </body>
+    </TestCase>
+    <TestCase testID="fixedColumns_baseline_TextInput_mxml" keywords="[baseline, constraintRows, MXML, property, percentage size canvas]"
+     description="Verify the baseline for a component works when set in mxml">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="mainCanvas.getChildAt(5)" propertyName="y" value="106" />
+        </body>
+    </TestCase>
+    <TestCase testID="fixedColumns_baseline_DateChooser_mxml" keywords="[baseline, constraintRows, MXML, property, percentage size canvas]"
+     description="Verify the baseline for a component works when set in mxml">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <AssertPropertyValue target="mainCanvas.getChildAt(6)" propertyName="y" value="2" />
+        </body>
+    </TestCase>
+    <TestCase testID="fixedColumns_baseline_runtime" keywords="[baseline, constraintRows, MXML, property, percentage size canvas]"
+     description="Verify the baseline for a component works when set in mxml">
+        <setup>
+            <ResetComponent target="mainCanvas" className="comps.PercentageCanvasComp" waitEvent="updateComplete" waitTarget="mainCanvas" />
+        </setup>
+        <body>
+            <SetStyle styleName="baseline" valueExpression="value='row2:10'" target="mainCanvas.getChildAt(1)" waitEvent="updateComplete" waitTarget="mainCanvas.getChildAt(1)" />
+            <AssertPropertyValue target="mainCanvas.getChildAt(1)" propertyName="y" value="96" />
+        </body>
+    </TestCase>
+    </testCases>
+</UnitTester>

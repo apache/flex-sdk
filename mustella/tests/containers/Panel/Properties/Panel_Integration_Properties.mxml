@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Panel/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Panel_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Style>
+
+	    .myStyle{
+		color: #FF0000
+	    }
+	    .myStyle2{
+		color: #0000FF
+	    }
+
+	</mx:Style>
+
+	<mx:Script>
+	<![CDATA[
+	[Embed(source="../../../../Assets/Images/smallredrect.jpg")]
+	public var MyIcon:Class;
+	import mx.containers.Panel;
+	import mx.containers.ControlBar;
+	import mx.controls.Button;
+	import mx.controls.TextArea;
+	import mx.controls.TextInput;
+	import mx.core.IFlexDisplayObject;
+	public function addPanelChildren():void
+	{
+		var myButton:Button=new Button();
+		var myTextArea:TextArea=new TextArea();
+		application.mainPanel.title="The Panel";
+		application.mainPanel.status="Status";
+		application.mainPanel.percentHeight=100;
+		application.mainPanel.percentWidth=100;
+		myButton.id="myButton1";
+		application.mainPanel.addChild(myButton);
+		application.mainPanel.getChildAt(0).label="The button!";
+		application.mainPanel.getChildAt(0).x=50;
+		application.mainPanel.getChildAt(0).y=50;
+		application.mainPanel.getChildAt(0).addEventListener("click", changeTitle);
+		application.mainPanel.addChild(myTextArea);
+		application.mainPanel.getChildAt(1).x=70;
+		application.mainPanel.getChildAt(1).y=80;
+		application.mainPanel.getChildAt(1).width=400;
+		application.mainPanel.getChildAt(1).height=300;
+
+	}
+	public function changeTitle(event:MouseEvent):void{
+		application.mainPanel.title="Changed Title";
+		application.mainPanel.getChildAt(1).text=String(event);
+		application.mainPanel.getChildAt(0).label="clicked!";
+
+	}
+	public var myControlBar:ControlBar=new ControlBar();
+	public var myCBButton:Button=new Button();
+	public var myCBTI:TextInput=new TextInput();
+	public function addPanelControlBar():void
+	{
+
+		myCBButton.label="Control Bar Button!";
+		myCBButton.id="myCBB";
+		myCBButton.name="myCBBN";
+		myCBButton.addEventListener("click", changeTI);
+		myControlBar.addChild(myCBButton);
+		myControlBar.addChild(myCBTI);
+		myControlBar.id="myCB";
+		myControlBar.name="myCBN";
+		application.mainPanel.addChild(myControlBar);
+		application.mainPanel.createComponentsFromDescriptors()
+	}
+	public function changeTI(event:MouseEvent):void{
+		//event.target.label=String(event.target);
+
+	}
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="Panel_Property_Width" keywords="[width, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel" className="mx.containers.Panel" />
+				<SetProperty target="mainPanel" propertyName="width" value="250" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="mainPanel" propertyName="width" value="250"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Panel_Property_maxWidth" keywords="[maxWidth, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel" className="mx.containers.Panel" />
+				<SetProperty target="mainPanel" propertyName="maxWidth" value="250" waitTarget="mainPanel" waitEvent="updateComplete" />
+				<SetProperty target="mainPanel" propertyName="percentWidth" value="100" waitTarget="mainPanel" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="mainPanel" propertyName="width" value="250"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Panel_Property_minWidth"  keywords="[minWidth, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel" className="mx.containers.Panel" />
+				<SetProperty target="mainPanel" propertyName="minWidth" value="350" waitTarget="mainPanel" waitEvent="updateComplete"  timeout="5000"/>
+				<SetProperty target="mainPanel" propertyName="percentWidth" value="0" timeout="2000"/>
+			</setup>
+		<body>
+			<AssertPropertyValue target="mainPanel" propertyName="width" value="350"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Panel_Property_minHeight"  keywords="[minHeight, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel" className="mx.containers.Panel" />
+				<SetProperty target="mainPanel" propertyName="minHeight" value="350" waitTarget="mainPanel" waitEvent="updateComplete"  timeout="5000"/>
+				<SetProperty target="mainPanel" propertyName="percentHeight" value="0" timeout="2000"/>
+			</setup>
+		<body>
+			<AssertPropertyValue target="mainPanel" propertyName="height" value="350"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Panel_Property_maxHeight" keywords="[maxHeight, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel" className="mx.containers.Panel" />
+				<SetProperty target="myCustomPanel" propertyName="height" value="0" waitTarget="myCustomPanel" waitEvent="updateComplete" />
+				<SetProperty target="mainPanel" propertyName="maxHeight" value="250" waitTarget="mainPanel" waitEvent="updateComplete" />
+				<SetProperty target="mainPanel" propertyName="percentHeight" value="100" waitTarget="mainPanel" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="mainPanel" propertyName="height" value="211"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Panel_Property_layout" keywords="[layout, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel" className="mx.containers.Panel" />
+				<SetProperty target="mainPanel" propertyName="layout" value="absolute" />
+				<RunCode code="addPanelChildren()"  waitTarget="mainPanel" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent stageX="126" stageY="115" />
+				<DispatchMouseClickEvent target="mainPanel.getChildAt(0)" localX="10" localY="10" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="label" value="clicked!"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Panel_Property_title" keywords="[title, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel" className="mx.containers.Panel" />
+				<SetProperty target="mainPanel" propertyName="layout" value="absolute" />
+				<RunCode code="addPanelChildren()"  waitTarget="mainPanel" waitEvent="updateComplete" />
+				<AssertPropertyValue target="mainPanel" propertyName="title" value="The Panel"/>
+				<DispatchMouseClickEvent stageX="126" stageY="115" />
+				<DispatchMouseClickEvent target="mainPanel.getChildAt(0)" localX="10" localY="10" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="mainPanel" propertyName="title" value="Changed Title"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Panel_Property_status" keywords="[status, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel" className="mx.containers.Panel" />
+				<SetProperty target="mainPanel" propertyName="layout" value="absolute" />
+				<RunCode code="addPanelChildren()"  waitTarget="mainPanel" waitEvent="updateComplete" />
+				<AssertPropertyValue target="mainPanel" propertyName="title" value="The Panel"/>
+				<DispatchMouseClickEvent stageX="126" stageY="115" />
+				<DispatchMouseClickEvent target="mainPanel.getChildAt(0)" localX="10" localY="10" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="mainPanel" propertyName="status" value="Status"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Panel_Property_ControlBar" keywords="[ControlBar, Panel]">
+			<setup>
+				<ResetComponent target="mainPanel" className="mx.containers.Panel" />
+				<SetProperty target="mainPanel" propertyName="layout" value="absolute" />
+				<RunCode code="addPanelChildren()"  waitTarget="mainPanel" waitEvent="updateComplete" />
+				<RunCode code="addPanelControlBar()"  waitTarget="mainPanel" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent stageX="114" stageY="319" />
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<AssertPropertyValue target="mainPanel" propertyName="height" value="211"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

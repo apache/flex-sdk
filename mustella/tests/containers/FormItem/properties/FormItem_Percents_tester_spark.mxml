@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="containers/FormItem/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FormItem_Percents_spark.mxml">
+
+
+
+    <!-- this set of lines FormItem a template that must be in each unit test -->
+
+    <mx:Script>
+
+    <![CDATA[
+
+    public static function init(o:DisplayObject):void
+
+    {
+
+    }                   
+
+    ]]>
+
+    </mx:Script>
+
+    <mx:Metadata>
+
+    <![CDATA[
+
+        [Mixin]
+
+    ]]>
+
+    </mx:Metadata>  
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    
+
+    <mx:Script>
+
+    <![CDATA[
+
+
+
+        public function debugMe():void{
+
+            trace("got here");
+
+        }
+
+    ]]>
+
+    </mx:Script>
+
+
+
+    <testCases>
+
+        <!-- FormItem tests for percent height & width with the default direction of vertical-->
+
+        <TestCase testID="FormItem_Property_width_percent_spark" keywords="[FormItem, width, property]" description="Verifies the percentage width of FormItem children">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="width" value="500" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_label" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="myForm.fi1_label"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentWidth" value="30" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+                <SetProperty target="myForm.fi1_button" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="myForm.fi1_button"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_label" propertyName="width" value="181"/>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="width" value="108"/>
+
+                <AssertPropertyValue target="myForm.fi1_button" propertyName="width" value="362"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FormItem_Property_height_percent_lessthan100_spark" keywords="[FormItem, height, property]" description="Verifies the percentage height of FormItem children">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="height" value="500" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <!-- using sum of percentHeights < 100 so that verticalGap is accounted for-->
+
+                <SetProperty target="myForm.fi1_label" propertyName="percentHeight" value="40" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentHeight" value="30" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_button" propertyName="percentHeight" value="20" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_label" propertyName="height" value="196"/>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="height" value="147"/>
+
+                <AssertPropertyValue target="myForm.fi1_button" propertyName="height" value="98"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FormItem_Property_height_percent_100_spark" keywords="[FormItem, height, property]" description="Verifies the percentage height of FormItem children">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="height" value="500" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_label" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentHeight" value="30" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_button" propertyName="percentHeight" value="20" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+            </setup>
+
+            <body>
+
+                <!--Sum of heights < 500 to accomodate verticalGap-->
+
+                <AssertPropertyValue target="myForm.fi1_label" propertyName="height" value="244"/>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="height" value="147"/>
+
+                <AssertPropertyValue target="myForm.fi1_button" propertyName="height" value="97"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FormItem_Property_height_percent_100_verticalGap_0_spark" keywords="[FormItem, height, property]" description="Verifies the percentage height of FormItem children">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="height" value="500" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetStyle target="myForm.fi1" styleName="verticalGap" value="0" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_label" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentHeight" value="30" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_button" propertyName="percentHeight" value="20" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+            </setup>
+
+            <body>
+
+                <!--Sum of heights < 500 to accomodate verticalGap-->
+
+                <AssertPropertyValue target="myForm.fi1_label" propertyName="height" value="250"/>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="height" value="150"/>
+
+                <AssertPropertyValue target="myForm.fi1_button" propertyName="height" value="100"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <!--FormItem tests for percent height & width with the direction of horizontal-->
+
+        <TestCase testID="FormItem_Property_width_percent_horizontal_spark" keywords="[FormItem, width, property, horizontal]" description="Verifies the percentage width of FormItem children with direction horizontal">
+
+            <setup> 
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1" propertyName="width" value="500" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_label" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="myForm.fi1_label"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentWidth" value="30" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+                <SetProperty target="myForm.fi1_button" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="myForm.fi1_button"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_label" propertyName="width" value="97"/>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="width" value="57"/>
+
+                <AssertPropertyValue target="myForm.fi1_button" propertyName="width" value="192"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="FormItem_Property_height_percent_horizontal_spark" keywords="[FormItem, width, property, horizontal]" description="Verifies the percentage width of FormItem children with direction horizontal">
+
+            <setup> 
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1" propertyName="height" value="500" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_label" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentHeight" value="150" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_button" propertyName="percentHeight" value="20" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_label" propertyName="height" value="250"/>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="height" value="500"/>
+
+                <AssertPropertyValue target="myForm.fi1_button" propertyName="height" value="100"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <!--FormItem tests for percent height & width with maxHeight and maxWidth set-->
+
+        <TestCase testID="FormItem_Property_height_greaterthan_maxHeight_spark" keywords="[maxHeight, FormItem, property, height]" description="verifies the height of the FormItem children when maxHeight is set">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="maxHeight" value="300"/>
+
+                <SetProperty target="myForm.fi1" propertyName="height" value="500" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1" propertyName="height" value="500"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="FormItem_Property_width_greaterthan_maxWidth_spark" keywords="[maxWidth, FormItem, property, width]">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="maxWidth" value="300"/>
+
+                <SetProperty target="myForm.fi1" propertyName="width" value="500" waitTarget="myForm.fi1" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1" propertyName="width" value="500"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="FormItem_Property_percentHeight_100_with_maxHeight_spark" keywords="[maxHeight, percentHeight, FormItem]" description="Verifies that height is correct when maxHeight is set">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="maxHeight" value="50"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentHeight" value="100" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="height" value="44"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="FormItem_property_percentWidth_100_with_maxWidth_spark" keywords="[maxWidth, percentageWidth, FormItem]" description="verifies that the width is correct when maxWidth is set.">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="width" value="500"/>
+
+                <SetProperty target="myForm.fi1" propertyName="maxWidth" value="200"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="width" value="362"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="FormItem_property_percentWidth_100_with_maxWidthChildren_spark" keywords="[maxWidth, percentageWidth, FormItem]" description="verifies that the width is correct when maxWidth is set.">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="width" value="500"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="maxWidth" value="200"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="width" value="200"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="FormItem_property_percentHeight_0_spark" keywords="[maxHeight, percentageHeight, FormItem]" description="Verifies that percentHeight of 0 compiles">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentHeight" value="0" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="height" value="44"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="FormItem_property_percentWidth_0_spark" keywords="[maxWidth, percentWidth, FormItem]" description="Verifies percentWidth of 0 compiles">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentWidth" value="0" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="width" value="40"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="FormItem_property_percentHeight_200_with_maxHeight_spark" keywords="[maxHeight, percentHeight, FormItem]" description="Verifies that height is maxHeight">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="maxHeight" value="50"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentHeight" value="200" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="height" value="44"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="FormItem_property_percentWidth_200_with_maxWidth_spark" keywords="[maxWidth, percentWidth, FormItem]" description="verifies that the width is correct when maxWidth is set.">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="maxWidth" value="200"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentWidth" value="200" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="width" value="70"/>
+
+            </body>
+
+        </TestCase>
+
+            
+
+        <!--FormItem tests for percent height & width with minHeight and minWidth set-->
+
+        <TestCase testID="FormItem_property_percentHeight_0_maxHeight_0_minHeight_0_spark" keywords="[maxHeight, minHeight, FormItem]" description="Verifies that percentHeight 0 does not show the component.">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="maxHeight" value="0"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="minHeight" value="0" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentHeight" value="0" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="height" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        
+
+        <TestCase testID="FormItem_property_percentWidth_0_maxWidth_0_minWidth_0_spark" keywords="[maxWidth, minWidth, FormItem]" description="Verifies that percentWidth 0 does not show the component.">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="maxWidth" value="0"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="minWidth" value="0"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentWidth" value="0" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="width" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="FormItem_property_percentHeight_0_minHeight_50_spark" keywords="[maxHeight, minHeight, FormItem]" description="Verifies that percentHeight 0 does not show the component.">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="height" value="500" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="minHeight" value="50" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentHeight" value="0" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="height" value="50"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="FormItem_property_percentWidth_0_minWidth_50_spark" keywords="[maxWidth, minWidth, FormItem]" description="Verifies that percentWidth 0 does not show the component.">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="width" value="500" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="minWidth" value="50"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentWidth" value="0" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="width" value="50"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="FormItem_property_percentHeight_100_maxHeight_50_spark" keywords="[maxHeight, minHeight, FormItem]" description="Verifies that percentHeight 0 does not show the component.">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="maxHeight" value="50"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentHeight" value="100" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="height" value="50"/>
+
+            </body>
+
+        </TestCase>     
+
+        
+
+        <TestCase testID="FormItem_property_percentWidth_100_maxWidth_50_spark" keywords="[maxWidth, minWidth, FormItem]" description="Verifies that percentWidth 0 does not show the component.">
+
+            <setup>
+
+                <ResetComponent target="myForm" className="FormComp" waitTarget="myForm" waitEvent="updateComplete"/>
+
+                <SetProperty target="myForm.fi1" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myForm.fi1"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="maxWidth" value="50"/>
+
+                <SetProperty target="myForm.fi1_ta" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="myForm.fi1_ta"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myForm.fi1_ta" propertyName="width" value="50"/>
+
+            </body>
+
+        </TestCase>     
+
+
+
+        <!--FormItem tests for percent height & width with minHeight & maxHeight set-->
+
+
+
+        <!--FormItem tests for percent height & width with minWidth & maxWidth set-->
+
+
+
+        <!--FormItem tests for percent | absolute height & width -->
+
+
+
+        <!--FormItem tests for 2 FormItems, should line up vertically-->
+
+    </testCases>
+
+</UnitTester>
+
+
+

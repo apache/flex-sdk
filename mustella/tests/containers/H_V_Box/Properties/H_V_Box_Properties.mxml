@@ -1,0 +1,97 @@
+<UnitTester testDir="containers/H_V_Box/Properties/"
+    xmlns:m="http://ns.adobe.com/mxml/2009"
+    xmlns="*"
+    testSWF="H_V_Box_basic.mxml">
+
+    <!-- Default code for all tests -->
+    <m:Script>
+        <![CDATA[
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </m:Script>
+
+    <m:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </m:Metadata>
+    
+       
+    <testCases>
+                                 
+		<TestCase testID="H_V_Box_HBoxLayout1" keywords="[HBox, Horizontal]" description="Test layout of items in an HBox" >
+            <setup>
+                <ResetComponent target="myHBox" className="comps.customHBox" waitEvent="updateComplete" waitTarget="myHBox"/>
+            </setup>
+            <body>				                
+                <CompareBitmap target="myHBox" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>
+        
+		<TestCase testID="H_V_Box_HBoxStyles" keywords="[HBox, Horizontal, Styles]" description="Test styles of items in an HBox" >
+            <setup>
+                <ResetComponent target="myHBox2" className="comps.customHBox2" waitEvent="updateComplete" waitTarget="myHBox2"/>
+            </setup>
+            <body>				                
+                <CompareBitmap target="myHBox2" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>        
+
+		<TestCase testID="H_V_Box_VBoxLayout1" keywords="[VBox, Vertical]" description="Test layout of items in an VBox" >
+            <setup>
+                <ResetComponent target="myVBox" className="comps.customVBox" waitEvent="updateComplete" waitTarget="myVBox"/>
+            </setup>
+            <body>				                
+                <CompareBitmap target="myVBox" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>
+        
+		<TestCase testID="H_V_Box_VBoxStyles" keywords="[VBox, Vertical, Styles]" description="Test styles of items in an VBox" >
+            <setup>
+                <ResetComponent target="myVBox2" className="comps.customVBox2" waitEvent="updateComplete" waitTarget="myVBox2"/>
+            </setup>
+            <body>				                
+                <CompareBitmap target="myVBox2" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>        
+        
+		<TestCase testID="H_V_Box_HBoxRuntimeStyles" keywords="[VBox, Vertical, Styles]" description="Test setting styles at runtime of HBox" >
+            <setup>
+                <ResetComponent target="myHBox3" className="comps.customHBox" waitEvent="updateComplete" waitTarget="myHBox3"/>
+                <SetStyle target="myHBox3" styleName="backgroundColor" value="0xFFFFFF" waitTarget="myHBox3" waitEvent="updateComplete"/>
+                <SetStyle target="myHBox3" styleName="borderStyle" value="solid" waitTarget="myHBox3" waitEvent="updateComplete"/>
+                <SetStyle target="myHBox3" styleName="borderThickness" value="2" waitTarget="myHBox3" waitEvent="updateComplete"/>
+                <SetStyle target="myHBox3" styleName="borderColor" value="0x000000" waitTarget="myHBox3" waitEvent="updateComplete"/>
+                <SetStyle target="myHBox3" styleName="color" value="0x00DD00" waitTarget="myHBox3" waitEvent="updateComplete"/>                
+            </setup>
+            <body>				                
+                <CompareBitmap target="myHBox3" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>         
+        
+		<TestCase testID="H_V_Box_VBoxRuntimeStyles" keywords="[VBox, Vertical, Styles]" description="Test setting styles at runtime of VBox" >
+            <setup>
+                <ResetComponent target="myVBox" className="comps.customVBox" waitEvent="updateComplete" waitTarget="myVBox"/>
+                <SetStyle target="myVBox" styleName="backgroundColor" value="0xFFFFFF" waitTarget="myVBox" waitEvent="updateComplete"/>
+                <SetStyle target="myVBox" styleName="borderStyle" value="solid" waitTarget="myVBox" waitEvent="updateComplete"/>
+                <SetStyle target="myVBox" styleName="borderThickness" value="8" waitTarget="myVBox" waitEvent="updateComplete"/>
+                <SetStyle target="myVBox" styleName="borderColor" value="0x0000FF" waitTarget="myVBox" waitEvent="updateComplete"/>
+                <SetStyle target="myVBox" styleName="color" value="0xDD0000" waitTarget="myVBox" waitEvent="updateComplete"/>                
+            </setup>
+            <body>				                
+                <CompareBitmap target="myVBox" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>                 
+        
+		<TestCase testID="H_V_Box_x_y_positions" keywords="[VBox, HBox]" description="Test setting x and y position of HBox and VBox" >
+            <setup>
+                <ResetComponent target="myHBox3" className="comps.customHBox" waitEvent="updateComplete" waitTarget="myHBox3"/>                
+            </setup>
+            <body>				                
+                <CompareBitmap target="stage" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>                 
+        
+    </testCases>
+    
+</UnitTester>

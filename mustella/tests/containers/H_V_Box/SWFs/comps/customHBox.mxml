@@ -1,0 +1,11 @@
+<HBox xmlns="library://ns.adobe.com/flex/mx" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <Button label="B1 in HBox" />
+    <Button label="B2 in HBox" />
+    <Text text="Text in HBox" />
+    <NumericStepper />
+    <s:HSlider />
+    <Image id="myPic" width="100" height="100" source="@Embed('../../../../../Assets/Images/smallbluerect.jpg')"/>
+    <ComboBox />
+
+</HBox>

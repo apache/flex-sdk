@@ -1,0 +1,1368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/form/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Form_Basic_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <mx:Style>
+    @namespace "library://ns.adobe.com/flex/mx";
+
+        .myStyle{
+        color: #FF0000
+        }
+        .myStyle2{
+        color: #0000FF
+        }
+
+    </mx:Style>
+    
+    <mx:Script>
+    <![CDATA[
+        [Embed(source="../../../../Assets/Images/smallredrect.jpg")]
+        public var MyIcon:Class;    
+        import mx.containers.Form;
+        import mx.core.IFlexDisplayObject;
+        public function allChildrenlist():int
+        {
+            return (application.myCustomForm.myForm.rawChildren.numChildren);
+        }
+        public function autoLayoutAS():void{
+            application.myCustomForm.myForm.autoLayout = false;
+        }
+        public function clipContentAS():void{
+            application.myCustomForm.myForm.clipContent=false;
+        }
+        public function creationPolicyAS():void{
+            application.myCustomForm.myForm.creationPolicy="all";
+        }
+        public function getDefaultButton():Boolean{
+            if(application.myCustomForm.myForm.defaultButton==application.myCustomForm.myButton1)
+            return true;
+            return false;
+        }
+        public function setDefaultButtonAS():void{
+            application.myCustomForm.myForm.defaultButton=application.myCustomForm.myButton1;
+        }
+        public function setHeightAS():void{
+            application.myCustomForm.myForm.height=120;
+        }
+        public function setHorizontalLineScrollSizeAS():void{
+            application.myCustomForm.myForm.horizontalLineScrollSize=10;
+        }
+        public function setHorizontalPageScrollSizeAS():void{
+            application.myCustomForm.myForm.horizontalPageScrollSize=10;
+        }
+        public function setHorizontalScrollPositionAS():void{
+            application.myCustomForm.myForm.horizontalScrollPosition=10;
+        }
+        public function setHorizontalScrollPolicyAS():void{
+            application.myCustomForm.myForm.horizontalScrollPolicy="on";
+        }
+        public function setIncludeInLayoutAS():void{
+            application.myCustomForm.myForm.includeInLayout="true";
+        }
+        public function setLabelAS():void{
+            application.myCustomForm.myForm.label="Other Form Label";
+        }
+        public function setMaxHeightAS():void{
+            application.myCustomForm.myForm.maxHeight=150;
+        }
+        public function setMaxWidthAS():void{
+            application.myCustomForm.myForm.maxWidth=150;
+        }
+        public function setMinHeightAS():void{
+            application.myCustomForm.myForm.minHeight=150;
+        }
+        public function setMinWidthAS():void{
+            application.myCustomForm.myForm.minWidth=150;
+        }
+        public function setPercentHeightAS():void{
+            application.myCustomForm.myForm.percentHeight=70;
+        }
+        public function setPercentWidthAS():void{
+            application.myCustomForm.myForm.percentWidth=70;
+        }
+        public function setScaleXAS():void{
+            application.myCustomForm.myForm.scaleX=5;
+        }
+        public function setScaleYAS():void{
+            application.myCustomForm.myForm.scaleY=5;
+        }
+        public function setStyleNameAS():void{
+            application.myCustomForm.myForm.styleName='myStyle2';
+        }
+        public function setToolTipAS():void{
+            application.myCustomForm.myForm.toolTip="My Form";
+        }
+        public function setVisibleAS():void{
+            application.myCustomForm.myForm.visible=false;
+        }
+        public function setVerticalLineScrollSizeAS():void{
+            application.myCustomForm.myForm.verticalLineScrollSize=10;
+        }
+        public function setVerticalScrollPositionAS():void{
+            application.myCustomForm.myForm.verticalScrollPosition=10;
+        }
+        public function setVerticalScrollPolicyAS():void{
+            application.myCustomForm.myForm.verticalScrollPolicy='on';
+        }
+        public function setWidthAS():void{
+            application.myCustomForm.myForm.width=120;
+        }
+        public function setXAS():void{
+            application.myCustomForm.myForm.x=50;
+        }   
+        public function setYAS():void{
+            application.myCustomForm.myForm.y=50;
+        }
+    ]]>
+    </mx:Script>
+        
+
+    <testCases>
+        <TestCase testID="Form_Property_allchildrenlist_spark" keywords="[allchildrenlist, children, Form]">
+            <body>
+                <AssertMethodValue method="value=allChildrenlist()" value="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_autoLayout1_spark" keywords="[autoLayout, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="autoLayout" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_autoLayout2"  keywords="[autoLayout, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetProperty target="myCustomForm.myForm" propertyName="autoLayout" value="true" />
+            </setup>
+        <body>
+            <AssertPropertyValue target="myCustomForm.myForm" propertyName="autoLayout" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_autoLayout3_spark" keywords="[autoLayout, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetProperty target="myCustomForm.myForm" propertyName="autoLayout" value="false" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="autoLayout" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_autoLayout4_spark" keywords="[autoLayout, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <RunCode code="autoLayoutAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="autoLayout" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_clipContent1_spark" keywords="[clipContent, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="clipContent" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_clipContent2_spark" keywords="[clipContent, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="clipContent" value="false" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="clipContent" value="false"/>
+            </body>
+        </TestCase>     
+        <TestCase testID="Form_Property_clipContent3_spark" keywords="[clipContent, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="clipContent" value="true" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="clipContent" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_clipContent4_spark" keywords="[clipContent, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="clipContentAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="clipContent" value="false"/>
+            </body>
+        </TestCase> 
+        <TestCase testID="Form_Property_creationPolicy1_spark" keywords="[creationPolicy, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="creationPolicy" valueExpression="value='auto'"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_creationPolicy2_spark" keywords="[creationPolicy, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="creationPolicy" value="all" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="creationPolicy" value="all"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_creationPolicy3_spark" keywords="[creationPolicy, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="creationPolicy" value="none" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="creationPolicy" value="none"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_creationPolicy4_spark" keywords="[creationPolicy, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="creationPolicyAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="creationPolicy" value="all"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_defaultButton1_spark" keywords="[defaultButton, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="defaultButton" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_defaultButton2_spark" keywords="[defaultButton, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="defaultButton" valueExpression="value=IFlexDisplayObject(application.myCustomForm.myButton1)"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=getDefaultButton()" value="true" />
+            </body>
+        </TestCase>     
+        <TestCase testID="Form_Property_defaultButton3_spark" keywords="[defaultButton, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setDefaultButtonAS()" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=getDefaultButton()" value="true" />
+            </body>
+        </TestCase>     
+        <TestCase testID="Form_Property_height1_spark" keywords="[height, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="height" value="140"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_height2_spark" keywords="[height, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="height" value="100" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="height" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_height3_spark" keywords="[height, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="height" value="100.5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="height" value="100.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_height4_spark" keywords="[height, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setHeightAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="height" value="120"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalLineScrollSize1_spark" keywords="[Scroll, size, Line, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalLineScrollSize" value="5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalLineScrollSize2_spark" keywords="[Scroll, Size, Line, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="horizontalLineScrollSize" value="10" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalLineScrollSize" value="10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalLineScrollSize3_spark" keywords="[Scroll, size, Line, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="horizontalLineScrollSize" value="-10" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalLineScrollSize" value="-10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalLineScrollSize4_spark" keywords="[Scroll, Size, Line, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setHorizontalLineScrollSizeAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalLineScrollSize" value="10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalPageScrollSize1_spark" keywords="[Scroll, Size, Page, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalPageScrollSize" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalPageScrollSize2_spark" keywords="[Scroll, Size, Page, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="horizontalPageScrollSize" value="10" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalPageScrollSize" value="10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalPageScrollSize3_spark" keywords="[Scroll, Size, Page, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="horizontalPageScrollSize" value="-10" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalPageScrollSize" value="-10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalPageScrollSize4_spark" keywords="[Scroll, Size, Page, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setHorizontalPageScrollSizeAS()" />              
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalPageScrollSize" value="10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalScrollPosition1_spark" keywords="[Scroll, Position, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalScrollPosition" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalScrollPosition2_spark" keywords="[Scroll, Position, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="horizontalScrollPosition" value="10" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalScrollPosition" value="10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalScrollPosition3_spark" keywords="[Scroll, Position, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="horizontalScrollPosition" value="0" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalScrollPosition" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalScrollPosition4_spark" keywords="[Scroll, Position, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setHorizontalScrollPositionAS()" />              
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalScrollPosition" value="10"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="Form_Property_horizontalScrollPolicy1_spark" keywords="[Scroll, Policy, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalScrollPolicy" value="auto"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalScrollPolicy2_spark" keywords="[Scroll, Policy, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="horizontalScrollPolicy" value="on" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalScrollPolicy" value="on"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalScrollPolicy3_spark" keywords="[Scroll, Policy, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="horizontalScrollPolicy" value="off" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalScrollPolicy" value="off"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_horizontalScrollPolicy4_spark" keywords="[Scroll, Policy, Horizontal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setHorizontalScrollPolicyAS()" />                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="horizontalScrollPolicy" value="on"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_includeInLayout1_spark" keywords="[includeInLayout, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="includeInLayout" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_includeInLayout2_spark" keywords="[includeInLayout, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="includeInLayout" value="true" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="includeInLayout" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_includeInLayout3_spark" keywords="[includeInLayout, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="includeInLayout" value="false" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="includeInLayout" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_includeInLayout4_spark" keywords="[includeInLayout, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setIncludeInLayoutAS()" />               
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="includeInLayout" value="true"/>
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="Form_Property_label1_spark" keywords="[label, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="label" value=""/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_label2_spark" keywords="[label, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="label" value="Form Label" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="label" value="Form Label"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_label3_spark" keywords="[label, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setLabelAS()" />             
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="label" value="Other Form Label"/>
+            </body>
+        </TestCase> 
+
+        <TestCase testID="Form_Property_maxHeight1_spark" keywords="[maxHeight, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="maxHeight" value="10000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_maxHeight2_spark" keywords="[maxHeight, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="maxHeight" value="100" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="maxHeight" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_maxHeight3_spark" keywords="[maxHeight, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="maxHeight" value="126.5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="maxHeight" value="126.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_maxHeight4_spark" keywords="[maxHeight, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setMaxHeightAS()" />             
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="maxHeight" value="150"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Form_Property_maxHorizontalScrollPosition1_spark" keywords="[maxHorizontalScrollPosition, horizontal, scroll, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="maxHorizontalScrollPosition" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_maxVerticalScrollPosition1_spark" keywords="[maxVerticalScrollPosition, horizontal, scroll, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="maxVerticalScrollPosition" value="0"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Form_Property_maxWidth1_spark" keywords="[maxWidth, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="maxWidth" value="10000"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_maxWidth2_spark" keywords="[maxWidth, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="maxWidth" value="100" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="maxWidth" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_maxWidth3"  keywords="[maxWidth, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="maxWidth" value="126.5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="maxWidth" value="126.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_maxWidth4"  keywords="[maxWidth, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setMaxWidthAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="maxWidth" value="150"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Form_Property_minHeight1_spark" keywords="[maxHeight, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="minHeight" value="140"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_minHeight2_spark" keywords="[maxHeight, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="minHeight" value="100" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="minHeight" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_minHeight3_spark" keywords="[minHeight, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="minHeight" value="126.5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="minHeight" value="126.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_minHeight4_spark" keywords="[minHeight, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setMinHeightAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="minHeight" value="150"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Form_Property_minWidth1_spark" keywords="[minWidth, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="minWidth" value="118"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_minWidth2_spark" keywords="[minWidth, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="minWidth" value="100" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="minWidth" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_minWidth3_spark" keywords="[minWidth, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="minWidth" value="126.5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="minWidth" value="126.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_minWidth4_spark" keywords="[minWidth, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setMinWidthAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="minWidth" value="150"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Form_Property_numChildren1_spark" keywords="[numChildren, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="numChildren" value="2"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Form_Property_percentHeight1_spark" keywords="[percentHeight, unset, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="percentHeight" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_percentHeight2_spark" keywords="[percentHeight, whole, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="percentHeight" value="80" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="percentHeight" value="80"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_percentHeight3_spark" keywords="[percentHeight, decimal,  Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="percentHeight" value="50.5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="percentHeight" value="50.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_percentHeight4_spark" keywords="[percentHeight, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setPercentHeightAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="percentHeight" value="70"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Form_Property_percentWidth1_spark" keywords="[percentWidth, unset, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="percentWidth" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_percentWidth2_spark" keywords="[percentWidth, whole, Form]" >
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="percentWidth" value="80" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="percentWidth" value="80"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_percentWidth3_spark" keywords="[percentWidth, decimal, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="percentWidth" value="50.5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="percentWidth" value="50.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_percentWidth4_spark" keywords="[percentWidth, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setPercentWidthAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="percentWidth" value="70"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Form_Property_scaleX1_spark" keywords="[scaleX, unset, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="scaleX" value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_scaleX2_spark" keywords="[scaleX, zero, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="scaleX" value="0" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="scaleX" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_scaleX3_spark" keywords="[scaleX, 2, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="scaleX" value="2" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="scaleX" value="2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_scaleX4_spark" keywords="[scaleX, large, value, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setScaleXAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="scaleX" value="5"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Form_Property_scaleY1_spark" keywords="[scaleY, unset, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="scaleY" value="1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_scaleY2_spark" keywords="[scaleY, zero, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="scaleY" value="0" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="scaleY" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_scaleY3_spark" keywords="[scaleY, 2, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="scaleY" value="2" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="scaleY" value="2"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_scaleY4_spark" keywords="[scaleY, large, value, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setScaleYAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="scaleY" value="5"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Form_Property_styleName1_spark" keywords="[styleName, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="styleName" valueExpression="value=null"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_styleName2_spark" keywords="[styleName, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="styleName" value="myStyle" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="styleName" value="myStyle"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_styleName3_spark" keywords="[styleName, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setStyleNameAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="styleName" value="myStyle2"/>
+            </body>
+        </TestCase>
+        
+         <TestCase testID="Form_Property_toolTip1_spark" keywords="[toolTip, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+            </setup>
+            <body>
+                <DispatchMouseEvent target="myCustomForm.myButton1" type="mouseOver" localX="10" localY="10"/>
+                <AssertNoEvent target="myCustomForm.myForm" eventName="toolTipShow"/>
+            </body>
+        </TestCase>
+         <TestCase testID="Form_Property_toolTip2_spark" keywords="[toolTip, Form]">
+            <setup>
+            <ResetComponent target="myCustomForm" className="CustomForm_spark" waitEvent="updateComplete"/>
+            <SetProperty target="myCustomForm.myForm" propertyName="toolTip" value="My Form"/>
+            </setup>            
+            <body>            	
+                <DispatchMouseEvent target="myCustomForm.myButton1" type="mouseOver" localX="10" localY="10"/>
+                <AssertEvent target="myCustomForm.myForm" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" /> 
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="toolTip" value="My Form" />
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_toolTip3_spark" keywords="[toolTip, Form]">
+            <setup>
+            <ResetComponent target="myCustomForm" className="CustomForm_spark" waitEvent="updateComplete"/>
+            <SetProperty target="myCustomForm.myForm" propertyName="toolTip" value="#$@$%%$%"/>
+            </setup>            
+            <body>
+                <DispatchMouseEvent target="myCustomForm.myButton1" type="mouseOver" localX="10" localY="10"/>
+                <AssertEvent target="myCustomForm.myForm" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" /> 
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="toolTip" value="#$@$%%$%" />
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_toolTip4_spark" keywords="[toolTip, Form]">
+            <setup>
+            <ResetComponent target="myCustomForm" className="CustomForm_spark" waitEvent="updateComplete"/>
+            <SetProperty target="myCustomForm.myForm" propertyName="toolTip" value="???????????????"/>
+            </setup>            
+            <body>
+                <DispatchMouseEvent target="myCustomForm.myButton1" type="mouseOver" localX="10" localY="10"/>
+                <AssertEvent target="myCustomForm.myForm" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" />
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="toolTip" value="???????????????" />
+            </body>
+        </TestCase>
+        <TestCase testID=" Form_Property_toolTip5_spark" keywords="[toolTip, Form]">
+            <setup>
+            <ResetComponent target="myCustomForm" className="CustomForm_spark" waitEvent="updateComplete"/>
+            <RunCode code="setToolTipAS()" />           
+            </setup>            
+            <body>
+                <DispatchMouseEvent target="myCustomForm.myButton1" type="mouseOver" localX="10" localY="10"/>
+                <AssertEvent target="myCustomForm.myForm" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent"/>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="toolTip" value="My Form" />
+            </body>
+        </TestCase> 
+
+        <TestCase testID="Form_Property_visible1_spark" keywords="[visible, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="visible" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_visible2_spark" keywords="[visible, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="visible" value="true" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="visible" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_visible3_spark" keywords="[visible, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="visible" value="false"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_visible4_spark" keywords="[visible, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setVisibleAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="visible" value="false"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Form_Property_verticalLineScrollSize1_spark" keywords="[vertical, Line, Scroll, Size, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="verticalLineScrollSize" value="5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_verticalLineScrollSize2_spark" keywords="[vertical, Line, Scroll, Size, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="verticalLineScrollSize" value="20" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="verticalLineScrollSize" value="20"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_verticalLineScrollSize3_spark" keywords="[vertical, Line, Scroll, Size, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setVerticalLineScrollSizeAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="verticalLineScrollSize" value="10"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="Form_Property_verticalScrollPosition1_spark" keywords="[vertical, Scroll, Position, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="verticalScrollPosition" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_verticalScrollPosition2_spark" keywords="[vertical, Scroll, Position, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="verticalScrollPosition" value="20" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="verticalScrollPosition" value="20"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_verticalScrollPosition3_spark" keywords="[vertical, Scroll, Position, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setVerticalScrollPositionAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="verticalScrollPosition" value="10"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="Form_Property_verticalScrollPolicy1_spark" keywords="[vertical, Scroll, Policy, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="verticalScrollPolicy" value="auto"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_verticalScrollPolicy2_spark" keywords="[vertical, Scroll, Policy, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="verticalScrollPolicy" value="on" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="verticalScrollPolicy" value="on"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_verticalScrollPolicy3_spark" keywords="[vertical, Scroll, Policy, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="verticalScrollPolicy" value="off" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="verticalScrollPolicy" value="off"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_verticalScrollPolicy4_spark" keywords="[vertical, Scroll, Policy, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="verticalScrollPolicy" value="auto" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="verticalScrollPolicy" value="auto"/>
+            </body>
+        </TestCase>     
+        <TestCase testID="Form_Property_verticalScrollPolicy5_spark" keywords="[vertical, Scroll, Policy, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setVerticalScrollPolicyAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="verticalScrollPolicy" value="on"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Form_Property_width1_spark" keywords="[width, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="width" value="118"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_width2_spark" keywords="[width, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="width" value="100" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="width" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_width3_spark" keywords="[width, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="width" value="126.5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="width" value="126.5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_width4_spark" keywords="[width, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setWidthAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="width" value="120"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Form_Property_x1_spark" keywords="[x, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="x" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_x2_spark" keywords="[x, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="x" value="100" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="x" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_x3_spark" keywords="[x, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="x" value="-5.6" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="x" value="-5.6000000000000005"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_x4_spark" keywords="[x, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setXAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="x" value="50"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Form_Property_y1_spark" keywords="[y, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="y" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_y2_spark" keywords="[y, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="y" value="100" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="y" value="100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_y3_spark" keywords="[y, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetProperty target="myCustomForm.myForm" propertyName="y" value="-5.6" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="y" value="-5.6000000000000005"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Form_Property_y4_spark" keywords="[y, Form]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark" />
+                <SetStyle target="myCustomForm.myForm" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <SetStyle target="myCustomForm.myForm" styleName="color" value="#CCCCFF" waitEvent="updateComplete" waitTarget="myCustomForm.myForm" />
+                <RunCode code="setYAS()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCustomForm.myForm" propertyName="y" value="50"/>
+            </body>
+        </TestCase>     
+    </testCases>
+</UnitTester>

@@ -1,0 +1,47 @@
+<mx:VBox xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="left" width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+		
+			[Embed(source="../../../../Assets/Images/PanelImages/PanelBackgroundSkin.swf", scaleGridTop="60", scaleGridBottom="360", scaleGridLeft="24", scaleGridRight="526"  )]
+			public var panelSkinSWF:Class;
+
+			[Embed(source="../../../../Assets/Images/PanelImages/PanelSkinVersion.png", scaleGridTop="55", scaleGridBottom="401", scaleGridLeft="13", scaleGridRight="505"  )]
+			public var panelSkin1:Class;
+			
+			[Bindable]
+			[Embed(source="../../../../Assets/Images/smallredrect.jpg")]
+			public var ticon:Class;
+			
+			[Bindable]
+			[Embed(source="../../../../Assets/Images/redrect.jpg")]
+			public var bgimage:Class;
+		]]>
+	</mx:Script>
+	<mx:Style> 
+	@namespace "library://ns.adobe.com/flex/mx";
+		.myPanel
+		{   
+			borderSkin: ClassReference("component_Panel_Swf_BorderSkin_scale9_panelSkinSWF");
+		} 
+		.myPanel1
+		{   
+			borderSkin: ClassReference("component_Panel_Swf_BorderSkin_scale9_panelSkin1");
+		} 
+	</mx:Style>
+	<mx:Panel id="myPanelBSSwf" titleIcon="{ticon}" width="550" height="400" title="Title" status="{String(myBtn.width)}" styleName="myPanel" color="white" headerHeight="60" >
+	<mx:Canvas width="100%" height="100%" borderStyle="solid" borderColor="red">
+	<mx:Button id="myBtn" width="{myhsbs.value}" label="My Button" />
+	</mx:Canvas>
+	<mx:ControlBar>
+		<mx:HSlider id="myhsbs" minimum="0" maximum="800" value="100" width="100%" snapInterval="2"/>
+	</mx:ControlBar>
+	</mx:Panel>
+	<mx:Button id="myBtn1" label="Change Panel skin" click="myPanelBSSwf.setStyle('styleName', 'myPanel1');myPanelBSSwf.setStyle('headerHeight', 55)" />
+	
+	<mx:Panel id="myPanelBS1" width="500" height="100%" title="Title" status="Status" backgroundImage="{bgimage}" backgroundSize="100%" >
+	<mx:Canvas width="100%" height="100%" borderStyle="solid" borderColor="red">
+		<mx:Button id="myBtn2" width="100" label="My Button" icon="{ticon}" />
+	</mx:Canvas>
+	</mx:Panel>
+	<mx:Button id="myBtnSwf" label="Change Padding" click="myPanelBSSwf.setStyle('paddingTop', 15);myPanelBSSwf.setStyle('paddingBottom', 15);myPanelBSSwf.setStyle('paddingLeft', 15);myPanelBSSwf.setStyle('paddingRight', 15);" />
+</mx:VBox>

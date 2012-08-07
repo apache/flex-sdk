@@ -1,0 +1,9 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+    <mx:Panel id="myPanel" borderThickness="2" borderStyle="solid" mouseUp="{ti.text='Sam'}" label="Hello World" >
+	  <mx:Button id="myButton1"/>
+	  <mx:Label text="Hello World"/>
+	    <mx:Button />
+	    <mx:Label text="Good Day!!!"/>
+     </mx:Panel> 
+     <mx:TextInput id="ti"/>
+</mx:VBox>

@@ -1,0 +1,7 @@
+<mx:VBox xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="left" width="100%" height="100%">
+                     
+	<mx:Spacer height="150" />
+	<mx:Panel id="myPanelHH" width="100%" height="100%" title="Panel for TEST" status="Panel Status" headerHeight="{hheight.value}" >
+		<mx:HSlider id="hheight" minimum="-100" maximum="200"  value="30" snapInterval="1" width="100%"/>
+	</mx:Panel>
+</mx:VBox>

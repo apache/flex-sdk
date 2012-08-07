@@ -1,0 +1,24 @@
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+
+	<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+		.panelStyle
+		{
+			borderStyle: "solid";
+			borderThickness: 20;
+			
+			/*paddingTop: 25;
+			paddingLeft: 10;
+			paddingRight: 10;
+			paddingBottom: 10;*/
+		}
+	</mx:Style>
+
+    <mx:Panel id="myPanel" title="Title" styleName="panelStyle" mouseUp="{ti.text='Sam'}" >
+	  <mx:Button id="myButton1"/>
+	  <mx:Text text="text"/>
+	    <mx:Button />
+	    <mx:Text text="text"/>
+     </mx:Panel> 
+     <mx:TextInput id="ti"/>
+</mx:VBox>

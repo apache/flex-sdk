@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Canvas/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FixedCanvas.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+       public static function init(o:DisplayObject):void
+		{
+
+		}
+
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+		<TestCase testID="Canvas_Event_mouseMove" description="Canvas Move event." keywords="[event, mouseMove, Canvas]">
+			<setup>
+			    	<SetProperty target="mainCanvas2" propertyName="width" value= "300" />
+			    	<SetProperty target="mainCanvas2" propertyName="height" value= "200" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="mainCanvas2" type="mouseOver" localX="12" localY="5" />
+				<DispatchMouseEvent target="mainCanvas2" type="mouseMove" localX="22" localY="5" />
+				<AssertEvent target="mainCanvas2" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Canvas_Event_mouseUp" description="Canvas mouseUp event." keywords="[event, mouseUp, Canvas]">
+			<setup>
+			    	<SetProperty target="mainCanvas2" propertyName="width" value= "300" />
+			    	<SetProperty target="mainCanvas2" propertyName="height" value= "200" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="mainCanvas2" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="mainCanvas2" type="mouseDown" localX="22" localY="5" />
+				<DispatchMouseEvent target="mainCanvas2" type="mouseUp" localX="22" localY="5" />
+				<AssertEvent target="mainCanvas2" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="Canvas_Event_mouseDown" description="Canvas mouseDown event." keywords="[event, mouseUp, Canvas]">
+			<setup>
+			    	<SetProperty target="mainCanvas2" propertyName="width" value= "300" />
+			    	<SetProperty target="mainCanvas2" propertyName="height" value= "200" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchMouseEvent target="mainCanvas" type="mouseDown" localX="22" localY="5" />
+				<AssertEvent target="mainCanvas" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="Canvas_events_creationComplete"  keywords="[creationComplete, event, Canvas]">
+			<setup>
+				<ResetComponent target="mainCanvas" className="mx.containers.Canvas" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+				<SetProperty target="mainCanvas" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+				<SetProperty target="mainCanvas" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ti1" propertyName="text" value="Canvas Creation Complete fired" />
+			</body>
+		</TestCase>
+		<TestCase testID="Canvas_events_initialize"  keywords="[initialize, event, Canvas]">
+			<setup>
+				<ResetComponent target="mainCanvas" className="mx.containers.Canvas" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+				<SetProperty target="mainCanvas" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+				<SetProperty target="mainCanvas" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ti2" propertyName="text" value="Canvas initialize fired" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Canvas_events_show"  keywords="[show, event, Canvas]">
+			<setup>
+				<ResetComponent target="mainCanvas" className="mx.containers.Canvas" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+				<SetProperty target="mainCanvas" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+				<SetProperty target="mainCanvas" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="mainCanvas"/>
+				<WaitForEffectsToEnd />
+				<SetProperty target="mainCanvas" propertyName="visible" value="false"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<SetProperty target="mainCanvas" propertyName="visible" value="true"/>
+				<AssertEvent target="mainCanvas" eventName="show" eventClass="mx.events::FlexEvent" timeout="5000" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

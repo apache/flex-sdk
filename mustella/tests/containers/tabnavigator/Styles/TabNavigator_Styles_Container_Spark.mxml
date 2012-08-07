@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/tabnavigator/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabNavigator_InContainer_Spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import TNComp2;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import flash.display.BlendMode;
+
+	]]>
+	</mx:Script>
+	<testCases>
+        <TestCase testID="backgroundColor_0x" description="TabNavigator style backgroundAlpha=0" keywords="[styles, backgroundAlpha, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="backgroundColor" target="tabnav_1" value="0xFF00000" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/backgroundColor_0x.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundColor_classSelector" description="TabNavigator style backgroundColor set through css" keywords="[styles, backgroundColor, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetProperty propertyName="styleName" target="tabnav_1" value="myBackground" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/backgroundColor_classSelector.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundDisabledColor_0x" description="TabNavigator style backgroundDisabledColor=0" keywords="[styles, backgroundDisabledColor, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="backgroundDisabledColor" target="tabnav_1" value="0xFF00000" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+			    <SetProperty target="tabnav_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tabnav_1" />
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/backgroundDisabledColor_0x.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundDisabledColor_classSelector" description="TabNavigator style backgroundColor set through css" keywords="[styles, backgroundColor, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetProperty propertyName="styleName" target="tabnav_1" value="myDisabledColor" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<SetProperty target="tabnav_1" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="tabnav_1" />
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/backgroundDisabledColor_classSelector.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundImage_jpg" description="TabNavigator style backgroundColor set through css" keywords="[styles, backgroundColor, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="backgroundImage" target="tabnav_1" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/backgroundImage_jpg.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundSize_50" description="TabNavigator style backgroundColor set through css" keywords="[styles, backgroundColor, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="backgroundImage" target="tabnav_1" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="backgroundSize" target="tabnav_1" value="50%" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/backgroundSize_50.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundSize_100" description="TabNavigator style backgroundColor set through css" keywords="[styles, backgroundColor, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="backgroundImage" target="tabnav_1" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="backgroundSize" target="tabnav_1" value="100%" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/backgroundSize_100.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+
+        <TestCase testID="borderStyle_default" description="TabNavigator style borderStyle=solid" keywords="[styles, borderStyle, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="borderColor" target="tabnav_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="borderThickness" target="tabnav_1" value="5" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/borderStyle_default.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="borderStyle_inset" description="TabNavigator style borderStyle=inset" keywords="[styles, borderStyle, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="borderColor" target="tabnav_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="borderThickness" target="tabnav_1" value="5" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="borderStyle" target="tabnav_1" value="inset" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/borderStyle_inset.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="borderStyle_none" description="TabNavigator style borderStyle=none" keywords="[styles, borderStyle, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="borderColor" target="tabnav_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="borderThickness" target="tabnav_1" value="5" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="borderStyle" target="tabnav_1" value="none" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/borderStyle_none.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="borderStyle_outset" description="TabNavigator style borderStyle=outset" keywords="[styles, borderStyle, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="borderColor" target="tabnav_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="borderThickness" target="tabnav_1" value="5" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="borderStyle" target="tabnav_1" value="outset" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/borderStyle_outset.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="disabledOverlayAlpha_01" description="TabNavigator style disabledOverlayAlpha=none" keywords="[styles, disabledOverlayAlpha, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="disabledOverlayAlpha" target="tabnav_1" value="0.1" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="disabledColor" target="tabnav_1" value="0xCC0000" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="enabled" target="tabnav_1" value="false" waitEvent="updateComplete" waitTarget="tabnav_1" />
+				<CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/disabledOverlayAlpha_01.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="disabledOverlayAlpha_css" description="TabNavigator style disabledOverlayAlpha=outset" keywords="[styles, disabledOverlayAlpha, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetProperty propertyName="styleName" target="tabnav_1" value="disabledOverlayAlphaStyle" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+			     <SetProperty propertyName="enabled" target="tabnav_1" value="false" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			     <CompareBitmap target="tabnav_1" url="../Styles/baselines/spark/disabledOverlayAlpha_css.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="dropShadowEnabled_true" description="TabNavigator style dropShadowEnabled=true" keywords="[styles, dropShadowEnabled, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="dropShadowEnabled" target="tabnav_1" value="true" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/spark/dropShadowEnabled_true.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="dropShadowColor_0x" description="TabNavigator style dropShadowColor=0x00FF00" keywords="[styles, dropShadowColor, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="dropShadowEnabled" target="tabnav_1" value="true" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="dropShadowColor" target="tabnav_1" value="0x00FF00" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/spark/dropShadowColor_0x.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="dropShadowColor_css" description="TabNavigator style dropShadowColor set in css" keywords="[styles, dropShadowColor, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetProperty propertyName="styleName" target="tabnav_1" value="dropShadowColorStyle" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/spark/dropShadowColor_css.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="shadowDirection_left" description="TabNavigator style shadowDirection=left" keywords="[styles, shadowDirection, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="dropShadowEnabled" target="tabnav_1" value="true" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="shadowDirection" target="tabnav_1" value="left" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/spark/shadowDirection_left.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="shadowDirection_right" description="TabNavigator style shadowDirection=right" keywords="[styles, shadowDirection, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="dropShadowEnabled" target="tabnav_1" value="true" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="shadowDirection" target="tabnav_1" value="right" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/spark/shadowDirection_right.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="shadowDirection_default" description="TabNavigator style shadowDirection=default" keywords="[styles, shadowDirection, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="dropShadowEnabled" target="tabnav_1" value="true" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/spark/shadowDirection_default.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="shadowDistance_10" description="TabNavigator style shadowDistanc=10" keywords="[styles, shadowDistance, TabNavigator]">
+			<setup>
+			    <ResetComponent target="tabnav_1" className="TNComp2" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="dropShadowEnabled" target="tabnav_1" value="true" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			    <SetStyle styleName="shadowDistance" target="tabnav_1" value="10" waitEvent="updateComplete" waitTarget="tabnav_1" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/spark/shadowDistance_10.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="tabBarStyleFilters_extraBackgroundImage" description="TabNavigator using a custom tabBarStyleFilters" keywords="[styles, tabBarStyleFilters, TabNavigator]">
+			<setup>
+			   <SetStyle styleName="backgroundImage" target="tabnav_2" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="tabnav_2" />
+			   <SetStyle styleName="backgroundSize" target="tabnav_2" value="100%" waitEvent="updateComplete" waitTarget="tabnav_2" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_2" url="../Styles/baselines/spark/tabBarStyleFilters_BackgroundImage.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="tabBarStyleFilters_noHorizontalGap" description="TabNavigator using a custom tabBarStyleFilters" keywords="[styles, tabBarStyleFilters, TabNavigator]">
+			<setup>
+			   <SetStyle styleName="lastTabStyleName" target="tabnav_3" value="redStyle" waitEvent="updateComplete" waitTarget="tabnav_3" />
+			   <SetStyle styleName="horizontalGap" target="tabnav_3" value="5" waitEvent="updateComplete" waitTarget="tabnav_3" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_3" url="../Styles/baselines/spark/tabBarStyleFilters_NoHorizontalGap.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+        <TestCase testID="tabBarStyleFilters_noLastStyleName" description="TabNavigator using a custom tabBarStyleFilters" keywords="[styles, tabBarStyleFilters, TabNavigator]">
+			<setup>
+			   <SetStyle styleName="lastStyleName" target="tabnav_4" value="redStyle" waitEvent="updateComplete" waitTarget="tabnav_4" />
+			   <SetStyle styleName="horizontalGap" target="tabnav_4" value="5" waitEvent="updateComplete" waitTarget="tabnav_4" />
+			</setup>
+			<body>
+				<CompareBitmap target="tabnav_4" url="../Styles/baselines/spark/tabBarStyleFilters_NoLastStyleName.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

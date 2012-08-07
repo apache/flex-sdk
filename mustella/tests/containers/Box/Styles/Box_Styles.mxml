@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Box/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Box_Basic.mxml">
+
+	<!-- this set of lines Box a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.* 
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+    
+ 	 
+ 	]]>
+	</mx:Script>
+	<testCases>
+	<!-- 	Styles 	-->
+	
+		<TestCase testID="Box_Styles_horizontalAlign_default" keywords="[horizontalAlign, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="horizontalAlign" value="left"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/horizontalAlign_default.png" timeout="5000" />
+ 			</body>
+		</TestCase> 	
+		<TestCase testID="Box_Styles_horizontalAlign_right" keywords="[horizontalAlign, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetStyle target="myCustomBox.myBox" styleName="horizontalAlign"  value="right"  waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="horizontalAlign" value="right"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/horizontalAlign_right.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Box_Styles_horizontalAlign_center" keywords="[horizontalAlign, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetStyle target="myCustomBox.myBox" styleName="horizontalAlign"  value="center"  waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="horizontalAlign" value="center"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/horizontalAlign_center.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Box_Styles_horizontalGap_default" keywords="[horizontalGap, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetProperty target="myCustomBox.myBox" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="horizontalGap" value="8"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/horizontalGap_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Box_Styles_horizontalGap_large" keywords="[horizontalGap, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetProperty target="myCustomBox.myBox" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="horizontalGap"  value="80" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="horizontalGap" value="80"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/horizontalGap_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Box_Styles_horizontalGap_small" keywords="[horizontalGap, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetProperty target="myCustomBox.myBox" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="horizontalGap"  value="2" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="horizontalGap" value="2"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/horizontalGap_small.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Box_Styles_paddingBottom_default" keywords="[paddingBottom, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="paddingBottom" value="0"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/paddingBottom_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Box_Styles_paddingBottom_large" keywords="[paddingBottom, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="paddingBottom"  value="80"  waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+   				<SetStyle target="myCustomBox.myBox" styleName="paddingRight"  value="20" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="paddingBottom" value="80"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/paddingBottom_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Box_Styles_paddingBottom_small" keywords="[paddingBottom, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="paddingBottom"  value="2" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+   				<SetStyle target="myCustomBox.myBox" styleName="paddingRight"  value="20" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="paddingBottom" value="2"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/paddingBottom_small.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Box_Styles_paddingTop_default" keywords="[paddingTop, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="paddingTop" value="0"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/paddingGapP_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Box_Styles_paddingTop_large" keywords="[paddingTop, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="paddingTop"  value="80"  waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="paddingTop" value="80"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/paddingGap_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Box_Styles_paddingTop_small" keywords="[paddingTop, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="paddingTop"  value="2" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="paddingTop" value="2"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/paddingGap_small.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="Box_Styles_verticalAlign_default" keywords="[verticalAlign, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="verticalAlign" value="top"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/verticalAlign_default.png" timeout="5000" />
+ 			</body>
+		</TestCase> 	
+		<TestCase testID="Box_Styles_verticalAlign_middle" keywords="[verticalAlign, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetStyle target="myCustomBox.myBox" styleName="verticalAlign"  value="middle"  waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="verticalAlign" value="middle"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/verticalAlign_middle.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Box_Styles_verticalAlign_bottom" keywords="[verticalAlign, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetStyle target="myCustomBox.myBox" styleName="verticalAlign"  value="bottom"  waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="verticalAlign" value="bottom"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/verticalAlign_center.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Box_Styles_verticalGap_default" keywords="[verticalGap, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="verticalGap" value="6"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/verticalGap_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Box_Styles_verticalGap_large" keywords="[verticalGap, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="verticalGap"  value="80" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="verticalGap" value="80"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/verticalGap_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Box_Styles_verticalGap_small" keywords="[verticalGap, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="verticalGap"  value="2" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="verticalGap" value="2"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/verticalGap_small.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+
+<!--  This can be removed all are inherited style  -->
+
+
+
+ 		<TestCase testID="Box_Styles_backgroundAlpha_large" keywords="[backgroundAlpha, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+ 				<SetStyle target="myCustomBox.myBox" styleName="backgroundAlpha" value="0.9" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="backgroundColor" value="red" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="backgroundAlpha" value="0.9" />
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="backgroundColor" value="0xFF0000" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/backgroundAlpha_large.png" timeout="5000" />
+ 			</body>
+		</TestCase> 
+		
+ 		<TestCase testID="Box_Styles_backgroundAlpha_default" keywords="[backgroundAlpha, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+ 				<SetStyle target="myCustomBox.myBox" styleName="backgroundColor" value="red" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="backgroundAlpha" value="1" />
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="backgroundColor" value="0xFF0000" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/backgroundAlpha_default.png" timeout="5000" />
+ 			</body>
+		</TestCase> 		
+ 		<TestCase testID="Box_Styles_backgroundAlpha_small" keywords="[backgroundAlpha, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+ 				<SetStyle target="myCustomBox.myBox" styleName="backgroundAlpha" value="0.1" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="backgroundColor" value="blue" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="backgroundAlpha" value="0.1" />
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="backgroundColor" value="0x0000FF" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/backgroundAlpha_small.png" timeout="5000" />
+ 			</body>
+		</TestCase> 		
+		
+		
+		
+
+
+		<TestCase testID="Box_Styles_borderColor_default" keywords="[borderColor, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="borderColor" value="12040892" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/borderColor_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>		
+		<TestCase testID="Box_Styles_borderColor_red" keywords="[borderColor, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="borderColor" value="0xFF0000" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/borderColor_red.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+
+
+
+
+		<TestCase testID="Box_Styles_borderThickness_default" keywords="[borderThickness, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid"  waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="borderThickness" value="1" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/borderThickness.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="Box_Styles_borderThickness_large" keywords="[borderThickness, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid"  waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="10"  waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="borderThickness" value="10" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/borderThickness_large.png" timeout="5000" />
+ 			</body>
+		</TestCase> 
+
+
+
+
+
+
+
+
+
+		<TestCase testID="Box_Styles_color_default" keywords="[color, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="color"  value="734012" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/color_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+ 
+		<TestCase testID="Box_Styles_cornerRadius_default" keywords="[cornerRadius, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="cornerRadius"  value="0" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/cornerRadius_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+		<TestCase testID="Box_Styles_cornerRadius_large" keywords="[cornerRadius, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+  				<SetStyle target="myCustomBox.myBox" styleName="cornerRadius"  value="10" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+   				<SetStyle target="myCustomBox.myBox" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="cornerRadius"  value="10" />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/cornerRadius_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+
+
+
+
+		<TestCase testID="Box_Styles_disabledColor_default" keywords="[disabledColor, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetProperty target="myCustomBox.myBox" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="disabledColor" value="11187123"  />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/disabledColor.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Box_Styles_disabledColor_green" keywords="[disabledColor, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetProperty target="myCustomBox.myBox" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+  				<SetStyle target="myCustomBox.myBox" styleName="disabledColor"  value="0x00ff00"   waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="disabledColor" value="0x00ff00"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/disabledColor.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+		
+		
+		
+		<TestCase testID="Box_Styles_fontfamily_default" keywords="[fontFamily, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="fontFamily" value="EmbeddedVerdana"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/fontFamily_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Box_Styles_fontfamily" keywords="[fontFamily, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="fontFamily"  value="Georgia"  waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="fontFamily" value="Georgia"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/fontFamily_Georgia.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+	
+	
+	
+		<TestCase testID="Box_Styles_fontsize_default" keywords="[fontSize, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="fontSize" value="10"  />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/fontSize_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>  	
+		<TestCase testID="Box_Styles_fontsize_large" keywords="[fontSize, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="fontSize" value="20"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/fontSize_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+
+		<TestCase testID="Box_Styles_fontweight_default" keywords="[fontWeight, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+				<SetStyle target="myCustomBox.myBox" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="fontWeight" value="normal"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/fontWeight_default.png" timeout="5000" />
+ 			</body>
+		</TestCase> 
+		<TestCase testID="Box_Styles_fontweight" keywords="[fontWeight, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+   				<SetStyle target="myCustomBox.myBox" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="fontWeight" value="bold"  />
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="fontSize" value="20"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/fontWeight.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="Box_Styles_paddingLeft_large" keywords="[paddingLeft, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetProperty target="myCustomBox.myBox" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+   				<SetStyle target="myCustomBox.myBox" styleName="paddingLeft"  value="20" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="paddingLeft" value="20"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/paddingLeft.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>   
+	
+		<TestCase testID="Box_Styles_paddingRight_default" keywords="[paddingRight, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetProperty target="myCustomBox.myBox" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="paddingRight" value="0"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/paddingRight_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+		<TestCase testID="Box_Styles_paddingRight_large" keywords="[paddingRight, Box]">
+			<setup>
+				<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+   				<SetProperty target="myCustomBox.myBox" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"/>
+   				<SetStyle target="myCustomBox.myBox" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+				<SetStyle target="myCustomBox.myBox" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+ 				<SetStyle target="myCustomBox.myBox" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomBox.myBox" />
+   				<SetStyle target="myCustomBox.myBox" styleName="paddingRight"  value="20" waitEvent="updateComplete" waitTarget="myCustomBox.myBox"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomBox.myBox" styleName="paddingRight" value="20"  />
+ 				<WaitForEffectsToEnd />
+ 				<CompareBitmap target="myCustomBox.myBox" url="../Styles/baselines/paddingRight_Right.png" timeout="5000" />
+ 			</body>
+		</TestCase> 	
+	</testCases>
+</UnitTester>

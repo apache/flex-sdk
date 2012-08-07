@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Accordion/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Accordion_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	    import mx.managers.SystemManager;
+	    import mx.collections.*;
+	    import flash.events.MouseEvent;
+
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	private function defaultButtonTest(): void
+	{
+        application.myAccordion.defaultButton = application.newBtn;
+        application.newBtn.addEventListener("click", clickFunc);
+	}
+
+    private function clickFunc(event:MouseEvent): void
+    {
+        application.newTI.text = "click triggered.";
+    }
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+		<TestCase testID="DefaultButton_inAccordion" description="Ensure that a default button still works in an Accordion (bug #170631)" keywords="[defaultButton, Accordion]">
+			<setup>
+			    <RunCode code="defaultButtonTest()" />
+                <DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="newTI" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="ENTER" waitTarget="newBtn" waitEvent="click" />
+			    <AssertEvent eventName="click" eventClass="flash.events::MouseEvent" target="newBtn" />
+			</body>
+		</TestCase>
+		<!-- note: can't seem to get this test working w/o this 1 ms pause -->
+		<TestCase testID="Accordion_properties_form_label_bug13222" keywords="[Accordion, properties,label, SDK-13222">
+	     	<setup>
+	     	   <ResetComponent target="myform" className="AccordionCompFormHalo" waitEvent="updateComplete" waitTarget="myform"/>
+            </setup>
+	     	<body>
+	     	   <DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="newTI"/>
+		       <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="newBtn"/>
+		       <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myform"/>
+		       <DispatchKeyEvent key="DOWN"  waitEvent="keyUp" waitTarget="myform"/>
+			   <DispatchKeyEvent key="ENTER"  waitEvent="updateComplete" waitTarget="myform.getChildAt(1)"/>
+			   <WaitForEffectsToEnd />
+			   <Pause timeout="100" />
+
+			   <AssertPixelValue target="myform" x="80" y="65" value="0XFF0000" />
+            </body>
+	     </TestCase>
+	</testCases>
+</UnitTester>

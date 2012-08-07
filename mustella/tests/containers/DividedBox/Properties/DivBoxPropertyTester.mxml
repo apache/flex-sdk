@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/DividedBox/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DivBoxMain.mxml">
+<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.containers.*;
+	import mx.controls.Button;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+	public function scriptFunction(a:String, b:int):String
+	{
+		return a + ":" + b.toString();
+	}
+
+	public function addContainer():void
+	{
+		var myP:Panel  = new Panel();
+		myP.percentWidth=100; myP.percentHeight=100;	
+		application.div.addChild(myP);
+		trace("divs = "+application.div.numDividers);
+	}
+	public var styleDecl:Object;
+	public var styleObj:Object;
+	public function addChildToBox():void
+	{
+		var bt:Box= new Box();
+		application.myDB.addChild(bt);
+	}
+	]]>
+	</mx:Script>
+
+
+<testCases>
+		<TestCase testID="div_property_direction"   keywords="[DividedBox, properties, direction]">
+		<setup>
+			<ResetComponent target="div" className="DivBoxComp"  waitTarget="div" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="div" propertyName="direction" value="vertical"  />
+			<CompareBitmap target="div" url="../Properties/Baselines/divbox_direction_default.png" timeout="5000"/>	
+			<SetProperty target="div" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="div"/>
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="div" url="../Properties/Baselines/divbox_direction_horizontal.png" timeout="5000"/>
+			<SetProperty target="div" propertyName="direction" value="vertical" waitEvent="updateComplete" waitTarget="div"/>
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="div" url="../Properties/Baselines/divbox_direction_vertical.png" timeout="5000"/>				 
+		</body>
+	</TestCase>	
+
+	<TestCase testID="div_property_numDividers" keywords="[DividedBox, properties, numDividers]">
+		<setup>
+			<ResetComponent target="div" className="DivBoxComp"  waitTarget="div" waitEvent="updateComplete" />
+			<SetProperty target="div.myp" propertyName="height" value="30" waitEvent="updateComplete"/>
+			<SetProperty target="div.myp" propertyName="width" value="30" waitEvent="updateComplete"/>
+		</setup>
+		<body>				
+			<AssertPropertyValue target="div" propertyName="numDividers" value="1"  />
+			<RunCode code="addContainer()" waitTarget="div" waitEvent="updateComplete" />
+			<AssertPropertyValue target="div" propertyName="numDividers" value="2"   />
+			<RunCode code="addContainer()" waitTarget="div" waitEvent="updateComplete"/>
+			<AssertPropertyValue target="div" propertyName="numDividers" value="3"  />
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="div" url="../Properties/Baselines/divbox_numDividers_default_vertical.png" timeout="5000"/>
+			<SetProperty target="div" propertyName="direction" value="horizontal" waitEvent="updateComplete" waitTarget="div"/>
+			<AssertPropertyValue target="div" propertyName="numDividers" value="3"  />
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="div" url="../Properties/Baselines/divbox_numDividers_horizontal.png" timeout="5000"/>				 
+		</body>
+	</TestCase>	
+
+	<TestCase testID="div_property_liveDragging_default"   keywords="[DividedBox, properties, liveDragging,default]">
+		<setup>
+			<ResetComponent target="div" className="DivBoxComp"  waitTarget="div" waitEvent="updateComplete" />
+		</setup>
+		<body>	
+			<AssertPropertyValue target="div" propertyName="liveDragging" value="false"  />
+			<DispatchMouseEvent target="div" localX="250" localY="256" type="mouseMove" />
+			<DispatchMouseEvent target="div" localX="250" localY="256" type="mouseDown" waitEvent="mouseDown" waitTarget="div"/>	
+			<DispatchMouseEvent target="div" localX="250" localY="286" type="mouseMove" />
+			<CompareBitmap target="div" url="../Properties/Baselines/divbox_liveDragging_default.png" timeout="5000"/>	
+		</body>
+	</TestCase>
+	
+	<TestCase testID="div_property_liveDragging_true"   keywords="[DividedBox, properties, liveDragging,true]">
+		<setup>
+			<ResetComponent target="div" className="DivBoxComp"  waitTarget="div" waitEvent="updateComplete" />
+			<SetProperty target="div" propertyName="liveDragging" value="true" />
+		</setup>
+		<body>	
+			<WaitForEffectsToEnd/>
+			<AssertPropertyValue target="div" propertyName="liveDragging" value="true"  />
+			<DispatchMouseEvent target="div" localX="250" localY="256" type="mouseMove"/>
+			<DispatchMouseEvent target="div" localX="250" localY="256" type="mouseDown" waitEvent="mouseDown" waitTarget="div"/>	
+			<DispatchMouseEvent target="div" localX="250" localY="286" type="mouseMove" waitEvent="mouseMove" waitTarget="div"/>
+			<CompareBitmap target="div" url="../Properties/Baselines/divbox_liveDragging_true.png" timeout="5000"/>	
+		</body>
+	</TestCase>
+	
+	<TestCase testID="div_property_liveDragging_false"   keywords="[DividedBox, properties, liveDragging,false]">
+		<setup>
+			<ResetComponent target="div" className="DivBoxComp"  waitTarget="div" waitEvent="updateComplete" />
+			<SetProperty target="div" propertyName="liveDragging" value="false" />
+		</setup>
+		<body>	
+			<WaitForEffectsToEnd/>
+			<AssertPropertyValue target="div" propertyName="liveDragging" value="false"  />
+			<DispatchMouseEvent target="div" localX="250" localY="256" type="mouseMove"/>
+			<DispatchMouseEvent target="div" localX="250" localY="256" type="mouseDown" waitEvent="mouseDown" waitTarget="div"/>	
+			<DispatchMouseEvent target="div" localX="250" localY="286" type="mouseMove"/>
+			<WaitForEffectsToEnd />
+			<CompareBitmap target="div" url="../Properties/Baselines/divbox_liveDragging_false.png" timeout="5000"/>	
+		</body>
+	</TestCase>
+	<TestCase testID="div_Bug_SDK-12734"   keywords="[DividedBox, Bug, SDK-12734, NumChildren]">
+		<setup>
+			<ResetComponent target="myDB" className="mx.containers.DividedBox"  waitTarget="myDB" waitEvent="updateComplete" />
+			<RunCode code="addChildToBox()"/>
+		</setup>
+		<body>	
+			<WaitForEffectsToEnd/>
+			<AssertPropertyValue target="myDB" propertyName="numChildren" value="1"  />	
+		</body>
+	</TestCase>	
+</testCases>
+</UnitTester>

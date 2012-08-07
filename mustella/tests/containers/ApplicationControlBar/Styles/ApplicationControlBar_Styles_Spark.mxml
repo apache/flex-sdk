@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/ApplicationControlBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ApplicationControlBar_Basic_Spark.mxml">
+
+	<!-- this set of lines ApplicationControlBar a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.* 
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+    
+ 	 
+ 	]]>
+	</mx:Script>
+	<testCases>
+	<!-- 	Styles 	-->
+	
+		<TestCase testID="ApplicationControlBar_Styles_fillAlphas" keywords="[fillAlphas, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+   				<SetStyle target="myCustomACB.myACB" styleName="fillAlphas"  value="[0.6, 0.5]"  waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="fillAlphas" value="[0.6, 0.5]"  />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/fillAlphas.png" timeout="5000" />
+ 			</body>
+		</TestCase> 	
+		<TestCase testID="ApplicationControlBar_Styles_fillColors" keywords="[fillColors, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+   				<SetStyle target="myCustomACB.myACB" styleName="fillAlphas"  value="[0.6, 0.5]"  waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+   				<SetStyle target="myCustomACB.myACB" styleName="fillColors"  value="[0xff0000, 0x0000ff]"  waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="fillColors" value="[0xff0000, 0x0000ff]"  />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/fillColors.png" timeout="5000" />
+ 			</body>
+		</TestCase>	
+	
+ 		<TestCase testID="ApplicationControlBar_Styles_backgroundAlpha" keywords="[backgroundAlpha, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+ 				<SetStyle target="myCustomACB.myACB" styleName="backgroundAlpha" value="0.5" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="backgroundAlpha" value="0.5" />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/backgroundAlpha.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+		
+		<TestCase testID="ApplicationControlBar_Styles_borderColor" keywords="[borderColor, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+ 				<SetStyle target="myCustomACB.myACB" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+ 				<SetStyle target="myCustomACB.myACB" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+ 				<SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="borderColor" value="0xFF0000" />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/borderColor.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="ApplicationControlBar_Styles_borderThickness" keywords="[borderThickness, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+				<SetStyle target="myCustomACB.myACB" styleName="borderStyle" value="solid"  waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+ 				<SetStyle target="myCustomACB.myACB" styleName="borderThickness" value="4"  waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="borderThickness" value="4" />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/borderThickness.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="ApplicationControlBar_Styles_color" keywords="[color, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+  				<SetStyle target="myCustomACB.myACB" styleName="color"  value="0x0000ff" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="color"  value="0x0000ff" />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/color.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+ 
+		<TestCase testID="ApplicationControlBar_Styles_cornerRadius" keywords="[cornerRadius, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+  				<SetStyle target="myCustomACB.myACB" styleName="cornerRadius"  value="6" waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="cornerRadius"  value="6" />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/cornerRadius.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="ApplicationControlBar_Styles_disabledColor" keywords="[disabledColor, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+				<SetProperty target="myCustomACB.myACB" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+  				<SetStyle target="myCustomACB.myACB" styleName="disabledColor"  value="0x00ff00"   waitEvent="updateComplete" waitTarget="myCustomACB.myACB"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="disabledColor" value="0x00ff00"  />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/disabledColor.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="ApplicationControlBar_Styles_fontfamily" keywords="[fontFamily, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+   				<SetStyle target="myCustomACB.myACB" styleName="fontFamily"  value="EmbeddedArial"  waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="fontFamily" value="EmbeddedArial"  />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/fontFamily.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="ApplicationControlBar_Styles_fontfamily_airOnly" keywords="[fontFamily, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+				<SetStyle target="myCustomACB.myACB" styleName="fontFamily"  value="EmbeddedArial"  waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+			</setup>
+			<body>
+				<AssertStyleValue target="myCustomACB.myACB" styleName="fontFamily" value="EmbeddedArial"  />
+				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="ApplicationControlBar_Styles_fontsize" keywords="[fontSize, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+   				<SetStyle target="myCustomACB.myACB" styleName="fontSize"  value="14" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="fontSize" value="14"  />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/fontSize.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+			<TestCase testID="ApplicationControlBar_Styles_fontweight" keywords="[fontWeight, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+   				<SetStyle target="myCustomACB.myACB" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="fontWeight" value="bold"  />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/fontWeight.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+
+			<TestCase testID="ApplicationControlBar_Styles_horizontalGap" keywords="[horizontalGap, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+   				<SetStyle target="myCustomACB.myACB" styleName="horizontalGap"  value="20" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="horizontalGap" value="20"  />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/horizontalGap.png" timeout="5000" />
+ 			</body>
+		</TestCase>    
+
+
+			<TestCase testID="ApplicationControlBar_Styles_paddingBottom" keywords="[paddingBottom, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+   				<SetStyle target="myCustomACB.myACB" styleName="paddingBottom"  value="20"  waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="paddingBottom" value="20"  />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/paddingGap.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+		<TestCase testID="ApplicationControlBar_Styles_paddingLeft" keywords="[paddingLeft, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+   				<SetStyle target="myCustomACB.myACB" styleName="paddingLeft"  value="20" waitEvent="updateComplete" waitTarget="myCustomACB.myACB"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="paddingLeft" value="20"  />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/paddingLeft.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+	
+		<TestCase testID="ApplicationControlBar_Styles_paddingRight" keywords="[paddingRight, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+   				<SetStyle target="myCustomACB.myACB" styleName="paddingRight"  value="20"  waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="paddingRight" value="20"  />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/paddingRight.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+	
+		<TestCase testID="ApplicationControlBar_Styles_paddingTop" keywords="[paddingTop, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+   				<SetStyle target="myCustomACB.myACB" styleName="paddingTop"  value="20"  waitEvent="updateComplete" waitTarget="myCustomACB.myACB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="paddingTop" value="20"  />
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/paddingTop.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+		<TestCase testID="ApplicationControlBar_Styles_verticalGap" keywords="[verticalGap, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB" waitEvent="updateComplete" waitTarget="myCustomACB"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomACB.myACB" styleName="verticalGap" value="6"/>
+ 				<CompareBitmap target="myCustomACB.myACB" url="../Styles/baselines/spark/verticalGap.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+	</testCases>
+</UnitTester>

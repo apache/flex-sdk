@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:VBox  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*">
+<mx:Script>
+	<![CDATA[
+
+	import mx.containers.* 
+ 	import mx.controls.*
+	]]>
+	</mx:Script>
+ <mx:TabNavigator id="tabn"  creationPolicy="all">
+    <mx:VBox id="int1" label="Layout Integration">
+
+	<mx:Panel id="myPanel1" >
+	 <mx:VBox>
+	 <mx:Panel id="myPanel11" >
+	  <mx:VBox>
+	   <mx:Button id="button121"/>
+	   </mx:VBox>
+	   <mx:Text id="myText121" text="text" />
+	   <mx:Button id="button221"/>
+	   <mx:TextInput id="myText221" text="text" />
+	</mx:Panel>
+	  <mx:Button id="button1211"/>
+	  </mx:VBox>
+	  <mx:Text id="myText12" text="text" />
+	  <mx:Button id="button22" />
+	  <mx:TextInput id="myText22" text="text" />
+	</mx:Panel>
+
+</mx:VBox>
+
+
+    <mx:VBox id="int2" label="Panel Integration ControlBar">
+	<mx:Panel id="myPanel2" title="Title">
+		<mx:ControlBar>
+			<mx:Button label="this" />
+		</mx:ControlBar>
+	</mx:Panel>
+    </mx:VBox>
+
+    <mx:VBox id="int3" label="Panel Integration Layouts">
+	<mx:Panel id="myPanel3" title="Title" status="Status">
+		<mx:DataGrid id="myDG" />
+	</mx:Panel>
+    </mx:VBox>
+    <mx:VBox id="int4" label="Panel Performance">
+	<mx:Panel id="myPanel4" title="Title" status="Status">
+		
+	</mx:Panel>
+    </mx:VBox>    
+
+
+</mx:TabNavigator>
+  </mx:VBox>

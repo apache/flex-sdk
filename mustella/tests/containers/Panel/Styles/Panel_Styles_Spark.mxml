@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Panel/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Panel_Basic_Spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.*
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/redrect.jpg")]
+	private var MyImage:Class;
+
+
+ 	]]>
+	</mx:Script>
+	<testCases>
+	<!-- 	Styles 	-->
+ 		<TestCase testID="Spark_Panel_Styles_backgroundAlpha" keywords="[backgroundAlpha, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+ 				<SetStyle target="myCustomPanelSpark.myPanel" styleName="backgroundAlpha" value="0.5" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="backgroundAlpha" value="0.5" />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/backgroundAlpha_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_Panel_Styles_backgroundcolor" keywords="[backgroundColor, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+ 				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+ 				<SetStyle target="myCustomPanelSpark.myPanel" styleName="backgroundColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="backgroundColor" value="0xFF0000" />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/backgroundColor_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+		<TestCase testID="Spark_Panel_Styles_backgroundImage" keywords="[backgroundImage, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+ 				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+ 				<SetStyle target="myCustomPanelSpark.myPanel" styleName="backgroundImage" value="{MyImage}" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="backgroundImage" value="{MyImage}" />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/backgroundImage_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_Panel_Styles_borderColor" keywords="[borderColor, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+ 				<SetStyle target="myCustomPanelSpark.myPanel" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel" />
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="borderStyle" value="solid"/>
+ 				<SetStyle target="myCustomPanelSpark.myPanel" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="borderColor" value="0xFF0000" />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/borderColor_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_Panel_Styles_indicatorGap" keywords="[indicatorGap, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="indicatorGap" value="300" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="indicatorGap" value="300" />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/indicatorGap_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Spark_Panel_Styles_indicatorGap2" keywords="[indicatorGap, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"/>
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="indicatorGap" value="14" />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/indicatorGap_large_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Spark_Panel_Styles_indicatorGap3" keywords="[indicatorGap, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="indicatorGap" value="0" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel" />
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="indicatorGap" value="0" />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/indicatorGap_zero_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_Panel_Styles_borderThickness" keywords="[borderThickness, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="borderStyle" value="solid"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="borderColor" value="red"   waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"/>
+ 				<SetStyle target="myCustomPanelSpark.myPanel" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="borderThickness" value="4" />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/borderThickness_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_Panel_Styles_color" keywords="[color, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+  				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+  				<SetStyle target="myCustomPanelSpark.myPanel" styleName="color"  value="0x0000ff"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="color"  value="0x0000ff" />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/color_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+		<TestCase testID="Spark_Panel_Styles_cornerRadius" keywords="[cornerRadius, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+  				<SetStyle target="myCustomPanelSpark.myPanel" styleName="cornerRadius"  value="16"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="borderColor" value="red"   waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"/>
+ 				<SetStyle target="myCustomPanelSpark.myPanel" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"/>
+
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="cornerRadius"  value="16" />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/cornerRadius_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_Panel_Styles_disabledColor" keywords="[disabledColor, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="disabledColor"  value="0xFF0000"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"  />
+				<SetProperty target="myCustomPanelSpark.myPanel" propertyName="title" value="Hello"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"/>
+				<SetProperty target="myCustomPanelSpark.myPanel" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"/>
+
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="disabledColor" value="0xFF0000"  />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/disabledColor_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_Panel_Styles_fontfamily" keywords="[fontFamily, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="fontFamily"  value="Georgia"   waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="fontFamily" value="Georgia"  />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/fontFamily_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+	<TestCase testID="Spark_Panel_Styles_fontsize" keywords="[fontSize, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="fontSize"  value="14"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="fontSize" value="14"  />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/fontSize_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+			<TestCase testID="Spark_Panel_Styles_fontweight" keywords="[fontWeight, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="fontWeight"  value="bold"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="fontWeight" value="bold"  />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/fontWeight_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+			<TestCase testID="Spark_Panel_Styles_horizontalGap" keywords="[horizontalGap, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="horizontalGap"  value="20"   waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="horizontalGap" value="20"  />
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/horizontalGap_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+			<TestCase testID="Spark_Panel_Styles_paddingBottom" keywords="[paddingBottom, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="paddingBottom"  value="20"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="paddingBottom" value="20"  />
+ 				<CompareBitmap  numColorVariances="4" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/paddingBottom_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_Panel_Styles_paddingLeft" keywords="[paddingLeft, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="paddingLeft"  value="20" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="paddingLeft" value="20"  />
+ 				<CompareBitmap  numColorVariances="4" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/paddingLeft_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+		<TestCase testID="Spark_Panel_Styles_paddingRight" keywords="[paddingRight, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="paddingRight"  value="20"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="paddingRight" value="20"  />
+ 				<CompareBitmap  numColorVariances="4" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/paddingRight_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_Panel_Styles_paddingTop" keywords="[paddingTop, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="paddingTop"  value="20"   waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="paddingTop" value="20"  />
+ 				<CompareBitmap  numColorVariances="4" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/paddingTop_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_Panel_Styles_paddingLeft2" keywords="[PaddingLeft, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30"/>
+   				<SetStyle target="myCustomPanelSpark.myPanel" styleName="paddingLeft"  value="6"   waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="paddingLeft" value="6"  />
+ 				<CompareBitmap  numColorVariances="4" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/paddingLeft_2_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Spark_Panel_Styles_verticalGap" keywords="[verticalGap, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="headerHeight" value="30" waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanelSpark.myPanel" styleName="verticalGap" value="6"/>
+ 				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/verticalGap_Spark.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+			
+		<TestCase testID="Spark_Panel_Styles_variableHeaderHeight_win" keywords="[headerHeight, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanelSpark" className="CustomPanelSpark"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark"/>
+				<SetStyle target="myCustomPanelSpark.myPanel" styleName="fontSize"  value="14"  waitEvent="updateComplete" waitTarget="myCustomPanelSpark.myPanel"  />
+			</setup>
+			<body>
+				<CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanelSpark.myPanel" url="../Styles/baselines/$testID.png" timeout="5000" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

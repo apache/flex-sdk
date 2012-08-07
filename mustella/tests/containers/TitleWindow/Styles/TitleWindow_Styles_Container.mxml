@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/TitleWindow/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TitleWindow_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import MyTw2;
+	import MyTw2;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import flash.display.BlendMode;
+
+	]]>
+	</mx:Script>
+	<testCases>
+        <TestCase testID="backgroundColor_0x" description="TitleWindow style backgroundAlpha=0" keywords="[styles, backgroundAlpha, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="showCloseButton" value="true" target="tw_empty" />
+			    <SetStyle styleName="backgroundColor" target="tw_empty" value="0xFF00000" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/backgroundColor_0x.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundColor_classSelector" description="TitleWindow style backgroundColor set through css" keywords="[styles, backgroundColor, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="styleName" target="tw_empty" value="myBackground" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/backgroundColor_classSelector.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundDisabledColor_0x" description="TitleWindow style backgroundDisabledColor=0" keywords="[styles, backgroundDisabledColor, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="backgroundDisabledColor" target="tw_empty" value="0xFF00000" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+			    <SetProperty target="tw_empty" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="tw_empty" />
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/backgroundDisabledColor_0x.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundDisabledColor_classSelector" description="TitleWindow style backgroundColor set through css" keywords="[styles, backgroundColor, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="styleName" target="tw_empty" value="myDisabledColor" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<SetProperty target="tw_empty" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="tw_empty" />
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/backgroundDisabledColor_classSelector.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundImage_jpg" description="TitleWindow style backgroundColor set through css" keywords="[styles, backgroundColor, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="backgroundImage" target="tw_empty" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/backgroundImage_jpg.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundSize_50" description="TitleWindow style backgroundColor set through css" keywords="[styles, backgroundColor, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="backgroundImage" target="tw_empty" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="backgroundSize" target="tw_empty" value="50%" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/backgroundSize_50.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="backgroundSize_100" description="TitleWindow style backgroundColor set through css" keywords="[styles, backgroundColor, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="backgroundImage" target="tw_empty" valueExpression="value=application.blueback" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="backgroundSize" target="tw_empty" value="100%" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/backgroundSize_100.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="borderStyle_default" description="TitleWindow style borderStyle=solid" keywords="[styles, borderStyle, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="borderColor" target="tw_empty" value="0xCC0000" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="borderThickness" target="tw_empty" value="5" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/borderStyle_default.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="borderStyle_inset" description="TitleWindow style borderStyle=inset" keywords="[styles, borderStyle, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="borderColor" target="tw_empty" value="0xCC0000" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="borderThickness" target="tw_empty" value="5" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="borderStyle" target="tw_empty" value="inset" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/borderStyle_inset.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="borderStyle_none" description="TitleWindow style borderStyle=none" keywords="[styles, borderStyle, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="borderColor" target="tw_empty" value="0xCC0000" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="borderThickness" target="tw_empty" value="5" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="borderStyle" target="tw_empty" value="none" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/borderStyle_none.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="borderStyle_outset" description="TitleWindow style borderStyle=outset" keywords="[styles, borderStyle, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="borderColor" target="tw_empty" value="0xCC0000" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="borderThickness" target="tw_empty" value="5" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="borderStyle" target="tw_empty" value="outset" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/borderStyle_outset.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="disabledOverlayAlpha_01" description="TitleWindow style disabledOverlayAlpha=none" keywords="[styles, disabledOverlayAlpha, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="disabledOverlayAlpha" target="tw_empty" value="0.1" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="backgroundDisabledColor" target="tw_empty" value="0xCC0000" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="enabled" target="tw_empty" value="false" waitEvent="updateComplete" waitTarget="tw_empty" />
+				<CompareBitmap target="tw_empty" url="../Styles/baselines/disabledOverlayAlpha_01.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="disabledOverlayAlpha_css" description="TitleWindow style disabledOverlayAlpha=outset" keywords="[styles, disabledOverlayAlpha, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="styleName" target="tw_empty" value="disabledOverlayAlphaStyle" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+			     <SetProperty propertyName="enabled" target="tw_empty" value="false" waitEvent="updateComplete" waitTarget="tw_empty" />
+			     <CompareBitmap target="tw_empty" url="../Styles/baselines/disabledOverlayAlpha_css.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="dropShadowEnabled_true" description="TitleWindow style dropShadowEnabled=true" keywords="[styles, dropShadowEnabled, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="y" target="tw_empty" value="10"  waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="dropShadowEnabled" target="tw_empty" value="false" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="dropShadowEnabled" target="tw_empty" value="true" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/dropShadowEnabled_true.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="dropShadowColor_0x" description="TitleWindow style dropShadowColor=0x00FF00" keywords="[styles, dropShadowColor, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="y" target="tw_empty" value="10"  waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="dropShadowColor" target="tw_empty" value="0x00FF00" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/dropShadowColor_0x.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="dropShadowColor_css" description="TitleWindow style dropShadowColor set in css" keywords="[styles, dropShadowColor, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="y" target="tw_empty" value="10"  waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="styleName" target="tw_empty" value="dropShadowColorStyle" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/dropShadowColor_css.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="shadowDirection_left" description="TitleWindow style shadowDirection=left" keywords="[styles, shadowDirection, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="y" target="tw_empty" value="10"  waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="shadowDirection" target="tw_empty" value="left" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/shadowDirection_left.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="shadowDirection_right" description="TitleWindow style shadowDirection=right" keywords="[styles, shadowDirection, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="y" target="tw_empty" value="10"  waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="shadowDirection" target="tw_empty" value="right" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/shadowDirection_right.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="shadowDirection_default" description="TitleWindow style shadowDirection=default" keywords="[styles, shadowDirection, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="y" target="tw_empty" value="10"  waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/shadowDirection_default.png" timeout="5000" />
+			</body>
+		</TestCase>
+        <TestCase testID="shadowDistance_10" description="TitleWindow style shadowDistance=10" keywords="[styles, shadowDistance, TitleWindow]">
+			<setup>
+			    <ResetComponent target="tw_empty" className="MyTw2" waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetProperty propertyName="y" target="tw_empty" value="10"  waitEvent="updateComplete" waitTarget="tw_empty" />
+			    <SetStyle styleName="shadowDistance" target="tw_empty" value="10" waitEvent="updateComplete" waitTarget="tw_empty" />
+			</setup>
+			<body>
+				<CompareBitmap target="canvas1" url="../Styles/baselines/shadowDistance_10.png" timeout="5000" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

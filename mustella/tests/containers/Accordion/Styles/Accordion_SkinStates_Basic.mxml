@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Accordion/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Accordion_InContainer.mxml">
+
+    <!-- this set of lines Accordion a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+    import mx.containers.*
+    import mx.controls.*
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+
+
+
+    ]]>
+    </mx:Script>
+<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+
+
+</mx:Style>
+    <testCases>
+    <!-- Styles -->
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPG" keywords="[enabled, SkinStates,EmbedJPG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPG" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+             <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPG.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPG" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPG_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPG" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPG_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPG" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPG_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPG" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPG_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPG_Disabled" keywords="[disabled, SkinStates,EmbedJPG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPG" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_Disabled_JPG.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNG" keywords="[enabled, SkinStates,EmbedPNG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNG" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_PNG.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNG_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedPNG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNG" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_PNG_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNG_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNG" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_PNG_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNG_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedPNG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNG" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_PNG_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNG_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNG" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_PNG_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNG_Disabled" keywords="[disabled, SkinStates,EmbedPNG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNG" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_Disabled_PNG.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIF" keywords="[enabled, SkinStates,EmbedGIF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIF" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_GIF.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIF_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedGIF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIF" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_GIF_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIF" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_GIF_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIF_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedGIF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIF" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="focusIn" waitTarget="accordion_1" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_GIF_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIF" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_GIF_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIF_Disabled" keywords="[disabled, SkinStates,EmbedGIF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIF" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_Disabled_GIF.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF" keywords="[enabled, SkinStates,EmbedSWF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <Pause timeout="1000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWF.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedSWF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <Pause timeout="1000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <Pause timeout="1000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedSWF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <Pause timeout="1000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <Pause timeout="1000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF_Disabled" keywords="[disabled, SkinStates,EmbedSWF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
+            </setup>
+            <body>
+                <Pause timeout="1000" />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_Disabled_SWF.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_JPG" keywords="[enabled, SkinStates,runtimeJPG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_JPG.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_PNG" keywords="[enabled, SkinStates,runtimePNG, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNGRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_PNG.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_GIF" keywords="[enabled, SkinStates,runtimeGIF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_GIF.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_SWF" keywords="[enabled, SkinStates,runtimeSWF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWF.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWF_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWF_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab" keywords="[enabled, SkinStates,runtimeSWF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWF_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWF, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWF_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon" keywords="[enabled, SkinStates,EmbedJPGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPGIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedJPGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_JPGIcon_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_JPGIcon_Disabled" keywords="[disabled, SkinStates,EmbedJPGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_Disabled_JPGIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNGIcon" keywords="[enabled, SkinStates,EmbedPNGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_PNGIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNGIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_PNGIcon_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNGIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_PNGIcon_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNGIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_PNGIcon_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNGIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedPNGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_PNGIcon_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_PNGIcon_Disabled" keywords="[disabled, SkinStates,EmbedPNGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNGIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_Disabled_PNGIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIFIcon" keywords="[enabled, SkinStates,EmbedGIFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_GIFIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIFIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_GIFIcon_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIFIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_GIFIcon_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIFIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_GIFIcon_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIFIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedGIFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_GIFIcon_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_GIFIcon_Disabled" keywords="[disabled, SkinStates,EmbedGIFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_Disabled_GIFIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWFIcon" keywords="[enabled, SkinStates,EmbedSWFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWFIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWFIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWFIcon_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWFIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWFIcon_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWFIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWFIcon_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWFIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,EmbedSWFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWFIcon_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWFIcon_Disabled" keywords="[disabled, SkinStates,EmbedSWFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFIcon" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_Disabled_SWFIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_JPGIcon" keywords="[enabled, SkinStates,runtimeJPGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionJPGIconRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_JPGIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_PNGIcon" keywords="[enabled, SkinStates,runtimePNGIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionPNGIconRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_PNGIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_GIFIcon" keywords="[enabled, SkinStates,runtimeGIFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionGIFIconRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_GIFIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_SWFIcon" keywords="[enabled, SkinStates,runtimeSWFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFIconRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWFIcon.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_SWFIcon_mouseOver_selectedTab" keywords="[enabled, SkinStates,runtimeSWFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFIconRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWFIcon_mouseOver_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_SWFIcon_mouseOver_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFIconRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWFIcon_mouseOver_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_SWFIcon_mouseDown_selectedTab" keywords="[enabled, SkinStates,runtimeSWFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFIconRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWFIcon_mouseDown_selectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Accordion_Styles_SkinStates_runtime_SWFIcon_mouseDown_NonselectedTab" keywords="[enabled, SkinStates,runtimeSWFIcon, Accordion]" >
+            <setup>
+                <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+                <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWFIconRunTime" waitEvent="updateComplete" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_runtime_SWFIcon_mouseDown_NonselectedTab.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+            </body>
+        </TestCase>
+ <!-- AIR specific -->
+
+         <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF_airOnly" keywords="[enabled, SkinStates,EmbedSWF, Accordion]" >
+             <setup>
+                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+             </setup>
+             <body>
+                 <Pause timeout="1000" />
+                 <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWF_air.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+             </body>
+         </TestCase>
+         <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, Accordion]" >
+             <setup>
+                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+             </setup>
+             <body>
+                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                 <WaitForEffectsToEnd />
+                 <Pause timeout="1000" />
+                 <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWF_mouseOver_selectedTab_air.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+             </body>
+         </TestCase>
+         <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, Accordion]" >
+             <setup>
+                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+             </setup>
+             <body>
+                 <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                 <WaitForEffectsToEnd />
+                 <Pause timeout="1000" />
+                 <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWF_mouseOver_NonselectedTab_air.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+             </body>
+         </TestCase>
+         <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, Accordion]" >
+             <setup>
+                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+             </setup>
+             <body>
+                 <DispatchMouseEvent type="rollOver" localX="10" localY="10" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                 <DispatchMouseEvent type="mouseDown" localX="10" localY="10" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                 <WaitForEffectsToEnd />
+                 <Pause timeout="1000" />
+                 <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWF_mouseDown_selectedTab_air.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+             </body>
+         </TestCase>
+         <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab_airOnly" keywords="[enabled, SkinStates,EmbedSWF, Accordion]" >
+             <setup>
+                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+             </setup>
+             <body>
+                 <DispatchMouseEvent type="rollOver" localX="10" localY="82" target="accordion_1" waitEvent="rollOver" waitTarget="accordion_1" />
+                 <DispatchMouseEvent type="mouseDown" localX="10" localY="82" target="accordion_1" waitEvent="mouseDown" waitTarget="accordion_1" />
+                 <WaitForEffectsToEnd />
+                 <Pause timeout="1000" />
+                 <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_SWF_mouseDown_NonselectedTab_air.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+             </body>
+         </TestCase>
+         <TestCase testID="Accordion_Styles_SkinStates_Embeding_SWF_Disabled_airOnly" keywords="[disabled, SkinStates,EmbedSWF, Accordion]" >
+             <setup>
+                 <ResetComponent target="accordion_1" className="AccordionComp2"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+
+                 <SetStyle target="accordion_1" styleName="headerStyleName" value="myAccordionSWF" waitEvent="updateComplete" waitTarget="accordion_1" />
+                 <SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
+             </setup>
+             <body>
+                 <Pause timeout="1000" />
+                 <CompareBitmap target="accordion_1" url="../Styles/baselines/Accordion_Styles_SkinStates_Embeding_Disabled_SWF_air.png"  numColorVariances="4" ignoreMaxColorVariance="true" timeout="5000" />
+             </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

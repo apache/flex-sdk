@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Accordion/Integration/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Accordion_Mirroring.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    ]]>
+  </fx:Script>
+  <testCases>
+
+<TestCase testID="Accordion_Integration_mirroring_default" keywords="[Accordion,Mirroring]" description="check default values">
+	<setup>
+		<ResetComponent target="mirrorRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertStyleValue target="mirrorRoot.target" styleName="direction" value="ltr" />
+		<AssertStyleValue target="mirrorRoot.target" styleName="layoutDirection" value="ltr" />
+	</body>
+</TestCase>
+
+<TestCase testID="Accordion_Integration_mirroring_visual" keywords="[Accordion,Mirroring]" description="visual rtl check">
+	<setup>
+		<ResetComponent target="mirrorRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="mirrorRoot" styleName="direction" value="rtl" waitEvent="updateComplete" />
+		<SetStyle target="mirrorRoot" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" />
+		<AssertStyleValue target="mirrorRoot.target" styleName="direction" value="rtl" />
+		<AssertStyleValue target="mirrorRoot.target" styleName="layoutDirection" value="rtl" />
+		<CompareBitmap url="../Integration/baselines/$testID.png" target="mirrorRoot.target" />
+	</body>
+</TestCase>
+
+<TestCase testID="Accordion_Integration_mirroring_keyboardRight" keywords="[Accordion,Mirroring]" description="press the right keyboard key should go up">
+	<setup>
+		<ResetComponent target="mirrorRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="mirrorRoot" styleName="direction" value="rtl" waitEvent="updateComplete" />
+		<SetStyle target="mirrorRoot" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" />
+		<DispatchMouseClickEvent target="mirrorRoot.target" localX="92" localY="215" waitEvent="click" />
+		<Pause timeout="50" />
+		<DispatchKeyEvent key="RIGHT" />
+		<Pause timeout="50" />
+		<CompareBitmap url="../Integration/baselines/$testID.png" target="mirrorRoot.target" />
+	</body>
+</TestCase>
+
+<TestCase testID="Accordion_Integration_mirroring_keyboardLeft" keywords="[Accordion,Mirroring]" description="press the left keyboard key should go down">
+	<setup>
+		<ResetComponent target="mirrorRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetStyle target="mirrorRoot" styleName="direction" value="rtl" waitEvent="updateComplete" />
+		<SetStyle target="mirrorRoot" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" />
+		<DispatchMouseClickEvent target="mirrorRoot.target" localX="92" localY="215" waitEvent="click" />
+        <Pause timeout="50" />
+		<DispatchKeyEvent key="LEFT" />
+		<Pause timeout="50" />
+		<CompareBitmap url="../Integration/baselines/$testID.png" target="mirrorRoot.target" />
+	</body>
+</TestCase>
+
+  <TestCase testID="Accordion_Integration_mirroring_keyboardUp" keywords="[Accordion,Mirroring]" description="up key should work same">
+      <setup>
+          <ResetComponent target="mirrorRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+      </setup>
+      <body>
+          <SetStyle target="mirrorRoot" styleName="direction" value="rtl" waitEvent="updateComplete" />
+          <SetStyle target="mirrorRoot" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" />
+          <DispatchMouseClickEvent target="mirrorRoot.target" localX="113" localY="220" waitEvent="click" />
+          <Pause timeout="50" />
+          <DispatchKeyEvent key="UP" />
+          <Pause timeout="50" />
+          <CompareBitmap url="../Integration/baselines/$testID.png" target="mirrorRoot.target" />
+      </body>
+  </TestCase>
+      
+  <TestCase testID="Accordion_Integration_mirroring_keyboardDown" keywords="[Accordion,Mirroring]" description="down key should work same">
+      <setup>
+          <ResetComponent target="mirrorRoot" className="comps.MirroringGroup" waitEvent="updateComplete" />
+      </setup>
+      <body>
+          <SetStyle target="mirrorRoot" styleName="direction" value="rtl" waitEvent="updateComplete" />
+          <SetStyle target="mirrorRoot" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" />
+          <DispatchMouseClickEvent target="mirrorRoot.target" localX="95" localY="220" waitEvent="click" />
+          <Pause timeout="50" />
+          <DispatchKeyEvent key="DOWN" />
+          <Pause timeout="50" />
+          <CompareBitmap url="../Integration/baselines/$testID.png" target="mirrorRoot.target" />
+      </body>
+  </TestCase>
+
+
+      
+
+  </testCases>
+</UnitTester>

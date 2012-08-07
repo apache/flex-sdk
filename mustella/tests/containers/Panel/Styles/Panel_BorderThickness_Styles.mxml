@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Panel/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Panel_BorderThickness_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<testCases>
+	<!-- 	Styles 	-->
+ 		
+		<TestCase testID="Panel_Styles_borderThickness2" keywords="Panel, borderThickness" description="Test Panel borderThickness with size 40">
+		   	<setup>	      	   
+			      	<ResetComponent target="myTestPanel" className="mx.containers::Panel"  waitEvent="updateComplete" waitTarget="myTestPanel"/> 
+			      	<SetStyle target="myTestPanel" styleName="borderThicknessTop" value="40" waitEvent="updateComplete" waitTarget="myTestPanel" />
+			      	<SetStyle target="myTestPanel" styleName="borderThicknessBottom" value="40" waitEvent="updateComplete" waitTarget="myTestPanel" />
+			      	<SetStyle target="myTestPanel" styleName="borderThicknessLeft" value="40" waitEvent="updateComplete" waitTarget="myTestPanel" />
+			      	<SetStyle target="myTestPanel" styleName="borderThicknessRight" value="40" waitEvent="updateComplete" waitTarget="myTestPanel" />
+			      	<SetStyle target="myTestPanel" styleName="dropShadowEnabled" value="false" waitEvent="updateComplete" waitTarget="myTestPanel" />
+			      	<SetStyle target="myTestPanel" styleName="headerHeight" value="0" waitEvent="updateComplete" waitTarget="myTestPanel" />
+			      	<SetProperty target="myTestPanel" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />
+			      	<SetProperty target="myTestPanel" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />	      	      	      	        	     
+			</setup>		
+			<body>	   	
+			   	<CompareBitmap target="myTestPanel" url="../Styles/baselines/$testID.png"/>	   			   	   		   	   	
+			</body>
+		</TestCase>
+			
+		<TestCase testID="Panel_Styles_borderThickness3" keywords="Panel, borderThickness" description="Test Panel borderThickness with size 0">	   
+			<setup>	      	   
+			  	<ResetComponent target="myTestPanel" className="mx.containers::Panel"  waitEvent="updateComplete" waitTarget="myTestPanel"/> 
+			  	<SetStyle target="myTestPanel" styleName="borderThicknessTop" value="0" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="borderThicknessBottom" value="0" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="borderThicknessLeft" value="0" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="borderThicknessRight" value="0" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="dropShadowEnabled" value="false" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="headerHeight" value="0" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetProperty target="myTestPanel" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetProperty target="myTestPanel" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />	      	      	      	        	     
+			</setup>			   	   
+			<body>	   	
+				<CompareBitmap target="myTestPanel" url="../Styles/baselines/$testID.png"/>	   			   	   		   	   	
+			</body>		   
+		</TestCase>
+			
+		<TestCase testID="Panel_Styles_borderThickness4" keywords="Panel, borderThickness" description="Test Panel borderThickness default size">	   	   			
+			<setup>	      	   
+				<ResetComponent target="myTestPanel" className="mx.containers::Panel"  waitEvent="updateComplete" waitTarget="myTestPanel"/>
+				<SetStyle target="myTestPanel" styleName="dropShadowEnabled" value="false" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="headerHeight" value="1" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetProperty target="myTestPanel" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetProperty target="myTestPanel" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />
+			</setup>	   	   	   
+			<body>	   	
+			   	<CompareBitmap target="myTestPanel" url="../Styles/baselines/$testID.png"/>	   			   	   		   	   	
+			</body>		   
+		</TestCase>
+						
+		<TestCase testID="Panel_Styles_borderThickness5" keywords="Panel, borderThickness" description="Test Panel borderThickness default size and headerHeight size 0">
+			<setup>	      	   
+			     	<ResetComponent target="myTestPanel" className="mx.containers::Panel"  waitEvent="updateComplete" waitTarget="myTestPanel"/>
+			     	<SetStyle target="myTestPanel" styleName="dropShadowEnabled" value="false" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="headerHeight" value="0" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetProperty target="myTestPanel" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetProperty target="myTestPanel" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />	      	      	      	        	     
+			</setup>			   	   
+			<body>	   	
+				<CompareBitmap target="myTestPanel" url="../Styles/baselines/$testID.png"/>	   			   	   		   	   	
+			</body>   
+		</TestCase>
+			
+		<TestCase testID="Panel_Styles_borderThickness6" keywords="Panel, borderThickness" description="Test Panel borderThickness no Bottom value specified">				   	   
+			<setup>	      	   
+				<ResetComponent target="myTestPanel" className="mx.containers::Panel"  waitEvent="updateComplete" waitTarget="myTestPanel"/> 
+				<SetStyle target="myTestPanel" styleName="borderThicknessTop" value="30" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="borderThicknessLeft" value="50" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="borderThicknessRight" value="50" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="dropShadowEnabled" value="false" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="headerHeight" value="0" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetProperty target="myTestPanel" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetProperty target="myTestPanel" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />	      	      	      	        	     
+			</setup>				   	   
+			<body>	   	
+				<CompareBitmap target="myTestPanel" url="../Styles/baselines/$testID.png"/>	   			   	   		   	   	
+			</body>					   
+		</TestCase>
+			
+		<TestCase testID="Panel_Styles_borderThickness7" keywords="Panel, borderThickness" description="Test Panel borderThickness with different sizes on each side">		   	   
+			<setup>	      	   
+		     		<ResetComponent target="myTestPanel" className="mx.containers::Panel"  waitEvent="updateComplete" waitTarget="myTestPanel"/> 
+				<SetStyle target="myTestPanel" styleName="borderThicknessTop" value="30" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="borderThicknessLeft" value="50" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="borderThicknessRight" value="75" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="borderThicknessBottom" value="25" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="dropShadowEnabled" value="false" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetStyle target="myTestPanel" styleName="headerHeight" value="0" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetProperty target="myTestPanel" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />
+				<SetProperty target="myTestPanel" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myTestPanel" />	      	      	      	        	     
+			</setup>					   	   
+			<body>	   	
+				<CompareBitmap target="myTestPanel" url="../Styles/baselines/$testID.png"/>	   			   	   		   	   	
+			</body>						   
+		</TestCase>
+			
+	</testCases>
+</UnitTester>

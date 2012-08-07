@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/TitleWindow/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TitleWindow_Filters_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+
+    import mx.containers.TitleWindow;
+
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <TestCase testID="Spark_TitleWindow_DropShadowFilter"  description="TitleWindow with a DropShadow filter." keywords="[DropShadowFilter, TitleWindow]" >
+            <body>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../Integration/baselines/$testID.png" target="TitleWindow1" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_BevelFilter"  description="TitleWindow with a BevelFilter." keywords="[BevelFilter, TitleWindow]" >
+            <body>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../Integration/baselines/$testID.png" target="TitleWindow2" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_TitleWindow_BlurFilter"  description="TitleWindow with a BlurFilter." keywords="[BlurFilter, TitleWindow]" >
+            <body>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../Integration/baselines/TitleWindow_blurFilter_spark.png" target="TitleWindow3" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_TitleWindow_ColorMatrixFilter"  description="TitleWindow with a ColorMatrixFilter." keywords="[ColorMatrixFilter, TitleWindow]" >
+            <body>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../Integration/baselines/$testID.png" target="TitleWindow4" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_TitleWindow_ConvolutionFilter"  description="TitleWindow with a ConvolutionFilter." keywords="[ConvolutionFilter, TitleWindow]" >
+            <body>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../Integration/baselines/$testID.png" target="TitleWindow5" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_TitleWindow_GlowFilter"  description="TitleWindow with a GlowFilter." keywords="[GlowFilter, TitleWindow]" >
+            <body>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../Integration/baselines/$testID.png" target="TitleWindow7" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_TitleWindow_GradientBevelFilter"  description="TitleWindow with a GradientBevelFilter." keywords="[GradientBevelFilter, TitleWindow]" >
+            <body>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../Integration/baselines/TitleWindow_gradientBevelFilter_spark.png" target="TitleWindow8" timeout="2000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_TitleWindow_GradientGlowFilter"  description="TitleWindow with a GradientGlowFilter." keywords="[GradientGlowFilter, TitleWindow]" >
+            <body>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../Integration/baselines/$testID.png" target="TitleWindow9" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

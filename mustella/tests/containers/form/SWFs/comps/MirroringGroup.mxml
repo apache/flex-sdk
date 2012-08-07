@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx"
+         styleName="embed">
+    
+    <fx:Declarations>
+        <mx:StringValidator source="{inputRadio}" property="label" maxLength="1" />
+    </fx:Declarations>
+    
+    <mx:Form id="targetForm">
+        <mx:FormHeading id="formHeading" label="Order Form!" />
+        
+        <mx:FormItem label="Quantity">
+            <mx:NumericStepper id="quantity" value="1" minimum="1" />
+        </mx:FormItem>
+        
+        <mx:FormItem>
+            <s:HGroup>
+                <mx:CheckBox selected="true" />
+                <mx:ComboBox>
+                    <mx:ArrayList>
+                        <fx:String>red</fx:String>
+                        <fx:String>green</fx:String>
+                        <fx:String>blue</fx:String>
+                    </mx:ArrayList>
+                </mx:ComboBox>
+            </s:HGroup>
+        </mx:FormItem>
+        
+        <mx:FormItem label="Price">
+            <mx:Label fontWeight="bold" text="$5.55" />
+        </mx:FormItem>
+        
+        <mx:FormItem id="horizontalFormItem" direction="horizontal">
+            <mx:CheckBox label="1" selected="true" />
+            <mx:CheckBox label="2" selected="true" />
+            <mx:CheckBox label="3" selected="true" />
+        </mx:FormItem>
+        
+        <mx:FormItem id="nameFormItem" label="Name:" required="true">
+            <mx:CheckBox id="inputRadio" label="Error Checkbox" />
+        </mx:FormItem>
+        
+        <mx:FormItem id="requiredFormItem" label="ZIP Code" required="true" indicatorSkin="comps.CustomRequiredIndicatorSkin" indicatorGap="30">
+            <mx:TextInput id="requiredTextInput" width="100" />
+        </mx:FormItem>
+        
+        <mx:FormItem>
+            <s:VGroup>
+                <mx:Label text="How should we contact you?" />
+                <mx:CheckBox label="Email" id="chkEmail" />
+                <mx:CheckBox label="Phone" id="chkPhone" />
+            </s:VGroup>
+        </mx:FormItem>
+        
+        <mx:FormItem label="Comments">
+            <mx:TextArea id="inputComments" width="250" height="50"  />
+        </mx:FormItem>
+        
+        <mx:FormItem>
+            <mx:Button id="submit" label="Submit Order" />
+        </mx:FormItem>
+    </mx:Form>
+    
+    
+    
+</s:Group>

@@ -1,0 +1,41 @@
+<mx:ControlBar xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" >
+
+		<mx:MenuBar height="100%" labelField="@label" showRoot="false">
+			<mx:dataProvider>
+				<mx:XML>
+				<root>
+					<menuitem label="File">
+						<menuitem label="New" data="New"/>
+						<menuitem label="Open" data="Open"/>
+						<menuitem label="Save" data="Save"/>
+						<menuitem label="Exit" data="Exit"/>
+					</menuitem>
+					<menuitem label="Edit">
+						<menuitem label="Cut" data="Cut"/>
+						<menuitem label="Copy" data="Copy"/>
+						<menuitem label="Paste" data="Paste"/>
+					</menuitem>
+					<menuitem label="View">
+
+					</menuitem>
+				</root>
+				</mx:XML>
+			</mx:dataProvider>
+		</mx:MenuBar>
+		<mx:Canvas width="1" height="100%" backgroundColor="#CCCCCC"/>
+		<mx:HBox paddingBottom="5" paddingTop="5">
+		<mx:ComboBox >
+			<mx:dataProvider>
+				<mx:Array>
+					<mx:String>Item1</mx:String>
+				</mx:Array>
+			</mx:dataProvider>
+		</mx:ComboBox>
+		<mx:Spacer width="100%" />
+
+			<mx:TextInput text=""/>
+			<mx:Button label="Search"/>
+
+		</mx:HBox>
+
+</mx:ControlBar>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/tabnavigator/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabNavigator_Basic_Spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.* 
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+    	public function run():void
+    	
+    	{
+    		application.ti.setFocus();
+    	}
+    	
+ 	 	
+ 	]]>
+ 	
+	</mx:Script>
+	<mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+		@font-face {
+		    src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVera;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVera;
+		    embedAsCFF: false;
+		}
+
+		@font-face {
+		    src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVera;
+		    embedAsCFF: false;
+		}
+		.myStyle {
+		color: #FF0000;
+		}
+		.myStyle1 {
+		color: #0000FF;
+		}
+
+		.myFontStyleClass {
+		color: red; 
+		fontFamily: EmbeddedVera;
+		}
+	</mx:Style>
+	<testCases>
+	<!-- 	Styles 	-->
+ 		<TestCase testID="TabNavigator_Styles_focusAlpha" keywords="[visible, focusAlpha, TabNavigator]" >
+			<setup>
+				<ResetComponent target="tn" className="TNComp3"  waitEvent="updateComplete" waitTarget="tn"/>
+ 				<SetStyle target="tn.tabn" styleName="focusAlpha" value="10" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
+							
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB"/> 
+ 				<DispatchKeyEvent key="TAB"/>	
+ 				<AssertStyleValue target="tn.tabn" styleName="focusAlpha" value="10" />
+				<CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/focusAlpha.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="TabNavigator_Styles_focusRoundedCorners" keywords="[visible, focusRoundedCorners, TabNavigator]" >
+			<setup>
+				<ResetComponent target="tn" className="TNComp3"  waitEvent="updateComplete" waitTarget="tn"/>
+ 				<SetStyle target="tn.tabn" styleName="focusRoundedCorners" value="tl" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
+ 				<SetStyle target="tn.tabn" styleName="cornerRadius" value="1" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
+ 				
+			</setup>
+			<body>
+				<RunCode code="run()" waitTarget="ti" waitEvent="focusIn"/>
+				<DispatchKeyEvent key="TAB"/>	
+ 				<AssertStyleValue target="tn.tabn" styleName="focusRoundedCorners" value="tl" />
+ 				<AssertStyleValue target="tn.tabn" styleName="cornerRadius" value="1" />
+				<CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/focusRoundedCorners.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="TabNavigator_Styles_fillAlphas" keywords="[visible, fillAlpha,fillColors, TabNavigator]" description="This test has to be recreated once the Bug #192906 is fixed">
+			<setup>
+				<ResetComponent target="tn" className="TNComp3"  waitEvent="updateComplete" waitTarget="tn"/>
+ 				<SetStyle target="tn.tabn" styleName="backgroundAlpha" value="0.5" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
+ 				<SetStyle target="tn.tabn" styleName="fillAlphas" value="[0.6,0.4]" waitEvent="updateComplete" waitTarget="tn.tabn" />
+ 				<SetStyle target="tn.tabn" styleName="fillColors" value="[red,green]" waitEvent="updateComplete" waitTarget="tn.tabn" />
+ 				<SetStyle target="tn.tabn" styleName="backgroundColor" value="red" waitEvent="updateComplete" waitTarget="tn.tabn" />
+ 				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="tn.tabn" styleName="fillAlphas" value="[0.6,0.4]" />
+ 				<CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/fillAlphas.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="TabNavigator_Styles_fillColors" keywords="[visible, fillColors, TabNavigator]" description="This test has to be recreated once the Bug #192906 is fixed">
+			<setup>
+				<ResetComponent target="tn" className="TNComp3"  waitEvent="updateComplete" waitTarget="tn"/>
+ 				<SetStyle target="tn.tabn" styleName="backgroundAlpha" value="0.5" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
+ 				<SetStyle target="tn.tabn" styleName="fillAlphas" value="[0.6,0.4]" waitEvent="updateComplete" waitTarget="tn.tabn" />
+ 				<SetStyle target="tn.tabn" styleName="fillColors" value="[red,green]" waitEvent="updateComplete" waitTarget="tn.tabn" />
+ 				<SetStyle target="tn.tabn" styleName="backgroundColor" value="red" waitEvent="updateComplete" waitTarget="tn.tabn" />
+ 				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="tn.tabn" styleName="fillColors" value="[red,green]" />
+ 				<CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/fillColors.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+ 			</body>
+		</TestCase>		
+ 		<TestCase testID="TabNavigator_Styles_firstTabStyleName" keywords="[visible, tabStyleName, fillColors, TabNavigator]" description="This test has to be recreated once the Bug #187231 is fixed">
+			<setup>
+				<ResetComponent target="tn" className="TNComp3"  waitEvent="updateComplete" waitTarget="tn"/>
+ 				<SetStyle target="tn.tabn" styleName="firstTabStyleName" value="myStyle1" waitEvent="updateComplete" waitTarget="tn.tabn" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="tn.tabn" styleName="firstTabStyleName" value="myStyle1" />
+ 				<CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/firstTabStyleName.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+ 			</body>
+		</TestCase>   
+ 		<TestCase testID="TabNavigator_Styles_horizontalAlign" keywords="[visible, horizontalAlign, TabNavigator]" >
+			<setup>
+				<ResetComponent target="tn" className="TNComp3" waitEvent="updateComplete" waitTarget="tn"/>
+ 				<SetStyle target="tn.tabn" styleName="horizontalAlign" value="center" waitEvent="updateComplete" waitTarget="tn.tabn" /> 
+			</setup>
+			<body>
+ 				<AssertStyleValue target="tn.tabn" styleName="horizontalAlign" value="center" />
+				<CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/horizontalAlign.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+ 			</body>
+		</TestCase>
+
+
+ 		<TestCase testID="TabNavigator_Styles_lastTabStyleName" keywords="[visible, lastTabStyleName, fillColors, TabNavigator]" description="This test has to be recreated once the Bug #187231 is fixed">
+			<setup>
+				<ResetComponent target="tn" className="TNComp3"  waitEvent="updateComplete" waitTarget="tn"/>
+ 				<SetStyle target="tn.tabn" styleName="lastTabStyleName" value="myStyle1" waitEvent="updateComplete" waitTarget="tn.tabn" />
+ 				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="tn.tabn" styleName="lastTabStyleName" value="myStyle1" />
+ 				<CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/lastTabStyleName.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+ 			</body>
+		</TestCase> 
+
+ 		<TestCase testID="TabNavigator_Styles_horizontalGap" keywords="[visible, horizontalGap, fillColors, TabNavigator]" >
+			<setup>
+				<ResetComponent target="tn" className="TNComp3"  waitEvent="updateComplete" waitTarget="tn"/>
+ 				<SetStyle target="tn.tabn" styleName="horizontalGap" value="5" waitEvent="updateComplete" waitTarget="tn.tabn" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="tn.tabn" styleName="horizontalGap" value="5" />
+ 				<CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/horizontalGap.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+ 			</body>
+		</TestCase> 
+ 		<TestCase testID="TabNavigator_Styles_tabHeight" keywords="[visible, tabHeight, fillColors, TabNavigator]" description="This test has to be recreated once the Bug #187231 is fixed">
+			<setup>
+				<ResetComponent target="tn" className="TNComp3"  waitEvent="updateComplete" waitTarget="tn"/>
+ 				<SetStyle target="tn.tabn" styleName="tabHeight" value="50" waitEvent="updateComplete" waitTarget="tn.tabn" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="tn.tabn" styleName="tabHeight" value="50" />
+ 				<CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/tabHeight.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="TabNavigator_Styles_tabStyleName" keywords="[visible, tabHeight, fillColors, TabNavigator]" description="This test has to be recreated once the Bug #187231 is fixed">
+			<setup>
+				<ResetComponent target="tn" className="TNComp3"  waitEvent="updateComplete" waitTarget="tn"/>
+ 				<SetStyle target="tn.tabn" styleName="selectedTabTextStyleName" value="myFontStyleClass" waitEvent="updateComplete" waitTarget="tn.tabn" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="tn.tabn" styleName="selectedTabTextStyleName" value="myFontStyleClass" />
+ 				<CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/selectedTabTextStyleName.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="TabNavigator_Styles_tabWidth" keywords="[visible, tabWidth, fillColors, TabNavigator]" description="This test has to be recreated once the Bug #187231 is fixed">
+			<setup>
+				<ResetComponent target="tn" className="TNComp3"  waitEvent="updateComplete" waitTarget="tn"/>
+ 				<SetStyle target="tn.tabn" styleName="tabWidth" value="25" waitEvent="updateComplete" waitTarget="tn.tabn" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="tn.tabn" styleName="tabWidth" value="25" />
+ 				<CompareBitmap target="tn.tabn" url="../Styles/baselines/spark/tabWidth.png" timeout="5000" numColorVariances="4" maxColorVariance="16" />
+ 			</body>
+		</TestCase>		
+	</testCases>
+
+</UnitTester>

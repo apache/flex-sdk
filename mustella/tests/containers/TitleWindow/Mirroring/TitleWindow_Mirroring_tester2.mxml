@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/TitleWindow/Mirroring/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TitleWindow_Mirroring_Basic2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.managers.SystemManager;
+	import mx.events.CloseEvent;
+	import mx.controls.*;
+	import mx.containers.*;
+	import mx.core.FlexGlobals;
+	import mx.core.Container;
+	import mx.events.FlexEvent;
+
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+	public var chk:CheckBox=new CheckBox();
+        public function addCheckBox(t:Container,layoutDir:String="ltr"):void
+	{
+		chk.label="checkbox";
+		if (layoutDir!=null)
+		{
+			chk.layoutDirection=layoutDir;
+			chk.setStyle("direction",layoutDir);
+		}
+		var n:Number=t.numElements;
+		t.addElementAt(chk,n);
+		t.addEventListener("add",addListener);
+	} 
+	public function addListener(e:FlexEvent):void
+	{
+		e.currentTarget.removeEventListener("add", addListener);
+		dispatchEvent(new FlexEvent("elementAdd"));
+
+	}
+	
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<testCases>
+	    
+	   <TestCase testID="TitleWindow_layout_default1" description="TitleWindow with default layoutDirection, has content with ltr layout" keywords="[TitleWindow, Mirroring]">
+		<setup>
+		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
+		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+		</setup>
+		<body>
+		    <AssertPropertyValue target="tw4.chk1" propertyName="layoutDirection" value="ltr"/>
+		    <AssertPropertyValue target="tw4.chk2" propertyName="layoutDirection" value="ltr"/>
+		    <AssertPropertyValue target="tw4.chk3" propertyName="layoutDirection" value="rtl"/>
+		    
+		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		</body>
+	    </TestCase>
+	    
+	   <TestCase testID="TitleWindow_layout_addElement1" description="TitleWindow with default layoutDirection, add a child with rtl layout" keywords="[TitleWindow, Mirroring]">
+		<setup>
+		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
+		</setup>
+		<body>
+		    
+		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4,'rtl')" />
+		    <Pause timeout="100"/>
+    		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		</body>
+	    </TestCase>
+	    
+	   <TestCase testID="TitleWindow_layout_addElement2" description="TitleWindow with default layoutDirection, add a child with rtl layout" keywords="[TitleWindow, Mirroring]">
+		<setup>
+		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
+		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+		</setup>
+		<body>
+		    
+		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox1,'rtl')"/>
+		    <Pause timeout="100"/>
+    		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		</body>
+	    </TestCase>
+	    
+	   <TestCase testID="TitleWindow_layout_addElement3" description="TitleWindow with default layoutDirection, add a child with rtl layout" keywords="[TitleWindow, Mirroring]">
+		<setup>
+		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
+		   
+		</setup>
+		<body>
+		    
+		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox2,'ltr')" />
+		    <Pause timeout="100"/>
+		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+    		
+		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		</body>
+	    </TestCase>
+
+	   <TestCase testID="TitleWindow_layout_addElement4" description="TitleWindow with default layoutDirection, add a child with NO layout set" keywords="[TitleWindow, Mirroring]">
+		<setup>
+		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
+		</setup>
+		<body>
+		    
+		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox2,null)"/>
+    		   <Pause timeout="100"/>
+				    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+    		
+		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		</body>
+	    </TestCase>
+	    
+
+	   <TestCase testID="TitleWindow_layout_addElement5" description="TitleWindow with default layoutDirection, add a child with NO layout set" keywords="[TitleWindow, Mirroring]">
+		<setup>
+		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
+		</setup>
+		<body>
+		    
+		    <RunCode code="addCheckBox(FlexGlobals.topLevelApplication.tw4.vbox1,null)" />
+    		    <Pause timeout="100"/>
+		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+    		
+		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		</body>
+	    </TestCase>
+	    
+	    
+	    
+	   <TestCase testID="TitleWindow_layout_update1" description="layoutDirection is updated from ltr to rtl" keywords="[TitleWindow, Mirroring]">
+		<setup>
+		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
+		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+		</setup>
+		<body>
+		    <SetStyle target="tw4" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+		    <AssertPropertyValue target="tw4.chk1" propertyName="layoutDirection" value="rtl"/>
+		    <AssertPropertyValue target="tw4.chk2" propertyName="layoutDirection" value="ltr"/>
+		    <AssertPropertyValue target="tw4.chk3" propertyName="layoutDirection" value="rtl"/> 
+    		
+		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		</body>
+	    </TestCase>
+	   
+	   <TestCase testID="TitleWindow_layout_update2" description="layoutDirection is updated from ltr to rtl for titleWindow" keywords="[TitleWindow, Mirroring]">
+		<setup>
+		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
+		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+		</setup>
+		<body>
+		    <SetStyle target="tw4" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+		    <AssertPropertyValue target="tw4.chk1" propertyName="layoutDirection" value="ltr"/>
+		    <AssertPropertyValue target="tw4.chk2" propertyName="layoutDirection" value="ltr"/>
+		    <AssertPropertyValue target="tw4.chk3" propertyName="layoutDirection" value="rtl"/> 
+    		
+		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		</body>
+	    </TestCase>
+	    
+	   <TestCase testID="TitleWindow_layout_update3" description="layoutDirection is updated from ltr to rtl for container inside of TitleWindow" keywords="[TitleWindow, Mirroring]">
+		<setup>
+		    <ResetComponent target="tw4" className="MyLayoutTestTW" waitEvent="updateComplete" waitTarget="tw4" />
+		    <SetProperty propertyName="title" value="My Title4" target="tw4" />
+		</setup>
+		<body>
+		    <SetStyle target="tw4.vbox1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+		     <SetStyle target="tw4.vbox1" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+		    <AssertPropertyValue target="tw4.chk1" propertyName="layoutDirection" value="ltr"/>
+		    <!-- it doesn't get the value from setStyleName as it is inherited from application, once it is set, it will not be overrided -->
+		    <AssertPropertyValue target="tw4.chk2" propertyName="layoutDirection" value="rtl"/>
+		    <AssertPropertyValue target="tw4.chk3" propertyName="layoutDirection" value="rtl"/> 
+    		
+		    <CompareBitmap target="tw4" url="../Mirroring/baselines/$testID.png" timeout="2500" />
+		</body>
+	    </TestCase>
+	    
+	    
+	    
+	    
+	</testCases>
+</UnitTester>

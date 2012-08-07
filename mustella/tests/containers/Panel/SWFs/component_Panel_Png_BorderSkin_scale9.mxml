@@ -1,0 +1,29 @@
+<mx:VBox xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="left" width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+		
+			[Embed(source="../../../../Assets/Images/PanelImages/PanelBackgroundSkin.png", scaleGridTop="60", scaleGridBottom="360", scaleGridLeft="24", scaleGridRight="526"  )]
+			public var panelSkinPng:Class;
+			
+			[Bindable]
+			[Embed(source="../../../../Assets/Images/smallredrect.jpg")]
+			public var ticon:Class;
+		]]>
+	</mx:Script>
+	<mx:Style> 
+	@namespace "library://ns.adobe.com/flex/mx";
+		.myPanel
+		{   
+			borderSkin: ClassReference("component_Panel_Png_BorderSkin_scale9_panelSkinPng");
+		} 
+	</mx:Style>
+	<mx:Panel id="myPanelBSPng" titleIcon="{ticon}" width="550" height="400" title="Title" status="Status" styleName="myPanel" color="white" headerHeight="60" >
+	<mx:Canvas width="100%" height="100%" borderStyle="solid" borderColor="red">
+	<mx:Button id="myBtn" width="{myhsbs.value}" label="My Button" />
+	</mx:Canvas>
+	<mx:ControlBar>
+		<mx:HSlider id="myhsbs" minimum="0" maximum="800" value="100" width="100%" snapInterval="2"/>
+	</mx:ControlBar>
+	</mx:Panel>
+	<mx:Button id="myBtnPng" label="Change Padding" click="myPanelBSPng.setStyle('paddingTop', 15);myPanelBSPng.setStyle('paddingBottom', 15);myPanelBSPng.setStyle('paddingLeft', 15);myPanelBSPng.setStyle('paddingRight', 15);" />
+</mx:VBox>

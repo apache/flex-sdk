@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Panel/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="PreferredPanel.mxml">
+       <mx:Script>
+		<![CDATA[
+		import mx.containers.utilityClasses.ConstraintColumn;
+		import mx.containers.utilityClasses.ConstraintRow;
+		import mx.containers.Panel;
+		import mx.controls.Button;
+
+		public static function init(o:DisplayObject):void
+		{
+        }
+
+		public function addConstraintColumns():void
+		{
+			var arr:Array = [];
+			var col1:ConstraintColumn = new ConstraintColumn();
+			col1.id = "col1";
+			col1.width = 100;
+			arr.push(col1);
+			var col2:ConstraintColumn = new ConstraintColumn();
+			col2.id = "col2";
+			col2.width = 100;
+			arr.push(col2);
+			application.mainPanel.constraintColumns = arr;
+		}
+
+		public function addConstraintRows():void
+		{
+			var arr:Array = [];
+			var row1:ConstraintRow = new ConstraintRow();
+			row1.id = 'row1';
+			row1.height = 100;
+			arr.push(row1);
+			var row2:ConstraintRow = new ConstraintRow();
+			row2.id = 'row2';
+			row2.height = 100;
+			arr.push(row2);
+			application.mainPanel.constraintRows = arr;
+		}
+
+		public function addFixedConstraintColumnsToEmptyPanel():void
+		{
+			var arr:Array = [];
+			var col1:ConstraintColumn = new ConstraintColumn();
+			col1.id = "colA";
+			col1.width = 100;
+			arr.push(col1);
+			var col2:ConstraintColumn = new ConstraintColumn();
+			col2.id = "colB";
+			col2.width = 100;
+			arr.push(col2);
+			application.emptyPanel.constraintColumns = arr;
+		}
+
+		]]>
+       </mx:Script>
+       <mx:Metadata>
+           <![CDATA[
+               [Mixin]
+           ]]>
+       </mx:Metadata>
+
+	<testCases>
+
+	<!-- Preferred Size Panel Tests (with fixed size columns and rows) -->
+
+	<TestCase testID="constraintColumnsRows_initially_null_prefPanel" keywords="[constraintColumns, constraintRows, initial, property, preferred size Panel]" description="Verify the constraintColumns
+   	and constraintRows properties are null when unset">
+   	<setup>
+   	    <ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+   	</setup>
+   	<body>
+		<SetProperty target="mainPanel" propertyName="constraintColumns" valueExpression="value=[]" waitTarget="mainPanel" waitEvent="updateComplete" />
+		<SetProperty target="mainPanel" propertyName="constraintRows" valueExpression="value=[]" waitTarget="mainPanel" waitEvent="updateComplete" />
+		<AssertPropertyValue target="mainPanel.constraintColumns" propertyName="length" value="0" />
+		<AssertPropertyValue target="mainPanel.constraintColumns" propertyName="length" value="0" />
+		<AssertPropertyValue target="mainPanel" propertyName="width" value="60" />
+		<AssertPropertyValue target="mainPanel" propertyName="height" value="62" />
+		<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="x" value="0" />
+		<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="y" value="0" />
+   	</body>
+   	</TestCase>
+
+   	<TestCase testID="constraintColumns_set_validValues_prefPanel" keywords="[constraintColumns, Property, valid, preferred size Panel]" description="Verify the constraintColumns
+   	property is correct">
+	<setup>
+	   	<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+   		<SetProperty target="mainPanel" propertyName="constraintRows" valueExpression="value=[]" waitTarget="mainPanel" waitEvent="updateComplete" />
+		<RunCode code="addConstraintColumns();" waitTarget="mainPanel" waitEvent="updateComplete"/>
+	</setup>
+	<body>
+		<AssertPropertyValue target="mainPanel.constraintColumns" propertyName="length" value="2" />
+		<AssertPropertyValue target="mainPanel" propertyName="width" value="220" />
+		<AssertPropertyValue target="mainPanel" propertyName="height" value="62" />
+	</body>
+	</TestCase>
+
+	<TestCase testID="constrainButtonToCol1HorizontalCenter_prefPanel" keywords="[Button, constraint, horizontalCenter, constraintColumn, preferred size Panel]" description="Verify the button
+	obeys its horizontalCenter style affixing it to the center of col1">
+   	    <setup>
+   	        <ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+   	    </setup>
+   	    <body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="horizontalCenter" value="col1:0" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="horizontalCenter" value="col1:0" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="width" value="40" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="x" value="30" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constrainButtonToParentHorizontalCenter_prefPanel" keywords="[Button, constraint, horizontalCenter, parent, preferred size Panel]" description="Verify the button
+	is constrained to the center of the parent Panel">
+   	    <setup>
+   	        <ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+   	    </setup>
+   	    <body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="horizontalCenter" value="0" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="width" value="40" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="x" value="80" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constrainButtonToParentLeftRight_prefPanel" keywords="[Button, constraint, left, right, parent, preferred size Panel]" description="Verify the button
+	is constrained on the right and left to the parent edges">
+   	    <setup>
+   	        <ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+   	    </setup>
+   	    <body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="left" value="10" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="right" value="10" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="left" value="10" />
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="right" value="10" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="x" value="10" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="width" value="180" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="constrainButtonToParentRegionsTopBottom_prefPanel" keywords="[Button, constraint, top, bottom, parent, preferred size Panel]" description="Verify the button added
+	is constrained on the top and bottom to the parent edges">
+		<setup>
+   	        <ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+   	        <SetProperty target="mainPanel" propertyName="constraintRows" valueExpression="value=[]" waitTarget="mainPanel" waitEvent="updateComplete" />
+		    <SetStyle target="mainPanel.getChildAt(0)" styleName="left" value="10" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="right" value="10" waitEvent="updateComplete" waitTarget="mainPanel"/>
+		</setup>
+   	    <body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="top" value="5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="bottom" value="5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel" propertyName="height" value="72" />
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="top" value="5" />
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="bottom" value="5" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="y" value="5" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="height" valueExpression="value=application.mainPanel.height - 40 - 10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="addButtonConstrainedToSingleColumnWithOffset_prefPanel" keywords="[Button, constraint, left, right, single column, preferred size Panel]" description="Verify the button added
+	is constrained on the left and right to a single column">
+		<setup>
+   	        <ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+   	    </setup>
+   	    <body>
+   	        <SetStyle target="mainPanel.getChildAt(0)" styleName="left" value="col1:10" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="right" value="col1:10" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="left" value="col1:10" />
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="right" value="col1:10" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="x" value="10" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="width" value="80" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="addButtonConstrainedToMultipleColumnsWithOffset_prefPanel" keywords="[Button, constraint, left, right, multiple columns, preferred size Panel]" description="Verify the button added
+	is constrained on the left and right to multiple columns">
+		<setup>
+   	        <ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+   	    </setup>
+   	    <body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="left" value="col1:5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="right" value="col2:5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="left" value="col1:5" />
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="right" value="col2:5" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="x" value="5" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="width" value="190" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constraintRows_set_validValues_prefPanel" keywords="[constraintRows, Property, valid value, preferred size Panel]" description="Verify that constraintRows have been
+	added">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="addConstraintRows()" waitTarget="mainPanel" waitEvent="updateComplete"/>
+			<AssertPropertyValue target="mainPanel.constraintRows" propertyName="length" value="2" />
+			<AssertPropertyValue target="mainPanel" propertyName="width" value="220" />
+			<AssertPropertyValue target="mainPanel" propertyName="height" value="240" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constrainButtonToRow1VerticalCenter_prefPanel" keywords="[Button, constraint, verticalCenter, constraintRow, preferred size Panel]" description="Verify the button
+	obeys its verticalCenter style affixing it to the center of row1">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="verticalCenter" value="row1:0" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="verticalCenter" value="row1:0" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="height" value="22" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="y" value="39" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="constrainButtonToParentVerticalCenter_prefPanel" keywords="[Button, constraint, verticalCenter, parent, preferred size Panel]" description="Verify the button
+	is constrained to the center of the parent Panel">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="verticalCenter" value="0" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="height" value="22" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="y" value="89" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="addButtonConstrainedToSingleRowWithOffset_prefPanel" keywords="[Button, constraint, top, bottom, single row, preferred size Panel]" description="Verify the button added
+	is constrained on the top and bottom to a single row">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="top" value="row1:10" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="bottom" value="row1:10" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="top" value="row1:10" />
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="bottom" value="row1:10" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="y" value="10" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="height" value="80" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="addButtonConstrainedToMultipleRowsWithOffset_prefPanel" keywords="[Button, constraint, top, bottom, multiple rows, preferred size Panel]" description="Verify the button added
+	is constrained on the top and bottom to multiple rows" >
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="top" value="row1:5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="bottom" value="row2:10" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="top" value="row1:5" />
+			<AssertStyleValue target="mainPanel.getChildAt(0)" styleName="bottom" value="row2:10" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="y" value="5" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="height" value="185" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="makeButtonFixedSized" keywords="[Button, fixed sized]">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="width" value="150" />
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="height" value="100" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="setLeftRightConstraintsOnFixedButton" keywords="[Button, fixed sized, left, right, constraints]">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		    <SetProperty target="mainPanel.getChildAt(0)" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="mainPanel"/>
+		</setup>
+		<body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="left" value="col1:5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="right" value="col2:5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="width" value="190" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="setTopBottomConstraintsOnFixedButton" keywords="[Button, fixed sized, top, bottom, constraints]">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		    <SetProperty target="mainPanel.getChildAt(0)" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="mainPanel"/>
+		</setup>
+		<body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="top" value="row1:5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="bottom" value="row2:5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="height" value="190" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="makeButtonPercentageSized" keywords="[Button, percentage sized]">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="mainPanel" propertyName="width" value="220" />
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="percentWidth" value="80" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="percentWidth" value="80" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="width" value="160" />
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="percentHeight" value="80" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="percentHeight" value="80" />
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="height" value="160" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="setLeftRightConstraintsOnPercentageButton" keywords="[Button, percentage sized, left, right, constraints]">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		    <SetProperty target="mainPanel.getChildAt(0)" propertyName="percentWidth" value="80" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="percentHeight" value="80" waitEvent="updateComplete" waitTarget="mainPanel"/>
+		</setup>
+		<body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="left" value="col1:5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="right" value="col2:5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="width" value="190" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="setTopBottomConstraintsOnPercentageButton" keywords="[Button, percentage sized, top, bottom, constraints]">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		    <SetProperty target="mainPanel.getChildAt(0)" propertyName="percentWidth" value="80" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="percentHeight" value="80" waitEvent="updateComplete" waitTarget="mainPanel"/>
+		</setup>
+		<body>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="top" value="row1:5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="bottom" value="row2:5" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="height" value="190" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="emptyPanelInitiallyNull" keywords="[constraintColumns, preferred size Panel, no children]" description="Verify the
+	preferred size Panel sizes its columns correctly when the Panel contains no children">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		    <SetProperty target="mainPanel.getChildAt(0)" propertyName="percentWidth" value="80" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="percentHeight" value="80" waitEvent="updateComplete" waitTarget="mainPanel"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="emptyPanel.constraintColumns" propertyName="length" value="0" />
+			<AssertPropertyValue target="emptyPanel.constraintColumns" propertyName="length" value="0" />
+			<AssertPropertyValue target="emptyPanel" propertyName="width" value="52" />
+			<AssertPropertyValue target="emptyPanel" propertyName="height" value="40" />
+	   	</body>
+   	</TestCase>
+
+	<TestCase testID="emptyPanelSizesColumnsCorrectly" keywords="[constraintColumns, preferred size Panel, no children]" description="Verify the
+	preferred size Panel sizes its columns correctly when the Panel contains no children">
+		<setup>
+			<ResetComponent target="emptyPanel" className="mx.containers.Panel" waitTarget="emptyPanel" waitEvent="updateComplete" />
+			<SetProperty target="emptyPanel" propertyName="layout" value="absolute" waitTarget="emptyPanel" waitEvent="updateComplete" />
+			<RunCode code="addFixedConstraintColumnsToEmptyPanel();" waitTarget="emptyPanel" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertPropertyValue target="emptyPanel.constraintColumns" propertyName="length" value="2" />
+			<AssertPropertyValue target="emptyPanel" propertyName="width" value="220" />
+			<AssertPropertyValue target="emptyPanel" propertyName="height" value="40" />
+		</body>
+	</TestCase>
+<!-- horizontalCenter and verticalCenter tests -->
+	<TestCase testID="fixedColumns_PrefPanel_horizontalCenter_positive" keywords="[horizontalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="width" value="60" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="horizontalCenter" valueExpression="value='col1:10'" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="x" value="30" />
+		</body>
+	</TestCase>
+	<TestCase testID="fixedColumns_PrefPanel_horizontalCenter_zero" keywords="[horizontalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="width" value="60" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="horizontalCenter" valueExpression="value='col1:0'" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="x" value="20" />
+		</body>
+	</TestCase>
+	<TestCase testID="fixedColumns_PrefPanel_verticalCenter_positive" keywords="[verticalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="height" value="60" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="verticalCenter" valueExpression="value='row1:10'" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="y" value="30" />
+		</body>
+	</TestCase>
+	<TestCase testID="fixedColumns_PrefPanel_verticalCenter_zero" keywords="[verticalCenter, percentage sized]">
+		<setup>
+			<ResetComponent target="mainPanel" className="comps.PreferredPanelComp" waitTarget="mainPanel" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="mainPanel.getChildAt(0)" propertyName="height" value="60" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<SetStyle target="mainPanel.getChildAt(0)" styleName="verticalCenter" valueExpression="value='row1:0'" waitEvent="updateComplete" waitTarget="mainPanel"/>
+			<AssertPropertyValue target="mainPanel.getChildAt(0)" propertyName="y" value="20" />
+		</body>
+	</TestCase>
+   </testCases>
+</UnitTester>

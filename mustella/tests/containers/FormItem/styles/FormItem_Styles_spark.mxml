@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/FormItem/styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="FormItem_Basic_spark.mxml">
+
+    <!-- this set of lines FormItem a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+    import mx.containers.* 
+    import mx.controls.*
+    import mx.styles.StyleManager;
+    import mx.managers.SystemManager;
+
+    
+     
+    ]]>
+    </mx:Script>
+    <mx:Style>
+	.testStyleCenter {
+		text-align: center;
+	}
+    </mx:Style>
+    <mx:Style>
+	.testStyleLeft {
+		text-align: left;
+	}
+    </mx:Style>
+    <mx:Style>
+	.testStyleRight {
+		text-align: right;
+	}
+    </mx:Style>    
+	    
+    <testCases>
+    <!--    Styles  -->
+			<TestCase testID="FormItem_Styles_horizontalGap_spark" keywords="[FormItem, horizontalGap, borderStyle, solid]">
+				<setup>
+					<ResetComponent target="myCustomForm" className="CustomForm_spark"  waitEvent="updateComplete" waitTarget="myCustomForm"/>
+					<SetStyle target="myCustomForm.fi" styleName="horizontalGap"  value="20" waitEvent="updateComplete" waitTarget="myCustomForm.fi" />
+				</setup>
+				<body>
+					<AssertStyleValue target="myCustomForm.fi" styleName="horizontalGap" value="20"  />
+					<WaitForEffectsToEnd />
+					<CompareBitmap target="" url="../styles/Baselines/FormItem_Style_horizontalGap_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+				</body>
+			</TestCase>
+            <TestCase testID="FormItem_Styles_paddingBottom_spark" keywords="[FormItem, paddingBottom, borderStyle, solid]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark"  waitEvent="updateComplete" waitTarget="myCustomForm"/>
+                <SetStyle target="myCustomForm.fi" styleName="paddingBottom"  value="20" waitEvent="updateComplete" waitTarget="myCustomForm.fi"  />
+            </setup>
+            <body>
+                <AssertStyleValue target="myCustomForm.fi" styleName="paddingBottom" value="20"  />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../styles/Baselines/FormItem_Style_paddingBottom_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FormItem_Styles_paddingRight_spark" keywords="[FormItem, paddingRight, borderStyle, solid]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark"  waitEvent="updateComplete" waitTarget="myCustomForm"/>
+                <SetStyle target="myCustomForm.fi" styleName="paddingRight"  value="20" waitEvent="updateComplete" waitTarget="myCustomForm.fi"  />
+            </setup>
+            <body>
+                <AssertStyleValue target="myCustomForm.fi" styleName="paddingRight" value="20"  />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../styles/Baselines/FormItem_Style_paddingRight_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+    
+        <TestCase testID="FormItem_Styles_paddingTop_spark" keywords="[FormItem, paddingTop, borderStyle, solid]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark"  waitEvent="updateComplete" waitTarget="myCustomForm"/>
+                <SetStyle target="myCustomForm.fi" styleName="paddingTop"  value="20" waitEvent="updateComplete" waitTarget="myCustomForm.fi"  />
+            </setup>
+            <body>
+                <AssertStyleValue target="myCustomForm.fi" styleName="paddingTop" value="20"  />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../styles/Baselines/FormItem_Style_paddingTop_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+    
+        <TestCase testID="FormItem_Styles_labelWidth_spark" keywords="[FormItem, labelWidth, borderStyle, solid]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark"  waitEvent="updateComplete" waitTarget="myCustomForm"/>
+                <SetProperty target="myCustomForm.fi" propertyName="label" value="FormItem Style Testing" waitEvent="updateComplete" waitTarget="myCustomForm.fi"/>
+            </setup>
+            <body>             
+                <AssertStyleValue target="myCustomForm.fi" styleName="labelWidth" valueExpression="value=null"  />
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../styles/Baselines/FormItem_Style_labelWidth_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FormItem_Styles_verticalGap_spark" keywords="[FormItem, verticalGap, borderStyle, solid]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark"  waitEvent="updateComplete" waitTarget="myCustomForm"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="myCustomForm.fi" styleName="verticalGap" value="6"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../styles/Baselines/FormItem_Style_verticalGap_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FormItem_Styles_verticalGap2_spark" keywords="[FormItem, verticalGap2, borderStyle, solid]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark"  waitEvent="updateComplete" waitTarget="myCustomForm"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="myCustomForm.fi" styleName="verticalGap" value="6"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../styles/Baselines/FormItem_Style_verticalGap2_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FormItem_Styles_horizontalAlign_Default_spark" keywords="[FormItem, horizontalAlign, borderStyle, solid]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark"  waitEvent="updateComplete" waitTarget="myCustomForm"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="myCustomForm.fi" styleName="horizontalAlign" value="left"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../styles/Baselines/FormItem_Style_horizontalAlign_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FormItem_Styles_text-align_center_spark" keywords="[FormItem, text-align, Label, center]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark"  waitEvent="updateComplete" waitTarget="myCustomForm"/>
+				<SetStyle target="myCustomForm.fi" styleName="labelStyleName"  value="testStyleCenter" waitEvent="updateComplete" waitTarget="myCustomForm.fi"  />       
+				<SetProperty target="myCustomForm.fi" propertyName="label" value="FormItem Style" waitEvent="updateComplete" waitTarget="myCustomForm.fi"/>
+				<SetProperty target="myCustomForm.fi" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myCustomForm.fi"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="myCustomForm.fi" styleName="labelStyleName" value="testStyleCenter"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../styles/Baselines/FormItem_Style_labelStyleName_center_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FormItem_Styles_text-align_left_spark" keywords="[FormItem, text-align, Label, left]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark"  waitEvent="updateComplete" waitTarget="myCustomForm"/>
+				<SetStyle target="myCustomForm.fi" styleName="labelStyleName"  value="testStyleLeft" waitEvent="updateComplete" waitTarget="myCustomForm.fi"  />       
+				<SetProperty target="myCustomForm.fi" propertyName="label" value="FormItem Style" waitEvent="updateComplete" waitTarget="myCustomForm.fi"/>		
+				<SetProperty target="myCustomForm.fi" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myCustomForm.fi"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="myCustomForm.fi" styleName="labelStyleName" value="testStyleLeft"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../styles/Baselines/FormItem_Style_labelStyleName_left_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FormItem_Styles_text-align_right_spark" keywords="[FormItem, text-align, Label, right]">
+            <setup>
+                <ResetComponent target="myCustomForm" className="CustomForm_spark"  waitEvent="updateComplete" waitTarget="myCustomForm"/>
+				<SetStyle target="myCustomForm.fi" styleName="labelStyleName"  value="testStyleRight" waitEvent="updateComplete" waitTarget="myCustomForm.fi"  />       
+				<SetProperty target="myCustomForm.fi" propertyName="label" value="FormItem Style" waitEvent="updateComplete" waitTarget="myCustomForm.fi"/>		
+				<SetProperty target="myCustomForm.fi" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myCustomForm.fi"/>
+            </setup>
+            <body>
+                <AssertStyleValue target="myCustomForm.fi" styleName="labelStyleName" value="testStyleRight"/>
+                <WaitForEffectsToEnd />
+                <CompareBitmap target="" url="../styles/Baselines/FormItem_Style_labelStyleName_right_spark.png" timeout="5000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>        
+    </testCases>
+</UnitTester>

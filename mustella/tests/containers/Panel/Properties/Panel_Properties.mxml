@@ -1,0 +1,2801 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="containers/Panel/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Panel_Basic.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <mx:Script>
+
+    <![CDATA[
+
+    public static function init(o:DisplayObject):void
+
+    {
+
+    }
+
+    ]]>
+
+    </mx:Script>
+
+    <mx:Metadata>
+
+    <![CDATA[
+
+        [Mixin]
+
+    ]]>
+
+    </mx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+
+
+    <mx:Style>
+    @namespace "library://ns.adobe.com/flex/mx";
+
+
+
+        .myStyle{
+
+        color: #FF0000
+
+        }
+
+        .myStyle2{
+
+        color: #0000FF
+
+        }
+
+
+
+    </mx:Style>
+
+
+
+    <mx:Script>
+
+    <![CDATA[
+
+    [Embed(source="../../../../Assets/Images/smallredrect.jpg")]
+
+    public var MyIcon:Class;
+
+    import mx.containers.Panel;
+
+    import mx.core.IFlexDisplayObject;
+
+    public function allChildrenlist():int
+
+    {
+
+        return (application.myCustomPanel.myPanel.rawChildren.numChildren);
+
+    }
+
+    public function autoLayoutAS():void{
+
+        application.myCustomPanel.myPanel.autoLayout = false;
+
+    }
+
+    public function clipContentAS():void{
+
+        application.myCustomPanel.myPanel.clipContent=false;
+
+    }
+
+    public function creationPolicyAS():void{
+
+        application.myCustomPanel.myPanel.creationPolicy="all";
+
+    }
+
+    public function getDefaultButton():Boolean{
+
+        if(application.myCustomPanel.myPanel.defaultButton==application.myCustomPanel.myButton1)
+
+        return true;
+
+        return false;
+
+    }
+
+    public function setDefaultButtonAS():void{
+
+        application.myCustomPanel.myPanel.defaultButton=application.myCustomPanel.myButton1;
+
+    }
+
+    public function setHeightAS():void{
+
+        application.myCustomPanel.myPanel.height=120;
+
+    }
+
+    public function setHorizontalLineScrollSizeAS():void{
+
+        application.myCustomPanel.myPanel.horizontalLineScrollSize=10;
+
+    }
+
+    public function setHorizontalPageScrollSizeAS():void{
+
+        application.myCustomPanel.myPanel.horizontalPageScrollSize=10;
+
+    }
+
+    public function setHorizontalScrollPositionAS():void{
+
+        application.myCustomPanel.myPanel.horizontalScrollPosition=10;
+
+    }
+
+    public function setHorizontalScrollPolicyAS():void{
+
+        application.myCustomPanel.myPanel.horizontalScrollPolicy="on";
+
+    }
+
+    public function setIncludeInLayoutAS():void{
+
+        application.myCustomPanel.myPanel.includeInLayout="true";
+
+    }
+
+    public function setLabelAS():void{
+
+        application.myCustomPanel.myPanel.label="Other Panel Label";
+
+    }
+
+    public function setMaxHeightAS():void{
+
+        application.myCustomPanel.myPanel.maxHeight=150;
+
+    }
+
+    public function setMaxWidthAS():void{
+
+        application.myCustomPanel.myPanel.maxWidth=150;
+
+    }
+
+    public function setMinHeightAS():void{
+
+        application.myCustomPanel.myPanel.minHeight=150;
+
+    }
+
+    public function setMinWidthAS():void{
+
+        application.myCustomPanel.myPanel.minWidth=150;
+
+    }
+
+    public function setPercentHeightAS():void{
+
+        application.myCustomPanel.myPanel.percentHeight=70;
+
+    }
+
+    public function setPercentWidthAS():void{
+
+        application.myCustomPanel.myPanel.percentWidth=70;
+
+    }
+
+    public function setScaleXAS():void{
+
+        application.myCustomPanel.myPanel.scaleX=5;
+
+    }
+
+    public function setScaleYAS():void{
+
+        application.myCustomPanel.myPanel.scaleY=5;
+
+    }
+
+    public function setStyleNameAS():void{
+
+        application.myCustomPanel.myPanel.styleName='myStyle2';
+
+    }
+
+    public function setToolTipAS():void{
+
+        application.myCustomPanel.myPanel.toolTip="My Panel";
+
+    }
+
+    public function setVisibleAS():void{
+
+        application.myCustomPanel.myPanel.visible=false;
+
+    }
+
+    public function setVerticalLineScrollSizeAS():void{
+
+        application.myCustomPanel.myPanel.verticalLineScrollSize=10;
+
+    }
+
+    public function setVerticalScrollPositionAS():void{
+
+        application.myCustomPanel.myPanel.verticalScrollPosition=10;
+
+    }
+
+    public function setVerticalScrollPolicyAS():void{
+
+        application.myCustomPanel.myPanel.verticalScrollPolicy='on';
+
+    }
+
+    public function setWidthAS():void{
+
+        application.myCustomPanel.myPanel.width=120;
+
+    }
+
+    public function setXAS():void{
+
+        application.myCustomPanel.myPanel.x=50;
+
+    }
+
+    public function setYAS():void{
+
+        application.myCustomPanel.myPanel.y=50;
+
+    }
+
+    ]]>
+
+    </mx:Script>
+
+
+
+    <testCases>
+
+        <TestCase testID="Panel_Property_allchildrenlist" keywords="[allchildrenlist, children, Panel]">
+
+            <body>
+
+                <AssertMethodValue method="value=allChildrenlist()" value="3" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_autoLayout1" keywords="[autoLayout, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="autoLayout" value="true"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_autoLayout2"  keywords="[autoLayout, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="autoLayout" value="true" />
+
+
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="autoLayout" value="true"/>
+
+
+
+                <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanel.myPanel" url="../Properties/baselines/autoLayout2.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_autoLayout3" keywords="[autoLayout, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="autoLayout" value="false" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="autoLayout" value="false"/>
+
+
+
+                <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanel.myPanel" url="../Properties/baselines/autoLayout3.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_autoLayout4" keywords="[autoLayout, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <RunCode code="autoLayoutAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="autoLayout" value="false"/>
+
+
+
+                <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanel.myPanel" url="../Properties/baselines/autoLayout4.png" timeout="5000" />
+
+
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_clipContent1" keywords="[clipContent, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="width" value="35" waitEvent="updateComplete" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="clipContent" value="true"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanel.myPanel" url="../Properties/baselines/clipContent_1.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_clipContent2" keywords="[clipContent, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="clipContent" value="false" />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="width" value="35" waitEvent="updateComplete" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="clipContent" value="false"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanel.myPanel" url="../Properties/baselines/clipContent_2.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_clipContent3" keywords="[clipContent, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="clipContent" value="true" />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="width" value="35" waitEvent="updateComplete" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="clipContent" value="true"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanel.myPanel" url="../Properties/baselines/clipContent_3.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_clipContent4" keywords="[clipContent, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="width" value="35" />
+
+                <RunCode code="clipContentAS()" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="clipContent" value="false"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap  numColorVariances="2" maxColorVariance="7" target="myCustomPanel.myPanel" url="../Properties/baselines/clipContent_4.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_creationPolicy1" keywords="[creationPolicy, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="creationPolicy" valueExpression="value='auto'"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_creationPolicy2" keywords="[creationPolicy, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="creationPolicy" value="all" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="creationPolicy" value="all"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_creationPolicy3" keywords="[creationPolicy, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="creationPolicy" value="none" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="creationPolicy" value="none"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_creationPolicy4" keywords="[creationPolicy, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="creationPolicyAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="creationPolicy" value="all"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_defaultButton1" keywords="[defaultButton, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="defaultButton" valueExpression="value=null"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_defaultButton2" keywords="[defaultButton, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="defaultButton" valueExpression="value=IFlexDisplayObject(application.myCustomPanel.myButton1)"/>
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=getDefaultButton()" value="true" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_defaultButton3" keywords="[defaultButton, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setDefaultButtonAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=getDefaultButton()" value="true" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_height1" keywords="[height, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="height" value="146"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_height2" keywords="[height, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="height" value="100" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="height" value="100"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_height3" keywords="[height, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="height" value="100.5" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="height" value="100.5"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_height4" keywords="[height, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setHeightAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="height" value="120"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalLineScrollSize1" keywords="[Scroll, size, Line, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalLineScrollSize" value="5"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalLineScrollSize2" keywords="[Scroll, Size, Line, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="horizontalLineScrollSize" value="10" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalLineScrollSize" value="10"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalLineScrollSize3" keywords="[Scroll, size, Line, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="horizontalLineScrollSize" value="-10" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalLineScrollSize" value="-10"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalLineScrollSize4" keywords="[Scroll, Size, Line, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  waitEvent="updateComplete"/>
+
+                <RunCode code="setHorizontalLineScrollSizeAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalLineScrollSize" value="10"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalPageScrollSize1" keywords="[Scroll, Size, Page, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF" waitEvent="updateComplete" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalPageScrollSize" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalPageScrollSize2" keywords="[Scroll, Size, Page, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="horizontalPageScrollSize" value="10" waitEvent="updateComplete" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalPageScrollSize" value="10"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalPageScrollSize3" keywords="[Scroll, Size, Page, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="horizontalPageScrollSize" value="-10" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalPageScrollSize" value="-10"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalPageScrollSize4" keywords="[Scroll, Size, Page, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF" waitEvent="updateComplete" />
+
+                <RunCode code="setHorizontalPageScrollSizeAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalPageScrollSize" value="10"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalScrollPosition1" keywords="[Scroll, Position, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF" waitEvent="updateComplete" />
+
+            </setup>
+
+            <body>
+
+
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPosition" value="0"/>
+
+
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalScrollPosition2" keywords="[Scroll, Position, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+                <SetProperty target="myCustomPanel.myPanel" propertyName="horizontalScrollPosition" value="10" />
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPosition" value="10"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalScrollPosition3" keywords="[Scroll, Position, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="horizontalScrollPosition" value="0" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPosition" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalScrollPosition4" keywords="[Scroll, Position, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  waitEvent="updateComplete"/>
+
+                <RunCode code="setHorizontalScrollPositionAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPosition" value="10"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_horizontalScrollPolicy1" keywords="[Scroll, Policy, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="auto"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Properties/baselines/horizontalScrollPolicy_auto.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalScrollPolicy2" keywords="[Scroll, Policy, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="on" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="on"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Properties/baselines/horizontalScrollPolicy_on.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalScrollPolicy3" keywords="[Scroll, Policy, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="off" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="off"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Properties/baselines/horizontalScrollPolicy_off.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalScrollPolicy4" keywords="[Scroll, Policy, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF" />
+
+                <RunCode code="setHorizontalScrollPolicyAS()" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="on"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Properties/baselines/horizontalScrollPolicy_4.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_horizontalScrollPolicy5" keywords="[Scroll, Policy, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="auto"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Properties/baselines/horizontalScrollPolicy_5.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalScrollPolicy6" keywords="[Scroll, Policy, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="on" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="on"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Properties/baselines/horizontalScrollPolicy_6.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalScrollPolicy7" keywords="[Scroll, Policy, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="off" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="off"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Properties/baselines/horizontalScrollPolicy_7.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_horizontalScrollPolicy8" keywords="[Scroll, Policy, Horizontal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setHorizontalScrollPolicyAS()" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="horizontalScrollPolicy" value="on"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Properties/baselines/horizontalScrollPolicy_8.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_includeInLayout1" keywords="[includeInLayout, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="includeInLayout" value="true"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_includeInLayout2" keywords="[includeInLayout, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="includeInLayout" value="true" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="includeInLayout" value="true"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_includeInLayout3" keywords="[includeInLayout, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="includeInLayout" value="false" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="includeInLayout" value="false"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_includeInLayout4" keywords="[includeInLayout, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setIncludeInLayoutAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="includeInLayout" value="true"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_label1" keywords="[label, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="label" value="Hello World"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_label2" keywords="[label, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="label" value="Panel Label" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="label" value="Panel Label"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_label3" keywords="[label, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setLabelAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="label" value="Other Panel Label"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_maxHeight1" keywords="[maxHeight, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="maxHeight" value="10000"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_maxHeight2" keywords="[maxHeight, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="maxHeight" value="100" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="maxHeight" value="100"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_maxHeight3" keywords="[maxHeight, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="maxHeight" value="126.5" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="maxHeight" value="126.5"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_maxHeight4" keywords="[maxHeight, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setMaxHeightAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="maxHeight" value="150"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_maxHorizontalScrollPosition1" keywords="[maxHorizontalScrollPosition, horizontal, scroll, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="maxHorizontalScrollPosition" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_maxVerticalScrollPosition1" keywords="[maxVerticalScrollPosition, horizontal, scroll, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="maxVerticalScrollPosition" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_maxWidth1" keywords="[maxWidth, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="maxWidth" value="10000"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_maxWidth2" keywords="[maxWidth, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="maxWidth" value="100" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="maxWidth" value="100"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_maxWidth3"  keywords="[maxWidth, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="maxWidth" value="126.5" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="maxWidth" value="126.5"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_maxWidth4"  keywords="[maxWidth, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setMaxWidthAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="maxWidth" value="150"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_minHeight1" keywords="[maxHeight, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="minHeight" value="146"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_minHeight2" keywords="[maxHeight, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="minHeight" value="100" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="minHeight" value="100"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_minHeight3" keywords="[minHeight, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="minHeight" value="126.5" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="minHeight" value="126.5"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_minHeight4" keywords="[minHeight, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setMinHeightAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="minHeight" value="150"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_minWidth1" keywords="[minWidth, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="minWidth" value="84"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_minWidth2" keywords="[minWidth, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="minWidth" value="100" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="minWidth" value="100"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_minWidth3" keywords="[minWidth, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="minWidth" value="126.5" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="minWidth" value="126.5"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_minWidth4" keywords="[minWidth, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setMinWidthAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="minWidth" value="150"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_numChildren1" keywords="[numChildren, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="numChildren" value="4"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_percentHeight1" keywords="[percentHeight, unset, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="percentHeight" value="NaN"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_percentHeight2" keywords="[percentHeight, whole, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="percentHeight" value="80" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="percentHeight" value="80"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_percentHeight3" keywords="[percentHeight, decimal,  Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="percentHeight" value="50.5" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="percentHeight" value="50.5"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_percentHeight4" keywords="[percentHeight, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setPercentHeightAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="percentHeight" value="70"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_percentWidth1" keywords="[percentWidth, unset, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="percentWidth" value="NaN"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_percentWidth2" keywords="[percentWidth, whole, Panel]" >
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="percentWidth" value="80" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="percentWidth" value="80"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_percentWidth3" keywords="[percentWidth, decimal, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="percentWidth" value="50.5" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="percentWidth" value="50.5"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_percentWidth4" keywords="[percentWidth, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setPercentWidthAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="percentWidth" value="70"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_scaleX1" keywords="[scaleX, unset, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="scaleX" value="1"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_scaleX2" keywords="[scaleX, zero, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="scaleX" value="0" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="scaleX" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_scaleX3" keywords="[scaleX, 2, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="scaleX" value="2" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="scaleX" value="2"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_scaleX4" keywords="[scaleX, large, value, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setScaleXAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="scaleX" value="5"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_scaleY1" keywords="[scaleY, unset, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="scaleY" value="1"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_scaleY2" keywords="[scaleY, zero, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="scaleY" value="0" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="scaleY" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_scaleY3" keywords="[scaleY, 2, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="scaleY" value="2" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="scaleY" value="2"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_scaleY4" keywords="[scaleY, large, value, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setScaleYAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="scaleY" value="5"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_styleName1" keywords="[styleName, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="styleName" valueExpression="value=null"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Properties/baselines/styleName1.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_styleName2" keywords="[styleName, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="styleName" value="myStyle" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="styleName" value="myStyle"/>
+
+                <WaitForEffectsToEnd />
+
+                <CompareBitmap numColorVariances="5" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Properties/baselines/styleName2.png" timeout="5000" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_styleName3" keywords="[styleName, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setStyleNameAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="styleName" value="myStyle2"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+         <TestCase testID="Panel_Property_toolTip1" keywords="[toolTip, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+            </setup>
+
+            <body>
+
+                <DispatchMouseEvent target="myCustomPanel.myPanel" type="mouseOver" localX="10" localY="10"/>
+
+                <AssertNoEvent target="myCustomPanel.myPanel" eventName="toolTipShow"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+        <TestCase testID="Panel_Property_visible1" keywords="[visible, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="visible" value="true"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_visible2" keywords="[visible, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="visible" value="true" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="visible" value="true"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_visible3" keywords="[visible, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="visible" value="false" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="visible" value="false"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_visible4" keywords="[visible, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setVisibleAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="visible" value="false"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_verticalLineScrollSize1" keywords="[vertical, Line, Scroll, Size, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="verticalLineScrollSize" value="5"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_verticalLineScrollSize2" keywords="[vertical, Line, Scroll, Size, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="verticalLineScrollSize" value="20" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="verticalLineScrollSize" value="20"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_verticalLineScrollSize3" keywords="[vertical, Line, Scroll, Size, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setVerticalLineScrollSizeAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="verticalLineScrollSize" value="10"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_verticalScrollPosition1" keywords="[vertical, Scroll, Position, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="verticalScrollPosition" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_verticalScrollPosition2" keywords="[vertical, Scroll, Position, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="verticalScrollPosition" value="20" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="verticalScrollPosition" value="20"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_verticalScrollPosition3" keywords="[vertical, Scroll, Position, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setVerticalScrollPositionAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="verticalScrollPosition" value="10"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_verticalScrollPolicy1" keywords="[vertical, Scroll, Policy, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="verticalScrollPolicy" value="auto"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_verticalScrollPolicy2" keywords="[vertical, Scroll, Policy, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="verticalScrollPolicy" value="on" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="verticalScrollPolicy" value="on"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_verticalScrollPolicy3" keywords="[vertical, Scroll, Policy, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="verticalScrollPolicy" value="off" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="verticalScrollPolicy" value="off"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_verticalScrollPolicy4" keywords="[vertical, Scroll, Policy, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="verticalScrollPolicy" value="auto" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="verticalScrollPolicy" value="auto"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_verticalScrollPolicy5" keywords="[vertical, Scroll, Policy, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setVerticalScrollPolicyAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="verticalScrollPolicy" value="on"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_width1" keywords="[width, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="width" value="84"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_width2" keywords="[width, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="width" value="100" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="width" value="100"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_width3" keywords="[width, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="width" value="126.5" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="width" value="126.5"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_width4" keywords="[width, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setWidthAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="width" value="120"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_x1" keywords="[x, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="x" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_x2" keywords="[x, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="x" value="100" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="x" value="100"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_x3" keywords="[x, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="x" value="-5.6" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="x" value="-5.6000000000000005"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_x4" keywords="[x, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setXAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="x" value="50"/>
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Panel_Property_y1" keywords="[y, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="y" value="0"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_y2" keywords="[y, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="y" value="100" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="y" value="100"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_y3" keywords="[y, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <SetProperty target="myCustomPanel.myPanel" propertyName="y" value="-5.6" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="y" value="-5.6000000000000005"/>
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Panel_Property_y4" keywords="[y, Panel]">
+
+            <setup>
+
+                <ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"  />
+
+                <SetStyle target="myCustomPanel.myPanel" styleName="color" value="#CCCCFF"  />
+
+                <RunCode code="setYAS()" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="myCustomPanel.myPanel" propertyName="y" value="50"/>
+
+            </body>
+
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>
+

@@ -1,0 +1,103 @@
+<mx:VBox xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			 
+			[Bindable]
+			/*[Embed(source="FLA_flex_skins.swf", symbol="Panel_borderSkin_noGrid")]*/
+			[Embed(source="../../../../Assets/Images/PanelImages/FLA_flex_skins.swf", symbol="Panel_borderSkin")]
+			public var panelSkin:Class;
+	
+			public function createSkin():void
+			{
+				//var mySkin:SpriteAsset = new panelSkin();
+				//trace("panelSkin borderMetrics",mySkin.borderMetrics);
+			} 
+			
+			public function changeHeader():void
+			{
+				var hh:Number = myPanel.getStyle("headerHeight");
+				var hh1:Number = myPanelS.getStyle("headerHeight");
+				myPanel.setStyle("headerHeight", isNaN(hh) ? 80 : NaN); 
+				myPanelS.setStyle("headerHeight", isNaN(hh1) ? 80 : NaN);
+			}
+			
+		]]>  
+	</mx:Script>
+	 
+	<mx:Style> 
+	@namespace "library://ns.adobe.com/flex/mx";
+		.myPanel
+		{   
+			/*borderSkin: Embed(source="FLA_flex_skins.swf", symbol="Panel_borderSkin");
+			borderSkin: Embed(source="FLA_flex_skins.swf", symbol="Panel_borderSkin_CtrlBar");
+			
+			borderSkin: Embed(source="FLA_flex_skins.swf", symbol="Panel_borderSkin_noGrid", 
+								scaleGridTop="40", scaleGridBottom="162", scaleGridLeft="15", scaleGridRight="260" );
+			borderStyle: "solid";
+			borderColor: #FF0000 ;
+			borderThickness: 3;
+			borderThicknessLeft: 2;
+			borderThicknessRight: 2;
+			borderThicknessTop: 2;
+			borderThicknessBottom: 2; */
+			borderSkin: Embed(source="../../../../Assets/Images/PanelImages/FLA_flex_skins.swf", symbol="Panel_borderSkin_noGrid", 
+								scaleGridTop="40", scaleGridBottom="162", scaleGridLeft="15", scaleGridRight="260" );
+		}          
+		   
+		.borders 
+		{ 
+			/*borderThicknessLeft: 10;
+			borderThicknessRight: 10;
+			borderThicknessTop: 2; 
+			borderThicknessBottom: 10;
+			paddingTop: 25;
+			paddingLeft: 10;
+			paddingRight: 10;
+			paddingBottom: 10;  
+			borderSkin: ClassReference("mx.skins.halo.HaloBorder");
+			*/
+		}
+
+	</mx:Style> 
+	<mx:Button id="toggleCB" label="Toggle ControlBar" click="ctrlBar.height = ctrlBar.height == 0 ? 50 : 0;ctrlBar1.height = ctrlBar1.height == 0 ? 50 : 0"/>
+	<mx:Button id="toggleHeader" label="Toggle Header" click="changeHeader();"/>
+	
+	<CustomPanel_Skinning/>
+<mx:HBox>
+	<mx:Panel id="myPanel" title="Thoughts" styleName="borders" height="200">
+		<mx:TextArea height="100%"/>
+		<mx:ControlBar id="ctrlBar" height="50">
+			<mx:Button label="In Control!"/>
+		</mx:ControlBar>
+	</mx:Panel> 
+	
+	<mx:Panel title="Thoughts" styleName="borders">
+		<mx:Button label="Sing for"/> 
+		<mx:TextInput text="Absolution"/>
+		<mx:ProgressBar width="200"/>
+		<mx:CheckBox label="Stockholm Syndrome"/>
+		<mx:ControlBar >
+			<mx:Button label="In Control!"/>
+		</mx:ControlBar>
+	</mx:Panel>   
+	
+	<mx:Panel id="myPanelS" title="Thoughts" styleName="myPanel">
+		<mx:Button label="Sing for"/>
+		<mx:TextInput text="Absolution"/>
+		<mx:ProgressBar width="200"/>
+		<mx:CheckBox label="Stockholm Syndrome"/>
+		<mx:ControlBar id="ctrlBar1">
+			<mx:Button label="In Control!"/>
+		</mx:ControlBar>
+	</mx:Panel>
+</mx:HBox>
+	<mx:Panel title="Thoughts" styleName="myPanel">
+		<mx:Button label="Sing for"/>
+		<mx:TextInput text="Absolution"/>
+		<mx:ProgressBar width="400"/>
+		<mx:CheckBox label="Stockholm Syndrome"/>
+		<mx:ControlBar>
+			<mx:Button label="In Control!"/>
+		</mx:ControlBar>
+	</mx:Panel> 
+</mx:VBox>

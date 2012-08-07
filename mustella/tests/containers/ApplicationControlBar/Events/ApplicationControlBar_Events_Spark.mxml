@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/ApplicationControlBar/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ApplicationControlBar_Basic_Spark.mxml">
+
+	<!-- this set of lines ApplicationControlBar a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Style>
+
+	    .myStyle{
+		color: #FF0000
+	    }
+	    .myStyle2{
+		color: #0000FF
+	    }
+
+
+
+	</mx:Style>
+	
+	
+	<mx:Script>
+	<![CDATA[	
+	import mx.containers.ApplicationControlBar;
+	import mx.core.IFlexDisplayObject;
+	import mx.controls.Button;
+	
+	public function addChildToApplicationControlBar():void
+	{
+		var btn:Button = new Button();
+		btn.label = "aButton";
+		application.myCustomACB.myACB.addChild(btn);
+	}
+	public function resizeApplicationControlBar():void
+	{
+		application.myCustomACB.myACB.width=500;
+		application.myCustomACB.myACB.height=500;
+	}
+	public function moveApplicationControlBar():void
+	{
+		application.myCustomACB.myACB.move(6,60);
+	}
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+
+		<TestCase testID="ApplicationControlBar_Event_addChild"  keywords="[addChild, Event, ApplicationControlBar]">
+			<setup>
+				<ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+				
+			</setup>
+			<body>
+				<RunCode code="addChildToApplicationControlBar()" timeout="5000"/>
+				<AssertEvent target="myCustomACB.myACB" eventName="childAdd" eventClass="mx.events::ChildExistenceChangedEvent" />
+			</body>
+		</TestCase>
+
+ 		<TestCase testID="ApplicationControlBar_Event_show"  keywords="[show, Event, ApplicationControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+  				
+  			</setup>
+  			<body>
+  				<SetProperty target="myCustomACB.myACB" propertyName="visible" value="false" />
+  				<WaitForEffectsToEnd />
+  				<SetProperty target="myCustomACB.myACB" propertyName="visible" value="true" />
+  				<AssertEvent target="myCustomACB.myACB" eventName="show" eventClass="mx.events::FlexEvent" />
+  			</body>
+		</TestCase>
+  		<TestCase testID="ApplicationControlBar_Event_resize"  keywords="[resize, Event, ApplicationControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+  				
+  			</setup>
+  			<body>
+  				<RunCode code="resizeApplicationControlBar()" timeout="5000"/>
+  				<AssertEvent target="myCustomACB.myACB" eventName="resize" eventClass="mx.events::ResizeEvent" />
+  			</body>
+		</TestCase> 
+		<TestCase testID="ApplicationControlBar_Event_move"  keywords="[move, Event, ApplicationControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+  				
+  			</setup>
+  			<body>
+  				<RunCode code="moveApplicationControlBar()" timeout="5000"/>
+  				<AssertEvent target="myCustomACB.myACB" eventName="move" eventClass="mx.events::MoveEvent" />
+  			</body>
+		</TestCase>		
+
+  		<TestCase testID="ApplicationControlBar_Event_keyUp"  keywords="[keyUp, Event, ApplicationControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+
+  			</setup>
+  			<body>
+  				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="RIGHT"/>
+  				<AssertEvent target="myCustomACB.myACB" eventName="keyUp" eventClass="flash.events::KeyboardEvent" />
+  			</body>
+		</TestCase>
+		
+  		<TestCase testID="ApplicationControlBar_Event_keyDown"  keywords="[keyDown, Event, ApplicationControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+
+  			</setup>
+  			<body>
+  				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="RIGHT"/>
+  				<AssertEvent target="myCustomACB.myACB" eventName="keyDown" eventClass="flash.events::KeyboardEvent" />
+  			</body>
+		</TestCase>
+
+  		<TestCase testID="ApplicationControlBar_Event_hide"  keywords="[hide, Event, ApplicationControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomACB" className="CustomACB"  waitEvent="updateComplete" waitTarget="myCustomACB"/>
+
+  			</setup>
+  			<body>
+  				<SetProperty target="myCustomACB.myACB" propertyName="visible" value="false"/>
+  				<AssertEvent target="myCustomACB.myACB" eventName="hide" eventClass="mx.events::FlexEvent" />
+  			</body>
+		</TestCase>
+		
+		
+	</testCases>
+</UnitTester>

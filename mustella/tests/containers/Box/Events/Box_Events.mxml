@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Box/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Box_Basic.mxml">
+
+	<!-- this set of lines Box a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.* 
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	public function moveBox():void
+	{
+		application.myBox.move(20,20);
+	}
+    
+ 	 
+ 	]]>
+	</mx:Script>
+	<testCases>
+
+		<TestCase testID="Box_Event_mouseMove" description="Box Move event." keywords="[event, mouseMove, Box]">
+			<setup>
+			    	<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox"/>
+			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myCustomBox" type="mouseOver" localX="12" localY="5" />
+				<DispatchMouseEvent target="myCustomBox" type="mouseMove" localX="22" localY="5" />
+				<AssertEvent target="myCustomBox" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Box_Event_mouseUp" description="Box mouseUp event." keywords="[event, mouseUp, Box]">
+			<setup>
+			    	<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox" />
+			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myCustomBox" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="myCustomBox" type="mouseDown" localX="22" localY="5" />
+				<DispatchMouseEvent target="myCustomBox" type="mouseUp" localX="22" localY="5" />
+				<AssertEvent target="myCustomBox" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Box_Event_mouseOver" description="Box mouseUp event." keywords="[event, mouseOver, Box]">
+			<setup>
+			    	<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox" />
+			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myCustomBox" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="myCustomBox" type="mouseDown" localX="22" localY="5" />
+				<DispatchMouseEvent target="myCustomBox" type="mouseUp" localX="22" localY="5" />
+				<AssertEvent target="myCustomBox" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase>		
+
+		<TestCase testID="Box_Event_mouseDown" description="Box mouseDown event." keywords="[event, mouseUp, Box]">
+			<setup>
+			    	<ResetComponent target="myCustomBox" className="CustomBox" waitEvent="updateComplete" waitTarget="myCustomBox" />
+			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myCustomBox" type="mouseDown" localX="22" localY="5" />
+				<AssertEvent target="myCustomBox" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase>	
+		<TestCase testID="Box_events_creationComplete"  keywords="[creationComplete, event, Box]">
+			<setup>
+				<ResetComponent target="myBox" className="mx.containers.Box" waitEvent="updateComplete" waitTarget="myBox"/>
+				<SetProperty target="myBox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myBox"/>
+				<SetProperty target="myBox" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="myBox"/>
+				<WaitForEffectsToEnd />
+			</setup> 
+			<body> 
+				<AssertPropertyValue target="ti1" propertyName="text" value="Box Creation Complete fired" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase>
+		<TestCase testID="Box_events_initialize"  keywords="[initialize, event, Box]">
+			<setup>
+				<ResetComponent target="myBox" className="mx.containers.Box" waitEvent="updateComplete" waitTarget="myBox"/>
+				<SetProperty target="myBox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myBox"/>
+				<SetProperty target="myBox" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="myBox"/>
+				<WaitForEffectsToEnd />
+			</setup> 
+			<body> 
+				<AssertPropertyValue target="ti2" propertyName="text" value="Box initialize fired" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase>
+		<TestCase testID="Box_events_show"  keywords="[show, event, Box]">
+			<setup>
+				<ResetComponent target="myBox" className="mx.containers.Box" waitEvent="updateComplete" waitTarget="myBox"/>
+				<SetProperty target="myBox" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myBox"/>
+				<SetProperty target="myBox" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="myBox"/>				
+				<WaitForEffectsToEnd />
+				<SetProperty target="myBox" propertyName="visible" value="false"/>				
+			</setup> 
+			<body> 
+				<SetProperty target="myBox" propertyName="visible" value="true"/>			
+				<AssertEvent target="myBox" eventName="show" eventClass="mx.events::FlexEvent" timeout="5000" />								
+				<WaitForEffectsToEnd />
+				<ResetComponent target="myBox" className="mx.containers.Box" waitEvent="updateComplete" waitTarget="myBox"/>
+			</body>
+		</TestCase>		
+	</testCases>
+</UnitTester>

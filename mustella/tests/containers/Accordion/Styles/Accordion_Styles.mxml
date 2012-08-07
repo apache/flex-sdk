@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Accordion/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Accordion_InContainer.mxml">
+
+	<!-- this set of lines Accordion a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.*
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+
+
+ 	]]>
+	</mx:Script>
+
+
+	<testCases>
+	<!-- Styles -->
+		<TestCase testID="Accordion_Styles_horizontalAlign_default" keywords="[horizontalAlign, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="horizontalAlign" value="left"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/horizontalAlign_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_horizontalAlign_right" keywords="[horizontalAlign, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+				<SetStyle target="accordion_1" styleName="horizontalAlign"  value="right"  waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="horizontalAlign" value="right"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/horizontalAlign_right.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_horizontalAlign_center" keywords="[horizontalAlign, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+				<SetStyle target="accordion_1" styleName="horizontalAlign"  value="center"  waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="horizontalAlign" value="center"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/horizontalAlign_center.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_paddingBottom_default" keywords="[paddingBottom, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+				<SetStyle target="accordion_1" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="paddingBottom" value="-1"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/paddingBottom_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_paddingBottom_large" keywords="[paddingBottom, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+   				<SetStyle target="accordion_1" styleName="paddingBottom"  value="80"  waitEvent="updateComplete" waitTarget="accordion_1" />
+				<SetStyle target="accordion_1" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 				<SetStyle target="accordion_1" styleName="paddingRight"  value="20" waitEvent="updateComplete" waitTarget="accordion_1"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="paddingBottom" value="80"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/paddingBottom_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_paddingBottom_small" keywords="[paddingBottom, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+   				<SetStyle target="accordion_1" styleName="paddingBottom"  value="2" waitEvent="updateComplete" waitTarget="accordion_1" />
+				<SetStyle target="accordion_1" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 				<SetStyle target="accordion_1" styleName="paddingRight"  value="20" waitEvent="updateComplete" waitTarget="accordion_1"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="paddingBottom" value="2"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/paddingBottom_small.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_paddingTop_default" keywords="[paddingTop, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+				<SetStyle target="accordion_1" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="paddingTop" value="-1"  />
+ 				<AssertPropertyValue propertyName="x" target="accordion_1.getChildAt(2)" value="3" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_paddingTop_large" keywords="[paddingTop, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+   				<SetStyle target="accordion_1" styleName="paddingTop"  value="80"  waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="paddingTop" value="80"  />
+ 				<AssertPropertyValue propertyName="y" target="accordion_1.getChildAt(2)" value="81" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_paddingTop_small" keywords="[paddingTop, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+   				<SetStyle target="accordion_1" styleName="paddingTop"  value="2" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="paddingTop" value="2"  />
+ 				<AssertPropertyValue propertyName="y" target="accordion_1.getChildAt(2)" value="3" />
+ 			</body>
+		</TestCase>
+        <TestCase testID="Accordion_Styles_backgroundAlpha_large" keywords="[backgroundAlpha, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 				<SetStyle target="accordion_1" styleName="backgroundAlpha" value="0.9" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 				<SetStyle target="accordion_1" styleName="backgroundColor" value="red" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="backgroundAlpha" value="0.9" />
+ 				<AssertStyleValue target="accordion_1" styleName="backgroundColor" value="0xFF0000" />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/backgroundAlpha_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="Accordion_Styles_backgroundAlpha_default" keywords="[backgroundAlpha, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 				<SetStyle target="accordion_1" styleName="backgroundColor" value="red" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="backgroundAlpha" value="1" />
+ 				<AssertStyleValue target="accordion_1" styleName="backgroundColor" value="0xFF0000" />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/backgroundAlpha_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+ 		<TestCase testID="Accordion_Styles_backgroundAlpha_small" keywords="[backgroundAlpha, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 				<SetStyle target="accordion_1" styleName="backgroundAlpha" value="0.1" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 				<SetStyle target="accordion_1" styleName="backgroundColor" value="blue" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="backgroundAlpha" value="0.1" />
+ 				<AssertStyleValue target="accordion_1" styleName="backgroundColor" value="0x0000FF" />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/backgroundAlpha_small.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+        <TestCase testID="Accordion_Styles_borderColor_default" keywords="[borderColor, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 				<SetStyle target="accordion_1" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="borderColor" value="12040892" />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/borderColor_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_borderColor_red" keywords="[borderColor, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 				<SetStyle target="accordion_1" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 				<SetStyle target="accordion_1" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="borderColor" value="0xFF0000" />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/borderColor_red.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+        <TestCase testID="Accordion_Styles_borderThickness_default" keywords="[borderThickness, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="borderThickness" value="1" />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/borderThickness.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Accordion_Styles_borderThickness_large" keywords="[borderThickness, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+				<SetStyle target="accordion_1" styleName="borderThickness" value="10"  waitEvent="updateComplete" waitTarget="accordion_1"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="borderThickness" value="10" />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/borderThickness_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+       <TestCase testID="Accordion_Styles_color_default" keywords="[color, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="color"  value="734012" />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/color_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+       <TestCase testID="Accordion_Styles_color_0x" keywords="[color, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+			    <SetStyle target="accordion_1" styleName="color" value="0xFF0000" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="color"  value="0xFF0000" />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/color_0xff0000.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_cornerRadius_default" keywords="[cornerRadius, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+   				<SetStyle target="accordion_1" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="accordion_1" />
+				<SetStyle target="accordion_1" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="cornerRadius"  value="0" />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/cornerRadius_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_cornerRadius_large" keywords="[cornerRadius, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+  				<SetStyle target="accordion_1" styleName="cornerRadius"  value="10" waitEvent="updateComplete" waitTarget="accordion_1" />
+   				<SetStyle target="accordion_1" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="accordion_1" />
+				<SetStyle target="accordion_1" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 				</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="cornerRadius"  value="10" />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/cornerRadius_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+        <TestCase testID="Accordion_Styles_disabledColor_default" keywords="[disabledColor, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+				<SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="disabledColor" value="11187123"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/disabledColor.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<!-- bug SDK-11460
+		  TestCase testID="Accordion_Styles_disabledColor_green" keywords="[disabledColor, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+				<SetProperty target="accordion_1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="accordion_1"/>
+  				<SetStyle target="accordion_1" styleName="disabledColor"  value="0x00ff00"   waitEvent="updateComplete" waitTarget="accordion_1"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="disabledColor" value="0x00ff00"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/disabledColor_green.png" timeout="5000" />
+ 			</body>
+		</TestCase-->
+
+
+
+		<TestCase testID="Accordion_Styles_fontfamily_default" keywords="[fontFamily, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="fontFamily" value="EmbeddedVerdana"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/fontFamily_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Accordion_Styles_fontfamily" keywords="[fontFamily, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+   				<SetStyle target="accordion_1" styleName="fontFamily"  value="EmbeddedArial"  waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="fontFamily" value="EmbeddedArial"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/fontFamily_Arial.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+        <TestCase testID="Accordion_Styles_fontsize_default" keywords="[fontSize, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="fontSize" value="10"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/fontSize_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_fontsize_large" keywords="[fontSize, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+   				<SetStyle target="accordion_1" styleName="fontSize"  value="20" waitEvent="updateComplete" waitTarget="accordion_1"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="fontSize" value="20"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/fontSize_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+		<TestCase testID="Accordion_Styles_fontweight_default" keywords="[fontWeight, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="fontWeight" value="normal"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/fontWeight_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_fontweight" keywords="[fontWeight, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+   				<SetStyle target="accordion_1" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="accordion_1"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="fontWeight" value="bold"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/fontWeight.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Accordion_Styles_paddingLeft_large" keywords="[paddingLeft, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+   				<SetStyle target="accordion_1" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="accordion_1" />
+				<SetStyle target="accordion_1" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 				<SetStyle target="accordion_1" styleName="paddingLeft"  value="20" waitEvent="updateComplete" waitTarget="accordion_1"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="paddingLeft" value="20"  />
+ 				<AssertPropertyValue propertyName="x" target="accordion_1.getChildAt(2)" value="24" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Accordion_Styles_paddingRight_default" keywords="[paddingRight, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+   				<SetStyle target="accordion_1" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="accordion_1" />
+				<SetStyle target="accordion_1" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="paddingRight" value="-1"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/paddingRight_default.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_paddingRight_large" keywords="[paddingRight, Accordion]">
+			<setup>
+				<ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+   				<SetStyle target="accordion_1" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="accordion_1" />
+				<SetStyle target="accordion_1" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="accordion_1" />
+ 				<SetStyle target="accordion_1" styleName="paddingRight"  value="20" waitEvent="updateComplete" waitTarget="accordion_1"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="accordion_1" styleName="paddingRight" value="20"  />
+ 				<CompareBitmap target="accordion_1" url="../Styles/baselines/paddingRight_Right.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_paddingTop_mxml" keywords="[paddingTop, MXML, Accordion]" description="Test setting paddingTop inline">
+			<body>
+ 				<AssertPropertyValue propertyName="y" target="accordion_2.getChildAt(2)" value="13" />
+ 			    <AssertPropertyValue propertyName="y" target="accordion_2.getChildAt(2).getChildAt(1)" value="1" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Accordion_Styles_paddingTop_mxml_styleName" keywords="[paddingTop, MXML, Accordion]" description="Test setting paddingTop inline through stylename">
+			<body>
+ 			    <AssertPropertyValue propertyName="y" target="accordion_3.getChildAt(2)" value="11" />
+ 			    <AssertPropertyValue propertyName="y" target="accordion_3.getChildAt(2).getChildAt(1)" value="1" />
+ 			</body>
+		</TestCase>
+		<!--TestCase testID="Accordion_Styles_overrideheaderStyleFilters" keywords="[headerStyleFilters, MXML, Accordion]" description="Test setting paddingTop inline through stylename">
+			<body>
+ 			    <AssertPropertyValue propertyName="y" target="accordion_4.getChildAt(2)" value="11" />
+ 			    <AssertPropertyValue propertyName="y" target="accordion_4.getChildAt(2).getChildAt(1)" value="10" />
+ 			</body>
+		</TestCase-->
+
+                <TestCase testID="Accordion_Styles_headerStyleName_fillAlphas_Default" keywords="[fillAlphas, default, headerStyleName, Accordion]" description="Test fillAlphas of headerStyleName">
+                        <setup>
+			    <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 			    <SetStyle target="accordion_1" styleName="headerStyleName" value="fillAlphasDefault" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+                            <AssertStyleValue target="accordion_1" styleName="headerStyleName" value="fillAlphasDefault"  />
+ 			    <CompareBitmap target="accordion_1" url="../Styles/baselines/fillAlphasDefault.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+                <TestCase testID="Accordion_Styles_headerStyleName_fillAlphas_custom" keywords="[fillAlphas, headerStyleName, Accordion]" description="Test fillAlphas of headerStyleName">
+                        <setup>
+			    <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 			    <SetStyle target="accordion_1" styleName="headerStyleName" value="fillAlphas1" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+                            <AssertStyleValue target="accordion_1" styleName="headerStyleName" value="fillAlphas1"  />
+ 			    <CompareBitmap target="accordion_1" url="../Styles/baselines/fillAlphas1.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+                <TestCase testID="Accordion_Styles_headerStyleName_fillColors_Default" keywords="[fillColors, default, headerStyleName, Accordion]" description="Test fillColors of headerStyleName">
+                        <setup>
+			    <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 			    <SetStyle target="accordion_1" styleName="headerStyleName" value="fillColorsDefault" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+                            <AssertStyleValue target="accordion_1" styleName="headerStyleName" value="fillColorsDefault"  />
+ 			    <CompareBitmap target="accordion_1" url="../Styles/baselines/fillColorsDefault.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+                <TestCase testID="Accordion_Styles_headerStyleName_fillColors_custom" keywords="[fillColors, headerStyleName, Accordion]" description="Test fillColors of headerStyleName">
+                        <setup>
+			    <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 			    <SetStyle target="accordion_1" styleName="headerStyleName" value="fillColors1" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+                            <AssertStyleValue target="accordion_1" styleName="headerStyleName" value="fillColors1"  />
+ 			    <CompareBitmap target="accordion_1" url="../Styles/baselines/fillColors1.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+                <TestCase testID="Accordion_Styles_headerHeight_Default" keywords="[headerHeight, Accordion]" description="Test headerHeight of accordion">
+                        <setup>
+			    <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+			</setup>
+			<body>
+ 			    <CompareBitmap target="accordion_1" url="../Styles/baselines/headerHeightDefault.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+                <TestCase testID="Accordion_Styles_headerHeight_custom" keywords="[headerHeight, Accordion]" description="Test headerHeight of accordion">
+                        <setup>
+			    <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 			    <SetStyle target="accordion_1" styleName="headerHeight" value="40" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+                            <AssertStyleValue target="accordion_1" styleName="headerHeight" value="40"  />
+ 			    <CompareBitmap target="accordion_1" url="../Styles/baselines/headerHeight1.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+                <TestCase testID="Accordion_Styles_openDuration" keywords="[openDuration, Style, Accordion]" description="Test openDuration of accordion">
+                        <setup>
+			    <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 			    <SetStyle target="accordion_1" styleName="openDuration" value="1000" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+                            <AssertStyleValue target="accordion_1" styleName="openDuration" value="1000"  />
+ 			</body>
+		</TestCase>
+                <TestCase testID="Accordion_Styles_paddingBottom" keywords="[paddingBottom, Style, Accordion]" description="Test paddingBottom of accordion">
+                        <setup>
+			    <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 			    <SetStyle target="accordion_1" styleName="paddingBottom" value="10" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+                            <AssertStyleValue target="accordion_1" styleName="paddingBottom" value="10"  />
+                            <CompareBitmap target="accordion_1" url="../Styles/baselines/paddingBottom.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+                <TestCase testID="Accordion_Styles_paddingTop_default_bitmap" keywords="[paddingTop, Style, Accordion]" description="Test paddingTop of accordion">
+                        <setup>
+			    <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+			</setup>
+			<body>
+                            <CompareBitmap target="accordion_1" url="../Styles/baselines/paddingTopDefault.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+                <TestCase testID="Accordion_Styles_paddingTop" keywords="[paddingTop, Style, Accordion]" description="Test paddingTop of accordion">
+                        <setup>
+			    <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 			    <SetStyle target="accordion_1" styleName="paddingTop" value="10" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+                            <AssertStyleValue target="accordion_1" styleName="paddingTop" value="10"  />
+                            <CompareBitmap target="accordion_1" url="../Styles/baselines/paddingTop.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+                <TestCase testID="Accordion_Styles_verticalGap" keywords="[verticalGap, Style, Accordion]" description="Test verticalGap of accordion">
+                        <setup>
+			    <ResetComponent target="accordion_1" className="AccordionComp2" waitEvent="updateComplete" waitTarget="accordion_1"/>
+ 			    <SetStyle target="accordion_1" styleName="verticalGap" value="20" waitEvent="updateComplete" waitTarget="accordion_1" />
+			</setup>
+			<body>
+                            <AssertStyleValue target="accordion_1" styleName="verticalGap" value="20"  />
+                            <CompareBitmap target="accordion_1" url="../Styles/baselines/verticalGap.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

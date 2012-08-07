@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/ControlBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ControlBar_Basic_Spark.mxml">
+
+	<!-- this set of lines ControlBar a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.* 
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+    
+ 	 
+ 	]]>
+	</mx:Script>
+	<testCases>
+	<!-- 	Styles 	-->
+	
+		<TestCase testID="ControlBar_Styles_fillAlphas" keywords="[fillAlphas, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+   				<SetStyle target="myCustomCB.myCB" styleName="fillAlphas"  value="[0.6, 0.5]"  waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="fillAlphas" value="[0.6, 0.5]"  />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/fillAlphas.png" timeout="5000" />
+ 			</body>
+		</TestCase> 	
+		<TestCase testID="ControlBar_Styles_fillColors" keywords="[fillColors, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+   				<SetStyle target="myCustomCB.myCB" styleName="fillAlphas"  value="[0.6, 0.5]"  waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+   				<SetStyle target="myCustomCB.myCB" styleName="fillColors"  value="[0xff0000, 0x0000ff]"  waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="fillColors" value="[0xff0000, 0x0000ff]"  />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/fillColors.png" timeout="5000" />
+ 			</body>
+		</TestCase>	
+	
+ 		<TestCase testID="ControlBar_Styles_backgroundAlpha" keywords="[backgroundAlpha, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+ 				<SetStyle target="myCustomCB.myCB" styleName="backgroundAlpha" value="0.5" waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="backgroundAlpha" value="0.5" />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/backgroundAlpha.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+		
+		<TestCase testID="ControlBar_Styles_borderColor" keywords="[borderColor, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+ 				<SetStyle target="myCustomCB.myCB" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+ 				<SetStyle target="myCustomCB.myCB" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+ 				<SetStyle target="myCustomCB.myCB" styleName="borderStyle" value="solid" waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="borderColor" value="0xFF0000" />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/borderColor.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="ControlBar_Styles_borderThickness" keywords="[borderThickness, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+				<SetStyle target="myCustomCB.myCB" styleName="borderStyle" value="solid"  waitEvent="updateComplete" waitTarget="myCustomCB.myCB"/>
+ 				<SetStyle target="myCustomCB.myCB" styleName="borderThickness" value="4"  waitEvent="updateComplete" waitTarget="myCustomCB.myCB"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="borderThickness" value="4" />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/borderThickness.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="ControlBar_Styles_color" keywords="[color, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+  				<SetStyle target="myCustomCB.myCB" styleName="color"  value="0x0000ff" waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="color"  value="0x0000ff" />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/color.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+ 
+		<TestCase testID="ControlBar_Styles_cornerRadius" keywords="[cornerRadius, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+  				<SetStyle target="myCustomCB.myCB" styleName="cornerRadius"  value="6" waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="cornerRadius"  value="6" />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/cornerRadius.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="ControlBar_Styles_disabledColor" keywords="[disabledColor, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+				<SetProperty target="myCustomCB.myCB" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myCustomCB.myCB"/>
+  				<SetStyle target="myCustomCB.myCB" styleName="disabledColor"  value="0x00ff00"   waitEvent="updateComplete" waitTarget="myCustomCB.myCB"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="disabledColor" value="0x00ff00"  />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/disabledColor.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="ControlBar_Styles_fontfamily" keywords="[fontFamily, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+   				<SetStyle target="myCustomCB.myCB" styleName="fontFamily"  value="EmbeddedArial"  waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="fontFamily" value="EmbeddedArial"  />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/fontFamily.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+		<TestCase testID="ControlBar_Styles_fontsize" keywords="[fontSize, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+   				<SetStyle target="myCustomCB.myCB" styleName="fontSize"  value="14" waitEvent="updateComplete" waitTarget="myCustomCB.myCB"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="fontSize" value="14"  />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/fontSize.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+			<TestCase testID="ControlBar_Styles_fontweight" keywords="[fontWeight, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+   				<SetStyle target="myCustomCB.myCB" styleName="fontWeight"  value="bold" waitEvent="updateComplete" waitTarget="myCustomCB.myCB"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="fontWeight" value="bold"  />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/fontWeight.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+
+
+			<TestCase testID="ControlBar_Styles_horizontalGap" keywords="[horizontalGap, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+   				<SetStyle target="myCustomCB.myCB" styleName="horizontalGap"  value="20" waitEvent="updateComplete" waitTarget="myCustomCB.myCB"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="horizontalGap" value="20"  />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/horizontalGap.png" timeout="5000" />
+ 			</body>
+		</TestCase>    
+
+
+			<TestCase testID="ControlBar_Styles_paddingBottom" keywords="[paddingBottom, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+   				<SetStyle target="myCustomCB.myCB" styleName="paddingBottom"  value="20"  waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="paddingBottom" value="20"  />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/paddingGap.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+		<TestCase testID="ControlBar_Styles_paddingLeft" keywords="[paddingLeft, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+   				<SetStyle target="myCustomCB.myCB" styleName="paddingLeft"  value="20" waitEvent="updateComplete" waitTarget="myCustomCB.myCB"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="paddingLeft" value="20"  />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/paddingLeft.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+
+	
+		<TestCase testID="ControlBar_Styles_paddingRight" keywords="[paddingRight, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+   				<SetStyle target="myCustomCB.myCB" styleName="paddingRight"  value="20"  waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="paddingRight" value="20"  />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/paddingRight.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+	
+		<TestCase testID="ControlBar_Styles_paddingTop" keywords="[paddingTop, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+   				<SetStyle target="myCustomCB.myCB" styleName="paddingTop"  value="20"  waitEvent="updateComplete" waitTarget="myCustomCB.myCB" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="paddingTop" value="20"  />
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/paddingTop.png" timeout="5000" />
+ 			</body>
+		</TestCase>   
+		<TestCase testID="ControlBar_Styles_verticalGap" keywords="[verticalGap, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB" waitEvent="updateComplete" waitTarget="myCustomCB"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomCB.myCB" styleName="verticalGap" value="6"/>
+ 				<CompareBitmap target="myCustomCB.myCB" url="../Styles/baselines/spark/verticalGap.png" timeout="5000" />
+ 			</body>
+		</TestCase>  
+	</testCases>
+</UnitTester>

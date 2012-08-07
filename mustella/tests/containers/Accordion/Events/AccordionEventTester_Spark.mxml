@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="containers/Accordion/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AccordionMain_Spark.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script>
+		<![CDATA[
+		import mx.containers.*;
+		import mx.controls.Button;
+		import mx.styles.StyleManager;
+		import mx.managers.SystemManager;
+		import mx.core.IFactory;
+		
+		public var styleDecl:Object;
+		public var styleObj:Object;
+		
+		public function addContainer():void
+		{
+			var btn2:Button = new Button();
+			btn2.label="button 2";
+			var box2:VBox = new VBox();
+			box2.label="View 2"; 
+			box2.width=box2.height=300;
+			box2.addChild(btn2);
+			application.mybox.myAcc.addChild(box2);
+		}
+		
+		
+
+		]]>
+	</mx:Script>
+	
+	
+	<testCases>
+		<TestCase testID="Accordion_events_change_keyboard" keywords="[Accordion, events, change, keyboard]">
+		     <setup>
+			   <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>			       
+		     </setup>
+		    <body>
+			 <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mybox.myAcc"/>
+			 <DispatchKeyEvent key="DOWN" ctrlKey="true" />
+			 <DispatchKeyEvent key="ENTER" ctrlKey="true"/>
+			  <AssertEvent target="mybox.myAcc" eventName="change" eventClass="mx.events::IndexChangedEvent"/>
+			  <AssertPropertyValue target="mybox.myAcc" propertyName ="selectedIndex" value="1" />
+		     </body>
+	     </TestCase>
+
+	     <TestCase testID="Accordion_events_change_mouse" keywords="[Accordion, events, change, mouse]">
+		      <setup>
+			  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>			  			       
+		     </setup>
+		    <body>
+			<DispatchMouseClickEvent target="mybox.myAcc" stageX="250" stageY="333"/>
+			<AssertEvent target="mybox.myAcc" eventName="change" eventClass="mx.events::IndexChangedEvent"/>
+			<AssertPropertyValue target="mybox.myAcc" propertyName ="selectedIndex" value="1" />
+		     </body>
+	     </TestCase>
+	</testCases>
+</UnitTester>

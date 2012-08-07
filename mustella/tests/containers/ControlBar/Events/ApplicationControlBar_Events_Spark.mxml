@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/ControlBar/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ControlBar_Basic_Spark.mxml">
+
+	<!-- this set of lines ControlBar a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Style>
+
+	    .myStyle{
+		color: #FF0000
+	    }
+	    .myStyle2{
+		color: #0000FF
+	    }
+
+
+
+	</mx:Style>
+	
+	
+	<mx:Script>
+	<![CDATA[	
+	import mx.containers.ControlBar;
+	import mx.core.IFlexDisplayObject;
+	import mx.controls.Button;
+	
+	public function addChildToControlBar():void
+	{
+		var btn:Button = new Button();
+		btn.label = "aButton";
+		application.myCustomCB.myCB.addChild(btn);
+	}
+	public function resizeControlBar():void
+	{
+		application.myCustomCB.myCB.width=500;
+		application.myCustomCB.myCB.height=500;
+	}
+	public function moveControlBar():void
+	{
+		application.myCustomCB.myCB.move(6,60);
+	}
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+
+		<TestCase testID="ControlBar_Event_addChild"  keywords="[addChild, Event, ControlBar]">
+			<setup>
+				<ResetComponent target="myCustomCB" className="CustomCB"  waitEvent="updateComplete" waitTarget="myCustomCB"/>
+				
+			</setup>
+			<body>
+				<RunCode code="addChildToControlBar()" timeout="5000"/>
+				<AssertEvent target="myCustomCB.myCB" eventName="childAdd" eventClass="mx.events::ChildExistenceChangedEvent" />
+			</body>
+		</TestCase>
+
+ 		<TestCase testID="ControlBar_Event_show"  keywords="[show, Event, ControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomCB" className="CustomCB"  waitEvent="updateComplete" waitTarget="myCustomCB"/>
+  				
+  			</setup>
+  			<body>
+  				<SetProperty target="myCustomCB.myCB" propertyName="visible" value="false" />
+  				<WaitForEffectsToEnd />
+  				<SetProperty target="myCustomCB.myCB" propertyName="visible" value="true" />
+  				<AssertEvent target="myCustomCB.myCB" eventName="show" eventClass="mx.events::FlexEvent" />
+  			</body>
+		</TestCase>
+  		<TestCase testID="ControlBar_Event_resize"  keywords="[resize, Event, ControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomCB" className="CustomCB"  waitEvent="updateComplete" waitTarget="myCustomCB"/>
+  				
+  			</setup>
+  			<body>
+  				<RunCode code="resizeControlBar()" timeout="5000"/>
+  				<AssertEvent target="myCustomCB.myCB" eventName="resize" eventClass="mx.events::ResizeEvent" />
+  			</body>
+		</TestCase> 
+		<TestCase testID="ControlBar_Event_move"  keywords="[move, Event, ControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomCB" className="CustomCB"  waitEvent="updateComplete" waitTarget="myCustomCB"/>
+  				
+  			</setup>
+  			<body>
+  				<RunCode code="moveControlBar()" timeout="5000"/>
+  				<AssertEvent target="myCustomCB.myCB" eventName="move" eventClass="mx.events::MoveEvent" />
+  			</body>
+		</TestCase>		
+
+  		<TestCase testID="ControlBar_Event_keyUp"  keywords="[keyUp, Event, ControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomCB" className="CustomCB"  waitEvent="updateComplete" waitTarget="myCustomCB"/>
+
+  			</setup>
+  			<body>
+  				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="RIGHT"/>
+  				<AssertEvent target="myCustomCB.myCB" eventName="keyUp" eventClass="flash.events::KeyboardEvent" />
+  			</body>
+		</TestCase>
+		
+  		<TestCase testID="ControlBar_Event_keyDown"  keywords="[keyDown, Event, ControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomCB" className="CustomCB"  waitEvent="updateComplete" waitTarget="myCustomCB"/>
+
+  			</setup>
+  			<body>
+  				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="RIGHT"/>
+  				<AssertEvent target="myCustomCB.myCB" eventName="keyDown" eventClass="flash.events::KeyboardEvent" />
+  			</body>
+		</TestCase>
+
+  		<TestCase testID="ControlBar_Event_hide"  keywords="[hide, Event, ControlBar]">
+  			<setup>
+  				<ResetComponent target="myCustomCB" className="CustomCB"  waitEvent="updateComplete" waitTarget="myCustomCB"/>
+
+  			</setup>
+  			<body>
+  				<SetProperty target="myCustomCB.myCB" propertyName="visible" value="false"/>
+  				<AssertEvent target="myCustomCB.myCB" eventName="hide" eventClass="mx.events::FlexEvent" />
+  			</body>
+		</TestCase>
+		
+		
+	</testCases>
+</UnitTester>

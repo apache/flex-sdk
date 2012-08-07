@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/ViewStack/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ViewStack_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.* 
+ 	import mx.controls.*
+
+ 	public function resizeViewStack():void
+ 	{
+ 		application.vs.viewS.width=300;
+ 		application.vs.viewS.height=300;
+ 	}	
+	]]>
+	</mx:Script>
+	<testCases>
+	<!-- 	Events 	-->
+
+		<TestCase testID="VS_Event_Change" keywords="[historyManagementEnabled, children, ViewStack]">
+			<setup>
+				<ResetComponent target="vs" className="VSComp"  waitEvent="updateComplete" waitTarget="vs"/>
+
+			</setup>
+			<body>
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="1" waitTarget="vs.viewS" waitEvent="updateComplete" />
+				<AssertPropertyValue target="vs.viewS" propertyName="selectedChild" valueExpression="value=application.vs.custInfo" />
+				<AssertEvent target="vs.viewS" eventName="change" eventClass="mx.events::IndexChangedEvent" />
+				<AssertPropertyValue target="vs.ti" propertyName="text" value="Change Event Triggered" />
+			</body>
+		</TestCase>
+		<TestCase testID="ViewStack_Event_mouseMove" description="ViewStack Move event." keywords="[event, mouseMove, ViewStack]">
+			<setup>
+ 				<ResetComponent target="vs" className="VSComp"  waitEvent="updateComplete" waitTarget="vs"/>
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="vs.viewS" type="mouseOver" localX="12" localY="5" />
+				<DispatchMouseEvent target="vs.viewS" type="mouseMove" localX="22" localY="5" />
+				<AssertEvent target="vs.viewS" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="ViewStack_Event_mouseUp" description="ViewStack mouseUp event." keywords="[event, mouseUp, ViewStack]">
+			<setup>
+ 				<ResetComponent target="vs" className="VSComp"  waitEvent="updateComplete" waitTarget="vs"/>
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="vs.viewS" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="vs.viewS" type="mouseDown" localX="22" localY="5" />
+				<DispatchMouseEvent target="vs.viewS" type="mouseUp" localX="22" localY="5" />
+				<AssertEvent target="vs.viewS" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		<TestCase testID="ViewStack_Event_showToolTip" description="ViewStack mouseDown event." keywords="[event, showToolTip, ViewStack]">
+			<setup>
+ 				<ResetComponent target="vs" className="VSComp"  waitEvent="updateComplete" waitTarget="vs"/>
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	<SetProperty target="vs.viewS" propertyName="toolTip" value="I am a ViewStack" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				
+				<DispatchMouseEvent target="vs.viewS" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="vs.viewS" type="mouseMove" localX="22" localY="5" />
+				<AssertEvent target="vs.viewS" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" timeout="15000" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase>  		
+		<TestCase testID="ViewStack_Event_mouseOver" description="ViewStack mouseUp event." keywords="[event, mouseOver, ViewStack]">
+			<setup>
+ 				<ResetComponent target="vs" className="VSComp"  waitEvent="updateComplete" waitTarget="vs"/>
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="vs.viewS" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="vs.viewS" type="mouseDown" localX="22" localY="5" />
+				<DispatchMouseEvent target="vs.viewS" type="mouseUp" localX="22" localY="5" />
+				<AssertEvent target="vs.viewS" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ViewStack_Event_mouseDown" description="ViewStack mouseDown event." keywords="[event, mouseUp, ViewStack]">
+			<setup>
+ 				<ResetComponent target="vs" className="VSComp"  waitEvent="updateComplete" waitTarget="vs"/>
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="vs.viewS" type="mouseDown" localX="22" localY="5" />
+				<AssertEvent target="vs.viewS" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="ViewStack_Event_hideToolTip" description="ViewStack mouseDown event." keywords="[event, hideToolTip, ViewStack]">
+			<setup>
+ 				<ResetComponent target="vs" className="VSComp"  waitEvent="updateComplete" waitTarget="vs"/>
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	<SetProperty target="vs.viewS" propertyName="toolTip" value="I am a ViewStack" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				
+				<DispatchMouseEvent target="vs.viewS" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="vs.viewS" type="mouseMove" localX="22" localY="5"/>
+				<AssertEvent target="vs.viewS" eventName="toolTipHide" eventClass="mx.events::ToolTipEvent" timeout="15000" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase> 
+ 
+
+		
+		<TestCase testID="ViewStack_Event_move" description="ViewStack move event." keywords="[event, move, ViewStack]">
+			<setup>
+ 				<ResetComponent target="vs" className="VSComp"  waitEvent="updateComplete" waitTarget="vs"/>
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" waitTarget="vs.viewS" waitEvent="updateComplete" />			    	<SetProperty target="vs.viewS" propertyName="toolTip" value="I am a ViewStack" />
+			    	<WaitForEffectsToEnd />
+			    	
+			</setup>
+			<body>
+				<RunCode code="application.vs.viewS.move(10,10)"/>	
+				<AssertEvent target="vs.viewS" eventName="move" eventClass="mx.events::MoveEvent" />
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ViewStack_Event_resize" description="ViewStack move event." keywords="[event, move, ViewStack]">
+			<setup>
+			    	<ResetComponent target="vs" className="VSComp" waitEvent="updateComplete" waitTarget="vs" />
+				<SetProperty target="vs.viewS" propertyName="selectedIndex" value="2" />			    	
+				<SetProperty target="vs.viewS" propertyName="toolTip" value="I am a ViewStack" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<RunCode code="resizeViewStack()"/>	
+				<RunCode code="application.vs.viewS.setActualSize(100,200)"/>	
+				<AssertEvent target="vs.viewS" eventName="resize" eventClass="mx.events::ResizeEvent" />
+			</body>
+		</TestCase>	
+	</testCases>
+</UnitTester>

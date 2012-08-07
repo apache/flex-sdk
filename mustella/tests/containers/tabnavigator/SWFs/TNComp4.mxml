@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/mx" 
+               >
+    <mx:TabNavigator creationPolicy="all" id="tab1" width="300" height="100">
+        <mx:VBox label="Panel 1" id="vbox1"  icon="@Embed('../../../../Assets/Images/accept.png')" >
+            <mx:Label text="- - - "/>
+        </mx:VBox>
+
+        <mx:VBox label="Panel 2" id="vbox2" icon="@Embed('../../../../Assets/Images/ButtonImages/play.GIF')">
+            <mx:Button label="- - -" />
+        </mx:VBox>
+        <mx:VBox label="Panel 3" id="mvbox" icon="@Embed('../../../../Assets/Images/smallredrect.jpg')">
+            <mx:Label text="- - -" />
+        </mx:VBox>
+    </mx:TabNavigator>
+</s:Group>

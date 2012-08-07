@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Accordion/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="AccordionMain.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<mx:Script>
+		<![CDATA[
+		import mx.containers.*;
+		import mx.controls.Button;
+		import mx.styles.StyleManager;
+		import mx.managers.SystemManager;
+		import mx.core.IFactory;
+		
+		public var styleDecl:Object;
+		public var styleObj:Object;
+		
+		public function addContainer():void
+		{
+			var btn2:Button = new Button();
+			btn2.label="button 2";
+			var box2:VBox = new VBox();
+			box2.label="View 2"; 
+			box2.width=box2.height=300;
+			box2.addChild(btn2);
+			application.mybox.myAcc.addChild(box2);
+		}
+		public function addContainerAt():void
+		{
+			var btn2:Button = new Button();
+			btn2.label="button 2";
+			var box2:VBox = new VBox();
+			box2.label="View 2"; 
+			box2.width=box2.height=300;
+			box2.addChild(btn2);
+			var i:Number = new Number();
+			i=application.mybox.myAcc.numChildren;
+			application.mybox.myAcc.addChildAt(box2,i);
+		}
+		
+		public function removeAllChildrenFromContainer():void
+		{
+
+			application.mybox.myAcc.removeAllChildren();
+		}
+		public function setChildIndexAccordion():void
+		{
+			var btn2:Button = new Button();
+			btn2.label="button 2";
+			var box2:VBox = new VBox();
+			box2.label="View 2"; 
+			box2.width=box2.height=300;
+			box2.addChild(btn2);
+			var i:Number = new Number();
+			i=application.mybox.myAcc.numChildren;
+			application.mybox.myAcc.addChildAt(box2,i);
+			application.mybox.myAcc.setChildIndex(box2,0);
+		}
+		]]>
+	</mx:Script>
+	
+	
+	<testCases>
+    
+	     <TestCase testID="Accordion_Method_addChild" keywords="[Accordion, method, addChild, false]">
+	      <setup>
+		  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		   <SetProperty target="mybox.myAcc" propertyName="resizeToContent" value= "false"/>
+		   <AssertPropertyValue target="mybox.myAcc" propertyName ="resizeToContent" value="false"/>
+	     </setup>
+	    <body>
+		<RunCode code="addContainer()" waitEvent="updateComplete" waitTarget="mybox.myAcc"/>
+		<SetProperty target="mybox.myAcc" propertyName="selectedIndex" value= "2" waitEvent="updateComplete" waitTarget="mybox.myAcc"/>
+		<AssertPropertyValue target ="mybox.myAcc.selectedChild" propertyName="label" value="View 2" />
+	     </body>
+	     </TestCase>
+	     
+	     <TestCase testID="Accordion_Method_addChildAt" keywords="[Accordion, method, addChildAt]">
+	      <setup>
+		  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		   <SetProperty target="mybox.myAcc" propertyName="resizeToContent" value= "false"/>
+		   <AssertPropertyValue target="mybox.myAcc" propertyName ="resizeToContent" value="false"/>
+	     </setup>
+	    <body>
+		<RunCode code="addContainerAt()" waitEvent="updateComplete" waitTarget="mybox.myAcc"/>
+		<SetProperty target="mybox.myAcc" propertyName="selectedIndex" value= "2" waitEvent="updateComplete" waitTarget="mybox.myAcc"/>
+		<AssertPropertyValue target ="mybox.myAcc.selectedChild" propertyName="label" value="View 2" />
+	     </body>
+	     </TestCase> 
+
+	     <TestCase testID="Accordion_Method_removeAllChildren" keywords="[Accordion, method, removeAllChildren]">
+	      <setup>
+		  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		   <SetProperty target="mybox.myAcc" propertyName="resizeToContent" value= "false"/>
+		   <AssertPropertyValue target="mybox.myAcc" propertyName ="resizeToContent" value="false"/>
+	     </setup>
+	    <body>
+		<RunCode code="addContainerAt()" waitEvent="updateComplete" waitTarget="mybox.myAcc"/>
+		<RunCode code="removeAllChildrenFromContainer()" waitEvent="updateComplete" waitTarget="mybox.myAcc"/>
+		<AssertPropertyValue target="mybox.myAcc" propertyName ="numChildren" value="0"/>
+	     </body>
+	     </TestCase>
+	     
+	     <TestCase testID="Accordion_Method_setChildIndex" keywords="[Accordion, method, setChildIndex]">
+	      <setup>
+		  <ResetComponent target="mybox" className="AccordionComp" waitEvent="updateComplete" waitTarget="mybox"/>
+		   <SetProperty target="mybox.myAcc" propertyName="resizeToContent" value= "false"/>
+		   <AssertPropertyValue target="mybox.myAcc" propertyName ="resizeToContent" value="false"/>
+	     </setup>
+	    <body>
+		<RunCode code="setChildIndexAccordion()" waitEvent="updateComplete" waitTarget="mybox.myAcc"/>
+		<AssertPropertyValue target ="mybox.myAcc.selectedChild" propertyName="label" value="View 2" />
+	     </body>
+	     </TestCase> 	     
+	</testCases>
+</UnitTester>

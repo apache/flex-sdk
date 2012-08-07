@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:VBox xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="left" width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+		
+			[Embed(source="Assets/Border_transparent_C.png", scaleGridTop="29", scaleGridBottom="286", scaleGridLeft="9", scaleGridRight="290"  )]
+			public var panelSkin:Class;
+
+			[Embed(source="../../../../Assets/Images/PanelImages/PanelSkinVersion.png", scaleGridTop="55", scaleGridBottom="401", scaleGridLeft="13", scaleGridRight="505"  )]
+			public var panelSkin1:Class;
+			
+			[Bindable]
+			[Embed(source="../../../../Assets/Images/smallredrect.jpg")]
+			public var ticon:Class;
+		]]>
+	</mx:Script>
+	<mx:Style> 
+	@namespace "library://ns.adobe.com/flex/mx";
+		.myPanel
+		{   
+			borderSkin: ClassReference("component_Panel_Gradient_BorderSkin_panelSkin");
+		} 
+		.myPanel1
+		{   
+			borderSkin: ClassReference("component_Panel_Gradient_BorderSkin_panelSkin1");
+		} 
+	</mx:Style>
+	<mx:Panel id="myPanelBS" titleIcon="{ticon}" width="500" height="500" title="Title" status="{String(myBtn.width)}" styleName="myPanel" borderThicknessBottom="25" color="white" backgroundImage="../../../../Assets/Images/redrect.jpg" backgroundSize="100%">
+	<mx:Canvas width="100%" height="100%" borderStyle="solid" borderColor="red">
+	<mx:Button id="myBtn" width="{myhsbs.value}" label="My Button" />
+	</mx:Canvas>
+	<mx:ControlBar>
+		<mx:HSlider id="myhsbs" minimum="0" maximum="800" value="100" width="100%" snapInterval="2"/>
+	</mx:ControlBar>
+	</mx:Panel>
+	<mx:Button label="Change Panel skin" click="myPanelBS.setStyle('styleName', 'myPanel1');myPanelBS.setStyle('headerHeight', 55)" />
+	
+	<mx:Panel id="myPanelBS1" width="500" height="100%" title="Title" status="Status" backgroundImage="../../../../Assets/Images/redrect.jpg" backgroundSize="100%" >
+	<mx:Canvas width="100%" height="100%" borderStyle="solid" borderColor="red">
+		<mx:Button id="myBtn1" width="100" label="My Button" icon="{ticon}" />
+	</mx:Canvas>
+	</mx:Panel>
+</mx:VBox>

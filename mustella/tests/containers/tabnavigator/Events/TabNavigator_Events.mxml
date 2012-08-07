@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/tabnavigator/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabNavigator_Basic.mxml">
+
+	<!-- this set of lines TabNavigator a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>	
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.* 
+ 	import mx.controls.*
+	public var comp:TNComp;
+ 	 
+ 	 
+ 	public function resizeTabNavigator():void
+ 	{
+ 		application.tn.tabn.width=300;
+ 		application.tn.tabn.height=300;
+ 	}
+ 	]]>
+	</mx:Script>
+	<testCases>
+	<!-- 	Events 	-->
+	
+ 		<TestCase testID="TabNavigator_Event_mouseMove" description="TabNavigator Move event." keywords="[event, mouseMove, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="tn.tabn" type="mouseOver" localX="12" localY="5" />
+				<DispatchMouseEvent target="tn.tabn" type="mouseMove" localX="22" localY="5" />
+				<AssertEvent target="tn.tabn" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabNavigator_Event_mouseUp" description="TabNavigator mouseUp event." keywords="[event, mouseUp, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="tn.tabn" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="tn.tabn" type="mouseDown" localX="22" localY="5" />
+				<DispatchMouseEvent target="tn.tabn" type="mouseUp" localX="22" localY="5" />
+				<AssertEvent target="tn.tabn" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TabNavigator_Event_mouseOver" description="TabNavigator mouseUp event." keywords="[event, mouseOver, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="tn.tabn" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="tn.tabn" type="mouseDown" localX="22" localY="5" />
+				<DispatchMouseEvent target="tn.tabn" type="mouseUp" localX="22" localY="5" />
+				<AssertEvent target="tn.tabn" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>		
+
+		<TestCase testID="TabNavigator_Event_mouseDown" description="TabNavigator mouseDown event." keywords="[event, mouseUp, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="tn.tabn" type="mouseDown" localX="22" localY="5" />
+				<AssertEvent target="tn.tabn" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="TabNavigator_Event_hideToolTip" description="TabNavigator mouseDown event." keywords="[event, hideToolTip, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />			    	<SetProperty target="tn.tabn" propertyName="toolTip" value="I am a TabNavigator" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				
+				<DispatchMouseEvent target="tn.tabn" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="tn.tabn" type="mouseMove" localX="22" localY="5"/>
+				<AssertEvent target="tn.tabn" eventName="toolTipHide" eventClass="mx.events::ToolTipEvent" timeout="15000" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase> 
+		<TestCase testID="TabNavigator_Event_showToolTip" description="TabNavigator mouseDown event." keywords="[event, showToolTip, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />			    	<SetProperty target="tn.tabn" propertyName="toolTip" value="I am a TabNavigator" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				
+				<DispatchMouseEvent target="tn.tabn" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="tn.tabn" type="mouseMove" localX="22" localY="5" />
+				
+				<AssertEvent target="tn.tabn" eventName="toolTipShow" eventClass="mx.events::ToolTipEvent" timeout="5000" />
+				<WaitForEffectsToEnd />
+			</body>
+		</TestCase>   
+		
+
+		<TestCase testID="TabNavigator_Event_focusOut" description="TabNavigator foucsOut event." keywords="[event, focusOut, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />			    	<SetProperty target="tn.tabn" propertyName="toolTip" value="I am a TabNavigator" />
+			    	<WaitForEffectsToEnd />
+			    	
+			</setup>
+			<body>
+			    	<DispatchKeyEvent keys="[TAB,TAB,TAB]"  />
+			    	<AssertEvent target="tn.tabn"  eventName="focusIn" eventClass="flash.events::FocusEvent" />
+			</body>
+		</TestCase>		
+
+
+		<TestCase testID="TabNavigator_Event_focusIn" description="TabNavigator foucsIn event." keywords="[event, focusIn, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />			    	<SetProperty target="tn.tabn" propertyName="toolTip" value="I am a TabNavigator" />
+			    	<WaitForEffectsToEnd />
+			    	
+			</setup>
+			<body>
+			    	<DispatchKeyEvent keys="[TAB,TAB,TAB, SPACE]"  />
+			    	<AssertEvent target="tn.tabn" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="TabNavigator_Event_keyDown" description="TabNavigator click event." keywords="[event, keyDown, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />			    	<SetProperty target="tn.tabn" propertyName="toolTip" value="I am a TabNavigator" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB,TAB, TAB, TAB, SPACE]"  />
+				<AssertEvent target="tn.tabn" numExpectedEvents="2" eventName="keyDown" eventClass="flash.events::KeyboardEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TabNavigator_Event_move" description="TabNavigator move event." keywords="[event, move, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />			    	<SetProperty target="tn.tabn" propertyName="toolTip" value="I am a TabNavigator" />
+			    	<WaitForEffectsToEnd />
+			    	
+			</setup>
+			<body>
+				<RunCode code="application.tn.tabn.move(10,10)"/>	
+				<AssertEvent target="tn.tabn" eventName="move" eventClass="mx.events::MoveEvent" />
+			</body>
+		</TestCase>		
+
+		<TestCase testID="TabNavigator_Event_resize" description="TabNavigator move event." keywords="[event, move, TabNavigator]">
+			<setup>
+			    	<ResetComponent target="tn" className="TNComp" waitEvent="updateComplete" waitTarget="tn" />
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" />
+				<SetProperty target="tn.tabn" propertyName="toolTip" value="I am a TabNavigator" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<RunCode code="resizeTabNavigator()"/>	
+				<AssertEvent target="tn.tabn" eventName="resize" eventClass="mx.events::ResizeEvent" />
+			</body>
+		</TestCase>	
+		<TestCase testID="TabNavigator_Event_keyUp" description="TabNavigator click event." keywords="[event, keyUp, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" waitTarget="tn.tabn" waitEvent="updateComplete" />			    	<SetProperty target="tn.tabn" propertyName="toolTip" value="I am a TabNavigator" />
+			    	<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, SPACE]"  />
+				<AssertEvent target="tn.tabn" numExpectedEvents="2" eventName="keyUp" eventClass="flash.events::KeyboardEvent" timeout="5000" />
+			</body>
+		</TestCase>
+ 		<TestCase testID="TabNavigator_Event_change" description="TabNavigator Move event." keywords="[event, change, TabNavigator]">
+			<setup>
+ 				<ResetComponent target="tn" className="TNComp"  waitEvent="updateComplete" waitTarget="tn"/>
+							    	
+			</setup>
+			<body>
+				<SetProperty target="tn.tabn" propertyName="selectedIndex" value="2" />
+				<AssertEvent target="tn.tabn" eventName="change" eventClass="mx.events::IndexChangedEvent" timeout="5000" />
+			</body>
+		</TestCase>		
+	</testCases>
+
+</UnitTester>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Tile/Spark/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Tile_Basic_spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.managers.SystemManager;
+	import mx.events.CloseEvent;
+    import mx.controls.Button;
+
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	public function addAButton(i:int, tileName:int):void
+	{
+	    var newButton:Button = new Button();
+	    newButton.label = "new button";
+	    if(tileName==1)
+	    {
+	       application.myTile.addChildAt(newButton, i);
+	    }
+	    else
+	    {
+	       application.emptyTile.addChild(newButton);
+	    }
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<testCases>
+        <!-- childAdd -->
+		<TestCase testID="childAdd_atZero" description="Check that childAdd is triggered after adding a component to an empty Tile" keywords="[childAdd, Tile]">
+			<setup>
+			    <ResetComponent target="emptyTile" className="mx.containers.Tile" waitTarget="emptyTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+               <RunCode code="addAButton(0,0)" waitTarget="emptyTile" waitEvent="updateComplete" />
+			   <AssertEvent target="emptyTile" eventName="childAdd" eventClass="mx.events::ChildExistenceChangedEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="childAdd_middle" description="Check that childAdd is triggered after adding a component to middle of a Tile" keywords="[childAdd, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="addAButton(3,1)" waitTarget="myTile" waitEvent="updateComplete" />
+				<AssertEvent target="myTile" eventName="childAdd" eventClass="mx.events::ChildExistenceChangedEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="childAdd_atEnd" description="Check that childAdd is triggered after adding a component to end of a Tile" keywords="[childAdd, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="addAButton(7,1)" waitTarget="myTile" waitEvent="updateComplete" />
+				<AssertEvent target="myTile" eventName="childAdd" eventClass="mx.events::ChildExistenceChangedEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="childAdd_afterRemove" description="Check that childAdd is triggered after removing a component and then adding one" keywords="[childAdd, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="application.myTile.removeChildAt(2)" waitTarget="myTile" waitEvent="updateComplete" />
+			    <RunCode code="addAButton(2,1)" waitTarget="myTile" waitEvent="updateComplete" />
+			    <AssertEvent target="myTile" eventName="childAdd" eventClass="mx.events::ChildExistenceChangedEvent" />
+			</body>
+		</TestCase>
+        <!-- childRemove -->
+		<TestCase testID="childRemove_atZero" description="Check that childRemove is triggered after removing the last component of a Tile" keywords="[childRemove, Tile]">
+			<setup>
+			    <ResetComponent target="emptyTile" className="mx.containers.Tile" waitTarget="emptyTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+               <RunCode code="addAButton(0,0)" waitTarget="emptyTile" waitEvent="updateComplete" />
+			   <RunCode code="application.emptyTile.removeChildAt(0)" waitTarget="emptyTile" waitEvent="updateComplete" />
+			   <AssertEvent target="emptyTile" eventName="childRemove" eventClass="mx.events::ChildExistenceChangedEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="childRemove_middle" description="Check that childRemove is triggered after removing a component in the middle of a Tile" keywords="[childRemove, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="application.myTile.removeChildAt(3)" waitTarget="myTile" waitEvent="updateComplete" />
+				<AssertEvent target="myTile" eventName="childRemove" eventClass="mx.events::ChildExistenceChangedEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="childRemove_atEnd" description="Check that childRemove is triggered after removing a component at the end of a Tile" keywords="[childRemove, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="application.myTile.removeChildAt(6)" waitTarget="myTile" waitEvent="updateComplete" />
+				<AssertEvent target="myTile" eventName="childRemove" eventClass="mx.events::ChildExistenceChangedEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="childRemove_afterAdd" description="Check that childRemove is triggered after adding a component and then removing one" keywords="[childRemove, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="addAButton(2,1)" waitTarget="myTile" waitEvent="updateComplete" />
+			    <RunCode code="application.myTile.removeChildAt(2)" waitTarget="myTile" waitEvent="updateComplete" />
+			    <AssertEvent target="myTile" eventName="childRemove" eventClass="mx.events::ChildExistenceChangedEvent" />
+			</body>
+		</TestCase>
+       <!-- childIndexChange -->
+		<TestCase testID="childIndexChange_atZero" description="Check that childIndexChange is triggered after calling setChildIndex on the first component of a Tile" keywords="[childIndexChange, Tile]">
+			<setup>
+			    <ResetComponent target="emptyTile" className="mx.containers.Tile" waitTarget="emptyTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+               <RunCode code="addAButton(0,0)" waitTarget="emptyTile" waitEvent="updateComplete" />
+               <RunCode code="addAButton(0,0)" waitTarget="emptyTile" waitEvent="updateComplete" />
+			   <RunCode code="application.emptyTile.setChildIndex(application.emptyTile.getChildAt(0),1)" waitTarget="emptyTile" waitEvent="updateComplete" />
+			   <AssertEvent target="emptyTile" eventName="childIndexChange" eventClass="mx.events::IndexChangedEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="childIndexChange_middle" description="Check that childIndexChange is triggered after calling setChildIndex on a component in the middle of a Tile" keywords="[childIndexChange, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="application.myTile.setChildIndex(application.myTile.getChildAt(3), 5)" waitTarget="myTile" waitEvent="updateComplete" />
+				<AssertEvent target="myTile" eventName="childIndexChange" eventClass="mx.events::IndexChangedEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="childIndexChange_atEnd" description="Check that childIndexChange is triggered after calling setChildIndex on a component at the end of a Tile" keywords="[childIndexChange, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="application.myTile.setChildIndex(application.myTile.getChildAt(6), 0)" waitTarget="myTile" waitEvent="updateComplete" />
+				<AssertEvent target="myTile" eventName="childIndexChange" eventClass="mx.events::IndexChangedEvent" />
+			</body>
+		</TestCase>
+		<!-- scroll -->
+		<TestCase testID="scroll_keyBoardDown" description="Check that scroll event is triggered after when using the down arrow key on a Tile" keywords="[scroll, Tile]">
+			<setup>
+			    <ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+		        <SetProperty propertyName="width" value="120" target="myTile" />
+		        <SetProperty propertyName="height" value="140" target="myTile" waitTarget="myTile" waitEvent="updateComplete" />
+		        <DispatchKeyEvent keys="[TAB, TAB, DOWN, DOWN]" waitEvent="scroll" waitTarget="myTile" />
+		        <AssertEvent target="myTile" eventName="scroll" eventClass="mx.events::ScrollEvent" numExpectedEvents="2" />
+			</body>
+		</TestCase>
+		<TestCase testID="scroll_keyBoardUp" description="Check that scroll event is triggered after using your up arrow to scroll in a Tile" keywords="[scroll, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <SetProperty propertyName="width" value="120" target="myTile" />
+		       <SetProperty propertyName="height" value="140" target="myTile" waitEvent="updateComplete" waitTarget="myTile" />
+		       <SetProperty propertyName="verticalScrollPosition" target="myTile" value="10" waitTarget="myTile" waitEvent="updateComplete" />
+		       <DispatchKeyEvent keys="[TAB, TAB, UP]"  waitEvent="scroll" waitTarget="myTile"/>
+		       <AssertEvent target="myTile" eventName="scroll" eventClass="mx.events::ScrollEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="scroll_keyboardRight" description="Check that scroll is triggered after pressing the right key to scroll in a Tile" keywords="[scroll, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			   <SetProperty propertyName="width" value="220" target="myTile.button2" />
+		       <SetProperty propertyName="width" value="100" target="myTile" waitTarget="myTile" waitEvent="updateComplete"  />
+		       <DispatchKeyEvent keys="[TAB, TAB, RIGHT]"  waitEvent="scroll" waitTarget="myTile"/>
+		       <AssertEvent target="myTile" eventName="scroll" eventClass="mx.events::ScrollEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="scroll_keyboardLeft" description="Check that scroll is triggered after pressing the left key to scroll in a Tile" keywords="[scroll, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <SetProperty propertyName="width" value="220" target="myTile.button2" />
+			    <SetProperty propertyName="width" value="100" target="myTile" waitEvent="updateComplete" waitTarget="myTile"/>
+			    <SetProperty propertyName="horizontalScrollPosition" target="myTile" value="10" waitTarget="myTile" waitEvent="updateComplete"  />
+			    <DispatchKeyEvent keys="[TAB, TAB, LEFT]"  waitEvent="scroll" waitTarget="myTile"/>
+			    <AssertEvent target="myTile" eventName="scroll" eventClass="mx.events::ScrollEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="scroll_mouseOnHorizontal" description="Check that scroll is triggered after pressing the mouse on a horizontal scrollbar in a Tile" keywords="[scroll, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="220" target="myTile.button2" />
+				<SetProperty propertyName="width" value="100" target="myTile" waitTarget="myTile" waitEvent="updateComplete" />
+				<DispatchMouseEvent type="mouseDown" target="myTile.rawChildren.getChildAt(2)" localX="8" localY="48" />
+				<DispatchMouseEvent type="mouseUp" target="myTile.rawChildren.getChildAt(2)" localX="8" localY="48" />
+				<AssertEvent target="myTile" eventName="scroll" eventClass="mx.events::ScrollEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="scroll_mouseOnVertical" description="Check that scroll is triggered after pressing the mouse on a horizontal scrollbar in a Tile" keywords="[scroll, Tile]">
+			<setup>
+				<ResetComponent target="myTile" className="comps.MyTile" waitTarget="myTile" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="90" target="myTile" />
+				<SetProperty propertyName="width" value="110" target="myTile" waitTarget="myTile" waitEvent="updateComplete"/>
+				<DispatchMouseEvent target="myTile.rawChildren.getChildAt(3).getChildAt(3)" type="rollOver" localX="5" localY="5" />
+				<DispatchMouseEvent target="myTile.rawChildren.getChildAt(3).getChildAt(3)" type="mouseDown" localX="5" localY="5" />
+	            <AssertEvent target="myTile" eventName="scroll" eventClass="mx.events::ScrollEvent" />
+	            <DispatchMouseEvent target="myTile.rawChildren.getChildAt(3).getChildAt(3)" type="mouseUp" localX="5" localY="5" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

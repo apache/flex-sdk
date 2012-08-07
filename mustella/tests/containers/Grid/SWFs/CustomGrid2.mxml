@@ -1,0 +1,52 @@
+<mx:VBox 
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*">
+    
+    
+        <mx:Grid id="myGrid">
+        
+        
+            <mx:GridRow>
+                <mx:GridItem>
+                    <mx:Button label="R1C1" width="55"/>
+                </mx:GridItem>
+                <mx:GridItem>
+                    <mx:Button label="R1C2" width="55"/>
+                </mx:GridItem>
+                <mx:GridItem>
+                    <mx:Button label="R1C3" width="55"/>
+                </mx:GridItem>
+            </mx:GridRow>
+
+            <mx:GridRow>
+                <mx:GridItem>
+                    <mx:Button label="R2C1" width="55"/>
+                </mx:GridItem>
+                <mx:GridItem>
+                    <mx:Button label="R2C2" width="55"/>
+                </mx:GridItem>
+                <mx:GridItem>
+                    <mx:Button label="R2C3" width="55"/>
+                </mx:GridItem>
+            </mx:GridRow>
+
+            <mx:GridRow>
+                <mx:GridItem>
+                    <mx:Button label="R3C1" width="55"/>
+                </mx:GridItem>
+                <mx:GridItem>
+                    <mx:Button label="R3C2" width="55"/>
+                </mx:GridItem>
+                <mx:GridItem>
+                    <mx:Button label="R3C3" width="55"/>
+                </mx:GridItem>
+            </mx:GridRow>
+            
+            
+        </mx:Grid>
+        
+        
+     <mx:TextInput id="ti"/>
+     
+     
+</mx:VBox>

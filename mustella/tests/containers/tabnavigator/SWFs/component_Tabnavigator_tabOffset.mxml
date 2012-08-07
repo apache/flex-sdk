@@ -1,0 +1,9 @@
+
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" >
+
+<mx:TabNavigator id="myTabN" width="100%" height="100%" tabOffset="440">
+    <mx:HBox label="Tab1"><mx:TextInput text="some text"/></mx:HBox>
+    <mx:HBox label="Tab2"><mx:TextInput text="some text1"/></mx:HBox>
+</mx:TabNavigator>
+    
+</mx:VBox>

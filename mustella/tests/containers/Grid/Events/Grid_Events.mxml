@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Grid/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Grid_Basic.mxml">
+
+	<!-- this set of lines Grid a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.* 
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	public function moveGrid():void
+	{
+		application.myGrid.move(20,20);
+	}
+    
+ 	 
+ 	]]>
+	</mx:Script>
+	<testCases>
+
+		<TestCase testID="Grid_Event_mouseMove" description="Grid Move event." keywords="[event, mouseMove, Grid]">
+			<setup>
+			    	<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid"/>			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myCustomGrid" type="mouseOver" localX="12" localY="5" />
+				<DispatchMouseEvent target="myCustomGrid" type="mouseMove" localX="22" localY="5" />
+				<AssertEvent target="myCustomGrid" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Grid_Event_mouseUp" description="Grid mouseUp event." keywords="[event, mouseUp, Grid]">
+			<setup>
+			    	<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid" />			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myCustomGrid" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="myCustomGrid" type="mouseDown" localX="22" localY="5" />
+				<DispatchMouseEvent target="myCustomGrid" type="mouseUp" localX="22" localY="5" />
+				<AssertEvent target="myCustomGrid" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Grid_Event_mouseOver" description="Grid mouseUp event." keywords="[event, mouseOver, Grid]">
+			<setup>
+			    	<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid" />			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myCustomGrid" type="mouseOver" localX="22" localY="5" />
+				<DispatchMouseEvent target="myCustomGrid" type="mouseDown" localX="22" localY="5" />
+				<DispatchMouseEvent target="myCustomGrid" type="mouseUp" localX="22" localY="5" />
+				<AssertEvent target="myCustomGrid" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>		
+
+		<TestCase testID="Grid_Event_mouseDown" description="Grid mouseDown event." keywords="[event, mouseUp, Grid]">
+			<setup>
+			    	<ResetComponent target="myCustomGrid" className="CustomGrid" waitEvent="updateComplete" waitTarget="myCustomGrid" />			    	
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myCustomGrid" type="mouseDown" localX="22" localY="5" />
+				<AssertEvent target="myCustomGrid" eventName="mouseDown" eventClass="flash.events::MouseEvent" timeout="5000" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="Grid_events_creationComplete"  keywords="[creationComplete, event, Grid]">
+			<setup>
+				<ResetComponent target="myGrid" className="mx.containers.Grid" waitEvent="updateComplete" waitTarget="myGrid"/>
+				<SetProperty target="myGrid" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myGrid"/>
+				<SetProperty target="myGrid" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="myGrid"/>
+				<WaitForEffectsToEnd />
+			</setup> 
+			<body> 
+				<AssertPropertyValue target="ti1" propertyName="text" value="Grid Creation Complete fired" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Grid_events_initialize"  keywords="[initialize, event, Grid]">
+			<setup>
+				<ResetComponent target="myGrid" className="mx.containers.Grid" waitEvent="updateComplete" waitTarget="myGrid"/>
+				<SetProperty target="myGrid" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myGrid"/>
+				<SetProperty target="myGrid" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="myGrid"/>
+				<WaitForEffectsToEnd />
+			</setup> 
+			<body> 
+				<AssertPropertyValue target="ti2" propertyName="text" value="Grid initialize fired" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Grid_events_initialize2"  keywords="[initialize, event, Grid]">
+			<setup>
+				<ResetComponent target="myGrid" className="mx.containers.Grid" waitEvent="updateComplete" waitTarget="myGrid"/>
+				<SetProperty target="myGrid" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myGrid"/>
+				<SetProperty target="myGrid" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="myGrid"/>
+				<WaitForEffectsToEnd />
+			</setup> 
+			<body> 
+				<AssertPropertyValue target="ti2" propertyName="text" value="Grid initialize fired" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Grid_events_show"  keywords="[show, event, Grid]">
+			<setup>
+				<ResetComponent target="myGrid" className="mx.containers.Grid" waitEvent="updateComplete" waitTarget="myGrid"/>
+				<SetProperty target="myGrid" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myGrid"/>
+				<SetProperty target="myGrid" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="myGrid"/>				
+				<WaitForEffectsToEnd />
+				<SetProperty target="myGrid" propertyName="visible" value="false"/>				
+			</setup> 
+			<body> 
+				<SetProperty target="myGrid" propertyName="visible" value="true"/>			
+				<AssertEvent target="myGrid" eventName="show" eventClass="mx.events::FlexEvent" timeout="5000" />								
+			</body>
+		</TestCase>		
+		
+	</testCases>
+</UnitTester>

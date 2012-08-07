@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" width="100%" height="100%" >
+ 	<mx:Accordion horizontalCenter="0" verticalCenter="0" id="myAcc" >
+	        <mx:VBox label="View 0" id="vbox0" >
+	            <mx:TextInput id="ti0"  text="text 0"/>
+	            <mx:Button label="click 0" id="btn0" />
+	         </mx:VBox>
+	        <mx:VBox label="View 1" id="vbox1" >
+	            <mx:TextInput id="ti1"  text="text 1"/>
+	            <mx:Button label="click 1" id="btn1" />
+	        </mx:VBox>
+    </mx:Accordion>
+</mx:Canvas>

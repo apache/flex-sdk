@@ -1,0 +1,17 @@
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+         xmlns:s="library://ns.adobe.com/flex/spark" 
+         xmlns:mx="library://ns.adobe.com/flex/mx">
+
+    <mx:Accordion id="target" width="200" height="250">
+        <s:NavigatorContent label="111" icon="@Embed('../../../../../Assets/Images/yellowrect.jpg')">
+            <s:Button />
+        </s:NavigatorContent>
+        <s:NavigatorContent label="222" icon="@Embed('../../../../../Assets/Images/yellowrect.jpg')">
+            <s:Button />
+        </s:NavigatorContent>
+        <s:NavigatorContent label="333" icon="@Embed('../../../../../Assets/Images/yellowrect.jpg')">
+            <s:Button />
+        </s:NavigatorContent>
+    </mx:Accordion>
+
+</s:Group>

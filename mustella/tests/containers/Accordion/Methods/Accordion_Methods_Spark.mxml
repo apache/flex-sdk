@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Accordion/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Accordion_Basic_Spark.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.containers.VBox;
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	public var i:int=0;
+	public function addVB():void 
+	{
+		var newB:VBox = new VBox();
+                newB.label="label"+String(i++);
+	        application.myAccordion.addChild(newB);
+	}
+	public function removeVB(n:int):void 
+	{
+		application.myAccordion.selectedIndex = n;
+	        application.myAccordion.removeChildAt(n);
+	}
+
+        import mx.controls.Button;
+        public var b:Button;
+        public function getHeaderAt(ind:int):Button
+        {
+                b = application.myAccordion.getHeaderAt(ind);
+                return b;
+        }
+
+        public function saveAndLoadState():void
+        {
+                var st : Object;
+                st = application.myAccordion.saveState();
+                application.myAccordion.loadState(st);
+        }
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+		<TestCase testID="Accordion_RemoveChild"  keywords="[removeChild, Accordion]">
+			<setup>
+				<ResetComponent target="myAccordion" className="mx.containers::Accordion" />				
+				<SetProperty target="myAccordion" propertyName="width" value="300" />
+				<SetProperty target="myAccordion" propertyName="height" value="200" />
+				<RunCode code="addVB()" waitEvent="updateComplete" waitTarget="myAccordion" />
+				<RunCode code="addVB()" waitEvent="updateComplete" waitTarget="myAccordion" />
+				<RunCode code="addVB()" waitEvent="updateComplete" waitTarget="myAccordion" />
+				<RunCode code="addVB()" waitEvent="updateComplete" waitTarget="myAccordion" />
+				<RunCode code="addVB()" waitEvent="updateComplete" waitTarget="myAccordion" />
+				<RunCode code="addVB()" waitEvent="updateComplete" waitTarget="myAccordion" />
+			</setup>
+			<body>
+				<RunCode code="removeVB(0)" waitEvent="updateComplete" waitTarget="myAccordion" /> 
+				<AssertPropertyValue target ="myAccordion.selectedChild" propertyName="label" value="label1" />
+				<RunCode code="removeVB(1)" waitEvent="updateComplete" waitTarget="myAccordion" /> 
+				<AssertPropertyValue target ="myAccordion.selectedChild" propertyName="label" value="label3" />
+				<RunCode code="removeVB(3)" waitEvent="updateComplete" waitTarget="myAccordion" /> 
+				<AssertPropertyValue target ="myAccordion.selectedChild" propertyName="label" value="label4" />
+			
+			</body>
+		</TestCase>
+                <TestCase testID="Accordion_GetHeaderAt"  keywords="[getHeaderAt, Accordion]">
+                        <setup>
+				<ResetComponent target="myAccordion" className="mx.containers::Accordion" />				
+				<SetProperty target="myAccordion" propertyName="width" value="300" />
+				<SetProperty target="myAccordion" propertyName="height" value="200" />
+                        </setup>
+			<body>
+                                <RunCode code="addVB()" waitEvent="updateComplete" waitTarget="myAccordion" />
+				<RunCode code="addVB()" waitEvent="updateComplete" waitTarget="myAccordion" />
+				<AssertMethodValue method="value=String(application.myAccordion.getHeaderAt(0).label)" value="label6" />
+			</body>
+                </TestCase>
+                <TestCase testID="Accordion_State"  keywords="[saveState, loadState, Accordion]">
+                        <setup>
+				<ResetComponent target="myAccordion" className="mx.containers::Accordion" />				
+				<SetProperty target="myAccordion" propertyName="width" value="300" />
+				<SetProperty target="myAccordion" propertyName="height" value="200" />
+                        </setup>
+			<body>
+                                <RunCode code="addVB()" waitEvent="updateComplete" waitTarget="myAccordion" />
+				<RunCode code="addVB()" waitEvent="updateComplete" waitTarget="myAccordion" />
+                                <AssertMethodValue method="try { saveAndLoadState(); } catch (e:Error) { value = e.message }" value="null" />
+			</body>
+                </TestCase>
+	</testCases>
+</UnitTester>

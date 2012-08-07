@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/TitleWindow/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TitleWindow_Basic_spark.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+    import MyTw3;
+
+    ]]>
+    </mx:Script>
+    <testCases>
+        <TestCase testID="Spark_closeButtonDisabledSkin_custom" description="TitleWindow style closeButtonDisabledSkin_custom=arrowTOver" keywords="[styles, closeButtonDisabledSkin, TitleWindow]">
+            <setup>
+                <ResetComponent target="myTW3" className="MyTw3" waitEvent="updateComplete" waitTarget="myTW3" />
+                <SetStyle styleName="closeButtonDisabledSkin" valueExpression="value=application.arrowTOver" target="myTW3" waitEvent="updateComplete" waitTarget="myTW3"/>
+                <SetProperty propertyName="enabled" target="myTW3" value="false" waitEvent="updateComplete" waitTarget="myTW3"/>
+            </setup>
+            <body>
+                <CompareBitmap target="myTW3" url="../Styles/baselines/closeButtonDisabledSkin_custom_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_closeButtonUpSkin_custom" description="TitleWindow style closeButtonUpSkin=arrowBUp" keywords="[styles, closeButtonUpSkin, TitleWindow]">
+            <setup>
+                <ResetComponent target="myTW3" className="MyTw3" waitEvent="updateComplete" waitTarget="myTW3" />
+                <SetStyle styleName="closeButtonUpSkin" valueExpression="value=application.arrowTOver" target="myTW3" waitEvent="updateComplete" waitTarget="myTW3"/>
+            </setup>
+            <body>
+                <CompareBitmap target="myTW3" url="../Styles/baselines/closeButtonUpSkin_custom_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_closeButtonOverSkin_custom" description="TitleWindow style closeButtonOverSkin=arrowBUp" keywords="[styles, closeButtonOverSkin, TitleWindow]">
+            <setup>
+                <ResetComponent target="myTW3" className="MyTw3" waitEvent="updateComplete" waitTarget="myTW3" />
+                <SetStyle styleName="closeButtonOverSkin" valueExpression="value=application.arrowBOver" target="myTW3" waitEvent="updateComplete" waitTarget="myTW3"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent localX="4" localY="4" target="myTW3.mx_internal:closeButton" waitEvent="click" waitTarget="myTW3.mx_internal:closeButton" />
+                <DispatchMouseEvent localX="4" localY="6" type="mouseMove" target="myTW3.mx_internal:closeButton" waitEvent="mouseMove" waitTarget="myTW3.mx_internal:closeButton" />
+                <CompareBitmap target="myTW3" url="../Styles/baselines/closeButtonOverSkin_custom_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_closeButtonDownSkin_custom" description="TitleWindow style closeButtonDownSkin=arrowBUp" keywords="[styles, closeButtonDownSkin, TitleWindow]">
+            <setup>
+                <ResetComponent target="myTW3" className="MyTw3" waitEvent="updateComplete" waitTarget="myTW3" />
+                <SetStyle styleName="closeButtonDownSkin" valueExpression="value=application.arrowBDown" target="myTW3" waitEvent="updateComplete" waitTarget="myTW3"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="mouseDown" localX="4" localY="4" target="myTW3.mx_internal:closeButton" waitEvent="mouseDown" waitTarget="myTW3.mx_internal:closeButton" />
+                <CompareBitmap target="myTW3" url="../Styles/baselines/closeButtonDownSkin_custom_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+        <TestCase testID="Spark_closeButtonStyleFilters_custom" description="TitleWindow using a custom closeButtonStyleFilters that doesn't include the closeButtonUpSkin" keywords="[styles, closeButtonStyleFilters, TitleWindow]">
+            <setup>
+                <ResetComponent target="myTW4" className="MyTw4" waitEvent="updateComplete" waitTarget="myTW4" />
+                <SetStyle styleName="closeButtonUpSkin" valueExpression="value=application.arrowTOver" target="myTW4" waitEvent="updateComplete" waitTarget="myTW4"/>
+            </setup>
+            <body>
+                <CompareBitmap target="myTW4" url="../Styles/baselines/closeButtonStyleFilters_custom_spark.png" timeout="5000" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

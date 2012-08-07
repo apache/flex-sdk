@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="left" width="900" 
+    height="800" backgroundColor="0xFFFFFF" >
+    <mx:Style>
+	@namespace "library://ns.adobe.com/flex/mx";
+        @font-face {
+            src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+            fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+        }
+
+        @font-face {
+            src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+            fontWeight: bold;           
+            fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+        }
+
+        @font-face {
+            src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+            fontStyle: italic;          
+            fontFamily: EmbeddedArial;
+			embedAsCFF: false;
+        }
+
+        @font-face {
+            src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+            fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        @font-face {
+            src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+            fontWeight: bold;
+            fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+
+        @font-face {
+            src: url("../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+            fontStyle: italic;
+            fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+        }
+        
+        global{
+            fontFamily: EmbeddedVerdana;
+            fontAntiAliasType: normal;
+        }
+    </mx:Style>
+
+<mx:TabNavigator id="skinningVS" width="700" height="600">
+    <mx:Canvas>
+        <component_Panel_Gif_BorderSkin id="componentPanelGifBorderSkin" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_Panel_Gif_BorderSkin_scale9 id="componentPanelGifBorderSkinscale9" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_Panel_Highlight_Basic_Spark id="componentPanelHighlightBasic" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_Panel_Jpg_BorderSkin id="componentPanelJpgBorderSkin" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_Panel_Jpg_BorderSkin_scale9 id="componentPanelJpgBorderSkinscale9" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_Panel_Png_BorderSkin id="componentPanelPngBorderSkin" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_Panel_Png_BorderSkin_scale9 id="componentPanelPngBorderSkinscale9" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_Panel_simple id="componentPanelsimple" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_Panel_Swf_BorderSkin_scale9_Spark id="componentPanelSwfBorderSkinscale9" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_Panel_Titleicon_BasicSpark id="componentPanelTitleiconBasic" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_Panel_with_scroll_Spark id="componentPanelwithscroll" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_panelSkinning id="componentpanelSkinning" />
+    </mx:Canvas>
+    <mx:Canvas>
+        <component_Panel_SWF_BorderSkin id="componentPanelSWFBorderSkin" />
+    </mx:Canvas>
+    <mx:Canvas id="emptyCanvas" />
+</mx:TabNavigator>
+<mx:NumericStepper id="ns" change="skinningVS.selectedIndex=ns.value" maximum="13" />
+<mx:Text text="{skinningVS.selectedIndex}" />
+</mx:Application>

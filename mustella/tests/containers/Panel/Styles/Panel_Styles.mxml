@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="containers/Panel/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Panel_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	import mx.containers.*
+ 	import mx.controls.*
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+
+	[Bindable]
+	[Embed(source="../../../../Assets/Images/redrect.jpg")]
+	private var MyImage:Class;
+
+
+ 	]]>
+	</mx:Script>
+	<testCases>
+	<!-- 	Styles 	-->
+ 		<TestCase testID="Panel_Styles_backgroundAlpha" keywords="[backgroundAlpha, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+ 				<SetStyle target="myCustomPanel.myPanel" styleName="backgroundAlpha" value="0.5" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="backgroundAlpha" value="0.5" />
+ 				<CompareBitmap  numColorVariances="2" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/backgroundAlpha.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Panel_Styles_backgroundcolor" keywords="[backgroundColor, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+ 				<SetStyle target="myCustomPanel.myPanel" styleName="backgroundColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="backgroundColor" value="0xFF0000" />
+ 				<AssertPixelValue target="myCustomPanel.myPanel" x="5" y="5" value="0xFF0000"/>
+ 			</body>
+		</TestCase>
+
+
+		<TestCase testID="Panel_Styles_backgroundImage" keywords="[backgroundImage, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+ 				<SetStyle target="myCustomPanel.myPanel" styleName="backgroundImage" value="{MyImage}" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="backgroundImage" value="{MyImage}" />
+ 				<AssertPixelValue target="myCustomPanel.myPanel" x="72" y="111" value="0xFFFFFF"/>
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Panel_Styles_borderColor" keywords="[borderColor, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+ 				<SetStyle target="myCustomPanel.myPanel" styleName="borderColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel" />
+				<SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"/>
+ 				<SetStyle target="myCustomPanel.myPanel" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="borderColor" value="0xFF0000" />
+ 				<CompareBitmap target="myCustomPanel.myPanel" url="../Styles/baselines/borderColor.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Panel_Styles_indicatorGap" keywords="[indicatorGap, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+				<SetStyle target="myCustomPanel.myPanel" styleName="indicatorGap" value="300" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="indicatorGap" value="300" />
+ 				<CompareBitmap  numColorVariances="2" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/indicatorGap.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Panel_Styles_indicatorGap2" keywords="[indicatorGap, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="indicatorGap" value="14" />
+ 				<CompareBitmap  numColorVariances="2" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/indicatorGap_large.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Panel_Styles_indicatorGap3" keywords="[indicatorGap, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+				<SetStyle target="myCustomPanel.myPanel" styleName="indicatorGap" value="0" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel" />
+ 			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="indicatorGap" value="0" />
+ 				<CompareBitmap  numColorVariances="2" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/indicatorGap_zero.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Panel_Styles_borderThickness" keywords="[borderThickness, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+				<SetStyle target="myCustomPanel.myPanel" styleName="borderStyle" value="solid"/>
+				<SetStyle target="myCustomPanel.myPanel" styleName="borderColor" value="red"   waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"/>
+ 				<SetStyle target="myCustomPanel.myPanel" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="borderThickness" value="4" />
+ 				<CompareBitmap target="myCustomPanel.myPanel" url="../Styles/baselines/borderThickness.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Panel_Styles_color" keywords="[color, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+  				<SetStyle target="myCustomPanel.myPanel" styleName="color"  value="0x0000ff"  waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="color"  value="0x0000ff" />
+ 				<CompareBitmap  numColorVariances="2" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/color.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+		<TestCase testID="Panel_Styles_cornerRadius" keywords="[cornerRadius, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+  				<SetStyle target="myCustomPanel.myPanel" styleName="cornerRadius"  value="16"/>
+				<SetStyle target="myCustomPanel.myPanel" styleName="borderColor" value="red"   waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"/>
+ 				<SetStyle target="myCustomPanel.myPanel" styleName="borderThickness" value="4" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"/>
+
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="cornerRadius"  value="16" />
+ 				<CompareBitmap target="myCustomPanel.myPanel" url="../Styles/baselines/cornerRadius.png" timeout="5000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Panel_Styles_disabledColor" keywords="[disabledColor, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+				<SetStyle target="myCustomPanel.myPanel" styleName="disabledColor"  value="0xFF0000"  waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"  />
+				<SetProperty target="myCustomPanel.myPanel" propertyName="title" value="Hello"  waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"/>
+				<SetProperty target="myCustomPanel.myPanel" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"/>
+
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="disabledColor" value="0xFF0000"  />
+ 				<CompareBitmap  numColorVariances="2" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/disabledColor.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Panel_Styles_fontsize" keywords="[fontSize, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+   				<SetStyle target="myCustomPanel.myPanel" styleName="fontSize"  value="14"  waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="fontSize" value="14"  />
+ 				<CompareBitmap  numColorVariances="2" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/fontSize.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+			<TestCase testID="Panel_Styles_fontweight" keywords="[fontWeight, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+   				<SetStyle target="myCustomPanel.myPanel" styleName="fontWeight"  value="bold"  waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="fontWeight" value="bold"  />
+ 				<CompareBitmap  numColorVariances="2" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/fontWeight.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+			<TestCase testID="Panel_Styles_horizontalGap" keywords="[horizontalGap, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+   				<SetStyle target="myCustomPanel.myPanel" styleName="horizontalGap"  value="20"   waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="horizontalGap" value="20"  />
+ 				<CompareBitmap  numColorVariances="2" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/horizontalGap.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+			<TestCase testID="Panel_Styles_paddingBottom" keywords="[paddingBottom, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+   				<SetStyle target="myCustomPanel.myPanel" styleName="paddingBottom"  value="20"  waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="paddingBottom" value="20"  />
+ 				<CompareBitmap  numColorVariances="4" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/paddingBottom.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Panel_Styles_paddingLeft" keywords="[paddingLeft, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+   				<SetStyle target="myCustomPanel.myPanel" styleName="paddingLeft"  value="20" waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="paddingLeft" value="20"  />
+ 				<CompareBitmap  numColorVariances="4" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/paddingLeft.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+
+		<TestCase testID="Panel_Styles_paddingRight" keywords="[paddingRight, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+   				<SetStyle target="myCustomPanel.myPanel" styleName="paddingRight"  value="20"  waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel"  />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="paddingRight" value="20"  />
+ 				<CompareBitmap  numColorVariances="4" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/paddingRight.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Panel_Styles_paddingTop" keywords="[paddingTop, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+   				<SetStyle target="myCustomPanel.myPanel" styleName="paddingTop"  value="20"   waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="paddingTop" value="20"  />
+ 				<CompareBitmap  numColorVariances="4" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/paddingTop.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="Panel_Styles_paddingLeft2" keywords="[PaddingLeft, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+   				<SetStyle target="myCustomPanel.myPanel" styleName="paddingLeft"  value="6"   waitEvent="updateComplete" waitTarget="myCustomPanel.myPanel" />
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="paddingLeft" value="6"  />
+ 				<CompareBitmap  numColorVariances="4" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/paddingLeft_2.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+		<TestCase testID="Panel_Styles_verticalGap" keywords="[verticalGap, Panel]">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="CustomPanel"  waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomPanel.myPanel" styleName="verticalGap" value="6"/>
+ 				<CompareBitmap  numColorVariances="2" ignoreMaxColorVariance="true" target="myCustomPanel.myPanel" url="../Styles/baselines/verticalGap.png" timeout="5000" />
+ 			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>
