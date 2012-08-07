@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="browser/DeepLinking/URLUtil/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="URLUtilMain.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<mx:Script>
+
+	<![CDATA[
+
+	public static function init(o:DisplayObject):void
+
+	{
+
+	}					
+
+	]]>
+
+	</mx:Script>
+
+	<mx:Metadata>
+
+	<![CDATA[
+
+		[Mixin]
+
+	]]>
+
+	</mx:Metadata>	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<mx:Script>
+
+	<![CDATA[
+
+		import mx.utils.URLUtil;
+
+
+
+		public var obj1:Object = { firstName: "Donna", lastName: "PersonB",
+
+							children: [ { firstName: "Sam", lastName: "PersonC" },
+
+										{ firstName: "Leah", lastName: "PersonC" }
+
+									  ] 
+
+							};
+
+
+
+		public var string1:String = "firstName=Donna;lastName=PersonB;children.0.firstName=Sam;children.0.lastName=PersonC;children.1.firstName=Leah;children.1.lastName=PersonC";
+
+
+
+		public var obj2:Object = { firstName: "Gordon", year: 2000, flex: true, flash: false };
+
+
+
+		public var string2:String = "flash=false;year=2000;flex=true;firstName=Gordon";
+
+
+
+		public var obj3:Object = { firstName: "Deepa", numbers: [ 10, 20, 30.5 ] };
+
+
+
+		public var string3:String = "numbers.0=10;numbers.1=20;numbers.2=30.5;firstName=Deepa"
+
+
+
+		public var obj4:Object = { firstName: "Ely", lastName: "PersonA",
+
+							friends: { tracy: true, matt: false } };
+
+
+
+		public var string4:String = "friends.matt=false;friends.tracy=true;firstName=Ely;lastName=PersonA"
+
+
+
+		public var obj5:Object = { firstName: "Deepa", notnumbers: [ "10a", "20b", "30.5c" ] };
+
+
+
+		public var string5:String = "notnumbers.0=10a;notnumbers.1=20b;notnumbers.2=30.5c;firstName=Deepa";
+
+
+
+		public var temp:String;
+
+		
+
+		/* ObjectToString will not return the same order every time so you have to test it in pieces */
+
+	]]>
+
+	</mx:Script>
+
+
+
+	<testCases>
+
+		<TestCase testID="obj1 objectToString">
+
+			<body>
+
+				<RunCode code="temp=URLUtil.objectToString(obj1)" />
+
+				<AssertMethodValue method="value=(temp.indexOf('firstName=Donna') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('lastName=PersonB') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('children.0.firstName=Sam') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('children.1.firstName=Leah') >= 0)" value="true" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="string1 stringToObject">
+
+			<body>
+
+				<RunCode code="value = URLUtil.stringToObject(string1)" />
+
+				<AssertPropertyValue target="script:value" propertyName="firstName" value="Donna" />
+
+				<AssertPropertyValue target="script:value.children" propertyName="length" value="2" />
+
+				<AssertPropertyValue target="script:value.children.0" propertyName="lastName" value="PersonC" />
+
+				<AssertPropertyValue target="script:value.children.0" propertyName="firstName" value="Sam" />
+
+				<AssertPropertyValue target="script:value.children.1" propertyName="lastName" value="PersonC" />
+
+				<AssertPropertyValue target="script:value.children.1" propertyName="firstName" value="Leah" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="obj2 objectToString">
+
+			<body>
+
+				<RunCode code="temp=URLUtil.objectToString(obj2)" />
+
+				<AssertMethodValue method="value=(temp.indexOf('firstName=Gordon') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('year=2000') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('flex=true') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('flash=false') >= 0)" value="true" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="string2 stringToObject">
+
+			<body>
+
+				<RunCode code="value = URLUtil.stringToObject(string2)" />
+
+				<AssertPropertyValue target="script:value" propertyName="firstName" value="Gordon" />
+
+				<AssertPropertyValue target="script:value" propertyName="year" value="2000" />
+
+				<AssertType target="script:value" propertyName="year" value="int" />
+
+				<AssertPropertyValue target="script:value" propertyName="flex" value="true" />
+
+				<AssertType target="script:value" propertyName="flex" value="Boolean" />
+
+				<AssertPropertyValue target="script:value" propertyName="flash" value="false" />
+
+				<AssertType target="script:value" propertyName="flash" value="Boolean" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="obj3 objectToString">
+
+			<body>
+
+				<RunCode code="temp=URLUtil.objectToString(obj3)" />
+
+				<AssertMethodValue method="value=(temp.indexOf('firstName=Deepa') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('numbers.0=10') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('numbers.1=20') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('numbers.2=30.5') >= 0)" value="true" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="string3 stringToObject">
+
+			<body>
+
+				<RunCode code="value = URLUtil.stringToObject(string3)" />
+
+				<AssertPropertyValue target="script:value" propertyName="firstName" value="Deepa" />
+
+				<AssertPropertyValue target="script:value.numbers" propertyName="0" value="10" />
+
+				<AssertType target="script:value.numbers" propertyName="0" value="int" />
+
+				<AssertPropertyValue target="script:value.numbers" propertyName="1" value="20" />
+
+				<AssertType target="script:value.numbers" propertyName="1" value="int" />
+
+				<AssertPropertyValue target="script:value.numbers" propertyName="2" value="30.5" />
+
+				<AssertType target="script:value.numbers" propertyName="2" value="Number" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="obj4 objectToString">
+
+			<body>
+
+				<RunCode code="temp=URLUtil.objectToString(obj4)" />
+
+				<AssertMethodValue method="value=(temp.indexOf('firstName=Ely') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('friends.matt=false') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('friends.tracy=true') >= 0)" value="true" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="string4 stringToObject">
+
+			<body>
+
+				<RunCode code="value = URLUtil.stringToObject(string4)" />
+
+				<AssertPropertyValue target="script:value" propertyName="firstName" value="Ely" />
+
+				<AssertPropertyValue target="script:value.friends" propertyName="matt" value="false" />
+
+				<AssertType target="script:value.friends" propertyName="matt" value="Boolean" />
+
+				<AssertPropertyValue target="script:value.friends" propertyName="tracy" value="true" />
+
+				<AssertType target="script:value.friends" propertyName="tracy" value="Boolean" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="obj5 objectToString">
+
+			<body>
+
+				<RunCode code="temp=URLUtil.objectToString(obj5)" />
+
+				<AssertMethodValue method="value=(temp.indexOf('firstName=Deepa') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('notnumbers.0=10a') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('notnumbers.1=20b') >= 0)" value="true" />
+
+				<AssertMethodValue method="value=(temp.indexOf('notnumbers.2=30.5c') >= 0)" value="true" />
+
+			</body>
+
+		</TestCase>
+
+		<TestCase testID="string5 stringToObject">
+
+			<body>
+
+				<RunCode code="value = URLUtil.stringToObject(string5)" />
+
+				<AssertPropertyValue target="script:value" propertyName="firstName" value="Deepa" />
+
+				<AssertType target="script:value" propertyName="notnumbers" value="Array" />
+
+				<AssertPropertyValue target="script:value.notnumbers" propertyName="0" value="10a" />
+
+				<AssertType target="script:value.notnumbers" propertyName="0" value="String" />
+
+				<AssertPropertyValue target="script:value.notnumbers" propertyName="1" value="20b" />
+
+				<AssertType target="script:value.notnumbers" propertyName="1" value="String" />
+
+				<AssertPropertyValue target="script:value.notnumbers" propertyName="2" value="30.5c" />
+
+				<AssertType target="script:value.notnumbers" propertyName="1" value="String" />
+
+			</body>
+
+		</TestCase>
+
+
+
+	</testCases>
+
+</UnitTester>
+
