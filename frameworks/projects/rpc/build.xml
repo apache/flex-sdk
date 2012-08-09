@@ -136,6 +136,7 @@
 		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
 		<bundler locale="nl_NL"/><!-- Dutch resources -->
 		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
+		<bundler locale="pt_PT"/><!-- Portugal Portuguese resources -->
 		<bundler locale="ru_RU"><!-- Swedish resources -->
 			<run.fat.swc>
 				<fat-swc locale="ru_RU"/>
