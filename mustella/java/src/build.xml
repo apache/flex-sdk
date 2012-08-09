@@ -48,7 +48,7 @@
     </path>
 
 	<path id="airsdk.lib.classpath">
-		<fileset dir="${airsdk.dir}/lib">
+		<fileset dir="${apollo_location}/lib">
 			<include name="*.jar"/>
 		</fileset>
 	</path>

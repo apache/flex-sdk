@@ -24,9 +24,8 @@
     <property environment="env"/>
 
     <property name="mustella.dir" value="${basedir}" />
-    <property name="airsdk.dir" value="${env.AIR_HOME}" />
     <property name="tmp.dir" value="${mustella.dir}/tmp" />
-	
+
     <property name="feature" value=""/>
     <property file="${basedir}/properties/${feature}.properties" />
     <property name="debug" value="false" />
@@ -50,7 +49,6 @@
     <property prefix="on_disk" file="${mustella.dir}/${build.version.file}" />
     <property name="local_properties" value="local.properties" />
     <property name="external_properties" value="external.properties" />
-
 
     <property file="${mustella.dir}/${local_properties}" />
     <property file="${mustella.dir}/${external_properties}" />
@@ -243,7 +241,7 @@
 	<not>
 		<isset property="browser_name"/>
 	</not>
-	<istrue value="${use_browser}" />
+	    <istrue value="${use_browser}" />
 	</and>
     </condition>
 
@@ -319,9 +317,9 @@
     </condition>
 
     <condition property="shell_swf" value="" >
-	<not>
-	<isset property="${shell_swf}" />
-	</not>
+        <not>
+            <isset property="${shell_swf}" />
+        </not>
     </condition>
 
     <condition property="shell_swf_prefix" value="file:///" >
@@ -333,24 +331,22 @@
 
 
     <condition property="version_fetcher" value="${mustella.dir}/versionAIR.swf" >
-	<istrue value="${use_apollo}" />
+    	<istrue value="${use_apollo}" />
     </condition>
 
     <property name="version_fetcher" value="${mustella.dir}/version.swf" />
 
     <condition property="exclude_mixin" value="ExcludeFileLocationApollo" >
-	<istrue value="${use_apollo}" />
+    	<istrue value="${use_apollo}" />
     </condition>
 
     <property name="exclude_mixin" value="ExcludeFileLocation" />
 
-    <!-- default location of AIR stuff -->
-    <condition property="apollo_location" value="${mustella.dir}/build" >
-	<istrue value="${use_apollo}" />
-    </condition>
+    <!-- default location of AIR stuff if apollo_location not explicitly set -->
+    <property name="apollo_location" value="${env.AIR_HOME}"/>
 
     <condition property="apollo_specific_excludes" value="${apollo_only_excludes}" >
-	<istrue value="${use_apollo}" />
+    	<istrue value="${use_apollo}" />
     </condition>
 
 	<target name="getExcludeIds" unless="exclude_ids" description="Fetch exclude ids" >
@@ -405,7 +401,6 @@
 		<property name="unzip" value="/usr/bin/unzip" />
 		<property name="auto_exclude_config_value" value="9"/>
 		<property name="auto_exclude_bug_id" value="unproven_mac_${fetched_date}"/>
-		<echo>player is ${player} </echo>
 	</target>
 
 	<target name="setup_windows" if="is_win">
@@ -459,9 +454,17 @@
 	    <isset property="env.db_time" />
     </condition> -->
 
+    <target name="echo-browser" if="use_browser">
+        <echo>use_browser=${use_browser}</echo>
+		<echo>browser is ${browser}</echo>
+    </target>
 
+    <target name="echo-apollo" if="use_apollo">
+        <echo>use_apollo=${use_apollo}</echo>
+        <echo>apollo_location is ${apollo_location}</echo>        
+    </target>
 
-	<target name="setup" depends="get_date,get_os,setup_mac,setup_windows,setup_linux,db_time,handle_mobile_config"  description="--> set platform specific properties">
+	<target name="setup" depends="get_date,get_os,setup_mac,setup_windows,setup_linux,db_time,handle_mobile_config,echo-browser,echo-apollo"  description="--> set platform specific properties">
 		<!-- antcall target="db_time">
 			<param name="no_quote" value="true" />
 			<param name="db_time_vetting_file" value="${tmp.dir}/.db.time.mini" />
@@ -471,6 +474,8 @@
 		<!-- Browser stuff lives in a particular directory, as does apollo.  And they
 		are mutually exclusive.
 		-->
+		
+		<echo>player is ${player} </echo>
 
 		<!-- Exclude apollo tests if not using apollo. -->
 		<condition property="apollo_excludes" value="apollo/**/*.mxml" >
@@ -849,7 +854,7 @@
 	</target>
 	
 	<target name="handle_adt_jar" if="copy_adt_jar">
-		<copy file="${airsdk.dir}/lib/adt.jar" tofile="${mustella.dir}/lib/adt.jar" overwrite="true" />		
+		<copy file="${apollo_location}/lib/adt.jar" tofile="${mustella.dir}/lib/adt.jar" overwrite="true" />		
 	</target>
 
     <target name="cleanswfs" unless="noclean.set" description="--> deletes all swfs and tag files">
@@ -1778,7 +1783,7 @@ we could have pmd_doler do the dir split and write property files (per user)
         	<arg value="-source-path=${mustella.dir}/as3/src/mustella" />
             <!-- clear library path -->
             <arg value="-library-path="/>
-            <arg value="-external-library-path=${airsdk.dir}/frameworks/libs/air,${sdk.dir}/frameworks/libs,${sdk.dir}/frameworks/libs/mx" />
+            <arg value="-external-library-path=${apollo_location}/frameworks/libs/air,${sdk.dir}/frameworks/libs,${sdk.dir}/frameworks/libs/mx" />
         	<arg value="ApolloFilePath"/>
         	<arg value="Assert"/>
         	<arg value="AssertError"/>

@@ -44,7 +44,7 @@ public class ApolloAdjuster {
 
 	/// the template file.
 	static String template_location = "/templates/air/descriptor-template.xml";
-	static String model_file = System.getProperty ("sdk.dir") +  template_location;
+	static String model_file = System.getProperty ("apollo_location") +  template_location;
 
 
 	static String xmlnsVal = "http://ns.adobe.com/air/application/1.0";
