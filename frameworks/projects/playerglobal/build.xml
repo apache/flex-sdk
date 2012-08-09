@@ -83,7 +83,7 @@
 		<bundler locale="de_DE"/><!-- German resources -->
 		<bundler locale="fr_FR"/><!-- French resources -->
 		<bundler locale="ja_JP"/><!-- Japanese resources -->
-		<bundler locale="ru_RU"/><!-- Swedish resources -->
+		<bundler locale="ru_RU"/><!-- Russian resources -->
 		<bundler locale="zh_CN"/><!-- Simplified Chinese resources -->
 	</target>
 	
