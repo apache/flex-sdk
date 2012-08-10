@@ -269,7 +269,7 @@
 
     <!-- run type values. (stored in db) -->
     <condition property="run_type" value="swfloader" >
-    <isset property="shell_swf" />
+        <isset property="shell_swf" />
     </condition>
 
     <condition property="run_type" value="" >
@@ -331,6 +331,7 @@
 
     <!-- default location of AIR stuff if apollo_location not explicitly set -->
     <property name="apollo_location" value="${env.AIR_HOME}"/>
+    <property name="air.sdk.dir" value="${apollo_location}" />
 
     <condition property="apollo_specific_excludes" value="${apollo_only_excludes}" >
         <istrue value="${use_apollo}" />
@@ -681,10 +682,15 @@
         <echo>exclude_filename: ${exclude_filename}</echo>
 
         <!-- Look for AIR and Android files. -->
-        <!--available file="${air.sdk.dir}/lib/aot/lib/AIRInterpreter" property="have_air_interpreter" />
+        <available file="${air.sdk.dir}/lib/aot/lib/AIRInterpreter" property="have_air_interpreter" />
         <available file="${air.sdk.dir}/lib/aot/bin/as/arm-apple-darwin9-as" property="have_air_packager" />
         <available file="${air.sdk.dir}/lib/adt.jar" property="have_air_adt_jar" />
         <available file="${runtimeApk}" property="have_air_android_runtime" />
+        
+        <echo>have_air_interpreter is ${have_air_interpreter}</echo>
+        <echo>have_air_packager is ${have_air_packager}</echo>
+        <echo>have_air_adt_jar is ${have_air_adt_jar}</echo>
+        <echo>have_air_android_runtime is ${have_air_android_runtime}</echo>
         
         <condition property="need_air_android">
             <and>
@@ -694,6 +700,7 @@
                 </not>
             </and>
         </condition>
+        <echo>need_air_android is ${need_air_android}</echo>
         
         <condition property="need_air_ios">
             <and>
@@ -711,6 +718,7 @@
                 </or>
             </and>
         </condition>
+        <echo>need_air_ios is ${need_air_ios}</echo>
         
         <condition property="need_to_show_air_ios_fail_message">
             <and>
@@ -728,7 +736,8 @@
                 </or>
             </and>
         </condition>
-
+        <echo>need_to_show_air_ios_fail_message is ${need_to_show_air_ios_fail_message}</echo>
+        
         <condition property="need_to_fetch_air_ios">
             <and>
                 <isset property="need_air_ios" />
@@ -737,11 +746,11 @@
                 <isset property="air.sdk.version" />
             </and>
         </condition>
+        <echo>need_to_fetch_air_ios is ${need_to_fetch_air_ios}</echo>
         
         <antcall target="show_air_ios_fail_message" />
         <antcall target="show_air_android_fail_message" />
         <antcall target="fetch_air_ios" />
-        -->
         
         <!-- Look for the QNX SDK if we need to. -->
         <available file="${qnx_sdk_dir}/bin" property="have_qnx_sdk" />
@@ -820,9 +829,6 @@
         <delete verbose="true" file="${mustella.dir}/tests/runid.properties" failonerror="false" quiet="true" />
         <!-- delete file="${mustella.dir}/mustella.swc" failonerror="false"/ -->
         <delete quiet="true" failonerror="false" includeEmptyDirs="true">
-            <fileset dir="${sdk.mustella.dir}">
-                <include name="**/*.log"/>
-            </fileset>
             <fileset dir="${mustella.dir}">
                 <include name="test_files.tmp"/>
                 <include name="results.txt"/>
@@ -847,7 +853,7 @@
 
     <target name="cleanswfs" unless="noclean.set" description="--> deletes all swfs and tag files">
         <delete quiet="true">
-            <fileset dir="${sdk.mustella.dir}" includes="${previous.generated.testfiles},**/bin-debug/*.swf,**/bin-release/*.swf" excludes="**/Assets/*.swf,**/small.swf,**/undo-redo_icons.swf,**/focusSkinSWF.swf,**/atEmbed/images/*.swf,**/atEmbed/**/assets/*.swf,**/Components/Assets/Skinning/ImageAssets/*.swf,**/CellRenderers/assets/*.swf,**/player/**/assets/*.swf,**/atEmbed/PathResolution/**/box.swf,**/Assets/*.swf,**/assets/*.swf"/>
+            <fileset dir="${sdk.mustella.dir}" includes="${previous.generated.testfiles},**/*.log,**/bin-debug/*.swf,**/bin-release/*.swf" excludes="**/Assets/*.swf,**/small.swf,**/undo-redo_icons.swf,**/focusSkinSWF.swf,**/atEmbed/images/*.swf,**/atEmbed/**/assets/*.swf,**/Components/Assets/Skinning/ImageAssets/*.swf,**/CellRenderers/assets/*.swf,**/player/**/assets/*.swf,**/atEmbed/PathResolution/**/box.swf,**/Assets/*.swf,**/assets/*.swf"/>
         </delete>
     </target>
 
@@ -2177,8 +2183,8 @@
 
     <target name="setbuildID"  >
         <echo message="Target file was: ${mustella.dir}/${build.version.file}" />
-            <property file="${mustella.dir}/${build.version.file}" />
-            <property name="build.id" value="${server}" />
+        <property file="${mustella.dir}/${build.version.file}" />
+        <property name="build.id" value="${server}" />
         <echo message="${build.id}"/>
     </target>
 

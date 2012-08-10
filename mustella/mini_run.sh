@@ -738,7 +738,11 @@ do
 
             done
 
-            run_mobile_tests=`egrep "run_mobile_tests" local.properties | egrep -v "^#" | awk -F"=" '{print $2}'`
+            # local.properties should be optional
+            if [ -f "local.properties" ]
+                then
+                run_mobile_tests=`egrep "run_mobile_tests" local.properties | egrep -v "^#" | awk -F"=" '{print $2}'`
+            fi
             is_mobile_test=`echo $dir | egrep "mobile"`
             
             if [ "$check_air" = "true" ] && [ "$has_air" = "" ] && [ "$TEST_REVIEW" = "1" ] && [ "$run_mobile_tests" != "true" ]

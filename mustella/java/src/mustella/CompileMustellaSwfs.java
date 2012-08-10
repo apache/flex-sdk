@@ -103,9 +103,9 @@ public class CompileMustellaSwfs extends Thread {
 
     private static String apollo_transform_prefix2 = "wwaird_";
 	
-	private static boolean use_qa_framework_dir = false;
+	private static boolean use_mustella_framework_dir = false;
 
-    private static String qa_framework_dir = null;
+    private static String mustella_framework_dir = null;
 
     private static String apollo_location = ""; 
 
@@ -358,10 +358,10 @@ public class CompileMustellaSwfs extends Thread {
 			}
 		}
 
-		if (System.getProperty ("use_qa_framework_dir")!=null && !System.getProperty ("use_qa_framework_dir").equals ("") ) { 
+		if (System.getProperty ("use_mustella_framework_dir")!=null && !System.getProperty ("use_mustella_framework_dir").equals ("") ) { 
 
 			try { 
-				use_qa_framework_dir = new Boolean (System.getProperty ("use_qa_framework_dir")).booleanValue();
+				use_mustella_framework_dir = new Boolean (System.getProperty ("use_mustella_framework_dir")).booleanValue();
 
 			} catch (Exception e) {
 			}
@@ -388,10 +388,10 @@ public class CompileMustellaSwfs extends Thread {
 		}
 
 
-		if (System.getProperty ("qa_framework_dir")!=null && !System.getProperty ("qa_framework_dir").equals ("") ) { 
+		if (System.getProperty ("mustella_framework_dir")!=null && !System.getProperty ("mustella_framework_dir").equals ("") ) { 
 
 			try { 
-				qa_framework_dir = System.getProperty ("qa_framework_dir");
+				mustella_framework_dir = System.getProperty ("mustella_framework_dir");
 
 			} catch (Exception e) {
 			}
@@ -518,8 +518,9 @@ public class CompileMustellaSwfs extends Thread {
 		}
 
 		// Write a mobile config class to mustella/tests/mobile.
+		// Note: this seems to be assuming use_mustella_framework_dir is true.
 		if( run_mobile_tests ){			
-			mobileConfigArg = " -includes=" + MobileConfigWriter.write( device_name, target_os_name, os_version, qa_framework_dir, run_id, exclude_filename );
+			mobileConfigArg = " -includes=" + MobileConfigWriter.write( device_name, target_os_name, os_version, mustella_framework_dir, run_id, exclude_filename );
 		}
 		
 		// System.out.println ("the hash: " + swfs);
@@ -882,7 +883,7 @@ public class CompileMustellaSwfs extends Thread {
 	/// if there's a mustella swc, use that.
 	/// probably want to be able to TOGGLE THIS on the ant side  FIX 
 	String mustellaswc = "";
-	if (System.getProperty("mustellaswc") != null && !use_qa_framework_dir) { 
+	if (System.getProperty("mustellaswc") != null && !use_mustella_framework_dir) { 
 		mustellaswc=System.getProperty("mustellaswc");
 	
 		if (mustellaswc.length() > 0)
@@ -959,9 +960,9 @@ public class CompileMustellaSwfs extends Thread {
 			args+=" -source-path="+pieces[i];
 	}
 
-	if (use_qa_framework_dir) { 
+	if (use_mustella_framework_dir) { 
 		
-		// System.out.println ("Adding qa fwk dir: " + qa_framework_dir);
+		// System.out.println ("Adding qa fwk dir: " + mustella_framework_dir);
 		
 		// If we're using android or iOS, use the CompareBitmap which handles file I/O. MXMLC will
 		// keep whichever CompareBitmap it encounters first.
@@ -970,11 +971,11 @@ public class CompileMustellaSwfs extends Thread {
 			target_os_name.equalsIgnoreCase( MobileUtil.QNX ) )
 		{
 			//System.out.println("AIR files will override.");
-			args+= " -source-path="+qa_framework_dir+File.separator+"AIR";
+			args+= " -source-path="+mustella_framework_dir+File.separator+"AIR";
 		}
 		
 		// Now add the rest.
-		args+= " -source-path="+qa_framework_dir;		
+		args+= " -source-path="+mustella_framework_dir;		
 	}
 
 	/// this is the include for the fwk to send stuff to the Runner
