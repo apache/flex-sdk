@@ -834,12 +834,21 @@
             includes="${sdk.mustella.includes}"
             excludes="${sdk.mustella.excludes},${other.mustella.excludes}" />
 
-	<target name="clean" description="--> cleanup old report and actual files">
+	<target name="clean" depends="cleanswfs" description="--> cleanup old report and actual files">
 		<echo message="Deleting old results and files from previous testsuite build"/>
 		<delete dir="${mustellagen.dir}" quiet="true"/>
 		<!-- get rid of old runid prop file, in case we don't create a new one -->
 		<delete verbose="true" file="${mustella.dir}/tests/runid.properties" failonerror="false" quiet="true" />
 		<!-- delete file="${mustella.dir}/mustella.swc" failonerror="false"/ -->
+        <delete quiet="true" failonerror="false" includeEmptyDirs="true">
+            <fileset dir="${sdk.mustella.dir}">
+                <include name="**/*.log"/>
+            </fileset>
+            <fileset dir="${mustella.dir}">
+                <include name="test_files.tmp"/>
+                <include name="results.txt"/>
+            </fileset>
+        </delete>
     </target>
 
     <condition property="copy_adt_jar" value="true" >
@@ -1683,7 +1692,7 @@ we could have pmd_doler do the dir split and write property files (per user)
     <target name="dedicatedRun" depends="prepare,setup,getRunId,getExcludes,populateExcludeTable,unzipSwfs,justrun" >
     </target>
 
-    <target name="run" depends="clean,prepare,setup,cleanswfs,compileswfs,getRunId,getExcludes,populateExcludeTable,justrun" description="-->run tests">
+    <target name="run" depends="clean,prepare,setup,compileswfs,getRunId,getExcludes,populateExcludeTable,justrun" description="-->run tests">
     </target>
 
     <property name="tmp_exclude_script" value="exclude_tmp.sh" />
