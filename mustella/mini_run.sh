@@ -177,8 +177,12 @@ no_run=0
 
 beliteral=0
 
-check_air=`egrep "use_air" local.properties | egrep -v "^#" | awk -F"=" '{print $2}'`
-run_mobile_tests=`egrep "run_mobile_tests" local.properties | egrep -v "^#" | awk -F"=" '{print $2}'`
+# local.properties should be optional
+if [ -f "local.properties" ]
+    then
+    check_air=`egrep "use_air" local.properties | egrep -v "^#" | awk -F"=" '{print $2}'`
+    run_mobile_tests=`egrep "run_mobile_tests" local.properties | egrep -v "^#" | awk -F"=" '{print $2}'`
+fi
 
 os=`uname -s | tr '[A-Z]' '[a-z]'`
 tmp=`echo $os | egrep "cygwin"`
@@ -192,10 +196,7 @@ fi
 
 mkdir $tmp 2>/dev/null
 
-
-
 # arg_list=`echo "$*" | awk -f cleanup.awk `
-
 
 # echo "here is the arg list: $arg_list"
 
@@ -330,9 +331,6 @@ do
             continue
         fi
 
-
-
-
         if [ "$i" = "-all" ]
             then
             run_all=1
@@ -343,7 +341,6 @@ do
             break_early=1
             continue
         fi
-
 
         if [ "$i" = "-createImages" ]
             then
