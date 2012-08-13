@@ -18,8 +18,8 @@
 
 -->
 <project name="mustella" default="run" basedir=".">
-    <property name="FLEX_HOME" location=".."/>
-
+    <property name="FLEX_HOME" location="${basedir}/.."/>
+    
     <property file="${FLEX_HOME}/env.properties"/>
     <property environment="env"/>
 
