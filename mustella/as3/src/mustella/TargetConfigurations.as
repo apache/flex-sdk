@@ -68,7 +68,7 @@ public class TargetConfigurations
 	
 	/**
 	 * Returns the config ID which best matches the given ConditionalValue.
-	 * This config ID will get added to baselines.  e.g. MyGroovyTest@160_01.png
+	 * This config ID will get added to baselines.  e.g. MyGroovyTest_160_01.png
 	 **/
 	public static function getTargetConfigID( cv:ConditionalValue ):String{
 		var i:int = 0;

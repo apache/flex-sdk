@@ -36,14 +36,18 @@
 
 	<mx:Script>
 	<![CDATA[
+	import mx.core.FlexGlobals;
 	import mx.controls.ComboBox;
 	import mx.controls.DateField;
-	import mx.styles.StyleManager;
+	import mx.styles.IStyleManager2;
 	import mx.managers.SystemManager;
+		
 
 	public function scriptFunction(a:String, b:int):String
 	{
 		return a + ":" + b.toString();
+		
+		App
 	}
 
 	public var styleDecl:Object;
@@ -58,7 +62,7 @@
 		<TestCase testID="myScriptTest1">
 			<body>
 				<!-- inline code doesn't need fully qualified class names, but you must import -->
-				<RunCode code="styleDecl = StyleManager.getStyleDeclaration('Button');" />
+				<RunCode code="styleDecl = FlexGlobals.topLevelApplication.styleManager.getStyleDeclaration('Button');" />
 				<RunCode code="styleDecl.defaultFactory.prototype = {}; styleObj = new styleDecl.defaultFactory();" />
 				<!-- to target a variable in the script block, use script: -->
 				<AssertPropertyValue target="script:styleObj" propertyName="cornerRadius" value="4" />

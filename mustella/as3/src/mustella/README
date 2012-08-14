@@ -247,7 +247,7 @@ This is meant to be run by jrun. To install, unzip it under servers/default in a
 The root url that mustella writes bitmaps to is defined in CreateBitmapReferences.as; very likely you will have to alter the server port, local directory location, and the base url to make this work. 
 
 
-Let me know of any difficulties setting up the server: bolaughl@adobe.com
+Let me know of any difficulties setting up the server: bolaughl&part;adobe.com
 
 
 

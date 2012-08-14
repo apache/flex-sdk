@@ -43,7 +43,7 @@ package
     * It might be useful to think about building a set of TestStep classes that wrap 
     * some of this functionality.
     * 
-    * @author Steven Shongrunden (stshongr@adobe.com)
+    * @author Steven Shongrunden (stshongr&part;adobe.com)
     * 
     */
     public class EffectTesting
