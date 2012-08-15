@@ -101,7 +101,7 @@
 		<RunCode code="configureExpectSize(Capabilities.screenResolutionY,600,Capabilities.screenResolutionY)"/>
 		<AssertMethodValue method="value =checkMaxSizeValue( FlexGlobals.topLevelApplication.myWin.height,expectSize,100,'height')" value="height:expectSize=600;actualSize=350;delta=100" />
 
-		<AssertPropertyValue target="myWin.nativeWindow" propertyName="displayState" value="maximized" />
+		<AssertPropertyValue target="myWin.nativeWindow" propertyName="displayState" value="normal" />
 	    </body>
 	</TestCase>
 

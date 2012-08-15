@@ -162,7 +162,7 @@
 	    <body>
 		<!-- need wait for style is applied -->
 		<DispatchMouseEvent type="mouseMove" target="myWin.checkBox1" localX="2" localY="2" />
-		<DispatchMouseClickEvent target="myWin.checkBox1" localX="2" localY="2" waitTarget="myWin.checkBox1" waitEvent="click"/>
+		<DispatchMouseClickEvent target="myWin.checkBox1" localX="2" localY="2" waitTarget="myWin.checkBox1" waitEvent="click" timeout="3000"/>
 		<WaitForEffectsToEnd />
 		<MyCompareBitmap target="myWin.checkBox1"  numColorVariances="10" maxColorVariance="20" url="../styles/baselines/$testID.png" mac_url="../styles/baselines/$testID_mac.png" />
 		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
