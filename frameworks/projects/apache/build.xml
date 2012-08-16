@@ -40,7 +40,7 @@
 				   locale="@{locale}">
 				<jvmarg line="${compc.jvm.args}"/>
 				<target-player>${playerglobal.version}</target-player>
-				<include-resource-bundles bundle="validators"/>
+				<include-resource-bundles bundle="apache"/>
 				<include-namespaces/>
 				<include-classes/>
 				<source-path path-element="${basedir}/bundles/@{locale}"/>

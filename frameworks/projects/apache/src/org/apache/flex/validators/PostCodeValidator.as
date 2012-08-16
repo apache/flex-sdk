@@ -29,7 +29,7 @@ import mx.resources.ResourceManager;
 import mx.validators.Validator;
 import mx.validators.ValidationResult;
 
-[ResourceBundle("validators")]
+[ResourceBundle("apache")]
 
 /**
  *  The PostCodeValidator class validates that a String

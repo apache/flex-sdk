@@ -27,7 +27,7 @@ import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 import mx.validators.ValidationResult;
 
-[ResourceBundle("validators")]
+[ResourceBundle("apache")]
 
 /**
  *  The PostCodeFormatter class formats a valid postcode
