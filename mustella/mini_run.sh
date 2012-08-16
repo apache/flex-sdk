@@ -180,7 +180,7 @@ beliteral=0
 # local.properties should be optional
 if [ -f "local.properties" ]
     then
-    check_air=`egrep "use_air" local.properties | egrep -v "^#" | awk -F"=" '{print $2}'`
+    check_air=`egrep "use_apollo" local.properties | egrep -v "^#" | awk -F"=" '{print $2}'`
     run_mobile_tests=`egrep "run_mobile_tests" local.properties | egrep -v "^#" | awk -F"=" '{print $2}'`
 fi
 
@@ -204,9 +204,6 @@ mkdir $tmp 2>/dev/null
 
 for i in "$@"
 do
-
-
-
         if [ "$i" = "-docheck" ] || [ "$i" = "-doCheck" ]
             then
             skipcheck=0     
@@ -397,8 +394,6 @@ do
             antArgs="$antArgs -Dexcludes_done=true -Dnoclean.set=true"
         fi
             
-
-
         startsArgWith=`echo $i | awk '{printf ("%s", substr($1, 0, 4))}'`
         if [ "$startsArgWith" = "-kw=" ]
             then
@@ -417,8 +412,6 @@ do
             echo $keyword_list
 
         fi
-
-
 
         startsArgWith=`echo $i | awk '{printf ("%s", substr($1, 0, 5))}'`
 
@@ -446,7 +439,6 @@ do
 
             continue
         fi
-
 
         startsArgWith=`echo $i | awk '{printf ("%s", substr($1, 0, 8))}'`
 
@@ -485,9 +477,7 @@ do
             continue
         fi
 
-
         startsArgWith=`echo $i | awk '{printf ("%s", substr($1, 0, 9))}'`
-
 
         if [ "$startsArgWith" = "-caseName" ]
             then
