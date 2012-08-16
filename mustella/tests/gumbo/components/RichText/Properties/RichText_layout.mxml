@@ -347,7 +347,7 @@
                <ResetComponent target="richTextBasic" className="comps.RichTextComp" />
            </setup>
             <body>
-            <AssertPropertyValue propertyName="baselinePosition" value="9.1" target="richTextBasic" />
+            <AssertPropertyValue propertyName="baselinePosition" value="9.15" target="richTextBasic" />
             </body>
         </TestCase>
         <TestCase testID="RichText_baselinePosition_postValidation" description="RichText baselinePosition before updateComplete" keywords="[RichText, baselinePosition]">
@@ -355,7 +355,7 @@
                <ResetComponent target="richTextBasic" className="comps.RichTextComp" waitTarget="richTextBasic" waitEvent="updateComplete" />
            </setup>
             <body>
-            <AssertPropertyValue propertyName="baselinePosition" value="9.1" target="richTextBasic" />
+            <AssertPropertyValue propertyName="baselinePosition" value="9.15" target="richTextBasic" />
             </body>
         </TestCase>
 
