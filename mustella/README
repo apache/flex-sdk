@@ -1,0 +1,59 @@
+Mustella README
+
+	See the Mustella Wiki Page for more details at https://cwiki.apache.org/confluence/display/FLEX/Mustella+Overview
+
+Install Prerequisites
+=====================
+
+	Mustella requires some variables set: AIR_HOME, FLASHPLAYER_DEBUGGER, PLAYERGLOBAL_HOME, and ANT_HOME. Use absolute file paths
+	when setting these values as relative path names can cause compilation errors.
+
+	There are several places you can set these values (in order of preference):
+
+	* from ../env.properties in the main Flex source directory. See ../env-template.properties for details.
+	* from shell environment variables.
+	* from ./local.properties in the Mustella main directory. See ./local-template.properties. This file can set or override 
+	the environment variables as well as setting Mustella-specific values. 
+
+
+Trust Files
+===========
+
+	Before running any tests, be sure to set up the Flash Player trust configuration. Create or edit a file called
+	dev.trust.cfg and add a line for the full path to the Mustella tests directory according to your platform. This will make the Flash
+	Player trust all SWFs in that directory structure.
+
+	Mac OS X location: /Library/Application Support/Macromedia/FlashPlayerTrust
+
+		example: /Users/YourUser/apache/flex/mustella/tests
+
+	Windows XP location: C:\Documents and Settings\YourUser\Application Data\Macromedia\Flash Player\#Security\FlashPlayerTrust
+
+		example: c:\apache\flex\mustella\tests
+	
+	Windows 7 location: C:\Users\YourUser\AppData\Roaming\Macromedia\Flash Player\#Security\FlashPlayerTrust
+
+		example: c:\cygwin\home\YourAccount\apache\flex\mustella\tests
+
+Basic Commands
+==============
+
+	Run Mustella tests from the mustella directory using the mini_run.sh script. Windows users must use a 
+	Unix-compatible shell application. The mini_run.sh script produces console output, results.txt (for the list of tests that
+	pass), and failures.txt (for the list of tests that fail); but passes and failures are also reported on the console log.
+
+		./mini_run.sh -all
+
+	This command will run all of the tests.
+
+		./mini_run.sh -failures
+
+	This command will run all of the tests reported in failures.txt; tests that fail will 'timed out' will not be re-run, however.
+
+		./mini_run.sh tests/components/Label
+
+	This command will run just the tests in the components/Label test directory.
+
+		./mini_run.sh -caseName=datagrid_properties_columns_0 tests/components/DataGrid/DataGrid_SparkSkin/Properties/datagrid_properties_columns.mxml
+
+	This command runs a specific test case from a specific test file.
