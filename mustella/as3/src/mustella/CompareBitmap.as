@@ -154,25 +154,27 @@ public class CompareBitmap extends Assert
 	 */
 	public function CompareBitmap() 
 	{ 
-		if (!connection)
+		if (useRemoteDiffer)
 		{
-			connection = new LocalConnection();
-			connection.allowDomain("*");
-			connection.addEventListener(StatusEvent.STATUS, statusHandler);
-
-			commandconnection = new LocalConnection();
-			commandconnection.allowDomain("*");
-
-			try
+			if (!connection)
 			{
-				commandconnection.connect("_ImageDifferCommands");
-			}
-			catch (e:Error)
-			{
-				trace("connection failed");
+				connection = new LocalConnection();
+				connection.allowDomain("*");
+				connection.addEventListener(StatusEvent.STATUS, statusHandler);
+	
+				commandconnection = new LocalConnection();
+				commandconnection.allowDomain("*");
+	
+				try
+				{
+					commandconnection.connect("_ImageDifferCommands");
+				}
+				catch (e:Error)
+				{
+					trace("connection failed");
+				}
 			}
 		}
-
 	}
 
 	override public function execute(root:DisplayObject, context:UnitTester, testCase:TestCase, testResult:TestResult):Boolean
