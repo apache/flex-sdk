@@ -137,6 +137,9 @@
             <param name="locale" value="de_DE"/>
         </antcall>
         <antcall target="tool_air_bundles">
+            <param name="locale" value="de_CH"/>
+        </antcall>
+        <antcall target="tool_air_bundles">
             <param name="locale" value="en_US"/>
         </antcall>
         <antcall target="tool_air_bundles">
@@ -191,6 +194,9 @@
         </antcall>
         <antcall target="tool_air_bundles-clean">
             <param name="locale" value="de_DE"/>
+        </antcall>
+        <antcall target="tool_air_bundles-clean">
+            <param name="locale" value="de_CH"/>
         </antcall>
         <antcall target="tool_air_bundles-clean">
             <param name="locale" value="en_US"/>

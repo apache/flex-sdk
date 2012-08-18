@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////
 //
 //  Licensed to the Apache Software Foundation (ASF) under one or more
 //  contributor license agreements.  See the NOTICE file distributed with
@@ -906,6 +906,7 @@ public class PostCodeValidator extends Validator
         switch (region)
         {
             case "AU":
+			case "CH":
             case "DK":
             case "NO":
                 formats = [ "NNNN" ];
