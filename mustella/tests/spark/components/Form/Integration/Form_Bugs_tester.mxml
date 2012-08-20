@@ -60,6 +60,7 @@
 		<TestCase testID="Form_bug_SDK26510_required_disabled" keywords="[Form, States, skin]" description="FormItem required and disabled renders correctly">
 			<setup>
 				<ResetComponent target="frm" className="comps.StackedBugsForm" waitEvent="updateComplete" waitTarget="frm" />
+				<DispatchMouseClickEvent target="frm.btn2" localX="10" localY="10" waitEvent="updateComplete" waitTarget="frm"/>
 			</setup>
 			<body>
 				<SetProperty propertyName="enabled" value="false" target="frm.fi2" waitEvent="updateComplete"/>

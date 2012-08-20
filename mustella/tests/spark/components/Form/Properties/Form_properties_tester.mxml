@@ -565,7 +565,7 @@
 				<ResetComponent target="basicFrm" className="comps.BasicForm" waitEvent="updateComplete" waitTarget="basicFrm" />
 			</setup>
 			<body>
-				<AssertPropertyValue propertyName="baselinePosition" target="basicFrm.fi1" value="25.1"/>
+				<AssertPropertyValue propertyName="baselinePosition" target="basicFrm.fi1" value="25.15"/>
 			</body>
 		</TestCase>
 		

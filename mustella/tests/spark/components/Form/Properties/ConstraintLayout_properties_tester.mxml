@@ -628,7 +628,7 @@
 				
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="50.4"/>
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="70.4"/>
-				<AssertPropertyValue propertyName="y" target="basicGrp.ti" value="49.85"/>
+				<AssertPropertyValue propertyName="y" target="basicGrp.ti" value="49.8"/>
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
 			</body>
 		</TestCase>
@@ -674,7 +674,7 @@
 				
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn1" value="50.4"/>
 				<AssertPropertyValue propertyName="y" target="basicGrp.btn2" value="30.4"/>
-				<AssertPropertyValue propertyName="y" target="basicGrp.ti" value="49.85"/>
+				<AssertPropertyValue propertyName="y" target="basicGrp.ti" value="49.8"/>
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="basicGrp"/>
 			</body>
 		</TestCase>

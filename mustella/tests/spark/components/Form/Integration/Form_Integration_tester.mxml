@@ -89,19 +89,19 @@
 			</setup>
 			<body>
 				<SetProperty propertyName="currentState" value="state2"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
-				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="45"/>
-				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="37"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="41"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="33"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="200"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
 				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="100"/>
 				<SetProperty propertyName="currentState" value="state1"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
-				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="31"/>
 				</body>
 		</TestCase>
 		<TestCase testID="FormItem_constraints_different_states" keywords="[FormItem, States, skin]" description="FormItem skins change in different states">
@@ -112,29 +112,29 @@
 				<SetProperty propertyName="currentState" value="state1"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="70"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
-				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="31"/>
 				
 				<SetProperty propertyName="enabled" value="false" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
-				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="height" value="12"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="height" value="13"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
 				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="300"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
-				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="31"/>
 				
 				<SetProperty propertyName="currentState" value="state2"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
-				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="45"/>
-				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="37"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="41"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="33"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="70"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="200"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
 				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="100"/>
 				<SetProperty propertyName="enabled" value="true" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
 			</body>
@@ -149,29 +149,29 @@
 				<SetProperty propertyName="currentState" value="state1"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="70"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
-				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="31"/>
 				
 				<SetProperty propertyName="enabled" value="false" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
 				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="300"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
-				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="31"/>
 				
 				<SetProperty propertyName="enabled" value="true" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="70"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
-				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="31"/>
 			</body>
 		</TestCase>
 		
@@ -183,41 +183,41 @@
 				<SetProperty propertyName="currentState" value="state1"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="70"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
-				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="31"/>
 				
 				<SetProperty propertyName="enabled" value="false" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="300"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="292"/>
-				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="height" value="12"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="height" value="13"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
 				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="300"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="80"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
-				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="30"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
+				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="31"/>
 				
 				<SetProperty propertyName="enabled" value="true" target="fiSkin1"/>
 				<SetProperty propertyName="currentState" value="state2"  waitEvent="updateComplete" waitTarget="frmSkin.skin"/>
-				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="45"/>
-				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="37"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="41"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="33"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="height" value="96"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="70"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="200"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
 				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="100"/>
 				
 				<SetProperty propertyName="enabled" value="false" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
-				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="45"/>
-				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="37"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceCol" propertyName="width" value="41"/>
+				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="width" value="33"/>
 				<AssertPropertyValue target="fiSkin1.skin.sequenceLabelDisplay" propertyName="height" value="95"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="83"/>
-				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="78"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelCol" propertyName="width" value="75"/>
+				<AssertPropertyValue target="fiSkin1.skin.labelDisplay" propertyName="width" value="70"/>
 				<AssertPropertyValue target="fiSkin1.skin.contentCol" propertyName="width" value="200"/>
-				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="165"/>
+				<AssertPropertyValue target="fiSkin1.skin.helpCol" propertyName="width" value="146"/>
 				<AssertPropertyValue target="fiSkin1.skin.row1" propertyName="height" value="100"/>
 				<SetProperty propertyName="enabled" value="true" target="fiSkin1" waitEvent="updateComplete" waitTarget="fiSkin1"/>
 				

@@ -415,7 +415,7 @@
 				<AssertPropertyValue propertyName="width" target="overPer.col2" value="157"/>
 				<AssertPropertyValue propertyName="width" target="overPer.col3" value="130"/>
 				<AssertPropertyValue propertyName="width" target="overPer.col4" value="209"/>
-				<AssertPropertyValue propertyName="width" target="overPer.btn1" value="95"/>
+				<AssertPropertyValue propertyName="width" target="overPer.btn1" value="90"/>
 			</body>
 		</TestCase>
 
@@ -663,10 +663,10 @@
 			</setup>
 			<body>
 				<AssertPropertyValue propertyName="height" target="overPer.row1" value="14"/>
-				<AssertPropertyValue propertyName="height" target="overPer.row2" value="17"/>
-				<AssertPropertyValue propertyName="height" target="overPer.row3" value="11"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row2" value="18"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row3" value="10"/>
 				<AssertPropertyValue propertyName="height" target="overPer.row4" value="21"/>
-				<AssertPropertyValue propertyName="height" target="overPer.row5" value="24"/>
+				<AssertPropertyValue propertyName="height" target="overPer.row5" value="25"/>
 			</body>
 		</TestCase>
 		
@@ -931,10 +931,10 @@
 				<ResetComponent target="allPer" className="comps.AllPercentConstraintLayoutGroup" waitEvent="updateComplete" waitTarget="allPer" />
 			</setup>
 			<body>
-				<AssertPropertyValue propertyName="height" target="allPer.row1" value="17"/>
-				<AssertPropertyValue propertyName="height" target="allPer.row2" value="27"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row1" value="18"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row2" value="26"/>
 				<AssertPropertyValue propertyName="height" target="allPer.row3" value="13"/>
-				<AssertPropertyValue propertyName="height" target="allPer.row4" value="21"/>
+				<AssertPropertyValue propertyName="height" target="allPer.row4" value="22"/>
 			</body>
 		</TestCase>
 		<TestCase testID="PercentRow_allpercentagesized_constrained" keywords="[ConstraintLayout, percent, row]" description="ConstraintLayout with all percentage sized rows and constrained should have the appropriate height">
