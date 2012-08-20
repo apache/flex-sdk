@@ -80,6 +80,18 @@ use namespace tlf_internal;
  */
 public class RichEditableTextContainerManager extends TextContainerManager
 {
+	//--------------------------------------------------------------------------
+	//
+	//  Class Variables
+	//
+	//--------------------------------------------------------------------------
+	/**
+	 *  @private
+	 *  Disables blinking cursor so test snapshots don't get intermittent
+	 *  cursors.
+	 */
+	mx_internal static var hideCursor:Boolean = false;
+	
     /**
      *  Constructor. 
      *  
@@ -251,7 +263,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         // If not editable, then no insertion point.        
         return new SelectionFormat(
             selectionColor, 1.0, BlendMode.NORMAL, 
-            0x000000, focusedPointAlpha, BlendMode.INVERT);
+            0x000000, hideCursor ? 0 : focusedPointAlpha, BlendMode.INVERT);
     }
     
     /**
