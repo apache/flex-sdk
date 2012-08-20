@@ -307,13 +307,15 @@ public class UnitTester extends EventDispatcher
 			_root.addEventListener("activate", activateBlockingHandler, true);
 		}
 		
-		g = Class(appdom.getDefinition("spark.components.supportClasses.RichEditableTextContainerManager"));
-		if (g)
+		if (appdom.hasDefinition("spark.components.supportClasses.RichEditableTextContainerManager"))
 		{
-			var q:QName = new QName(mx_internal, "hideCursor");
-			g[q] = true;
-		}
-		
+			g = Class(appdom.getDefinition("spark.components.supportClasses.RichEditableTextContainerManager"));
+			if (g)
+			{
+				var q:QName = new QName(mx_internal, "hideCursor");
+				g[q] = true;
+			}
+		}		
 	}
 
 	/**
