@@ -169,7 +169,7 @@ xmlns="*" testSWF="SF_ORIG_ListBasic.mxml">
                 <DispatchKeyEvent keys="[DOWN]"  ctrlKey="true" />
                 <SetProperty target="list1" propertyName="width" value="100" />
                 <DispatchKeyEvent keys="[DOWN]"  ctrlKey="true" />
- 		<SetProperty target="list1" propertyName="height" value="115" />
+ 		<SetProperty target="list1" propertyName="height" value="115" waitEvent="updateComplete" />
 		<CompareBitmap url="../GumboComponents/baselines/$testID.png" target="list1" />
             </body>
         </TestCase>

@@ -81,7 +81,7 @@
 		<TestCase testID="ListCollectionView_Method_Sort_ASC" keywords="[ListCollectionView, Method, filter,getItemAt]">
 			<setup>
 				<RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
-						 { return item.team == 'TeamA'; };
+						 { return item.team == 'ATeam'; };
 						 application.xSortField = new spark.collections.SortField('jerseyNumber', false, true);
 						 application.addStyleClient(application.xSortField);
 						 application.addStyleClient(application.xSort);
@@ -100,7 +100,7 @@
 		<TestCase testID="ListCollectionView_Method_Sort_DescendingSort" keywords="[ListCollectionView, Method, filter,getItemAt">
 			<setup>
 				<RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
-						 { return item.team == 'TeamA'; };
+						 { return item.team == 'ATeam'; };
 						 application.xSortField = new spark.collections.SortField('jerseyNumber', true, true);
 						 application.addStyleClient(application.xSortField);
 						 application.addStyleClient(application.xSort);
@@ -119,7 +119,7 @@
 		<TestCase testID="ListCollectionView_Method_Sort_twoFiels" keywords="[ListCollectionView, Method, filter,getItemAt,sort">
 			<setup>
 				<RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
-						 { return item.team == 'TeamA'; };
+						 { return item.team == 'ATeam'; };
 						 application.xSortField = new spark.collections.SortField('jerseyNumber');
 						 application.ySortField = new spark.collections.SortField('lastName');
 						 application.addStyleClient(application.xSortField);
@@ -142,7 +142,7 @@
 		<TestCase testID="ListCollectionView_Method_Sort_twoFielsDesc" keywords="[ListCollectionView, Method, filter,getItemAt,sort">
 			<setup>
 				<RunCode code="application.playerView.filterFunction = function (item:Object):Boolean
-						 { return item.team == 'TeamA'; };
+						 { return item.team == 'ATeam'; };
 						 application.xSortField = new spark.collections.SortField('jerseyNumber', true, true);
 						 application.ySortField = new spark.collections.SortField('lastName', false);
 						 application.addStyleClient(application.xSortField);
