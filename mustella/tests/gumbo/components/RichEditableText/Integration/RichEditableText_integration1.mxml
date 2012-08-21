@@ -43,10 +43,10 @@
 	<testCases>
 		<TestCase testID="RichEditableText_covered_scroll" description="scrolling around on text outside the visible area" keywords="[RichEditableText,Scroll,SDK-24728]">
 			<setup>
-				<ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" waitEvent="updateComplete" />
+				<ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" />
 				<SetProperty target="ret1" propertyName="height" value="25" waitEvent="updateComplete"/>
-				<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
-				<SetProperty target="ret2" propertyName="width" value="50" waitEvent="updateComplete"/>
+				<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2"/>
+				<SetProperty target="ret2" propertyName="width" value="50" />
 				<SetProperty target="ret2" propertyName="lineBreak" value="explicit" waitEvent="updateComplete"/>
 			</setup>
 			<body>
@@ -63,7 +63,8 @@
 				<DispatchMouseClickEvent target="ret1" localX="2" localY="2" waitTarget="ret1" waitEvent="click" />
 				<DispatchKeyEvent keys="[DOWN]" waitTarget="ret1" waitEvent="keyUp" />
 				
-				<DispatchMouseClickEvent target="ret2" localX="2" localY="2" waitTarget="ret2" waitEvent="click" />
+				<!-- localX="2" localY="2" is in captureGroup1.focusPane -->
+				<DispatchMouseClickEvent target="ret2" localX="4" localY="4" waitTarget="ret2" waitEvent="click" />
 				<DispatchKeyEvent keys="[END]" waitTarget="ret2" waitEvent="keyUp" />
 				
 				<CompareBitmap numColorVariances="6" maxColorVariance="12" url="../Integration/baselines/$testID.png" target="captureGroup1" />
