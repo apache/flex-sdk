@@ -70,7 +70,8 @@ verify RichText created at runtime in various halo containers
 	<TestCase testID="create_richText_in_HBox_test1" keywords="[RichText,integration]" description="create richText  inside mxHBox,verify its UI" >
 	    <setup>
 	    	<RunCode code="FlexGlobals.topLevelApplication.removeRichText()" waitEvent="richTextReset" waitTarget=""/>
-	    	<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myHBox,'this is a richText in HBox')" />
+	    	<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myHBox,'this is a richText in HBox')" 
+	    	    waitEvent="updateComplete" waitTarget="myHBox"/>
 	    </setup>
 	    <body>
 	        <AssertPropertyValue target="richTextAtRuntime" propertyName="text" value="this is a richText in HBox" />
@@ -81,7 +82,8 @@ verify RichText created at runtime in various halo containers
 	<TestCase testID="create_richText_in_Panel_test1" keywords="[RichText,integration]" description="create richText  inside mxPanel,verify its UI" >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.removeRichText()" waitEvent="richTextReset" waitTarget=""/>
-		<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myPanel,'this is a richText in Panel')" />
+		<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myPanel,'this is a richText in Panel')"
+		    waitEvent="updateComplete" waitTarget="myPanel" />
 	    </setup>
 	    <body>
 	        <AssertPropertyValue target="richTextAtRuntime" propertyName="text" value="this is a richText in Panel" />
@@ -92,7 +94,8 @@ verify RichText created at runtime in various halo containers
 	<TestCase testID="create_richText_in_Form_test1" keywords="[RichText,integration]" description="create richText  inside mxForm,verify its UI" >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.removeRichText()" waitEvent="richTextReset" waitTarget=""/>
-		<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myForm,'this is a richText in Form')" />
+		<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myForm,'this is a richText in Form')"
+		    waitEvent="updateComplete" waitTarget="myForm" />
 	    </setup>
 	    <body>
 	        <AssertPropertyValue target="richTextAtRuntime" propertyName="text" value="this is a richText in Form" />
@@ -103,7 +106,8 @@ verify RichText created at runtime in various halo containers
 	<TestCase testID="create_richText_in_ControlBar_test1" keywords="[RichText,integration]" description="create richText  inside mxControlBar,verify its UI" >
 	    <setup>
 		<RunCode code="FlexGlobals.topLevelApplication.removeRichText()" waitEvent="richTextReset" waitTarget=""/>
-		<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myControlBar,'inside of controlBar')" />
+		<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myControlBar,'inside of controlBar')" 
+		    waitEvent="updateComplete" waitTarget="myControlBar"/>
 	    </setup>
 	    <body>
 	        <AssertPropertyValue target="richTextAtRuntime" propertyName="text" value="inside of controlBar" />
