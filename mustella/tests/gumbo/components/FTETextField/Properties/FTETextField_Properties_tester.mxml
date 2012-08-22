@@ -141,9 +141,9 @@
 				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" waitTarget="can.fteTxt" waitEvent="enterFrame" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
 				<Pause timeout="100" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="91" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="60" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="3" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="93" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="45" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
@@ -156,9 +156,9 @@
 				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" waitTarget="can.fteTxt" waitEvent="enterFrame" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
 				<Pause timeout="100" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="91" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="60" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="3" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="93" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="45" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
@@ -172,7 +172,7 @@
 				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
 				<Pause timeout="100" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="1" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="274" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="253" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
@@ -187,7 +187,7 @@
 				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
 				<Pause timeout="100" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="1" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="274" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="253" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
@@ -202,7 +202,7 @@
 				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
 				<Pause timeout="100" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="95" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="99" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
@@ -217,7 +217,7 @@
 				<Pause timeout="100" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="95" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="99" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
@@ -232,7 +232,7 @@
 				<Pause timeout="100" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="2" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="230" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="206" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="31" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
@@ -247,7 +247,7 @@
 				<Pause timeout="100" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="2" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="230" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="206" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="31" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
@@ -2685,7 +2685,7 @@
 			</setup>
 			<body>
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="1" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="274" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="253" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
@@ -2698,9 +2698,9 @@
 				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
 			</setup>
 			<body>
-				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4f" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="91" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="60" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="3" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="93" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="45" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
@@ -2817,9 +2817,9 @@
 			</setup>
 			<body>
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="91" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="60" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="3" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="93" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="45" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
@@ -2830,9 +2830,9 @@
 			</setup>
 			<body>
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="91" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="60" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="3" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="93" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="45" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
@@ -2844,7 +2844,7 @@
 			<body>
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="1" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="274" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="253" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
@@ -2857,7 +2857,7 @@
 			<body>
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="1" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="274" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="253" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
 				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
 			</body>
@@ -2870,7 +2870,7 @@
 			<body>
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="95" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="99" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
 				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt">
 					<ConditionalValue os="mac"/>
@@ -2885,7 +2885,7 @@
 			<body>
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="95" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="99" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
 				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt">
 					<ConditionalValue os="mac"/>
@@ -2901,7 +2901,7 @@
 			<body>
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="2" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="228" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="204" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="34" />
 				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt">
 					<ConditionalValue os="mac"/>
@@ -2918,25 +2918,25 @@
 				<SetProperty target="can.fteTxt" propertyName="text" value="The" waitTarget="can.fteTxt" waitEvent="enterFrame" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="text" value="The" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="3" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="22" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="21" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
 
 				<SetProperty target="can.fteTxt" propertyName="text" value="The quick" waitTarget="can.fteTxt" waitEvent="enterFrame" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="text" value="The quick" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="9" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="58" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="54" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
 
 				<SetProperty target="can.fteTxt" propertyName="text" value="The quick brown" waitTarget="can.fteTxt" waitEvent="enterFrame" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="text" value="The quick brown" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="15" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="99" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="93" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
 				
 				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value='The quick brown\nfox';" waitTarget="can.fteTxt" waitEvent="enterFrame" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value='The quick brown\rfox';" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="19" />
-				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="99" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="93" />
 				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="30" />
 
 				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value='The quick brown\nfox jumps over the lazy dog';" waitTarget="can.fteTxt" waitEvent="enterFrame" />
