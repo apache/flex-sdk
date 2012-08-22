@@ -150,7 +150,7 @@
 			<setup>
 				<ResetComponent target="textArea" className="spark.components.TexArea" waitEvent="enterFrame" />
 				<SetProperty target="textArea" propertyName="text" value="1234567890" waitEvent="updateComplete" />
-				<SetProperty target="textArea" propertyName="heightInLines" value="4" waitEvent="resize" />
+				<SetProperty target="textArea" propertyName="heightInLines" value="4" waitEvent="updateComplete" />
 				
 			</setup>
 			<body>
@@ -164,7 +164,7 @@
 			<setup>
 				<ResetComponent target="textArea" className="spark.components.TexArea" waitEvent="enterFrame" />
 				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog"  waitEvent="updateComplete" />
-				<SetProperty target="textArea" propertyName="heightInLines" value="1" waitEvent="resize" />
+				<SetProperty target="textArea" propertyName="heightInLines" value="1" waitEvent="updateComplete" />
 			</setup>
 			<body>
 				<AssertPropertyValue target="textArea" propertyName="heightInLines" value="1" />
@@ -175,7 +175,7 @@
 		<TestCase testID="Spark_TextArea_heightInLines_bug_SDK19807_2" description="Set the heightInLines property to 2" keywords="[TextArea, heightInLines, property, SDK-19807]">
 			<setup>
 				<ResetComponent target="textArea" className="spark.components.TexArea" waitEvent="enterFrame" />
-				<SetProperty target="textArea" propertyName="heightInLines" value="2" waitEvent="resize" />
+				<SetProperty target="textArea" propertyName="heightInLines" value="2" waitEvent="updateComplete" />
 				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog"  waitEvent="updateComplete" />
 			</setup>
 			<body>

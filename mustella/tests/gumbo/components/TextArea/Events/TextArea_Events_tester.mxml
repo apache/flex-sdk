@@ -217,9 +217,9 @@
 
 				<DispatchMouseClickEvent target="textArea" localX="40" localY="5" waitTarget="textArea" waitEvent="selectionChange" />
 
-				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="5" />
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="6" />
 
-				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="5" />
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="6" />
 
 				<DispatchMouseEvent target="textArea" type="doubleClick" localX="40" localY="3" waitTarget="textArea" waitEvent="selectionChange" />
 
@@ -251,15 +251,15 @@
 
 				<DispatchMouseClickEvent target="textArea" localX="40" localY="3" waitTarget="textArea" waitEvent="selectionChange" />
 
-				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="5" />
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="6" />
 
-				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="5" />
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="6" />
 
 				<DispatchKeyEvent keys="[LEFT,LEFT]" waitTarget="textArea" waitEvent="selectionChange" />
 
-				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="3" />
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="4" />
 
-				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="3" />
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="4" />
 
 			</body>
 
