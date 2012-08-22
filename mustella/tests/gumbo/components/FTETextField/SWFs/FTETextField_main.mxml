@@ -29,7 +29,7 @@
 		<s:Label id="sdkVer" initialize="sdkVer.text = mx_internal::VERSION;" />
 	</s:controlBarContent>
 
-	<fx:Style source="../../../../../Assets/Fonts/myStyles.css" />
+	<fx:Style source="../../../../../Assets/Fonts/VeraFontStyles.css" />
     <fx:Style>
         @namespace comps "comps.*";
 

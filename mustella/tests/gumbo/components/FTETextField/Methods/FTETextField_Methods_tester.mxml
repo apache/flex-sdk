@@ -51,11 +51,11 @@
 	<fx:Script source="../SWFs/global.as" />
 	<fx:Script>
 		<![CDATA[
-			public const tlm0:String = "(flash.text::TextLineMetrics)#0\n  ascent = 12\n  descent = 3\n  height = 15\n  leading = 0\n  width = 274\n  x = 22";
+			public const tlm0:String = "(flash.text::TextLineMetrics)#0\n  ascent = 11\n  descent = 3\n  height = 14\n  leading = 0\n  width = 222\n  x = 22";
 
-			public const tlm1:String = "(flash.text::TextLineMetrics)#0\n  ascent = 12\n  descent = 3\n  height = 15\n  leading = 0\n  width = 58\n  x = 22";
-			public const tlm2:String = "(flash.text::TextLineMetrics)#0\n  ascent = 12\n  descent = 3\n  height = 15\n  leading = 0\n  width = 60\n  x = 22";
-			public const tlm3:String = "(flash.text::TextLineMetrics)#0\n  ascent = 12\n  descent = 3\n  height = 15\n  leading = 0\n  width = 91\n  x = 22";
+			public const tlm1:String = "(flash.text::TextLineMetrics)#0\n  ascent = 11\n  descent = 3\n  height = 14\n  leading = 0\n  width = 82\n  x = 22";
+			public const tlm2:String = "(flash.text::TextLineMetrics)#0\n  ascent = 11\n  descent = 3\n  height = 14\n  leading = 0\n  width = 90\n  x = 22";
+			public const tlm3:String = "(flash.text::TextLineMetrics)#0\n  ascent = 11\n  descent = 3\n  height = 14\n  leading = 0\n  width = 44\n  x = 22";
 
         ]]>
     </fx:Script>
