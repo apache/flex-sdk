@@ -332,13 +332,13 @@
         </setup>
 	    <body>
             <AssertPropertyValue target="ret2" propertyName="width" value="150" />
-            <AssertPropertyValue target="ret2" propertyName="height" value="256" />
+            <AssertPropertyValue target="ret2" propertyName="height" value="301" />
             <SetProperty target="vg1" propertyName="width" value="400" waitTarget="vg1" waitEvent="updateComplete" />
             <AssertPropertyValue target="ret2" propertyName="width" value="200" />
-            <AssertPropertyValue target="ret2" propertyName="height" value="184" />
+            <AssertPropertyValue target="ret2" propertyName="height" value="229" />
             <SetProperty target="vg1" propertyName="width" value="100" waitTarget="vg1" waitEvent="updateComplete" />
             <AssertPropertyValue target="ret2" propertyName="width" value="50" />
-            <AssertPropertyValue target="ret2" propertyName="height" value="890" />
+            <AssertPropertyValue target="ret2" propertyName="height" value="963" />
 	   </body>
     </TestCase>
                 
@@ -651,9 +651,9 @@
 	    	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
 	    	    <DispatchKeyEvent char="last line"  waitEvent="change" waitTarget="ret5" />
 	    	
-		        <AssertPropertyValue target="ret5" propertyName="height" value="98"/>
+		        <AssertPropertyValue target="ret5" propertyName="height" value="99"/>
                 <SetProperty target="ret5" propertyName="maxHeight" value="100" waitTarget="ret5" waitEvent="updateComplete" />
-                <AssertPropertyValue target="ret5" propertyName="height" value="98"/>
+                <AssertPropertyValue target="ret5" propertyName="height" value="99"/>
                 <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret5" />
             </body>
         </TestCase>
@@ -667,7 +667,7 @@
                 <SetProperty target="ret6" propertyName="text" value="test" waitTarget="ret6" waitEvent="updateComplete" />
             </setup>
             <body>
-            	<AssertPropertyValue target="ret6" propertyName="height" value="11" />
+            	<AssertPropertyValue target="ret6" propertyName="height" value="13" />
                 <SetProperty target="ret6" propertyName="minHeight" value="200" waitTarget="ret6" waitEvent="updateComplete" />
                 <AssertPropertyValue target="ret6" propertyName="height" value="200" />
                 <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret6" />
@@ -681,7 +681,7 @@
                 <SetProperty target="ret7" propertyName="text" value="test" waitTarget="ret7" waitEvent="updateComplete" />
             </setup>
             <body>
-            	<AssertPropertyValue target="ret7" propertyName="width" value="17" />
+            	<AssertPropertyValue target="ret7" propertyName="width" value="21" />
                 <SetProperty target="ret7" propertyName="minWidth" value="200" waitTarget="ret7" waitEvent="updateComplete" />
                 <AssertPropertyValue target="ret7" propertyName="width" value="200" />
                 <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret7" />

@@ -140,7 +140,7 @@
 				<SetProperty target="wOnly" propertyName="width" value="60" waitEvent="updateComplete"/>
 			</setup>
 			<body>
-				<AssertPropertyValue target="wOnly" propertyName="height" value="11" />
+				<AssertPropertyValue target="wOnly" propertyName="height" value="13" />
 			</body>
 		</TestCase>
 		<TestCase testID="RichEditableText_no_text_fixed_height" description="with fixed height and no text should yeild a one character wide display" keywords="[RichEditableText,fixed,height,SDK-22202]">
@@ -162,10 +162,10 @@
 				<AssertPropertyValue target="wOnly" propertyName="width" value="12" />
 				<DispatchMouseClickEvent target="wOnly" localX="2" localY="2" waitTarget="wOnly" waitEvent="selectionChange" />
 				<DispatchKeyEvent char="This RichEditableText should have a 'width' of 308." waitTarget="wOnly" waitEvent="change" />
-				<AssertPropertyValue target="wOnly" propertyName="width" value="250" />
+				<AssertPropertyValue target="wOnly" propertyName="width" value="281" />
 				<SetProperty target="wOnly" propertyName="maxWidth" value="300" waitEvent="updateComplete"/>
-				<AssertPropertyValue target="wOnly" propertyName="width" value="250" />
-				<AssertPropertyValue target="wOnly" propertyName="height" value="10.910156" />
+				<AssertPropertyValue target="wOnly" propertyName="width" value="281" />
+				<AssertPropertyValue target="wOnly" propertyName="height" value="12.064453" />
 			</body>
 		</TestCase>
 		<TestCase testID="RichEditableText_fixed_height_break_explicit" description="with fixed height and explicit breaking should yeild a long box" keywords="[RichEditableText,fixed,height,explicit,SDK-22202]">
@@ -180,9 +180,9 @@
 				<DispatchKeyEvent char="This should display" waitTarget="wOnly" waitEvent="change" />
 				<DispatchKeyEvent keys="[ENTER]" waitTarget="wOnly" waitEvent="change" />
 				<DispatchKeyEvent char="as two lines." waitTarget="wOnly" waitEvent="change" />
-				<AssertPropertyValue target="wOnly" propertyName="width" value="95" />
+				<AssertPropertyValue target="wOnly" propertyName="width" value="107" />
 				<SetProperty target="wOnly" propertyName="heightInLines" value="1" waitEvent="updateComplete"/>
-				<AssertPropertyValue target="wOnly" propertyName="width" value="95" />
+				<AssertPropertyValue target="wOnly" propertyName="width" value="107" />
 			</body>
 		</TestCase>
 	</testCases>
