@@ -117,6 +117,7 @@
 				<ResetComponent target="di" className="comps.dropShadowItems" waitEvent="updateComplete"/>
 				<SetStyle styleName="dropShadowVisible" value="false" target="di.myMenu"  />
 				<RunCode code="application.di.showMenu()" waitEvent="menuShow" waitTarget="di.myMenu"/>
+				<Pause timeout="200"/>
 			</setup>
 			<body>
 				<AssertStyleValue styleName="dropShadowVisible" value="false" target="di.myMenu"/>	

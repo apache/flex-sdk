@@ -43,6 +43,7 @@
 		 <setup>
 			<RunCode code="application.openPopUp(true)" waitEvent="validateDisplayListComplete" waitTarget="" />
 			<WaitForEffectsToEnd />
+			 <Pause timeout="200" />
 		</setup>
 		<body>
 		    <CompareBitmap url="../Integration/baselines/$testID.png" target="GraphicPopUp.getChildAt(0)" timeout="2000" />
