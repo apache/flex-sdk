@@ -17,8 +17,6 @@
   limitations under the License.
 
 -->
-
-
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="MobileComponentsClasses"/>

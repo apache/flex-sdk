@@ -17,22 +17,12 @@
   limitations under the License.
 
 -->
-
 <flexLibProperties includeAllClasses="false" version="3">
-
   <includeClasses>
-
     <classEntry path="AIRSparkClasses"/>
-
   </includeClasses>
-
   <includeResources/>
-
   <namespaceManifests>
-
     <namespaceManifestEntry manifest="../manifest.xml" namespace="library://ns.adobe.com/flex/spark"/>
-
   </namespaceManifests>
-
 </flexLibProperties>
-

@@ -17,22 +17,12 @@
   limitations under the License.
 
 -->
-
 <flexLibProperties includeAllClasses="false" version="3">
-
   <includeClasses>
-
     <classEntry path="AIRFrameworkClasses"/>
-
   </includeClasses>
-
   <includeResources/>
-
   <namespaceManifests>
-
     <namespaceManifestEntry manifest="../mx-air-manifest.xml" namespace="library://ns.adobe.com/flex/mx"/>
-
   </namespaceManifests>
-
 </flexLibProperties>
-

@@ -17,18 +17,10 @@
   limitations under the License.
 
 -->
-
 <flexLibProperties includeAllClasses="false" version="3">
-
   <includeClasses>
-
     <classEntry path="SparkSkinsClasses"/>
-
   </includeClasses>
-
   <includeResources/>
-
   <namespaceManifests/>
-
 </flexLibProperties>
-
