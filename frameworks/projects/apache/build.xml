@@ -109,6 +109,7 @@
 		<bundler locale="en_GB"/><!-- United Kingdom resources -->
 		<bundler locale="en_CA"/><!-- Canadian resources -->
 		<bundler locale="de_CH"/><!-- Swiss German resources -->
+		<bundler locale="es_ES"/><!-- Spanish resources -->
 	</target>
 	
 	<target name="clean" depends="bundles-clean">

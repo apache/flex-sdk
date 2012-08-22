@@ -922,6 +922,8 @@ public class PostCodeValidator extends Validator
                 formats = [ "ANA NAN" ];
                 break;
             case "ES":
+            	formats = [ "NNNNN" ];
+                break;
             case "FI":
             case "FR":
             case "IT":
