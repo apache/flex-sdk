@@ -1,3 +1,7 @@
+components/SWFLoader/Versioning/MP_LoadingSWFs_Tests$MP_LoadNonFlexSWF_untrusted,
+components/TileList/Bugs/Bug190608$TileList_Shift_drag_drop,
+components/TileList/Bugs/Bug190608$TileList_Shift_drag_drop_same_TL,
+components/TileList/Bugs/Bug190608$TileList_Shift_drag_drop_removed_Items,
 containers/TitleWindow/Properties/TitleWindow_Properties$showCloseButton_falseAS,
 components/TextInput/Properties/TextInput_Properties_mxml1$property_horizontalScrollPosition_mxml,
 components/TextInput/Properties/TextInput_Properties_mxml1$property_htmlText_textFormat_rightmargin_neg_mxml,
